@@ -85,7 +85,7 @@ Extension
 ---------
 You can write driver for your favorite language. 
 It's all about run/inspect functions -- no script/command line routine need to be implemented.
-Core automaticly finds language drivers in run_{language}.{Language}Driver form.
+Run core automaticly finds language drivers in run_{language}.{Language}Driver form.
 
 History
 -------
