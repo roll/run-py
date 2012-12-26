@@ -1,7 +1,7 @@
 Run
 ===
 
-Runs, gets help and lists functions/methods from file with autocompletion. Extendable core/language drivers design.   
+Extendable program to run, get help and list functions/methods from file with autocompletion.   
 
 Installation
 ------------
