@@ -89,6 +89,10 @@ Core automaticly finds language drivers in run_{language}.{Language}Driver form.
 
 History
 -------
+0.6.0
+`````
+- included python driver
+
 0.5.0
 `````
 - added user settings
