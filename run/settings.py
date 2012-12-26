@@ -55,7 +55,8 @@ class Settings(Settings):
     
     #Driver patterns
     drivers = {
-        'base': 'run_{language}.{language_capitalized}Driver',
+        'internal': 'run.drivers.{language}.{language_capitalized}Driver',
+        'external': 'run_{language}.{language_capitalized}Driver',
     }
     
     

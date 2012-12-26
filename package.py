@@ -4,7 +4,7 @@ class Package(Package):
     
     #Public
     
-    name = 'run-core'
+    name = 'runfile'
     data_files = [
         ('/etc/bash_completion.d', ['run/data/completion/run.sh'])       
     ]     
