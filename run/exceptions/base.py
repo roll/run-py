@@ -1,0 +1,2 @@
+class RunException(Exception):
+    pass

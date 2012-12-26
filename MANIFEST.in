@@ -1,0 +1,7 @@
+graft run
+graft tests
+
+include *.rst
+include *.py
+
+global-exclude *.pyc
