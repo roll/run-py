@@ -43,7 +43,7 @@ class ProgramTest_normal(ProgramTest):
     PATCH = {
         'Command.driver': Driver_normal(),
     }
-        
+    
     def test(self):
         self.program.process()
         
