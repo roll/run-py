@@ -18,6 +18,7 @@ class Package(Package):
     test_suite = 'nose.collector'
     tests_require = ['nose']
     
+    url = 'https://github.com/respect31/run'
     platforms=['Unix', 'POSIX']
     classifiers=[
         'Development Status :: 3 - Alpha',
