@@ -11,7 +11,7 @@ Step 1
 
 Step 2
 ``````
-- pip install run-python
+- pip install runfile
 
 Example
 -------
@@ -85,8 +85,7 @@ Extension
 ---------
 You can write driver for your favorite language. 
 It's all about run/inspect functions -- no script/command line routine need to be implemented.
-Core automaticly finds language drivers in run_{language}.{Language}Driver form. 
-See Python driver as example - https://github.com/respect31/run-python.
+Core automaticly finds language drivers in run_{language}.{Language}Driver form.
 
 History
 -------
