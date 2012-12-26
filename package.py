@@ -14,7 +14,7 @@ class Package(Package):
         ]
     }   
     include_package_data = True    
-    install_requires = ['box>=0.5', 'lib31']   
+    install_requires = ['box>=0.5', 'lib31>=0.1']   
     test_suite = 'nose.collector'
     tests_require = ['nose']
     
