@@ -1,6 +1,6 @@
 import sys
-from .command import Command
-from .exceptions.exit import BaseExit
+from ..command import Command
+from ..exceptions.exit import BaseExit
 
 class Program(object):
     

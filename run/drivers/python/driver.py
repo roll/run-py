@@ -1,9 +1,9 @@
 import os
 import subprocess
 from lib31.decorators.cachedproperty import cachedproperty
-from run.drivers.base.driver import Driver
+from run.drivers.base.driver import BaseDriver
 
-class PythonDriver(Driver):
+class PythonDriver(BaseDriver):
     
     DATA = {         
         'dir': 'data',

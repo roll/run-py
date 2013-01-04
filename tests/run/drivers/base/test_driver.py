@@ -1,9 +1,10 @@
 import unittest
-from run import Command, Driver
-from .fixtures import CLICommand
+from run import Command
+from run.drivers.base import BaseDriver
+from ...fixtures import CLICommand
     
 #Fixtures    
-class BaseDriverImp(Driver):
+class BaseDriverImp(BaseDriver):
 
     def process(self):
         return 'process'

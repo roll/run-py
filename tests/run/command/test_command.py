@@ -3,19 +3,20 @@ import sys
 import json
 import unittest
 from lib31.utils.patcher import Patcher
-from run import Command, Driver
+from run import Command
+from run.drivers.base import BaseDriver
 from run.exceptions.exit import (HelpExit, 
                                  DriverIsNotFoundExit, 
                                  LanguageIsNotSupportedExit,
                                  RunfileIsNotFoundExit)
-from .fixtures import process, clicommand
+from ..fixtures import process, clicommand
 
 #Environment
 sys, process
 
 
 #Fixtures
-class Driver(Driver):
+class Driver(BaseDriver):
     
     def process(self):
         pass
