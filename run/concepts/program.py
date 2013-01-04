@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class Driver(object):
+class Program(object):
     
     __metaclass__ = ABCMeta
     
