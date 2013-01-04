@@ -1,4 +1,4 @@
 from .command import Command
 from .program import Program
-from .settings import Settings, settings
-from .version import Version, version
+from .settings import settings
+from .version import version
