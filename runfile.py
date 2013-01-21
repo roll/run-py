@@ -1,8 +1,9 @@
-from box import Runclass
+from box import Manager
 from package import package
-    
-class Runclass(Runclass):
+
+class Runclass(Manager):
         
-    #Protected
+    #Public
         
-    _package = package
+    def __init__(self):
+        self._package = package
