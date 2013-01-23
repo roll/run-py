@@ -5,8 +5,8 @@ import json
 import types
 import inspect
 from abc import ABCMeta, abstractmethod
-from lib31.decorators.cachedproperty import cachedproperty
-from lib31.functions.load import load
+from lib31.cachedproperty import cachedproperty
+from lib31.load import load
  
 def main():    
     connector = Connector(os.environ)

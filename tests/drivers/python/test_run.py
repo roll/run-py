@@ -1,7 +1,7 @@
 import os
 import sys
 import unittest
-from lib31.utils.patcher import Patcher
+from lib31.patcher import Patcher
 from run.scripts.run import run
 from .fixtures import process
 

@@ -1,6 +1,6 @@
 import os
 import subprocess
-from lib31.decorators.cachedproperty import cachedproperty
+from lib31.cachedproperty import cachedproperty
 from run.drivers.base.driver import BaseDriver
 
 class PythonDriver(BaseDriver):

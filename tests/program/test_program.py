@@ -1,5 +1,5 @@
 import unittest
-from lib31.utils.patcher import Patcher
+from lib31.patcher import Patcher
 from run import Command, Program
 from run.exceptions.exit import HelpExit, ErrorExit
 
