@@ -1,5 +1,5 @@
 import sys
-from ..program.program import Program
+from ..program import Program
 
 def run():
     program = Program(sys.argv)
