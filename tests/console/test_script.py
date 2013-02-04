@@ -1,8 +1,8 @@
 import sys
 import unittest
 from lib31.patcher import Patcher
-from run import Program
-from run.scripts.run import run
+from run.console.program import Program
+from run.console.script import script
 from ..fixtures import CLICommand
 
 #Environment
@@ -26,4 +26,4 @@ class RunTest(unittest.TestCase):
         self.patcher.restore()
         
     def test_run(self):
-        self.assertEqual(run(), 'process')
+        self.assertEqual(script(), 'process')

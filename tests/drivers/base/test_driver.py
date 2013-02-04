@@ -1,5 +1,5 @@
 import unittest
-from run import Command
+from run.console.command import Command
 from run.drivers.base import BaseDriver
 from ...fixtures import CLICommand
     

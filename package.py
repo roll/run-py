@@ -6,11 +6,11 @@ class Package(Package):
     
     name = 'runfile'
     data_files = [
-        ('/etc/bash_completion.d', ['run/data/completion/run.sh'])       
+        ('/etc/bash_completion.d', ['run/console/completion/run.sh'])       
     ]     
     entry_points = {
         'console_scripts': [
-            'run = run.scripts.run:run',
+            'run = run.console.script:script',
         ]
     }   
     include_package_data = True    

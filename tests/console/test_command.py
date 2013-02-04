@@ -3,7 +3,7 @@ import sys
 import json
 import unittest
 from lib31.patcher import Patcher
-from run import Command
+from run.console.command import Command
 from run.drivers.base import BaseDriver
 from run.exceptions.exit import (HelpExit, 
                                  DriverIsNotFoundExit, 

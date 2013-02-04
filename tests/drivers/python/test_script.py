@@ -2,7 +2,7 @@ import os
 import sys
 import unittest
 from lib31.patcher import Patcher
-from run.scripts.run import run
+from run.console.script import script
 from .fixtures import process
 
 #Environ
@@ -26,28 +26,28 @@ class RunTest(unittest.TestCase):
     
     def test_run(self):
         sys.argv = ['run', 'function_normal', '1', 'b=test words']
-        run()
+        script()
             
     def test_run_method(self):
         sys.argv = ['run', 'method', '-cClassToRun']
-        run()             
+        script()             
 
     def test_list(self):
         sys.argv = ['run']
-        run()
+        script()
         
     def test_list_methods(self):
         sys.argv = ['run', '-cClassToRun']
-        run()            
+        script()            
 
     def test_help(self):
         sys.argv = ['run', '-h']
-        self.assertRaises(SystemExit, run)
+        self.assertRaises(SystemExit, script)
             
     def test_help_method(self):
         sys.argv = ['run', 'method', '-cClassToRun', '-h']
-        run()             
+        script()             
     
     def test_help_function(self):
         sys.argv = ['run', 'function_normal', '-h']
-        run() 
+        script() 

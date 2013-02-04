@@ -1,6 +1,6 @@
 import sys
-from ..program import Program
+from .program import Program
 
-def run():
+def script():
     program = Program(sys.argv)
     return program.process()
