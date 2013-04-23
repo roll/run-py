@@ -1,6 +1,4 @@
-from run.concepts.driver import Driver
-
-class BaseDriver(Driver):
+class BaseDriver(object):
     
     def __init__(self, command):
         self._command = command
