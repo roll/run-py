@@ -11,7 +11,7 @@ package = {
     'data_files': [
         ('/etc/bash_completion.d', ['run/console/completion/run.sh'])       
     ],
-    'entry_points' = {
+    'entry_points': {
         'console_scripts': [
             'run = run.console.script:script',
         ]
