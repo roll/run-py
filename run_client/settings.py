@@ -1,5 +1,5 @@
 import os
-from box import Settings
+from lib31.package import Settings
 
 class Settings(Settings):
     
