@@ -1,3 +1,4 @@
+from setuptools import setup
 from package import package
 
-package.setup()
+setup(**package)
