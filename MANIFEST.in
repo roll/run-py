@@ -1,4 +1,4 @@
-graft run
+graft run-client
 graft tests
 
 include *.rst
