@@ -16,7 +16,7 @@ package = {
             'run = run.console.script:script',
         ]
     },
-    'install_requires': ['lib31>=0.4'],     
+    'install_requires': ['lib31>=0.5'],     
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
