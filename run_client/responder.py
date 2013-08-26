@@ -6,5 +6,5 @@ class Responder:
         self._path = path
         
     #TODO: implement        
-    def responder(self, request):
+    def respond(self, request):
         pass
