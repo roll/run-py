@@ -1,2 +1,4 @@
-from .settings import settings
-from .version import version
+from .program import Program, program
+from .responder import Responder 
+from .settings import Settings, settings
+from .version import Version, version
