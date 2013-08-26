@@ -2,4 +2,5 @@ class Server:
     
     #Public
     
-    pass
+    def __init__(self, path):
+        self._path = path
