@@ -1,5 +1,6 @@
 import sys
 from lib31.console import Command
+from .client import Client
 from .server import Server
 from .settings import settings
 
@@ -15,6 +16,13 @@ class Program:
         pass
             
     #Protected
+    
+    #TODO: use cachedproperty
+    @property
+    def _client(self):
+        if not hasattr(self, '_client_cached'):
+            self._client_cached = Client()
+        return self._client_cached
     
     #TODO: use cachedproperty
     @property
