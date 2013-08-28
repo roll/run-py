@@ -4,9 +4,9 @@ package = {
 
 	#Main
 
-    'name': 'run-client',
+    'name': 'run',
 	'version': '',
-	'packages': find_packages('run-client'),
+	'packages': find_packages('run'),
 	'include_package_data': True,
     'data_files': [
         ('/etc/bash_completion.d', ['run/console/completion/run.sh'])       
@@ -16,7 +16,7 @@ package = {
             'run = run.console.script:script',
         ]
     },
-    'install_requires': ['lib31>=0.4'],     
+    'install_requires': ['lib31>=0.5'],     
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
@@ -27,11 +27,11 @@ package = {
     'maintainer': 'Respect31',
     'maintainer_email': 'post@respect31.com',
     'license': 'MIT License',    
-    'url': 'https://github.com/respect31/run-client',
-    'download_url': 'https://github.com/respect31/run-client/tarball/',    
+    'url': 'https://github.com/respect31/run',
+    'download_url': 'https://github.com/respect31/run/tarball/',    
     'classifiers': ['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     'description': 'Extendable program to run, get help and list functions/methods from file with autocompletion.   ',    
-    'long_description': '''Run-client
+    'long_description': '''Run
 ===
 Extendable program to run, get help and list functions/methods from file with autocompletion.   
 

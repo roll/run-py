@@ -1,4 +1,4 @@
-from runclasses.python_package import PythonPackageRunclass
+from runbooks.python_package import PythonPackageRunclass
 from package import package
     
 class Runclass(PythonPackageRunclass):
