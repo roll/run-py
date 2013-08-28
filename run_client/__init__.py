@@ -1,3 +1,4 @@
+from .client import Client
 from .program import Program, program
 from .request import Request
 from .respond import Respond
