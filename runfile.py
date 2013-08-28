@@ -1,9 +1,11 @@
-from runbooks.python_package import PythonPackageRunclass
-from package import package
+from run import Run
+
+class Run(Run):
     
-class Runclass(PythonPackageRunclass):
+    def test(self):
+        print('test')
         
-    #Public
-    
-    def __init__(self):
-        self._package = package
+        
+if __name__ == '__main__':
+    run = Run()
+    run.respond()
