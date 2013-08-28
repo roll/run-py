@@ -1,10 +1,6 @@
-import os
 from lib31.package import Settings
 
 class Settings(Settings):
-    
-    #Settings path
-    PATH = os.path.expanduser('~/.run/settings.py')
     
     #Command schema
     command_schema = {
@@ -27,7 +23,7 @@ class Settings(Settings):
                 'flags': ['-f', '--file',],
                 'default': 'runfile.py',
             },
-            'ishelp': {
+            'help': {
                 'flags': ['-h', '--help'],
                 'action': 'store_true',
             },                      
