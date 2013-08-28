@@ -1,5 +1,6 @@
 import sys
 from lib31.console import Command
+from .responder import Responder
 from .settings import settings
 
 class Program:
@@ -14,6 +15,13 @@ class Program:
         pass
             
     #Protected
+    
+    #TODO: use cachedproperty
+    @property
+    def _responder(self):
+        if not hasattr(self, '_responder_cached'):
+            self._responder_cached = Responder(self._command.file)
+        return self._responder_cached
     
     @property
     def _command(self):
