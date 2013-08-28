@@ -1,4 +1,4 @@
-class Responder:
+class Server:
     
     #Public
     
