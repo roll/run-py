@@ -12,9 +12,4 @@ class CommonMessage(CommonMessage, Message):
     
     #Public
     
-    pass
- 
-
-class MessageError(Exception): pass
-class MessageTypeError(MessageError): pass 
-class MessageParseError(MessageError): pass        
+    pass      
