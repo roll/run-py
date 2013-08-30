@@ -1,4 +1,4 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta
 from ipclight import Client, SubprocessClient
 
 class Client(Client, metaclass=ABCMeta):
@@ -8,7 +8,7 @@ class Client(Client, metaclass=ABCMeta):
     pass
     
     
-class SubprocessClient(Client):
+class SubprocessClient(SubprocessClient, Client):
     
     #Public
     

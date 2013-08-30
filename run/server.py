@@ -1,10 +1,15 @@
-class Server:
+from abc import ABCMeta
+from ipclight import Server, SubprocessServer
+
+class Server(Server, metaclass=ABCMeta):
     
     #Public
     
-    def __init__(self, path):
-        self._path = path
-        
-    #TODO: implement        
-    def respond(self, request):
-        pass
+    pass
+    
+    
+class SubprocessServer(SubprocessServer, Server):
+    
+    #Public
+    
+    pass  
