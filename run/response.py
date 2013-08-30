@@ -1,4 +1,4 @@
-class Respond:
+class Response:
     
     #Public
     
