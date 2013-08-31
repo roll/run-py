@@ -5,13 +5,17 @@ class Encoder:
     #Public
        
     def encode(self, message):
-        pass
+        transport_message = self._make_transport_message(message)
+        data = self._make_data(transport_message)
+        return data
 
     #Protected
     
-    def _make_transport_message(self):
+    #TODO: implement
+    def _make_transport_message(self, message):
         pass
     
+    #TODO: implement
     def _make_data(self):
         pass
     
