@@ -10,5 +10,5 @@ class Decoder:
     
     #TODO: use cached property
     @property
-    def transport(self):
+    def _transport(self):
         return ipclight.Decoder()
