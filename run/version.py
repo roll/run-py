@@ -2,10 +2,10 @@ from lib31.package import Version
 
 class Version(Version):
     
-    MAJOR = 0
-    MINOR = 7
-    MICRO = 0
-    LEVEL = 'final'
+    major = 0
+    minor = 7
+    micro = 0
+    level = 'final'
     
     
 version = Version()
