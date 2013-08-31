@@ -12,7 +12,7 @@ class Decoder:
     #Protected
     
     def _make_transport_message(self, text_message):
-        return self._transport.decode(text_message)
+        return self._transport_decoder.decode(text_message)
     
     #TODO: implement
     def _make_message(self, transport_message):
@@ -20,5 +20,5 @@ class Decoder:
     
     #TODO: use cached property
     @property
-    def _transport(self):
+    def _transport_decoder(self):
         return ipclight.Decoder()

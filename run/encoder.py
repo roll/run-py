@@ -16,9 +16,9 @@ class Encoder:
         pass
     
     def _make_text_message(self, transport_message):
-        return self._transport.encode(transport_message)
+        return self._transport_encoder.encode(transport_message)
     
     #TODO: use cached property
     @property
-    def _transport(self):
+    def _transport_encoder(self):
         return ipclight.Encoder()
