@@ -4,7 +4,8 @@ class Encoder:
     
     #Public
        
-    pass
+    def encode(self):
+        pass
 
     #Protected
     

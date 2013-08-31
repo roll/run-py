@@ -4,7 +4,8 @@ class Decoder:
     
     #Public
        
-    pass
+    def decode(self, data):
+        pass
 
     #Protected
     
