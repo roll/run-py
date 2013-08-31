@@ -11,7 +11,6 @@ class Decoder:
 
     #Protected
     
-    #TODO: implement
     def _make_transport_message(self, string):
         return self._transport.decode(string)
     

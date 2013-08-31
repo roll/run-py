@@ -15,7 +15,6 @@ class Encoder:
     def _make_transport_message(self, message):
         pass
     
-    #TODO: implement
     def _make_string(self, transport_message):
         return self._transport.encode(transport_message)
     
