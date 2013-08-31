@@ -13,7 +13,7 @@ class Decoder:
     
     #TODO: implement
     def _make_transport_message(self, string):
-        pass
+        return self._transport.decode(string)
     
     #TODO: implement
     def _make_message(self, transport_message):
