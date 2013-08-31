@@ -1,7 +1,14 @@
-from ipclight import Decoder
+import ipclight
 
-class Decoder(Decoder):
+class Decoder:
     
     #Public
        
-    pass                
+    pass
+
+    #Protected
+    
+    #TODO: use cached property
+    @property
+    def transport(self):
+        return ipclight.Decoder()

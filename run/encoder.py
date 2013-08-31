@@ -1,7 +1,14 @@
-from ipclight import Encoder
+import ipclight
 
-class Encoder(Encoder):
+class Encoder:
     
     #Public
        
-    pass                   
+    pass
+
+    #Protected
+    
+    #TODO: use cached property
+    @property
+    def transport(self):
+        return ipclight.Encoder()
