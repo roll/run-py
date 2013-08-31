@@ -4,15 +4,15 @@ class Decoder:
     
     #Public
        
-    def decode(self, data):
-        transport_message = self._make_transport_message(data)
+    def decode(self, string):
+        transport_message = self._make_transport_message(string)
         message = self._make_message(transport_message)
         return message
 
     #Protected
     
     #TODO: implement
-    def _make_transport_message(self, data):
+    def _make_transport_message(self, string):
         pass
     
     #TODO: implement

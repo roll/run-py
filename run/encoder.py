@@ -6,8 +6,8 @@ class Encoder:
        
     def encode(self, message):
         transport_message = self._make_transport_message(message)
-        data = self._make_data(transport_message)
-        return data
+        string = self._make_string(transport_message)
+        return string
 
     #Protected
     
@@ -16,7 +16,7 @@ class Encoder:
         pass
     
     #TODO: implement
-    def _make_data(self):
+    def _make_string(self, transport_message):
         pass
     
     #TODO: use cached property
