@@ -5,14 +5,18 @@ class Decoder:
     #Public
        
     def decode(self, data):
-        pass
+        transport_message = self._make_transport_message(data)
+        message = self._make_message(transport_message)
+        return message
 
     #Protected
     
-    def _make_transport_message(self):
+    #TODO: implement
+    def _make_transport_message(self, data):
         pass
     
-    def _make_message(self):
+    #TODO: implement
+    def _make_message(self, transport_message):
         pass
     
     #TODO: use cached property
