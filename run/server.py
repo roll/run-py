@@ -1,14 +1,13 @@
 from abc import ABCMeta
-from ipclight import Server, SubprocessServer
 
-class Server(Server, metaclass=ABCMeta):
+class Server(metaclass=ABCMeta):
     
     #Public
     
     pass
     
     
-class SubprocessServer(SubprocessServer, Server):
+class SubprocessServer(Server):
     
     #Public
     
