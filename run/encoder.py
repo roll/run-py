@@ -17,7 +17,7 @@ class Encoder:
     
     #TODO: implement
     def _make_string(self, transport_message):
-        pass
+        return self._transport.encode(transport_message)
     
     #TODO: use cached property
     @property
