@@ -6,7 +6,7 @@ class Request(CommonMessage):
     
     def __init__(self, arguments, options):
         self._arguments = arguments
-        self._option = options
+        self._options = options
         
     @property
     def arguments(self):
