@@ -1,6 +1,6 @@
-from .message import CommonMessage
+from .message import Message
 
-class Response(CommonMessage):
+class Response(Message):
     
     #Public
     
