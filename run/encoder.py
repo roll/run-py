@@ -15,7 +15,7 @@ class Encoder:
     
     #TODO: implement
     def _make_transport_message(self, message):
-        message_type = self._get_message_type(message)
+        transport_message_class = self._get_transport_message_class(message)
     
     def _make_text_message(self, transport_message):
         return self._transport_encoder.encode(transport_message)
