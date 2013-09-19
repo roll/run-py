@@ -1,3 +1,4 @@
+import json
 import ipclight
 from .request import Request
 from .response import Response
@@ -16,6 +17,7 @@ class Encoder:
     #TODO: implement
     def _make_transport_message(self, message):
         transport_message_class = self._get_transport_message_class(message)
+        return transport_message_class(self.protocol)
     
     def _make_text_message(self, transport_message):
         return self._transport_encoder.encode(transport_message)
@@ -27,6 +29,9 @@ class Encoder:
             return ipclight.Response
         else:
             raise EncodeError('Message type error: '+str(type(message)))
+     
+    def _stringify_content(self, content):
+        return json.dumps(content)
         
     #TODO: use cached property
     @property
