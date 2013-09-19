@@ -14,10 +14,10 @@ class Encoder:
 
     #Protected
     
-    #TODO: implement
     def _make_transport_message(self, message):
         transport_message_class = self._get_transport_message_class(message)
-        return transport_message_class(self.protocol)
+        stringified_content = self._stringify_content(message.content)
+        return transport_message_class(message.protocol, stringified_content)
     
     def _make_text_message(self, transport_message):
         return self._transport_encoder.encode(transport_message)
