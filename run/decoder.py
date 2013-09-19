@@ -20,6 +20,8 @@ class Decoder:
     #TODO: implement
     def _make_message(self, transport_message):
         message_class = self._get_message_class(transport_message)
+        content = self._deserialize_content(transport_message.content)
+        
    
     def _get_message_class(self, transport_message):
         if isinstance(transport_message, ipclight.Request):
@@ -28,6 +30,9 @@ class Decoder:
             return Response
         else:
             raise DecodeError('Message type error: '+str(type(transport_message)))
+     
+    def _deserialize_content(self, serialized_content):
+        return json.loads(serialized_content)
         
     #TODO: use cached property
     @property

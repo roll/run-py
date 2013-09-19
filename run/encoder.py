@@ -16,8 +16,8 @@ class Encoder:
     
     def _make_transport_message(self, message):
         transport_message_class = self._get_transport_message_class(message)
-        stringified_content = self._stringify_content(message.content)
-        return transport_message_class(message.protocol, stringified_content)
+        serialized_content = self._serialize_content(message.content)
+        return transport_message_class(message.protocol, serialized_content)
     
     def _make_text_message(self, transport_message):
         return self._transport_encoder.encode(transport_message)
@@ -30,7 +30,7 @@ class Encoder:
         else:
             raise EncodeError('Message type error: '+str(type(message)))
      
-    def _stringify_content(self, content):
+    def _serialize_content(self, content):
         return json.dumps(content)
         
     #TODO: use cachedproperty
