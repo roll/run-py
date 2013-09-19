@@ -17,11 +17,10 @@ class Decoder:
     def _make_transport_message(self, text_message):
         return self._transport_decoder.decode(text_message)
     
-    #TODO: implement
     def _make_message(self, transport_message):
         message_class = self._get_message_class(transport_message)
         content = self._deserialize_content(transport_message.content)
-        
+        return message_class(**content)        
    
     def _get_message_class(self, transport_message):
         if isinstance(transport_message, ipclight.Request):
