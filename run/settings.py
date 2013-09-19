@@ -2,7 +2,6 @@ from lib31.package import Settings
 
 class Settings(Settings):
     
-    #Command schema
     command_schema = {
         'config': {
             'prog': 'run',

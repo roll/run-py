@@ -33,7 +33,7 @@ class Encoder:
     def _stringify_content(self, content):
         return json.dumps(content)
         
-    #TODO: use cached property
+    #TODO: use cachedproperty
     @property
     def _transport_encoder(self):
         return ipclight.Encoder()
