@@ -15,3 +15,6 @@ class ResponseTest(unittest.TestCase):
         
     def test_error(self):
         self.assertEqual(self.response.error, self.error)
+
+    def test_protocol(self):
+        self.assertEqual(self.response.protocol, 'run-json-1.0')           
