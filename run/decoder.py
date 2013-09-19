@@ -1,4 +1,7 @@
+import json
 import ipclight
+from .request import Request
+from .response import Response
 
 class Decoder:
     
@@ -16,9 +19,20 @@ class Decoder:
     
     #TODO: implement
     def _make_message(self, transport_message):
-        pass
-    
+        message_class = self._get_message_class(transport_message)
+   
+    def _get_message_class(self, transport_message):
+        if isinstance(transport_message, ipclight.Request):
+            return Request
+        elif isinstance(transport_message, ipclight.Response):
+            return Response
+        else:
+            raise DecodeError('Message type error: '+str(type(transport_message)))
+        
     #TODO: use cached property
     @property
     def _transport_decoder(self):
         return ipclight.Decoder()
+    
+    
+class DecodeError(Exception): pass      
