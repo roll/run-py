@@ -1,4 +1,6 @@
 import ipclight
+from .request import Request
+from .response import Response
 
 class Encoder:
     
@@ -13,12 +15,16 @@ class Encoder:
     
     #TODO: implement
     def _make_transport_message(self, message):
-        pass
+        message_type = self._get_message_type(message)
+        
     
     def _make_text_message(self, transport_message):
         return self._transport_encoder.encode(transport_message)
-    
+        
     #TODO: use cached property
     @property
     def _transport_encoder(self):
         return ipclight.Encoder()
+    
+    
+class EncodeError(Exception): pass     

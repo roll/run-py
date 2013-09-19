@@ -8,6 +8,13 @@ class Response(Message):
         self._result = result
         self._error = error
     
+    @property
+    def content(self):
+        return {
+            'result': self.result,
+            'error': self.error,
+        }
+        
     @property    
     def result(self):
         return self._result

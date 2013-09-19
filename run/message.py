@@ -1,7 +1,10 @@
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 
 class Message(metaclass=ABCMeta):
     
     #Public
     
-    pass
+    @property
+    @abstractmethod
+    def content(self):
+        pass #pragma: no cover

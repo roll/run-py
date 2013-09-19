@@ -10,6 +10,14 @@ class Request(Message):
         self._options = options
     
     @property
+    def content(self):
+        return {
+            'method': self.method,
+            'arguments': self.arguments,
+            'options': self.options,
+        }
+     
+    @property
     def method(self):
         return self._method  
     
