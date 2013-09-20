@@ -38,22 +38,6 @@ class Encoder:
     @property
     def _transport_encoder(self):
         return ipclight.Encoder()
-
-
-class ContentPacker(metaclass=ABCMeta):
-    
-    #Public
-    
-    @abstractmethod
-    def pack(self):
-        pass #pragma: no cover
-    
-    
-class JSONContentPacker(ContentPacker):
-    
-    #Public
-    
-    pass
     
     
 class EncodeError(Exception): pass     
