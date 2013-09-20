@@ -49,4 +49,11 @@ class ContentPacker(metaclass=ABCMeta):
         pass #pragma: no cover
     
     
+class JSONContentPacker(ContentPacker):
+    
+    #Public
+    
+    pass
+    
+    
 class EncodeError(Exception): pass     
