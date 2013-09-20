@@ -29,9 +29,6 @@ class Encoder:
             return ipclight.Response
         else:
             raise EncodeError('Message type error: '+str(type(message)))
-     
-    def _serialize_content(self, content):
-        return json.dumps(content)
         
     #TODO: use cachedproperty
     @property
