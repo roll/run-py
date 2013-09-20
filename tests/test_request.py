@@ -9,7 +9,6 @@ class RequestTest(unittest.TestCase):
         self.method = 'method'
         self.arguments = ['arguments']
         self.options = {'options': True}
-        self.protocol = 'run-json-1.0'
         self.request = Request(self.method, self.arguments, self.options)
 
     def test_method(self):
@@ -20,9 +19,6 @@ class RequestTest(unittest.TestCase):
     
     def test_options(self):
         self.assertEqual(self.request.options, self.options)
-
-    def test_protocol(self):
-        self.assertEqual(self.request.protocol, self.protocol)
 
     def test_content(self):
         self.assertEqual(self.request.content, {
