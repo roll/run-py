@@ -29,5 +29,7 @@ class Settings(Settings):
         },         
     }
     
+    default_protocol = 'run-json-1.0'    
+    
     
 settings = Settings()
