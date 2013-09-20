@@ -1,6 +1,5 @@
 import json
 import ipclight
-from abc import ABCMeta, abstractmethod
 from .request import Request
 from .response import Response
 
