@@ -1,5 +1,6 @@
 import json
 import ipclight
+from abc import ABCMeta, abstractmethod
 from .request import Request
 from .response import Response
 
@@ -37,6 +38,15 @@ class Encoder:
     @property
     def _transport_encoder(self):
         return ipclight.Encoder()
+
+
+class ContentPacker(metaclass=ABCMeta):
+    
+    #Public
+    
+    @abstractmethod
+    def pack(self):
+        pass #pragma: no cover
     
     
 class EncodeError(Exception): pass     
