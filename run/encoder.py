@@ -1,12 +1,12 @@
 import ipclight
 from .packer import Packer
+from .settings import settings
 
 class Encoder:
     
     #Public
        
-    #TODO: move default protocol to the right place       
-    def encode(self, message, protocol='run-json-1.0'):
+    def encode(self, message, protocol=settings.default_protocol):
         transport_message = self._transport_packer.pack(message, protocol)
         text_message = self._transport_packer.encode(transport_message)
         return text_message
