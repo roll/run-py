@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class ContentPacker(metaclass=ABCMeta):
+class Packer(metaclass=ABCMeta):
     
     #Public
     
@@ -9,7 +9,7 @@ class ContentPacker(metaclass=ABCMeta):
         pass #pragma: no cover
     
     
-class JSONContentPacker(ContentPacker):
+class JSONPacker(Packer):
     
     #Public
     
