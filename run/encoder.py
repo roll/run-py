@@ -1,35 +1,23 @@
-import json
 import ipclight
-from .request import Request
-from .response import Response
+from .packer import Packer
 
 class Encoder:
     
     #Public
        
-    def encode(self, message):
-        transport_message = self._make_transport_message(message)
-        text_message = self._make_text_message(transport_message)
+    #TODO: move default protocol to the right place       
+    def encode(self, message, protocol='run-json-1.0'):
+        transport_message = self._transport_packer.pack(message, protocol)
+        text_message = self._transport_packer.encode(transport_message)
         return text_message
 
     #Protected
+
+    #TODO: use cachedproperty
+    @property
+    def _transport_packer(self):
+        return Packer()
     
-    def _make_transport_message(self, message):
-        transport_message_class = self._get_transport_message_class(message)
-        serialized_content = self._serialize_content(message.content)
-        return transport_message_class(message.protocol, serialized_content)
-    
-    def _make_text_message(self, transport_message):
-        return self._transport_encoder.encode(transport_message)
-   
-    def _get_transport_message_class(self, message):
-        if isinstance(message, Request):
-            return ipclight.Request
-        elif isinstance(message, Response):
-            return ipclight.Response
-        else:
-            raise EncodeError('Message type error: '+str(type(message)))
-        
     #TODO: use cachedproperty
     @property
     def _transport_encoder(self):
