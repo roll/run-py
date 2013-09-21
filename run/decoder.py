@@ -5,6 +5,7 @@ class Decoder:
     
     #Public
        
+    #TODO: add protocol return
     #TODO: add error handling/convertion       
     def decode(self, text_message):
         transport_message = self._transport_decoder.decode(text_message)
