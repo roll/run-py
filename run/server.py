@@ -1,4 +1,7 @@
+import sys
 from abc import ABCMeta, abstractmethod
+from .decoder import Decoder
+from .encoder import Encoder 
 
 class Server(metaclass=ABCMeta):
     
@@ -26,4 +29,21 @@ class SubprocessServer(Server, metaclass=ABCMeta):
         
     #TODO: implement
     def serve(self):
-        pass
+        text_request = self._argv[1]
+        request = self._decoder.decode(text_request)
+        response = self.respond(request)
+        text_response = self._encoder.encode(response)
+        sys.stdout.write(text_response)
+        sys.stdout.flush()
+    
+    #Protected
+    
+    #TODO: use cachedproperty
+    @property
+    def _decoder(self):
+        return Decoder()
+    
+    #TODO: use cachedproperty
+    @property
+    def _encoder(self):
+        return Encoder()        
