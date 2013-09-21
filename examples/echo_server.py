@@ -14,6 +14,7 @@ class EchoServer(SubprocessServer):
     
     #Public
     
+    @property
     def run(self):
         return Run()
 
