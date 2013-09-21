@@ -7,3 +7,6 @@ class UnpackerTest(unittest.TestCase):
     
     def setUp(self):
         self.unpacker = Unpacker()
+        
+    def test_unpack(self):
+        pass
