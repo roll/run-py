@@ -32,5 +32,5 @@ class PackerTest(unittest.TestCase):
         })
         
     def test_pack_untyped_message(self):
-        message = 'message'
+        message = 'untyped_message'
         self.assertRaises(PackError, self.packer.pack, message, 'run-json-1.0')                

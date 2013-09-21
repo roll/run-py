@@ -1,7 +1,7 @@
 import json
 import unittest
 import ipclight
-from run import Unpacker, Request, Response
+from run import Unpacker, Request, Response, UnpackError
 
 class UnpackerTest(unittest.TestCase):
     
@@ -30,4 +30,8 @@ class UnpackerTest(unittest.TestCase):
         message = self.unpacker.unpack(transport_message)
         self.assertIsInstance(message, Response)
         self.assertEqual(message.result, 'result')
-        self.assertEqual(message.error, 'error')        
+        self.assertEqual(message.error, 'error')
+        
+    def test_unpack_untyped_message(self):
+        transport_message = 'untyped_message'
+        self.assertRaises(UnpackError, self.unpacker.unpack, transport_message) 
