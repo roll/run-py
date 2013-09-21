@@ -16,7 +16,7 @@ class Server(metaclass=ABCMeta):
         pass #pragma: no cover
     
     
-class SubprocessServer(Server):
+class SubprocessServer(Server, metaclass=ABCMeta):
     
     #Public
     
