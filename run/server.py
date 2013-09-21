@@ -23,3 +23,7 @@ class SubprocessServer(Server):
     def __init__(self, run, argv):
         super().__init__(run)
         self._argv = argv
+        
+    #TODO: implement
+    def serve(self):
+        pass
