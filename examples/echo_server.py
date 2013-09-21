@@ -6,7 +6,8 @@ class Run(Run):
     
     #Public
     
-    pass
+    def echo(self, content):
+        return content
     
 
 class EchoServer(SubprocessServer):
