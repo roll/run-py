@@ -6,7 +6,7 @@ class Encoder:
     
     #Public
     
-    #TODO: add error handling/conversion   
+    #TODO: add error handling/convertion   
     def encode(self, message, protocol=settings.default_protocol):
         transport_message = self._transport_packer.pack(message, protocol)
         text_message = self._transport_packer.encode(transport_message)

@@ -5,7 +5,7 @@ class Decoder:
     
     #Public
        
-    #TODO: add error handling/conversion       
+    #TODO: add error handling/convertion       
     def decode(self, text_message):
         transport_message = self._transport_decoder.decode(text_message)
         message = self._transport_unpacker.unpack(transport_message)
