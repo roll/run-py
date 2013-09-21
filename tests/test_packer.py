@@ -36,5 +36,5 @@ class PackerTest(unittest.TestCase):
         self.assertRaises(PackError, self.packer.pack, message, 'run-json-1.0')
     
     def test_pack_unsupported_protocol(self):
-        message = Response('result', 'error')
+        message = Request('method')
         self.assertRaises(PackError, self.packer.pack, message, 'unsupported_protocol')                         
