@@ -9,7 +9,7 @@ class Run(Run):
     pass
     
 
-class RunServer(SubprocessServer):
+class EchoServer(SubprocessServer):
     
     #Public
     
@@ -18,5 +18,5 @@ class RunServer(SubprocessServer):
 
 
 if __name__ == '__main__':
-    server = RunServer(sys.argv)
+    server = EchoServer(sys.argv)
     server.serve()
