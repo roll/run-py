@@ -34,4 +34,8 @@ class UnpackerTest(unittest.TestCase):
         
     def test_unpack_untyped_message(self):
         transport_message = 'untyped_message'
-        self.assertRaises(UnpackError, self.unpacker.unpack, transport_message) 
+        self.assertRaises(UnpackError, self.unpacker.unpack, transport_message)
+        
+    def test_unpack_usupported_protocol(self):
+        transport_message = ipclight.Request('usupported_protocol', 'content')
+        self.assertRaises(UnpackError, self.unpacker.unpack, transport_message)         
