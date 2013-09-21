@@ -11,11 +11,13 @@ class Request(Message):
     
     @property
     def content(self):
-        return {
-            'method': self.method,
-            'arguments': self.arguments,
-            'options': self.options,
-        }
+        content = {}
+        content['method'] = self.method
+        if self.arguments:
+            content['arguments'] = self.arguments
+        if self.options:
+            content['options'] = self.options
+        return content         
      
     @property
     def method(self):

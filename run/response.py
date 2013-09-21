@@ -10,10 +10,11 @@ class Response(Message):
     
     @property
     def content(self):
-        return {
-            'result': self.result,
-            'error': self.error,
-        }
+        content = {}
+        content['result'] = self.result
+        if self.error:
+            content['error'] = self.error
+        return content
         
     @property    
     def result(self):

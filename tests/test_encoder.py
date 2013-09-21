@@ -1,5 +1,5 @@
 import unittest
-from run import Encoder
+from run import Encoder, Response
 
 class EncoderTest(unittest.TestCase):
     
@@ -7,3 +7,6 @@ class EncoderTest(unittest.TestCase):
     
     def setUp(self):
         self.encoder = Encoder()
+        
+    def test_encode(self):
+        message = Response('result')
