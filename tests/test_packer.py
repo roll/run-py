@@ -1,7 +1,7 @@
 import json
 import unittest
 import ipclight
-from run import Packer, Request, Response
+from run import Packer, Request, Response, PackError
 
 class PackerTest(unittest.TestCase):
     
@@ -29,4 +29,8 @@ class PackerTest(unittest.TestCase):
         self.assertEqual(json.loads(transport_message.content), {
             'result': 'result',
             'error': 'error',
-        })         
+        })
+        
+    def test_pack_untyped_message(self):
+        message = 'message'
+        self.assertRaises(PackError, self.packer.pack, message, 'run-json-1.0')                
