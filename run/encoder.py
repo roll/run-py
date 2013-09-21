@@ -9,7 +9,7 @@ class Encoder:
     #TODO: add error handling/convertion   
     def encode(self, message, protocol=settings.default_protocol):
         transport_message = self._transport_packer.pack(message, protocol)
-        text_message = self._transport_packer.encode(transport_message)
+        text_message = self._transport_encoder.encode(transport_message)
         return text_message
 
     #Protected
