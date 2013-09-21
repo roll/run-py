@@ -11,12 +11,12 @@ class PackerTest(unittest.TestCase):
         self.packer = Packer()
         
     def test_pack_request(self):
-        message = Request('method', ['args'], {'opts': True})
+        message = Request('method', ['arguments'], {'options': True})
         transport_message = self.packer.pack(message, 'run-json-1.0')
         self.assertIsInstance(transport_message, ipclight.Request)
         self.assertEqual(transport_message.protocol, 'run-json-1.0')
         self.assertEqual(json.loads(transport_message.content), {
             'method': 'method',
-            'arguments': ['args'],
-            'options': {'opts': True},
+            'arguments': ['arguments'],
+            'options': {'options': True},
         })  
