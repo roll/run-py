@@ -13,6 +13,7 @@ class Unpacker:
         return message_class(**message_content)
     
     #Protected
+    
     def _get_message_class(self, transport_message):
         if isinstance(transport_message, ipclight.Request):
             return Request
