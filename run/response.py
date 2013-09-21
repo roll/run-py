@@ -4,7 +4,7 @@ class Response(Message):
     
     #Public
     
-    def __init__(self, result, error=None):
+    def __init__(self, result, error=''):
         self._result = result
         self._error = error
     
