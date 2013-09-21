@@ -7,7 +7,7 @@ from .program import Program, program
 from .request import Request
 from .response import Response
 from .run import Run
-from .server import Server
+from .server import Server, SubprocessServer
 from .settings import settings
 from .unpacker import Unpacker, UnpackError
 from .version import version
