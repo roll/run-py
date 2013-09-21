@@ -4,7 +4,7 @@ class Request(Message):
     
     #Public
     
-    def __init__(self, method, arguments, options):
+    def __init__(self, method, arguments=[], options={}):
         self._method = method
         self._arguments = arguments
         self._options = options
