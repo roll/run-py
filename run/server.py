@@ -20,4 +20,6 @@ class SubprocessServer(Server):
     
     #Public
     
-    pass  
+    def __init__(self, run, argv):
+        super().__init__(run)
+        self._argv = argv
