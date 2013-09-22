@@ -8,10 +8,7 @@ class Settings(Settings):
             'add_help': False,
         },                      
         'arguments': {
-            'function': {
-                'nargs': '?',
-                'default': '',
-            },
+            'method': {},
             'arguments': {
                 'nargs':'*',
                 'default': [],
