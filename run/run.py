@@ -3,5 +3,5 @@ class Run:
     #Public
     
     #TODO: implement
-    def help(self, method):
+    def help(self, method=None):
         pass
