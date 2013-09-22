@@ -18,15 +18,11 @@ class Settings(Settings):
             },             
         },
         'options': {        
-            'file': {
-                'flags': ['-f', '--file',],
-                'default': 'runfile.py',
-            },
-            'help': {
-                'flags': ['-h', '--help'],
-                'action': 'store_true',
-            },                      
-        },         
+            'server': {
+                'flags': ['-s', '--server',],
+                'required': True,
+            },                    
+        },        
     }
     
     default_protocol = 'run-json-1.0'    
