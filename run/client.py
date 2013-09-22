@@ -1,4 +1,8 @@
+import os
 from abc import ABCMeta, abstractmethod
+from subprocess import Popen, PIPE
+from .decoder import Decoder
+from .encoder import Encoder
 
 class Client(metaclass=ABCMeta):
     
@@ -13,4 +17,26 @@ class SubprocessClient(Client):
     
     #Public
     
-    pass  
+    def __init__(self, server_path):
+        self._server_path = server_path
+    
+    def request(self, request):
+        text_request = self._encoder.encode(request)
+        arguments = [os.path.abspath(self._server_path), text_request]
+        #TODO: add filtering, print no protocol output
+        with Popen(arguments, stdout=PIPE) as subprocess:
+            text_response = subprocess.stdout.read().decode()
+        response = self._decoder.decode(text_response)
+        return response
+        
+    #Protected
+    
+    #TODO: use cachedproperty
+    @property
+    def _decoder(self):
+        return Decoder()
+    
+    #TODO: use cachedproperty
+    @property
+    def _encoder(self):
+        return Encoder() 
