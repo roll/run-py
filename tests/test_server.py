@@ -15,13 +15,12 @@ class SubprocessServerTest(unittest.TestCase):
         self.server.serve() 
          
     def test_respond(self):
-        response = self.server.respond(self.request)
+        response = self.server.respond(Request('echo', ['content']))
         self.assertEqual(response.result, 'content')
         self.assertEqual(response.error, '')
     
     def test_respond_unknown_method(self):
-        request = Request('unknown_method')
-        response = self.server.respond(request)
+        response = self.server.respond(Request('unknown_method'))
         self.assertEqual(response.result, None)
         self.assertTrue(response.error)
         
