@@ -34,8 +34,8 @@ class SubprocessServer(Server, metaclass=ABCMeta):
     def __init__(self, argv):
         self._argv = argv
         
-    #TODO: implement
     def serve(self):
+        #TODO: add argv check
         text_request = self._argv[1]
         request = self._decoder.decode(text_request)
         response = self.respond(request)
