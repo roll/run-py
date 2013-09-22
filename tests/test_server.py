@@ -1,5 +1,5 @@
 import unittest
-from run import Server, SubprocessServer, Run, Request, Encoder
+from run import SubprocessServer, Run, Request, Encoder
 
 #Tests
 
