@@ -1,39 +1,24 @@
 import sys
-from lib31.console import Command
-from .client import Client
-from .server import Server
+from lib31.console import Program
+from .client import SubprocessClient
+from .request import Request
 from .settings import settings
 
-class Program:
+class Program(Program):
     
     #Public
         
-    def __init__(self, argv):
-        self._argv = argv
-        
-    #TODO: implement
     def __call__(self):
-        pass
+        client = SubprocessClient(self._command.server)
+        request = Request(self._command.protocol, self._command.content)
+        response = client.request(request)
+        print(response.content)
             
     #Protected
     
-    #TODO: use cachedproperty
     @property
-    def _client(self):
-        if not hasattr(self, '_client_cached'):
-            self._client_cached = Client()
-        return self._client_cached
+    def _command_schema(self):
+        return settings.command_schema
+
     
-    #TODO: use cachedproperty
-    @property
-    def _server(self):
-        if not hasattr(self, '_server_cached'):
-            self._server_cached = Server(self._command.file)
-        return self._server_cached
-    
-    @property
-    def _command(self):
-        return Command(self._argv, schema=settings.command_schema)
-    
-           
-program = Program(sys.argv)           
+program = Program(sys.argv)
