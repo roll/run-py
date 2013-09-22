@@ -18,7 +18,11 @@ class Settings(Settings):
             'server': {
                 'flags': ['-s', '--server',],
                 'required': True,
-            },                    
+            },   
+            'protocol': {
+                'flags': ['-p', '--protocol',],
+                'required': False,
+            },                                     
         },        
     }
     
