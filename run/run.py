@@ -2,4 +2,6 @@ class Run:
     
     #Public
     
-    pass
+    #TODO: implement
+    def help(self, method):
+        pass
