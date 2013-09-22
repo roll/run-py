@@ -15,6 +15,12 @@ class ServerTest(unittest.TestCase):
         response = self.server.respond(request)
         self.assertEqual(response.result, 'content')
         self.assertEqual(response.error, '')
+    
+    def test_respond_unknown_method(self):
+        request = Request('unknown_method')
+        response = self.server.respond(request)
+        self.assertEqual(response.result, None)
+        self.assertTrue(response.error)        
         
         
 #Fixtures
