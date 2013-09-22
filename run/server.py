@@ -2,6 +2,7 @@ import sys
 from abc import ABCMeta, abstractmethod
 from .decoder import Decoder
 from .encoder import Encoder 
+from .response import Response
 
 class Server(metaclass=ABCMeta):
     
@@ -11,9 +12,14 @@ class Server(metaclass=ABCMeta):
     def serve(self):
         pass #pragma: no cover
     
-    #TODO: implement
     def respond(self, request):
-        pass
+        try:
+            method = getattr(self.run, request.method)
+            result = method(*request.arguments, **request.options)
+            response = Response(result)
+        except Exception as exception:
+            response = Response(None, str(exception))
+        return response
     
     @property
     @abstractmethod
