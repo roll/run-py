@@ -1,18 +1,29 @@
+import io
+import sys
 import unittest
-from run import SubprocessServer, Run, Request, Encoder
+from run import SubprocessServer, Run, Request, Encoder, Decoder
 
 #Tests
 
 class SubprocessServerTest(unittest.TestCase):
     
     def setUp(self):
-        self.encoder = Encoder() 
+        self.encoder = Encoder()
+        self.decoder = Decoder()         
         self.request = Request('echo', ['content'])
         self.argv = ['run', self.encoder.encode(self.request)]
         self.server = EchoSubprocessServer(self.argv)    
       
     def test_serve(self):
-        self.server.serve() 
+        #TODO: add context manager?
+        old_stdout = sys.stdout
+        sys.stdout = new_stdout = io.StringIO()
+        self.server.serve()
+        sys.stdout = old_stdout
+        text_message = new_stdout.getvalue()
+        response = self.decoder.decode(text_message)
+        self.assertEqual(response.result, 'content')
+        self.assertEqual(response.error, '')
          
     def test_respond(self):
         response = self.server.respond(Request('echo', ['content']))
