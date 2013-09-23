@@ -9,9 +9,9 @@ class Settings(Settings):
         },                      
         'arguments': {
             'method': {},
-            'arguments': {
+            'parameters': {
                 'nargs':'*',
-                'default': [],
+                'required': False,
             },             
         },
         'options': {        
