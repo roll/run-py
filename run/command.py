@@ -26,7 +26,7 @@ class Command(Command):
     def _parsed_parameters(self):
         arguments = []
         options = {}
-        for element in csv.reader([''.join(self.parameters)]):
+        for element in next(csv.reader([''.join(self.parameters)])):
             parts = [self._parse_literal(item.strip()) for item in 
                      next(csv.reader([element], delimiter='='))]
             if len(parts) == 1:
