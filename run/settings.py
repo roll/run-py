@@ -22,12 +22,12 @@ class Settings(Settings):
                 },             
                 {
                  'dest': 'server',
-                 'flags': ['-s', '--server',], #TODO: make no required
+                 'flags': ['-s', '--server'], #TODO: make no required
                  'required': True,
                 },   
                 {
                  'dest': 'protocol', 
-                 'flags': ['-p', '--protocol',],
+                 'flags': ['-p', '--protocol'],
                  'default': self.default_protocol,               
                 },                                     
             ],        
