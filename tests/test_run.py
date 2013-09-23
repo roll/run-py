@@ -11,7 +11,10 @@ class ResponseTest(unittest.TestCase):
         self.run = EchoRun()
         
     def test_help(self):
-        self.assertEqual(self.run.help(), 'echo\nhelp') 
+        self.assertEqual(self.run.help(), 'echo\nhelp')
+        
+    def test_help_method(self):
+        self.assertEqual(self.run.help('echo'), 'echo(content)\nReturns content')
         
         
 #Fixtures

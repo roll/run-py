@@ -17,6 +17,11 @@ class Run:
             if not method.startswith('_'):
                 attr = getattr(self, method)
                 if inspect.ismethod(attr):
-                    signature = str(inspect.signature(attr))
-                    docstring = inspect.getdoc(attr)
-                    return method+signature+'\n'+docstring
+                    signature = inspect.signature(attr)
+                    docstring = inspect.getdoc(attr)                    
+                    lines = []
+                    lines.append(method+str(signature))
+                    if docstring:
+                        lines.append(str(docstring))
+                    return '\n'.join(lines)
+        return ''
