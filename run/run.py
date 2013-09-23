@@ -9,7 +9,7 @@ class Run:
             methods = []
             for name in dir(self):
                 attr = getattr(self, name)
-                if  not name.startswith('_') and inspect.ismethod(attr):
+                if not name.startswith('_') and inspect.ismethod(attr):
                     methods.append(name)
             return '\n'.join(methods)
         else:
