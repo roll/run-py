@@ -3,13 +3,14 @@ from abc import ABCMeta, abstractmethod
 from subprocess import Popen, PIPE
 from .decoder import Decoder
 from .encoder import Encoder
+from .settings import settings
 
 class Client(metaclass=ABCMeta):
     
     #Public
        
     @abstractmethod
-    def request(self, request):
+    def request(self, request, protocol):
         pass #pragma: no cover
     
     
@@ -20,8 +21,8 @@ class SubprocessClient(Client):
     def __init__(self, server_path):
         self._server_path = server_path
     
-    def request(self, request):
-        text_request = self._encoder.encode(request)
+    def request(self, request, protocol=settings.default_protocol):
+        text_request = self._encoder.encode(request, protocol)
         arguments = [os.path.abspath(self._server_path), text_request]
         #TODO: add filtering, print no protocol output
         with Popen(arguments, stdout=PIPE) as subprocess:
