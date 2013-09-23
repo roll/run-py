@@ -22,7 +22,7 @@ class Program(Program):
     #TODO: use cachedproperty
     @property
     def _command(self):
-        return Command(self._argv)
+        return Command(self.argv)
 
     
 program = Program(sys.argv)
