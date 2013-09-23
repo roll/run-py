@@ -14,8 +14,11 @@ class Program(Program):
                           self._command.arguments, 
                           self._command.options)
         response = client.request(request)
-        #TODO: improve
-        print(response.result)
+        #TODO: improve?
+        if not response.error:
+            print(response.result)
+        else:
+            print('Error: '+response.error)
             
     #Protected
     
