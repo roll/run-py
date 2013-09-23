@@ -1,4 +1,5 @@
 from .client import Client
+from .command import Command
 from .decoder import Decoder, DecodeError
 from .encoder import Encoder, EncodeError
 from .message import Message
