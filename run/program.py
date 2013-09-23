@@ -14,7 +14,7 @@ class Program(Program):
                           self._command.arguments, 
                           self._command.options)
         #TODO: add error handling
-        response = client.request(request)
+        response = client.request(request, self._command.protocol)
         #TODO: improve?
         if not response.error:
             print(response.result)
