@@ -7,11 +7,16 @@ class Run:
     def help(self, method=None):
         if not method:
             methods = []
-            for name in dir(self):
-                attr = getattr(self, name)
-                if not name.startswith('_') and inspect.ismethod(attr):
-                    methods.append(name)
+            for method in dir(self):
+                if not method.startswith('_'):
+                    attr = getattr(self, method)
+                    if inspect.ismethod(attr):
+                        methods.append(method)
             return '\n'.join(methods)
         else:
-            pass
-            #TODO: implement                    
+            if not method.startswith('_'):
+                attr = getattr(self, method)
+                if inspect.ismethod(attr):
+                    signature = str(inspect.signature(attr))
+                    docstring = inspect.getdoc(attr)
+                    return method+signature+'\n'+docstring
