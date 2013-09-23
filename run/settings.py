@@ -11,7 +11,7 @@ class Settings(Settings):
             'method': {},
             'parameters': {
                 'nargs':'*',
-                'required': False,
+                'default': [],
             },             
         },
         'options': {        
