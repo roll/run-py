@@ -13,6 +13,7 @@ class Program(Program):
         request = Request(self._command.method, 
                           self._command.arguments, 
                           self._command.options)
+        #TODO: add error handling
         response = client.request(request)
         #TODO: improve?
         if not response.error:
