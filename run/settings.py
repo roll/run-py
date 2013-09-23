@@ -10,7 +10,7 @@ class Settings(Settings):
         'arguments': {
             'method': {},
             'parameters': {
-                'nargs':'*',
+                'nargs':'?',
                 'default': [],
             },             
         },

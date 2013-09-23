@@ -9,12 +9,12 @@ class Command(Command):
     #TODO: use cachedproperty 
     @property
     def arguments(self):
-        return self._parse_parameters[0]
+        return self._parsed_parameters[0]
     
     #TODO: use cachedproperty    
     @property    
     def options(self):
-        return self._parse_parameters[1]
+        return self._parsed_parameters[1]
     
     #Protected
     

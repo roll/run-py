@@ -6,4 +6,5 @@ class CommandTest(unittest.TestCase):
     #Public
     
     def test(self):
-        command = Command()
+        command = Command(['run', 'method'])             
+        print(command)
