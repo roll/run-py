@@ -8,7 +8,10 @@ class ResponseTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.run = EchoRun() 
+        self.run = EchoRun()
+        
+    def test_help(self):
+        self.assertEqual(self.run.help(), 'echo\nhelp') 
         
         
 #Fixtures
