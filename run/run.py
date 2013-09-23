@@ -4,6 +4,7 @@ class Run:
     
     #Public
     
+    #TODO: refactor
     def help(self, method=None):
         if not method:
             methods = []
