@@ -15,7 +15,8 @@ class Program(Program):
                           self.command.arguments, 
                           self.command.options)
         response = client.request(request)
-        print(response.content)
+        #TODO: improve
+        print(response.result)
             
     #Protected
     
