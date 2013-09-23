@@ -6,5 +6,5 @@ class CommandTest(unittest.TestCase):
     #Public
     
     def test(self):
-        command = Command(['run', 'method'])             
-        print(command)
+        command = Command(['run', '-s', 'server', 'method'])             
+        self.assertEqual(command.method, 'method')

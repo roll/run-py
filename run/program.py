@@ -3,7 +3,6 @@ from lib31.console import Program
 from .command import Command
 from .client import SubprocessClient
 from .request import Request
-from .settings import settings
 
 class Program(Program):
     
@@ -23,12 +22,7 @@ class Program(Program):
     #TODO: use cachedproperty
     @property
     def _command(self):
-        return Command(self._argv, schema=self._command_schema)
-        
-    #TODO: use cachedproperty
-    @property
-    def _command_schema(self):
-        return settings.command_schema
+        return Command(self._argv)
 
     
 program = Program(sys.argv)

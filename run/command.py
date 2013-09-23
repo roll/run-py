@@ -1,10 +1,13 @@
 import ast
 import csv
 from lib31.console import Command
+from .settings import settings
 
 class Command(Command):
     
     #Public
+    
+    schema = settings.command_schema
       
     #TODO: use cachedproperty 
     @property
@@ -24,7 +27,7 @@ class Command(Command):
         arguments = []
         options = {}
         for element in csv.reader([''.join(self.parameters)]):
-            parts = [self._parse_literal(item) for item in 
+            parts = [self._parse_literal(item.strip()) for item in 
                      next(csv.reader([element], delimiter='='))]
             if len(parts) == 1:
                 arguments.append(parts[0])
