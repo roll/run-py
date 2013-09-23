@@ -14,11 +14,13 @@ class Settings(Settings):
                 'default': [],
             },             
         },
-        'options': {        
+        'options': {
+            #TODO: make no required     
             'server': {
                 'flags': ['-s', '--server',],
                 'required': True,
             },   
+            #TODO: add default?
             'protocol': {
                 'flags': ['-p', '--protocol',],
                 'required': False,

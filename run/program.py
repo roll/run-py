@@ -11,9 +11,9 @@ class Program(Program):
         
     def __call__(self):
         client = SubprocessClient(self._command.server)
-        request = Request(self.command.method, 
-                          self.command.arguments, 
-                          self.command.options)
+        request = Request(self._command.method, 
+                          self._command.arguments, 
+                          self._command.options)
         response = client.request(request)
         #TODO: improve
         print(response.result)

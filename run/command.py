@@ -1,17 +1,17 @@
+import ast
+import csv
 from lib31.console import Command
 
 class Command(Command):
     
     #Public
       
+    #TODO: use cachedproperty 
     @property
-    def _request(self):
-        #TODO: reimplement
-        method = self._command.method
-        arguments, options = self._parse_parameters(self._command.parameters)
-        request = Request(method, arguments, options)
-        return request
+    def arguments(self):
+        pass
     
-    #TODO: implement
-    def _parse_parameters(self):
-        pass    
+    #TODO: use cachedproperty    
+    @property    
+    def options(self):
+        pass  
