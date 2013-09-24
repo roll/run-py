@@ -12,21 +12,21 @@ class Command(Command):
     #TODO: use cachedproperty 
     @property
     def args(self):
-        return self._parsed_parameters[0]
+        return self._parsed_arguments[0]
     
     #TODO: use cachedproperty    
     @property    
     def kwargs(self):
-        return self._parsed_parameters[1]
+        return self._parsed_arguments[1]
     
     #Protected
     
     #TODO: use cachedproperty 
     @property
-    def _parsed_parameters(self):
+    def _parsed_arguments(self):
         args = []
         kwargs = {}
-        for element in next(csv.reader([''.join(self.parameters)])):
+        for element in next(csv.reader([''.join(self.arguments)])):
             parts = [self._parse_literal(item.strip()) for item in 
                      next(csv.reader([element], delimiter='='))]
             if len(parts) == 1:

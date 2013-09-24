@@ -16,7 +16,7 @@ class Settings(Settings):
                  'name': 'method',
                 },
                 {
-                 'name': 'parameters',
+                 'name': 'arguments',
                  'nargs':'*',
                  'default': [],
                 },             
