@@ -24,6 +24,12 @@ class Program(Program):
     #Protected
     
     #TODO: use cachedproperty
+    @property    
+    def _client(self):
+        #TODO: implement
+        pass        
+    
+    #TODO: use cachedproperty
     @property
     def _command(self):
         return Command(self.argv)
