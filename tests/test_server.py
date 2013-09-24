@@ -10,8 +10,8 @@ class SubprocessServerTest(unittest.TestCase):
     def setUp(self):
         self.encoder = Encoder()
         self.decoder = Decoder()         
-        self.server = EchoSubprocessServer(
-            ['run', self.encoder.encode(Request('echo', ['content']))])    
+        self.server = SubprocessServer(
+            Run(), ['run', self.encoder.encode(Request('echo', ['content']))])    
       
     def test_serve(self):
         #TODO: add context manager?
@@ -42,13 +42,4 @@ class Run(Run):
     #Public
     
     def echo(self, content):
-        return content
-    
-    
-class EchoSubprocessServer(SubprocessServer):
-    
-    #Public
-    
-    @property
-    def run(self):
-        return Run()    
+        return content  

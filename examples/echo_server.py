@@ -8,17 +8,8 @@ class Run(Run):
     
     def echo(self, content):
         return content
-    
-
-class EchoServer(SubprocessServer):
-    
-    #Public
-    
-    @property
-    def run(self):
-        return Run()
 
 
 if __name__ == '__main__':
-    server = EchoServer(sys.argv)
+    server = SubprocessServer(Run(), sys.argv)
     server.serve()

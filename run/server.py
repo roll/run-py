@@ -8,6 +8,9 @@ class Server(metaclass=ABCMeta):
     
     #Public
     
+    def __init__(self, run):
+        self._run = run
+    
     @abstractmethod
     def serve(self):
         pass #pragma: no cover
@@ -22,16 +25,16 @@ class Server(metaclass=ABCMeta):
         return response
     
     @property
-    @abstractmethod
     def run(self):
-        pass #pragma: no cover
+        return self._run
     
     
-class SubprocessServer(Server, metaclass=ABCMeta):
+class SubprocessServer(Server):
     
     #Public
     
-    def __init__(self, argv):
+    def __init__(self, run, argv):
+        super().__init__(run)
         self._argv = argv
         
     def serve(self):
