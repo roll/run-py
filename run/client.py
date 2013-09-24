@@ -40,4 +40,11 @@ class SubprocessClient(Client):
     #TODO: use cachedproperty
     @property
     def _encoder(self):
-        return Encoder() 
+        return Encoder()
+    
+    
+class InprocessClient(Client):
+    
+    #Public
+    
+    pass
