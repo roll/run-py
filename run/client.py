@@ -49,3 +49,7 @@ class InprocessClient(Client):
     
     def __init__(self, server_path):
         self._server_path = server_path
+        
+    #TODO: implement        
+    def request(self, request):
+        pass
