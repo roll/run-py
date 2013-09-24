@@ -6,6 +6,7 @@ from lib31.python import import_module
 from .decoder import Decoder
 from .encoder import Encoder
 from .response import Response
+from .run import Run
 from .settings import settings
 
 class Client(metaclass=ABCMeta):
@@ -71,3 +72,9 @@ class InprocessClient(Client):
         name = '.'+re.sub('\.pyc?', '', name)
         #TODO: add no module handling
         module = import_module(name, path)
+        for name in dir(module):
+            attr = getattr(module, name)
+            if isinstance(attr, type) and issubclass(attr, Run):
+                return attr()
+        else:
+            raise RuntimeError('Run is not finded')
