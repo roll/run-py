@@ -47,4 +47,5 @@ class InprocessClient(Client):
     
     #Public
     
-    pass
+    def __init__(self, server_path):
+        self._server_path = server_path
