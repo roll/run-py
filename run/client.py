@@ -1,6 +1,8 @@
 import os
+import re
 from abc import ABCMeta, abstractmethod
 from subprocess import Popen, PIPE
+from lib31.python import import_module
 from .decoder import Decoder
 from .encoder import Encoder
 from .settings import settings
@@ -52,4 +54,14 @@ class InprocessClient(Client):
         
     #TODO: implement        
     def request(self, request):
+        path, name = os.path.split(os.path.abspath(self._server_path))
+        name = '.'+re.sub('\.pyc?', '', name)
+        #TODO: add no module handling
+        module = import_module(name, path)
+    
+    #Protected
+      
+    #TODO: use cachedproperty
+    @property   
+    def _run(self):
         pass
