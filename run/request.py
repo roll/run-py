@@ -4,19 +4,19 @@ class Request(Message):
     
     #Public
     
-    def __init__(self, method, arguments=[], options={}):
+    def __init__(self, method, args=[], kwargs={}):
         self._method = method
-        self._arguments = arguments
-        self._options = options
+        self._args = args
+        self._kwargs = kwargs
     
     @property
     def content(self):
         content = {}
         content['method'] = self.method
-        if self.arguments:
-            content['arguments'] = self.arguments
-        if self.options:
-            content['options'] = self.options
+        if self.args:
+            content['args'] = self.args
+        if self.kwargs:
+            content['kwargs'] = self.kwargs
         return content         
      
     @property
@@ -24,9 +24,9 @@ class Request(Message):
         return self._method  
     
     @property
-    def arguments(self):
-        return self._arguments
+    def args(self):
+        return self._args
     
     @property
-    def options(self):
-        return self._options    
+    def kwargs(self):
+        return self._kwargs    

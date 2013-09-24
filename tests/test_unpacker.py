@@ -13,14 +13,14 @@ class UnpackerTest(unittest.TestCase):
     def test_unpack_request(self):
         transport_message = ipclight.Request('run-json-1.0',json.dumps({
             'method': 'method',
-            'arguments': ['arguments'],
-            'options': {'options': True},
+            'args': ['arg1'],
+            'kwargs': {'kwarg1': True},
         }))
         message = self.unpacker.unpack(transport_message)
         self.assertIsInstance(message, Request)
         self.assertEqual(message.method, 'method')
-        self.assertEqual(message.arguments, ['arguments'])
-        self.assertEqual(message.options, {'options': True})
+        self.assertEqual(message.args, ['arg1'])
+        self.assertEqual(message.kwargs, {'kwarg1': True})
     
     def test_unpack_response(self):
         transport_message = ipclight.Response('run-json-1.0',json.dumps({

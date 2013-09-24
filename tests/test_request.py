@@ -6,20 +6,20 @@ class RequestTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.request = Request('method', ['arguments'], {'options': True})
+        self.request = Request('method', ['arg1'], {'kwarg1': True})
 
     def test_method(self):
         self.assertEqual(self.request.method, 'method')
         
-    def test_arguments(self):
-        self.assertEqual(self.request.arguments, ['arguments'])
+    def test_args(self):
+        self.assertEqual(self.request.args, ['arg1'])
     
-    def test_options(self):
-        self.assertEqual(self.request.options, {'options': True})
+    def test_kwargs(self):
+        self.assertEqual(self.request.kwargs, {'kwarg1': True})
 
     def test_content(self):
         self.assertEqual(self.request.content, {
             'method': 'method',
-            'arguments': ['arguments'],
-            'options': {'options': True},
+            'args': ['arg1'],
+            'kwargs': {'kwarg1': True},
         })                

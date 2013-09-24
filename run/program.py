@@ -11,8 +11,8 @@ class Program(Program):
     def __call__(self):
         client = SubprocessClient(self._command.server)
         request = Request(self._command.method, 
-                          self._command.arguments, 
-                          self._command.options)
+                          self._command.args, 
+                          self._command.kwargs)
         #TODO: add error handling
         response = client.request(request, self._command.protocol)
         #TODO: improve?

@@ -18,7 +18,7 @@ class Server(metaclass=ABCMeta):
     def respond(self, request):
         try:
             method = getattr(self._run, request.method)
-            result = method(*request.arguments, **request.options)
+            result = method(*request.args, **request.kwargs)
             response = Response(result)
         except Exception as exception:
             response = Response(None, str(exception))
