@@ -14,7 +14,7 @@ class Client(metaclass=ABCMeta):
     #Public
        
     @abstractmethod
-    def request(self, request):
+    def request(self, request, protocol):
         pass #pragma: no cover
     
     
@@ -54,7 +54,7 @@ class InprocessClient(Client):
     def __init__(self, server_path):
         self._server_path = server_path
         
-    def request(self, request):
+    def request(self, request, protocol=settings.default_protocol):
         try:
             method = getattr(self._run, request.method)
             result = method(*request.args, **request.kwargs)
