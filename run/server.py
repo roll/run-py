@@ -17,16 +17,12 @@ class Server(metaclass=ABCMeta):
     
     def respond(self, request):
         try:
-            method = getattr(self.run, request.method)
+            method = getattr(self._run, request.method)
             result = method(*request.arguments, **request.options)
             response = Response(result)
         except Exception as exception:
             response = Response(None, str(exception))
         return response
-    
-    @property
-    def run(self):
-        return self._run
     
     
 class SubprocessServer(Server):

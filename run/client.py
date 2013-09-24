@@ -5,6 +5,7 @@ from subprocess import Popen, PIPE
 from lib31.python import import_module
 from .decoder import Decoder
 from .encoder import Encoder
+from .response import Response
 from .settings import settings
 
 class Client(metaclass=ABCMeta):
@@ -52,16 +53,21 @@ class InprocessClient(Client):
     def __init__(self, server_path):
         self._server_path = server_path
         
-    #TODO: implement        
     def request(self, request):
-        path, name = os.path.split(os.path.abspath(self._server_path))
-        name = '.'+re.sub('\.pyc?', '', name)
-        #TODO: add no module handling
-        module = import_module(name, path)
+        try:
+            method = getattr(self._run, request.method)
+            result = method(*request.arguments, **request.options)
+            response = Response(result)
+        except Exception as exception:
+            response = Response(None, str(exception))
+        return response
     
     #Protected
       
     #TODO: use cachedproperty
     @property   
     def _run(self):
-        pass
+        path, name = os.path.split(os.path.abspath(self._server_path))
+        name = '.'+re.sub('\.pyc?', '', name)
+        #TODO: add no module handling
+        module = import_module(name, path)
