@@ -6,8 +6,10 @@ class Run(Run):
     
     #Public
     
-    def echo(self, content):
-        return content
+    def hello(self, person, times=1):
+        """Prints 'Hello {person} {times} times!'"""
+        print('Hello {person} {times} times!'.format(person=person,
+                                                     times=str(times)))
 
 
 if __name__ == '__main__':
