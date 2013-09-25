@@ -36,7 +36,7 @@ class Settings(Settings):
                 {
                  'action': 'version',
                  'flags': ['-v', '--version'],
-                 'version': 'run '+str(version),               
+                 'version': str(version),               
                 },                                                             
             ],        
         }
