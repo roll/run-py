@@ -4,8 +4,8 @@ package = {
 
 	#Main
 
-    'name': 'run',
-	'version': '',
+    'name': 'runtool',
+	'version': '0.7.0',
 	'packages': find_packages('run'),
 	'include_package_data': True,
     'data_files': [
@@ -16,7 +16,7 @@ package = {
             'run = run.console.script:script',
         ]
     },
-    'install_requires': ['lib31>=0.5'],     
+    'install_requires': ['lib31>=0.5', 'ipclight>=0.5'],     
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
@@ -28,7 +28,7 @@ package = {
     'maintainer_email': 'post@respect31.com',
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/run',
-    'download_url': 'https://github.com/respect31/run/tarball/',    
+    'download_url': 'https://github.com/respect31/run/tarball/0.7.0',    
     'classifiers': ['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     'description': 'Extendable program to run, get help and list functions/methods from file with autocompletion.   ',    
     'long_description': '''Run

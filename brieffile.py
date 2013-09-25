@@ -1,9 +1,8 @@
-from brief import Brief, PackageContext, FileTemplate, FileTarget
+from brief import PackageBrief, FileInput, FileOutput
 
-class Brief(Brief):
-    
-    #TODO: add name = 'run-tool'
+class Brief(PackageBrief):
        
-    context = PackageContext()
-    template = FileTemplate('package.tpl')
-    target = FileTarget('package.py')
+    input = FileInput('package.in')
+    output = FileOutput('package.py')
+    
+    package = 'runtool'

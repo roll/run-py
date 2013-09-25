@@ -4,7 +4,7 @@ package = {
 
 	#Main
 
-    'name': '{{ name }}',
+    'name': '{{ package }}',
 	'version': '{{ version }}',
 	'packages': find_packages('{{ name }}'),
 	'include_package_data': True,
