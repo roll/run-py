@@ -16,6 +16,7 @@ class Settings(Settings):
                 {
                  'name': 'method',
                  'nargs': '?',
+                 'default': None,
                 },
                 {
                  'name': 'arguments',
