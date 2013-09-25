@@ -22,8 +22,8 @@ class Settings(Settings):
                 },             
                 {
                  'dest': 'server',
-                 'flags': ['-s', '--server'], #TODO: make no required
-                 'required': True,
+                 'flags': ['-s', '--server'],
+                 'default': 'runfile.py',
                 },   
                 {
                  'dest': 'protocol', 
