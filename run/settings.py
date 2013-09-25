@@ -34,6 +34,11 @@ class Settings(Settings):
                  'default': self.default_protocol,               
                 },
                 {
+                 'dest': 'help',
+                 'action': 'store_true',
+                 'flags': ['-h', '--help'],
+                },                            
+                {
                  'action': 'version',
                  'flags': ['-v', '--version'],
                  'version': str(version),               
