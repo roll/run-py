@@ -2,6 +2,10 @@ Run
 ===
 Extendable program to run, get help and list functions/methods from file with autocompletion.   
 
+Requirements
+------------
+- Python 3.3 and higher
+
 Installation
 ------------
 Step 1
