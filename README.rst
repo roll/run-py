@@ -8,13 +8,7 @@ Requirements
 
 Installation
 ------------
-Step 1
-``````
-- pip install box
-
-Step 2
-``````
-- pip install runfile
+- pip install runtool
 
 Example
 -------
