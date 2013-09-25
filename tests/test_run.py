@@ -10,10 +10,10 @@ class ResponseTest(unittest.TestCase):
     def setUp(self):
         self.run = Run()
         
-    def test_help(self):
-        self.assertEqual(self.run.help(), 'echo\nhelp')
+    def test_list(self):
+        self.assertEqual(self.run.list(), 'echo\nhelp\nlist')
         
-    def test_help_method(self):
+    def test_help(self):
         self.assertEqual(self.run.help('echo'), 'echo(content)\nReturns content')
         
         
