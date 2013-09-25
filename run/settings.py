@@ -1,4 +1,5 @@
 from lib31.package import Settings
+from .version import version
 
 class Settings(Settings):
     
@@ -31,7 +32,12 @@ class Settings(Settings):
                  'dest': 'protocol', 
                  'flags': ['-p', '--protocol'],
                  'default': self.default_protocol,               
-                },                                     
+                },
+                {
+                 'action': 'version',
+                 'flags': ['-v', '--version'],
+                 'version': str(version),               
+                },                                                             
             ],        
         }
    
