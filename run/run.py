@@ -5,7 +5,9 @@ class Run:
     #Public
     
     def list(self):
-        """prints list of methods"""
+        """
+        Prints list of methods
+        """
         methods = []
         for method in dir(self):
             if not method.startswith('_'):
@@ -15,7 +17,9 @@ class Run:
         return '\n'.join(methods)
     
     def help(self, method):
-        """prints method's help"""        
+        """
+        Prints method's help
+        """        
         if not method.startswith('_'):
             attr = getattr(self, method)
             if inspect.ismethod(attr):
