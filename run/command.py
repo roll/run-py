@@ -1,3 +1,4 @@
+import sys
 import ast
 import csv
 from lib31.console import Command
@@ -8,16 +9,37 @@ class Command(Command):
     #Public
     
     schema = settings.command_schema
-      
+    
+    #TODO: use cachedproperty 
+    @property
+    def method(self):
+        if not self.help:
+            if self._namespace.method:
+                return self._namespace.method
+            else:
+                return 'list'
+        else:
+            if self._namespace.method:
+                return 'help'
+            else:
+                print(self._parser.format_help().strip())
+                sys.exit()
+    
     #TODO: use cachedproperty 
     @property
     def args(self):
-        return self._parsed_arguments[0]
+        if not self.help:
+            return self._parsed_arguments[0]
+        else:
+            return [self._namespace.method]
     
     #TODO: use cachedproperty    
     @property    
     def kwargs(self):
-        return self._parsed_arguments[1]
+        if not self.help:
+            return self._parsed_arguments[1]
+        else:
+            return {}       
     
     #Protected
     
