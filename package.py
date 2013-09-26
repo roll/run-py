@@ -29,7 +29,7 @@ package = {
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/run',
     'download_url': 'https://github.com/respect31/run/tarball/0.7.0',    
-    'classifiers': ['Development Status :: 4 - Beta', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
+    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     'description': 'Extendable program to run, get help and list functions/methods from file with autocompletion.   ',    
     'long_description': '''Run
 ===
