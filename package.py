@@ -35,15 +35,13 @@ package = {
 ===
 Extendable program to run, get help and list functions/methods from file with autocompletion.   
 
+Requirements
+------------
+- Python 3.3 and higher
+
 Installation
 ------------
-Step 1
-``````
-- pip install box
-
-Step 2
-``````
-- pip install runfile
+- pip install runtool
 
 Example
 -------

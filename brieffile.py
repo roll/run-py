@@ -1,4 +1,5 @@
-from brief import PackageBrief, FileInput, FileOutput
+from brief import FileInput, FileOutput
+from briefbooks import PackageBrief
 
 class Brief(PackageBrief):
        
