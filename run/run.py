@@ -1,6 +1,7 @@
 import inspect
+from abc import ABCMeta
 
-class Run:
+class Run(metaclass=ABCMeta):
     
     #Public
     
