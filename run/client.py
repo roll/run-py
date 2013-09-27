@@ -1,9 +1,10 @@
 import os
 import re
 import inspect
-from abc import ABCMeta, abstractmethod
+import importlib
 from subprocess import Popen, PIPE
-from lib31.python import cachedproperty, import_module
+from abc import ABCMeta, abstractmethod
+from lib31.python import cachedproperty
 from .decoder import Decoder
 from .encoder import Encoder
 from .response import Response
@@ -66,10 +67,11 @@ class InprocessClient(Client):
       
     @cachedproperty   
     def _run(self):
-        path, name = os.path.split(os.path.abspath(self._server_path))
-        name = '.'+re.sub('\.pyc?', '', name)
+        dirname, filename = os.path.split(os.path.abspath(self._server_path))
+        os.chdir(dirname)
+        modulename = re.sub('\.pyc?', '', filename)
         #TODO: add no module handling
-        module = import_module(name, path)
+        module = importlib.import_module(modulename)
         for name in dir(module):
             attr = getattr(module, name)
             if (isinstance(attr, type) and
