@@ -1,5 +1,6 @@
 import os
 import re
+import inspect
 from abc import ABCMeta, abstractmethod
 from subprocess import Popen, PIPE
 from lib31.python import cachedproperty, import_module
@@ -71,7 +72,9 @@ class InprocessClient(Client):
         module = import_module(name, path)
         for name in dir(module):
             attr = getattr(module, name)
-            if isinstance(attr, type) and issubclass(attr, Run):
+            if (isinstance(attr, type) and
+                not inspect.isabstract(attr) and
+                issubclass(attr, Run)):
                 return attr()
         else:
             raise RuntimeError('Run is not finded')
