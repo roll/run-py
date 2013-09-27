@@ -1,6 +1,8 @@
-from run import Run
-
-class Run(Run):
+from runbooks import PythonPackageRun
+from package import package
     
-    def test(self):
-        print('test')
+class Run(PythonPackageRun):
+        
+    #Public
+    
+    package = package
