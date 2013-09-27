@@ -2,7 +2,7 @@ import os
 import re
 from abc import ABCMeta, abstractmethod
 from subprocess import Popen, PIPE
-from lib31.python import import_module
+from lib31.python import cachedproperty, import_module
 from .decoder import Decoder
 from .encoder import Encoder
 from .response import Response
@@ -36,13 +36,11 @@ class SubprocessClient(Client):
         
     #Protected
     
-    #TODO: use cachedproperty
-    @property
+    @cachedproperty
     def _decoder(self):
         return Decoder()
     
-    #TODO: use cachedproperty
-    @property
+    @cachedproperty
     def _encoder(self):
         return Encoder()
     
@@ -65,8 +63,7 @@ class InprocessClient(Client):
     
     #Protected
       
-    #TODO: use cachedproperty
-    @property   
+    @cachedproperty   
     def _run(self):
         path, name = os.path.split(os.path.abspath(self._server_path))
         name = '.'+re.sub('\.pyc?', '', name)

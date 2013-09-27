@@ -1,4 +1,5 @@
 import ipclight
+from lib31.python import cachedproperty
 from .packer import Packer
 from .settings import settings
 
@@ -14,13 +15,11 @@ class Encoder:
 
     #Protected
 
-    #TODO: use cachedproperty
-    @property
+    @cachedproperty
     def _transport_packer(self):
         return Packer()
     
-    #TODO: use cachedproperty
-    @property
+    @cachedproperty
     def _transport_encoder(self):
         return ipclight.Encoder()
     

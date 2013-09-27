@@ -2,6 +2,7 @@ import sys
 import ast
 import csv
 from lib31.console import Command
+from lib31.python import cachedproperty
 from .settings import settings
 
 class Command(Command):
@@ -10,8 +11,7 @@ class Command(Command):
     
     schema = settings.command_schema
     
-    #TODO: use cachedproperty 
-    @property
+    @cachedproperty
     def method(self):
         if not self.help:
             if self._namespace.method:
@@ -25,16 +25,14 @@ class Command(Command):
                 print(self._parser.format_help().strip())
                 sys.exit()
     
-    #TODO: use cachedproperty 
-    @property
+    @cachedproperty
     def args(self):
         if not self.help:
             return self._parsed_arguments[0]
         else:
             return [self._namespace.method]
     
-    #TODO: use cachedproperty    
-    @property    
+    @cachedproperty    
     def kwargs(self):
         if not self.help:
             return self._parsed_arguments[1]
@@ -43,8 +41,7 @@ class Command(Command):
     
     #Protected
     
-    #TODO: use cachedproperty 
-    @property
+    @cachedproperty
     def _parsed_arguments(self):
         args = []
         kwargs = {}

@@ -1,4 +1,5 @@
 import ipclight
+from lib31.python import cachedproperty
 from .unpacker import Unpacker
 
 class Decoder:
@@ -14,13 +15,11 @@ class Decoder:
 
     #Protected
 
-    #TODO: use cached property
-    @property
+    @cachedproperty
     def _transport_decoder(self):
         return ipclight.Decoder()
     
-    #TODO: use cached property
-    @property
+    @cachedproperty
     def _transport_unpacker(self):
         return Unpacker()    
 

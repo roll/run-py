@@ -1,5 +1,6 @@
 import sys
 from abc import ABCMeta, abstractmethod
+from lib31.python import cachedproperty
 from .decoder import Decoder
 from .encoder import Encoder 
 from .response import Response
@@ -44,12 +45,10 @@ class SubprocessServer(Server):
     
     #Protected
     
-    #TODO: use cachedproperty
-    @property
+    @cachedproperty
     def _decoder(self):
         return Decoder()
     
-    #TODO: use cachedproperty
-    @property
+    @cachedproperty
     def _encoder(self):
         return Encoder()        
