@@ -5,7 +5,7 @@ class Brief(PackageBrief):
     
     #Public
        
-    input = FileInput('package.in')
+    input = FileInput('package.tpl')
     output = FileOutput('package.py')
     
     package = 'runtool'
