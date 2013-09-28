@@ -18,7 +18,8 @@ class Program(Program):
         response = self._client.request(request, self._command.protocol)
         #TODO: improve?
         if not response.error:
-            print(response.result)
+            if response.result:
+                print(response.result)
         else:
             print('Error: '+response.error)
             
