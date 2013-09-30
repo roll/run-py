@@ -25,7 +25,7 @@ Example
             print('Hello {person} {times} times!'.format(person=person,
                                                          times=str(times)))
             
-- get functions/methods list from command line::
+- get methods list from command line::
 
     $ run
     hello
