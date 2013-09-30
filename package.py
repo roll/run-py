@@ -1,3 +1,4 @@
+import os
 from setuptools import find_packages
 
 package = {
@@ -6,14 +7,14 @@ package = {
 
     'name': 'runtool',
 	'version': '0.7.0',
-	'packages': find_packages('run'),
+	'packages': find_packages(os.path.dirname(__file__), exclude=['tests*']),
 	'include_package_data': True,
     'data_files': [
-        ('/etc/bash_completion.d', ['run/console/completion/run.sh'])       
+        ('/etc/bash_completion.d', ['run/completion/run.sh'])       
     ],
     'entry_points': {
         'console_scripts': [
-            'run = run.console.script:script',
+            'run = run:program',
         ]
     },
     'install_requires': ['lib31>=0.5', 'ipclight>=0.5'],     
@@ -27,8 +28,8 @@ package = {
     'maintainer': 'Respect31',
     'maintainer_email': 'post@respect31.com',
     'license': 'MIT License',    
-    'url': 'https://github.com/respect31/run',
-    'download_url': 'https://github.com/respect31/run/tarball/0.7.0',    
+    'url': 'https://github.com/respect31/runtool',
+    'download_url': 'https://github.com/respect31/runtool/tarball/0.7.0',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     'description': 'Extendable program to run, get help and list functions/methods from file with autocompletion.   ',    
     'long_description': '''Run

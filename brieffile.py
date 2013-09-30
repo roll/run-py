@@ -8,4 +8,4 @@ class Brief(PackageBrief):
     input = FileInput('package.tpl')
     output = FileOutput('package.py')
     
-    package = 'runtool'
+    name = 'runtool'
