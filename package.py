@@ -31,10 +31,10 @@ package = {
     'url': 'https://github.com/respect31/runtool',
     'download_url': 'https://github.com/respect31/runtool/tarball/0.7.0',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
-    'description': 'Extendable program to run, get help and list functions/methods from file with autocompletion.   ',    
+    'description': 'Program to run, get help and list methods from file with autocompletion.   ',    
     'long_description': '''Run
 ===
-Extendable program to run, get help and list functions/methods from file with autocompletion.   
+Program to run, get help and list methods from file with autocompletion.   
 
 Requirements
 ------------
