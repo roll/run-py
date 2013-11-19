@@ -5,7 +5,7 @@ package = {
 
 	#Main
 
-    'name': 'runtool',
+    'name': 'runpack',
 	'version': '0.7.1',
 	'packages': find_packages(os.path.dirname(__file__), exclude=['tests*']),
 	'include_package_data': True,
@@ -28,8 +28,8 @@ package = {
     'maintainer': 'Respect31',
     'maintainer_email': 'post@respect31.com',
     'license': 'MIT License',    
-    'url': 'https://github.com/respect31/runtool',
-    'download_url': 'https://github.com/respect31/runtool/tarball/0.7.1',    
+    'url': 'https://github.com/respect31/runpack',
+    'download_url': 'https://github.com/respect31/runpack/tarball/0.7.1',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     'description': 'Program to run, get help and list methods from file with autocompletion.   ',    
     'long_description': '''Run
