@@ -8,7 +8,7 @@ Requirements
 
 Installation
 ------------
-- pip install runtool
+- pip install runpack
 
 Example
 -------
