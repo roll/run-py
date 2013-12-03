@@ -1,4 +1,4 @@
-from lib31.package import Settings
+from packgram.package import Settings
 from .version import version
 
 class Settings(Settings):

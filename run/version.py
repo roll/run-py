@@ -1,4 +1,4 @@
-from lib31.package import Version
+from packgram.package import Version
 
 class Version(Version):
     

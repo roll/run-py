@@ -1,7 +1,7 @@
 import os
 import sys
-from lib31.console import Program
 from lib31.python import cachedproperty
+from packgram.console import Program
 from .command import Command
 from .client import SubprocessClient, InprocessClient
 from .request import Request
