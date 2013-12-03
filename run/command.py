@@ -1,7 +1,7 @@
 import sys
 import ast
 import csv
-from lib31.python import cachedproperty
+from packgram.python import cachedproperty
 from packgram.console import Command
 from .settings import settings
 

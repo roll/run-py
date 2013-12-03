@@ -1,6 +1,6 @@
 import os
 import sys
-from lib31.python import cachedproperty
+from packgram.python import cachedproperty
 from packgram.console import Program
 from .command import Command
 from .client import SubprocessClient, InprocessClient

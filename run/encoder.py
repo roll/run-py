@@ -1,5 +1,5 @@
 import ipclight
-from lib31.python import cachedproperty
+from packgram.python import cachedproperty
 from .packer import Packer
 from .settings import settings
 

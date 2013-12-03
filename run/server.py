@@ -1,6 +1,6 @@
 import sys
 from abc import ABCMeta, abstractmethod
-from lib31.python import cachedproperty
+from packgram.python import cachedproperty
 from .decoder import Decoder
 from .encoder import Encoder 
 from .response import Response

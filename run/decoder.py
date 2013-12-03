@@ -1,5 +1,5 @@
 import ipclight
-from lib31.python import cachedproperty
+from packgram.python import cachedproperty
 from .unpacker import Unpacker
 
 class Decoder:
