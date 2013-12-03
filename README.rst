@@ -1,6 +1,6 @@
 Run
 ===
-Program to run, get help and list methods from file with autocompletion.   
+Program to run methods from file.
 
 Requirements
 ------------
