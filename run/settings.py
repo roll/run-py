@@ -20,8 +20,8 @@ class Settings(Settings):
              'default': [],
             },             
             {
-             'dest': 'server',
-             'flags': ['-s', '--server'],
+             'dest': 'file',
+             'flags': ['-f', '--file'],
              'default': 'runfile.py',
             },   
             {

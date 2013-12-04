@@ -6,7 +6,6 @@ import importlib
 from packgram.python import cachedproperty
 from packgram.console import Program
 from .command import Command
-from .request import Request
 from .run import Run
 
 class Program(Program):
@@ -14,17 +13,8 @@ class Program(Program):
     #Public
         
     def __call__(self):
-        request = Request(self._command.method, 
-                          self._command.args, 
-                          self._command.kwargs)
-        #TODO: add error handling
-        response = self._client.request(request, self._command.protocol)
-        #TODO: improve?
-        if not response.error:
-            if response.result:
-                print(response.result)
-        else:
-            print('Error: '+response.error)
+        method = getattr(self._run, self._command.method)
+        return method(*self._command.args, **self._command.kwargs)
             
     #Protected
     
@@ -34,7 +24,7 @@ class Program(Program):
     
     @cachedproperty   
     def _run(self):
-        dirname, filename = os.path.split(os.path.abspath(self._server_path))
+        dirname, filename = os.path.split(os.path.abspath(self._command.file))
         self._switch_to_server_directory(dirname)
         modulename = re.sub('\.pyc?', '', filename)
         #TODO: add no module handling
