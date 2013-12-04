@@ -59,6 +59,10 @@ Classifiers
 
 History
 -------
+0.8.0
+`````
+- removed IPC.Light dependency
+
 0.7.0
 `````
 - rewritten using IPC.Light
