@@ -1,10 +1,13 @@
 import os
+import re
 import sys
+import inspect
+import importlib
 from packgram.python import cachedproperty
 from packgram.console import Program
 from .command import Command
-from .client import SubprocessClient, InprocessClient
 from .request import Request
+from .run import Run
 
 class Program(Program):
     
@@ -25,17 +28,28 @@ class Program(Program):
             
     #Protected
     
-    @cachedproperty    
-    def _client(self):
-        if (os.path.isfile(self._command.server) and 
-            os.access(self._command.server, os.X_OK)):
-            return SubprocessClient(self._command.server)
-        else:
-            return InprocessClient(self._command.server)
-    
     @cachedproperty
     def _command(self):
         return Command(self.argv)
-
+    
+    @cachedproperty   
+    def _run(self):
+        dirname, filename = os.path.split(os.path.abspath(self._server_path))
+        self._switch_to_server_directory(dirname)
+        modulename = re.sub('\.pyc?', '', filename)
+        #TODO: add no module handling
+        module = importlib.import_module(modulename)
+        for name in dir(module):
+            attr = getattr(module, name)
+            if (isinstance(attr, type) and
+                not inspect.isabstract(attr) and
+                issubclass(attr, Run)):
+                return attr()
+        else:
+            raise RuntimeError('Run is not finded')
+        
+    def _switch_to_server_directory(self, dirname):
+        os.chdir(dirname)
+        sys.path.insert(0, dirname) 
     
 program = Program(sys.argv)
