@@ -6,8 +6,6 @@ import importlib
 from subprocess import Popen, PIPE
 from abc import ABCMeta, abstractmethod
 from packgram.python import cachedproperty
-from .decoder import Decoder
-from .encoder import Encoder
 from .response import Response
 from .run import Run
 from .settings import settings
@@ -17,35 +15,8 @@ class Client(metaclass=ABCMeta):
     #Public
        
     @abstractmethod
-    def request(self, request, protocol):
+    def request(self, request):
         pass #pragma: no cover
-    
-    
-class SubprocessClient(Client):
-    
-    #Public
-    
-    def __init__(self, server_path):
-        self._server_path = server_path
-    
-    def request(self, request, protocol=settings.default_protocol):
-        text_request = self._encoder.encode(request, protocol)
-        arguments = [os.path.abspath(self._server_path), text_request]
-        #TODO: add filtering, print no protocol output
-        with Popen(arguments, stdout=PIPE) as subprocess:
-            text_response = subprocess.stdout.read().decode()
-        response = self._decoder.decode(text_response)
-        return response
-        
-    #Protected
-    
-    @cachedproperty
-    def _decoder(self):
-        return Decoder()
-    
-    @cachedproperty
-    def _encoder(self):
-        return Encoder()
     
     
 class InprocessClient(Client):
@@ -55,7 +26,7 @@ class InprocessClient(Client):
     def __init__(self, server_path):
         self._server_path = server_path
         
-    def request(self, request, protocol=settings.default_protocol):
+    def request(self, request):
         try:
             method = getattr(self._run, request.method)
             result = method(*request.args, **request.kwargs)
