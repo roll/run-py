@@ -7,7 +7,7 @@ package = {
 
     'name': '{{ name }}',
 	'version': '{{ version }}',
-	'packages': find_packages(os.path.dirname(__file__), exclude=['tests*']),
+	'packages': find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	'include_package_data': True,
     'data_files': [
         ('/etc/bash_completion.d', ['run/completion/run.sh'])       

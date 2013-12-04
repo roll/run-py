@@ -6,8 +6,8 @@ package = {
 	#Main
 
     'name': 'runpack',
-	'version': '0.7.1',
-	'packages': find_packages(os.path.dirname(__file__), exclude=['tests*']),
+	'version': '0.8.0',
+	'packages': find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	'include_package_data': True,
     'data_files': [
         ('/etc/bash_completion.d', ['run/completion/run.sh'])       
@@ -29,7 +29,7 @@ package = {
     'maintainer_email': 'post@respect31.com',
     'license': 'MIT License',    
     'url': 'https://github.com/respect31/runpack',
-    'download_url': 'https://github.com/respect31/runpack/tarball/0.7.1',    
+    'download_url': 'https://github.com/respect31/runpack/tarball/0.8.0',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     'description': 'Program to run methods from file.',    
     'long_description': '''Run
