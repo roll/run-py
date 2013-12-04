@@ -31,4 +31,3 @@ class Run(metaclass=ABCMeta):
                 if docstring:
                     lines.append(str(docstring))
                 print('\n'.join(lines))
-        print('')
