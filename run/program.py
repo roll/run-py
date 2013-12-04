@@ -14,7 +14,7 @@ class Program(Program):
         
     def __call__(self):
         method = getattr(self._run, self._command.method)
-        return method(*self._command.args, **self._command.kwargs)
+        method(*self._command.args, **self._command.kwargs)
             
     #Protected
     
