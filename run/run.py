@@ -7,7 +7,7 @@ class Run(metaclass=ABCMeta):
     
     def list(self):
         """
-        Prints list of methods
+        Print list of methods
         """
         methods = []
         for method in dir(self):
@@ -15,11 +15,11 @@ class Run(metaclass=ABCMeta):
                 attr = getattr(self, method)
                 if inspect.ismethod(attr):
                     methods.append(method)
-        return '\n'.join(methods)
+        print('\n'.join(methods))
     
     def help(self, method):
         """
-        Prints method's help
+        Print method's help
         """        
         if not method.startswith('_'):
             attr = getattr(self, method)
@@ -30,5 +30,5 @@ class Run(metaclass=ABCMeta):
                 lines.append(method+str(signature))
                 if docstring:
                     lines.append(str(docstring))
-                return '\n'.join(lines)
-        return ''
+                print('\n'.join(lines))
+        print('')
