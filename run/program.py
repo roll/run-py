@@ -3,7 +3,7 @@ import re
 import sys
 import inspect
 import importlib
-from packgram.python import cachedproperty
+from lib31.python import cachedproperty
 from packgram.console import Program
 from .command import Command
 from .run import Run
