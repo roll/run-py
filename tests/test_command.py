@@ -7,7 +7,7 @@ class CommandTest(unittest.TestCase):
     
     def test_argv1(self):
         command = Command([
-             'run', '-f', 'file', 'method', 'arg1,arg2,kwarg1=true,', 'kwarg2=2'])
+             'run', '-f', 'file', 'method', 'arg1,arg2,kwarg1=True,', 'kwarg2=2'])
         self.assertEqual(command.file, 'file')
         self.assertEqual(command.method, 'method')
         self.assertEqual(command.args, ['arg1', 'arg2'])

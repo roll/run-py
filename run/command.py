@@ -1,6 +1,6 @@
 import sys
 import csv
-import json
+import ast
 from lib31.python import cachedproperty
 from packgram.console import Command
 from .settings import settings
@@ -56,8 +56,8 @@ class Command(Command):
     
     def _parse_literal(self, literal):
         try:
-            #For python syntax - ast.parse_literal
-            value = value = json.loads(literal)
+            #For json syntax - json.loads
+            value = ast.literal_eval(literal)
         except ValueError:
             return literal
         return value
