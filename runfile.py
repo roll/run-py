@@ -1,4 +1,4 @@
-from packgram.run import PythonPackgramRun
+from packgram.manage import PythonPackgramRun
 from setup import package
     
 class Run(PythonPackgramRun):

@@ -1,5 +1,5 @@
 from brief import FileInput, FileOutput
-from packgram.brief import PythonPackgramBrief
+from packgram.manage import PythonPackgramBrief
 
 class Brief(PythonPackgramBrief):
 
