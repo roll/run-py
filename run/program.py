@@ -25,7 +25,7 @@ class Program(Program):
     @cachedproperty   
     def _run(self):
         dirname, filename = os.path.split(os.path.abspath(self._command.file))
-        self._switch_to_server_directory(dirname)
+        self._switch_to_directory(dirname)
         modulename = re.sub('\.pyc?', '', filename)
         #TODO: add no module handling
         module = importlib.import_module(modulename)
@@ -38,7 +38,7 @@ class Program(Program):
         else:
             raise RuntimeError('Run is not finded')
         
-    def _switch_to_server_directory(self, dirname):
+    def _switch_to_directory(self, dirname):
         os.chdir(dirname)
         sys.path.insert(0, dirname) 
     
