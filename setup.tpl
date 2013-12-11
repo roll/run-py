@@ -17,7 +17,7 @@ package = {
             'run = run:program',
         ]
     },
-    'install_requires': ['packgram>=0.5', 'lib31>=0.5'],     
+    'install_requires': ['packgram>=0.6', 'lib31>=0.6'],     
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     

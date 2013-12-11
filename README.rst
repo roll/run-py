@@ -61,6 +61,7 @@ History
 -------
 0.8.0
 `````
+- added base multi runfile functionality
 - removed IPC.Light dependency
 
 0.7.0

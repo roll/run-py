@@ -17,7 +17,7 @@ package = {
             'run = run:program',
         ]
     },
-    'install_requires': ['packgram>=0.5', 'lib31>=0.5'],     
+    'install_requires': ['packgram>=0.6', 'lib31>=0.6'],     
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
@@ -95,6 +95,7 @@ History
 -------
 0.8.0
 `````
+- added base multi runfile functionality
 - removed IPC.Light dependency
 
 0.7.0
