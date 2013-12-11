@@ -31,10 +31,10 @@ package = {
     'url': 'https://github.com/respect31/runpack',
     'download_url': 'https://github.com/respect31/runpack/tarball/0.8.0',    
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
-    'description': 'Program to run methods from file.',    
+    'description': 'Run is program to run methods from files.',    
     'long_description': '''Run
 ===
-Program to run methods from file.
+Run is program to run methods from files.
 
 Requirements
 ------------

@@ -1,6 +1,6 @@
 Run
 ===
-Program to run methods from file.
+Run is program to run methods from files.
 
 Requirements
 ------------
