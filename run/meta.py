@@ -2,11 +2,11 @@ import types
 
 class RunMeta(type):
    
-    def __new__(cls, name, bases, attrs):
-        for attr_name, attr_value in attrs.iteritems():
+    def __new__(cls, name, bases, classdict):
+        for attr_name, attr_value in classdict.items():
             if isinstance(attr_value, types.FunctionType):
-                attrs[attr_name] = cls.deco(attr_value)
-        return type.__new__(cls, name, bases, attrs)
+                classdict[attr_name] = cls.deco(attr_value)
+        return type.__new__(cls, name, bases, classdict)
 
 
 def require(*task_names):
