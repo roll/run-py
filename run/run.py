@@ -1,5 +1,4 @@
 import inspect
-from abc import ABCMeta
 from .meta import RunMeta
 
 class Run(metaclass=RunMeta):
@@ -7,24 +6,24 @@ class Run(metaclass=RunMeta):
     #Public
     
     def list(self):
-        "Print list of methods"
-        methods = []
-        for method in dir(self):
-            if not method.startswith('_'):
-                attr = getattr(self, method)
+        "Print list of tasks"
+        tasks = []
+        for task in dir(self):
+            if not task.startswith('_'):
+                attr = getattr(self, task)
                 if inspect.ismethod(attr):
-                    methods.append(method)
-        print('\n'.join(methods))
+                    tasks.append(task)
+        print('\n'.join(tasks))
     
-    def help(self, method):
-        "Print method's help"        
-        if not method.startswith('_'):
-            attr = getattr(self, method)
+    def help(self, task):
+        "Print task's help"        
+        if not task.startswith('_'):
+            attr = getattr(self, task)
             if inspect.ismethod(attr):
                 signature = inspect.signature(attr)
                 docstring = inspect.getdoc(attr)                    
                 lines = []
-                lines.append(method+str(signature))
+                lines.append(task+str(signature))
                 if docstring:
                     lines.append(str(docstring))
                 print('\n'.join(lines))
