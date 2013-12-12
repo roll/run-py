@@ -35,7 +35,7 @@ class MethodTask(Task):
         return self._method.__doc__
 
     def complete(self, *args, **kwargs):
-        return self._method(*args, **kwargs)
+        return self._method(self._run, *args, **kwargs)
 
 
 class RenderTask(Task):
