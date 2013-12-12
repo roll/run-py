@@ -1,14 +1,14 @@
 import unittest
-from sub import Sub, Task
+from run import Run, Task
 
 #Tests
 
-class SubTest(unittest.TestCase):
+class RunTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
-        self.sub = MockSub()
+        self.sub = MockRun()
         
     def test__tasks(self):
         self.assertEqual(list(self.sub._tasks), ['x', 'a', 'b', 'c'])
@@ -22,14 +22,14 @@ class MockTask(Task):
         pass   
     
     
-class BaseMockSub(Sub):
+class BaseMockRun(Run):
   
     x = MockTask()
     c = MockTask()
     
     
-class MockSub(BaseMockSub):
+class MockRun(BaseMockRun):
   
     a = MockTask()
     b = MockTask()  
-    c = BaseMockSub.c
+    c = BaseMockRun.c
