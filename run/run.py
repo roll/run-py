@@ -15,7 +15,7 @@ class Run(metaclass=RunMeta):
                     attr = cls.__dict__[name]
                     if isinstance(attr, Task):
                         task_names.append(name)
-        print('\n'.join(task_names))
+        print('\n'.join(sorted(task_names)))
     
     def help(self, task):
         "Print task's help"        
