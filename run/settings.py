@@ -10,7 +10,7 @@ class Settings(Settings):
         'add_help': False,                     
         'arguments': [
             {
-             'name': 'method',
+             'name': 'task',
              'nargs': '?',
              'default': None,
             },
