@@ -12,7 +12,7 @@ class Settings(Settings):
             {
              'name': 'task',
              'nargs': '?',
-             'default': None,
+             'default': 'default',
             },
             {
              'name': 'arguments',
