@@ -1,4 +1,5 @@
 import types
+from functools import wraps
 from .task import MethodTask
 
 class RunMeta(type):
@@ -11,4 +12,7 @@ class RunMeta(type):
 
 
 def require(task_names):
-    return
+    @wraps
+    def wrapper(method):
+        return MethodTask(method, require=task_names)
+    return wrapper

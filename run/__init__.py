@@ -1,5 +1,5 @@
 from .command import Command
-from .meta import RunMeta
+from .meta import RunMeta, require
 from .program import Program, program
 from .run import Run
 from .settings import settings
