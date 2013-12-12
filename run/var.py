@@ -5,9 +5,13 @@ from abc import ABCMeta, abstractmethod
 class Var(metaclass=ABCMeta):
     
     #Public
-    
+
+    def __get__(self, run, runclass=None):
+        self._run = run
+        return self.retrieve()
+ 
     @abstractmethod
-    def get(self):
+    def retrieve(self):
         pass #pragma: no cover
 
 
@@ -29,7 +33,7 @@ class ParsedVar(Var):
         self.fallback = fallback
         self.base_dir = base_dir
     
-    def get(self):
+    def retrieve(self):
         try:
             matches = self._search()
             processed = self._process(matches)
