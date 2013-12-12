@@ -22,7 +22,17 @@ class Task(metaclass=ABCMeta):
     @abstractmethod
     def complete(self, *args, **kwargs):
         pass #pragma: no cover
-  
+
+
+class MethodTask(Task):
+
+    def __init__(self, method):
+        self._method = method
+        
+    @property
+    def __doc__(self):
+        return self._method.__doc__
+
 
 class RenderTask(Task):
     

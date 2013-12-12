@@ -28,4 +28,4 @@ class Run(metaclass=RunMeta):
                     lines.append(str(docstring))
                 print('\n'.join(lines))
                 
-    default = list         
+    default = list     
