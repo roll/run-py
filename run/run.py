@@ -1,7 +1,18 @@
 import inspect
+from collections import OrderedDict
+from lib31.python import cachedproperty, OrderedClassMeta
 from abc import ABCMeta
+from .task import Task
+from .var import Var
 
-class Run(metaclass=ABCMeta):
+class SubMeta(OrderedClassMeta):
+    
+    #Public
+    
+    pass
+
+
+class Run(metaclass=SubMeta):
     
     #Public
     
@@ -31,3 +42,33 @@ class Run(metaclass=ABCMeta):
                 if docstring:
                     lines.append(str(docstring))
                 print('\n'.join(lines))
+    
+    def make(self):
+        for task in self._tasks.values():
+            task.complete(self._vars)
+
+    #Protected
+    
+    @cachedproperty
+    def _tasks(self):
+        tasks = OrderedDict()
+        for cls in reversed(self.__class__.mro()):
+            for name in cls.__dict__.get('__order__', []):
+                if not name.startswith('_'):
+                    attr = getattr(self, name)
+                    if isinstance(attr, Task):
+                        tasks[name] = attr
+                        tasks.move_to_end(name)
+        return tasks
+                        
+    @cachedproperty
+    def _vars(self):
+        vars = {}
+        for name in dir(self):
+            if not name.startswith('_'):
+                attr = getattr(self, name)
+                if not isinstance(attr, Task):
+                    if isinstance(attr, Var):
+                        attr = attr.get()
+                    vars[name] = attr
+        return vars                
