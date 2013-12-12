@@ -1,12 +1,6 @@
 import inspect
 from abc import ABCMeta
-
-class RunMeta(type):
-    
-    #Public
-    
-    pass
-
+from .meta import RunMeta
 
 class Run(metaclass=RunMeta):
     
