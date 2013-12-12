@@ -56,25 +56,3 @@ class taskdecorator:
     def deleter(self, fdel):
         self._fdel = fdel
         return self
-    
-    @classmethod
-    def set(cls, obj, name, value):
-        cache = cls._get_object_cache(obj)
-        cache[name] = value
-        
-    @classmethod
-    def reset(cls, obj, name):
-        cache = cls._get_object_cache(obj)
-        cache.pop(name, None)
-            
-    #Protected
-    
-    _object_cache_attribute_name = '_lib31_cached_properties'
-    
-    @property
-    def _name(self):
-        return self._fget.__name__
-    
-    @classmethod    
-    def _get_object_cache(cls, obj):
-        return obj.__dict__.setdefault(cls._object_cache_attribute_name, {})
