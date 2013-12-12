@@ -10,5 +10,5 @@ class RunMeta(type):
         return type.__new__(cls, name, bases, attrs)
 
 
-def require(*task_names):
+def require(task_names):
     return
