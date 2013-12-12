@@ -8,11 +8,16 @@ class Var(metaclass=ABCMeta):
 
     def __get__(self, run, runclass=None):
         self._run = run
-        return self.retrieve()
+        if '_value' not in self.__dict__:
+            self._value = self.retrieve()
+        return self._value
  
     @abstractmethod
     def retrieve(self):
         pass #pragma: no cover
+    
+    def reset(self):
+        del self._value   
 
 
 class ParsedVar(Var):
