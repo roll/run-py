@@ -10,11 +10,9 @@ class Run(metaclass=RunMeta):
         "Print list of tasks"
         task_names = []
         for cls in self.__class__.mro():
-            for name in cls.__dict__:
-                if not name.startswith('_'):
-                    attr = cls.__dict__[name]
-                    if isinstance(attr, Task):
-                        task_names.append(name)
+            for name, attr in cls.__dict__.items():
+                if isinstance(attr, Task):
+                    task_names.append(name)
         print('\n'.join(sorted(task_names)))
     
     def help(self, task_name):
