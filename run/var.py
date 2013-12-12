@@ -2,7 +2,7 @@ import os
 import re
 from abc import ABCMeta, abstractmethod
 
-class Value(metaclass=ABCMeta):
+class Var(metaclass=ABCMeta):
     
     #Public
     
@@ -11,7 +11,7 @@ class Value(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-class ParsedValue(Value):
+class ParsedVar(Var):
     
     #Public
     
