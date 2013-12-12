@@ -56,7 +56,6 @@ class Command(Command):
     
     def _parse_literal(self, literal):
         try:
-            #For json syntax - json.loads
             value = ast.literal_eval(literal)
         except ValueError:
             return literal
