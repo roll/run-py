@@ -26,7 +26,8 @@ class Task(metaclass=ABCMeta):
 
 class MethodTask(Task):
 
-    def __init__(self, method):
+    def __init__(self, method, **kwargs):
+        super().__init__(**kwargs)
         self._method = method
         
     @property
@@ -40,7 +41,8 @@ class MethodTask(Task):
 
 class RenderTask(Task):
     
-    def __init__(self, source, target):
+    def __init__(self, source, target, **kwargs):
+        super().__init__(**kwargs)
         self._source = source
         self._target = target
         
