@@ -5,14 +5,14 @@ from abc import ABCMeta
 from .task import Task
 from .var import Var
 
-class SubMeta(OrderedClassMeta):
+class RunMeta(OrderedClassMeta):
     
     #Public
     
     pass
 
 
-class Run(metaclass=SubMeta):
+class Run(metaclass=RunMeta):
     
     #Public
     
