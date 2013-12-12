@@ -1,6 +1,6 @@
 Run
 ===
-Run is program to run methods from files.
+Run is program to collect data and run tasks.
 
 Requirements
 ------------
@@ -61,7 +61,7 @@ History
 -------
 0.8.0
 `````
-- added base multi runfile functionality
+- merged with sub program
 - removed IPC.Light dependency
 
 0.7.0
