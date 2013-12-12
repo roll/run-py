@@ -17,9 +17,7 @@ class Run(metaclass=RunMeta):
     #Public
     
     def list(self):
-        """
-        Print list of methods
-        """
+        "Print list of methods"
         methods = []
         for method in dir(self):
             if not method.startswith('_'):
@@ -29,9 +27,7 @@ class Run(metaclass=RunMeta):
         print('\n'.join(methods))
     
     def help(self, method):
-        """
-        Print method's help
-        """        
+        "Print method's help"        
         if not method.startswith('_'):
             attr = getattr(self, method)
             if inspect.ismethod(attr):
