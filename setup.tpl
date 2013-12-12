@@ -11,7 +11,7 @@ setup(
 	include_package_data=True,
     data_files=[('/etc/bash_completion.d', ['run/completion/run.sh'])],
     entry_points={'console_scripts': ['run = run:program']},
-    install_requires=['packgram>=0.6', 'lib31>=0.6'],     
+    install_requires=['packgram>=0.6', 'lib31>=0.6', 'jinja2>=2.7'],     
     tests_require=['nose'],
     test_suite='nose.collector',
     
