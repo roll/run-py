@@ -5,5 +5,5 @@ class RunMeta(type):
     pass
 
 
-def require(*args):
+def require(*task_names):
     return
