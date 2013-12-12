@@ -33,4 +33,6 @@ class Run(metaclass=RunMeta):
                 lines.append(method+str(signature))
                 if docstring:
                     lines.append(str(docstring))
-                print('\n'.join(lines))             
+                print('\n'.join(lines))
+                
+    default = list         

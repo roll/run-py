@@ -14,10 +14,7 @@ class Command(Command):
     @cachedproperty
     def method(self):
         if not self.help:
-            if self._namespace.method:
-                return self._namespace.method
-            else:
-                return 'list'
+            return self._namespace.method
         else:
             if self._namespace.method:
                 return 'help'
