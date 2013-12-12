@@ -17,15 +17,15 @@ class Run(metaclass=RunMeta):
                         task_names.append(name)
         print('\n'.join(sorted(task_names)))
     
-    def help(self, task):
+    def help(self, task_name):
         "Print task's help"        
-        if not task.startswith('_'):
-            attr = getattr(self, task)
+        if not task_name.startswith('_'):
+            attr = getattr(self, task_name)
             if inspect.ismethod(attr):
                 signature = inspect.signature(attr)
                 docstring = inspect.getdoc(attr)                    
                 lines = []
-                lines.append(task+str(signature))
+                lines.append(task_name+str(signature))
                 if docstring:
                     lines.append(str(docstring))
                 print('\n'.join(lines))
