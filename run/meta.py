@@ -1,12 +1,13 @@
 import types
+from .task import MethodTask
 
 class RunMeta(type):
    
-    def __new__(cls, name, bases, classdict):
-        for attr_name, attr_value in classdict.items():
-            if isinstance(attr_value, types.FunctionType):
-                classdict[attr_name] = cls.deco(attr_value)
-        return type.__new__(cls, name, bases, classdict)
+    def __new__(cls, name, bases, attrs):
+        for name, value in attrs.items():
+            if isinstance(value, types.FunctionType):
+                attrs[name] = MethodTask(value)
+        return type.__new__(cls, name, bases, attrs)
 
 
 def require(*task_names):
