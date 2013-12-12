@@ -1,5 +1,6 @@
 import inspect
 from .meta import RunMeta
+from .task import Task
 
 class Run(metaclass=RunMeta):
     
@@ -7,13 +8,14 @@ class Run(metaclass=RunMeta):
     
     def list(self):
         "Print list of tasks"
-        tasks = []
-        for task in dir(self):
-            if not task.startswith('_'):
-                attr = getattr(self, task)
-                if inspect.ismethod(attr):
-                    tasks.append(task)
-        print('\n'.join(tasks))
+        task_names = []
+        for cls in self.__class__.mro():
+            for name in cls.__dict__:
+                if not name.startswith('_'):
+                    attr = cls.__dict__[name]
+                    if isinstance(attr, Task):
+                        task_names.append(name)
+        print('\n'.join(task_names))
     
     def help(self, task):
         "Print task's help"        
