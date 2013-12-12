@@ -55,16 +55,4 @@ class Run(metaclass=RunMeta):
                     if isinstance(attr, Task):
                         tasks[name] = attr
                         tasks.move_to_end(name)
-        return tasks
-                        
-    @cachedproperty
-    def _vars(self):
-        vars = {}
-        for name in dir(self):
-            if not name.startswith('_'):
-                attr = getattr(self, name)
-                if not isinstance(attr, Task):
-                    if isinstance(attr, Var):
-                        attr = attr.get()
-                    vars[name] = attr
-        return vars                
+        return tasks              
