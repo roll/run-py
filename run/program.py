@@ -15,6 +15,9 @@ class Program(Program):
     def __call__(self):
         method = getattr(self._run, self._command.method)
         method(*self._command.args, **self._command.kwargs)
+        #For help
+        #print(self._parser.format_help().strip())
+        #sys.exit()
             
     #Protected
     

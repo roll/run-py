@@ -1,4 +1,3 @@
-import sys
 import csv
 import ast
 from lib31.python import cachedproperty
@@ -12,29 +11,12 @@ class Command(Command):
     schema = settings.command_schema
     
     @cachedproperty
-    def method(self):
-        if not self.help:
-            return self._namespace.method
-        else:
-            if self._namespace.method:
-                return 'help'
-            else:
-                print(self._parser.format_help().strip())
-                sys.exit()
-    
-    @cachedproperty
     def args(self):
-        if not self.help:
-            return self._parsed_arguments[0]
-        else:
-            return [self._namespace.method]
+        return self._parsed_arguments[0]
     
     @cachedproperty    
     def kwargs(self):
-        if not self.help:
-            return self._parsed_arguments[1]
-        else:
-            return {}       
+        return self._parsed_arguments[1]
     
     #Protected
     
