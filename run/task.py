@@ -33,6 +33,10 @@ class MethodTask(Task):
     def __doc__(self):
         return self._method.__doc__
 
+    @abstractmethod
+    def complete(self, *args, **kwargs):
+        return self._method(*args, **kwargs)
+
 
 class RenderTask(Task):
     
