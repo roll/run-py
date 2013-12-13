@@ -20,14 +20,14 @@ class Module(metaclass=ModuleMeta):
     
     #TODO: add list of vars
     def list(self):
-        "Print list of tasks/vars"
+        "Print list of properties"
         print('#Tasks')               
         print('\n'.join(sorted(self._tasks)))
         print('#Vars')                       
         print('\n'.join(sorted(self._vars)))
     
     def help(self, name):
-        "Print task/var help"        
+        "Print property help"        
         attr = self._tasks.get(name, None) or self._vars.get(name, None)
         if attr:
             print(attr.help())
