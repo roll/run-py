@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from lib31.python import cachedproperty
-from .property import Property
+from .field import Field
 
-class Var(Property, metaclass=ABCMeta):
+class Var(Field, metaclass=ABCMeta):
     
     #Public
 

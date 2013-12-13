@@ -1,6 +1,6 @@
 import types
 from abc import ABCMeta
-from .property import Property
+from .field import Field
 from .task import Task, MethodTask
 from .var import Var
 
@@ -15,7 +15,7 @@ class ModuleMeta(ABCMeta):
         return super().__new__(cls, name, bases, attrs)
 
 
-class Module(Property, metaclass=ModuleMeta):
+class Module(Field, metaclass=ModuleMeta):
     
     #Public
     
@@ -49,7 +49,7 @@ class Module(Property, metaclass=ModuleMeta):
         properties = {}
         for cls in self.__class__.mro():
             for name, attr in cls.__dict__.items():
-                if isinstance(attr, Property):
+                if isinstance(attr, Field):
                     properties[name] = attr
         return properties
              

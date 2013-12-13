@@ -1,7 +1,7 @@
 import inspect
-from .property import Property
+from .field import Field
 
-class Task(Property):
+class Task(Field):
     
     #Public
         
