@@ -30,11 +30,9 @@ class Module(Property, metaclass=ModuleMeta):
             print('#Vars')                       
             print('\n'.join(sorted(self._vars)))
         else:       
-            attr = self._tasks.get(name, None) or self._vars.get(name, None)
-            if attr:
-                print(attr.help())
-            else:
-                print('No name "{0}"'.format(name))
+            property = self._get_properties().get(name, None)
+            if property:
+                print(property.help())
             
     #Protected
     
