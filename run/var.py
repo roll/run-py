@@ -21,6 +21,9 @@ class Var(Property, metaclass=ABCMeta):
         
 class ValueTask(Var):
     
-    def __init__(self, value, **kwargs):
+    def __init__(self, default_value, **kwargs):
         super().__init__(**kwargs)
-        self._value = value    
+        self._default_value = default_value
+ 
+    def retrieve(self):
+        return self._default_value    
