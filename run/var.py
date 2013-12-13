@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from lib31.python import cachedproperty
 from .property import Property
 
 class Var(Property, metaclass=ABCMeta):
@@ -7,24 +8,22 @@ class Var(Property, metaclass=ABCMeta):
 
     def __get__(self, owner, owner_class=None):
         super().__get__(owner, owner_class)
-        if '_value' not in self.__dict__:
-            self._resolve()
-            self._value = self.retrieve()
-        return self._value
+        return self.value
  
-    @abstractmethod
-    def retrieve(self):
-        pass #pragma: no cover
+    @cachedproperty
+    def value(self):
+        self._resolve()
+        return self.retrieve()
     
     def reset(self):
-        del self._value
+        cachedproperty.reset(self, 'value')
         
         
 class PlainVar(Var):
     
-    def __init__(self, plain_value, **kwargs):
+    def __init__(self, value, **kwargs):
         super().__init__(**kwargs)
-        self._plain_value = plain_value
+        self._value = value
  
     def retrieve(self):
-        return self._plain_value    
+        return self._value    
