@@ -13,6 +13,6 @@ class RenderTask(Task):
         dirname, filename = os.path.split(os.path.abspath(self._source))
         environment = Environment(loader=FileSystemLoader(dirname))
         template = environment.get_template(filename)
-        text = template.render(self._run)
+        text = template.render({'run': self._run})
         with open(self._target, 'w') as file:
             file.write(text)
