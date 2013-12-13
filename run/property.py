@@ -1,0 +1,5 @@
+class Property:
+    
+    #Public
+    
+    pass
