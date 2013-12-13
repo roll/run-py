@@ -20,6 +20,11 @@ class Module(Property, metaclass=ModuleMeta):
     
     #Public
     
+    #TODO: is it safe to use run as descriptor?
+    def __get__(self, run, runclass=None):
+        self._run = run
+        return self
+    
     def help(self, name=None):
         "Print property help"
         if name:
