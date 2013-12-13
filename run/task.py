@@ -18,6 +18,10 @@ class Task(Property, metaclass=ABCMeta):
     @abstractmethod
     def complete(self, *args, **kwargs):
         pass #pragma: no cover
+            
+    #TODO: implement
+    def help(self):
+        pass    
     
 
 class MethodTask(Task):

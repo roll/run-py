@@ -7,8 +7,8 @@ class ParsedVarTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.var = ParsedVar('test_var.py', 'import (.*test)\n', 
-                                base_dir=os.path.dirname(__file__))
+        self.var = ParsedVar('test_vars.py', 'import (.*test)\n', 
+                             base_dir=os.path.dirname(__file__))
     
     def test_get(self):
         self.var.processors = [lambda items: items[0]]        

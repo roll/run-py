@@ -1,6 +1,6 @@
 import os
 import unittest
-from run import Run, Task
+from run import Run, Task, Var
 
 #Tests
 
@@ -23,11 +23,11 @@ class MockTask(Task):
         pass
     
     
-class MockVar(Task):
+class MockVar(Var):
     
     def retrieve(self, *args, **kwargs):
         pass    
-    
+
 
 class MockRun(Run):
     
