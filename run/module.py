@@ -50,7 +50,7 @@ class Module(Property, metaclass=ModuleMeta):
         return properties
     
 
-def require(*task_names):
+def require(task_names):
     @wraps
     def wrapper(method):
         return MethodTask(method, require=task_names)

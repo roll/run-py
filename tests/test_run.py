@@ -1,6 +1,6 @@
 import os
 import unittest
-from run import Run, Task, ParsedVar
+from run import Run, Task
 
 #Tests
 
@@ -22,9 +22,14 @@ class MockTask(Task):
     def complete(self, *args, **kwargs):
         pass
     
+    
+class MockVar(Task):
+    
+    def retrieve(self, *args, **kwargs):
+        pass    
+    
 
 class MockRun(Run):
     
     task = MockTask()
-    var = ParsedVar('test_run.py', 'import (.*test)\n', 
-                    base_dir=os.path.dirname(__file__))
+    var = MockVar()

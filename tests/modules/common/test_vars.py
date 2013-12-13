@@ -1,8 +1,8 @@
 import os
 import unittest
-from run import ParsedVar
+from run.modules.common import ParsedVar
 
-class FetchTest(unittest.TestCase):
+class ParsedVarTest(unittest.TestCase):
     
     #Public
     
