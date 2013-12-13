@@ -11,7 +11,7 @@ class RunTest(unittest.TestCase):
         self.run = MockRun()
         
     def test_help(self):
-        print(self.run.help())
+        self.run.help()
         
         
 #Fixtures
