@@ -1,5 +1,6 @@
 from .command import Command
-from .module import Module, ModuleMeta, require
+from .decorators import require
+from .module import Module, ModuleMeta
 from .program import Program, program
 from .property import Property
 from .run import Run

@@ -1,6 +1,5 @@
 import types
 from abc import ABCMeta
-from functools import wraps
 from .property import Property
 from .task import Task, MethodTask
 from .var import Var
@@ -60,10 +59,3 @@ class Module(Property, metaclass=ModuleMeta):
             return self._owner
         except AttributeError:
             return self
-        
-
-def require(tasks):
-    @wraps
-    def wrapper(method):
-        return MethodTask(method, require=tasks)
-    return wrapper
