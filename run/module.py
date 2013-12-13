@@ -36,12 +36,13 @@ class Module(metaclass=ModuleMeta):
             
     #Protected
     
-    def _get_properties(self, filter=None):
+    def _get_properties(self, subclass=None):
         properties = {}
         for cls in self.__class__.mro():
             for name, attr in cls.__dict__.items():
                 if isinstance(attr, Property):
-                    properties[name] = attr
+                    if not subclass or isinstance(attr, subclass):
+                        properties[name] = attr
         return properties
     
 
