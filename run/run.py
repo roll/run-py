@@ -1,7 +1,10 @@
 from .module import Module
+from .task import Task
 
 class Run(Module):
     
     #Public
     
-    default = help
+    default = Task(
+        require=['help'],
+    )
