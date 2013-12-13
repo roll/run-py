@@ -4,4 +4,4 @@ class Run(Module):
     
     #Public
     
-    default = list
+    default = help

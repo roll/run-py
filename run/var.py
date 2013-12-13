@@ -17,3 +17,10 @@ class Var(Property, metaclass=ABCMeta):
     
     def reset(self):
         del self._value
+        
+        
+class ValueTask(Var):
+    
+    def __init__(self, value, **kwargs):
+        super().__init__(**kwargs)
+        self._value = value    

@@ -22,21 +22,19 @@ class Module(Property, metaclass=ModuleMeta):
         self._run = run
         return self
     
-    #TODO: add list of vars
-    def list(self):
-        "Print list of properties"
-        print('#Tasks')               
-        print('\n'.join(sorted(self._tasks)))
-        print('#Vars')                       
-        print('\n'.join(sorted(self._vars)))
-    
-    def help(self, name):
-        "Print property help"        
-        attr = self._tasks.get(name, None) or self._vars.get(name, None)
-        if attr:
-            print(attr.help())
-        else:
-            print('No name "{0}"'.format(name))
+    def help(self, name=None):
+        "Print property help"
+        if not name:
+            print('#Tasks')               
+            print('\n'.join(sorted(self._tasks)))
+            print('#Vars')                       
+            print('\n'.join(sorted(self._vars)))
+        else:       
+            attr = self._tasks.get(name, None) or self._vars.get(name, None)
+            if attr:
+                print(attr.help())
+            else:
+                print('No name "{0}"'.format(name))
             
     #Protected
     
