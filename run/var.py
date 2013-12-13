@@ -19,11 +19,11 @@ class Var(Property, metaclass=ABCMeta):
         del self._value
         
         
-class ValueTask(Var):
+class PlainVar(Var):
     
-    def __init__(self, default_value, **kwargs):
+    def __init__(self, plain_value, **kwargs):
         super().__init__(**kwargs)
-        self._default_value = default_value
+        self._plain_value = plain_value
  
     def retrieve(self):
-        return self._default_value    
+        return self._plain_value    
