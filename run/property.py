@@ -1,5 +1,12 @@
-class Property:
+from abc import ABCMeta, abstractmethod
+
+class Property(metaclass=ABCMeta):
     
     #Public
     
-    pass
+    def __init__(self, *args, **kwargs):
+        self._require = kwargs.get('require', [])
+
+    @abstractmethod
+    def help(self):
+        pass
