@@ -8,11 +8,11 @@ class Var(Property, metaclass=ABCMeta):
 
     def __get__(self, owner, owner_class=None):
         super().__get__(owner, owner_class)
+        self._resolve()        
         return self.value
  
     @cachedproperty
     def value(self):
-        self._resolve()
         return self.retrieve()
     
     def reset(self):
