@@ -1,3 +1,4 @@
+import inspect
 from .property import Property
 
 class Task(Property):
@@ -31,13 +32,12 @@ class MethodTask(Task):
     def complete(self, *args, **kwargs):
         return self._method(self._run, *args, **kwargs)
     
-    #TODO: implement
     def help(self):
-        if inspect.ismethod(attr):
-            signature = inspect.signature(attr)
-            docstring = inspect.getdoc(attr)                    
-            lines = []
-            lines.append(task_name+str(signature))
-            if docstring:
-                lines.append(str(docstring))
-            print('\n'.join(lines))      
+        name = self._method.__name__
+        signature = inspect.signature(self._method)
+        docstring = inspect.getdoc(self._method)                    
+        lines = []
+        lines.append(name+str(signature))
+        if docstring:
+            lines.append(str(docstring))
+        print('\n'.join(lines))      

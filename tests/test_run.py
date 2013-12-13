@@ -12,7 +12,7 @@ class RunTest(unittest.TestCase):
         self.run = MockRun()
         
     def test_list(self):
-        print(self.run.list())
+        print(self.run.help())
         
         
 #Fixtures
