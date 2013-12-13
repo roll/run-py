@@ -15,6 +15,8 @@ class Var(Property, metaclass=ABCMeta):
     def value(self):
         return self.retrieve()
     
+    #TODO: value/retrieve/caching - decide!
+    
     def reset(self):
         cachedproperty.reset(self, 'value')
         
