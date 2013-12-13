@@ -17,10 +17,6 @@ class Var(Property, metaclass=ABCMeta):
     
     def reset(self):
         del self._value
-            
-    #TODO: implement
-    def help(self):
-        pass          
         
         
 class PlainVar(Var):

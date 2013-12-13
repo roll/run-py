@@ -16,10 +16,6 @@ class Task(Property):
     
     def complete(self, *args, **kwargs):
         pass
-            
-    #TODO: implement
-    def help(self):
-        pass    
     
 
 class MethodTask(Task):
