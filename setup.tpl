@@ -5,8 +5,8 @@ setup(
 
 	#Main
 
-    name='{{ name }}',
-	version='{{ version }}',
+    name='{{ run.name }}',
+	version='{{ run.version }}',
 	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	include_package_data=True,
     data_files=[('/etc/bash_completion.d', ['run/completion/run.sh'])],
@@ -17,15 +17,15 @@ setup(
     
     #Description
     
-    author='{{ author }}',
-    author_email='{{ author_email }}',
-    maintainer='{{ maintainer }}',
-    maintainer_email='{{ maintainer_email }}',
-    license='{{ license }}',    
-    url='https://github.com/{{ author|lower }}/{{ name|lower }}',
-    download_url='https://github.com/{{ author|lower }}/{{ name|lower }}/tarball/{{ version|lower }}',    
-    classifiers={{ classifiers }},    
-    description='{{ description }}',    
-    long_description='''{{ long_description }}''',
+    author='{{ run.author }}',
+    author_email='{{ run.author_email }}',
+    maintainer='{{ run.maintainer }}',
+    maintainer_email='{{ run.maintainer_email }}',
+    license='{{ run.license }}',    
+    url='https://github.com/{{ run.author|lower }}/{{ run.name|lower }}',
+    download_url='https://github.com/{{ run.author|lower }}/{{ run.name|lower }}/tarball/{{ run.version|lower }}',    
+    classifiers={{ run.classifiers }},    
+    description='{{ run.description }}',    
+    long_description='''{{ run.long_description }}''',
         
 )

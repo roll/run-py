@@ -1,40 +1,34 @@
 import os
 from setuptools import find_packages, setup
 
-package = {
+setup(
 
 	#Main
 
-    'name': 'runpack',
-	'version': '0.8.0',
-	'packages': find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
-	'include_package_data': True,
-    'data_files': [
-        ('/etc/bash_completion.d', ['run/completion/run.sh'])       
-    ],
-    'entry_points': {
-        'console_scripts': [
-            'run = run:program',
-        ]
-    },
-    'install_requires': ['packgram>=0.6', 'lib31>=0.6'],     
-    'tests_require': ['nose'],
-    'test_suite': 'nose.collector',
+    name='run',
+	version='0.8.0',
+	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
+	include_package_data=True,
+    data_files=[('/etc/bash_completion.d', ['run/completion/run.sh'])],
+    entry_points={'console_scripts': ['run = run:program']},
+    install_requires=['packgram>=0.6', 'lib31>=0.6', 'jinja2>=2.7'],     
+    tests_require=['nose'],
+    test_suite='nose.collector',
     
     #Description
     
-    'author': 'Respect31',
-    'author_email': 'post@respect31.com',
-    'maintainer': 'Respect31',
-    'maintainer_email': 'post@respect31.com',
-    'license': 'MIT License',    
-    'url': 'https://github.com/respect31/runpack',
-    'download_url': 'https://github.com/respect31/runpack/tarball/0.8.0',    
-    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
-    'description': 'Run is program to run methods from files.',    
-    'long_description': '''Run
+    author='Respect31',
+    author_email='post@respect31.com',
+    maintainer='Respect31',
+    maintainer_email='post@respect31.com',
+    license='MIT License',    
+    url='https://github.com/respect31/run',
+    download_url='https://github.com/respect31/run/tarball/0.8.0',    
+    classifiers=['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
+    description='Run is program to collect data and run tasks.',    
+    long_description='''Run
 ===
-Run is program to run methods from files.
+Run is program to collect data and run tasks.
 
 Requirements
 ------------
@@ -95,7 +89,7 @@ History
 -------
 0.8.0
 `````
-- added base multi runfile functionality
+- merged with sub program
 - removed IPC.Light dependency
 
 0.7.0
@@ -125,7 +119,4 @@ History
 `````
 - added driver seeking in current working directory''',
         
-}
-
-if __name__ == '__main__':
-    setup(**package)
+)
