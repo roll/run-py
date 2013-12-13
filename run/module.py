@@ -30,12 +30,15 @@ class Module(Property, metaclass=ModuleMeta):
             modules = self._get_properties(type=Module)
             tasks = self._get_properties(type=Task)
             vars = self._get_properties(type=Var)       
-            print('#Modules')               
-            print('\n'.join(sorted(modules)))
-            print('#Tasks')               
-            print('\n'.join(sorted(tasks)))
-            print('#Vars')                       
-            print('\n'.join(sorted(vars)))                
+            if modules:
+                print('#Modules')               
+                print('\n'.join(sorted(modules))) 
+            if tasks:
+                print('#Tasks')               
+                print('\n'.join(sorted(tasks)))
+            if vars:
+                print('#Vars')                       
+                print('\n'.join(sorted(vars)))                
             
     #Protected
     
