@@ -13,7 +13,7 @@ class Task(Property):
         for task_name in self._require:
             task = getattr(self._run, task_name)
             task()
-        self.complete(*args, **kwargs)
+        return self.complete(*args, **kwargs)
     
     def complete(self, *args, **kwargs):
         pass

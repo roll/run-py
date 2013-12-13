@@ -1,6 +1,6 @@
-from .module import Module
+from .module import Module, ModuleMeta
 
-class Run(Module):
+class Run(Module, metaclass=ModuleMeta):
     
     #Public
     

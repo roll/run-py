@@ -1,4 +1,3 @@
-import os
 import unittest
 from run import Run, Task, Var
 
@@ -11,7 +10,7 @@ class RunTest(unittest.TestCase):
     def setUp(self):
         self.run = MockRun()
         
-    def test_list(self):
+    def test_help(self):
         print(self.run.help())
         
         
