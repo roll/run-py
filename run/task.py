@@ -1,7 +1,6 @@
-from abc import ABCMeta, abstractmethod
 from .property import Property
 
-class Task(Property, metaclass=ABCMeta):
+class Task(Property):
     
     #Public
 
@@ -15,9 +14,8 @@ class Task(Property, metaclass=ABCMeta):
             task()
         self.complete(*args, **kwargs)
     
-    @abstractmethod
     def complete(self, *args, **kwargs):
-        pass #pragma: no cover
+        pass
             
     #TODO: implement
     def help(self):
