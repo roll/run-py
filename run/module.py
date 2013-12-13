@@ -20,21 +20,19 @@ class Module(Property, metaclass=ModuleMeta):
     
     #Public
     
-    #TODO: is it safe to use Run as descriptor?
-    def __get__(self, run, runclass=None):
-        self._run = run
-        return self
-    
     def help(self, name=None):
         "Print property help"
         if name:
-            property = self._get_properties().get(name, None)
-            if property:
-                print(property.help())
+            prop = self._get_properties.get(name, None)
+            if prop:
+                print(prop.help())
         else:
-            modules = self._get_properties(type=Module)
-            tasks = self._get_properties(type=Task)
-            vars = self._get_properties(type=Var)       
+            modules = [name for name, prop in self._properties.items() 
+                       if isinstance(prop, Module)]
+            tasks = [name for name, prop in self._properties.items()
+                     if isinstance(prop, Task)]
+            vars = [name for name, prop in self._properties.items()
+                    if isinstance(prop, Var)]       
             if modules:
                 print('#Modules')               
                 print('\n'.join(sorted(modules))) 
@@ -43,19 +41,26 @@ class Module(Property, metaclass=ModuleMeta):
                 print('\n'.join(sorted(tasks)))
             if vars:
                 print('#Vars')                       
-                print('\n'.join(sorted(vars)))                
+                print('\n'.join(sorted(vars)))
             
     #Protected
     
-    def _get_properties(self, type=None):
+    @property
+    def _properties(self):
         properties = {}
         for cls in self.__class__.mro():
             for name, attr in cls.__dict__.items():
                 if isinstance(attr, Property):
-                    if not type or isinstance(attr, type):
-                        properties[name] = attr
+                    properties[name] = attr
         return properties
-    
+             
+    @property
+    def _run(self):
+        try:
+            return self._owner
+        except AttributeError:
+            return self
+        
 
 def require(tasks):
     @wraps

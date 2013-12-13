@@ -5,9 +5,10 @@ class Var(Property, metaclass=ABCMeta):
     
     #Public
 
-    def __get__(self, run, runclass=None):
-        self._run = run
+    def __get__(self, owner, owner_class=None):
+        super().__get__(owner, owner_class)
         if '_value' not in self.__dict__:
+            self._resolve()
             self._value = self.retrieve()
         return self._value
  

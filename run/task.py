@@ -4,15 +4,9 @@ from .property import Property
 class Task(Property):
     
     #Public
-
-    def __get__(self, run, runclass=None):
-        self._run = run
-        return self
         
     def __call__(self, *args, **kwargs):
-        for task_name in self._require:
-            task = getattr(self._run, task_name)
-            task()
+        self._resolve()
         return self.complete(*args, **kwargs)
     
     def complete(self, *args, **kwargs):
