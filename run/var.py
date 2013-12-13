@@ -26,4 +26,14 @@ class PlainVar(Var):
         self._value = value
  
     def retrieve(self):
-        return self._value    
+        return self._value
+    
+
+class DescriptorVar(Var):
+    
+    def __init__(self, descriptor, **kwargs):
+        super().__init__(**kwargs)
+        self._descriptor = descriptor
+ 
+    def retrieve(self):
+        return self._descriptor(self._run, self._run.__class__)  
