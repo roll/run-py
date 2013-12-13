@@ -7,6 +7,7 @@ class ModuleMeta(ABCMeta):
    
     def __new__(cls, name, bases, attrs):
         for name, value in attrs.items():
+            #TODO: add plain vars wrapping?
             if isinstance(value, types.FunctionType):
                 attrs[name] = MethodTask(value)
         return super().__new__(cls, name, bases, attrs)
