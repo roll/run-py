@@ -1,6 +1,7 @@
 import types
 from abc import ABCMeta
 from functools import wraps
+from .property import Property
 from .task import MethodTask
 
 class ModuleMeta(ABCMeta):
@@ -14,11 +15,35 @@ class ModuleMeta(ABCMeta):
 
 
 class Module(metaclass=ModuleMeta):
-
+    
     #Public
-
-    pass
-
+    
+    #TODO: add list of vars
+    def list(self):
+        "Print list of tasks/vars"
+        print('#Tasks')               
+        print('\n'.join(sorted(self._tasks)))
+        print('#Vars')                       
+        print('\n'.join(sorted(self._vars)))
+    
+    def help(self, name):
+        "Print task/var help"        
+        attr = self._tasks.get(name, None) or self._vars.get(name, None)
+        if attr:
+            print(attr.help())
+        else:
+            print('No name "{0}"'.format(name))
+            
+    #Protected
+    
+    def _get_properties(self, filter=None):
+        properties = {}
+        for cls in self.__class__.mro():
+            for name, attr in cls.__dict__.items():
+                if isinstance(attr, Property):
+                    properties[name] = attr
+        return properties
+    
 
 def require(*task_names):
     @wraps
