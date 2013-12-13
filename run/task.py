@@ -1,8 +1,7 @@
 import os
-from abc import ABCMeta, abstractmethod
 from jinja2 import Environment, FileSystemLoader
 
-class Task(metaclass=ABCMeta):
+class Task:
     
     #Public
     
@@ -19,9 +18,9 @@ class Task(metaclass=ABCMeta):
             task()
         self.complete(*args, **kwargs)
 
-    @abstractmethod
-    def complete(self, *args, **kwargs):
-        pass #pragma: no cover
+    #TODO: implement
+    def help(self):
+        pass    
 
 
 class MethodTask(Task):
@@ -36,6 +35,17 @@ class MethodTask(Task):
 
     def complete(self, *args, **kwargs):
         return self._method(self._run, *args, **kwargs)
+    
+    #TODO: implement
+    def help(self):
+        if inspect.ismethod(attr):
+            signature = inspect.signature(attr)
+            docstring = inspect.getdoc(attr)                    
+            lines = []
+            lines.append(task_name+str(signature))
+            if docstring:
+                lines.append(str(docstring))
+            print('\n'.join(lines))
 
 
 class RenderTask(Task):

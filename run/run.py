@@ -1,31 +1,47 @@
-import inspect
-from .meta import RunMeta
+from lib31.python import cachedproperty
+from .module import Module
 from .task import Task
+from .var import Var
 
-class Run(metaclass=RunMeta):
+class Run(Module):
     
     #Public
     
+    #TODO: add list of vars
     def list(self):
-        "Print list of tasks"
-        task_names = []
+        "Print list of tasks/vars"
+        print('#Tasks')               
+        print('\n'.join(sorted(self._tasks)))
+        print('#Vars')                       
+        print('\n'.join(sorted(self._vars)))
+    
+    def help(self, name):
+        "Print task/var help"        
+        attr = self._tasks.get(name, None) or self._vars.get(name, None)
+        if attr:
+            print(attr.help())
+        else:
+            print('No name "{0}"'.format(name))
+
+                
+    default = list
+    
+    #Protected
+    
+    @cachedproperty
+    def _tasks(self):
+        tasks = {}
         for cls in self.__class__.mro():
             for name, attr in cls.__dict__.items():
                 if isinstance(attr, Task):
-                    task_names.append(name)
-        print('\n'.join(sorted(task_names)))
+                    tasks[name] = attr
+        return tasks
     
-    def help(self, task_name):
-        "Print task's help"        
-        if not task_name.startswith('_'):
-            attr = getattr(self, task_name)
-            if inspect.ismethod(attr):
-                signature = inspect.signature(attr)
-                docstring = inspect.getdoc(attr)                    
-                lines = []
-                lines.append(task_name+str(signature))
-                if docstring:
-                    lines.append(str(docstring))
-                print('\n'.join(lines))
-                
-    default = list     
+    @cachedproperty
+    def _vars(self):
+        vars = {}
+        for cls in self.__class__.mro():
+            for name, attr in cls.__dict__.items():
+                if isinstance(attr, Var):
+                    vars[name] = attr
+        return vars               
