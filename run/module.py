@@ -26,8 +26,8 @@ class Module(Field, metaclass=ModuleMeta):
                 print(prop.help())
         else:
             print('#Modules')               
-            print('\n'.join(sorted(self._run_modules))) 
+            print('\n'.join(sorted(self._manager.modules))) 
             print('#Tasks')               
-            print('\n'.join(sorted(self._run_tasks)))
+            print('\n'.join(sorted(self._manager.tasks)))
             print('#Vars')                       
-            print('\n'.join(sorted(self._run_vars)))
+            print('\n'.join(sorted(self._manager.vars)))

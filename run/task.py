@@ -6,7 +6,7 @@ class Task(Field):
     #Public
         
     def __call__(self, *args, **kwargs):
-        self._field_resolve()
+        self._manager.resolve()
         return self.complete(*args, **kwargs)
     
     def complete(self, *args, **kwargs):
@@ -24,7 +24,7 @@ class MethodTask(Task):
         return self._method.__doc__
 
     def complete(self, *args, **kwargs):
-        return self._method(self._run_object, *args, **kwargs)
+        return self._method(self._manager.run, *args, **kwargs)
     
     def help(self):
         name = self._method.__name__

@@ -7,7 +7,7 @@ class Var(Field, metaclass=ABCMeta):
 
     def __get__(self, owner, owner_class=None):
         super().__get__(owner, owner_class)
-        self._field_resolve()        
+        self._manager.resolve()        
         return self.retrieve()
  
     @abstractmethod
