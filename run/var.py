@@ -1,8 +1,9 @@
 import os
 import re
 from abc import ABCMeta, abstractmethod
+from .property import Property
 
-class Var(metaclass=ABCMeta):
+class Var(Property, metaclass=ABCMeta):
     
     #Public
 
@@ -17,12 +18,8 @@ class Var(metaclass=ABCMeta):
         pass #pragma: no cover
     
     def reset(self):
-        del self._value   
+        del self._value
 
-    #TODO: implement
-    def help(self):
-        pass
-        
 
 class ParsedVar(Var):
     

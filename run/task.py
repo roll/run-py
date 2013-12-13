@@ -1,12 +1,11 @@
 import os
+from abc import ABCMeta, abstractmethod
 from jinja2 import Environment, FileSystemLoader
+from .property import Property
 
-class Task:
+class Task(Property, metaclass=ABCMeta):
     
     #Public
-    
-    def __init__(self, *args, **kwargs):
-        self._require = kwargs.get('require', [])
 
     def __get__(self, run, runclass=None):
         self._run = run
@@ -17,11 +16,11 @@ class Task:
             task = getattr(self._run, task_name)
             task()
         self.complete(*args, **kwargs)
-
-    #TODO: implement
-    def help(self):
-        pass    
-
+    
+    @abstractmethod
+    def complete(self, *args, **kwargs):
+        pass #pragma: no cover
+    
 
 class MethodTask(Task):
 

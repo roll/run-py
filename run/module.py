@@ -14,9 +14,13 @@ class ModuleMeta(ABCMeta):
         return super().__new__(cls, name, bases, attrs)
 
 
-class Module(metaclass=ModuleMeta):
+class Module(Property, metaclass=ModuleMeta):
     
     #Public
+    
+    def __get__(self, run, runclass=None):
+        self._run = run
+        return self
     
     #TODO: add list of vars
     def list(self):
