@@ -1,8 +1,7 @@
 import types
 from abc import ABCMeta
 from .field import Field
-from .task import Task, MethodTask
-from .var import Var
+from .task import MethodTask
 
 class ModuleMeta(ABCMeta):
    
@@ -20,42 +19,15 @@ class Module(Field, metaclass=ModuleMeta):
     #Public
     
     def help(self, name=None):
-        "Print property help"
+        "Print field help"
         if name:
             prop = self._get_properties.get(name, None)
             if prop:
                 print(prop.help())
         else:
-            modules = [name for name, prop in self._properties.items() 
-                       if isinstance(prop, Module)]
-            tasks = [name for name, prop in self._properties.items()
-                     if isinstance(prop, Task)]
-            vars = [name for name, prop in self._properties.items()
-                    if isinstance(prop, Var)]       
-            if modules:
-                print('#Modules')               
-                print('\n'.join(sorted(modules))) 
-            if tasks:
-                print('#Tasks')               
-                print('\n'.join(sorted(tasks)))
-            if vars:
-                print('#Vars')                       
-                print('\n'.join(sorted(vars)))
-            
-    #Protected
-    
-    @property
-    def _properties(self):
-        properties = {}
-        for cls in self.__class__.mro():
-            for name, attr in cls.__dict__.items():
-                if isinstance(attr, Field):
-                    properties[name] = attr
-        return properties
-             
-    @property
-    def _run(self):
-        try:
-            return self._owner
-        except AttributeError:
-            return self
+            print('#Modules')               
+            print('\n'.join(sorted(self._run_modules))) 
+            print('#Tasks')               
+            print('\n'.join(sorted(self._run_tasks)))
+            print('#Vars')                       
+            print('\n'.join(sorted(self._run_vars)))
