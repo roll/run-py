@@ -14,6 +14,6 @@ class RenderTask(Task):
         environment = Environment(loader=FileSystemLoader(dirname))
         template = environment.get_template(filename)
         #TODO: fix run-module
-        text = template.render({'run': self['module']})
+        text = template.render({'run': self.namespace})
         with open(self._target, 'w') as file:
             file.write(text)

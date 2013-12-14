@@ -1,7 +1,7 @@
 import inspect
-from .field import DependentField
+from .attribute import DependentAttributeMixin
 
-class Task(DependentField):
+class Task(DependentAttributeMixin):
     
     #Public
         
@@ -24,7 +24,7 @@ class MethodTask(Task):
         return self._method.__doc__
 
     def complete(self, *args, **kwargs):
-        return self._method(self['module'], *args, **kwargs)
+        return self._method(self.namespace, *args, **kwargs)
     
     def help(self):
         name = self._method.__name__

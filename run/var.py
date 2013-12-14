@@ -1,7 +1,8 @@
 from abc import ABCMeta, abstractmethod
-from .field import DependentField
+from .attribute import DependentAttributeMixin
 
-class Var(DependentField, metaclass=ABCMeta):
+class Var(DependentAttributeMixin,
+          metaclass=ABCMeta):
     
     #Public
 

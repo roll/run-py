@@ -1,29 +1,10 @@
-import types
-from abc import ABCMeta
-from .field import Field
-from .task import MethodTask
+from .namespace import NamespaceMixin
+from .attribute import AttributeMixin
 
-class ModuleMeta(ABCMeta):
-   
-    #Public
-   
-    def __new__(cls, name, bases, attrs):
-        for name, value in attrs.items():
-            if not name.startswith('_'):
-                #TODO: add other wrappings
-                if isinstance(value, types.FunctionType):
-                    attrs[name] = MethodTask(value)
-        return super().__new__(cls, name, bases, attrs)
-
-
-class Module(Field, metaclass=ModuleMeta):
+class Module(NamespaceMixin,
+             AttributeMixin):
     
     #Public
-    
-    def __get__(self, module, module_class=None):
-        super().__get__(module, module_class)
-        self['resolve']()       
-        return self  
     
     def help(self, name=None):
         "Print field help"
@@ -33,15 +14,17 @@ class Module(Field, metaclass=ModuleMeta):
                 print(prop.help())
         else:
             print('#Modules')               
-            print('\n'.join(sorted(self['module_modules']))) 
+            print('\n'.join(sorted(self['modules']))) 
             print('#Tasks')               
-            print('\n'.join(sorted(self['module_tasks'])))
+            print('\n'.join(sorted(self['tasks'])))
             print('#Vars')                       
-            print('\n'.join(sorted(self['module_vars'])))
+            print('\n'.join(sorted(self['vars'])))
             
             
 class RunModule(Module):
     
     #Public
     
-    pass            
+    pass        
+
+

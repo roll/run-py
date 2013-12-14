@@ -1,7 +1,8 @@
+from .attribute import AttributeMixin, DependentAttributeMixin
 from .command import Command
 from .require import require
-from .field import Field
-from .module import Module, ModuleMeta
+from .module import Module
+from .namespace import NamespaceMeta, NamespaceMixin
 from .program import Program, program
 from .run import Run
 from .settings import settings
