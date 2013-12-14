@@ -11,13 +11,18 @@ class AttributeMixin:
             self.__namespace = namespace
         if self.__namespace != namespace:
             raise RuntimeError(
-                'Element "{0}" is already bound to namespace "{1}"'.
+                'Attribute "{0}" is already attached to namespace "{1}"'.
                 format(self, self.__namespace))
         return self
 
     @property
     def namespace(self):
-        return self.__namespace
+        if self.__namespace:
+            return self.__namespace
+        else:
+            raise RuntimeError(
+                'Attribute "{0}" is not attached to any namespace'.
+                format(self))
     
     
 class DependentAttributeMixin(AttributeMixin):
