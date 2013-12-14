@@ -5,7 +5,7 @@ setup(
 
 	#Main
 
-    name='',
+    name='None',
 	version='',
 	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	include_package_data=True,
@@ -22,8 +22,8 @@ setup(
     maintainer='',
     maintainer_email='',
     license='',    
-    url='https://github.com//',
-    download_url='https://github.com///tarball/',    
+    url='https://github.com//none',
+    download_url='https://github.com//none/tarball/',    
     classifiers=,    
     description='',    
     long_description='''''',

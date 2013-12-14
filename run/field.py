@@ -1,86 +1,93 @@
 import inspect
 import importlib
-from lib31.python import cachedproperty
 
 class Field:
     
     #Public
     
     def __init__(self, *args, **kwargs):
-        self.__params = kwargs
-        self.__module = None
+        self.__data_shaddow = kwargs
+        self.__module_shaddow = None
     
     def __get__(self, module, module_class=None):
-        if not self.__module:
-            self.__module = module
-        if self._binding.module != module:
+        if not self.__module_shaddow:
+            self.__module_shaddow = module
+        if self.__module != module:
             raise RuntimeError(
                 'Field "{0}" is already bound to module "{1}"'.
-                format(self, self._binding.module))
+                format(self, self.__module))
         return self
+
+    def __getitem__(self, key):
+        try:
+            return getattr(self, '_Field__'+key)
+        except AttributeError:
+            raise KeyError(key)
     
     def help(self):
         pass
     
-    #Protected
-
-    @cachedproperty
-    def _binding(self):
-        if self.__module:
-            package = inspect.getmodule(self).__package__
-            module = importlib.import_module('.binding', package)
-            return module.Binding(self, self.__params, self.__module)
-        else:
-            raise RuntimeError(
-                'Field "{0}" is not bound to any module'.format(self))
+    #Private
     
     #TODO: implement
     @property    
-    def field_name(self):
+    def __name(self):
         pass
     
-    @property    
-    def field_params(self):
-        return self._field_params
-    
     @property 
-    def field_require(self):
-        return self.field_params.get('require', [])
+    def __data(self):
+        return self.__data_shaddow
     
-    @property 
-    def field_help(self):
-        return self.field_params.get('help', None)
-            
     @property    
-    def module(self):
-        return self._module
+    def __module(self):
+        if self.__module_shaddow:
+            return self.__module_shaddow
+        else:
+            raise RuntimeError(
+                'Field "{0}" is not bound to any module'.format(self))    
         
     @property
-    def module_fields(self):
+    def __module_fields(self):
         fields = {}
-        for cls in self.module.__class__.mro():
+        for cls in self.__module.__class__.mro():
             for name, attr in cls.__dict__.items():
                 if isinstance(attr, Field):
                     fields[name] = attr
         return fields
     
     @property
-    def module_modules(self):
+    def __module_modules(self):
+        Module = self.__import('module', 'Module')
         return [name for name, prop 
-                in self.fields.items() 
+                in self.__module_fields.items() 
                 if isinstance(prop, Module)]
     @property
-    def module_tasks(self):
+    def __module_tasks(self):
+        Task = self.__import('task', 'Task')
         return [name for name, prop 
-                in self.fields.items() 
+                in self.__module_fields.items() 
                 if isinstance(prop, Task)]
     @property
     def __module_vars(self):
+        Var = self.__import('var', 'Var')
         return [name for name, prop 
-                in self.fields.items() 
+                in self.__module_fields.items() 
                 if isinstance(prop, Var)]
+            
+    def __import(self, module_name, attr_name):
+        package_name = inspect.getmodule(Field).__package__
+        module = importlib.import_module('.'+module_name, package_name)
+        attr = getattr(module, attr_name)
+        return attr   
     
-    def __resolve(self):
-        for task_name in self.field_require:
-            task = getattr(self.module, task_name)
-            task()                            
+
+class DependentField(Field):  
+    
+    def __init__(self, *args, **kwargs):
+        self._require = kwargs.pop('require', [])
+        super().__init__(*args, **kwargs)
+        
+    def resolve(self):
+        for task_name in self._require:
+            task = getattr(self['module'], task_name)
+            task()

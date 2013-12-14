@@ -1,13 +1,13 @@
 from abc import ABCMeta, abstractmethod
-from .field import Field
+from .field import DependentField
 
-class Var(Field, metaclass=ABCMeta):
+class Var(DependentField, metaclass=ABCMeta):
     
     #Public
 
     def __get__(self, module, module_class=None):
         super().__get__(module, module_class)
-        self._binding.resolve()        
+        self.resolve()     
         return self.retrieve()
  
     @abstractmethod

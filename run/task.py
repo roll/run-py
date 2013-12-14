@@ -1,12 +1,12 @@
 import inspect
-from .field import Field
+from .field import DependentField
 
-class Task(Field):
+class Task(DependentField):
     
     #Public
         
     def __call__(self, *args, **kwargs):
-        self._binding.resolve()
+        self.resolve()
         return self.complete(*args, **kwargs)
     
     def complete(self, *args, **kwargs):
@@ -24,7 +24,7 @@ class MethodTask(Task):
         return self._method.__doc__
 
     def complete(self, *args, **kwargs):
-        return self._method(self._binding.module, *args, **kwargs)
+        return self._method(self['module'], *args, **kwargs)
     
     def help(self):
         name = self._method.__name__

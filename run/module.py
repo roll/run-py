@@ -22,22 +22,22 @@ class Module(Field, metaclass=ModuleMeta):
     
     def __get__(self, module, module_class=None):
         super().__get__(module, module_class)
-        self._binding.resolve()        
+        self['resolve']()       
         return self  
     
     def help(self, name=None):
         "Print field help"
         if name:
-            prop = self._biding.fields.get(name, None)
+            prop = self['module_fields'].get(name, None)
             if prop:
                 print(prop.help())
         else:
             print('#Modules')               
-            print('\n'.join(sorted(self._binding.modules))) 
+            print('\n'.join(sorted(self['module_modules']))) 
             print('#Tasks')               
-            print('\n'.join(sorted(self._binding.tasks)))
+            print('\n'.join(sorted(self['module_tasks'])))
             print('#Vars')                       
-            print('\n'.join(sorted(self._binding.vars)))
+            print('\n'.join(sorted(self['module_vars'])))
             
             
 class RunModule(Module):
