@@ -4,21 +4,36 @@ from .module import Module
 from .task import Task
 from .var import Var
 
-class Manager:
+class Binding:
     
     #Public
     
     def __init__(self, field, owner, params):
-        self.field = field
-        self.owner = owner
-        self.require = params.get('require', [])
-        self.help = params.get('help', None)
+        self._field = field
+        self._owner = owner
+        self._params = params
+    
+    @property    
+    def field(self):
+        return self._field
+    
+    @property    
+    def owner(self):
+        return self._owner   
+     
+    @property 
+    def require(self):
+        return self._field_params.get('require', [])
+    
+    @property 
+    def help(self):
+        return self._field_params.get('help', None)    
     
     def resolve(self):
         for task_name in self.require:
             task = getattr(self.run, task_name)
             task()
-            
+                  
     @property
     def run(self):
         run = self.owner
