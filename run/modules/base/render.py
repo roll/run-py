@@ -1,28 +1,52 @@
 import os
-from jinja2 import Environment, FileSystemLoader
+import sys
+from jinja2 import Environment, FileSystemLoader, Template
+from jinja2.utils import concat
 from ...task import Task
 
 class RenderTask(Task):
     
     def __init__(self, source, target, **kwargs):
-        super().__init__(**kwargs)
         self._source = source
         self._target = target
+        super().__init__(**kwargs)
         
     def complete(self):
         dirname, filename = os.path.split(os.path.abspath(self._source))
         environment = Environment(loader=FileSystemLoader(dirname))
-        template = environment.get_template(filename)
-        #TODO: fix run-module
-        text = template.render(NamespaceDict(self.namespace))
+        if True:
+            environment.template_class = NamespaceTemplate
+            template = environment.get_template(filename)
+            text = template.render(NamespaceContext(self.namespace))
+        else:
+            template = environment.get_template('setup2.tpl')
+            text = template.render({'namespace': self.namespace})
         with open(self._target, 'w') as file:
             file.write(text)
             
 
-class NamespaceDict(dict):
+class NamespaceTemplate(Template):
+    
+    #Public
+    
+    def render(self, namespace_context):
+        try:
+            context = self.new_context(namespace_context, shared=True)
+            return concat(self.root_render_func(context))
+        except Exception:
+            exc_info = sys.exc_info()
+        return self.environment.handle_exception(exc_info, True)
+        
+        
+class NamespaceContext:
+    
+    #Public
     
     def __init__(self, namespace):
         self._namespace = namespace
+        
+    def __contains__(self, key):
+        return key in self._namespace.attributes 
         
     def __getitem__(self, key):
         try:

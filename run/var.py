@@ -19,18 +19,18 @@ class Var(DependentAttributeMixin,
 class PlainVar(Var):
     
     def __init__(self, value, **kwargs):
-        super().__init__(**kwargs)
         self._value = value
+        super().__init__(**kwargs)
  
     def retrieve(self):
         return self._value
     
 
-class DescriptorVar(Var):
+class PropertyVar(Var):
     
-    def __init__(self, descriptor, **kwargs):
+    def __init__(self, property, **kwargs):
+        self._property = property
         super().__init__(**kwargs)
-        self._descriptor = descriptor
  
     def retrieve(self):
-        return self._descriptor(self._run, self._run.__class__)  
+        return self._property(self._run, self._run.__class__)  

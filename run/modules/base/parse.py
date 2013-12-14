@@ -11,7 +11,8 @@ class ParseVar(Var):
                  text_pattern_flags=0,
                  processors=[], 
                  fallback=None,
-                 base_dir='.'):
+                 base_dir='.',
+                 **kwargs):
         self.file_pattern = file_pattern
         self.text_pattern = text_pattern
         self.file_pattern_flags = file_pattern_flags
@@ -19,6 +20,7 @@ class ParseVar(Var):
         self.processors = processors
         self.fallback = fallback
         self.base_dir = base_dir
+        super().__init__(**kwargs)
     
     def retrieve(self):
         try:
