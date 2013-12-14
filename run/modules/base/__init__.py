@@ -1,2 +1,2 @@
-from .parse import ParsedVar
+from .parse import ParseVar
 from .render import RenderTask

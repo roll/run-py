@@ -1,13 +1,13 @@
 import os
 import unittest
-from run.modules.base import ParsedVar
+from run.modules.base import ParseVar
 
-class ParsedVarTest(unittest.TestCase):
+class ParseVarTest(unittest.TestCase):
     
     #Public
     
     def setUp(self):
-        self.var = ParsedVar('test_vars.py', 'import (.*test)\n', 
+        self.var = ParseVar('test_parse.py', 'import (.*test)\n', 
                              base_dir=os.path.dirname(__file__))
     
     def test_get(self):

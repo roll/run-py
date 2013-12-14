@@ -2,7 +2,7 @@ import os
 import re
 from ...var import Var
 
-class ParsedVar(Var):
+class ParseVar(Var):
     
     #Public
     

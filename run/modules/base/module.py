@@ -1,5 +1,5 @@
 from ...module import Module
-from .parse import ParsedVar
+from .parse import ParseVar
 from .render import RenderTask
 
 class BaseModule(Module):
@@ -7,4 +7,4 @@ class BaseModule(Module):
     #Public
 
     RenderTask = RenderTask
-    ParsedVar = ParsedVar
+    ParseVar = ParseVar
