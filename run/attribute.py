@@ -15,11 +15,6 @@ class AttributeMixin:
                 format(self, self.__namespace))
         return self
 
-    #TODO: implement
-    @property
-    def name(self):
-        pass
-
     @property
     def namespace(self):
         if self.__namespace:
