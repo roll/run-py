@@ -7,18 +7,13 @@ class Module(NamespaceMixin,
     #Public
     
     def help(self, name=None):
-        "Print field help"
+        "Print help"
         if name:
-            prop = self['module_fields'].get(name, None)
+            prop = self.attributes.get(name, None)
             if prop:
                 print(prop.help())
         else:
-            print('#Modules')               
-            print('\n'.join(sorted(self['modules']))) 
-            print('#Tasks')               
-            print('\n'.join(sorted(self['tasks'])))
-            print('#Vars')                       
-            print('\n'.join(sorted(self['vars'])))
+            print('\n'.join(sorted(self.attributes))) 
             
             
 class RunModule(Module):

@@ -22,41 +22,22 @@ class NamespaceMixin(metaclass=NamespaceMeta):
     
     #Public
 
-    def __getitem__(self, key):
-        try:
-            return getattr(self, '_NamespaceMixin__'+key)
-        except AttributeError:
-            raise KeyError(key)
+#     def __getitem__(self, key):
+#         try:
+#             return getattr(self, '_NamespaceMixin__'+key)
+#         except AttributeError:
+#             raise KeyError(key)
         
     #Private   
         
     @property
-    def __attributes(self):
+    def attributes(self):
         attributes = {}
         for cls in self.__class__.mro():
             for name, attr in cls.__dict__.items():
                 if isinstance(attr, AttributeMixin):
                     attributes[name] = attr
         return attributes
-    
-    @property
-    def __modules(self):
-        Module = _import('module', 'Module') 
-        return [name for name, prop 
-                in self.__attributes.items() 
-                if isinstance(prop, Module)]
-    @property
-    def __tasks(self):
-        Task = _import('task', 'Task')
-        return [name for name, prop 
-                in self.__attributes.items() 
-                if isinstance(prop, Task)]
-    @property
-    def __vars(self):
-        Var = _import('var', 'Var')
-        return [name for name, prop 
-                in self.__attributes.items() 
-                if isinstance(prop, Var)]
 
         
 def _import(module_name, attr_name):
