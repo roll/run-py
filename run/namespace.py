@@ -4,8 +4,6 @@ import importlib
 from abc import ABCMeta
 from .attribute import AttributeMixin
 
-#Public
-
 class NamespaceMeta(ABCMeta):
    
     #Public
@@ -60,8 +58,6 @@ class NamespaceMixin(metaclass=NamespaceMeta):
                 in self.__attributes.items() 
                 if isinstance(prop, Var)]
 
-
-#Protected
         
 def _import(module_name, attr_name):
     package_name = inspect.getmodule(NamespaceMixin).__package__
