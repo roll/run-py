@@ -5,6 +5,8 @@ from .task import MethodTask
 
 class ModuleMeta(ABCMeta):
    
+    #Public
+   
     def __new__(cls, name, bases, attrs):
         for name, value in attrs.items():
             if not name.startswith('_'):
@@ -18,16 +20,21 @@ class Module(Field, metaclass=ModuleMeta):
     
     #Public
     
+    def __get__(self, module, module_class=None):
+        super().__get__(module, module_class)
+        self._binding.resolve()        
+        return self  
+    
     def help(self, name=None):
         "Print field help"
         if name:
-            prop = self._get_properties.get(name, None)
+            prop = self._biding.fields.get(name, None)
             if prop:
                 print(prop.help())
         else:
             print('#Modules')               
-            print('\n'.join(sorted(self._manager.modules))) 
+            print('\n'.join(sorted(self._biding.modules))) 
             print('#Tasks')               
-            print('\n'.join(sorted(self._manager.tasks)))
+            print('\n'.join(sorted(self._biding.tasks)))
             print('#Vars')                       
-            print('\n'.join(sorted(self._manager.vars)))
+            print('\n'.join(sorted(self._biding.vars)))

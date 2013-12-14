@@ -5,9 +5,9 @@ class Var(Field, metaclass=ABCMeta):
     
     #Public
 
-    def __get__(self, owner, owner_class=None):
-        super().__get__(owner, owner_class)
-        self._manager.resolve()        
+    def __get__(self, module, module_class=None):
+        super().__get__(module, module_class)
+        self._binding.resolve()        
         return self.retrieve()
  
     @abstractmethod

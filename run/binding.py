@@ -8,10 +8,10 @@ class Binding:
     
     #Public
     
-    def __init__(self, field, module, params):
+    def __init__(self, field, field_params, module):
         self._field = field
+        self._field_params = field_params
         self._module = module
-        self._params = params
     
     @property    
     def field(self):
@@ -22,6 +22,18 @@ class Binding:
     def field_name(self):
         pass
     
+    @property    
+    def field_params(self):
+        return self._field_params
+    
+    @property 
+    def field_require(self):
+        return self.field_params.get('require', [])
+    
+    @property 
+    def field_help(self):
+        return self.field_params.get('help', None)
+            
     @property    
     def module(self):
         return self._module
@@ -56,15 +68,7 @@ class Binding:
                 in self.fields.items() 
                 if isinstance(prop, Var)]
     
-    @property 
-    def require(self):
-        return self._params.get('require', [])
-    
-    @property 
-    def help(self):
-        return self._params.get('help', None)
-    
     def resolve(self):
-        for task_name in self.require:
+        for task_name in self.filed_require:
             task = getattr(self.module, task_name)
-            task()                                         
+            task()                                   

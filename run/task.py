@@ -6,7 +6,7 @@ class Task(Field):
     #Public
         
     def __call__(self, *args, **kwargs):
-        self._manager.resolve()
+        self._binding.resolve()
         return self.complete(*args, **kwargs)
     
     def complete(self, *args, **kwargs):
