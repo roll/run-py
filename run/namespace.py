@@ -2,6 +2,7 @@ import types
 import inspect
 import importlib
 from abc import ABCMeta
+from lib31.python import cachedproperty
 from .attribute import AttributeMixin
 
 class NamespaceMeta(ABCMeta):
@@ -22,7 +23,7 @@ class NamespaceMixin(metaclass=NamespaceMeta):
     
     #Public
 
-    @property
+    @cachedproperty
     def attributes(self):
         return NamespaceAttributes(self)
 

@@ -1,3 +1,5 @@
+from lib31.python import cachedproperty
+
 class AttributeMixin:
     
     #Public
@@ -15,7 +17,7 @@ class AttributeMixin:
                 format(self, self.__namespace))
         return self
 
-    @property
+    @cachedproperty
     def namespace(self):
         if self.__namespace:
             return self.__namespace
