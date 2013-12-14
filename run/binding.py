@@ -8,9 +8,9 @@ class Binding:
     
     #Public
     
-    def __init__(self, field, owner, params):
+    def __init__(self, field, module, params):
         self._field = field
-        self._owner = owner
+        self._module = module
         self._params = params
     
     @property    
@@ -18,21 +18,20 @@ class Binding:
         return self._field
     
     @property    
-    def owner(self):
-        return self._owner   
-     
+    def module(self):
+        return self._module   
+    
+    @property    
+    def params(self):
+        return self._params   
+    
     @property 
     def require(self):
-        return self._field_params.get('require', [])
+        return self.params.get('require', [])
     
     @property 
     def help(self):
-        return self._field_params.get('help', None)    
-    
-    def resolve(self):
-        for task_name in self.require:
-            task = getattr(self.run, task_name)
-            task()
+        return self.params.get('help', None)    
                   
     @property
     def run(self):
@@ -65,4 +64,9 @@ class Binding:
     def vars(self):
         return [name for name, prop 
                 in self.fields.items() 
-                if isinstance(prop, Var)]                                       
+                if isinstance(prop, Var)]
+    
+    def resolve(self):
+        for task_name in self.require:
+            task = getattr(self.run, task_name)
+            task()                                         
