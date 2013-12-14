@@ -9,7 +9,7 @@ class AttributeMixin:
     def __get__(self, namespace, namespace_class=None):
         if not self.__namespace:
             self.__namespace = namespace
-        if self.__namespace != namespace:
+        if self.namespace != namespace:
             raise RuntimeError(
                 'Attribute "{0}" is already attached to namespace "{1}"'.
                 format(self, self.__namespace))
