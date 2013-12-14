@@ -14,13 +14,9 @@ class RenderTask(Task):
     def complete(self):
         dirname, filename = os.path.split(os.path.abspath(self._source))
         environment = Environment(loader=FileSystemLoader(dirname))
-        if True:
-            environment.template_class = NamespaceTemplate
-            template = environment.get_template(filename)
-            text = template.render(NamespaceContext(self.namespace))
-        else:
-            template = environment.get_template('setup2.tpl')
-            text = template.render({'namespace': self.namespace})
+        environment.template_class = NamespaceTemplate
+        template = environment.get_template(filename)
+        text = template.render(NamespaceContext(self.namespace))
         with open(self._target, 'w') as file:
             file.write(text)
             
