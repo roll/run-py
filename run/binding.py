@@ -37,11 +37,6 @@ class Binding:
     @property    
     def module(self):
         return self._module
-            
-    #TODO: implement
-    @property
-    def module_run(self):
-        pass
         
     @property
     def module_fields(self):
@@ -69,6 +64,6 @@ class Binding:
                 if isinstance(prop, Var)]
     
     def resolve(self):
-        for task_name in self.filed_require:
+        for task_name in self.field_require:
             task = getattr(self.module, task_name)
             task()                                   

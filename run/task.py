@@ -24,7 +24,7 @@ class MethodTask(Task):
         return self._method.__doc__
 
     def complete(self, *args, **kwargs):
-        return self._method(self._manager.run, *args, **kwargs)
+        return self._method(self._binding.module, *args, **kwargs)
     
     def help(self):
         name = self._method.__name__

@@ -33,11 +33,11 @@ class Module(Field, metaclass=ModuleMeta):
                 print(prop.help())
         else:
             print('#Modules')               
-            print('\n'.join(sorted(self._biding.modules))) 
+            print('\n'.join(sorted(self._binding.modules))) 
             print('#Tasks')               
-            print('\n'.join(sorted(self._biding.tasks)))
+            print('\n'.join(sorted(self._binding.tasks)))
             print('#Vars')                       
-            print('\n'.join(sorted(self._biding.vars)))
+            print('\n'.join(sorted(self._binding.vars)))
             
             
 class RunModule(Module):
