@@ -30,13 +30,31 @@ class NamespaceMixin(metaclass=NamespaceMeta):
         
     @property
     def attributes(self):
-        attributes = {}
-        for cls in self.__class__.mro():
+        return NamespaceAttributes(self)
+
+
+class NamespaceAttributes(dict):
+    
+    #Public
+    
+    def __init__(self, namespace):
+        for cls in namespace.__class__.mro():
             for name, attr in cls.__dict__.items():
                 if isinstance(attr, AttributeMixin):
-                    attributes[name] = attr
-        return attributes
-
+                    self[name] = attr
+    
+    def find(self, attribute):
+        for name, value in self.items():
+            if attribute == value:
+                return name
+        else:
+            raise ValueError('Attribute "{0}" is not found'.
+                             format(attribute))
+        
+    def filter(self, attribute_class):
+        return {name: value for name, value in self.items() 
+                if isinstance(value, attribute_class)}
+    
         
 def _import(module_name, attr_name):
     package_name = inspect.getmodule(NamespaceMixin).__package__
