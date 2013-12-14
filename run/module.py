@@ -38,3 +38,10 @@ class Module(Field, metaclass=ModuleMeta):
             print('\n'.join(sorted(self._biding.tasks)))
             print('#Vars')                       
             print('\n'.join(sorted(self._biding.vars)))
+            
+            
+class RunModule(Module):
+    
+    #Public
+    
+    pass            
