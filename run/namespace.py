@@ -28,8 +28,6 @@ class NamespaceMixin(metaclass=NamespaceMeta):
 #         except AttributeError:
 #             raise KeyError(key)
         
-    #Private   
-        
     @property
     def attributes(self):
         attributes = {}
