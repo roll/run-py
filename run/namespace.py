@@ -13,6 +13,7 @@ class NamespaceMeta(ABCMeta):
         for name, value in attrs.items():
             if not name.startswith('_'):
                 #TODO: add other wrappings
+                print(value)
                 if isinstance(value, types.FunctionType):
                     MethodTask = _import('task', 'MethodTask')
                     attrs[name] = MethodTask(value)

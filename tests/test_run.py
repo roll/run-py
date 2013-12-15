@@ -32,3 +32,5 @@ class MockRun(Run):
     
     task = MockTask()
     var = MockVar()
+    
+    plain_var = 1

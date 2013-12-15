@@ -16,6 +16,9 @@ class AttributeMixin:
                 'Attribute "{0}" is already attached to namespace "{1}"'.
                 format(self, self.__namespace))
         return self
+    
+    def __set__(self, namespace, value):
+        raise RuntimeError('Can\'t set attribute')
 
     @cachedproperty
     def namespace(self):
