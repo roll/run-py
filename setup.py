@@ -25,10 +25,10 @@ setup(
     url='https://github.com/respect31/run',
     download_url='https://github.com/respect31/run/tarball/0.8.0',    
     classifiers=['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
-    description='Run is program to collect data and run tasks.',    
+    description='Run is program to run tasks in rake-way.',    
     long_description='''Run
 ===
-Run is program to collect data and run tasks.
+Run is program to run tasks in rake-way.
 
 Requirements
 ------------
