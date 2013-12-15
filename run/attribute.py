@@ -4,12 +4,10 @@ class AttributeMixin:
     
     #Public
     
-    def __init__(self, *args, **kwargs):
-        self.__namespace = None
-        super().__init__(*args, **kwargs)
-    
     def __get__(self, namespace, namespace_class=None):
-        if not self.__namespace:
+        try: 
+            self.__namespace
+        except AttributeError:
             self.__namespace = namespace
         if self.namespace != namespace:
             raise RuntimeError(
@@ -22,9 +20,9 @@ class AttributeMixin:
 
     @cachedproperty
     def namespace(self):
-        if self.__namespace:
+        try:
             return self.__namespace
-        else:
+        except AttributeError:
             raise RuntimeError(
                 'Attribute "{0}" is not attached to any namespace'.
                 format(self))
