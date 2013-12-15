@@ -1,6 +1,7 @@
 from .module import Module
 from .task import Task
 
+#TODO: remove module inheritance?
 class Run(Module):
     
     #Public

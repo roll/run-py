@@ -26,7 +26,6 @@ class Program(Program):
     def _command(self):
         return Command(self.argv)
     
-    #TODO: replace not working isabstract check!
     @cachedproperty   
     def _run(self):
         dirname, filename = os.path.split(os.path.abspath(self._command.file))
