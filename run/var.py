@@ -16,7 +16,7 @@ class Var(DependentAttributeMixin,
         pass #pragma: no cover
     
         
-class PlainVar(Var):
+class ValueVar(Var):
     
     def __init__(self, value, **kwargs):
         self._value = value
@@ -28,9 +28,9 @@ class PlainVar(Var):
 
 class PropertyVar(Var):
     
-    def __init__(self, property, **kwargs):
-        self._property = property
+    def __init__(self, prop, **kwargs):
+        self._property = prop
         super().__init__(**kwargs)
  
     def retrieve(self):
-        return self._property(self._run, self._run.__class__)  
+        return self._property.__get__(self.namespace, self.namespace.__class__)  

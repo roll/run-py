@@ -33,4 +33,11 @@ class MockRun(Run):
     task = MockTask()
     var = MockVar()
     
-    plain_var = 1
+    value_var = 1
+    
+    @property
+    def property_var(self):
+        pass
+    
+    class class_var:
+        pass
