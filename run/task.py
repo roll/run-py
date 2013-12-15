@@ -6,12 +6,10 @@ class Task(DependentAttributeMixin):
     #Public
         
     def __call__(self, *args, **kwargs):
-        self._resolve()
-        return self._complete(*args, **kwargs)
+        self.resolve()
+        return self.complete(*args, **kwargs)
     
-    #Protected
-    
-    def _complete(self, *args, **kwargs):
+    def complete(self, *args, **kwargs):
         pass
     
 
@@ -27,6 +25,9 @@ class MethodTask(Task):
     def __doc__(self):
         return self._method.__doc__
     
+    def complete(self, *args, **kwargs):
+        return self._method(self.namespace, *args, **kwargs)
+    
     def help(self):
         name = self._method.__name__
         signature = inspect.signature(self._method)
@@ -36,8 +37,3 @@ class MethodTask(Task):
         if docstring:
             lines.append(str(docstring))
         print('\n'.join(lines))
-
-    #Protected
-
-    def _complete(self, *args, **kwargs):
-        return self._method(self._namespace, *args, **kwargs)          

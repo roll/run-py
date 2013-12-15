@@ -12,17 +12,15 @@ class Module(NamespaceMixin,
         #print(self._parser.format_help().strip())
         #sys.exit()
         if name:
-            prop = self._attributes.get(name, None)
+            prop = self.attributes.get(name, None)
             if prop:
                 print(prop.help())
         else:
-            print('\n'.join(sorted(self._attributes))) 
+            print('\n'.join(sorted(self.attributes))) 
             
             
 class RunModule(Module):
     
     #Public
     
-    pass        
-
-
+    pass

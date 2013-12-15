@@ -13,14 +13,12 @@ class RenderTask(Task):
         self._target = target
         super().__init__(**kwargs)
         
-    #Protected    
-        
-    def _complete(self):
+    def complete(self):
         dirname, filename = os.path.split(os.path.abspath(self._source))
         environment = Environment(loader=FileSystemLoader(dirname))
         environment.template_class = NamespaceTemplate
         template = environment.get_template(filename)
-        text = template.render(NamespaceContext(self._namespace))
+        text = template.render(NamespaceContext(self.namespace))
         with open(self._target, 'w') as file:
             file.write(text)
             
@@ -46,7 +44,7 @@ class NamespaceContext:
         self._namespace = namespace
         
     def __contains__(self, key):
-        return key in self._namespace._attributes 
+        return key in self._namespace.attributes 
         
     def __getitem__(self, key):
         try:

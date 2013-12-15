@@ -1,4 +1,3 @@
-import types
 import inspect
 import importlib
 from abc import ABCMeta
@@ -11,7 +10,8 @@ class NamespaceMeta(ABCMeta):
    
     def __new__(cls, name, bases, attrs):
         for name, attr in attrs.items():
-            if not name.startswith('_'):
+            if (not name.startswith('_') and
+                not name == 'attributes'):
                 if (not isinstance(attr, type) and
                     not isinstance(attr, AttributeMixin)):
                     if callable(attr):
@@ -37,10 +37,10 @@ class NamespaceMeta(ABCMeta):
 
 class NamespaceMixin(metaclass=NamespaceMeta):
     
-    #Protected
+    #Public
 
     @cachedproperty
-    def _attributes(self):
+    def attributes(self):
         return NamespaceAttributes(self)
 
 

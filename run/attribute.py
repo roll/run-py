@@ -9,7 +9,7 @@ class AttributeMixin:
             self.__namespace
         except AttributeError:
             self.__namespace = namespace
-        if self._namespace != namespace:
+        if self.namespace != namespace:
             raise RuntimeError(
                 'Attribute "{0}" is already attached to namespace "{1}"'.
                 format(self, self.__namespace))
@@ -18,10 +18,8 @@ class AttributeMixin:
     def __set__(self, namespace, value):
         raise RuntimeError('Can\'t set attribute')
 
-    #Protected
-
     @cachedproperty
-    def _namespace(self):
+    def namespace(self):
         try:
             return self.__namespace
         except AttributeError:
@@ -38,9 +36,7 @@ class DependentAttributeMixin(AttributeMixin):
         self.__require = kwargs.pop('require', [])
         super().__init__(*args, **kwargs)
     
-    #Protected
-        
-    def _resolve(self):
+    def resolve(self):
         for task_name in self.__require:
-            task = getattr(self._namespace, task_name)
+            task = getattr(self.namespace, task_name)
             task()    

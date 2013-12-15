@@ -8,13 +8,13 @@ class Var(DependentAttributeMixin,
 
     def __get__(self, module, module_class=None):
         super().__get__(module, module_class)
-        self._resolve()     
-        return self._retrieve()
+        self.resolve()     
+        return self.retrieve()
  
     #Protected
  
     @abstractmethod
-    def _retrieve(self):
+    def retrieve(self):
         pass #pragma: no cover
     
         
@@ -28,7 +28,7 @@ class ValueVar(Var):
  
     #Protected
  
-    def _retrieve(self):
+    def retrieve(self):
         return self._value
     
 
@@ -42,5 +42,5 @@ class PropertyVar(Var):
  
     #Protected
  
-    def _retrieve(self):
+    def retrieve(self):
         return self._property.__get__(self._namespace, self._namespace.__class__)  
