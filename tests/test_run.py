@@ -41,6 +41,9 @@ class MockRun(Run):
     
     value_var = 1
     
+    def method_task(self):
+        pass
+    
     @property
     def property_var(self):
         pass

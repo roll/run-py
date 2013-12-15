@@ -14,7 +14,7 @@ class NamespaceMeta(ABCMeta):
             if not name.startswith('_'):
                 if (not isinstance(attr, type) and
                     not isinstance(attr, AttributeMixin)):
-                    if isinstance(attr, types.FunctionType):
+                    if callable(attr):
                         MethodTask = cls.__import('task', 'MethodTask')
                         attrs[name] = MethodTask(attr)
                     elif inspect.isdatadescriptor(attr):
@@ -22,7 +22,7 @@ class NamespaceMeta(ABCMeta):
                         attrs[name] = PropertyVar(attr)
                     else:
                         ValueVar = cls.__import('var', 'ValueVar')
-                        attrs[name] = ValueVar(attr) 
+                        attrs[name] = ValueVar(attr)
         return super().__new__(cls, name, bases, attrs)
     
     #Private
