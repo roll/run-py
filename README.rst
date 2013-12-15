@@ -1,6 +1,6 @@
 Run
 ===
-Run is program to run tasks in rake-way.
+Run is program to run tasks from files.
 
 Requirements
 ------------
