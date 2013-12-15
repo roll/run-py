@@ -9,11 +9,11 @@ class Module(NamespaceMixin,
     def help(self, name=None):
         "Print help"
         if name:
-            prop = self.attributes.get(name, None)
+            prop = self._attributes.get(name, None)
             if prop:
                 print(prop.help())
         else:
-            print('\n'.join(sorted(self.attributes))) 
+            print('\n'.join(sorted(self._attributes))) 
             
             
 class RunModule(Module):

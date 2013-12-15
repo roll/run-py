@@ -11,8 +11,7 @@ class NamespaceMeta(ABCMeta):
    
     def __new__(cls, name, bases, attrs):
         for name, attr in attrs.items():
-            if (not name.startswith('_') and
-                not name == 'attributes'):
+            if not name.startswith('_'):
                 if (not isinstance(attr, type) and
                     not isinstance(attr, AttributeMixin)):
                     if isinstance(attr, types.FunctionType):
@@ -38,10 +37,10 @@ class NamespaceMeta(ABCMeta):
 
 class NamespaceMixin(metaclass=NamespaceMeta):
     
-    #Public
+    #Protected
 
     @cachedproperty
-    def attributes(self):
+    def _attributes(self):
         return NamespaceAttributes(self)
 
 

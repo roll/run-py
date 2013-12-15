@@ -10,14 +10,14 @@ class ParseVarTest(unittest.TestCase):
         self.var = ParseVar('test_parse.py', 'import (.*test)\n', 
                              base_dir=os.path.dirname(__file__))
     
-    def test_get(self):
+    def test__retrieve(self):
         self.var.processors = [lambda items: items[0]]        
-        self.assertEqual(self.var.retrieve(), 'unittest')
+        self.assertEqual(self.var._retrieve(), 'unittest')
         
-    def test_fetch_exception(self):
+    def test__retrieve_exception(self):
         self.var.processors = [lambda items: 1/0]
         self.var.fallback = 'fallback'     
-        self.assertEqual(self.var.retrieve(), 'fallback')        
+        self.assertEqual(self.var._retrieve(), 'fallback')        
     
     def test__search(self):
         self.assertEqual(self.var._search(), ['unittest'])

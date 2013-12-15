@@ -6,17 +6,21 @@ from ...task import Task
 
 class RenderTask(Task):
     
+    #Public
+    
     def __init__(self, source, target, **kwargs):
         self._source = source
         self._target = target
         super().__init__(**kwargs)
         
-    def complete(self):
+    #Protected    
+        
+    def _complete(self):
         dirname, filename = os.path.split(os.path.abspath(self._source))
         environment = Environment(loader=FileSystemLoader(dirname))
         environment.template_class = NamespaceTemplate
         template = environment.get_template(filename)
-        text = template.render(NamespaceContext(self.namespace))
+        text = template.render(NamespaceContext(self._namespace))
         with open(self._target, 'w') as file:
             file.write(text)
             
@@ -42,7 +46,7 @@ class NamespaceContext:
         self._namespace = namespace
         
     def __contains__(self, key):
-        return key in self._namespace.attributes 
+        return key in self._namespace._attributes 
         
     def __getitem__(self, key):
         try:

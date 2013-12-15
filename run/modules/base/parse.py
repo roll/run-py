@@ -22,16 +22,16 @@ class ParseVar(Var):
         self.base_dir = base_dir
         super().__init__(**kwargs)
     
-    def retrieve(self):
+    #Protected
+    
+    def _retrieve(self):
         try:
             matches = self._search()
             processed = self._process(matches)
             return processed
         except Exception as exception:
             return self._fallback(exception)
-    
-    #Protected
-    
+        
     def _search(self):
         matches = []
         for walkdir, _, filenames in os.walk(self.base_dir):

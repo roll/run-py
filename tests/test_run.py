@@ -18,18 +18,24 @@ class RunTest(unittest.TestCase):
 
 class MockTask(Task):
     
-    def complete(self, *args, **kwargs):
+    #Protected
+    
+    def _complete(self, *args, **kwargs):
         pass
     
     
 class MockVar(Var):
     
-    def retrieve(self, *args, **kwargs):
+    #Protected
+    
+    def _retrieve(self, *args, **kwargs):
         pass    
 
 
 class MockRun(Run):
-    
+
+    #Public
+
     task = MockTask()
     var = MockVar()
     
