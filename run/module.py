@@ -8,6 +8,9 @@ class Module(NamespaceMixin,
     
     def help(self, name=None):
         "Print help"
+        #For help
+        #print(self._parser.format_help().strip())
+        #sys.exit()
         if name:
             prop = self._attributes.get(name, None)
             if prop:
