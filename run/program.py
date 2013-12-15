@@ -12,16 +12,10 @@ class Program(Program):
     
     #Public
         
-    #TODO: move logic to Run?    
-    #TODO: rewrite using NamespaceAttributes    
     def __call__(self):
-        attribute = getattr(self._run, self._command.task)
-        if callable(attribute):
-            result = attribute(*self._command.args, **self._command.kwargs)
-            if result:
-                print(result)
-        else:
-            print(attribute)
+        self._run(self._command.task, 
+                  *self._command.args, 
+                  **self._command.kwargs)
             
     #Protected
     
