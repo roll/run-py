@@ -40,14 +40,13 @@ class NamespaceMixin(metaclass=NamespaceMeta):
     #Public
     
     def __getattr__(self, name):
-        subnames = name.split('.', 1)
-        if len(subnames) == 2:
-            namespace = getattr(self, subnames[0])
-            attribute = getattr(namespace, subnames[1])
-            return attribute
-        else:
+        try:
+            namespace_name, attribute_name = name.split('.', 1)
+        except ValueError:
             raise AttributeError(name)
-             
+        namespace = getattr(self, namespace_name)
+        attribute = getattr(namespace, attribute_name)
+        return attribute
 
     @cachedproperty
     def attributes(self):
