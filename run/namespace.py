@@ -38,6 +38,16 @@ class NamespaceMeta(ABCMeta):
 class NamespaceMixin(metaclass=NamespaceMeta):
     
     #Public
+    
+    def __getattr__(self, name):
+        subnames = name.split('.', 1)
+        if len(subnames) == 2:
+            namespace = getattr(self, subnames[0])
+            attribute = getattr(namespace, subnames[1])
+            return attribute
+        else:
+            raise AttributeError(name)
+             
 
     @cachedproperty
     def attributes(self):
