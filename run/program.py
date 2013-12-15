@@ -37,8 +37,9 @@ class Program(Program):
         for name in dir(module):
             attr = getattr(module, name)
             if (isinstance(attr, type) and
-                not inspect.isabstract(attr) and
-                issubclass(attr, Run)):
+                issubclass(attr, Run) and
+                inspect.getmodule(attr) == module and
+                not inspect.isabstract(attr)):
                 return attr()
         else:
             raise RuntimeError('Run is not finded')
