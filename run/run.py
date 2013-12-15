@@ -7,14 +7,13 @@ class Run(Module, metaclass=ABCMeta):
     #Public
     
     #TODO: rewrite using NamespaceAttributes 
-    def __call__(self, task, *args, **kwargs):
-        attribute = getattr(self, task)
+    def __call__(self, attribute_name, *args, **kwargs):
+        attribute = getattr(self, attribute_name)
         if callable(attribute):
             result = attribute(*args, **kwargs)
-            if result:
-                print(result)
+            return result
         else:
-            print(attribute)
+            return result
         
     default = Task(
         require=['help'],

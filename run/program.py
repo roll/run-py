@@ -13,9 +13,12 @@ class Program(Program):
     #Public
         
     def __call__(self):
-        self._run(self._command.task, 
-                  *self._command.args, 
-                  **self._command.kwargs)
+        result = self._run(
+            self._command.attribute, 
+            *self._command.args, 
+            **self._command.kwargs)
+        if result:
+            print(result)
             
     #Protected
     

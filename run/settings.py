@@ -7,10 +7,10 @@ class Settings(Settings):
     
     command_schema = {
         'prog': 'run',
-        'add_help': False,                     
+        'add_help': False,            
         'arguments': [
             {
-             'name': 'task',
+             'name': 'attribute',
              'nargs': '?',
              'default': 'default',
             },
