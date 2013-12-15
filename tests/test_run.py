@@ -1,5 +1,5 @@
 import unittest
-from run import Run, Task, Var
+from run import Run, Module, Task, Var
 
 #Tests
 
@@ -15,6 +15,13 @@ class RunTest(unittest.TestCase):
         
         
 #Fixtures
+
+class MockModule(Module):
+    
+    #Protected
+    
+    module_var = True
+    
 
 class MockTask(Task):
     
@@ -35,11 +42,13 @@ class MockVar(Var):
 class MockRun(Run):
 
     #Public
+    
+    module = MockModule()
 
     task = MockTask()
     var = MockVar()
     
-    value_var = 1
+    value_var = True
     
     def method_task(self):
         pass
