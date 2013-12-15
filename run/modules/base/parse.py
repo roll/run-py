@@ -34,7 +34,7 @@ class ParseVar(Var):
     
     def _search(self):
         matches = []
-        for walkdir, dirnames, filenames in os.walk(self.base_dir):
+        for walkdir, _, filenames in os.walk(self.base_dir):
             for filename in filenames:
                 filepath = os.path.join(walkdir, filename)
                 if re.search(self.file_pattern, 
