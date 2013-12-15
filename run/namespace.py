@@ -40,6 +40,7 @@ class NamespaceMixin(metaclass=NamespaceMeta):
     #Public
     
     def __getattr__(self, name):
+        print(name)
         try:
             namespace_name, attribute_name = name.split('.', 1)
         except ValueError:

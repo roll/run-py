@@ -43,4 +43,4 @@ class PropertyVar(Var):
     #Protected
  
     def retrieve(self):
-        return self._property.__get__(self._namespace, self._namespace.__class__)  
+        return self._property.__get__(self.namespace, self.namespace.__class__)  
