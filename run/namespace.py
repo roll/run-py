@@ -54,13 +54,12 @@ class NamespaceAttributes(dict):
                 if isinstance(attr, AttributeMixin):
                     self[name] = attr
     
-    def find(self, attribute):
+    def find(self, attribute, default=None):
         for name, value in self.items():
             if attribute == value:
                 return name
         else:
-            raise ValueError('Attribute "{0}" is not found'.
-                             format(attribute))
+            return default
         
     def filter(self, attribute_class):
         return {name: value for name, value in self.items() 
