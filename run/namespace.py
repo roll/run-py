@@ -54,14 +54,6 @@ class NamespaceAttributes(dict):
                 if isinstance(attr, AttributeMixin):
                     self[name] = attr
     
-#     def get(self, name, default=None):
-#         if name in self:
-#             *namespaces, attribute = name.split('.')
-#             for namespace in namespaces:
-#                 pass
-#         else:
-#             return default
-    
     def find(self, attribute, default=None):
         for name, value in self.items():
             if attribute == value:
