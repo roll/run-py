@@ -4,4 +4,4 @@ class Run(PythonPackgramRun):
         
     #Public
     
-    pass
+    name = 'runpack'
