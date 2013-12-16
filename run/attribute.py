@@ -19,6 +19,7 @@ class Attribute(Unit):
     def __set__(self, namespace, value):
         raise RuntimeError('Can\'t set attribute')
 
+    #TODO: use NullNamespace?
     @cachedproperty
     def namespace(self):
         try:
@@ -30,7 +31,11 @@ class Attribute(Unit):
     
     @property
     def unit_name(self):
-        return UnitName(self.namespace.unit_name,
+        try:
+            namespace_name = self.__namespace.unit_name
+        except:
+            namespace_name = ''
+        return UnitName(namespace_name,
                         self.namespace.attributes.find(self))
     
     
