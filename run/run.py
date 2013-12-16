@@ -23,13 +23,10 @@ class Run(Module):
     @property
     def run_tags(self):
         return []
-      
-    default = Task(
-        require=['list'],
-    )
 
     def list(self):
-        pass
+        for attribute in self.attributes:
+            print(attribute)
 
     def help(self, attribute):
         "Print attribute help"
@@ -37,3 +34,7 @@ class Run(Module):
             print(self.attributes[attribute].unit_help)
         else:
             raise RuntimeError('No attribute "{0}"'.format(attribute))
+      
+    default = Task(
+        require=['list'],
+    )        
