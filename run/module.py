@@ -1,5 +1,6 @@
 import inspect
 import importlib
+from copy import copy
 from abc import ABCMeta
 from lib31.python import cachedproperty
 from .attribute import Attribute
@@ -23,6 +24,11 @@ class ModuleMeta(ABCMeta):
                     else:
                         ValueVar = cls.__import('var', 'ValueVar')
                         attrs[name] = ValueVar(attr)
+        for base in bases:
+            for name, attr in base.__dict__.items():
+                if (not name in attrs and 
+                    isinstance(attr, Attribute)):
+                    attrs[name] = copy(attr) 
         return super().__new__(cls, name, bases, attrs)
     
     #Private
