@@ -10,8 +10,6 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         self.resolve()     
         return self.retrieve()
  
-    #Protected
- 
     @abstractmethod
     def retrieve(self):
         pass #pragma: no cover
@@ -33,8 +31,6 @@ class ValueVar(Var):
         self._value = value
         super().__init__(**kwargs)
  
-    #Protected
- 
     def retrieve(self):
         return self._value
     
@@ -46,8 +42,6 @@ class PropertyVar(Var):
     def __init__(self, prop, **kwargs):
         self._property = prop
         super().__init__(**kwargs)
- 
-    #Protected
  
     def retrieve(self):
         return self._property.__get__(self.namespace, self.namespace.__class__)  
