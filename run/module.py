@@ -2,7 +2,7 @@ import inspect
 import importlib
 from abc import ABCMeta
 from lib31.python import cachedproperty
-from .attribute import Attribute, AttributeFactory
+from .attribute import Attribute
 
 class ModuleMeta(ABCMeta):
    
@@ -16,13 +16,13 @@ class ModuleMeta(ABCMeta):
                 not isinstance(attr, Attribute)):
                     if callable(attr):
                         MethodTask = cls.__import('task', 'MethodTask')
-                        attr = MethodTask(attr)
+                        attrs[name] = MethodTask(attr)
                     elif inspect.isdatadescriptor(attr):
                         PropertyVar = cls.__import('var', 'PropertyVar')
-                        attr = PropertyVar(attr)
+                        attrs[name] = PropertyVar(attr)
                     else:
                         ValueVar = cls.__import('var', 'ValueVar')
-                        attr = ValueVar(attr)
+                        attrs[name] = ValueVar(attr)
         return super().__new__(cls, name, bases, attrs)
     
     #Private
