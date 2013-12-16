@@ -35,8 +35,8 @@ class Attribute(Unit):
             namespace_name = self.__namespace.unit_name
         except:
             namespace_name = ''
-        return UnitName(namespace_name,
-                        self.namespace.attributes.find(self))
+        attribute_name = self.namespace.attributes.find(self)
+        return UnitName(namespace_name, attribute_name)
     
     
 class AssociatedAttribute(Attribute):
