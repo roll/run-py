@@ -5,8 +5,6 @@ class Settings(Settings):
     
     #Public
     
-    default_attribute = 'default'
-    
     command_schema = {
         'prog': 'run',
         'add_help': False,            
@@ -38,6 +36,8 @@ class Settings(Settings):
             },                                                             
         ],        
     }
-   
+    
+    default_attribute = 'default'
+    
     
 settings = Settings()
