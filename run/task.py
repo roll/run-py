@@ -28,7 +28,17 @@ class MethodTask(Task):
     
     def complete(self, *args, **kwargs):
         return self._method(self.namespace, *args, **kwargs)
-    
+     
+    @property     
     def unit_help(self):
-        return UnitHelp(inspect.signature(self._method),
-                        inspect.getdoc(self._method))
+        return UnitHelp(self._signature, self._docstring)
+        
+    #Protected
+    
+    @property
+    def _signature(self):
+        return self.unit_name+str(inspect.signature(self._method))
+    
+    @property    
+    def _docstring(self):
+        return str(inspect.getdoc(self._method))                                 

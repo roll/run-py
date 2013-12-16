@@ -6,10 +6,10 @@ class Run(Module):
     
     #Public
     
-    def __call__(self, attribute_name, *args, **kwargs):
-        if not attribute_name:
-            attribute_name = settings.default_attribute
-        attribute = getattr(self, attribute_name)
+    def __call__(self, attribute, *args, **kwargs):
+        if not attribute:
+            attribute = settings.default_attribute
+        attribute = getattr(self, attribute)
         if callable(attribute):
             result = attribute(*args, **kwargs)
             return result
@@ -31,14 +31,9 @@ class Run(Module):
     def list(self):
         pass
 
-    def help(self, attribute=None):
-        "Print help"
-        #For help
-        #print(self._parser.format_help().strip())
-        #sys.exit()
-        if attribute:
-            prop = self.attributes.get(attribute, None)
-            if prop:
-                print(prop.help())
+    def help(self, attribute):
+        "Print attribute help"
+        if attribute in self.attributes:
+            print(self.attributes[attribute].unit_help)
         else:
-            print('\n'.join(sorted(self.attributes))) 
+            raise RuntimeError('No attribute "{0}"'.format(attribute))

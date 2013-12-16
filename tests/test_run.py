@@ -10,8 +10,8 @@ class RunTest(unittest.TestCase):
     def setUp(self):
         self.run = MockRun()
         
-    def test_help(self):
-        self.run.help()
+    def test_list(self):
+        self.run.list()
         
         
 #Fixtures
