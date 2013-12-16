@@ -12,11 +12,19 @@ class Run(Module):
             return result
         else:
             return attribute
-        
+    
+    @property
+    def run_name(self):
+        return ''
+    
+    @property
+    def run_tags(self):
+        return []
+      
     default = Task(
         require=['help'],
     )
-    
+
     def help(self, name=None):
         "Print help"
         #For help
