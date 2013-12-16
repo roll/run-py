@@ -25,13 +25,13 @@ class Run(Module):
         require=['help'],
     )
 
-    def help(self, name=None):
+    def help(self, attribute=None):
         "Print help"
         #For help
         #print(self._parser.format_help().strip())
         #sys.exit()
-        if name:
-            prop = self.attributes.get(name, None)
+        if attribute:
+            prop = self.attributes.get(attribute, None)
             if prop:
                 print(prop.help())
         else:
