@@ -25,6 +25,9 @@ class Run(Module):
         require=['help'],
     )
 
+    def list(self):
+        pass
+
     def help(self, attribute=None):
         "Print help"
         #For help
@@ -35,4 +38,4 @@ class Run(Module):
             if prop:
                 print(prop.help())
         else:
-            print('\n'.join(sorted(self.attributes)))    
+            print('\n'.join(sorted(self.attributes))) 
