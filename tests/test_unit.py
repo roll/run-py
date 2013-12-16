@@ -1,5 +1,13 @@
 import unittest
-from run import UnitName, UnitHelp
+from run import Unit, UnitName, UnitHelp
+
+class UnitTest(unittest.TestCase):
+    
+    def test(self):
+        unit = Unit()
+        self.assertEqual(unit.unit_name, '')
+        self.assertEqual(unit.unit_help, '')
+
 
 class UnitNameTest(unittest.TestCase):
 
