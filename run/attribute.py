@@ -66,13 +66,13 @@ class AttributeName(str):
     
     #Public
     
-    def __new__(cls, module='', attribute=''):
+    def __new__(cls, module=None, attribute=None):
         name = '.'.join(filter(None, [module, attribute]))
         return super().__new__(cls, name)
     
-    def __init__(self, module='', attribute=''):
-        self._module = module
-        self._attribute = attribute
+    def __init__(self, module=None, attribute=None):
+        self._module = module or ''
+        self._attribute = attribute or ''
     
     @property    
     def module(self):
@@ -87,13 +87,13 @@ class AttributeHelp(str):
     
     #Public
     
-    def __new__(cls, signature='', docstring=''):
+    def __new__(cls, signature=None, docstring=None):
         hlp = '\n'.join(filter(None, [signature, docstring]))
         return super().__new__(cls, hlp)
     
-    def __init__(self, signature='', docstring=''):
-        self._signature = signature
-        self._docstring = docstring
+    def __init__(self, signature=None, docstring=None):
+        self._signature = signature or ''
+        self._docstring = docstring or ''
     
     @property    
     def signature(self):
