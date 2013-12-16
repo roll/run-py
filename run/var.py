@@ -14,14 +14,6 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     def retrieve(self):
         pass #pragma: no cover
     
-    @property
-    def unit_name(self):
-        pass
-    
-    @property
-    def unit_help(self):
-        pass
-    
         
 class ValueVar(Var):
     
