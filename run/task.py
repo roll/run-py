@@ -1,7 +1,7 @@
 import inspect
-from .attribute import AssociatedAttribute
+from .attribute import DependentAttribute
 
-class Task(AssociatedAttribute):
+class Task(DependentAttribute):
     
     #Public
         
