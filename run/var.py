@@ -1,13 +1,11 @@
 from abc import ABCMeta, abstractmethod
-from .attribute import Attribute
-from .dependent import DependentAttributeMixin
+from .attribute import DependentAttribute
 
-class Var(DependentAttributeMixin, 
-          Attribute, metaclass=ABCMeta):
+class Var(DependentAttribute, metaclass=ABCMeta):
     
     #Public
 
-    def __get__(self, namespace, namespace_class=None):
+    def __get__(self, module, module_class=None):
         self.resolve()     
         return self.retrieve()
  
@@ -37,4 +35,4 @@ class PropertyVar(Var):
         super().__init__(**kwargs)
  
     def retrieve(self):
-        return self._property.__get__(self.namespace, self.namespace.__class__)  
+        return self._property.__get__(self.module, self.module.__class__)  

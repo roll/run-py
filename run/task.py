@@ -1,14 +1,11 @@
 import inspect
-from .attribute import Attribute
-from .dependent import DependentAttributeMixin
-from .unit import UnitHelp
+from .attribute import DependentAttribute, AttributeHelp
 
-class Task(DependentAttributeMixin,
-           Attribute):
+class Task(DependentAttribute):
     
     #Public
     
-    def __get__(self, namespace, namespace_class=None):
+    def __get__(self, module, module_class=None):
         return self
     
     def __call__(self, *args, **kwargs):
@@ -32,12 +29,12 @@ class MethodTask(Task):
         return self._method.__doc__
     
     def complete(self, *args, **kwargs):
-        return self._method(self.namespace, *args, **kwargs)
+        return self._method(self.module, *args, **kwargs)
      
     @property     
-    def unithelp(self):
-        return UnitHelp(signature=self._signature, 
-                        docstring=self._docstring)
+    def attrhelp(self):
+        return AttributeHelp(signature=self._signature, 
+                             docstring=self._docstring)
         
     #Protected
     

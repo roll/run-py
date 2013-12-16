@@ -18,7 +18,7 @@ class RenderTask(Task):
         environment = Environment(loader=FileSystemLoader(dirname))
         environment.template_class = NamespaceTemplate
         template = environment.get_template(filename)
-        text = template.render(NamespaceContext(self.namespace))
+        text = template.render(NamespaceContext(self.module))
         with open(self._target, 'w') as file:
             file.write(text)
             
@@ -27,9 +27,9 @@ class NamespaceTemplate(Template):
     
     #Public
     
-    def render(self, namespace_context):
+    def render(self, module_context):
         try:
-            context = self.new_context(namespace_context, shared=True)
+            context = self.new_context(module_context, shared=True)
             return concat(self.root_render_func(context))
         except Exception:
             exc_info = sys.exc_info()
@@ -40,14 +40,14 @@ class NamespaceContext:
     
     #Public
     
-    def __init__(self, namespace):
-        self._namespace = namespace
+    def __init__(self, module):
+        self._module = module
         
     def __contains__(self, key):
-        return key in self._namespace.attributes 
+        return key in self._module.attributes 
         
     def __getitem__(self, key):
         try:
-            return getattr(self._namespace, key)
+            return getattr(self._module, key)
         except AttributeError:
             raise KeyError(key)        
