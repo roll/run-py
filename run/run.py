@@ -25,6 +25,7 @@ class Run(Module):
         return []
 
     def list(self):
+        "List attributes"
         for attribute in self.attributes:
             print(attribute)
 
