@@ -34,7 +34,7 @@ class Attribute(Unit):
                         self.namespace.attributes.find(self))
     
     
-class DependentAttribute(Attribute):
+class AssociatedAttribute(Attribute):
     
     #Public
     

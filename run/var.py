@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
-from .attribute import DependentAttribute
+from .attribute import AssociatedAttribute
 
-class Var(DependentAttribute, metaclass=ABCMeta):
+class Var(AssociatedAttribute, metaclass=ABCMeta):
     
     #Public
 

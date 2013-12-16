@@ -1,8 +1,8 @@
 import inspect
-from .attribute import DependentAttribute
+from .attribute import AssociatedAttribute
 from .unit import UnitHelp
 
-class Task(DependentAttribute):
+class Task(AssociatedAttribute):
     
     #Public
         
