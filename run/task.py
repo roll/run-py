@@ -1,5 +1,6 @@
 import inspect
 from .attribute import DependentAttribute
+from .unit import UnitHelp
 
 class Task(DependentAttribute):
     
@@ -36,12 +37,6 @@ class MethodTask(Task):
     def complete(self, *args, **kwargs):
         return self._method(self.namespace, *args, **kwargs)
     
-    def help(self):
-        name = self._method.__name__
-        signature = inspect.signature(self._method)
-        docstring = inspect.getdoc(self._method)                    
-        lines = []
-        lines.append(name+str(signature))
-        if docstring:
-            lines.append(str(docstring))
-        print('\n'.join(lines))
+    def unit_help(self):
+        return UnitHelp(inspect.signature(self._method),
+                        inspect.getdoc(self._method))
