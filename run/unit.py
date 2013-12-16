@@ -7,12 +7,12 @@ class Unit(metaclass=ABCMeta):
     @property
     @abstractmethod
     def unit_name(self):
-        pass
+        pass #pragma: no cover
     
     @property
     @abstractmethod
     def unit_help(self):
-        pass
+        pass #pragma: no cover
     
     
 class UnitName(str):
