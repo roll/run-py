@@ -1,4 +1,5 @@
 from lib31.python import cachedproperty
+from .unit import UnitName 
 
 class AttributeMixin:
     
@@ -26,6 +27,11 @@ class AttributeMixin:
             raise RuntimeError(
                 'Attribute "{0}" is not attached to any namespace'.
                 format(self))
+    
+    @property
+    def unit_name(self):
+        return UnitName(self.namespace.unit_name,
+                        self.namespace.attributes.find(self))
     
     
 class DependentAttributeMixin(AttributeMixin):
