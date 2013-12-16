@@ -4,6 +4,19 @@ from abc import ABCMeta, abstractmethod
 class Attribute(metaclass=ABCMeta):
     
     #Public
+    
+    def __new__(cls, *args, **kwargs):
+        return AttributeFactory(cls, *args, **kwargs)
+#         try:
+#             factory = args[0]
+#             if not isinstance(factory, AttributeFactory):
+#                 raise TypeError()
+#         except (KeyError, TypeError):
+#             factory = None
+#         if factory:
+#             return super().__new__(cls, *factory.args, **factory.kwargs)
+#         else:    
+#             return AttributeFactory(cls, *args, **kwargs)        
        
     @abstractmethod
     def __get__(self, module, module_class):
@@ -45,6 +58,29 @@ class Attribute(metaclass=ABCMeta):
     def attrhelp(self):
         return AttributeHelp(signature=self.attrname, 
                              docstring=inspect.getdoc(self))
+ 
+ 
+class AttributeFactory:
+    
+    #Public
+     
+    def __init__(self, cls, *args, **kwargs):
+        self._cls = cls
+        self._args = args
+        self._kwargs = kwargs
+        
+    @property
+    def args(self):
+        return self._args
+
+    @property
+    def kwargs(self):
+        return self._kwargs
+        
+    def create(self):
+        obj = super(Attribute, self._cls).__new__(self._cls)
+        self._cls.__init__(obj, *self.args, **self.kwargs)
+        return obj
         
         
 class AttributeName(str):
