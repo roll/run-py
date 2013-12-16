@@ -12,7 +12,7 @@ class UnitNameTest(unittest.TestCase):
         self.assertEqual(unitname.attribute, 'attribute')
         
     def test_partial(self):
-        unitname = UnitName('', 'attribute')
+        unitname = UnitName(attribute='attribute')
         self.assertEqual(unitname, 'attribute')
         self.assertEqual(unitname.namespace, '')
         self.assertEqual(unitname.attribute, 'attribute')        
@@ -29,7 +29,7 @@ class UnitNameHelp(unittest.TestCase):
         self.assertEqual(unithelp.docstring, 'docstring')
         
     def test_partial(self):
-        unithelp = UnitHelp('signature', '')
+        unithelp = UnitHelp(signature='signature')
         self.assertEqual(unithelp, 'signature')
         self.assertEqual(unithelp.signature, 'signature')
         self.assertEqual(unithelp.docstring, '')                                
