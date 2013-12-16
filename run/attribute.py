@@ -1,5 +1,5 @@
 from lib31.python import cachedproperty
-from .unit import Unit, UnitName 
+from .unit import Unit, UnitName, UnitHelp
 
 class Attribute(Unit):
     
@@ -33,10 +33,14 @@ class Attribute(Unit):
     def unitname(self):
         try:
             namespace_name = self.__namespace.unitname
-        except:
+        except AttributeError:
             namespace_name = ''
         attribute_name = self.namespace.attributes.find(self)
         return UnitName(namespace_name, attribute_name)
+    
+    @property
+    def unithelp(self):
+        return UnitHelp(self.unitname, super().unithelp.docstring)    
     
     
 class AssociatedAttribute(Attribute):
