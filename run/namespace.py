@@ -2,7 +2,8 @@ import inspect
 import importlib
 from abc import ABCMeta
 from lib31.python import cachedproperty
-from .attribute import AttributeMixin
+from .attribute import Attribute
+from .unit import Unit
 
 class NamespaceMeta(ABCMeta):
    
@@ -13,7 +14,7 @@ class NamespaceMeta(ABCMeta):
             if (not name.startswith('_') and
                 not name == 'attributes'):
                 if (not isinstance(attr, type) and
-                    not isinstance(attr, AttributeMixin)):
+                    not isinstance(attr, Attribute)):
                     if callable(attr):
                         MethodTask = cls.__import('task', 'MethodTask')
                         attrs[name] = MethodTask(attr)
@@ -35,7 +36,7 @@ class NamespaceMeta(ABCMeta):
         return attr  
 
 
-class NamespaceMixin(metaclass=NamespaceMeta):
+class Namespace(Unit, metaclass=NamespaceMeta):
     
     #Public
     
@@ -61,7 +62,7 @@ class NamespaceAttributes(dict):
     def __init__(self, namespace):
         for cls in namespace.__class__.mro():
             for name, attr in cls.__dict__.items():
-                if isinstance(attr, AttributeMixin):
+                if isinstance(attr, Attribute):
                     self[name] = attr
     
     def find(self, attribute, default=None):

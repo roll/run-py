@@ -1,9 +1,7 @@
 import inspect
-from .attribute import DependentAttributeMixin
-from .unit import Unit
+from .attribute import DependentAttribute
 
-class Task(DependentAttributeMixin, 
-           Unit):
+class Task(DependentAttribute):
     
     #Public
         

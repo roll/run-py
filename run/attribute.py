@@ -1,7 +1,7 @@
 from lib31.python import cachedproperty
-from .unit import UnitName 
+from .unit import Unit, UnitName 
 
-class AttributeMixin:
+class Attribute(Unit):
     
     #Public
     
@@ -34,7 +34,7 @@ class AttributeMixin:
                         self.namespace.attributes.find(self))
     
     
-class DependentAttributeMixin(AttributeMixin):
+class DependentAttribute(Attribute):
     
     #Public
     

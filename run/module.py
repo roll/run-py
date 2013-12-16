@@ -1,10 +1,8 @@
-from .namespace import NamespaceMixin
-from .attribute import AttributeMixin
-from .unit import Unit
+from .namespace import Namespace
+from .attribute import Attribute
 
-class Module(NamespaceMixin,
-             AttributeMixin,
-             Unit):
+class Module(Namespace,
+             Attribute):
     
     #Public
     
