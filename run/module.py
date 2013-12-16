@@ -28,10 +28,10 @@ class ModuleMeta(ABCMeta):
     #Private
         
     @classmethod
-    def __import(cls, module_name, attr_name):
+    def __import(cls, module_name, attribute_name):
         package_name = inspect.getmodule(cls).__package__
         module = importlib.import_module('.'+module_name, package_name)
-        attr = getattr(module, attr_name)
+        attr = getattr(module, attribute_name)
         return attr  
 
 

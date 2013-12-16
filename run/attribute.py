@@ -35,14 +35,15 @@ class Attribute(metaclass=ABCMeta):
     @property
     def attrname(self):
         try:
-            return AttributeName(module=self.module.unitname, 
-                                 attribute=self.module.attributes.find(self))
+            return AttributeName(
+                module=self.module.attrname, 
+                attribute=self.module.attributes.find(self))
         except RuntimeError:
-            return super().unitname
+            return AttributeName()
  
     @property
     def attrhelp(self):
-        return AttributeHelp(signature=self.unitname, 
+        return AttributeHelp(signature=self.attrname, 
                              docstring=inspect.getdoc(self))
         
         
