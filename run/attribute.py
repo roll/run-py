@@ -37,10 +37,11 @@ class Attribute(Unit):
             namespace_name = ''
         attribute_name = self.namespace.attributes.find(self)
         return UnitName(namespace_name, attribute_name)
-    
-    @property
-    def unithelp(self):
-        return UnitHelp(self.unitname, super().unithelp.docstring)    
+ 
+#TODO: uncomment after resolving attach to namespace issue    
+#     @property
+#     def unithelp(self):
+#         return UnitHelp(self.unitname, super().unithelp.docstring)    
     
     
 class AssociatedAttribute(Attribute):
