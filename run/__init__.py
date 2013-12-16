@@ -8,6 +8,6 @@ from .program import Program, program
 from .run import Run
 from .settings import Settings, settings
 from .task import Task, MethodTask
-from .unit import Unit
+from .unit import Unit, UnitName, UnitHelp
 from .var import Var, ValueVar, PropertyVar
 from .version import Version, version

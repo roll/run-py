@@ -8,18 +8,14 @@ class Module(NamespaceMixin,
     
     #Public
     
-    def help(self, name=None):
-        "Print help"
-        #For help
-        #print(self._parser.format_help().strip())
-        #sys.exit()
-        if name:
-            prop = self.attributes.get(name, None)
-            if prop:
-                print(prop.help())
-        else:
-            print('\n'.join(sorted(self.attributes))) 
-            
+    @property
+    def unit_name(self):
+        pass
+    
+    @property
+    def unit_help(self):
+        pass
+        
             
 class RunModule(Module):
     

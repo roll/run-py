@@ -14,6 +14,14 @@ class Task(DependentAttributeMixin,
     def complete(self, *args, **kwargs):
         pass
     
+    @property
+    def unit_name(self):
+        pass
+    
+    @property
+    def unit_help(self):
+        pass
+
 
 class MethodTask(Task):
     
