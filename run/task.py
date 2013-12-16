@@ -40,7 +40,7 @@ class MethodTask(Task):
     
     @property
     def _signature(self):
-        return self.unitname+str(inspect.signature(self._method))
+        return self.attrname+str(inspect.signature(self._method))
     
     @property    
     def _docstring(self):
