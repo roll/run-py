@@ -5,7 +5,10 @@ from .unit import UnitHelp
 class Task(AssociatedAttribute):
     
     #Public
-        
+    
+    def __get__(self, namespace, namespace_class=None):
+        return self
+    
     def __call__(self, *args, **kwargs):
         self.resolve()
         return self.complete(*args, **kwargs)
@@ -31,7 +34,8 @@ class MethodTask(Task):
      
     @property     
     def unithelp(self):
-        return UnitHelp(self._signature, self._docstring)
+        return UnitHelp(signature=self._signature, 
+                        docstring=self._docstring)
         
     #Protected
     

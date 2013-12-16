@@ -5,8 +5,7 @@ class Var(AssociatedAttribute, metaclass=ABCMeta):
     
     #Public
 
-    def __get__(self, module, module_class=None):
-        super().__get__(module, module_class)
+    def __get__(self, namespace, namespace_class=None):
         self.resolve()     
         return self.retrieve()
  

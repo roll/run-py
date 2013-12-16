@@ -6,7 +6,8 @@ class Module(Namespace,
     
     #Public
     
-    pass
+    def __get__(self, namespace, namespace_class=None):
+        return self
         
             
 class RunModule(Module):

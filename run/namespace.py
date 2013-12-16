@@ -40,6 +40,11 @@ class Namespace(Unit, metaclass=NamespaceMeta):
     
     #Public
     
+    def __init__(self, *args, **kwargs):
+        for attribute in self.attributes.values():
+            attribute.namespace = self
+        super().__init__(*args, **kwargs)
+    
     def __getattr__(self, name):
         try:
             namespace_name, attribute_name = name.split('.', 1)
@@ -59,7 +64,7 @@ class NamespaceAttributes(dict):
     #Public
     
     def __init__(self, namespace):
-        for cls in namespace.__class__.mro():
+        for cls in reversed(namespace.__class__.mro()):
             for name, attr in cls.__dict__.items():
                 if isinstance(attr, Attribute):
                     self[name] = attr
