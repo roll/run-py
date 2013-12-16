@@ -20,7 +20,7 @@ class UnitName(str):
     #Public
     
     def __new__(cls, namespace, attribute):
-        name = '.'.join([namespace, attribute])
+        name = '.'.join(filter(None, [namespace, attribute]))
         return super().__new__(cls, name)
     
     def __init__(self, namespace, attribute):
@@ -41,7 +41,7 @@ class UnitHelp(str):
     #Public
     
     def __new__(cls, signature, docstring):
-        hlp = '\n'.join([signature, docstring])
+        hlp = '\n'.join(filter(None, [signature, docstring]))
         return super().__new__(cls, hlp)
     
     def __init__(self, signature, docstring):
