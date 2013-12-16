@@ -19,11 +19,22 @@ class UnitName(str):
     
     #Public
     
-    pass
+    def __new__(cls, namespace, attribute):
+        qualname = '.'.join(namespace, attribute)
+        return super().__new__(cls, qualname)
     
-#     def __new__(cls):
-#         return super().__new__(cls, cls._build_string(substrings))   
-
+    def __init__(self, namespace, attribute):
+        self._namespace = namespace
+        self._attribute = attribute
+    
+    @property    
+    def namespace(self):
+        return self._namespace
+    
+    @property
+    def attribute(self):
+        return self._attribute    
+    
 
 class UnitHelp(str):
     
