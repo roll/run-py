@@ -9,7 +9,22 @@ class Command(Command):
     #Public
     
     schema = settings.command_schema
+
+    @property
+    def attribute(self):
+        attribute = self._namespace.attribute        
+        if self.help and attribute:
+            attribute = 'help'
+        return attribute
     
+    @property
+    def arguments(self):
+        attribute = self._namespace.attribute
+        arguments = self._namespace.arguments
+        if self.help and attribute:
+            arguments = [attribute]+arguments
+        return arguments
+
     @property
     def args(self):
         return self._parsed_arguments[0]
