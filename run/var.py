@@ -1,7 +1,9 @@
 from abc import ABCMeta, abstractmethod
-from .attribute import AssociatedAttribute
+from .attribute import Attribute
+from .dependent import DependentAttributeMixin
 
-class Var(AssociatedAttribute, metaclass=ABCMeta):
+class Var(DependentAttributeMixin, 
+          Attribute, metaclass=ABCMeta):
     
     #Public
 

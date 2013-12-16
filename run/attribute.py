@@ -26,8 +26,6 @@ class Attribute(Unit, metaclass=ABCMeta):
     def namespace(self, namespace):
         try: 
             if self.__namespace != namespace:
-                print(self.unitname)
-                print(namespace)
                 raise RuntimeError(
                     'Attribute "{0}" is already attached to namespace "{1}"'.
                     format(self, self.__namespace))
@@ -45,19 +43,4 @@ class Attribute(Unit, metaclass=ABCMeta):
     @property
     def unithelp(self):
         return UnitHelp(signature=self.unitname, 
-                        docstring=super().unithelp.docstring)
-    
-    
-class AssociatedAttribute(Attribute):
-    
-    #Public
-    
-    def __init__(self, *args, **kwargs):
-        self.__require = kwargs.pop('require', [])
-        super().__init__(*args, **kwargs)
-    
-    #TODO: make it happened just one time
-    def resolve(self):
-        for task_name in self.__require:
-            task = getattr(self.namespace, task_name)
-            task()    
+                        docstring=super().unithelp.docstring)       

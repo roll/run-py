@@ -1,8 +1,10 @@
 import inspect
-from .attribute import AssociatedAttribute
+from .attribute import Attribute
+from .dependent import DependentAttributeMixin
 from .unit import UnitHelp
 
-class Task(AssociatedAttribute):
+class Task(DependentAttributeMixin,
+           Attribute):
     
     #Public
     

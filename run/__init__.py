@@ -1,5 +1,6 @@
-from .attribute import Attribute, AssociatedAttribute
+from .attribute import Attribute
 from .command import Command
+from .dependent import DependentAttributeMixin
 from .logger import Logger
 from .require import require
 from .module import Module, RunModule
