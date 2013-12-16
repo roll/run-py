@@ -18,6 +18,7 @@ class Program(Program):
         else:
             result = self._run(self.command.attribute,
                 *self.command.args, **self.command.kwargs)
+            #TODO: fix not printing empty attributes
             if result:
                 print(result)
     
