@@ -1,18 +1,14 @@
-from abc import ABCMeta, abstractmethod
-
-class Unit(metaclass=ABCMeta):
+class Unit:
 
     #Public
 
     @property
-    @abstractmethod
     def unit_name(self):
-        pass #pragma: no cover
+        return UnitName()
     
     @property
-    @abstractmethod
     def unit_help(self):
-        pass #pragma: no cover
+        return UnitHelp()
     
     
 class UnitName(str):
