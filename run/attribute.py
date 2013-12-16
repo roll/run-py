@@ -47,21 +47,6 @@ class Attribute(metaclass=ABCMeta):
                              docstring=inspect.getdoc(self))
         
         
-class DependentAttribute(Attribute):
-    
-    #Public
-    
-    def __init__(self, *args, **kwargs):
-        self.__require = kwargs.pop('require', [])
-        super().__init__(*args, **kwargs)
-    
-    #TODO: make it happened just one time
-    def resolve(self):
-        for task_name in self.__require:
-            task = getattr(self.module, task_name)
-            task() 
-            
-                    
 class AttributeName(str):
     
     #Public
@@ -102,3 +87,18 @@ class AttributeHelp(str):
     @property
     def docstring(self):
         return self._docstring
+    
+    
+class DependentAttribute(Attribute):
+    
+    #Public
+    
+    def __init__(self, *args, **kwargs):
+        self.__require = kwargs.pop('require', [])
+        super().__init__(*args, **kwargs)
+    
+    #TODO: make it happened just one time
+    def resolve(self):
+        for task_name in self.__require:
+            task = getattr(self.module, task_name)
+            task()    
