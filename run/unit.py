@@ -6,10 +6,27 @@ class Unit(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def unitname(self):
+    def unit_name(self):
         pass
     
     @property
     @abstractmethod
-    def unithelp(self):
+    def unit_help(self):
         pass
+    
+    
+class UnitName(str):
+    
+    #Public
+    
+    pass
+    
+#     def __new__(cls):
+#         return super().__new__(cls, cls._build_string(substrings))   
+
+
+class UnitHelp(str):
+    
+    #Public
+    
+    pass    
