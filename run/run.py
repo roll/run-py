@@ -17,11 +17,11 @@ class Run(Module):
             return attribute
     
     @property
-    def run_name(self):
+    def runname(self):
         return ''
     
     @property
-    def run_tags(self):
+    def runtags(self):
         return []
 
     def list(self):
@@ -31,7 +31,7 @@ class Run(Module):
     def help(self, attribute):
         "Print attribute help"
         if attribute in self.attributes:
-            print(self.attributes[attribute].unit_help)
+            print(self.attributes[attribute].unithelp)
         else:
             raise RuntimeError('No attribute "{0}"'.format(attribute))
       

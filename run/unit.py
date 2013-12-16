@@ -5,11 +5,11 @@ class Unit:
     #Public
 
     @property
-    def unit_name(self):
+    def unitname(self):
         return UnitName()
     
     @property
-    def unit_help(self):
+    def unithelp(self):
         return UnitHelp(docstring=inspect.getdoc(self))
     
     

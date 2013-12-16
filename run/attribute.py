@@ -30,9 +30,9 @@ class Attribute(Unit):
                 format(self))
     
     @property
-    def unit_name(self):
+    def unitname(self):
         try:
-            namespace_name = self.__namespace.unit_name
+            namespace_name = self.__namespace.unitname
         except:
             namespace_name = ''
         attribute_name = self.namespace.attributes.find(self)

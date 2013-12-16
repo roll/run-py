@@ -30,14 +30,14 @@ class MethodTask(Task):
         return self._method(self.namespace, *args, **kwargs)
      
     @property     
-    def unit_help(self):
+    def unithelp(self):
         return UnitHelp(self._signature, self._docstring)
         
     #Protected
     
     @property
     def _signature(self):
-        return self.unit_name+str(inspect.signature(self._method))
+        return self.unitname+str(inspect.signature(self._method))
     
     @property    
     def _docstring(self):

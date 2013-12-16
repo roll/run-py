@@ -5,8 +5,8 @@ class UnitTest(unittest.TestCase):
     
     def test(self):
         unit = Unit()
-        self.assertEqual(unit.unit_name, '')
-        self.assertEqual(unit.unit_help, '')
+        self.assertEqual(unit.unitname, '')
+        self.assertEqual(unit.unithelp, '')
 
 
 class UnitNameTest(unittest.TestCase):
