@@ -10,11 +10,11 @@ class Command(Command):
     
     schema = settings.command_schema
     
-    @cachedproperty
+    @property
     def args(self):
         return self._parsed_arguments[0]
     
-    @cachedproperty    
+    @property    
     def kwargs(self):
         return self._parsed_arguments[1]
     
