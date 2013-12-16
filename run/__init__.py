@@ -1,4 +1,4 @@
-from .attribute import Attribute, DependentAttribute
+from .attribute import Attribute, AssociatedAttribute
 from .command import Command
 from .logger import Logger
 from .require import require
