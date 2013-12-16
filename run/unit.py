@@ -1,3 +1,5 @@
+import inspect
+
 class Unit:
 
     #Public
@@ -8,7 +10,7 @@ class Unit:
     
     @property
     def unit_help(self):
-        return UnitHelp()
+        return UnitHelp(docstring=inspect.getdoc(self))
     
     
 class UnitName(str):
