@@ -5,6 +5,8 @@ class Settings(Settings):
     
     #Public
     
+    default_attribute = 'default'
+    
     command_schema = {
         'prog': 'run',
         'add_help': False,            
@@ -12,7 +14,7 @@ class Settings(Settings):
             {
              'name': 'attribute',
              'nargs': '?',
-             'default': 'default',
+             'default': None,
             },
             {
              'name': 'arguments',

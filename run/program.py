@@ -13,22 +13,23 @@ class Program(Program):
     #Public
         
     def __call__(self):
-        result = self._run(
-            self._command.attribute, 
-            *self._command.args, 
-            **self._command.kwargs)
-        if result:
-            print(result)
-            
-    #Protected
+        if (self.command.help and not self.command.attribute):
+            print(self.command.program_help)
+        else:
+            result = self._run(self.command.attribute,
+                *self.command.args, **self.command.kwargs)
+            if result:
+                print(result)
     
     @cachedproperty
-    def _command(self):
+    def command(self):
         return Command(self.argv)
+         
+    #Protected
     
     @cachedproperty   
     def _run(self):
-        dirname, filename = os.path.split(os.path.abspath(self._command.file))
+        dirname, filename = os.path.split(os.path.abspath(self.command.file))
         self._switch_to_directory(dirname)
         modulename = re.sub('\.pyc?', '', filename)
         #TODO: add no module handling

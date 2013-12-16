@@ -1,4 +1,5 @@
 from .module import Module
+from .settings import settings
 from .task import Task
 
 class Run(Module):
@@ -6,6 +7,8 @@ class Run(Module):
     #Public
     
     def __call__(self, attribute_name, *args, **kwargs):
+        if not attribute_name:
+            attribute_name = settings.default_attribute
         attribute = getattr(self, attribute_name)
         if callable(attribute):
             result = attribute(*args, **kwargs)
