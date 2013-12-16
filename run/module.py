@@ -1,8 +1,10 @@
 from .namespace import NamespaceMixin
 from .attribute import AttributeMixin
+from .unit import Unit
 
 class Module(NamespaceMixin,
-             AttributeMixin):
+             AttributeMixin,
+             Unit):
     
     #Public
     
