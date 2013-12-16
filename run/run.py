@@ -25,7 +25,7 @@ class Run(Module):
         return []
       
     default = Task(
-        require=['help'],
+        require=['list'],
     )
 
     def list(self):
