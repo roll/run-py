@@ -5,12 +5,22 @@ class Attribute(metaclass=ABCMeta):
     
     #Public
     
+    def __new__(cls, *args, **kwargs):
+        obj = super(Attribute, cls).__new__(cls)
+        obj.__cls = cls
+        obj.__args = args
+        obj.__kwargs = kwargs
+        return obj
+    
     @abstractmethod
     def __get__(self, module, module_class):
         pass #pragma: no cover
     
     def __set__(self, module, value):
         raise RuntimeError('Can\'t set attribute')
+    
+    def __copy__(self):
+        return self.__cls(*self.__args, **self.__kwargs)
 
     #TODO: use NullModule?
     @property
