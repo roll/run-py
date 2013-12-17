@@ -93,10 +93,9 @@ class ModuleAttributes(dict):
     #Public
     
     def __init__(self, module):
-        for cls in reversed(module.__class__.mro()):
-            for name, attr in cls.__dict__.items():
-                if isinstance(attr, Attribute):
-                    self[name] = attr
+        for name, attr in module.__class__.__dict__.items():
+            if isinstance(attr, Attribute):
+                self[name] = attr
     
     def find(self, attribute, default=None):
         for name, value in self.items():
