@@ -1,5 +1,6 @@
-from .attribute import (Attribute, DependentAttribute, 
-                        AttributeName, AttributeHelp)
+from .attribute import (Attribute, AttributeProxy, 
+                        AttributeName, AttributeHelp, 
+                        DependentAttribute)
 from .command import Command
 from .logger import Logger
 from .require import require
