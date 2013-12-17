@@ -1,5 +1,0 @@
-class Metadata:
-
-    #Public
-
-    pass

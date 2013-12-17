@@ -8,15 +8,16 @@ class Attribute(metaclass=ABCMeta):
     def __new__(cls, *args, **kwargs):
         return AttributeBuilder(cls, *args, **kwargs)
     
+    def __init__(self, *args, **kwargs):
+        self.__signature = kwargs.pop('signature', None)
+        self.__docstring = kwargs.pop('docstring', None)
+    
     @abstractmethod
     def __get__(self, module, module_class):
         pass #pragma: no cover
     
     def __set__(self, module, value):
         raise RuntimeError('Can\'t set attribute')
-    
-    def __copy__(self):
-        return self.__cls(*self.__args, **self.__kwargs)
 
     #TODO: use NullModule?
     @property
@@ -51,6 +52,9 @@ class Attribute(metaclass=ABCMeta):
     def attrhelp(self):
         return AttributeHelp(signature=self.attrname, 
                              docstring=inspect.getdoc(self))
+    
+    def metadata(self):
+        return AttributeMetadata(self)
         
   
 class AttributeBuilder:
@@ -66,6 +70,36 @@ class AttributeBuilder:
         obj = object.__new__(self._class)
         obj.__init__(*self._args, **self._kwargs)
         return obj
+
+
+class AttributeMetadata:
+    
+    #Public
+    
+    def __init__(self, attribute, signature=None, docstring=None):
+        self._attribute = attribute
+        self._signature = signature
+        self._docstring = docstring
+
+    @property
+    def name(self):
+        pass
+    
+    @property
+    def module_name(self):
+        pass    
+    
+    @property
+    def attribute_name(self):
+        pass 
+    
+    @property
+    def signature(self):
+        pass    
+    
+    @property
+    def docstring(self):
+        pass    
   
         
 class AttributeName(str):
@@ -115,8 +149,8 @@ class DependentAttribute(Attribute):
     #Public
     
     def __init__(self, *args, **kwargs):
-        self.__require = kwargs.pop('require', [])
         super().__init__(*args, **kwargs)
+        self.__require = kwargs.pop('require', [])
     
     #TODO: make it happened just one time
     def resolve(self):

@@ -1,6 +1,5 @@
 import inspect
 from abc import ABCMeta
-from lib31.python import cachedproperty
 from .attribute import Attribute, AttributeBuilder
 from .task import MethodTask
 from .var import PropertyVar, ValueVar
@@ -50,7 +49,7 @@ class Module(Attribute, metaclass=ModuleMeta):
         attribute = getattr(module, attribute_name)
         return attribute
 
-    @cachedproperty
+    @property
     def attributes(self):
         return ModuleAttributes(self)
 

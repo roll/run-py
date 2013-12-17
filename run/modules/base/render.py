@@ -9,9 +9,9 @@ class RenderTask(Task):
     #Public
     
     def __init__(self, source, target, **kwargs):
+        super().__init__(**kwargs)
         self._source = source
         self._target = target
-        super().__init__(**kwargs)
         
     def complete(self):
         dirname, filename = os.path.split(os.path.abspath(self._source))
