@@ -1,4 +1,4 @@
-from .attribute import (Attribute, AttributeProxy, 
+from .attribute import (Attribute, AttributeBuilder, 
                         AttributeName, AttributeHelp, 
                         DependentAttribute)
 from .command import Command

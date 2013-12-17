@@ -6,7 +6,7 @@ class Attribute(metaclass=ABCMeta):
     #Public
     
     def __new__(cls, *args, **kwargs):
-        return AttributeProxy(cls, *args, **kwargs)
+        return AttributeBuilder(cls, *args, **kwargs)
     
     @abstractmethod
     def __get__(self, module, module_class):
@@ -53,15 +53,17 @@ class Attribute(metaclass=ABCMeta):
                              docstring=inspect.getdoc(self))
         
   
-class AttributeProxy:
+class AttributeBuilder:
+    
+    #Public
     
     def __init__(self, cls, *args, **kwargs):
-        self._cls = cls
+        self._class = cls
         self._args = args
         self._kwargs = kwargs
         
     def __call__(self):
-        obj = object.__new__(self._cls)
+        obj = object.__new__(self._class)
         obj.__init__(*self._args, **self._kwargs)
         return obj
   
