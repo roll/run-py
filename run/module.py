@@ -83,8 +83,8 @@ class ModuleBuilder(AttributeBuilder):
             for key, attr in cls.__dict__.items():
                 if isinstance(attr, AttributeBuilder):
                     dct[key] = attr()
-        dct['__new__'] = lambda cls, *args, **kwargs: object.__new__(cls)            
         dct['__module__'] = self._class.__module__
+        dct['__new__'] = lambda cls, *args, **kwargs: object.__new__(cls)            
         return dct
 
 
