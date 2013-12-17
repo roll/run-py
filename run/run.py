@@ -1,6 +1,5 @@
 import inspect
 from abc import ABCMeta
-from pprint import pprint
 from .attribute import Attribute, AttributeProxy
 from .module import Module
 from .settings import settings
