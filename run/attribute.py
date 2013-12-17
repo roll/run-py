@@ -25,7 +25,7 @@ class Attribute(metaclass=ABCMeta):
             return self.__module
         except AttributeError:
             raise RuntimeError(
-                'Attribute "{0}" is not attached to any module'.
+                'Attribute "{0}" is not bound to any module'.
                 format(self))
     
     @module.setter
@@ -33,7 +33,7 @@ class Attribute(metaclass=ABCMeta):
         try: 
             if self.__module != module:
                 raise RuntimeError(
-                    'Attribute "{0}" is already attached to module "{1}"'.
+                    'Attribute "{0}" is already bound to module "{1}"'.
                     format(self, self.__module))
         except AttributeError:
             self.__module = module
