@@ -55,28 +55,26 @@ class Module(Attribute, metaclass=ModuleMeta):
 
 
 class ModuleBuilder(AttributeBuilder):
-    
-    #Public
-    
-    def __call__(self):
-        return self._new_class(*self._args, **self._kwargs)
         
     #Protected
     
-    @property
-    def _new_class(self):
-        return ModuleMeta(self._name, self._bases, self._dict)
+    def _make_object(self):
+        cls = self._make_new_class()
+        return cls(*self._args, **self._kwargs)
     
-    @property
-    def _name(self):
+    def _make_new_class(self):
+        name = self._make_name()
+        bases = self._make_bases()
+        dct = self._make_dict()
+        return ModuleMeta(name, bases, dct)
+    
+    def _make_name(self):
         return self._class.__name__+'Builded'
     
-    @property
-    def _bases(self):
+    def _make_bases(self):
         return (self._class,)
     
-    @property
-    def _dict(self):
+    def _make_dict(self):
         dct = {}
         for cls in reversed(self._class.mro()):
             for key, attr in cls.__dict__.items():

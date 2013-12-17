@@ -62,11 +62,24 @@ class AttributeBuilder:
     #Public
     
     def __init__(self, cls, *args, **kwargs):
+        self._signature = kwargs.pop('signature', None)
+        self._docstring = kwargs.pop('docstring', None)
         self._class = cls
         self._args = args
         self._kwargs = kwargs
         
     def __call__(self):
+        obj = self._make_object()
+        self._extend_object(obj)
+        return obj
+    
+    #Protected
+    
+    def _extend_object(self, obj):
+        Attribute.__init__(obj, signature=self._signature,
+                           docstring=self._docstring)
+    
+    def _make_object(self):
         obj = object.__new__(self._class)
         obj.__init__(*self._args, **self._kwargs)
         return obj
