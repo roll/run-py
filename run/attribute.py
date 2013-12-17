@@ -5,12 +5,8 @@ class Attribute(metaclass=ABCMeta):
     
     #Public
     
-#     def __new__(cls, *args, **kwargs):
-#         obj = super(Attribute, cls).__new__(cls)
-#         obj.__cls = cls
-#         obj.__args = args
-#         obj.__kwargs = kwargs
-#         return obj
+    def __new__(cls, *args, **kwargs):
+        return AttributeProxy(cls, *args, **kwargs)
     
     @abstractmethod
     def __get__(self, module, module_class):
@@ -19,8 +15,8 @@ class Attribute(metaclass=ABCMeta):
     def __set__(self, module, value):
         raise RuntimeError('Can\'t set attribute')
     
-#     def __copy__(self):
-#         return self.__cls(*self.__args, **self.__kwargs)
+    def __copy__(self):
+        return self.__cls(*self.__args, **self.__kwargs)
 
     #TODO: use NullModule?
     @property
@@ -56,6 +52,19 @@ class Attribute(metaclass=ABCMeta):
         return AttributeHelp(signature=self.attrname, 
                              docstring=inspect.getdoc(self))
         
+  
+class AttributeProxy:
+    
+    def __init__(self, cls, *args, **kwargs):
+        self._cls = cls
+        self._args = args
+        self._kwargs = kwargs
+        
+    def __call__(self):
+        obj = object.__new__(self._cls)
+        obj.__init__(*self._args, **self._kwargs)
+        return obj
+  
         
 class AttributeName(str):
     

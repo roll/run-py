@@ -1,47 +1,7 @@
-import copy
-import inspect
-import importlib
-from abc import ABCMeta
 from lib31.python import cachedproperty
 from .attribute import Attribute
 
-class ModuleMeta(ABCMeta):
-   
-    #Public
-   
-    def __new__(cls, name, bases, attrs):
-        for name, attr in attrs.items():
-            if (not name.startswith('_') and
-                not name == 'attributes' and
-                not isinstance(attr, type) and
-                not isinstance(attr, Attribute)):
-                    if callable(attr):
-                        MethodTask = cls.__import('task', 'MethodTask')
-                        attrs[name] = MethodTask(attr)
-                    elif inspect.isdatadescriptor(attr):
-                        PropertyVar = cls.__import('var', 'PropertyVar')
-                        attrs[name] = PropertyVar(attr)
-                    else:
-                        ValueVar = cls.__import('var', 'ValueVar')
-                        attrs[name] = ValueVar(attr)
-        for base in bases:
-            for name, attr in base.__dict__.items():
-                if (not name in attrs and 
-                    isinstance(attr, Attribute)):
-                    attrs[name] = copy.deepcopy(attr) 
-        return super().__new__(cls, name, bases, attrs)
-    
-    #Private
-        
-    @classmethod
-    def __import(cls, module_name, attribute_name):
-        package_name = inspect.getmodule(cls).__package__
-        module = importlib.import_module('.'+module_name, package_name)
-        attr = getattr(module, attribute_name)
-        return attr  
-
-
-class Module(Attribute, metaclass=ModuleMeta):
+class Module(Attribute):
     
     #Public
     
