@@ -43,7 +43,8 @@ class Attribute(metaclass=ABCMeta):
                              docstring=inspect.getdoc(self))
     
     def metadata(self):
-        return AttributeMetadata(self)
+        return AttributeMetadata(
+            self, self.__signature, self.__docstring)
         
   
 class AttributeBuilder:
