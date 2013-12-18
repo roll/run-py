@@ -60,7 +60,8 @@ class ModuleBuilder(AttributeBuilder):
     
     def _make_object(self):
         cls = self._make_new_class()
-        return cls(*self._args, **self._kwargs)
+        user_kwargs = self._make_user_kwargs()
+        return cls(*self._args, **user_kwargs)
     
     def _make_new_class(self):
         name = self._make_name()

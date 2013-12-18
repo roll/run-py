@@ -62,27 +62,42 @@ class AttributeBuilder:
     #Public
     
     def __init__(self, cls, *args, **kwargs):
-        self._signature = kwargs.pop('signature', None)
-        self._docstring = kwargs.pop('docstring', None)
         self._class = cls
         self._args = args
         self._kwargs = kwargs
         
     def __call__(self):
         obj = self._make_object()
-        self._extend_object(obj)
+        self._sys_init_object(obj)
         return obj
     
     #Protected
-    
-    def _extend_object(self, obj):
-        Attribute.__init__(obj, signature=self._signature,
-                           docstring=self._docstring)
+
+    _sys_kwarg_keys = ['signature', 'docstring']
+           
+    def _sys_init_object(self, obj):
+        sys_kwargs = self._make_sys_kwargs()
+        Attribute.__init__(obj, **sys_kwargs)
     
     def _make_object(self):
+        user_kwargs = self._make_user_kwargs()
         obj = object.__new__(self._class)
-        obj.__init__(*self._args, **self._kwargs)
+        obj.__init__(*self._args, **user_kwargs)
         return obj
+
+    def _make_sys_kwargs(self):
+        kwargs = {}
+        for key, value in self._kwargs.items():
+            if key in self._sys_kwarg_keys:
+                kwargs[key] = value
+        return kwargs
+
+    def _make_user_kwargs(self):
+        kwargs = {}
+        for key, value in self._kwargs.items():
+            if key not in self._sys_kwarg_keys:
+                kwargs[key] = value
+        return kwargs
 
 
 class AttributeMetadata:
