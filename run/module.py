@@ -34,7 +34,9 @@ class Module(Attribute, metaclass=ModuleMeta):
     
     def __init__(self, *args, **kwargs):
         for attribute in self.attributes.values():
-            attribute.module = self
+            #TODO: add exception if already bound?
+            if not attribute.module:
+                attribute.module = self
         
     def __get__(self, module, module_class):
         return self
