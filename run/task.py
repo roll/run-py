@@ -1,5 +1,5 @@
 import inspect
-from .attribute import DependentAttribute, AttributeHelp
+from .attribute import DependentAttribute, AttributeMetadata
 
 class Task(DependentAttribute):
     
@@ -30,17 +30,19 @@ class MethodTask(Task):
     
     def complete(self, *args, **kwargs):
         return self._method(self.module, *args, **kwargs)
-     
-    @property     
-    def attrhelp(self):
-        return AttributeHelp(signature=self._signature, 
-                             docstring=self._docstring)
+        
+    @property    
+    def metadata(self):
+        return AttributeMetadata(
+            self, signature=self._signature, 
+                  docstring=self._docstring)
         
     #Protected
     
     @property
     def _signature(self):
-        return self.attrname+str(inspect.signature(self._method))
+        return (super().metadata.name+
+                str(inspect.signature(self._method)))
     
     @property    
     def _docstring(self):

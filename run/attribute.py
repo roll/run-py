@@ -28,23 +28,10 @@ class Attribute(metaclass=ABCMeta):
     def module(self, module):
         self.__module = module
     
-    @property
-    def attrname(self):
-        try:
-            return AttributeName(
-                module=self.module.attrname, 
-                attribute=self.module.attributes.find(self))
-        except RuntimeError:
-            return AttributeName()
- 
-    @property
-    def attrhelp(self):
-        return AttributeHelp(signature=self.attrname, 
-                             docstring=inspect.getdoc(self))
-    
     def metadata(self):
         return AttributeMetadata(
-            self, self.__signature, self.__docstring)
+            self, signature=self.__signature, 
+                  docstring=self.__docstring)
         
   
 class AttributeBuilder:
@@ -133,49 +120,7 @@ class AttributeMetadata:
             return self._docstring
         else:
             return inspect.getdoc(self._attribute)     
-  
-        
-class AttributeName(str):
-    
-    #Public
-    
-    def __new__(cls, module=None, attribute=None):
-        name = '.'.join(filter(None, [module, attribute]))
-        return super().__new__(cls, name)
-    
-    def __init__(self, module=None, attribute=None):
-        self._module = module or ''
-        self._attribute = attribute or ''
-    
-    @property    
-    def module(self):
-        return self._module
-    
-    @property
-    def attribute(self):
-        return self._attribute    
-    
-
-class AttributeHelp(str):
-    
-    #Public
-    
-    def __new__(cls, signature=None, docstring=None):
-        hlp = '\n'.join(filter(None, [signature, docstring]))
-        return super().__new__(cls, hlp)
-    
-    def __init__(self, signature=None, docstring=None):
-        self._signature = signature or ''
-        self._docstring = docstring or ''
-    
-    @property    
-    def signature(self):
-        return self._signature
-    
-    @property
-    def docstring(self):
-        return self._docstring
-    
+      
     
 class DependentAttribute(Attribute):
     
