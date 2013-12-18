@@ -7,8 +7,10 @@ class ParseVarTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.var = ParseVar('test_parse.py', 'import (.*test)\n', 
-                             base_dir=os.path.dirname(__file__))
+        builder = ParseVar(
+            'test_parse.py', 'import (.*test)\n', 
+            base_dir=os.path.dirname(__file__))
+        self.var = builder()
     
     def test_retrieve(self):
         self.var.processors = [lambda items: items[0]]        
