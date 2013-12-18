@@ -69,7 +69,7 @@ class ModuleBuilder(AttributeBuilder):
         return ModuleMeta(name, bases, dct)
     
     def _make_name(self):
-        return self._class.__name__+'Builded'
+        return self._class.__name__+'Attributes'
     
     def _make_bases(self):
         return (self._class,)
