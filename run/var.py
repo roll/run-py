@@ -35,4 +35,5 @@ class PropertyVar(Var):
         self._property = prop
  
     def retrieve(self):
-        return self._property.__get__(self.module, self.module.__class__)  
+        return self._property.__get__(
+            self.module, self.module.__class__)
