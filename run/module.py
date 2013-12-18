@@ -35,7 +35,6 @@ class Module(Attribute, metaclass=ModuleMeta):
     def __init__(self, *args, **kwargs):
         for attribute in self.attributes.values():
             attribute.module = self
-        super().__init__(*args, **kwargs)
         
     def __get__(self, module, module_class):
         return self
