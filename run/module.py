@@ -104,4 +104,4 @@ class ModuleAttributes(dict):
         
     def filter(self, attribute_class):
         return {name: value for name, value in self.items() 
-                if isinstance(value, attribute_class)}     
+                if isinstance(value, attribute_class)}
