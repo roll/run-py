@@ -103,23 +103,42 @@ class AttributeMetadata:
 
     @property
     def name(self):
-        pass
+        return '.'.join(filter(None, 
+            [self.module_name, self.attribute_name]))
     
     @property
     def module_name(self):
-        pass    
+        if self._attribute.module:
+            return self._attribute.module.metadata.name 
+        else:
+            return ''  
     
     @property
     def attribute_name(self):
-        pass 
-    
+        if self._attribute.module:
+            return (self._attribute.module.attributes.
+                    find(self._attribute, default='')) 
+        else:
+            return '' 
+
+    @property
+    def help(self):
+        return '.'.join(filter(None, 
+            [self.signature, self.docstring]))
+
     @property
     def signature(self):
-        pass    
+        if self._signature:
+            return self._signature
+        else:
+            return self.name    
     
     @property
     def docstring(self):
-        pass    
+        if self._docstring:
+            return self._docstring
+        else:
+            return inspect.getdoc(self._attribute)     
   
         
 class AttributeName(str):
