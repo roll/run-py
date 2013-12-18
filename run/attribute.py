@@ -11,6 +11,7 @@ class Attribute(metaclass=ABCMeta):
     def __init__(self, *args, **kwargs):
         self.__signature = kwargs.pop('signature', None)
         self.__docstring = kwargs.pop('docstring', None)
+        self.__module = None
     
     @abstractmethod
     def __get__(self, module, module_class):
@@ -19,25 +20,13 @@ class Attribute(metaclass=ABCMeta):
     def __set__(self, module, value):
         raise RuntimeError('Can\'t set attribute')
 
-    #TODO: use NullModule?
     @property
     def module(self):
-        try:
-            return self.__module
-        except AttributeError:
-            raise RuntimeError(
-                'Attribute "{0}" is not bound to any module'.
-                format(self))
+        return self.__module
     
     @module.setter
     def module(self, module):
-        try: 
-            if self.__module != module:
-                raise RuntimeError(
-                    'Attribute "{0}" is already bound to module "{1}"'.
-                    format(self, self.__module))
-        except AttributeError:
-            self.__module = module
+        self.__module = module
     
     @property
     def attrname(self):
