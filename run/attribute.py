@@ -104,7 +104,7 @@ class AttributeMetadata:
 
     @property
     def help(self):
-        return '.'.join(filter(None, 
+        return '\n'.join(filter(None, 
             [self.signature, self.docstring]))
 
     @property
