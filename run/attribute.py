@@ -78,12 +78,18 @@ class AttributeBuilder:
         return obj
 
     def _make_sys_kwargs(self):
-        return {key: value for key, value in self._kwargs.items()
-                if key in self._sys_kwarg_keys}
+        kwargs = {}
+        for key, value in self._kwargs.items():
+            if key in self._sys_kwarg_keys:
+                kwargs[key] = value
+        return kwargs
 
     def _make_user_kwargs(self):
-        return {key: value for key, value in self._kwargs.items()
-                if key not in self._sys_kwarg_keys}
+        kwargs = {}
+        for key, value in self._kwargs.items():
+            if key not in self._sys_kwarg_keys:
+                kwargs[key] = value
+        return kwargs
 
 
 class AttributeMetadata:
