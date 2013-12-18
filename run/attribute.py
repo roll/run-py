@@ -73,11 +73,13 @@ class AttributeBuilder:
     
     #Protected
 
+    _sys_init_classes = [Attribute]
     _sys_kwarg_keys = ['signature', 'docstring']
            
     def _sys_init_object(self, obj):
         sys_kwargs = self._make_sys_kwargs()
-        Attribute.__init__(obj, **sys_kwargs)
+        for cls in self._sys_init_classes:
+            cls.__init__(obj, **sys_kwargs)
     
     def _make_object(self):
         user_kwargs = self._make_user_kwargs()
@@ -175,13 +177,28 @@ class AttributeHelp(str):
 class DependentAttribute(Attribute):
     
     #Public
+
+    def __new__(cls, *args, **kwargs):
+        return DependentAttributeBuilder(cls, *args, **kwargs)
     
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
         self.__require = kwargs.pop('require', [])
     
     #TODO: make it happened just one time
     def resolve(self):
         for task_name in self.__require:
             task = getattr(self.module, task_name)
-            task()    
+            task()
+
+
+class DependentAttributeBuilder(AttributeBuilder):
+    
+    #Protected
+
+    @property
+    def _sys_init_classes(self):
+        return super()._sys_init_classes+[DependentAttribute]
+
+    @property
+    def _sys_kwarg_keys(self):
+        return super()._sys_kwarg_keys+['require']
