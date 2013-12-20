@@ -150,6 +150,12 @@ class DependentAttribute(Attribute):
     def __init__(self, *args, **kwargs):
         self.__require = kwargs.pop('require', [])
         self.__trigger = kwargs.pop('trigger', [])
+        
+    def require(self, attributes):
+        self.__require += attributes
+        
+    def trigger(self, attributes):
+        self.__trigger += attributes
     
     #TODO: add triggers resolution
     #TODO: make it happened just one time
