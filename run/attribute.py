@@ -13,6 +13,9 @@ class AttributeBuilder:
     def __call__(self):
         obj = self._make_object()
         self._sys_init_object(obj)
+        self.process_system_init(obj)
+        self.process_delayed_sets(obj)
+        self.process_delayed_calls(obj)
         return obj
     
     def __getattr__(self, name):
@@ -24,10 +27,23 @@ class AttributeBuilder:
     
     #Protected
     
-    #TODO: refactor sys name?
+    #TODO: rename sys to system
     _sys_init_classes = property(lambda self: [Attribute])
     _sys_kwarg_keys = ['signature', 'docstring']
     
+    #TODO: implement
+    def process_system_init(self, obj):
+        pass
+
+    #TODO: implement    
+    def process_delayed_sets(self, obj):
+        pass
+    
+    #TODO: implement
+    def process_delayed_calls(self, obj):
+        pass
+    
+    #TODO: remove
     def _sys_init_object(self, obj):
         sys_kwargs = self._make_sys_kwargs()
         for cls in self._sys_init_classes:
