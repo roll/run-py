@@ -176,6 +176,14 @@ class DependentAttribute(Attribute):
             task = getattr(self.module, task_name)
             task()
             
+    #TODO: implement
+    def resolve_requirements(self):
+        pass
+    
+    #TODO: implement
+    def process_triggers(self):
+        pass
+            
     #Protected
     
     _builder_class = DependentAttributeBuilder
