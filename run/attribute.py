@@ -15,6 +15,17 @@ class AttributeBuilder:
         self._sys_init_object(obj)
         return obj
     
+    def __getattr__(self, name):
+        try:
+            attr = getattr(self._class, name)
+            if issubclass(attr, Attribute):
+                return attr
+            else:
+                raise AttributeError()
+        except:
+            raise AttributeError(name) from None
+        
+    
     #Protected
     
     _sys_init_classes = property(lambda self: [Attribute])
