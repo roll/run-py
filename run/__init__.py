@@ -1,8 +1,7 @@
 from .attribute import (Attribute, AttributeBuilder, AttributeMetadata, 
                         DependentAttribute, DependentAttributeBuilder, 
-                        DependentAttributeDependency)
+                        DependentAttributeDependency, require, trigger)
 from .command import Command
-from .decorators import require, trigger
 from .logger import Logger
 from .module import ModuleMeta, Module, ModuleBuilder, ModuleAttributes
 from .program import Program, program
