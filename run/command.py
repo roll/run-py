@@ -1,6 +1,6 @@
 import csv
 import ast
-from lib31.console import Command
+from lib31.program import Command
 from lib31.python import cachedproperty
 from .settings import settings
 

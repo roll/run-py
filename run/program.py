@@ -3,7 +3,7 @@ import re
 import sys
 import inspect
 import importlib
-from lib31.console import Program
+from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
 from .run import Run
