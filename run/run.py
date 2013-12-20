@@ -7,9 +7,8 @@ class Run(Module):
     #Public
     
     def __new__(cls, *args, **kwargs):
-        builder = super().__new__(cls, *args, **kwargs)
-        obj = builder()
-        return obj
+        kwargs.setdefault('module', None)
+        return super().__new__(cls, *args, **kwargs)
        
     def __call__(self, attribute, *args, **kwargs):
         if not attribute:

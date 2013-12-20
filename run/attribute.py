@@ -1,12 +1,58 @@
 import inspect
 from abc import ABCMeta, abstractmethod
 
+class AttributeBuilder:
+    
+    #Public
+    
+    def __init__(self, cls, *args, **kwargs):
+        self._class = cls
+        self._args = args
+        self._kwargs = kwargs
+        
+    def __call__(self):
+        obj = self._make_object()
+        self._sys_init_object(obj)
+        return obj
+    
+    #Protected
+    
+    _sys_kwarg_keys = ['signature', 'docstring']
+   
+    @property    
+    def _sys_init_classes(self):
+        return [Attribute]
+    
+    def _sys_init_object(self, obj):
+        sys_kwargs = self._make_sys_kwargs()
+        for cls in self._sys_init_classes:
+            cls.__init__(obj, **sys_kwargs)
+    
+    def _make_object(self):
+        user_kwargs = self._make_user_kwargs()
+        obj = object.__new__(self._class)
+        obj.__init__(*self._args, **user_kwargs)
+        return obj
+
+    def _make_sys_kwargs(self):
+        return {key: value for key, value in self._kwargs.items()
+                if key in self._sys_kwarg_keys}
+
+    def _make_user_kwargs(self):
+        return {key: value for key, value in self._kwargs.items()
+                if key not in self._sys_kwarg_keys}
+        
+        
 class Attribute(metaclass=ABCMeta):
     
     #Public
     
     def __new__(cls, *args, **kwargs):
-        return AttributeBuilder(cls, *args, **kwargs)
+        builder = cls._builder_class(cls, *args, **kwargs)
+        if 'module' in kwargs:
+            return builder()
+        else:
+            return builder
     
     def __init__(self, *args, **kwargs):
         self.__signature = kwargs.pop('signature', None)
@@ -33,46 +79,11 @@ class Attribute(metaclass=ABCMeta):
             self, signature=self.__signature, 
                   docstring=self.__docstring)
         
-  
-class AttributeBuilder:
-    
-    #Public
-    
-    def __init__(self, cls, *args, **kwargs):
-        self._class = cls
-        self._args = args
-        self._kwargs = kwargs
-        
-    def __call__(self):
-        obj = self._make_object()
-        self._sys_init_object(obj)
-        return obj
-    
     #Protected
-
-    _sys_init_classes = [Attribute]
-    _sys_kwarg_keys = ['signature', 'docstring']
-           
-    def _sys_init_object(self, obj):
-        sys_kwargs = self._make_sys_kwargs()
-        for cls in self._sys_init_classes:
-            cls.__init__(obj, **sys_kwargs)
     
-    def _make_object(self):
-        user_kwargs = self._make_user_kwargs()
-        obj = object.__new__(self._class)
-        obj.__init__(*self._args, **user_kwargs)
-        return obj
-
-    def _make_sys_kwargs(self):
-        return {key: value for key, value in self._kwargs.items()
-                if key in self._sys_kwarg_keys}
-
-    def _make_user_kwargs(self):
-        return {key: value for key, value in self._kwargs.items()
-                if key not in self._sys_kwarg_keys}
-
-
+    _builder_class = AttributeBuilder
+        
+  
 class AttributeMetadata:
     
     #Public
@@ -120,14 +131,24 @@ class AttributeMetadata:
             return self._docstring
         else:
             return inspect.getdoc(self._attribute)     
+
+
+class DependentAttributeBuilder(AttributeBuilder):
+    
+    #Protected
+
+    @property
+    def _sys_kwarg_keys(self):
+        return super()._sys_kwarg_keys+['require']
+
+    @property
+    def _sys_init_classes(self):
+        return super()._sys_init_classes+[DependentAttribute]
       
     
 class DependentAttribute(Attribute):
     
     #Public
-
-    def __new__(cls, *args, **kwargs):
-        return DependentAttributeBuilder(cls, *args, **kwargs)
     
     def __init__(self, *args, **kwargs):
         self.__require = kwargs.pop('require', [])
@@ -137,16 +158,7 @@ class DependentAttribute(Attribute):
         for task_name in self.__require:
             task = getattr(self.module, task_name)
             task()
-
-
-class DependentAttributeBuilder(AttributeBuilder):
-    
+            
     #Protected
-
-    @property
-    def _sys_init_classes(self):
-        return super()._sys_init_classes+[DependentAttribute]
-
-    @property
-    def _sys_kwarg_keys(self):
-        return super()._sys_kwarg_keys+['require']
+    
+    _builder_class = DependentAttributeBuilder

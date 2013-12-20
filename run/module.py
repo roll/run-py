@@ -4,59 +4,13 @@ from .attribute import Attribute, AttributeBuilder
 from .task import MethodTask
 from .var import PropertyVar, ValueVar
 
-class ModuleMeta(ABCMeta):
-     
-    #Public
-     
-    def __new__(cls, name, bases, dct):
-        for key, attr in dct.items():
-            if (not key.startswith('_') and
-                not key == 'attributes' and
-                not isinstance(attr, type) and
-                not isinstance(attr, Attribute) and
-                not isinstance(attr, AttributeBuilder)):
-                if callable(attr):
-                    attr = MethodTask(attr)
-                elif inspect.isdatadescriptor(attr):
-                    attr = PropertyVar(attr)
-                else:
-                    attr = ValueVar(attr)
-                dct[key] = attr
-        return super().__new__(cls, name, bases, dct)
-     
-    
-class Module(Attribute, metaclass=ModuleMeta):
-    
-    #Public
-    
-    def __new__(cls, *args, **kwargs):
-        return ModuleBuilder(cls, *args, **kwargs)
-    
-    def __init__(self, *args, **kwargs):
-        for attribute in self.attributes.values():
-            #TODO: add exception if already bound?
-            attribute.module = self
-        
-    def __get__(self, module, module_class):
-        return self
-    
-    def __getattr__(self, name):
-        try:
-            module_name, attribute_name = name.split('.', 1)
-        except ValueError:
-            raise AttributeError(name) from None
-        module = getattr(self, module_name)
-        attribute = getattr(module, attribute_name)
-        return attribute
-
-    @property
-    def attributes(self):
-        return ModuleAttributes(self)
-
-
 class ModuleBuilder(AttributeBuilder):
         
     #Protected
+    
+    @property
+    def _sys_init_classes(self):
+        return super()._sys_init_classes+[Module]
     
     def _make_object(self):
         cls = self._make_new_class()
@@ -85,6 +39,57 @@ class ModuleBuilder(AttributeBuilder):
         dct['__new__'] = lambda cls, *args, **kwargs: object.__new__(cls)            
         return dct
 
+
+class ModuleMeta(ABCMeta):
+     
+    #Public
+     
+    def __new__(cls, name, bases, dct):
+        for key, attr in dct.items():
+            if (not key.startswith('_') and
+                not key == 'attributes' and
+                not isinstance(attr, type) and
+                not isinstance(attr, Attribute) and
+                not isinstance(attr, AttributeBuilder)):
+                if callable(attr):
+                    attr = MethodTask(attr)
+                elif inspect.isdatadescriptor(attr):
+                    attr = PropertyVar(attr)
+                else:
+                    attr = ValueVar(attr)
+                dct[key] = attr
+        return super().__new__(cls, name, bases, dct) 
+    
+    
+class Module(Attribute, metaclass=ModuleMeta):
+    
+    #Public
+    
+    def __init__(self, *args, **kwargs):
+        for attribute in self.attributes.values():
+            #TODO: add exception if already bound?
+            attribute.module = self
+        
+    def __get__(self, module, module_class):
+        return self
+    
+    def __getattr__(self, name):
+        try:
+            module_name, attribute_name = name.split('.', 1)
+        except ValueError:
+            raise AttributeError(name) from None
+        module = getattr(self, module_name)
+        attribute = getattr(module, attribute_name)
+        return attribute
+
+    @property
+    def attributes(self):
+        return ModuleAttributes(self)
+            
+    #Protected
+    
+    _builder_class = ModuleBuilder
+    
 
 class ModuleAttributes(dict):
     
