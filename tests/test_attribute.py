@@ -6,8 +6,7 @@ class AttributeMetadataHelp(unittest.TestCase):
     #Public
 
     def test(self):
-        builder = Task()
-        attribute = builder()
+        attribute = Task(module=None)
         metadata = AttributeMetadata(
             attribute, signature='signature', docstring='docstring')
         self.assertEqual(metadata.name, '')
