@@ -1,8 +1,6 @@
-import inspect
 from abc import ABCMeta
 from .attribute import Attribute, AttributeBuilder
-from .task import MethodTask
-from .var import PropertyVar, ValueVar
+from .wrapper import Wrapper
 
 class ModuleBuilder(AttributeBuilder):
         
@@ -45,20 +43,15 @@ class ModuleMeta(ABCMeta):
     #Public
      
     def __new__(cls, name, bases, dct):
+        wrapper = Wrapper()
         for key, attr in dct.items():
             if (not key.startswith('_') and
                 not key == 'attributes' and
                 not isinstance(attr, type) and
                 not isinstance(attr, Attribute) and
                 not isinstance(attr, AttributeBuilder)):
-                if callable(attr):
-                    attr = MethodTask(attr)
-                elif inspect.isdatadescriptor(attr):
-                    attr = PropertyVar(attr)
-                else:
-                    attr = ValueVar(attr)
-                dct[key] = attr
-        return super().__new__(cls, name, bases, dct) 
+                dct[key] = wrapper.wrap(attr)
+        return super().__new__(cls, name, bases, dct)
     
     
 class Module(Attribute, metaclass=ModuleMeta):
