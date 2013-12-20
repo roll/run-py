@@ -23,7 +23,6 @@ class AttributeBuilder:
             return getattr(self._class, name)
         except:
             raise AttributeError(name) from None
-        
     
     #Protected
     
