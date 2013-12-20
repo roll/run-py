@@ -17,11 +17,8 @@ class AttributeBuilder:
     
     #Protected
     
+    _sys_init_classes = property(lambda self: [Attribute])
     _sys_kwarg_keys = ['signature', 'docstring']
-   
-    @property    
-    def _sys_init_classes(self):
-        return [Attribute]
     
     def _sys_init_object(self, obj):
         sys_kwargs = self._make_sys_kwargs()
@@ -138,13 +135,13 @@ class DependentAttributeBuilder(AttributeBuilder):
     #Protected
 
     @property
-    def _sys_kwarg_keys(self):
-        return super()._sys_kwarg_keys+['require']
-
-    @property
     def _sys_init_classes(self):
         return super()._sys_init_classes+[DependentAttribute]
-      
+
+    @property
+    def _sys_kwarg_keys(self):
+        return super()._sys_kwarg_keys+['require']
+    
     
 class DependentAttribute(Attribute):
     
