@@ -17,11 +17,8 @@ class AttributeBuilder:
     
     def __getattr__(self, name):
         try:
-            attr = getattr(self._class, name)
-            if issubclass(attr, Attribute):
-                return attr
-            else:
-                raise AttributeError()
+            #TODO: add some filters?
+            return getattr(self._class, name)
         except:
             raise AttributeError(name) from None
         
