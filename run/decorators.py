@@ -1,6 +1,8 @@
 from functools import wraps
 from .task import MethodTask
 
+#TODO: fix logic method/MethodTask/MethodBuilder
+
 def require(tasks):
     @wraps
     def wrapper(method):
