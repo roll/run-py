@@ -23,7 +23,6 @@ class MethodTask(Task):
     #Public
 
     def __init__(self, method, **kwargs):
-        super().__init__(**kwargs)
         self._method = method
         
     @property
