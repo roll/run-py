@@ -7,7 +7,8 @@ class Run(Module):
     #Public
     
     def __new__(cls, *args, **kwargs):
-        kwargs.setdefault('module', None)
+        if 'module' not in kwargs:
+            kwargs['module'] = None
         return super().__new__(cls, *args, **kwargs)
        
     def __call__(self, attribute, *args, **kwargs):

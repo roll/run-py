@@ -49,10 +49,10 @@ class Attribute(metaclass=ABCMeta):
     
     def __new__(cls, *args, **kwargs):
         builder = cls._builder_class(cls, *args, **kwargs)
-        if 'module' in kwargs:
-            return builder()
-        else:
+        if 'module' not in kwargs:
             return builder
+        else:
+            return builder()
     
     def __init__(self, *args, **kwargs):
         self.__signature = kwargs.pop('signature', None)
