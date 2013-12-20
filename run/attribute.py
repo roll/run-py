@@ -134,13 +134,13 @@ class DependentAttributeBuilder(AttributeBuilder):
     
     #Public
             
-    def require(self, attributes):
+    def require(self, tasks):
         self.__kwargs.setdefault('require', [])
-        self.__kwargs['require'] += attributes
+        self.__kwargs['require'] += tasks
         
-    def trigger(self, attributes):
+    def trigger(self, tasks):
         self.__kwargs.setdefault('trigger', [])
-        self.__kwargs['require'] += attributes
+        self.__kwargs['require'] += tasks
     
     #Protected
 
@@ -163,11 +163,11 @@ class DependentAttribute(Attribute):
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
-    def require(self, attributes):
-        self.__require += attributes
+    def require(self, tasks):
+        self.__require += tasks
         
-    def trigger(self, attributes):
-        self.__trigger += attributes
+    def trigger(self, tasks):
+        self.__trigger += tasks
     
     #TODO: add triggers resolution
     #TODO: make it happened just one time
