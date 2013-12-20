@@ -72,7 +72,6 @@ class Module(Attribute, metaclass=ModuleMeta):
     def __get__(self, module, module_class):
         return self
     
-    #TODO: add root processing
     def __getattr__(self, name):
         try:
             module_name, attribute_name = name.split('.', 1)
