@@ -1,5 +1,6 @@
 from .attribute import (Attribute, AttributeBuilder, AttributeMetadata, 
-                        DependentAttribute, DependentAttributeBuilder)
+                        DependentAttribute, DependentAttributeBuilder, 
+                        DependentAttributeDependency)
 from .command import Command
 from .decorators import require, trigger
 from .logger import Logger

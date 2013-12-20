@@ -223,4 +223,4 @@ class DependentAttributeDependency:
         
     def __call__(self, attribute):
         task = getattr(attribute.module, self._task_name)
-        return task(*self._args, **self._kwargs)
+        return task(*self._args, **self._kwargs)   
