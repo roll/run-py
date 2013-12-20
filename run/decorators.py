@@ -1,25 +1,44 @@
-from functools import wraps
+from abc import ABCMeta, abstractmethod
 from .attribute import AttributeBuilder 
 from .task import MethodTask
 
-def require(tasks, *args, **kwargs):
-    @wraps
-    def wrapper(method):
+class DependencyDecorator(metaclass=ABCMeta):
+    
+    #Public
+    
+    def __init__(self, tasks, *args, **kwargs):
+        self._tasks = tasks
+        self._args = args
+        self._kwargs = kwargs
+    
+    def __call__(self, method):
         if not isinstance(method, AttributeBuilder):
             builder = MethodTask(method)
         else:
             builder = method
-        builder.require(tasks, *args, **kwargs)
+        self._add_dependency(builder)
         return builder
-    return wrapper
+    
+    #Protected
+    
+    @abstractmethod
+    def _add_dependency(self, builder):
+        pass #pragma: no cover
 
-def trigger(tasks, *args, **kwargs):
-    @wraps
-    def wrapper(method):
-        if not isinstance(method, AttributeBuilder):
-            builder = MethodTask(method)
-        else:
-            builder = method
-        builder.trigger(tasks, *args, **kwargs)
-        return builder
-    return wrapper    
+
+class require(DependencyDecorator):
+    
+    #Protected
+    
+    @abstractmethod
+    def _add_dependency(self, builder):
+        builder.require(self._tasks, self._args, self._kwargs)
+
+
+class trigger(DependencyDecorator):
+    
+    #Protected
+    
+    @abstractmethod
+    def _add_dependency(self, builder):
+        builder.trigger(self._tasks, self._args, self._kwargs)  
