@@ -1,4 +1,5 @@
 import inspect
+from collections import OrderedDict
 from abc import ABCMeta, abstractmethod
 
 class AttributeBuilder:
@@ -79,6 +80,7 @@ class Attribute(metaclass=ABCMeta):
     def module(self, module):
         self.__module = module
     
+    @property
     def metadata(self):
         return AttributeMetadata(
             self, signature=self.__signature, 
@@ -142,13 +144,13 @@ class DependentAttributeBuilder(AttributeBuilder):
     
     #Public
             
-    def require(self, tasks):
+    def require(self, tasks, *args, **kwargs):
         self.__kwargs.setdefault('require', [])
-        self.__kwargs['require'] += tasks
+        self.__kwargs['require'] += (tasks, args, kwargs)
         
-    def trigger(self, tasks):
+    def trigger(self, tasks, *args, **kwargs):
         self.__kwargs.setdefault('trigger', [])
-        self.__kwargs['require'] += tasks
+        self.__kwargs['require'] += (tasks, args, kwargs)
     
     #Protected
 
@@ -166,34 +168,59 @@ class DependentAttribute(Attribute):
     #Public
     
     def __init__(self, *args, **kwargs):
-        self.__require = []
-        self.__trigger = []
+        self.__require = OrderedDict()
+        self.__trigger = OrderedDict()
         self.__resolved_requirments = []
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
-    def require(self, tasks):
-        for task in tasks:
-            if task not in self.__require:
-                self.__require.append(task)
+    def require(self, tasks, *args, **kwargs):
+        self.__add_dependency(
+            self.__require, tasks, *args, **kwargs)
         
-    def trigger(self, tasks):
-        for task in tasks:
-            if task not in self.__trigger:
-                self.__trigger.append(task)
+    def trigger(self, tasks, *args, **kwargs):
+        self.__add_dependency(
+            self.__trigger, tasks, *args, **kwargs)
             
     def resolve_requirements(self):
-        for task_name in self.__require:
-            if task_name not in self.__resolved_requirments:
-                task = getattr(self.module, task_name)
-                task()
-                self.__resolved_requirments.append(task_name)
+        for task, dependency in self.__require.items():
+            if task not in self.__resolved_requirments:
+                dependency(self)
+                self.__resolved_requirments.append(task)
     
     def process_triggers(self):
-        for task_name in self.__trigger:
-            task = getattr(self.module, task_name)
-            task()
+        for dependency in self.__trigger.values():
+            dependency(self)
             
     #Protected
     
     _builder_class = DependentAttributeBuilder
+    
+    #Private
+    
+    @staticmethod
+    def __add_dependency(target, tasks, *args, **kwargs):
+        if not isinstance(tasks, list):
+            tasks = [tasks] 
+        for task in tasks:
+            if isinstance(task, tuple):
+                kwargs = task[2]
+                args = task[1]
+                task = task[0]
+            if task not in target:
+                target[task] = DependentAttributeDependency(
+                    task, *args, **kwargs)        
+    
+    
+class DependentAttributeDependency:
+    
+    #Public
+    
+    def __init__(self, task_name, *args, **kwargs):
+        self._task_name = task_name
+        self._args = args
+        self._kwargs = kwargs
+        
+    def __call__(self, attribute):
+        task = getattr(attribute.module, self._task_name)
+        return task(*self._args, **self._kwargs)
