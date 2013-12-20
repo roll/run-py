@@ -1,7 +1,7 @@
 import csv
 import ast
+from lib31.console import Command
 from lib31.python import cachedproperty
-from packgram.console import Command
 from .settings import settings
 
 class Command(Command):

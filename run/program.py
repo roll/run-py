@@ -3,8 +3,8 @@ import re
 import sys
 import inspect
 import importlib
+from lib31.console import Program
 from lib31.python import cachedproperty
-from packgram.console import Program
 from .command import Command
 from .run import Run
 
