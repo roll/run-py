@@ -52,9 +52,9 @@ class Attribute(metaclass=ABCMeta):
             return builder()
     
     def __init__(self, *args, **kwargs):
+        self.__module = None
         self.__signature = kwargs.pop('signature', None)
         self.__docstring = kwargs.pop('docstring', None)
-        self.__module = None
     
     @abstractmethod
     def __get__(self, module, module_class):
@@ -158,8 +158,10 @@ class DependentAttribute(Attribute):
     #Public
     
     def __init__(self, *args, **kwargs):
-        self.__require = kwargs.pop('require', [])
-        self.__trigger = kwargs.pop('trigger', [])
+        self.__require = []
+        self.__trigger = []
+        self.require(kwargs.pop('require', []))
+        self.trigger(kwargs.pop('trigger', []))
         
     def require(self, attributes):
         self.__require += attributes
