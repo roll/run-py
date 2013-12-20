@@ -26,6 +26,7 @@ class AttributeBuilder:
     
     #Protected
     
+    #TODO: refactor sys name?
     _sys_init_classes = property(lambda self: [Attribute])
     _sys_kwarg_keys = ['signature', 'docstring']
     
@@ -144,15 +145,15 @@ class DependentAttributeBuilder(AttributeBuilder):
     
     #Public
     
-    #TODO: refactor to require/trigger calls?
-            
-    def require(self, tasks):
-        self.__kwargs.setdefault('require', [])
-        self.__kwargs['require'] += tasks
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__delayed_calls = []
+    
+    def require(self, *args, **kwargs):
+        self.__delayed_calls.append(('require', args, kwargs))
         
-    def trigger(self, tasks):
-        self.__kwargs.setdefault('trigger', [])
-        self.__kwargs['require'] += tasks
+    def trigger(self, *args, **kwargs):
+        self.__delayed_calls.append(('trigger', args, kwargs))
     
     #Protected
 
@@ -163,6 +164,14 @@ class DependentAttributeBuilder(AttributeBuilder):
     @property
     def _sys_kwarg_keys(self):
         return super()._sys_kwarg_keys+['require', 'trigger']
+     
+    #TODO: add error handling      
+    #TODO: improve unpack logic
+    def _sys_init_object(self, obj):
+        super()._sys_init_object(obj)
+        for call in self.__delayed_calls:
+            method = getattr(obj, call[0])
+            method(*call[1], **call[2])
     
     
 class DependentAttribute(Attribute):
@@ -209,8 +218,8 @@ class DependentAttribute(Attribute):
                 method = cls.__remove_dependency
             method(target, task)
      
+    #TODO: add error handling      
     #TODO: improve unpack logic
-    #TODO: add error handling 
     @staticmethod 
     def __add_dependency(target, task):          
         args = []
