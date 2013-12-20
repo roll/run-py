@@ -140,7 +140,7 @@ class DependentAttributeBuilder(AttributeBuilder):
 
     @property
     def _sys_kwarg_keys(self):
-        return super()._sys_kwarg_keys+['require']
+        return super()._sys_kwarg_keys+['require', 'trigger']
     
     
 class DependentAttribute(Attribute):
@@ -149,7 +149,9 @@ class DependentAttribute(Attribute):
     
     def __init__(self, *args, **kwargs):
         self.__require = kwargs.pop('require', [])
+        self.__trigger = kwargs.pop('trigger', [])
     
+    #TODO: add triggers resolution
     #TODO: make it happened just one time
     def resolve(self):
         for task_name in self.__require:
