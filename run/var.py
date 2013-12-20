@@ -21,7 +21,6 @@ class ValueVar(Var):
     #Public
     
     def __init__(self, value, **kwargs):
-        super().__init__(**kwargs)
         self._value = value
  
     def retrieve(self):
@@ -33,7 +32,6 @@ class PropertyVar(Var):
     #Public
     
     def __init__(self, prop, **kwargs):
-        super().__init__(**kwargs)
         self._property = prop
  
     def retrieve(self):
