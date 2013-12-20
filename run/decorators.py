@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from .attribute import AttributeBuilder 
-from .task import MethodTask
+from .wrapper import Wrapper
 
 class DependencyDecorator(metaclass=ABCMeta):
     
@@ -12,10 +12,11 @@ class DependencyDecorator(metaclass=ABCMeta):
         self._kwargs = kwargs
     
     def __call__(self, method):
-        if not isinstance(method, AttributeBuilder):
-            builder = MethodTask(method)
-        else:
+        wrapper = Wrapper()
+        if isinstance(method, AttributeBuilder):
             builder = method
+        else:
+            builder = wrapper.wrap_method(method)
         self._add_dependency(builder)
         return builder
     
