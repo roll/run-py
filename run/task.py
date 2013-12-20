@@ -1,5 +1,6 @@
 import inspect
-from .attribute import DependentAttribute, AttributeMetadata
+from .attribute import AttributeMetadata
+from .dependent import DependentAttribute
 
 class Task(DependentAttribute):
     

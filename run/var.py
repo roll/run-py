@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from .attribute import DependentAttribute
+from .dependent import DependentAttribute
 
 class Var(DependentAttribute, metaclass=ABCMeta):
     

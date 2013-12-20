@@ -1,7 +1,7 @@
 import unittest
 from run import AttributeMetadata, Task
         
-class AttributeMetadataHelp(unittest.TestCase):
+class AttributeMetadataTest(unittest.TestCase):
 
     #Public
 
