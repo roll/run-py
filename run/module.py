@@ -82,6 +82,13 @@ class Module(Attribute, metaclass=ModuleMeta):
         return attribute
 
     @property
+    def root(self):
+        if self.module:
+            return self.module.root
+        else:
+            return self
+        
+    @property
     def attributes(self):
         return ModuleAttributes(self)
             

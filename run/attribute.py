@@ -62,7 +62,7 @@ class Attribute(metaclass=ABCMeta):
     
     def __set__(self, module, value):
         raise RuntimeError('Can\'t set attribute')
-
+        
     @property
     def module(self):
         return self.__module
