@@ -160,6 +160,7 @@ class DependentAttribute(Attribute):
     def __init__(self, *args, **kwargs):
         self.__require = []
         self.__trigger = []
+        self.__resolved_requirments = []
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
@@ -169,20 +170,20 @@ class DependentAttribute(Attribute):
     def trigger(self, tasks):
         self.__trigger += tasks
     
-    #TODO: add triggers resolution
-    #TODO: make it happened just one time
     def resolve(self):
+        self.resolve_requirements()
+            
+    def resolve_requirements(self):
         for task_name in self.__require:
+            if task_name not in self.__resolved_requirments:
+                task = getattr(self.module, task_name)
+                task()
+                self.__resolved_requirments.append(task_name)
+    
+    def process_triggers(self):
+        for task_name in self.__trigger:
             task = getattr(self.module, task_name)
             task()
-            
-    #TODO: implement
-    def resolve_requirements(self):
-        pass
-    
-    #TODO: implement
-    def process_triggers(self):
-        pass
             
     #Protected
     
