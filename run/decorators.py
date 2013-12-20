@@ -1,16 +1,25 @@
 from functools import wraps
+from .attribute import AttributeBuilder 
 from .task import MethodTask
-
-#TODO: fix logic method/MethodTask/MethodBuilder
 
 def require(tasks):
     @wraps
     def wrapper(method):
-        return MethodTask(method, require=tasks)
+        if not isinstance(method, AttributeBuilder):
+            builder = MethodTask(method)
+        else:
+            builder = method
+        builder.require(tasks)
+        return builder
     return wrapper
 
 def trigger(tasks):
     @wraps
     def wrapper(method):
-        return MethodTask(method, trigger=tasks)
+        if not isinstance(method, AttributeBuilder):
+            builder = MethodTask(method)
+        else:
+            builder = method
+        builder.trigger(tasks)
+        return builder
     return wrapper    
