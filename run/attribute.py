@@ -132,6 +132,16 @@ class AttributeMetadata:
 
 class DependentAttributeBuilder(AttributeBuilder):
     
+    #Public
+            
+    def require(self, attributes):
+        self.__kwargs.setdefault('require', [])
+        self.__kwargs['require'] += attributes
+        
+    def trigger(self, attributes):
+        self.__kwargs.setdefault('trigger', [])
+        self.__kwargs['require'] += attributes
+    
     #Protected
 
     @property
