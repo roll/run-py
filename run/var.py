@@ -6,8 +6,10 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     #Public
 
     def __get__(self, module, module_class=None):
-        self.resolve()     
-        return self.retrieve()
+        self.resolve_requirements()        
+        result = self.retrieve()
+        self.process_triggers()
+        return result
  
     @abstractmethod
     def retrieve(self):

@@ -169,9 +169,6 @@ class DependentAttribute(Attribute):
         
     def trigger(self, tasks):
         self.__trigger += tasks
-    
-    def resolve(self):
-        self.resolve_requirements()
             
     def resolve_requirements(self):
         for task_name in self.__require:
