@@ -143,14 +143,16 @@ class AttributeMetadata:
 class DependentAttributeBuilder(AttributeBuilder):
     
     #Public
+    
+    #TODO: refactor to require/trigger calls?
             
-    def require(self, tasks, *args, **kwargs):
+    def require(self, tasks):
         self.__kwargs.setdefault('require', [])
-        self.__kwargs['require'] += (tasks, args, kwargs)
+        self.__kwargs['require'] += tasks
         
-    def trigger(self, tasks, *args, **kwargs):
+    def trigger(self, tasks):
         self.__kwargs.setdefault('trigger', [])
-        self.__kwargs['require'] += (tasks, args, kwargs)
+        self.__kwargs['require'] += tasks
     
     #Protected
 
@@ -174,13 +176,11 @@ class DependentAttribute(Attribute):
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
-    def require(self, tasks, *args, **kwargs):
-        self.__add_dependency(
-            self.__require, tasks, *args, **kwargs)
+    def require(self, tasks, disable=False):
+        self.__update_dependencies(self.__require, tasks, disable)
         
-    def trigger(self, tasks, *args, **kwargs):
-        self.__add_dependency(
-            self.__trigger, tasks, *args, **kwargs)
+    def trigger(self, tasks, disable=False):
+        self.__update_dependencies(self.__trigger, tasks, disable)
             
     def resolve_requirements(self):
         for task, dependency in self.__require.items():
@@ -198,20 +198,33 @@ class DependentAttribute(Attribute):
     
     #Private
     
-    @staticmethod
-    def __add_dependency(target, tasks, *args, **kwargs):
-        if not isinstance(tasks, list):
-            tasks = [tasks] 
+    @classmethod
+    def __update_dependencies(cls, target, tasks, disable=False):
         for task in tasks:
-            if isinstance(task, tuple):
-                #TODO: add error handling
-                kwargs = task[2]
-                args = task[1]
-                task = task[0]
-            if task not in target:
-                target[task] = DependentAttributeDependency(
-                    task, *args, **kwargs)        
-    
+            if not disable:
+                method = cls.__add_dependency
+            else:
+                method = cls.__remove_dependency
+            method(target, task)
+     
+    #TODO: improve unpack logic
+    #TODO: add error handling 
+    @staticmethod 
+    def __add_dependency(target, task):          
+        args = []
+        kwargs = {}
+        if isinstance(task, tuple):
+            args = task[1]
+            kwargs = task[2]
+            task = task[0]
+        if task not in target:
+            target[task] = DependentAttributeDependency(
+                task, *args, **kwargs)
+          
+    @staticmethod            
+    def __remove_dependency(target, task):          
+        target.pop(task, None)
+                        
     
 class DependentAttributeDependency:
     
@@ -231,10 +244,8 @@ class DependentAttributeDecorator(metaclass=ABCMeta):
     
     #Public
     
-    def __init__(self, tasks, *args, **kwargs):
+    def __init__(self, tasks):
         self._tasks = tasks
-        self._args = args
-        self._kwargs = kwargs
     
     def __call__(self, method):
         wrapper = Wrapper()
@@ -258,7 +269,7 @@ class require(DependentAttributeDecorator):
     
     @abstractmethod
     def _add_dependency(self, builder):
-        builder.require(self._tasks, self._args, self._kwargs)
+        builder.require(self._tasks)
 
 
 class trigger(DependentAttributeDecorator):
@@ -267,4 +278,4 @@ class trigger(DependentAttributeDecorator):
     
     @abstractmethod
     def _add_dependency(self, builder):
-        builder.trigger(self._tasks, self._args, self._kwargs)     
+        builder.trigger(self._tasks)     
