@@ -165,10 +165,14 @@ class DependentAttribute(Attribute):
         self.trigger(kwargs.pop('trigger', []))
         
     def require(self, tasks):
-        self.__require += tasks
+        for task in tasks:
+            if task not in self.__require:
+                self.__require.append(task)
         
     def trigger(self, tasks):
-        self.__trigger += tasks
+        for task in tasks:
+            if task not in self.__trigger:
+                self.__trigger.append(task)
             
     def resolve_requirements(self):
         for task_name in self.__require:
@@ -178,12 +182,9 @@ class DependentAttribute(Attribute):
                 self.__resolved_requirments.append(task_name)
     
     def process_triggers(self):
-        processed_triggers = []
         for task_name in self.__trigger:
-            if task_name not in processed_triggers:
-                task = getattr(self.module, task_name)
-                task()
-                processed_triggers.append[task_name]
+            task = getattr(self.module, task_name)
+            task()
             
     #Protected
     
