@@ -181,9 +181,12 @@ class DependentAttribute(Attribute):
                 self.__resolved_requirments.append(task_name)
     
     def process_triggers(self):
+        processed_triggers = []
         for task_name in self.__trigger:
-            task = getattr(self.module, task_name)
-            task()
+            if task_name not in processed_triggers:
+                task = getattr(self.module, task_name)
+                task()
+                processed_triggers.append[task_name]
             
     #Protected
     
