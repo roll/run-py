@@ -205,7 +205,7 @@ class DependentAttribute(Attribute):
             tasks = [tasks] 
         for task in tasks:
             if isinstance(task, tuple):
-                #TODO: add try
+                #TODO: add error handling
                 kwargs = task[2]
                 args = task[1]
                 task = task[0]
