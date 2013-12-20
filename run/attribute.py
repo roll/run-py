@@ -177,10 +177,12 @@ class DependentAttribute(Attribute):
         self.trigger(kwargs.pop('trigger', []))
         
     def require(self, tasks, disable=False):
-        self.__update_dependencies(self.__require, tasks, disable)
+        self.__update_dependencies(
+            self.__require, tasks, disable)
         
     def trigger(self, tasks, disable=False):
-        self.__update_dependencies(self.__trigger, tasks, disable)
+        self.__update_dependencies(
+            self.__trigger, tasks, disable)
             
     def resolve_requirements(self):
         for task, dependency in self.__require.items():
