@@ -4,8 +4,13 @@ class InputVar(Var):
     
     #Public
     
-    def __init__(self, prompt):
+    def __init__(self, prompt, options=[]):
         self._prompt = prompt
+        self._options = options
         
     def retrieve(self):
-        return input(self._prompt)
+        while True:
+            result = input(self._prompt)
+            if (not self._options or
+                result in self._options):
+                return result                    
