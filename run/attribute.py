@@ -43,23 +43,22 @@ class AttributeBuilder:
             setattr(obj, st[0], st[1])
     
     def _process_system_init(self, obj):
-        system_kwargs = self._make_system_kwargs()
+        system_kwargs = self._make_kwargs(system=True)
         for cls in self._system_init_classes:
             cls.__init__(obj, **system_kwargs) 
-
-    def _make_system_kwargs(self):
-        return {key: value for key, value in self._kwargs.items()
-                if key in self._system_kwarg_keys}
                 
     def _make_object(self):
-        user_kwargs = self._make_user_kwargs()
+        kwargs = self._make_kwargs()
         obj = object.__new__(self._class)
-        obj.__init__(*self._args, **user_kwargs)
+        obj.__init__(*self._args, **kwargs)
         return obj
 
-    def _make_user_kwargs(self):
-        return {key: value for key, value in self._kwargs.items()
-                if key not in self._system_kwarg_keys}
+    def _make_kwargs(self, system=False):
+        kwargs = {}
+        for key, value in self._kwargs.items():
+            if system == (key in self._system_kwarg_keys):
+                kwargs[key] = value
+        return kwargs
     
     def _add_delayed_call(self, name, args, kwargs):
         self._delayed_calls.append((name, args, kwargs))
