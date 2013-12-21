@@ -10,9 +10,9 @@ class Task(DependentAttribute):
         return self
     
     def __call__(self, *args, **kwargs):
-        self.resolve_requirements()        
+        self._resolve_requirements()        
         result = self.complete(*args, **kwargs)
-        self.process_triggers()
+        self._process_triggers()
         return result
     
     def complete(self, *args, **kwargs):

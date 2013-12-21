@@ -29,49 +29,47 @@ class DependentAttribute(Attribute):
     #Public
     
     def __init__(self, *args, **kwargs):
-        self.__requirments = OrderedDict()
-        self.__triggers = OrderedDict()
-        self.__resolved_requirments = []
+        self._requirments = OrderedDict()
+        self._triggers = OrderedDict()
+        self._resolved_requirments = []
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
     def require(self, tasks, disable=False):
-        self.__update_dependencies(
-            self.__requirments, tasks, disable)
+        self._update_dependencies(
+            self._requirments, tasks, disable)
         
     def trigger(self, tasks, disable=False):
-        self.__update_dependencies(
-            self.__triggers, tasks, disable)
-            
-    def resolve_requirements(self):
-        for task, dependency in self.__requirments.items():
-            if task not in self.__resolved_requirments:
-                dependency(self)
-                self.__resolved_requirments.append(task)
-    
-    def process_triggers(self):
-        for dependency in self.__triggers.values():
-            dependency(self)
+        self._update_dependencies(
+            self._triggers, tasks, disable)
             
     #Protected
     
     _builder_class = DependentAttributeBuilder
+            
+    def _resolve_requirements(self):
+        for task, dependency in self._requirments.items():
+            if task not in self._resolved_requirments:
+                dependency(self)
+                self._resolved_requirments.append(task)
     
-    #Private
-    
+    def _process_triggers(self):
+        for dependency in self._triggers.values():
+            dependency(self)
+            
     @classmethod
-    def __update_dependencies(cls, target, tasks, disable=False):
+    def _update_dependencies(cls, target, tasks, disable=False):
         for task in tasks:
             if not disable:
-                method = cls.__add_dependency
+                method = cls._add_dependency
             else:
-                method = cls.__remove_dependency
+                method = cls._remove_dependency
             method(target, task)
      
     #TODO: add error handling      
     #TODO: improve unpack logic
     @staticmethod 
-    def __add_dependency(target, task):          
+    def _add_dependency(target, task):          
         args = []
         kwargs = {}
         if isinstance(task, tuple):
@@ -83,7 +81,7 @@ class DependentAttribute(Attribute):
                 task, *args, **kwargs)
           
     @staticmethod            
-    def __remove_dependency(target, task):          
+    def _remove_dependency(target, task):          
         target.pop(task, None)
                         
     
