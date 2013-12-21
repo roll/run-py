@@ -1,14 +1,20 @@
+from getpass import getpass
+from jinja2 import Template
 from ...var import Var
 
 class InputVar(Var):
     
     #Public
     
-    def __init__(self, question, default=None, options=[], operator=input):
-        self._question = question
+    def __init__(self, text, default=None, options=[], 
+                 operator=None, prompt_template=None, error_template=None,
+                 **kwargs):
+        self._text = text
         self._default = default
         self._options = options
-        self._operator = operator
+        self._operator = operator or self._default_operator
+        self._prompt_template = prompt_template or self._default_prompt_template
+        self._error_template = error_template or self._default_error_template
         
     def retrieve(self):
         while True:
@@ -16,27 +22,40 @@ class InputVar(Var):
             if not result:
                 result = self._default
             if self._options:
-                if result in self._options:
-                    return result
-                else:
-                    print()            
-            else:
-                return result
+                if result not in self._options:
+                    print(self._error)
+                    continue 
+            return result           
     
     #Protected
-            
-    @property
-    def _prompt(self):
-        return '{0} [{1}]'.format(self._question, self._help)
+    
+    _default_operator = input
+    _default_prompt_template = '{{ text }}'
+    _default_error_template = 'Try again..'
     
     @property
-    def _help(self):
-        items = []
-        if self._options:
-            for option in self._options:
-                if option == self._default:
-                    option = option + '*'
-                items.append[option]
-        else:
-            items.append[self._default]
-        return ', '.join(items)
+    def _prompt(self):
+        template = Template(self._prompt_template)
+        prompt = template.render(self._context)
+        return prompt
+
+    @property
+    def _error(self):
+        template = Template(self._error_template)
+        error = template.render(self._context)
+        return error
+    
+    @property
+    def _context(self):
+        return {
+            'text': self._text,
+            'default': self._default,
+            'options': self._options,
+        }
+   
+    
+class HiddenInputVar(InputVar):    
+    
+    #Protected
+    
+    _default_operator = getpass    

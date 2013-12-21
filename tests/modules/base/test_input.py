@@ -5,5 +5,7 @@ class InputVarTest(unittest.TestCase):
     
     #Public
     
-    def setUp(self):
-        self.var = InputVar('What is it?', module=None)          
+    def test(self):
+        var = InputVar('text', module=None)
+        self.assertEqual(var._prompt, 'text')
+        self.assertEqual(var._error, 'Try again..')    

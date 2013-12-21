@@ -11,9 +11,7 @@ class ParseVar(Var):
                  text_pattern_flags=0,
                  processors=[], 
                  fallback=None,
-                 base_dir='.',
-                 **kwargs):
-        super().__init__(**kwargs)
+                 base_dir='.'):
         self.file_pattern = file_pattern
         self.text_pattern = text_pattern
         self.file_pattern_flags = file_pattern_flags

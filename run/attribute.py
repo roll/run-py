@@ -32,7 +32,7 @@ class AttributeBuilder:
     #Protected
     
     _system_init_classes = property(lambda self: [Attribute])
-    _system_kwarg_keys = ['signature', 'docstring']
+    _system_kwarg_keys = ['module', 'signature', 'docstring']
     
     def _process_delayed_calls(self, obj):
         for call in self._delayed_calls:
@@ -44,7 +44,7 @@ class AttributeBuilder:
             setattr(obj, st[0], st[1])
     
     def _process_system_init(self, obj):
-        system_kwargs = self._make_kwargs(system=True)
+        system_kwargs = self._make_kwargs(is_system=True)
         for cls in self._system_init_classes:
             cls.__init__(obj, **system_kwargs) 
                 
@@ -54,10 +54,10 @@ class AttributeBuilder:
         obj.__init__(*self._args, **kwargs)
         return obj
 
-    def _make_kwargs(self, system=False):
+    def _make_kwargs(self, is_system=False):
         kwargs = {}
         for key, value in self._kwargs.items():
-            if system == (key in self._system_kwarg_keys):
+            if is_system == (key in self._system_kwarg_keys):
                 kwargs[key] = value
         return kwargs
     
@@ -80,7 +80,7 @@ class Attribute(metaclass=ABCMeta):
             return builder()
     
     def __init__(self, *args, **kwargs):
-        self.__module = None
+        self.__module = kwargs.pop('module', None)
         self.__signature = kwargs.pop('signature', None)
         self.__docstring = kwargs.pop('docstring', None)
     
