@@ -1,12 +1,19 @@
 from ...module import Module
-from .input import InputVar
+from .input import InputVar, HiddenInputVar
 from .parse import ParseVar
 from .render import RenderTask
 
 class BaseModule(Module):
 
-    #Public
+    #Input
 
     InputVar = InputVar
+    HiddenInputVar = HiddenInputVar
+    
+    #Parse
+    
     ParseVar = ParseVar
+    
+    #Render
+    
     RenderTask = RenderTask
