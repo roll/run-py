@@ -4,4 +4,8 @@ class InputVar(Var):
     
     #Public
     
-    pass
+    def __init__(self, prompt):
+        self._prompt = prompt
+        
+    def retrieve(self):
+        return input(self._prompt)
