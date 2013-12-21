@@ -8,8 +8,7 @@ class InputVar(Var):
     #Public
     
     def __init__(self, text, default=None, options=[], 
-                 operator=None, prompt_template=None, error_template=None,
-                 **kwargs):
+                 operator=None, prompt_template=None, error_template=None):
         self._text = text
         self._default = default
         self._options = options

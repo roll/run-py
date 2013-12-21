@@ -1,5 +1,4 @@
-from abc import ABCMeta
-from .attribute import Attribute, AttributeBuilder
+from .attribute import AttributeBuilder, AttributeMeta, Attribute
 from .wrapper import Wrapper
 
 class ModuleBuilder(AttributeBuilder):
@@ -13,7 +12,9 @@ class ModuleBuilder(AttributeBuilder):
     def _make_object(self):
         kwargs = self._make_kwargs()
         builded_class = self._make_builded_class()
-        return builded_class(*self._args, **kwargs)
+        obj = object.__new__(builded_class)
+        obj.__init__(*self._args, **kwargs)
+        return obj        
     
     def _make_builded_class(self):
         name = self._make_name()
@@ -34,11 +35,10 @@ class ModuleBuilder(AttributeBuilder):
                 if isinstance(attr, AttributeBuilder):
                     dct[key] = attr()
         dct['__module__'] = self._class.__module__
-        dct['__new__'] = lambda cls, *args, **kwargs: object.__new__(cls)            
         return dct
 
 
-class ModuleMeta(ABCMeta):
+class ModuleMeta(AttributeMeta):
      
     #Public
      
@@ -52,6 +52,10 @@ class ModuleMeta(ABCMeta):
                 not isinstance(attr, AttributeBuilder)):
                 dct[key] = wrapper.wrap(attr)
         return super().__new__(cls, name, bases, dct)
+    
+    #Protected
+    
+    _builder_class = ModuleBuilder 
     
     
 class Module(Attribute, metaclass=ModuleMeta):

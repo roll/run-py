@@ -66,19 +66,27 @@ class AttributeBuilder:
         
     def _add_delayed_set(self, name, value):
         self._delayed_sets.append((name, value))
-        
-        
-class Attribute(metaclass=ABCMeta):
+
+
+class AttributeMeta(ABCMeta):
     
     #Public
     
-    def __new__(cls, *args, **kwargs):
-        builder = cls._builder_class(cls, *args, **kwargs)
-        if 'module' not in kwargs:
-            return builder
-        else:
-            #Fix another __init__ call
+    def __call__(self, *args, **kwargs):
+        builder = self._builder_class(self, *args, **kwargs)
+        if 'module' in kwargs:
             return builder()
+        else:
+            return builder
+        
+    #Protected
+    
+    _builder_class = AttributeBuilder    
+       
+        
+class Attribute(metaclass=AttributeMeta):
+    
+    #Public
     
     def __init__(self, *args, **kwargs):
         self.__module = kwargs.pop('module', None)
@@ -105,10 +113,6 @@ class Attribute(metaclass=ABCMeta):
         return AttributeMetadata(
             self, signature=self.__signature, 
                   docstring=self.__docstring)
-        
-    #Protected
-    
-    _builder_class = AttributeBuilder
         
   
 class AttributeMetadata:

@@ -1,7 +1,7 @@
 from collections import OrderedDict
 from abc import ABCMeta, abstractmethod
 from .wrapper import Wrapper
-from .attribute import Attribute, AttributeBuilder
+from .attribute import AttributeBuilder, AttributeMeta, Attribute
 
 class DependentAttributeBuilder(AttributeBuilder):
     
@@ -24,7 +24,14 @@ class DependentAttributeBuilder(AttributeBuilder):
         return super()._system_kwarg_keys+['require', 'trigger']
     
     
-class DependentAttribute(Attribute):
+class DependentAttributeMeta(AttributeMeta):
+    
+    #Protected
+    
+    _builder_class = DependentAttributeBuilder 
+    
+    
+class DependentAttribute(Attribute, metaclass=DependentAttributeMeta):
     
     #Public
     
@@ -41,8 +48,6 @@ class DependentAttribute(Attribute):
         self._update_callbacks(self._triggers, tasks, disable)
             
     #Protected
-    
-    _builder_class = DependentAttributeBuilder
             
     def _resolve_requirements(self):
         for callback in self._requirments.values():

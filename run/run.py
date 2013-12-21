@@ -1,16 +1,21 @@
-from .module import Module
+from .module import ModuleMeta, Module
 from .settings import settings
 from .task import Task
 
-class Run(Module):
+class RunMeta(ModuleMeta):
+
+    #Public
+    
+    def __call__(self, *args, **kwargs):
+        if 'module' not in kwargs:
+            kwargs['module'] = None
+        return super().__call__(*args, **kwargs)    
+    
+
+class Run(Module, metaclass=RunMeta):
     
     #Public
     
-    def __new__(cls, *args, **kwargs):
-        if 'module' not in kwargs:
-            kwargs['module'] = None
-        return super().__new__(cls, *args, **kwargs)
-       
     def __call__(self, attribute, *args, **kwargs):
         if not attribute:
             attribute = settings.default_attribute
