@@ -47,11 +47,9 @@ class InputVar(Var):
     
     @property
     def _context(self):
-        return {
-            'text': self._text,
-            'default': self._default,
-            'options': self._options,
-        }
+        return {'text': self._text,
+                'default': self._default,
+                'options': self._options,}
    
     
 class HiddenInputVar(InputVar):    
