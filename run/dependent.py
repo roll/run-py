@@ -29,28 +29,28 @@ class DependentAttribute(Attribute):
     #Public
     
     def __init__(self, *args, **kwargs):
-        self.__require = OrderedDict()
-        self.__trigger = OrderedDict()
+        self.__requirments = OrderedDict()
+        self.__triggers = OrderedDict()
         self.__resolved_requirments = []
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
     def require(self, tasks, disable=False):
         self.__update_dependencies(
-            self.__require, tasks, disable)
+            self.__requirments, tasks, disable)
         
     def trigger(self, tasks, disable=False):
         self.__update_dependencies(
-            self.__trigger, tasks, disable)
+            self.__triggers, tasks, disable)
             
     def resolve_requirements(self):
-        for task, dependency in self.__require.items():
+        for task, dependency in self.__requirments.items():
             if task not in self.__resolved_requirments:
                 dependency(self)
                 self.__resolved_requirments.append(task)
     
     def process_triggers(self):
-        for dependency in self.__trigger.values():
+        for dependency in self.__triggers.values():
             dependency(self)
             
     #Protected
