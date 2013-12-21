@@ -2,6 +2,7 @@ from getpass import getpass
 from jinja2 import Template
 from ...var import Var
 
+#TODO: improve templates
 class InputVar(Var):
     
     #Public

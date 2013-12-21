@@ -77,6 +77,7 @@ class Attribute(metaclass=ABCMeta):
         if 'module' not in kwargs:
             return builder
         else:
+            #Fix another __init__ call
             return builder()
     
     def __init__(self, *args, **kwargs):
