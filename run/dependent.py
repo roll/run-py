@@ -31,7 +31,6 @@ class DependentAttribute(Attribute):
     def __init__(self, *args, **kwargs):
         self._requirments = OrderedDict()
         self._triggers = OrderedDict()
-        self._resolved_requirments = []
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
@@ -46,10 +45,9 @@ class DependentAttribute(Attribute):
     _builder_class = DependentAttributeBuilder
             
     def _resolve_requirements(self):
-        for name, callback in self._requirments.items():
-            if name not in self._resolved_requirments:
+        for callback in self._requirments.values():
+            if not callback.is_executed:
                 callback(self)
-                self._resolved_requirments.append(name)
     
     def _process_triggers(self):
         for callback in self._triggers.values():
@@ -72,10 +70,13 @@ class DependentAttributeCallback:
     
     def __init__(self, task):
         self._unpack(task)
+        self._is_executed = False
         
     def __call__(self, attribute):
         task = getattr(attribute.module, self.name)
-        return task(*self.args, **self.kwargs)
+        result = task(*self.args, **self.kwargs)
+        self._is_executed = True
+        return result
     
     @property
     def name(self):
@@ -88,6 +89,10 @@ class DependentAttributeCallback:
     @property
     def kwargs(self):
         return self._kwargs
+    
+    @property
+    def is_executed(self):
+        return self._is_executed
     
     #Protected
     
