@@ -1,6 +1,7 @@
 import inspect
 from abc import ABCMeta, abstractmethod
 
+#TODO: refactor calls, sets?
 class AttributeBuilder:
     
     #Public
