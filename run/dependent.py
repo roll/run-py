@@ -36,67 +36,74 @@ class DependentAttribute(Attribute):
         self.trigger(kwargs.pop('trigger', []))
         
     def require(self, tasks, disable=False):
-        self._update_dependencies(
-            self._requirments, tasks, disable)
+        self._update_tasks_dict(self._requirments, tasks, disable)
         
     def trigger(self, tasks, disable=False):
-        self._update_dependencies(
-            self._triggers, tasks, disable)
+        self._update_tasks_dict(self._triggers, tasks, disable)
             
     #Protected
     
     _builder_class = DependentAttributeBuilder
             
     def _resolve_requirements(self):
-        for task, dependency in self._requirments.items():
-            if task not in self._resolved_requirments:
-                dependency(self)
-                self._resolved_requirments.append(task)
+        for name, task in self._requirments.items():
+            if name not in self._resolved_requirments:
+                task(self)
+                self._resolved_requirments.append(name)
     
     def _process_triggers(self):
-        for dependency in self._triggers.values():
-            dependency(self)
+        for task in self._triggers.values():
+            task(self)
             
     @classmethod
-    def _update_dependencies(cls, target, tasks, disable=False):
+    def _update_tasks_dict(cls, tasks_dict, tasks, disable=False):
         for task in tasks:
-            if not disable:
-                method = cls._add_dependency
+            task = DependentAttributeTask(task)
+            if disable:
+                tasks_dict.pop(task.name, None)
             else:
-                method = cls._remove_dependency
-            method(target, task)
-     
-    #TODO: add error handling      
-    #TODO: improve unpack logic
-    @staticmethod 
-    def _add_dependency(target, task):          
-        args = []
-        kwargs = {}
-        if isinstance(task, tuple):
-            args = task[1]
-            kwargs = task[2]
-            task = task[0]
-        if task not in target:
-            target[task] = DependentAttributeDependency(
-                task, *args, **kwargs)
-          
-    @staticmethod            
-    def _remove_dependency(target, task):          
-        target.pop(task, None)
-                        
+                if task.name not in tasks_dict:
+                    tasks_dict[task.name] = task   
+                     
     
-class DependentAttributeDependency:
+class DependentAttributeTask:
     
     #Public
     
-    def __init__(self, task_name, *args, **kwargs):
-        self._task_name = task_name
-        self._args = args
-        self._kwargs = kwargs
+    def __init__(self, task):
+        self._unpack(task)
         
     def __call__(self, attribute):
-        task = getattr(attribute.module, self._task_name)
-        return task(*self._args, **self._kwargs)
+        task = getattr(attribute.module, self.name)
+        return task(*self.args, **self.kwargs)
+    
+    @property
+    def name(self):
+        return self._name
+    
+    @property
+    def args(self):
+        return self._args
+    
+    @property
+    def kwargs(self):
+        return self._kwargs
+    
+    #Protected
+    
+    def _unpack(self, task):
+        self._name = ''
+        self._args = []
+        self._kwargs = {}
+        if isinstance(task, tuple):
+            try:
+                self._name = task[0]
+                self._args = task[1]
+                self._kwargs = task[2]
+            except IndexError:
+                pass
+        else:
+            self._name = task      
     
     
 class DependentAttributeDecorator(metaclass=ABCMeta):
