@@ -36,37 +36,37 @@ class DependentAttribute(Attribute):
         self.trigger(kwargs.pop('trigger', []))
         
     def require(self, tasks, disable=False):
-        self._update_tasks_dict(self._requirments, tasks, disable)
+        self._update_callbacks(self._requirments, tasks, disable)
         
     def trigger(self, tasks, disable=False):
-        self._update_tasks_dict(self._triggers, tasks, disable)
+        self._update_callbacks(self._triggers, tasks, disable)
             
     #Protected
     
     _builder_class = DependentAttributeBuilder
             
     def _resolve_requirements(self):
-        for name, task in self._requirments.items():
+        for name, callback in self._requirments.items():
             if name not in self._resolved_requirments:
-                task(self)
+                callback(self)
                 self._resolved_requirments.append(name)
     
     def _process_triggers(self):
-        for task in self._triggers.values():
-            task(self)
+        for callback in self._triggers.values():
+            callback(self)
             
     @classmethod
-    def _update_tasks_dict(cls, tasks_dict, tasks, disable=False):
+    def _update_callbacks(cls, callbacks, tasks, disable=False):
         for task in tasks:
-            task = DependentAttributeTask(task)
+            callback = DependentAttributeCallback(task)
             if disable:
-                tasks_dict.pop(task.name, None)
+                callbacks.pop(callback.name, None)
             else:
-                if task.name not in tasks_dict:
-                    tasks_dict[task.name] = task   
+                if callback.name not in callbacks:
+                    callbacks[callback.name] = callback   
                      
     
-class DependentAttributeTask:
+class DependentAttributeCallback:
     
     #Public
     
