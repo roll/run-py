@@ -7,9 +7,6 @@ class DependentAttributeBuilder(AttributeBuilder):
     
     #Public
     
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-    
     def require(self, *args, **kwargs):
         self._add_delayed_call('require', args, kwargs)
         

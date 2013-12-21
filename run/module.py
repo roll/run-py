@@ -11,11 +11,11 @@ class ModuleBuilder(AttributeBuilder):
         return super()._system_init_classes+[Module]
     
     def _make_object(self):
-        cls = self._make_new_class()
+        builded_class = self._make_builded_class()
         user_kwargs = self._make_user_kwargs()
-        return cls(*self._args, **user_kwargs)
+        return builded_class(*self._args, **user_kwargs)
     
-    def _make_new_class(self):
+    def _make_builded_class(self):
         name = self._make_name()
         bases = self._make_bases()
         dct = self._make_dict()

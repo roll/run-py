@@ -6,11 +6,11 @@ class AttributeBuilder:
     #Public
     
     def __init__(self, cls, *args, **kwargs):
-        self._class = cls
-        self._args = args
-        self._kwargs = kwargs
-        self._delayed_sets = []
-        self._delayed_calls = []
+        super().__setattr__('_class', cls)
+        super().__setattr__('_args', args)
+        super().__setattr__('_kwargs', kwargs)
+        super().__setattr__('_delayed_sets', [])
+        super().__setattr__('_delayed_calls', [])
         
     def __call__(self):
         obj = self._make_object()
@@ -24,6 +24,9 @@ class AttributeBuilder:
             return getattr(self._class, name)
         except:
             raise AttributeError(name) from None
+        
+    def __setattr__(self, name, value):
+        self._add_delayed_set(name, value)        
     
     #Protected
     
@@ -35,7 +38,6 @@ class AttributeBuilder:
             method = getattr(obj, call[0])
             method(*call[1], **call[2])
     
-    #TODO: implement    
     def _process_delayed_sets(self, obj):
         for st in self._delayed_sets:
             setattr(obj, st[0], st[1])
@@ -44,23 +46,23 @@ class AttributeBuilder:
         system_kwargs = self._make_system_kwargs()
         for cls in self._system_init_classes:
             cls.__init__(obj, **system_kwargs) 
-               
+
+    def _make_system_kwargs(self):
+        return {key: value for key, value in self._kwargs.items()
+                if key in self._system_kwarg_keys}
+                
     def _make_object(self):
         user_kwargs = self._make_user_kwargs()
         obj = object.__new__(self._class)
         obj.__init__(*self._args, **user_kwargs)
         return obj
 
-    def _make_system_kwargs(self):
-        return {key: value for key, value in self._kwargs.items()
-                if key in self._system_kwarg_keys}
-
     def _make_user_kwargs(self):
         return {key: value for key, value in self._kwargs.items()
                 if key not in self._system_kwarg_keys}
     
     def _add_delayed_call(self, name, args, kwargs):
-        self._delayed_sets.append((name, args, kwargs))
+        self._delayed_calls.append((name, args, kwargs))
         
     def _add_delayed_set(self, name, value):
         self._delayed_sets.append((name, value))
