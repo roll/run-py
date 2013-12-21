@@ -7,8 +7,8 @@ class ModuleBuilder(AttributeBuilder):
     #Protected
     
     @property
-    def _sys_init_classes(self):
-        return super()._sys_init_classes+[Module]
+    def _system_init_classes(self):
+        return super()._system_init_classes+[Module]
     
     def _make_object(self):
         cls = self._make_new_class()

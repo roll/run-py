@@ -9,59 +9,61 @@ class AttributeBuilder:
         self._class = cls
         self._args = args
         self._kwargs = kwargs
+        self._delayed_sets = []
+        self._delayed_calls = []
         
     def __call__(self):
         obj = self._make_object()
-        self._sys_init_object(obj)
-        self.process_system_init(obj)
-        self.process_delayed_sets(obj)
-        self.process_delayed_calls(obj)
+        self._process_system_init(obj)
+        self._process_delayed_sets(obj)
+        self._process_delayed_calls(obj)
         return obj
     
     def __getattr__(self, name):
         try:
-            #TODO: add some filters?
             return getattr(self._class, name)
         except:
             raise AttributeError(name) from None
     
     #Protected
     
-    #TODO: rename sys to system
-    _sys_init_classes = property(lambda self: [Attribute])
-    _sys_kwarg_keys = ['signature', 'docstring']
+    _system_init_classes = property(lambda self: [Attribute])
+    _system_kwarg_keys = ['signature', 'docstring']
     
-    #TODO: implement
-    def process_system_init(self, obj):
-        pass
-
+    def _process_delayed_calls(self, obj):
+        for call in self._delayed_calls:
+            method = getattr(obj, call[0])
+            method(*call[1], **call[2])
+    
     #TODO: implement    
-    def process_delayed_sets(self, obj):
-        pass
+    def _process_delayed_sets(self, obj):
+        for st in self._delayed_sets:
+            setattr(obj, st[0], st[1])
     
-    #TODO: implement
-    def process_delayed_calls(self, obj):
-        pass
-    
-    #TODO: remove
-    def _sys_init_object(self, obj):
-        sys_kwargs = self._make_sys_kwargs()
-        for cls in self._sys_init_classes:
-            cls.__init__(obj, **sys_kwargs)
-    
+    def _process_system_init(self, obj):
+        system_kwargs = self._make_system_kwargs()
+        for cls in self._system_init_classes:
+            cls.__init__(obj, **system_kwargs) 
+               
     def _make_object(self):
         user_kwargs = self._make_user_kwargs()
         obj = object.__new__(self._class)
         obj.__init__(*self._args, **user_kwargs)
         return obj
 
-    def _make_sys_kwargs(self):
+    def _make_system_kwargs(self):
         return {key: value for key, value in self._kwargs.items()
-                if key in self._sys_kwarg_keys}
+                if key in self._system_kwarg_keys}
 
     def _make_user_kwargs(self):
         return {key: value for key, value in self._kwargs.items()
-                if key not in self._sys_kwarg_keys}
+                if key not in self._system_kwarg_keys}
+    
+    def _add_delayed_call(self, name, args, kwargs):
+        self._delayed_sets.append((name, args, kwargs))
+        
+    def _add_delayed_set(self, name, value):
+        self._delayed_sets.append((name, value))
         
         
 class Attribute(metaclass=ABCMeta):

@@ -9,32 +9,22 @@ class DependentAttributeBuilder(AttributeBuilder):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        #TODO: use AttrBuilder API
-        self.__delayed_calls = []
     
     def require(self, *args, **kwargs):
-        self.__delayed_calls.append(('require', args, kwargs))
+        self._add_delayed_call('require', args, kwargs)
         
     def trigger(self, *args, **kwargs):
-        self.__delayed_calls.append(('trigger', args, kwargs))
+        self._add_delayed_call('trigger', args, kwargs)
     
     #Protected
 
     @property
-    def _sys_init_classes(self):
-        return super()._sys_init_classes+[DependentAttribute]
+    def _system_init_classes(self):
+        return super()._system_init_classes+[DependentAttribute]
 
     @property
-    def _sys_kwarg_keys(self):
-        return super()._sys_kwarg_keys+['require', 'trigger']
-     
-    #TODO: add error handling      
-    #TODO: improve unpack logic
-    def _sys_init_object(self, obj):
-        super()._sys_init_object(obj)
-        for call in self.__delayed_calls:
-            method = getattr(obj, call[0])
-            method(*call[1], **call[2])
+    def _system_kwarg_keys(self):
+        return super()._system_kwarg_keys+['require', 'trigger']
     
     
 class DependentAttribute(Attribute):
