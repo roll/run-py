@@ -1,4 +1,6 @@
 graft run
+
+graft data
 graft tests
 
 include *.rst

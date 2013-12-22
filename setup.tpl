@@ -9,7 +9,7 @@ setup(
 	version='{{ version }}',
 	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	include_package_data=True,
-    data_files=[('/etc/bash_completion.d', ['run/completion/run.sh'])],
+    data_files=[('/etc/bash_completion.d', ['data/run.sh'])],
     entry_points={'console_scripts': ['run = run:program']},
     install_requires=['lib31>=0.6', 'jinja2>=2.7'],     
     tests_require=['nose'],
