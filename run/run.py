@@ -36,7 +36,7 @@ class Run(Module, metaclass=RunMeta):
 
     def list(self):
         "List attributes"
-        for attribute in self.attributes:
+        for attribute in sorted(self.attributes):
             print(attribute)
 
     def help(self, attribute):
