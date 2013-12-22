@@ -51,6 +51,13 @@ class AttributeBuilder:
         self._delayed_sets.append((name, value))
 
 
+class AttributeBuilderAction:
+    
+    #Public
+    
+    pass
+
+
 class AttributeMeta(ABCMeta):
     
     #Public
