@@ -24,7 +24,7 @@ class AttributeBuilder:
             raise AttributeError(name) from None
         
     def __setattr__(self, name, value):
-        self._add_delayed_set(name, value)        
+        self._updates.append(AttributeBuilderSet(name, value))     
     
     #Protected
              
