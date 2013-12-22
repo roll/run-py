@@ -1,7 +1,6 @@
 import inspect
 from abc import ABCMeta, abstractmethod
 
-#TODO: refactor calls, sets?
 class AttributeBuilder:
     
     #Public
@@ -10,8 +9,7 @@ class AttributeBuilder:
         super().__setattr__('_class', cls)
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
-        super().__setattr__('_delayed_sets', [])
-        super().__setattr__('_delayed_calls', [])
+        super().__setattr__('_updates', [])
         
     def __call__(self):
         obj = self._create_object()
@@ -38,24 +36,42 @@ class AttributeBuilder:
         obj.__init__(*self._args, **self._kwargs)
      
     def _update_object(self, obj):
-        for st in self._delayed_sets:
-            setattr(obj, st[0], st[1])  
-        for call in self._delayed_calls:
-            method = getattr(obj, call[0])
-            method(*call[1], **call[2])
-                   
-    def _add_delayed_call(self, name, args, kwargs):
-        self._delayed_calls.append((name, args, kwargs))
-         
-    def _add_delayed_set(self, name, value):
-        self._delayed_sets.append((name, value))
+        for update in self._updates:
+            update.apply(obj)
 
 
-class AttributeBuilderAction:
+class AttributeBuilderUpdate(metaclass=ABCMeta):
     
     #Public
     
-    pass
+    def apply(self, obj):
+        pass #pragma: no cover
+
+
+class AttributeBuilderSet(AttributeBuilderUpdate):
+    
+    #Public
+    
+    def __init__(self, name, value):
+        self._name = name
+        self._value = value
+    
+    def apply(self, obj):
+        setattr(obj, self._name, self._value)
+    
+    
+class AttributeBuilderCall(AttributeBuilderUpdate):
+    
+    #Public
+    
+    def __init__(self, name, *args, **kwargs):
+        self._name = name
+        self._args = kwargs
+        self._kwargs = kwargs
+        
+    def apply(self, obj):
+        method = getattr(obj, self._name)
+        method(*self._args, **self.kwarg)
 
 
 class AttributeMeta(ABCMeta):

@@ -1,17 +1,20 @@
 from collections import OrderedDict
 from abc import ABCMeta, abstractmethod
 from .wrapper import Wrapper
-from .attribute import AttributeBuilder, AttributeMeta, Attribute
+from .attribute import (AttributeBuilder, AttributeBuilderCall, 
+                        AttributeMeta, Attribute)
 
 class DependentAttributeBuilder(AttributeBuilder):
     
     #Public
     
     def require(self, *args, **kwargs):
-        self._add_delayed_call('require', args, kwargs)
+        self._updates.append(
+            AttributeBuilderCall('require', *args, **kwargs))
         
     def trigger(self, *args, **kwargs):
-        self._add_delayed_call('trigger', args, kwargs)
+        self._updates.append(
+            AttributeBuilderCall('trigger', *args, **kwargs))
     
     
 class DependentAttributeMeta(AttributeMeta):
