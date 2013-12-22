@@ -36,34 +36,34 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMeta):
         self.trigger(kwargs.pop('trigger', []))
         
     def require(self, tasks, disable=False):
-        self._update_callbacks(self._requirments, tasks, disable)
+        self._update_tasks(self._requirments, tasks, disable)
         
     def trigger(self, tasks, disable=False):
-        self._update_callbacks(self._triggers, tasks, disable)
+        self._update_tasks(self._triggers, tasks, disable)
             
     #Protected
             
     def _resolve_requirements(self):
-        for callback in self._requirments.values():
-            if not callback.is_executed:
-                callback(self)
+        for task in self._requirments.values():
+            if not task.is_executed:
+                task(self)
     
     def _process_triggers(self):
-        for callback in self._triggers.values():
-            callback(self)
+        for task in self._triggers.values():
+            task(self)
             
     @classmethod
-    def _update_callbacks(cls, callbacks, tasks, disable=False):
+    def _update_tasks(cls, group, tasks, disable=False):
         for task in tasks:
-            callback = DependentAttributeCallback(task)
+            task = DependentAttributeTask(task)
             if disable:
-                callbacks.pop(callback.name, None)
+                group.pop(task.name, None)
             else:
-                if callback.name not in callbacks:
-                    callbacks[callback.name] = callback   
+                if task.name not in group:
+                    group[task.name] = task   
                      
     
-class DependentAttributeCallback:
+class DependentAttributeTask:
     
     #Public
     
