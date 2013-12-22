@@ -16,8 +16,7 @@ class AttributeBuilder:
     def __call__(self):
         obj = self._create_object()
         self._init_object(obj)
-        self._set_object(obj)
-        self._call_object(obj)
+        self._update_object(obj)
         return obj
     
     def __getattr__(self, name):
@@ -38,11 +37,9 @@ class AttributeBuilder:
         obj.__system_init__(self._args, self._kwargs)
         obj.__init__(*self._args, **self._kwargs)
      
-    def _set_object(self, obj):
+    def _update_object(self, obj):
         for st in self._delayed_sets:
             setattr(obj, st[0], st[1])  
-    
-    def _call_object(self, obj):
         for call in self._delayed_calls:
             method = getattr(obj, call[0])
             method(*call[1], **call[2])
