@@ -13,16 +13,6 @@ class DependentAttributeBuilder(AttributeBuilder):
     def trigger(self, *args, **kwargs):
         self._add_delayed_call('trigger', args, kwargs)
     
-    #Protected
-
-    @property
-    def _system_init_classes(self):
-        return super()._system_init_classes+[DependentAttribute]
-
-    @property
-    def _system_kwarg_keys(self):
-        return super()._system_kwarg_keys+['require', 'trigger']
-    
     
 class DependentAttributeMeta(AttributeMeta):
     
@@ -35,7 +25,8 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMeta):
     
     #Public
     
-    def __init__(self, *args, **kwargs):
+    def __system_init__(self, args, kwargs):
+        super().__system_init__(args, kwargs)
         self._requirments = OrderedDict()
         self._triggers = OrderedDict()
         self.require(kwargs.pop('require', []))

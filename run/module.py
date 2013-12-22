@@ -4,31 +4,26 @@ from .wrapper import Wrapper
 class ModuleBuilder(AttributeBuilder):
         
     #Protected
+       
+    def _create_object(self):
+        return object.__new__(self._builded_class)
     
     @property
-    def _system_init_classes(self):
-        return super()._system_init_classes+[Module]
+    def _builded_class(self):
+        return ModuleMeta(self._builded_class_name, 
+                          self._builded_class_bases,
+                          self._builded_class_dict)
     
-    def _make_object(self):
-        kwargs = self._make_kwargs()
-        builded_class = self._make_builded_class()
-        obj = object.__new__(builded_class)
-        obj.__init__(*self._args, **kwargs)
-        return obj        
-    
-    def _make_builded_class(self):
-        name = self._make_name()
-        bases = self._make_bases()
-        dct = self._make_dict()
-        return ModuleMeta(name, bases, dct)
-    
-    def _make_name(self):
+    @property
+    def _builded_class_name(self):
         return self._class.__name__+'Builded'
     
-    def _make_bases(self):
+    @property
+    def _builded_class_bases(self):
         return (self._class,)
     
-    def _make_dict(self):
+    @property
+    def _builded_class_dict(self):
         dct = {}
         for cls in reversed(self._class.mro()):
             for key, attr in cls.__dict__.items():
@@ -62,7 +57,8 @@ class Module(Attribute, metaclass=ModuleMeta):
     
     #Public
     
-    def __init__(self, *args, **kwargs):
+    def __system_init__(self, args, kwargs):
+        super().__system_init__(args, kwargs)
         for attribute in self.attributes.values():
             attribute.module = self
         
