@@ -41,7 +41,8 @@ class ModuleMeta(AttributeMeta):
         wrapper = Wrapper()
         for key, attr in dct.items():
             if (not key.startswith('_') and
-                not key == 'attributes' and
+                #TODO: add ignored attributes?
+                not key in ['root', 'attributes'] and
                 not isinstance(attr, type) and
                 not isinstance(attr, Attribute) and
                 not isinstance(attr, AttributeBuilder)):
