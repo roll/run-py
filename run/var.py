@@ -1,3 +1,5 @@
+__all__ = ['Var', 'ValueVar', 'PropertyVar']
+
 from abc import ABCMeta, abstractmethod
 from .dependent import DependentAttribute
 
@@ -15,7 +17,7 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     def retrieve(self):
         pass #pragma: no cover
     
-        
+    
 class ValueVar(Var):
     
     #Public
@@ -26,7 +28,7 @@ class ValueVar(Var):
     def retrieve(self):
         return self._value
     
-
+    
 class PropertyVar(Var):
     
     #Public
@@ -36,4 +38,4 @@ class PropertyVar(Var):
  
     def retrieve(self):
         return self._property.__get__(
-            self.module, self.module.__class__)
+            self.module, self.module.__class__)    

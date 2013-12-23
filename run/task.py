@@ -1,3 +1,5 @@
+__all__ = ['Task', 'MethodTask']
+
 import inspect
 from .attribute import AttributeMetadata
 from .dependent import DependentAttribute
@@ -17,7 +19,7 @@ class Task(DependentAttribute):
     
     def complete(self, *args, **kwargs):
         pass
-
+    
 
 class MethodTask(Task):
     
@@ -48,4 +50,4 @@ class MethodTask(Task):
     
     @property    
     def _docstring(self):
-        return str(inspect.getdoc(self._method))                                 
+        return str(inspect.getdoc(self._method))      

@@ -1,3 +1,5 @@
+__all__ = ['Version', 'version']
+
 from lib31.program import Version
 
 class Version(Version):

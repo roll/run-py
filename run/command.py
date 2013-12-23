@@ -1,3 +1,5 @@
+__all__ = ['Command']
+
 import csv
 import ast
 from lib31.program import Command

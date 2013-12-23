@@ -1,3 +1,5 @@
+__all__ = ['Settings', 'settings']
+
 from lib31.program import Settings
 from .version import version
 
