@@ -1,5 +1,3 @@
-__all__ = ['Program', 'program']
-
 import os
 import re
 import sys

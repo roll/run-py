@@ -1,5 +1,3 @@
-__all__ = ['ModuleAttributes']
-
 from ..attribute import Attribute
 
 class ModuleAttributes(dict):

@@ -1,5 +1,3 @@
-__all__ = ['DependentAttributeTask']
-
 class DependentAttributeTask:
     
     #Public

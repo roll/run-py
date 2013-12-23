@@ -1,5 +1,3 @@
-__all__ = ['DependentAttributeBuilder']
-
 from ..attribute import AttributeBuilder, AttributeBuilderCall
 
 class DependentAttributeBuilder(AttributeBuilder):

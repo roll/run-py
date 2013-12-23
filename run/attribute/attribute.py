@@ -1,5 +1,3 @@
-__all__ = ['AttributeMeta', 'Attribute']
-
 from abc import ABCMeta, abstractmethod
 from .builder import AttributeBuilder
 from .metadata import AttributeMetadata

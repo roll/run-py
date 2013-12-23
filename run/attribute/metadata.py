@@ -1,5 +1,3 @@
-__all__ = ['AttributeMetadata']
-
 import inspect
 
 class AttributeMetadata:

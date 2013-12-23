@@ -1,5 +1,3 @@
-__all__ = ['Wrapper']
-
 import inspect
 import importlib
 

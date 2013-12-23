@@ -1,5 +1,3 @@
-__all__ = ['ModuleMeta', 'Module']
-
 from ..attribute import AttributeBuilder, AttributeMeta, Attribute
 from ..wrapper import Wrapper
 from .attributes import ModuleAttributes

@@ -1,5 +1,3 @@
-__all__ = ['DependentAttributeMeta', 'DependentAttribute']
-
 from collections import OrderedDict
 from ..attribute import AttributeMeta, Attribute
 from .builder import DependentAttributeBuilder

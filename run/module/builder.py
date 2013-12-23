@@ -1,5 +1,3 @@
-__all__ = ['ModuleBuilder']
-
 from ..attribute import AttributeBuilder
 
 class ModuleBuilder(AttributeBuilder):

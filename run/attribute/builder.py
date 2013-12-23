@@ -1,5 +1,3 @@
-__all__ = ['AttributeBuilder']
-
 from .update import AttributeBuilderSet
 
 class AttributeBuilder:

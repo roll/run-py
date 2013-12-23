@@ -1,5 +1,3 @@
-__all__ = ['DependentAttributeDecorator', 'require', 'trigger']
-
 from abc import ABCMeta, abstractmethod
 from ..attribute import AttributeBuilder
 from ..wrapper import Wrapper

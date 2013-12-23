@@ -1,5 +1,3 @@
-__all__ = ['Var', 'ValueVar', 'PropertyVar']
-
 from abc import ABCMeta, abstractmethod
 from .dependent import DependentAttribute
 

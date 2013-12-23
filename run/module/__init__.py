@@ -1,3 +1,3 @@
-from .attributes import *
-from .builder import *
-from .module import *
+from .attributes import ModuleAttributes
+from .builder import ModuleBuilder
+from .module import ModuleMeta, Module

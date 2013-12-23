@@ -1,5 +1,3 @@
-__all__ = ['Task', 'MethodTask']
-
 import inspect
 from .attribute import AttributeMetadata
 from .dependent import DependentAttribute
