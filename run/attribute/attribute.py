@@ -17,6 +17,7 @@ class AttributeMeta(ABCMeta):
     
     _builder_class = AttributeBuilder 
     
+    
 class Attribute(metaclass=AttributeMeta):
     
     #Public
