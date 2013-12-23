@@ -10,3 +10,7 @@ from .task import Task, MethodTask
 from .var import Var, ValueVar, PropertyVar
 from .version import Version, version
 from .wrapper import Wrapper
+
+#Remove modules
+from lib31 import python
+python.remove_modules(locals())
