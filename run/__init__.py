@@ -5,7 +5,6 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMeta,
                         DependentAttribute, DependentAttributeTask,
                         DependentAttributeDecorator, require, trigger)
 from .command import Command
-from .logger import Logger
 from .module import ModuleBuilder, ModuleMeta, Module, ModuleAttributes
 from .program import Program, program
 from .run import RunMeta, Run
