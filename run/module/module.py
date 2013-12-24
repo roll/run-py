@@ -51,7 +51,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             #TODO: is settings usage right?
             attribute = settings.default_attribute
         attribute = getattr(self, attribute)
-        if callable(attribute):
+        if isinstance(attribute, Task):
             result = attribute(*args, **kwargs)
             return result
         else:

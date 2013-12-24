@@ -37,4 +37,4 @@ class PropertyVar(Var):
  
     def retrieve(self):
         return self._property.__get__(
-            self.module, self.meta_module.__class__)    
+            self.meta_module, self.meta_module.__class__)    
