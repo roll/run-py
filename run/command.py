@@ -15,13 +15,15 @@ class Command(Command):
         attribute = self._namespace.attribute        
         if self.help and attribute:
             attribute = 'help'
+        elif self.meta:
+            attribute = 'meta'   
         return attribute
     
     @property
     def arguments(self):
         attribute = self._namespace.attribute
         arguments = self._namespace.arguments
-        if self.help and attribute:
+        if (self.help or self.meta) and attribute:
             arguments = [attribute]+arguments
         return arguments
 

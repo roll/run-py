@@ -31,6 +31,11 @@ class Settings(Settings):
              'dest': 'help',
              'action': 'store_true',
              'flags': ['-h', '--help'],
+            },
+            {
+             'dest': 'meta',
+             'action': 'store_true',
+             'flags': ['-m', '--meta'],
             },                            
             {
              'action': 'version',
