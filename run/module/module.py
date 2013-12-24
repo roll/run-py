@@ -48,7 +48,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     def __call__(self, attribute, *args, **kwargs):
         if not attribute:
-            #TODO: use settings?
+            #TODO: is settings usage right?
             attribute = settings.default_attribute
         attribute = getattr(self, attribute)
         if callable(attribute):
@@ -66,18 +66,17 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def meta_groups(self):
         return []
     
-    #TODO: rename to main?
-    @property
-    def meta_main(self):
-        if self.meta_module:
-            return self.meta_module.meta_main
-        else:
-            return self
-        
     @property
     def meta_attributes(self):
         return ModuleAttributes(self)
     
+    @property
+    def main(self):
+        if self.meta_module:
+            return self.meta_module.main
+        else:
+            return self
+        
     def list(self):
         "List attributes"
         for attribute in sorted(self.meta_attributes):
@@ -85,8 +84,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
 
     def help(self, attribute):
         "Print attribute help"
-        if attribute in self.attributes:
-            print(self.attributes[attribute].meta_help)
+        if attribute in self.meta_attributes:
+            print(self.meta_attributes[attribute].meta_help)
         else:
             raise RuntimeError('No attribute "{0}"'.format(attribute))
       

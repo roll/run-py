@@ -71,7 +71,7 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.__signature:
             return self.__signature
         else:
-            return self.name    
+            return self.meta_name    
     
     @property
     def meta_docstring(self):
