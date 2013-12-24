@@ -44,6 +44,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         attribute = getattr(module, attribute_name)
         return attribute
 
+    #TODO: rename to main?
     @property
     def meta_main(self):
         if self.meta_module:
