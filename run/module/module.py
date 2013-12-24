@@ -57,6 +57,17 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             return attribute
     
+    @property
+    def meta_main(self):
+        if self.meta_module:
+            return self.meta_module.meta_main
+        else:
+            return self
+        
+    @property
+    def meta_attributes(self):
+        return ModuleAttributes(self)
+     
     #TODO: implement
     @property
     def meta_name(self):
@@ -65,17 +76,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_groups(self):
         return []
-    
-    @property
-    def meta_attributes(self):
-        return ModuleAttributes(self)
-    
-    @property
-    def main(self):
-        if self.meta_module:
-            return self.meta_module.main
-        else:
-            return self
         
     def list(self):
         "List attributes"
