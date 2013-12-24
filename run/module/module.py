@@ -55,7 +55,16 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             return result
         else:
             return attribute
-
+    
+    #TODO: implement
+    @property
+    def meta_name(self):
+        return super().meta_name
+    
+    @property
+    def meta_groups(self):
+        return []
+    
     #TODO: rename to main?
     @property
     def meta_main(self):
