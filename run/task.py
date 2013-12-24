@@ -13,6 +13,9 @@ class Task(DependentAttribute):
         #TODO: add error handling   
         result = self.complete(*args, **kwargs)
         self._process_triggers()
+        #TODO: reimplement!
+        print('Completed task: '+self.meta_name)
+        #print('Completed '+str(self))   
         return result
     
     def complete(self, *args, **kwargs):

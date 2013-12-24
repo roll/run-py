@@ -11,6 +11,9 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         #TODO: add error handling   
         result = self.retrieve()
         self._process_triggers()
+        #TODO: reimplement!
+        print('Retrieved var: '+self.meta_name)
+        #print('Retrieved '+str(self))             
         return result
  
     @abstractmethod
