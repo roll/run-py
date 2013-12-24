@@ -1,8 +1,8 @@
-from .module import ModuleMeta, Module
+from .module import ModuleMetaclass, Module
 from .settings import settings
 from .task import Task
 
-class RunMeta(ModuleMeta):
+class RunMetaclass(ModuleMetaclass):
 
     #Public
     
@@ -12,7 +12,7 @@ class RunMeta(ModuleMeta):
         return super().__call__(*args, **kwargs)
     
 
-class Run(Module, metaclass=RunMeta):
+class Run(Module, metaclass=RunMetaclass):
     
     #Public
     

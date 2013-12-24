@@ -1,13 +1,13 @@
 from .attribute import (AttributeBuilder, AttributeBuilderUpdate, 
                         AttributeBuilderSet, AttributeBuilderCall,
-                        AttributeMeta, Attribute)
-from .dependent import (DependentAttributeBuilder, DependentAttributeMeta,
+                        AttributeMetaclass, Attribute)
+from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask,
                         DependentAttributeDecorator, require, trigger)
 from .command import Command
-from .module import ModuleBuilder, ModuleMeta, Module, ModuleAttributes
+from .module import ModuleBuilder, ModuleMetaclass, Module, ModuleAttributes
 from .program import Program, program
-from .run import RunMeta, Run
+from .run import RunMetaclass, Run
 from .settings import Settings, settings
 from .task import Task, MethodTask
 from .var import Var, ValueVar, PropertyVar

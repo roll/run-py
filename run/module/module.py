@@ -1,9 +1,9 @@
-from ..attribute import AttributeBuilder, AttributeMeta, Attribute
+from ..attribute import AttributeBuilder, AttributeMetaclass, Attribute
 from ..wrapper import Wrapper
 from .attributes import ModuleAttributes
 from .builder import ModuleBuilder
 
-class ModuleMeta(AttributeMeta):
+class ModuleMetaclass(AttributeMetaclass):
      
     #Public
      
@@ -23,7 +23,7 @@ class ModuleMeta(AttributeMeta):
     _builder_class = ModuleBuilder
     
 
-class Module(Attribute, metaclass=ModuleMeta):
+class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Public
     

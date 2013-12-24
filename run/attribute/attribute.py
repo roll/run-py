@@ -2,7 +2,7 @@ import inspect
 from abc import ABCMeta, abstractmethod
 from .builder import AttributeBuilder
 
-class AttributeMeta(ABCMeta):
+class AttributeMetaclass(ABCMeta):
     
     #Public
     
@@ -18,7 +18,7 @@ class AttributeMeta(ABCMeta):
     _builder_class = AttributeBuilder 
     
     
-class Attribute(metaclass=AttributeMeta):
+class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
