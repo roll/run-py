@@ -10,7 +10,8 @@ class Task(DependentAttribute):
         return self
     
     def __call__(self, *args, **kwargs):
-        self._resolve_requirements()        
+        self._resolve_requirements()
+        #TODO: add error handling   
         result = self.complete(*args, **kwargs)
         self._process_triggers()
         return result

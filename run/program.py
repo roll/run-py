@@ -16,6 +16,7 @@ class Program(Program):
         if (self.command.help and not self.command.attribute):
             print(self.command.program_help)
         else:
+            #TODO: add error handling
             result = self._run(self.command.attribute,
                 *self.command.args, **self.command.kwargs)
             #TODO: fix not printing empty attributes

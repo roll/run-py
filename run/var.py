@@ -6,7 +6,8 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     #Public
 
     def __get__(self, module, module_class=None):
-        self._resolve_requirements()        
+        self._resolve_requirements()
+        #TODO: add error handling   
         result = self.retrieve()
         self._process_triggers()
         return result
