@@ -1,5 +1,6 @@
 import inspect
 from abc import ABCMeta, abstractmethod
+from ..settings import settings
 from .builder import AttributeBuilder
 
 class AttributeMetaclass(ABCMeta):
@@ -53,7 +54,8 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_name(self):
         name = ''
-        if self.meta_module_name:
+        if (self.meta_module_name and 
+            self.meta_module_name != settings.default_main_module_name):
             if self.meta_module.meta_is_main_module:
                 name += '['+self.meta_module_name+'] '
             else:

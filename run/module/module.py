@@ -50,7 +50,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     def __call__(self, attribute, *args, **kwargs):
         if not attribute:
-            #TODO: is settings usage right?
             attribute = settings.default_attribute
         attribute = getattr(self, attribute)
         if isinstance(attribute, Task):
@@ -76,6 +75,13 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_attributes(self):
         return ModuleAttributes(self)
+   
+    @property
+    def meta_name(self):
+        if super().meta_name:
+            return super().meta_name
+        else:
+            return settings.default_main_module_name
     
     @property
     def meta_groups(self):
