@@ -61,8 +61,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     @property
     def meta_main_module(self):
-        if super().meta_main_module:
-            return super().meta_main_module
+        if self.meta_module:
+            return self.meta_module.meta_main_module
         else:
             return self
         

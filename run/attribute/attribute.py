@@ -43,13 +43,6 @@ class Attribute(metaclass=AttributeMetaclass):
         self.__module = module
     
     @property
-    def meta_main_module(self):
-        if self.meta_module:
-            return self.meta_module.meta_main_module
-        else:
-            return None
-           
-    @property
     def meta_name(self):
         name = ''
         if self.meta_module_name:
