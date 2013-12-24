@@ -1,6 +1,6 @@
 from .attribute import (AttributeBuilder, AttributeBuilderUpdate, 
                         AttributeBuilderSet, AttributeBuilderCall,
-                        AttributeMeta, Attribute, AttributeMetadata)
+                        AttributeMeta, Attribute)
 from .dependent import (DependentAttributeBuilder, DependentAttributeMeta,
                         DependentAttribute, DependentAttributeTask,
                         DependentAttributeDecorator, require, trigger)

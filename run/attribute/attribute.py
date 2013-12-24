@@ -1,7 +1,6 @@
 import inspect
 from abc import ABCMeta, abstractmethod
 from .builder import AttributeBuilder
-from .metadata import AttributeMetadata
 
 class AttributeMeta(ABCMeta):
     
@@ -42,12 +41,6 @@ class Attribute(metaclass=AttributeMeta):
     @meta_module.setter
     def meta_module(self, module):
         self.__module = module
-    
-    @property
-    def metadata(self):
-        return AttributeMetadata(
-            self, signature=self.__signature, 
-                  docstring=self.__docstring)
         
     @property
     def meta_name(self):

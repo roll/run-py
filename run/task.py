@@ -1,5 +1,4 @@
 import inspect
-from .attribute import AttributeMetadata
 from .dependent import DependentAttribute
 
 class Task(DependentAttribute):
@@ -34,19 +33,11 @@ class MethodTask(Task):
     def complete(self, *args, **kwargs):
         return self._method(self.meta_module, *args, **kwargs)
         
-    @property    
-    def metadata(self):
-        return AttributeMetadata(
-            self, signature=self._signature, 
-                  docstring=self._docstring)
-        
-    #Protected
-    
     @property
-    def _signature(self):
-        return (super().metadata.name+
+    def meta_signature(self):
+        return (super().meta_name+
                 str(inspect.signature(self._method)))
     
     @property    
-    def _docstring(self):
+    def meta_docstring(self):
         return str(inspect.getdoc(self._method))      

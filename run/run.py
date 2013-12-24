@@ -42,7 +42,7 @@ class Run(Module, metaclass=RunMeta):
     def help(self, attribute):
         "Print attribute help"
         if attribute in self.attributes:
-            print(self.attributes[attribute].metadata.help)
+            print(self.attributes[attribute].meta_help)
         else:
             raise RuntimeError('No attribute "{0}"'.format(attribute))
       
