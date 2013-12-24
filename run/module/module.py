@@ -27,8 +27,8 @@ class Module(Attribute, metaclass=ModuleMeta):
     
     #Public
     
-    def __system_init__(self, args, kwargs):
-        super().__system_init__(args, kwargs)
+    def __meta_init__(self, args, kwargs):
+        super().__meta_init__(args, kwargs)
         for attribute in self.meta_attributes.values():
             attribute.meta_module = self
         

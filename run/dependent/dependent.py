@@ -14,8 +14,8 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMeta):
     
     #Public
     
-    def __system_init__(self, args, kwargs):
-        super().__system_init__(args, kwargs)
+    def __meta_init__(self, args, kwargs):
+        super().__meta_init__(args, kwargs)
         self._requirments = OrderedDict()
         self._triggers = OrderedDict()
         self.require(kwargs.pop('require', []))

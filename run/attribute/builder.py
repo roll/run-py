@@ -31,7 +31,7 @@ class AttributeBuilder:
         return object.__new__(self._class)
         
     def _init_object(self, obj):
-        obj.__system_init__(self._args, self._kwargs)
+        obj.__meta_init__(self._args, self._kwargs)
         obj.__init__(*self._args, **self._kwargs)
      
     def _update_object(self, obj):

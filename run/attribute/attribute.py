@@ -22,7 +22,7 @@ class Attribute(metaclass=AttributeMeta):
     
     #Public
     
-    def __system_init__(self, args, kwargs):
+    def __meta_init__(self, args, kwargs):
         self.__module = kwargs.pop('module', None)
         self.__signature = kwargs.pop('signature', None)
         self.__docstring = kwargs.pop('docstring', None)
