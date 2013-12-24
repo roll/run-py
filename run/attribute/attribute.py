@@ -48,7 +48,7 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_type(self):
-        return 'Attribute'
+        return self.__class__.__name__
     
     @property
     def meta_name(self):
