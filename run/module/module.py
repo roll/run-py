@@ -1,4 +1,5 @@
 from ..attribute import AttributeBuilder, AttributeMetaclass, Attribute
+from ..settings import settings
 from ..wrapper import Wrapper
 from .attributes import ModuleAttributes
 from .builder import ModuleBuilder
@@ -43,6 +44,17 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         module = getattr(self, module_name)
         attribute = getattr(module, attribute_name)
         return attribute
+    
+    def __call__(self, attribute, *args, **kwargs):
+        if not attribute:
+            #TODO: use settings?
+            attribute = settings.default_attribute
+        attribute = getattr(self, attribute)
+        if callable(attribute):
+            result = attribute(*args, **kwargs)
+            return result
+        else:
+            return attribute
 
     #TODO: rename to main?
     @property
@@ -55,7 +67,3 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_attributes(self):
         return ModuleAttributes(self)
-            
-    #Protected
-    
-    _builder_class = ModuleBuilder
