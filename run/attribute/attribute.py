@@ -84,4 +84,4 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.__docstring:
             return self.__docstring
         else:
-            return inspect.getdoc(self)        
+            return inspect.getdoc(self)   

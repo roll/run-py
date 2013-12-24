@@ -89,30 +89,32 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         for name in sorted(names):
             print(name)
 
-    def help(self, attribute):
+    def help(self, attribute=None):
         "Print attribute help"
-        #TODO: now it supports only the module attributes (not base.render)
-        if attribute in self.meta_attributes:
-            print(self.meta_attributes[attribute].meta_help)
+        if attribute:
+            #TODO: now it supports only the module attributes (not base.render)
+            if attribute in self.meta_attributes:
+                print(self.meta_attributes[attribute].meta_help)
+            else:
+                #TODO: may be print?
+                raise RuntimeError('No attribute "{0}"'.format(attribute))
         else:
-            #TODO: may be print?
-            raise RuntimeError('No attribute "{0}"'.format(attribute))
+            print(self.meta_help)
         
     #TODO: implement
-    def meta(self, attribute):
+    def meta(self, attribute=None):
         "Print attribute meta"
         #TODO: now it supports only the module attributes (not base.render)
-        if attribute in self.meta_attributes:
+        if attribute and attribute in self.meta_attributes:
             attribute = self.meta_attributes[attribute]
-            meta = OrderedDict()
-            for name in sorted(dir(attribute)):
-                if name.startswith('meta_'):
-                    key = name.replace('meta_', '')
-                    meta[key] = getattr(attribute, name)
-            pprint(meta)
         else:
-            #TODO: may be print?
-            raise RuntimeError('No attribute "{0}"'.format(attribute))
+            attribute = self
+        meta = OrderedDict()
+        for name in sorted(dir(attribute)):
+            if name.startswith('meta_'):
+                key = name.replace('meta_', '')
+                meta[key] = getattr(attribute, name)
+        pprint(meta)
       
     default = Task(
         require=['list'],
