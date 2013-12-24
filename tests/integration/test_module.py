@@ -1,14 +1,14 @@
 import unittest
-from run import Run, Module, Task, Var
+from run import Module, Task, Var
 
 #Tests
 
-class RunTest(unittest.TestCase):
+class ModuleTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
-        self.run = MockRun()
+        self.run = MockMainModule(module=None)
         
     def test_list(self):
         self.run.list()
@@ -39,7 +39,7 @@ class MockVar(Var):
         pass    
 
 
-class MockRun(Run):
+class MockMainModule(Module):
 
     #Public
     
