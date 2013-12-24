@@ -65,12 +65,12 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.meta_module:
             return (self.meta_module.meta_attributes.find(self, default='')) 
         else:
-            return '' 
+            return ''
 
     @property
     def meta_help(self):
-        return '\n'.join(filter(None, 
-            [self.meta_signature, self.meta_docstring]))
+        lines = filter(None, [self.meta_signature, self.meta_docstring])
+        return '\n'.join(lines)
 
     @property
     def meta_signature(self):
