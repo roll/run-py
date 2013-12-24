@@ -69,9 +69,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_is_main_module(self):
         if self == self.meta_main_module:
-            return False
-        else:
             return True
+        else:
+            return False
             
     @property
     def meta_attributes(self):

@@ -51,16 +51,19 @@ class Attribute(metaclass=AttributeMetaclass):
            
     @property
     def meta_name(self):
-        return '.'.join(filter(None, 
-            [self.meta_module_name, self.meta_attribute_name]))
+        name = ''
+        if self.meta_module_name:
+            if self.meta_module.meta_is_main_module:
+                name += '['+self.meta_module_name+'] '
+            else:
+                name += self.meta_module_name+'.'
+        name += self.meta_attribute_name
+        return name
     
     @property
     def meta_module_name(self):
         if self.meta_module:
-            name = self.meta_module.meta_name
-            if name and self.meta_module.meta_is_main_module:
-                name = '['+name+']'
-            return name
+            return self.meta_module.meta_name
         else:
             return ''
     
