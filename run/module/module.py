@@ -87,6 +87,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         if attribute in self.meta_attributes:
             print(self.meta_attributes[attribute].meta_help)
         else:
+            #TODO: may be print?
             raise RuntimeError('No attribute "{0}"'.format(attribute))
       
     default = Task(
