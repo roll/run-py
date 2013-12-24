@@ -74,11 +74,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_attributes(self):
         return ModuleAttributes(self)
-     
-    #TODO: implement
-    @property
-    def meta_name(self):
-        return super().meta_name
     
     @property
     def meta_groups(self):
@@ -86,8 +81,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         
     def list(self):
         "List attributes"
-        for attribute in sorted(self.meta_attributes):
-            print(attribute)
+        names = []
+        for attribute in self.meta_attributes.values():
+            names.append(attribute.meta_name)
+        for name in sorted(names):
+            print(name)
 
     def help(self, attribute):
         "Print attribute help"

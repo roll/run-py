@@ -50,9 +50,12 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_module_name(self):
         if self.meta_module:
-            return self.meta_module.meta_name 
+            name = self.meta_module.meta_name
+            if name and self.meta_module.meta_is_main:
+                name = '['+name+']'
+            return name
         else:
-            return ''  
+            return ''
     
     @property
     def meta_attribute_name(self):
