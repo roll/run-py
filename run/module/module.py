@@ -60,15 +60,15 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             return attribute
     
     @property
-    def meta_main(self):
-        if self.meta_module:
-            return self.meta_module.meta_main
+    def meta_main_module(self):
+        if super().meta_main_module:
+            return super().meta_main_module
         else:
             return self
-    
+        
     @property
-    def meta_is_main(self):
-        if self.meta_module:
+    def meta_is_main_module(self):
+        if self == self.meta_main_module:
             return False
         else:
             return True
