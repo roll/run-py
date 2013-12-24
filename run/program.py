@@ -6,7 +6,7 @@ import importlib
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
-from .run import Run
+from .module import Module
 
 class Program(Program):
     
@@ -39,10 +39,10 @@ class Program(Program):
         for name in dir(module):
             attr = getattr(module, name)
             if (isinstance(attr, type) and
-                issubclass(attr, Run) and
+                issubclass(attr, Module) and
                 inspect.getmodule(attr) == module and
                 not inspect.isabstract(attr)):
-                return attr()
+                return attr(module=None)
         else:
             raise RuntimeError('Run is not finded')
         

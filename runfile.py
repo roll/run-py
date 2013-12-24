@@ -1,6 +1,6 @@
-from packgram.manage import PythonPackgramRun
+from packgram.manage import PythonPackgramModule
     
-class Run(PythonPackgramRun):
+class MainModule(PythonPackgramModule):
         
     #Public
     
