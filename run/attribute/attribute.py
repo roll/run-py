@@ -35,7 +35,8 @@ class Attribute(metaclass=AttributeMetaclass):
         raise AttributeError('Can\'t set attribute')
     
     def __repr__(self):
-        return '<Attribute "{0}">'.format(self.meta_name)
+        return '<{type} "{name}">'.format(
+            type=self.meta_type, name=self.meta_name)
         
     @property
     def meta_module(self):
@@ -44,6 +45,10 @@ class Attribute(metaclass=AttributeMetaclass):
     @meta_module.setter
     def meta_module(self, module):
         self.__module = module
+    
+    @property
+    def meta_type(self):
+        return 'Attribute'
     
     @property
     def meta_name(self):
