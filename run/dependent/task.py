@@ -7,7 +7,7 @@ class DependentAttributeTask:
         self._is_executed = False
         
     def __call__(self, attribute):
-        task = getattr(attribute.module, self.name)
+        task = getattr(attribute.meta_module, self.name)
         result = task(*self.args, **self.kwargs)
         self._is_executed = True
         return result

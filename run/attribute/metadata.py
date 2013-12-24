@@ -16,15 +16,15 @@ class AttributeMetadata:
     
     @property
     def module_name(self):
-        if self._attribute.module:
-            return self._attribute.module.metadata.name 
+        if self._attribute.meta_module:
+            return self._attribute.meta_module.metadata.name 
         else:
             return ''  
     
     @property
     def attribute_name(self):
-        if self._attribute.module:
-            return (self._attribute.module.meta_attributes.
+        if self._attribute.meta_module:
+            return (self._attribute.meta_module.meta_attributes.
                     find(self._attribute, default='')) 
         else:
             return '' 

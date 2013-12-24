@@ -31,7 +31,7 @@ class Module(Attribute, metaclass=ModuleMeta):
     def __system_init__(self, args, kwargs):
         super().__system_init__(args, kwargs)
         for attribute in self.meta_attributes.values():
-            attribute.module = self
+            attribute.meta_module = self
         
     def __get__(self, module, module_class):
         return self
@@ -47,8 +47,8 @@ class Module(Attribute, metaclass=ModuleMeta):
 
     @property
     def meta_root(self):
-        if self.module:
-            return self.module.meta_root
+        if self.meta_module:
+            return self.meta_module.meta_root
         else:
             return self
         

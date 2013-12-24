@@ -32,7 +32,7 @@ class MethodTask(Task):
         return self._method.__doc__
     
     def complete(self, *args, **kwargs):
-        return self._method(self.module, *args, **kwargs)
+        return self._method(self.meta_module, *args, **kwargs)
         
     @property    
     def metadata(self):

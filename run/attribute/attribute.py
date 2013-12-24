@@ -35,11 +35,11 @@ class Attribute(metaclass=AttributeMeta):
         raise AttributeError('Can\'t set attribute')
         
     @property
-    def module(self):
+    def meta_module(self):
         return self.__module
     
-    @module.setter
-    def module(self, module):
+    @meta_module.setter
+    def meta_module(self, module):
         self.__module = module
     
     @property

@@ -18,7 +18,7 @@ class RenderTask(Task):
         environment = Environment(loader=FileSystemLoader(dirname))
         environment.template_class = NamespaceTemplate
         template = environment.get_template(filename)
-        text = template.render(NamespaceContext(self.module))
+        text = template.render(NamespaceContext(self.meta_module))
         with open(self._target, 'w') as file:
             file.write(text)
             
