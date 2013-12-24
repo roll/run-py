@@ -1,3 +1,5 @@
+from pprint import pprint
+from collections import OrderedDict
 from ..attribute import AttributeBuilder, AttributeMetaclass, Attribute
 from ..settings import settings
 from ..task import Task
@@ -89,6 +91,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
 
     def help(self, attribute):
         "Print attribute help"
+        #TODO: now it supports only the module attributes (not base.render)
         if attribute in self.meta_attributes:
             print(self.meta_attributes[attribute].meta_help)
         else:
@@ -98,7 +101,18 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     #TODO: implement
     def meta(self, attribute):
         "Print attribute meta"
-        pass
+        #TODO: now it supports only the module attributes (not base.render)
+        if attribute in self.meta_attributes:
+            attribute = self.meta_attributes[attribute]
+            meta = OrderedDict()
+            for name in sorted(dir(attribute)):
+                if name.startswith('meta_'):
+                    key = name.replace('meta_', '')
+                    meta[key] = getattr(attribute, name)
+            pprint(meta)
+        else:
+            #TODO: may be print?
+            raise RuntimeError('No attribute "{0}"'.format(attribute))
       
     default = Task(
         require=['list'],
