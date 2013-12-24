@@ -20,7 +20,7 @@ class AttributeBuilder:
         try:
             return getattr(self._class, name)
         except AttributeError:
-            raise AttributeError(name) from None
+            raise AttributeError(name)
         
     def __setattr__(self, name, value):
         self._updates.append(AttributeBuilderSet(name, value))     
