@@ -94,6 +94,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             #TODO: may be print?
             raise RuntimeError('No attribute "{0}"'.format(attribute))
+        
+    #TODO: implement
+    def meta(self, attribute):
+        "Print attribute meta"
+        pass
       
     default = Task(
         require=['list'],
