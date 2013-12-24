@@ -45,9 +45,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         return attribute
 
     @property
-    def meta_root(self):
+    def meta_main(self):
         if self.meta_module:
-            return self.meta_module.meta_root
+            return self.meta_module.meta_main
         else:
             return self
         
