@@ -31,7 +31,7 @@ class Attribute(metaclass=AttributeMeta):
         pass #pragma: no cover
     
     def __set__(self, module, value):
-        raise RuntimeError('Can\'t set attribute')
+        raise AttributeError('Can\'t set attribute')
         
     @property
     def module(self):
