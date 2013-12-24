@@ -1,3 +1,4 @@
+import inspect
 from abc import ABCMeta, abstractmethod
 from .builder import AttributeBuilder
 from .metadata import AttributeMetadata
@@ -46,4 +47,42 @@ class Attribute(metaclass=AttributeMeta):
     def metadata(self):
         return AttributeMetadata(
             self, signature=self.__signature, 
-                  docstring=self.__docstring)   
+                  docstring=self.__docstring)
+        
+    @property
+    def meta_name(self):
+        return '.'.join(filter(None, 
+            [self.meta_module_name, self.meta_attribute_name]))
+    
+    @property
+    def meta_module_name(self):
+        if self.meta_module:
+            return self.meta_module.meta_name 
+        else:
+            return ''  
+    
+    @property
+    def meta_attribute_name(self):
+        if self.meta_module:
+            return (self.meta_module.meta_attributes.find(self, default='')) 
+        else:
+            return '' 
+
+    @property
+    def meta_help(self):
+        return '\n'.join(filter(None, 
+            [self.meta_signature, self.meta_docstring]))
+
+    @property
+    def meta_signature(self):
+        if self.__signature:
+            return self.__signature
+        else:
+            return self.name    
+    
+    @property
+    def meta_docstring(self):
+        if self.__docstring:
+            return self.__docstring
+        else:
+            return inspect.getdoc(self)        
