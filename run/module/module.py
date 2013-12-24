@@ -11,8 +11,7 @@ class ModuleMeta(AttributeMeta):
         wrapper = Wrapper()
         for key, attr in dct.items():
             if (not key.startswith('_') and
-                #TODO: add ignored attributes?
-                not key in ['meta_root', 'meta_attributes'] and
+                not key.startswith('meta_') and
                 not isinstance(attr, type) and
                 not isinstance(attr, Attribute) and
                 not isinstance(attr, AttributeBuilder)):
