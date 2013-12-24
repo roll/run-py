@@ -63,7 +63,14 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             return self.meta_module.meta_main
         else:
             return self
-        
+    
+    @property
+    def meta_is_main(self):
+        if self.meta_module:
+            return False
+        else:
+            return True
+            
     @property
     def meta_attributes(self):
         return ModuleAttributes(self)
