@@ -24,7 +24,7 @@ class AttributeMetadata:
     @property
     def attribute_name(self):
         if self._attribute.module:
-            return (self._attribute.module.attributes.
+            return (self._attribute.module.meta_attributes.
                     find(self._attribute, default='')) 
         else:
             return '' 

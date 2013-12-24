@@ -44,7 +44,7 @@ class NamespaceContext:
         self._module = module
         
     def __contains__(self, key):
-        return key in self._module.attributes 
+        return key in self._module.meta_attributes 
         
     def __getitem__(self, key):
         try:

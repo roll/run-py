@@ -12,7 +12,7 @@ class ModuleMeta(AttributeMeta):
         for key, attr in dct.items():
             if (not key.startswith('_') and
                 #TODO: add ignored attributes?
-                not key in ['root', 'attributes'] and
+                not key in ['meta_root', 'meta_attributes'] and
                 not isinstance(attr, type) and
                 not isinstance(attr, Attribute) and
                 not isinstance(attr, AttributeBuilder)):
@@ -30,7 +30,7 @@ class Module(Attribute, metaclass=ModuleMeta):
     
     def __system_init__(self, args, kwargs):
         super().__system_init__(args, kwargs)
-        for attribute in self.attributes.values():
+        for attribute in self.meta_attributes.values():
             attribute.module = self
         
     def __get__(self, module, module_class):
@@ -46,14 +46,14 @@ class Module(Attribute, metaclass=ModuleMeta):
         return attribute
 
     @property
-    def root(self):
+    def meta_root(self):
         if self.module:
-            return self.module.root
+            return self.module.meta_root
         else:
             return self
         
     @property
-    def attributes(self):
+    def meta_attributes(self):
         return ModuleAttributes(self)
             
     #Protected
