@@ -5,6 +5,7 @@ class Settings(Settings):
     
     #Public
     
+    default_runfile = 'runfile.py'
     default_attribute = 'default'
     default_main_module_name = '__main__'
     
@@ -25,7 +26,7 @@ class Settings(Settings):
             {
              'dest': 'file',
              'flags': ['-f', '--file'],
-             'default': 'runfile.py',
+             'default': default_runfile,
             },   
             {
              'dest': 'help',
