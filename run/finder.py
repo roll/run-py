@@ -48,3 +48,13 @@ class Finder:
     @staticmethod    
     def _filter_objects(objects, **object_filters):
         return objects
+    
+    
+class ModuleFinder(Finder):
+    
+    #Protected
+    
+    #TODO: implement
+    @staticmethod    
+    def _filter_objects(objects, **object_filters):
+        return objects
