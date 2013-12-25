@@ -3,7 +3,7 @@ from .input import InputVar, HiddenInputVar
 from .parse import ParseVar
 from .render import RenderTask
 
-#TODO: add some DRY solution for module/__init__ doubling
+#TODO: add some DRY solution for module/__init__.py doubling
 class BaseModule(Module):
 
     #Input
