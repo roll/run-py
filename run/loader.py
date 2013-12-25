@@ -6,22 +6,19 @@ class ModuleLoader(ObjectLoader):
     
     #Public
     
-    def load(self, base_dir, file_pattern):
-        objects = super().load(base_dir, file_pattern)
-        modules = []
-        for obj in objects:
-            if (isinstance(obj, type) and
-                issubclass(obj, Module) and
-                not inspect.isabstract(obj)):
-                modules.append(obj)
-        return modules
+    #TODO: add constraints
+    def __init__(self):
+        pass
     
     #Protected
     
     def _filter_object(self, obj, module, name):
         if not super()._filter_object(obj, module, name):
             return False
-        elif inspect.getmodule(obj) != module:
+        elif (inspect.getmodule(obj) != module or
+              not isinstance(obj, type) or
+              not issubclass(obj, Module) or
+              inspect.isabstract(obj)):
             return False
         else:
             return True
