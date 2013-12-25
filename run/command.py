@@ -12,18 +12,20 @@ class Command(Command):
 
     @property
     def attribute(self):
-        attribute = self._namespace.attribute        
-        if self.info:
+        attribute = self._namespace.attribute 
+        if self.list:
+            attribute = 'list'               
+        elif self.info:
             attribute = 'info'
         elif self.meta:
-            attribute = 'meta'   
+            attribute = 'meta'
         return attribute
     
     @property
     def arguments(self):
         attribute = self._namespace.attribute
         arguments = self._namespace.arguments
-        if (self.info or self.meta) and attribute:
+        if (self.list or self.info or self.meta) and attribute:
             arguments = [attribute]+arguments
         return arguments
 

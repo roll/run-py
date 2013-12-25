@@ -33,7 +33,7 @@ class Settings(Settings):
                 {
                  'dest': 'info',
                  'action': 'store_true',
-                 'flags': ['-i', '--info', '--information'],
+                 'flags': ['-i', '--info'],
                 },                          
                 {
                  'dest': 'file',
@@ -41,9 +41,14 @@ class Settings(Settings):
                  'default': self.default_file,
                 },
                 {
+                 'dest': 'list',
+                 'action': 'store_true',
+                 'flags': ['-l', '--list'],
+                },                          
+                {
                  'dest': 'meta',
                  'action': 'store_true',
-                 'flags': ['-m', '--meta', '--metadata'],
+                 'flags': ['-m', '--meta'],
                 },
                 {
                  'dest': 'names',
