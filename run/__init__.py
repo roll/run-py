@@ -6,7 +6,7 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask)
 from .exception import RunException
 from .logger import Logger
-from .module import (ModuleBuilder, ModuleMetaclass, Module, 
+from .module import (ModuleBuilder, ModuleMetaclass, Module, LoadModule, 
                      ModuleAttributes, ModuleLoader)
 from .program import Program, program
 from .settings import Settings, settings
