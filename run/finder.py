@@ -11,26 +11,26 @@ class Finder:
     #Public
 
     def find(self, path, **constraints):
-        files = self._find_files(path, name=settings.default_runfile)
-        modules = self._find_classes(files, parent=Module)
+        files = self._find_files(path, names=settings.default_runfile)
+        modules = self._find_classes(files, bases=[Module])
         filtered_modules = self._filter_classes(modules, constraints)
         return filtered_modules
             
     #Protected        
     
-    def _find_files(self, path, name):
+    def _find_files(self, path, names=[]):
         """Find files recursively in path
-           where filename == name"""      
+           where not names or filename in names"""      
         files = []
-        for root, _, files in os.walk(path):
-            for file in files:
-                if file == name:
-                    files.append(os.path.join(root, file))
+        for dirpath, _, filenames in os.walk(path):
+            for filename in filenames:
+                if filename in names:
+                    files.append(os.path.join(dirpath, filename))
         return files
         
     def _find_classes(self, files, bases=[]):
         """Find and import classes of files
-           where issubclass(class, tuple(bases))"""
+           where not bases or issubclass(class, tuple(bases))"""
         classes = []
         for file in files:
             dirname, filename = os.path.split(os.path.abspath(file))
@@ -47,4 +47,5 @@ class Finder:
         return classes
     
     def _filter_classes(self, classes, constraints):
+        "Filter classes using constraints"
         pass
