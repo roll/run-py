@@ -1,10 +1,12 @@
 from .attribute import (AttributeBuilder, AttributeBuilderUpdate, 
                         AttributeBuilderSet, AttributeBuilderCall,
                         AttributeMetaclass, Attribute)
+from .command import Command
 from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask,
                         DependentAttributeDecorator, require, trigger)
-from .command import Command
+from .exception import RunException
+from .logger import Logger
 from .module import ModuleBuilder, ModuleMetaclass, Module, ModuleAttributes
 from .program import Program, program
 from .settings import Settings, settings
