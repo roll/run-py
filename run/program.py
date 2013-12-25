@@ -15,25 +15,28 @@ class Program(Program):
             print(self.command.program_help)
         else:
             #TODO: add error handling
-            result = self._module(self.command.attribute,
-                *self.command.args, **self.command.kwargs)
             #TODO: fix not printing empty attributes
-            if result:
-                print(result)
+            for module in self._modules:
+                result = module(
+                    self.command.attribute,
+                    *self.command.args, 
+                    **self.command.kwargs)
+                if result:
+                    print(result)
     
     @cachedproperty
     def command(self):
         return Command(self.argv)
          
     #Protected
-    
-    @cachedproperty   
-    def _module(self):
-        try:
-            module_class = self._module_classes[0]
-            return module_class(module=None)
-        except IndexError:
-            raise RuntimeError('Module is not found')
+        
+    @cachedproperty
+    def _modules(self):
+        modules = []
+        for module_class in self._module_classes:
+            module = module_class(module=None)
+            modules.append(module)
+        return modules      
         
     @cachedproperty   
     def _module_classes(self):
