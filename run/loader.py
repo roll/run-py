@@ -1,11 +1,9 @@
-from lib31.python import Loader
+from lib31.python import ObjectLoader
     
+class ModuleLoader(ObjectLoader):
     
-class ModuleLoader(Loader):
+    #Public
     
-    #Protected
-    
-    #TODO: implement
-    @staticmethod    
-    def _filter_objects(objects, **object_filters):
+    def load(self, base_dir, file_pattern):
+        objects = super().load(base_dir, file_pattern)
         return objects
