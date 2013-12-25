@@ -85,7 +85,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             return settings.default_main_module_name
     
     @property
-    def meta_groups(self):
+    def meta_tags(self):
         return []
         
     def list(self):
