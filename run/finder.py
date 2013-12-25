@@ -1,8 +1,7 @@
 import os
 import re
-import sys
 import inspect
-import importlib
+import importlib.machinery
 
 class Finder:
 
@@ -31,10 +30,8 @@ class Finder:
     def _import_modules(files):
         modules = []
         for file in files:
-            dir_name, file_name = os.path.split(os.path.abspath(file))
-            module_name = re.sub('\.pyc?', '', file_name)
-            sys.path.insert(0, dir_name)
-            module = importlib.import_module(module_name)
+            loader = importlib.machinery.SourceFileLoader(file, file)
+            module = loader.load_module(file)
             modules.append(module)
         return modules
         
