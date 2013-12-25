@@ -6,7 +6,7 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask,
                         DependentAttributeDecorator, require, trigger)
 from .exception import RunException
-from .finder import Finder, ModuleFinder
+from .loader import ModuleLoader
 from .logger import Logger
 from .module import ModuleBuilder, ModuleMetaclass, Module, ModuleAttributes
 from .program import Program, program
