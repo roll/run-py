@@ -10,26 +10,26 @@ class Program(Program):
      
     #TODO: refactor   
     def __call__(self):
-        if (self.command.help and 
-            not self.command.attribute):
-            print(self.command.program_help)
+        if (self._command.help and 
+            not self._command.attribute):
+            print(self._command.program_help)
         else:
             #TODO: add error handling
             #TODO: fix not printing empty attributes
             for module in self._modules:
                 result = module(
-                    self.command.attribute,
-                    *self.command.args, 
-                    **self.command.kwargs)
+                    self._command.attribute,
+                    *self._command.args, 
+                    **self._command.kwargs)
                 if result:
                     print(result)
-    
-    @cachedproperty
-    def command(self):
-        return Command(self.argv)
          
     #Protected
-        
+    
+    @cachedproperty
+    def _command(self):
+        return Command(self.argv)
+    
     @cachedproperty
     def _modules(self):
         modules = []
@@ -41,7 +41,7 @@ class Program(Program):
     @cachedproperty   
     def _module_classes(self):
         return self._module_loader.load(
-            self.command.path, self.command.file)
+            self._command.path, self._command.file)
         
     @cachedproperty   
     def _module_loader(self):
