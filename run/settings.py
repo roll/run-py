@@ -18,7 +18,7 @@ class Settings(Settings):
     def command_schema(self):
         return {
             'prog': 'run',
-            'add_help': False,            
+            'add_help': True,            
             'arguments': [
                 {
                  'name': 'attribute',
@@ -31,19 +31,19 @@ class Settings(Settings):
                  'default': self.default_arguments,
                 },       
                 {
+                 'dest': 'info',
+                 'action': 'store_true',
+                 'flags': ['-i', '--info', '--information'],
+                },                          
+                {
                  'dest': 'file',
                  'flags': ['-f', '--file'],
                  'default': self.default_file,
-                },   
-                {
-                 'dest': 'help',
-                 'action': 'store_true',
-                 'flags': ['-h', '--help'],
                 },
                 {
                  'dest': 'meta',
                  'action': 'store_true',
-                 'flags': ['-m', '--meta'],
+                 'flags': ['-m', '--meta', '--metadata'],
                 },
                 {
                  'dest': 'names',

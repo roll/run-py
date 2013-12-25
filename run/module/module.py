@@ -101,21 +101,21 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         for name in sorted(names):
             print(name)
 
-    def help(self, attribute=None):
-        "Print attribute help"
+    def info(self, attribute=None):
+        "Print information"
         if attribute:
             #TODO: now it supports only the module attributes (not base.render)
             if attribute in self.meta_attributes:
-                print(self.meta_attributes[attribute].meta_help)
+                print(self.meta_attributes[attribute].meta_info)
             else:
                 #TODO: may be print?
                 raise RuntimeError('No attribute "{0}"'.format(attribute))
         else:
-            print(self.meta_help)
+            print(self.meta_info)
         
     #TODO: implement
     def meta(self, attribute=None):
-        "Print attribute meta"
+        "Print metadata"
         #TODO: now it supports only the module attributes (not base.render)
         if attribute and attribute in self.meta_attributes:
             attribute = self.meta_attributes[attribute]

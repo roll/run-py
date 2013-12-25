@@ -8,21 +8,16 @@ class Program(Program):
     
     #Public
      
-    #TODO: refactor   
     def __call__(self):
-        if (self._command.help and 
-            not self._command.attribute):
-            print(self._command.program_help)
-        else:
-            #TODO: add error handling
-            #TODO: fix not printing empty attributes
-            for module in self._modules:
-                result = module(
-                    self._command.attribute,
-                    *self._command.args, 
-                    **self._command.kwargs)
-                if result:
-                    print(result)
+        #TODO: add error handling
+        #TODO: fix not printing empty attributes
+        for module in self._modules:
+            result = module(
+                self._command.attribute,
+                *self._command.args, 
+                **self._command.kwargs)
+            if result:
+                print(result)
          
     #Protected
     

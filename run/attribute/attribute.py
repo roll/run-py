@@ -78,7 +78,7 @@ class Attribute(metaclass=AttributeMetaclass):
             return ''
 
     @property
-    def meta_help(self):
+    def meta_info(self):
         lines = filter(None, [self.meta_signature, self.meta_docstring])
         return '\n'.join(lines)
 
