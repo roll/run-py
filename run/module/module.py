@@ -50,6 +50,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     def __call__(self, attribute, *args, **kwargs):
         if not attribute:
+            #TODO: default_attribute here?
             attribute = settings.default_attribute
         attribute = getattr(self, attribute)
         if isinstance(attribute, Task):

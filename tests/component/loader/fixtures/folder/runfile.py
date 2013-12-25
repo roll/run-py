@@ -4,4 +4,4 @@ class Module2(Module):
     
     #Public
     
-    pass
+    x = 'test'
