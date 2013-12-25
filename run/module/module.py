@@ -64,6 +64,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             return attribute
     
+    #TODO: decide about meta_* to attribute or module
+    
     @property
     def meta_main_module(self):
         if self.meta_module:
