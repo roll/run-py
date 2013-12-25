@@ -6,6 +6,7 @@ import importlib
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
+from .loader import ModuleLoader
 from .module import Module
 
 class Program(Program):
@@ -17,7 +18,7 @@ class Program(Program):
             print(self.command.program_help)
         else:
             #TODO: add error handling
-            result = self._run(self.command.attribute,
+            result = self._module(self.command.attribute,
                 *self.command.args, **self.command.kwargs)
             #TODO: fix not printing empty attributes
             if result:
@@ -30,7 +31,7 @@ class Program(Program):
     #Protected
     
     @cachedproperty   
-    def _run(self):
+    def _module(self):
         dirname, filename = os.path.split(os.path.abspath(self.command.file))
         self._switch_to_directory(dirname)
         modulename = re.sub('\.pyc?', '', filename)
