@@ -6,9 +6,8 @@ class ModuleLoader(ObjectLoader):
     
     #Public
     
-    #TODO: add constraints
-    def __init__(self):
-        pass
+    def __init__(self, filters=[]):
+        self._filters = filters
     
     #Protected
     
