@@ -7,8 +7,8 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttributeDecorator, require, trigger)
 from .exception import RunException
 from .logger import Logger
-from .module import (ModuleBuilder, ModuleMetaclass, Module, ModuleAttributes,
-                     ModuleLoader, ModuleLoaderFilter)
+from .module import (ModuleBuilder, ModuleMetaclass, Module, 
+                     ModuleAttributes, ModuleLoader)
 from .program import Program, program
 from .settings import Settings, settings
 from .task import Task, MethodTask
