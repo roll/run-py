@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
-from ..attribute import AttributeBuilder
-from ..wrapper import Wrapper
+from ..dependent import DependentAttributeBuilder
+from .method import MethodTask       
 
-class DependentAttributeDecorator(metaclass=ABCMeta):
+class DependentTaskDecorator(metaclass=ABCMeta):
     
     #Public
     
@@ -10,11 +10,10 @@ class DependentAttributeDecorator(metaclass=ABCMeta):
         self._tasks = tasks
     
     def __call__(self, method):
-        wrapper = Wrapper()
-        if isinstance(method, AttributeBuilder):
+        if isinstance(method, DependentAttributeBuilder):
             builder = method
         else:
-            builder = wrapper.wrap_method(method)
+            builder = MethodTask(method)
         self._add_dependency(builder)
         return builder
     
@@ -25,7 +24,7 @@ class DependentAttributeDecorator(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-class require(DependentAttributeDecorator):
+class require(DependentTaskDecorator):
     
     #Protected
     
@@ -34,7 +33,7 @@ class require(DependentAttributeDecorator):
         builder.require(self._tasks)
 
 
-class trigger(DependentAttributeDecorator):
+class trigger(DependentTaskDecorator):
     
     #Protected
     
