@@ -15,3 +15,13 @@ class ModuleLoader(ObjectLoader):
                 not inspect.isabstract(obj)):
                 modules.append(obj)
         return modules
+    
+    #Protected
+    
+    def _filter_object(self, obj, module, name):
+        if not super()._filter_object(obj, module, name):
+            return False
+        elif inspect.getmodule(obj) != module:
+            return False
+        else:
+            return True
