@@ -25,20 +25,10 @@ class Settings(Settings):
              'default': [],
             },       
             {
-             'dest': 'path',
-             'flags': ['-p', '--path'],
-             'default': default_path,
-            },                            
-            {
              'dest': 'file',
              'flags': ['-f', '--file'],
              'default': default_file,
             },   
-            {
-             'dest': 'recursively',
-             'action': 'store_true',
-             'flags': ['-r', '--recursively'],
-            },                        
             {
              'dest': 'help',
              'action': 'store_true',
@@ -48,7 +38,17 @@ class Settings(Settings):
              'dest': 'meta',
              'action': 'store_true',
              'flags': ['-m', '--meta'],
-            },                            
+            },
+            {
+             'dest': 'path',
+             'flags': ['-p', '--path'],
+             'default': default_path,
+            },                      
+            {
+             'dest': 'recursively',
+             'action': 'store_true',
+             'flags': ['-r', '--recursively'],
+            },                                                   
             {
              'action': 'version',
              'flags': ['-V', '--version'],
