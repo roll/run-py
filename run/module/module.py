@@ -1,9 +1,10 @@
+import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..attribute import AttributeBuilder, AttributeMetaclass, Attribute
 from ..settings import settings
-from ..task import Task
-from ..wrapper import Wrapper
+from ..task import Task, MethodTask
+from ..var import ValueVar, PropertyVar
 from .attributes import ModuleAttributes
 from .builder import ModuleBuilder
 
@@ -12,14 +13,18 @@ class ModuleMetaclass(AttributeMetaclass):
     #Public
      
     def __new__(cls, name, bases, dct):
-        wrapper = Wrapper()
         for key, attr in dct.items():
             if (not key.startswith('_') and
                 not key.startswith('meta_') and
                 not isinstance(attr, type) and
                 not isinstance(attr, Attribute) and
                 not isinstance(attr, AttributeBuilder)):
-                dct[key] = wrapper.wrap(attr)
+                if callable(attr):
+                    dct[key] = MethodTask(attr)
+                elif inspect.isdatadescriptor(attr):
+                    dct[key] = PropertyVar(attr)
+                else:
+                    dct[key] = ValueVar(attr)
         return super().__new__(cls, name, bases, dct)
     
     #Protected

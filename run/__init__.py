@@ -13,4 +13,3 @@ from .settings import Settings, settings
 from .task import Task, MethodTask, DependentTaskDecorator, require, trigger
 from .var import Var, ValueVar, PropertyVar
 from .version import Version, version
-from .wrapper import Wrapper
