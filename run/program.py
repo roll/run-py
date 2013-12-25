@@ -10,7 +10,8 @@ class Program(Program):
      
     #TODO: refactor   
     def __call__(self):
-        if (self.command.help and not self.command.attribute):
+        if (self.command.help and 
+            not self.command.attribute):
             print(self.command.program_help)
         else:
             #TODO: add error handling
@@ -28,13 +29,16 @@ class Program(Program):
     
     @cachedproperty   
     def _module(self):
-        module_classes = self._module_loader.load(
-            self.command.path, self.command.file)
         try:
-            module_class = module_classes[0]
+            module_class = self._module_classes[0]
             return module_class(module=None)
         except IndexError:
             raise RuntimeError('Module is not found')
+        
+    @cachedproperty   
+    def _module_classes(self):
+        return self._module_loader.load(
+            self.command.path, self.command.file)
         
     @cachedproperty   
     def _module_loader(self):
