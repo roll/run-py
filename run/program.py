@@ -41,7 +41,8 @@ class Program(Program):
     @cachedproperty   
     def _module_classes(self):
         return self._module_loader.load(
-            self._command.path, self._command.file)
+            self._command.path, self._command.file,
+            recursively=self._command.recursively)
         
     @cachedproperty   
     def _module_loader(self):

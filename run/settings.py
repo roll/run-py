@@ -35,6 +35,11 @@ class Settings(Settings):
              'default': default_file,
             },   
             {
+             'dest': 'recursively',
+             'action': 'store_true',
+             'flags': ['-r', '--recursively'],
+            },                        
+            {
              'dest': 'help',
              'action': 'store_true',
              'flags': ['-h', '--help'],
