@@ -2,7 +2,7 @@ import sys
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
-from .loader import ModuleLoader
+from .module import ModuleLoader
 
 class Program(Program):
     
