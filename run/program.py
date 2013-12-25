@@ -46,7 +46,8 @@ class Program(Program):
         
     @cachedproperty   
     def _module_loader(self):
-        return ModuleLoader()
+        return ModuleLoader(names=self._command.names,
+                            tags=self._command.tags)
     
     
 program = Program(sys.argv)
