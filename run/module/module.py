@@ -93,30 +93,35 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def meta_tags(self):
         return []
         
-    def list(self):
-        "List attributes"
+    #TODO: list, info, meta now supports only 
+    #the module attributes (not base.render)
+    
+    #TODO: "if attribute and attribute in self.meta_attributes"
+    #works bad for attribute not in self.meta_attributes
+        
+    def list(self, attribute=None):
+        "Print attributes"
         names = []
-        for attribute in self.meta_attributes.values():
+        if attribute and attribute in self.meta_attributes:
+            attribute = self.meta_attributes[attribute]
+            attributes = attribute.meta_attributes
+        else:
+            attributes = self.meta_attributes
+        for attribute in attributes.values():
             names.append(attribute.meta_name)
         for name in sorted(names):
             print(name)
 
     def info(self, attribute=None):
         "Print information"
-        if attribute:
-            #TODO: now it supports only the module attributes (not base.render)
-            if attribute in self.meta_attributes:
-                print(self.meta_attributes[attribute].meta_info)
-            else:
-                #TODO: may be print?
-                raise RuntimeError('No attribute "{0}"'.format(attribute))
+        if attribute and attribute in self.meta_attributes:
+            attribute = self.meta_attributes[attribute]
+            print(attribute.meta_info)
         else:
             print(self.meta_info)
         
-    #TODO: implement
     def meta(self, attribute=None):
         "Print metadata"
-        #TODO: now it supports only the module attributes (not base.render)
         if attribute and attribute in self.meta_attributes:
             attribute = self.meta_attributes[attribute]
         else:
