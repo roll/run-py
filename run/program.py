@@ -1,13 +1,8 @@
-import os
-import re
 import sys
-import inspect
-import importlib
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
 from .loader import ModuleLoader
-from .module import Module
 
 class Program(Program):
     
@@ -32,24 +27,16 @@ class Program(Program):
     
     @cachedproperty   
     def _module(self):
-        dirname, filename = os.path.split(os.path.abspath(self.command.file))
-        self._switch_to_directory(dirname)
-        modulename = re.sub('\.pyc?', '', filename)
-        #TODO: add no module handling
-        module = importlib.import_module(modulename)
-        for name in dir(module):
-            attr = getattr(module, name)
-            if (isinstance(attr, type) and
-                issubclass(attr, Module) and
-                inspect.getmodule(attr) == module and
-                not inspect.isabstract(attr)):
-                return attr(module=None)
-        else:
+        modules = self._module_loader.load('.', self.command.file)
+        try:
+            return modules[0]
+        except IndexError:
             raise RuntimeError('Run is not finded')
         
-    def _switch_to_directory(self, dirname):
-        os.chdir(dirname)
-        sys.path.insert(0, dirname) 
+        
+    @cachedproperty   
+    def _module_loader(self):
+        return ModuleLoader()
     
     
 program = Program(sys.argv)
