@@ -7,8 +7,8 @@ class ModuleLoader(ObjectLoader):
     #Public
     
     def load(self, base_dir, file_pattern):
-        modules = []
         objects = super().load(base_dir, file_pattern)
+        modules = []
         for obj in objects:
             if (isinstance(obj, type) and
                 issubclass(obj, Module) and
