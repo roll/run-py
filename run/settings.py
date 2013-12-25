@@ -8,6 +8,7 @@ class Settings(Settings):
     default_path = '.'
     default_file = 'runfile.py'
     default_attribute = 'default'
+    default_arguments = []
     default_main_module_name = '__main__'
     
     command_schema = {
@@ -22,7 +23,7 @@ class Settings(Settings):
             {
              'name': 'arguments',
              'nargs':'*',
-             'default': [],
+             'default': default_arguments,
             },       
             {
              'dest': 'file',
