@@ -1,4 +1,4 @@
-class Find:
+class Finder:
 
     #Public
 
