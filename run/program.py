@@ -7,7 +7,8 @@ from .loader import ModuleLoader
 class Program(Program):
     
     #Public
-        
+     
+    #TODO: refactor   
     def __call__(self):
         if (self.command.help and not self.command.attribute):
             print(self.command.program_help)
@@ -27,12 +28,13 @@ class Program(Program):
     
     @cachedproperty   
     def _module(self):
-        modules = self._module_loader.load('.', self.command.file)
+        module_classes = self._module_loader.load(
+            self.command.path, self.command.file)
         try:
-            return modules[0]
+            module_class = module_classes[0]
+            return module_class(module=None)
         except IndexError:
-            raise RuntimeError('Run is not finded')
-        
+            raise RuntimeError('Module is not found')
         
     @cachedproperty   
     def _module_loader(self):
