@@ -53,17 +53,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         attribute = getattr(module, attribute_name)
         return attribute
     
-    def __call__(self, attribute, *args, **kwargs):
-        if not attribute:
-            #TODO: default_attribute here?
-            attribute = settings.default_attribute
-        attribute = getattr(self, attribute)
-        if isinstance(attribute, Task):
-            result = attribute(*args, **kwargs)
-            return result
-        else:
-            return attribute
-    
     #TODO: decide about meta_* to attribute or module
     
     @property

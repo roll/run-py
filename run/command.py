@@ -19,6 +19,8 @@ class Command(Command):
             attribute = 'info'
         elif self.meta:
             attribute = 'meta'
+        elif not attribute:
+            attribute = settings.default_attribute
         return attribute
     
     @property

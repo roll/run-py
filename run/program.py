@@ -3,23 +3,33 @@ from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
 from .module import ModuleLoader
+from .task import Task
 
+#TODO: add error handling
 class Program(Program):
     
     #Public
      
     def __call__(self):
-        #TODO: add error handling
-        #TODO: fix not printing empty attributes
-        for module in self._modules:
-            result = module(
-                self._command.attribute,
-                *self._command.args, 
-                **self._command.kwargs)
-            if result:
-                print(result)
+        for attribute in self._attributes:
+            if isinstance(attribute, Task):
+                result = attribute(
+                    *self._command.args, 
+                    **self._command.kwargs)
+                if result:
+                    print(result)
+            else:
+                print(attribute)           
          
     #Protected
+    
+    @cachedproperty
+    def _attributes(self):
+        attributes = []
+        for module in self._modules:
+            attribute = getattr(module, self._command.attribute)
+            attributes.append(attribute)
+        return attributes
     
     @cachedproperty
     def _modules(self):
@@ -38,8 +48,9 @@ class Program(Program):
         
     @cachedproperty   
     def _module_loader(self):
-        return ModuleLoader(names=self._command.names,
-                            tags=self._command.tags)
+        return ModuleLoader(
+            names=self._command.names,
+            tags=self._command.tags)
     
     @cachedproperty
     def _command(self):
