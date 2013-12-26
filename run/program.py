@@ -27,8 +27,12 @@ class Program(Program):
     def _attributes(self):
         attributes = []
         for module in self._modules:
-            attribute = getattr(module, self._command.attribute)
-            attributes.append(attribute)
+            try:
+                attribute = getattr(module, self._command.attribute)
+                attributes.append(attribute)
+            except AttributeError:
+                if not self._command.skip:
+                    raise
         return attributes
     
     @cachedproperty
