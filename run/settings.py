@@ -97,7 +97,7 @@ class Settings(Settings):
                  'nargs':'*',
                  'flags': ['-t', '--tags'],
                  'default': self.default_tags,
-                 'help': 'Main modules tags to match.',                 
+                 'help': 'Main module tags to match.',                 
                 },   
                 {
                  'dest': 'verbose',
