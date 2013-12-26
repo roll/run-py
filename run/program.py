@@ -2,15 +2,26 @@ import sys
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
+from .exception import RunException
 from .module import ModuleLoader
 from .task import Task
 
-#TODO: add error handling
 class Program(Program):
     
     #Public
      
     def __call__(self):
+        try:
+            self._execute()
+        except Exception as exception:
+            if self._command.debug:
+                raise
+            else:
+                print('Error: '+str(exception))
+         
+    #Protected
+    
+    def _execute(self):
         for attribute in self._attributes:
             if isinstance(attribute, Task):
                 result = attribute(
@@ -19,20 +30,18 @@ class Program(Program):
                 if result:
                     print(result)
             else:
-                print(attribute)           
-         
-    #Protected
+                print(attribute)  
     
     @cachedproperty
     def _attributes(self):
         attributes = []
         for module in self._modules:
-            try:
+            if hasattr(module, self._command.attribute):
                 attribute = getattr(module, self._command.attribute)
                 attributes.append(attribute)
-            except AttributeError:
+            else:
                 if not self._command.existent:
-                    raise
+                    raise RunException('No attribute')
         return attributes
     
     @cachedproperty
