@@ -34,7 +34,12 @@ class Settings(Settings):
                  'dest': 'debug',
                  'action': 'store_true',
                  'flags': ['-d', '--debug'],
-                },                                 
+                }, 
+                {
+                 'dest': 'existent',
+                 'action': 'store_true',
+                 'flags': ['-e', '--existent'],
+                },                              
                 {
                  'dest': 'info',
                  'action': 'store_true',
@@ -71,11 +76,6 @@ class Settings(Settings):
                  'action': 'store_true',
                  'flags': ['-r', '--recursively'],
                 },
-                {
-                 'dest': 'skip',
-                 'action': 'store_true',
-                 'flags': ['-s', '--skip'],
-                },                            
                 {
                  'dest': 'tags',
                  'nargs':'*',

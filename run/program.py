@@ -31,7 +31,7 @@ class Program(Program):
                 attribute = getattr(module, self._command.attribute)
                 attributes.append(attribute)
             except AttributeError:
-                if not self._command.skip:
+                if not self._command.existent:
                     raise
         return attributes
     
