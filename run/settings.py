@@ -29,7 +29,12 @@ class Settings(Settings):
                  'name': 'arguments',
                  'nargs':'*',
                  'default': self.default_arguments,
-                },       
+                },    
+                {
+                 'dest': 'debug',
+                 'action': 'store_true',
+                 'flags': ['-d', '--debug'],
+                },                                 
                 {
                  'dest': 'info',
                  'action': 'store_true',
