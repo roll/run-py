@@ -76,7 +76,12 @@ class Settings(Settings):
                  'nargs':'*',
                  'flags': ['-t', '--tags'],
                  'default': self.default_tags,
-                },                                                     
+                },   
+                {
+                 'dest': 'verbose',
+                 'action': 'store_true',
+                 'flags': ['-v', '--verbose'],
+                },                                                                                
                 {
                  'action': 'version',
                  'flags': ['-V', '--version'],
