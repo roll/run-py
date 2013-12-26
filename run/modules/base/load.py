@@ -1,5 +1,5 @@
-from .loader import ModuleLoader
-from ..settings import settings
+from ...module import ModuleLoader
+from ...settings import settings
 
 class LoadModule:
 

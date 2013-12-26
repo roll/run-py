@@ -1,5 +1,6 @@
 from ...module import Module
 from .input import InputVar, HiddenInputVar
+from .load import LoadModule
 from .parse import ParseVar
 from .render import RenderTask
 
@@ -10,6 +11,10 @@ class BaseModule(Module):
 
     InputVar = InputVar
     HiddenInputVar = HiddenInputVar
+    
+    #Load
+    
+    LoadModule = LoadModule
     
     #Parse
     
