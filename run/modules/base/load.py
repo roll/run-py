@@ -11,7 +11,7 @@ class LoadModule:
                  file_pattern=settings.default_file, 
                  recursively=False):
         loader = ModuleLoader(names=names, tags=tags)
-        classes = loader.load(
-            base_dir, file_pattern, recursively=recursively)
+        classes = list(loader.load(
+            base_dir, file_pattern, recursively=recursively))
         module = classes[0]() 
         return module
