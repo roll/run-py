@@ -11,7 +11,7 @@ class ModuleLoaderTest(unittest.TestCase):
         self.path = os.path.join(os.path.dirname(__file__), 'fixtures')
         
     def test_load(self):
-        objects = list(self.loader.load(self.path, 'runfile.py', True))
-        self.assertEqual(len(objects), 2)
-        self.assertEqual(objects[0].__name__, 'Module1')
-        self.assertEqual(objects[1].__name__, 'Module2')
+        modules = list(self.loader.load(self.path, 'runfile.py', True))
+        self.assertEqual(len(modules), 2)
+        self.assertEqual(modules[0].__name__, 'Module1')
+        self.assertEqual(modules[1].__name__, 'Module2')
