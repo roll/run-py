@@ -36,10 +36,10 @@ class Program(Program):
     def _attributes(self):
         attributes = []
         for module in self._modules:
-            if hasattr(module, self._command.attribute):
+            try:
                 attribute = getattr(module, self._command.attribute)
                 attributes.append(attribute)
-            else:
+            except AttributeError:
                 if not self._command.existent:
                     raise RunException('No attribute')
         return attributes
