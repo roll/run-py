@@ -31,13 +31,14 @@ class Program(Program):
         for module_class in self._module_classes:
             module = module_class(module=None)
             modules.append(module)
-        return modules      
+        return modules
         
     @cachedproperty   
     def _module_classes(self):
         return list(self._module_loader.load(
-            self._command.path, self._command.file,
-            recursively=self._command.recursively))
+            self._command.path, 
+            self._command.file,
+            self._command.recursively))
         
     @cachedproperty   
     def _module_loader(self):

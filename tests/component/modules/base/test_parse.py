@@ -9,7 +9,7 @@ class ParseVarTest(unittest.TestCase):
     def setUp(self):
         self.var = ParseVar(
             'test_parse.py', 'import (.*test)\n', 
-            base_dir=os.path.dirname(__file__),
+            path=os.path.dirname(__file__),
             module=None)
     
     def test_retrieve(self):
