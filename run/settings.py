@@ -72,6 +72,11 @@ class Settings(Settings):
                  'flags': ['-r', '--recursively'],
                 },
                 {
+                 'dest': 'strict',
+                 'action': 'store_true',
+                 'flags': ['-s', '--strict'],
+                },                            
+                {
                  'dest': 'tags',
                  'nargs':'*',
                  'flags': ['-t', '--tags'],
