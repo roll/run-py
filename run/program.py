@@ -22,10 +22,6 @@ class Program(Program):
     #Protected
     
     @cachedproperty
-    def _command(self):
-        return Command(self.argv)
-    
-    @cachedproperty
     def _modules(self):
         modules = []
         for module_class in self._module_classes:
@@ -45,5 +41,9 @@ class Program(Program):
         return ModuleLoader(names=self._command.names,
                             tags=self._command.tags)
     
+    @cachedproperty
+    def _command(self):
+        return Command(self.argv)
     
+        
 program = Program(sys.argv)
