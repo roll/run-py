@@ -8,11 +8,14 @@ class Task(DependentAttribute):
         return self
     
     def __call__(self, *args, **kwargs):
+        self.meta_logger.debug('requested')
         self._resolve_requirements()
+        self.meta_logger.debug('requirements resolved')
         #TODO: add error handling?
         result = self.complete(*args, **kwargs)
         self._process_triggers()
-        self.meta_logger.info('Task completed')
+        self.meta_logger.debug('triggers processed')
+        self.meta_logger.info('completed')
         return result
     
     def complete(self, *args, **kwargs):

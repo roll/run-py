@@ -17,7 +17,9 @@ class Program(Program):
     #Protected
     
     def _config(self):
-        logging.basicConfig(level=logging.DEBUG)
+        logging.basicConfig(
+            level=logging.INFO, 
+            format='%(name)s: %(message)s')
     
     def _execute(self):
         logging.debug('Executing...')
