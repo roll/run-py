@@ -11,7 +11,6 @@ class Task(DependentAttribute):
         self.meta_logger.debug('requested')
         self._resolve_requirements()
         self.meta_logger.debug('requirements resolved')
-        #TODO: add error handling?
         result = self.complete(*args, **kwargs)
         self._process_triggers()
         self.meta_logger.debug('triggers processed')

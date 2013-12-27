@@ -9,7 +9,6 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         self.meta_logger.debug('requested')
         self._resolve_requirements()
         self.meta_logger.debug('requirements resolved')
-        #TODO: add error handling   
         result = self.retrieve()
         self._process_triggers()
         self.meta_logger.debug('triggers processed')
