@@ -97,8 +97,4 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.__docstring:
             return self.__docstring
         else:
-            return inspect.getdoc(self)
-    
-    @cachedproperty
-    def meta_logger(self):
-        return logging.getLogger(self.meta_name)           
+            return inspect.getdoc(self)         
