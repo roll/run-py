@@ -113,6 +113,10 @@ class Settings(Settings):
                 },                                                             
             ],        
         }
+        
+    logging_schema = {
+    
+    }
     
     
 settings = Settings()
