@@ -1,4 +1,5 @@
 import sys
+import logging
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .cluster import Cluster
@@ -10,26 +11,30 @@ class Program(Program):
     #Public
      
     def __call__(self):
+        self._config()
+        self._execute()
+         
+    #Protected
+    
+    def _config(self):
+        logging.basicConfig(level=logging.DEBUG)
+    
+    def _execute(self):
+        logging.debug('Executing...')
         try:
-            self._execute()
+            for attribute in self._attributes:
+                if isinstance(attribute, Task):
+                    result = attribute(
+                        *self._command.args, **self._command.kwargs)
+                    if result:
+                        print(result)
+                else:
+                    print(attribute)
         except Exception as exception:
             if self._command.debug:
                 raise
             else:
-                print('Error: '+str(exception))
-         
-    #Protected
-    
-    def _execute(self):
-        for attribute in self._attributes:
-            if isinstance(attribute, Task):
-                result = attribute(
-                    *self._command.args, 
-                    **self._command.kwargs)
-                if result:
-                    print(result)
-            else:
-                print(attribute)  
+                print('Error: '+str(exception))                    
     
     @cachedproperty
     def _attributes(self):
