@@ -22,7 +22,6 @@ class Program(Program):
             format='%(name)s: %(message)s')
     
     def _execute(self):
-        logging.debug('Executing...')
         try:
             for attribute in self._attributes:
                 if isinstance(attribute, Task):
