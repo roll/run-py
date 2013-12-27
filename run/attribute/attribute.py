@@ -1,4 +1,6 @@
 import inspect
+import logging
+from lib31.python import cachedproperty
 from abc import ABCMeta, abstractmethod
 from ..settings import settings
 from .builder import AttributeBuilder
@@ -95,4 +97,8 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.__docstring:
             return self.__docstring
         else:
-            return inspect.getdoc(self)   
+            return inspect.getdoc(self)
+    
+    @cachedproperty
+    def meta_logger(self):
+        return logging.getLogger(self.meta_name)           
