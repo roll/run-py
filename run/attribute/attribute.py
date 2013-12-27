@@ -1,6 +1,4 @@
 import inspect
-import logging
-from lib31.python import cachedproperty
 from abc import ABCMeta, abstractmethod
 from ..settings import settings
 from .builder import AttributeBuilder
