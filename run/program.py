@@ -1,9 +1,8 @@
 import sys
 from lib31.program import Program
 from lib31.python import cachedproperty
+from .cluster import Cluster
 from .command import Command
-from .exception import RunException
-from .loader import Loader
 from .task import Task
 
 class Program(Program):
@@ -34,36 +33,19 @@ class Program(Program):
     
     @cachedproperty
     def _attributes(self):
-        attributes = []
-        for module in self._modules:
-            try:
-                attribute = getattr(module, self._command.attribute)
-                attributes.append(attribute)
-            except AttributeError:
-                if not self._command.existent:
-                    raise RunException('No attribute')
+        attributes = getattr(
+            self._cluster, self._command.attribute)
         return attributes
-    
-    @cachedproperty
-    def _modules(self):
-        modules = []
-        for module_class in self._module_classes:
-            module = module_class(module=None)
-            modules.append(module)
-        return modules
         
     @cachedproperty   
-    def _module_classes(self):
-        return list(self._module_loader.load(
-            self._command.path, 
-            self._command.file,
-            self._command.recursively))
-        
-    @cachedproperty   
-    def _module_loader(self):
-        return Loader(
+    def _cluster(self):
+        return Cluster(
             names=self._command.names,
-            tags=self._command.tags)
+            tags=self._command.tags,
+            path=self._command.path, 
+            file_pattern=self._command.file,
+            recursively=self._command.recursively,
+            existent=self._command.existent)
     
     @cachedproperty
     def _command(self):
