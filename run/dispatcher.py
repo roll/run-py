@@ -1,25 +1,25 @@
 import logging
+from contextlib import contextmanager
 from lib31.python import cachedproperty
 
-class Dispatcher(list):
+class Dispatcher:
 
     #Public
-
-    def push(self, attribute):
-        self.append(attribute)
-        
-    def pop(self):
-        attribute = super().pop()
-        self._log(self+[attribute])
-        return attribute
+    
+    @contextmanager
+    def register(self, attribute):
+        self._stack.append(attribute)
+        yield
+        self._log()
+        self._stack.pop()
         
     #Protected
     
-    def _log(self, attributes):
+    def _log(self):
         names = []
-        previous = attributes[0]
+        previous = self._stack[0]
         names.append(previous.meta_name)
-        for attribute in attributes[1:]:
+        for attribute in self._stack[1:]:
             current = attribute
             if current.meta_module == previous.meta_module:
                 names.append(current.meta_attribute_name)
@@ -27,7 +27,7 @@ class Dispatcher(list):
                 names.append(current.meta_name) 
             previous = current
         self._logger.info('[+] '+'/'.join(names))
-    
+  
     @cachedproperty
     def _logger(self):
         formatter = logging.Formatter('%(message)s')
@@ -37,6 +37,10 @@ class Dispatcher(list):
         logger.addHandler(handler)
         logger.propagate = False
         return logger
-    
+
+    @cachedproperty    
+    def _stack(self):
+        return []
+        
 
 dispatcher = Dispatcher()

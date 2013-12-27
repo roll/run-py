@@ -7,16 +7,11 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     #Public
 
     def __get__(self, module, module_class=None):
-        dispatcher.push(self)
-        #self.meta_logger.debug('requested')
-        self._resolve_requirements()
-        #self.meta_logger.debug('requirements resolved')
-        result = self.retrieve()
-        self._process_triggers()
-        #self.meta_logger.debug('triggers processed')
-        #self.meta_logger.info('retrieved')
-        dispatcher.pop()        
-        return result
+        with dispatcher.register(self):
+            self._resolve_requirements()
+            result = self.retrieve()
+            self._process_triggers()
+            return result
  
     @abstractmethod
     def retrieve(self):

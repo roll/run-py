@@ -9,16 +9,11 @@ class Task(DependentAttribute):
         return self
     
     def __call__(self, *args, **kwargs):
-        dispatcher.push(self)
-        #self.meta_logger.debug('requested')
-        self._resolve_requirements()
-        #self.meta_logger.debug('requirements resolved')
-        result = self.complete(*args, **kwargs)
-        self._process_triggers()
-        #self.meta_logger.debug('triggers processed')
-        #self.meta_logger.info('completed')
-        dispatcher.pop()
-        return result
+        with dispatcher.register(self):
+            self._resolve_requirements()
+            result = self.complete(*args, **kwargs)
+            self._process_triggers()
+            return result
     
     def complete(self, *args, **kwargs):
         pass
