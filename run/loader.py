@@ -2,7 +2,7 @@ import inspect
 from lib31.python import ObjectLoader
 from .module import Module
     
-class ModuleLoader(ObjectLoader):
+class Loader(ObjectLoader):
     
     #Public
     

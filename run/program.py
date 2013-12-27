@@ -3,7 +3,7 @@ from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command
 from .exception import RunException
-from .module import ModuleLoader
+from .loader import Loader
 from .task import Task
 
 class Program(Program):
@@ -61,7 +61,7 @@ class Program(Program):
         
     @cachedproperty   
     def _module_loader(self):
-        return ModuleLoader(
+        return Loader(
             names=self._command.names,
             tags=self._command.tags)
     

@@ -1,13 +1,13 @@
 import os
 import unittest
-from run import ModuleLoader
+from run import Loader
 
 class ModuleLoaderTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
-        self.loader = ModuleLoader()
+        self.loader = Loader()
         self.path = os.path.join(os.path.dirname(__file__), 'fixtures')
         
     def test_load(self):
