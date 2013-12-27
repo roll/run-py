@@ -1,3 +1,4 @@
+import logging
 from ..dependent import DependentAttribute
 
 class Task(DependentAttribute):
@@ -9,12 +10,10 @@ class Task(DependentAttribute):
     
     def __call__(self, *args, **kwargs):
         self._resolve_requirements()
-        #TODO: add error handling   
+        #TODO: add error handling?
         result = self.complete(*args, **kwargs)
         self._process_triggers()
-        #TODO: reimplement!
-        print('Completed: '+self.meta_name)
-        #print('Completed '+str(self))   
+        self.meta_logger.info('Task completed')
         return result
     
     def complete(self, *args, **kwargs):
