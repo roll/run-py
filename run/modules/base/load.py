@@ -15,4 +15,4 @@ class LoadModule:
             module = module_class() 
             return module
         else:
-            raise RunException('No modules loaded')
+            raise RunException('No modules found')
