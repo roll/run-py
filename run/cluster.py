@@ -1,4 +1,4 @@
-class Run:
+class Cluster:
 
     #Public
 
