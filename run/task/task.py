@@ -1,4 +1,5 @@
 from ..dependent import DependentAttribute
+from ..dispatcher import dispatcher
 
 class Task(DependentAttribute):
     
@@ -8,13 +9,15 @@ class Task(DependentAttribute):
         return self
     
     def __call__(self, *args, **kwargs):
-        self.meta_logger.debug('requested')
+        dispatcher.push(self)
+        #self.meta_logger.debug('requested')
         self._resolve_requirements()
-        self.meta_logger.debug('requirements resolved')
+        #self.meta_logger.debug('requirements resolved')
         result = self.complete(*args, **kwargs)
         self._process_triggers()
-        self.meta_logger.debug('triggers processed')
-        self.meta_logger.info('completed')
+        #self.meta_logger.debug('triggers processed')
+        #self.meta_logger.info('completed')
+        dispatcher.pop()
         return result
     
     def complete(self, *args, **kwargs):
