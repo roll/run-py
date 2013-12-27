@@ -1,4 +1,3 @@
-import logging
 from ..dependent import DependentAttribute
 
 class Task(DependentAttribute):
