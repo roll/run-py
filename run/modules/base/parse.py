@@ -1,7 +1,6 @@
 import os
 import re
-from ...settings import settings
-from ...var import Var
+from run import Var,settings
 
 class ParseVar(Var):
     

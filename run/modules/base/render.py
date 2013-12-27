@@ -2,7 +2,7 @@ import os
 import sys
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import concat
-from ...task import Task
+from run import Task
 
 class RenderTask(Task):
     

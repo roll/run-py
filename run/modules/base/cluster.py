@@ -1,4 +1,4 @@
-from ...module import Module
+from run import Module
 
 #TODO: implement
 class ClusterModule(Module):

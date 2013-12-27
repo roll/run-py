@@ -1,5 +1,5 @@
 #TODO: remove __init__.py doubling
-from ...module import Module
+from run import Module
 from .cluster import ClusterModule
 from .composite import CompositeTask
 from .input import InputVar, HiddenInputVar
