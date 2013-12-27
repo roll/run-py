@@ -1,6 +1,7 @@
 from .attribute import (AttributeBuilder, AttributeBuilderUpdate, 
                         AttributeBuilderSet, AttributeBuilderCall,
                         AttributeMetaclass, Attribute)
+from .cluster import Cluster
 from .command import Command
 from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask)
