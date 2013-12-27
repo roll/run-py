@@ -6,6 +6,19 @@ class Dispatcher:
 
     #Public
     
+    def __init__(self):
+        self._handlers = []
+        self._signals = []
+    
+    def add_handler(self, callback, bases=[]):
+        handler = DispatcherHandler(callback, bases)
+        self._handlers.append(handler)
+    
+    def add_signal(self, signal):
+        self._signals.append(signal)
+        for handler in self._handlers:
+            handler.handle(signal)            
+    
     @contextmanager
     def register(self, attribute):
         self._stack.append(attribute)
@@ -42,5 +55,25 @@ class Dispatcher:
     def _stack(self):
         return []
         
+        
+class DispatcherHandler:
+    
+    #Public
+    
+    def __init__(self, callback, bases=[]):
+        self._callback = callback
+        self._bases = bases
+        
+    def handle(self, signal):
+        if isinstance(signal, tuple(self._bases)):
+            self._callback()    
+    
+
+class DispatcherSignal:
+    
+    #Public
+    
+    pass
+
 
 dispatcher = Dispatcher()

@@ -3,8 +3,9 @@ import logging
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .cluster import Cluster
+from .dispatcher import dispatcher
 from .command import Command
-from .task import Task
+from .task import Task, CompletedTaskSignal
 
 class Program(Program):
     
@@ -17,6 +18,8 @@ class Program(Program):
     #Protected
     
     def _config(self):
+        dispatcher.add_handler(
+            self._on_completed_attribute, bases=[CompletedTaskSignal])
         logging.basicConfig(
             level=logging.INFO, 
             format='%(name)s: %(message)s')
@@ -56,6 +59,16 @@ class Program(Program):
     @cachedproperty
     def _command(self):
         return Command(self.argv)
+    
+    def _on_completed_attribute(self):
+        print('_on_completed_attribute')   
+    
+    
+class ProgramStack(list):
+    
+    #Public
+    
+    pass 
     
         
 program = Program(sys.argv)
