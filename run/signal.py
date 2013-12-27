@@ -1,0 +1,5 @@
+class Signal:
+
+    #Public
+
+    pass
