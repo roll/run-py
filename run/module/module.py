@@ -48,7 +48,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         try:
             module_name, attribute_name = name.split('.', 1)
         except ValueError:
-            raise AttributeError(name) from None
+            raise AttributeError(
+                'No attribute "{0}" in module "{1}"'.
+                format(name, self.meta_name)) from None
         module = getattr(self, module_name)
         attribute = getattr(module, attribute_name)
         return attribute

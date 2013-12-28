@@ -59,15 +59,11 @@ class Program(Program):
                         print(result)
                 else:
                     print(attribute)
-        except Exception:
-            import traceback
-            info = sys.exc_info()
-            lines = traceback.format_exception_only(*info[:2])
-            message = ''.join(lines).strip()
+        except Exception as exception:
             if not self._command.debug:
-                self._logger.error(message)
+                self._logger.error(str(exception))
             else:
-                self._logger.exception(message)
+                self._logger.exception(str(exception))
     
     @cachedproperty
     def _attributes(self):

@@ -25,13 +25,11 @@ class Cluster:
             try:
                 attribute = getattr(module, name)
                 attributes.append(attribute)
-            except AttributeError:
+            except AttributeError as exception:
                 if not self._existent:
-                    raise AttributeError(name) 
+                    raise AttributeError(str(exception)) 
                 else:
-                    self._logger.warning(
-                        'No attribute "{0}" in module "{1}"'.
-                        format(name, module.meta_name))
+                    self._logger.warning(str(exception))
         return attributes
         
     #Protected    
