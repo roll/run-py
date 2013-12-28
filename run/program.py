@@ -60,10 +60,8 @@ class Program(Program):
                 else:
                     print(attribute)
         except Exception as exception:
-            if self._command.debug:
-                self._logger.exception(str(exception))
-            else:
-                self._logger.error(str(exception))
+            self._logger.error(
+                str(exception), exc_info=self._command.debug)
     
     @cachedproperty
     def _attributes(self):
