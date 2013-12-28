@@ -59,11 +59,15 @@ class Program(Program):
                         print(result)
                 else:
                     print(attribute)
-        except Exception as exception:
-            if self._command.debug:
-                raise
+        except Exception:
+            import traceback
+            info = sys.exc_info()
+            lines = traceback.format_exception_only(*info[:2])
+            message = ''.join(lines).strip()
+            if not self._command.debug:
+                self._logger.error(message)
             else:
-                print('Error: '+str(exception))                    
+                self._logger.exception(message)
     
     @cachedproperty
     def _attributes(self):
@@ -111,6 +115,10 @@ class Program(Program):
             message = '/'.join(names)
         logger=logging.getLogger('executed')
         logger.info(message)
+     
+    @cachedproperty    
+    def _logger(self):
+        return logging.getLogger(__name__)
     
         
 program = Program(sys.argv)
