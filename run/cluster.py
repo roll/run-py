@@ -1,3 +1,4 @@
+import logging
 from lib31.python import cachedproperty
 from .loader import Loader
 from .settings import settings
@@ -26,7 +27,11 @@ class Cluster:
                 attributes.append(attribute)
             except AttributeError:
                 if not self._existent:
-                    raise AttributeError(name)
+                    raise AttributeError(name) 
+                else:
+                    self._logger.warning(
+                        'No attribute "{0}" in module "{1}"'.
+                        format(name, module.meta_name))
         return attributes
         
     #Protected    
@@ -46,4 +51,8 @@ class Cluster:
         
     @cachedproperty   
     def _loader(self):
-        return Loader(names=self._names, tags=self._tags)        
+        return Loader(names=self._names, tags=self._tags)
+    
+    @cachedproperty   
+    def _logger(self):
+        return logging.getLogger(__name__)  
