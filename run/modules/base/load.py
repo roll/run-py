@@ -13,4 +13,8 @@ class LoadModule:
             module = module_class() 
             return module
         else:
-            raise ImportError('No modules loaded')
+            raise ImportError(
+                'No modules finded with '
+                'names "{0}", tags "{1}", path "{2}", '
+                'file_pattern "{3}" and recursively flag in "{4}"'.
+                format(names, tags, path, file_pattern, recursively))
