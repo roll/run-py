@@ -32,7 +32,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def __get__(self, module, module_class):
         pass #pragma: no cover
     
-    #TODO: no set?
+    #TODO: research
     def __set__(self, module, value):
         raise AttributeError('Can\'t set attribute')
     
