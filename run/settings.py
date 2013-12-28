@@ -93,6 +93,12 @@ class Settings(Settings):
                  'help': 'Enable finding runfiles recursively.',
                 },
                 {
+                 'dest': 'stackless',
+                 'action': 'store_true',
+                 'flags': ['-s', '--stackless'],
+                 'help': 'Enable stackless mode.',
+                },                          
+                {
                  'dest': 'tags',
                  'nargs':'*',
                  'flags': ['-t', '--tags'],
