@@ -129,19 +129,18 @@ class Settings(Settings):
                 'propagate': True,
             },
             'executed': {                  
-                'handlers': ['executed'],        
-                'level': 'INFO',  
+                'handlers': ['executed'], 
                 'propagate': False,  
             }                    
         },
         'handlers': {
             'default': {
-                'level':'INFO',    
+                'level':'DEBUG',    
                 'class':'logging.StreamHandler',
                 'formatter': 'default',
             },
             'executed': {
-                'level':'INFO',    
+                'level':'DEBUG',    
                 'class':'logging.StreamHandler',
                 'formatter': 'executed',                
             },        
