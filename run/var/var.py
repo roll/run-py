@@ -15,9 +15,8 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         dispatcher.add_signal(RetrievedVarSignal(self))
         return result
  
-    #TODO: implement
     def __set__(self, module, value):
-        pass 
+        self.retrieve = lambda self: value
  
     @abstractmethod
     def retrieve(self):

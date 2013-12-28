@@ -9,9 +9,14 @@ class Task(DependentAttribute):
     def __get__(self, module, module_class=None):
         return self
     
-    #TODO: implement
     def __set__(self, module, value):
-        pass
+        if callable(value):
+            self.complete = value
+        else:
+            raise TypeError(
+            'Attribute {0} is task {1} and '
+            'can be set only to callable value'.
+            format(self._meta_attribute_name, self))
     
     def __call__(self, *args, **kwargs):
         dispatcher.add_signal(InitiatedTaskSignal(self))
