@@ -44,6 +44,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def __get__(self, module, module_class):
         return self
     
+    def __set__(self, module, value):
+        raise AttributeError(
+            'Attribute {0} is builded module {1} and can\'t be set'.
+            format(self._meta_attribute_name, self))
+    
     def __getattr__(self, name):
         try:
             module_name, attribute_name = name.split('.', 1)

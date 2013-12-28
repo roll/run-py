@@ -15,6 +15,10 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         dispatcher.add_signal(RetrievedVarSignal(self))
         return result
  
+    #TODO: implement
+    def __set__(self, module, value):
+        pass 
+ 
     @abstractmethod
     def retrieve(self):
         pass #pragma: no cover

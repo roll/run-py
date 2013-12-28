@@ -32,9 +32,9 @@ class Attribute(metaclass=AttributeMetaclass):
     def __get__(self, module, module_class):
         pass #pragma: no cover
     
-    #TODO: research
+    @abstractmethod
     def __set__(self, module, value):
-        raise AttributeError('Can\'t set attribute')
+        pass #pragma: no cover
     
     def __repr__(self):
         return '<{type} "{name}">'.format(

@@ -9,6 +9,10 @@ class Task(DependentAttribute):
     def __get__(self, module, module_class=None):
         return self
     
+    #TODO: implement
+    def __set__(self, module, value):
+        pass
+    
     def __call__(self, *args, **kwargs):
         dispatcher.add_signal(InitiatedTaskSignal(self))
         self._resolve_requirements()
