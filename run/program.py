@@ -30,6 +30,11 @@ class Program(Program):
         
     def _config_logging(self):
         logging.config.dictConfig(settings.logging)
+        logger = logging.getLogger()
+        if self._command.debug:
+            logger.setLevel(logging.DEBUG)
+        if self._command.verbose:
+            logger.setLevel(logging.INFO)
         
     def _config_dispatcher(self):
         dispatcher.add_handler(CallbackHandler(

@@ -123,9 +123,9 @@ class Settings(Settings):
         'version': 1,
         'disable_existing_loggers': False,
         'loggers': {
-            '': {                  
+            '': {
                 'handlers': ['default'],        
-                'level': 'INFO',  
+                'level': 'WARNING',
                 'propagate': True,
             },
             'executed': {                  
