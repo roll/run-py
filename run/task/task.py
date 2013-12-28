@@ -14,7 +14,7 @@ class Task(DependentAttribute):
             self.complete = value
         else:
             raise TypeError(
-            'Attribute {0} is task {1} and '
+            'Attribute "{0}" is task "{1}" and '
             'can be set only to callable value'.
             format(self._meta_attribute_name, self))
     
