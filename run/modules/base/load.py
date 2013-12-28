@@ -1,4 +1,4 @@
-from run import Loader, RunException, settings
+from run import Loader, settings
 
 class LoadModule:
 
@@ -13,4 +13,4 @@ class LoadModule:
             module = module_class() 
             return module
         else:
-            raise RunException('No modules found')
+            raise RuntimeError('No modules found')
