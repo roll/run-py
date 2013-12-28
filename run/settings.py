@@ -84,7 +84,13 @@ class Settings(Settings):
                  'flags': ['-p', '--path'],
                  'default': self.default_path,
                  'help': 'Base directory path.',
-                },                      
+                },     
+                {
+                 'dest': 'quiet',
+                 'action': 'store_true',
+                 'flags': ['-q', '--quiet'],
+                 'help': 'Enable quiet mode.',
+                },                            
                 {
                  'dest': 'recursively',
                  'action': 'store_true',
