@@ -126,19 +126,33 @@ class Settings(Settings):
             '': {                  
                 'handlers': ['default'],        
                 'level': 'INFO',  
-                'propagate': True  
-            }
+                'propagate': True,
+            },
+            'executed': {                  
+                'handlers': ['executed'],        
+                'level': 'INFO',  
+                'propagate': False,  
+            }                    
         },
         'handlers': {
             'default': {
                 'level':'INFO',    
                 'class':'logging.StreamHandler',
-            },  
+                'formatter': 'default',
+            },
+            'executed': {
+                'level':'INFO',    
+                'class':'logging.StreamHandler',
+                'formatter': 'executed',                
+            },        
         },
         'formatters': {
-            'standard': {
-                'format': '%(message)s'
+            'default': {
+                'format': '[%(levelname)s] %(name)s: %(message)s'
             },
+            'executed': {
+                'format': '[+] %(message)s'
+            },                       
         },
     }
     

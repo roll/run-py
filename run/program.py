@@ -89,7 +89,7 @@ class Program(Program):
     
     def _log_executed_attribute(self, attribute):
         if self._command.stackless:
-            message = '[+] '+attribute.meta_name
+            message = attribute.meta_name
         else:
             names = []
             previous = self._stack[0]
@@ -101,8 +101,9 @@ class Program(Program):
                 else:
                     names.append(current.meta_name) 
                 previous = current
-            message = '[+] '+'/'.join(names)
-        logging.info(message)
+            message = '/'.join(names)
+        logger=logging.getLogger('executed')
+        logger.info(message)
     
         
 program = Program(sys.argv)
