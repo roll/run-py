@@ -1,1 +1,0 @@
-class RunException(Exception): pass
