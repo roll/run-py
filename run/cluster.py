@@ -1,5 +1,4 @@
 from lib31.python import cachedproperty
-from .exception import RunException
 from .loader import Loader
 from .settings import settings
 
@@ -27,7 +26,7 @@ class Cluster:
                 attributes.append(attribute)
             except AttributeError:
                 if not self._existent:
-                    raise RunException('No attribute')
+                    raise AttributeError(name)
         return attributes
         
     #Protected    
