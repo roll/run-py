@@ -46,7 +46,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     def __set__(self, module, value):
         raise AttributeError(
-            'Attribute {0} is builded module {1} and can\'t be reset'.
+            'Attribute {0} is builded module {1} and can\'t be set'.
             format(self._meta_attribute_name, self))
     
     def __getattr__(self, name):
