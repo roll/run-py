@@ -13,4 +13,4 @@ class LoadModule:
             module = module_class() 
             return module
         else:
-            raise RuntimeError('No modules found')
+            raise ImportError('No modules loaded')
