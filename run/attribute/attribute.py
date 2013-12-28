@@ -52,6 +52,9 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_type(self):
         return self.__class__.__name__
     
+    #TODO: meta_name, meta_module_name, meta_attribute_name to
+    #meta_qualname, meta_name?
+    
     @property
     def meta_name(self):
         name = ''
@@ -74,13 +77,17 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_attribute_name(self):
         if self.meta_module:
-            return (self.meta_module.meta_attributes.find(self, default='')) 
+            attributes = self.meta_module.meta_attributes
+            name = attributes.find(self, default='')
+            return name
         else:
             return ''
 
     @property
     def meta_info(self):
-        lines = filter(None, [self.meta_signature, self.meta_docstring])
+        lines = filter(None, [
+            self.meta_signature, 
+            self.meta_docstring])
         return '\n'.join(lines)
 
     @property
