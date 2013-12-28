@@ -5,11 +5,17 @@ from lib31.python import cachedproperty
 from .cluster import Cluster
 from .dispatcher import dispatcher
 from .command import Command
-from .task import Task, CompletedTaskSignal
+from .handler import CallbackHandler
+from .task import Task, InitiatedTaskSignal, CompletedTaskSignal
+from .var import InitiatedVarSignal, RetrievedVarSignal
 
 class Program(Program):
     
     #Public
+    
+    def __init__(self, argv):
+        super().__init__(argv)
+        self._stack = []
      
     def __call__(self):
         self._config()
@@ -18,11 +24,21 @@ class Program(Program):
     #Protected
     
     def _config(self):
-        dispatcher.add_handler(
-            self._on_completed_attribute, bases=[CompletedTaskSignal])
+        self._config_logging()
+        self._config_dispatcher()
+        
+    def _config_logging(self):
         logging.basicConfig(
             level=logging.INFO, 
             format='%(name)s: %(message)s')
+        
+    def _config_dispatcher(self):
+        dispatcher.add_handler(
+            CallbackHandler(self._on_initiated_attribute, 
+                signals=[InitiatedTaskSignal, InitiatedVarSignal]))
+        dispatcher.add_handler(
+            CallbackHandler(self._on_executed_attribute, 
+                signals=[CompletedTaskSignal, RetrievedVarSignal])) 
     
     def _execute(self):
         try:
@@ -60,15 +76,37 @@ class Program(Program):
     def _command(self):
         return Command(self.argv)
     
-    def _on_completed_attribute(self):
-        print('_on_completed_attribute')   
+    #Implement stackless
+    def _on_initiated_attribute(self, signal):
+        self._stack.append(signal.attribute)   
+
+    #Implement stackless    
+    def _on_executed_attribute(self, signal):
+        self._log()
+        self._stack.pop()
     
-    
-class ProgramStack(list):
-    
-    #Public
-    
-    pass 
-    
+    def _log(self):
+        names = []
+        previous = self._stack[0]
+        names.append(previous.meta_name)
+        for attribute in self._stack[1:]:
+            current = attribute
+            if current.meta_module == previous.meta_module:
+                names.append(current.meta_attribute_name)
+            else:
+                names.append(current.meta_name) 
+            previous = current
+        self._logger.info('[+] '+'/'.join(names))
+        
+    @cachedproperty
+    def _logger(self):
+        formatter = logging.Formatter('%(message)s')
+        handler = logging.StreamHandler()
+        handler.setFormatter(formatter)
+        logger = logging.getLogger('program')
+        logger.addHandler(handler)
+        logger.propagate = False
+        return logger    
+        
         
 program = Program(sys.argv)

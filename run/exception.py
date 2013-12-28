@@ -1,5 +1,1 @@
-class RunException(Exception):
-
-    #Public
-
-    pass
+class RunException(Exception): pass

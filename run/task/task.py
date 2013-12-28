@@ -1,6 +1,6 @@
 from ..dependent import DependentAttribute
 from ..dispatcher import dispatcher
-from .signal import RequestedTaskSignal, CompletedTaskSignal
+from .signal import InitiatedTaskSignal, CompletedTaskSignal
 
 class Task(DependentAttribute):
     
@@ -10,13 +10,12 @@ class Task(DependentAttribute):
         return self
     
     def __call__(self, *args, **kwargs):
-        with dispatcher.register(self):
-            dispatcher.add_signal(RequestedTaskSignal(self))
-            self._resolve_requirements()
-            result = self.complete(*args, **kwargs)
-            self._process_triggers()
-            dispatcher.add_signal(CompletedTaskSignal(self))
-            return result
+        dispatcher.add_signal(InitiatedTaskSignal(self))
+        self._resolve_requirements()
+        result = self.complete(*args, **kwargs)
+        self._process_triggers()
+        dispatcher.add_signal(CompletedTaskSignal(self))
+        return result
     
     def complete(self, *args, **kwargs):
         pass

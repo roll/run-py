@@ -1,5 +1,4 @@
 from ..attribute import AttributeSignal
 
-class VarSignal(AttributeSignal): pass
-class RequestedVarSignal(VarSignal): pass
-class RetrievedVarSignal(VarSignal): pass
+class InitiatedVarSignal(AttributeSignal): pass
+class RetrievedVarSignal(AttributeSignal): pass
