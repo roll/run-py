@@ -33,13 +33,16 @@ class Program(Program):
             format='%(name)s: %(message)s')
         
     def _config_dispatcher(self):
-        dispatcher.add_handler(
-            CallbackHandler(self._on_initiated_attribute, 
-                signals=[InitiatedTaskSignal, InitiatedVarSignal]))
-        dispatcher.add_handler(
-            CallbackHandler(self._on_executed_attribute, 
-                signals=[CompletedTaskSignal, RetrievedVarSignal])) 
+        dispatcher.add_handler(CallbackHandler(
+            self._on_initiated_attribute, 
+            signals=[InitiatedTaskSignal, 
+                     InitiatedVarSignal]))
+        dispatcher.add_handler(CallbackHandler(
+            self._on_executed_attribute, 
+            signals=[CompletedTaskSignal, 
+                     RetrievedVarSignal])) 
     
+    #TODO: refactor
     def _execute(self):
         try:
             for attribute in self._attributes:
@@ -76,28 +79,33 @@ class Program(Program):
     def _command(self):
         return Command(self.argv)
     
-    #Implement stackless
     def _on_initiated_attribute(self, signal):
-        self._stack.append(signal.attribute)   
+        if not self._command.stackless:
+            self._stack.append(signal.attribute)   
 
-    #Implement stackless    
     def _on_executed_attribute(self, signal):
-        self._log()
-        self._stack.pop()
+        self._log_executed_attribute(signal.attribute)
+        if not self._command.stackless:
+            self._stack.pop()
     
-    def _log(self):
-        names = []
-        previous = self._stack[0]
-        names.append(previous.meta_name)
-        for attribute in self._stack[1:]:
-            current = attribute
-            if current.meta_module == previous.meta_module:
-                names.append(current.meta_attribute_name)
-            else:
-                names.append(current.meta_name) 
-            previous = current
-        self._logger.info('[+] '+'/'.join(names))
-        
+    def _log_executed_attribute(self, attribute):
+        if self._command.stackless:
+            message = '[+] '+attribute.meta_name
+        else:
+            names = []
+            previous = self._stack[0]
+            names.append(previous.meta_name)
+            for attribute in self._stack[1:]:
+                current = attribute
+                if current.meta_module == previous.meta_module:
+                    names.append(current.meta_attribute_name)
+                else:
+                    names.append(current.meta_name) 
+                previous = current
+            message = '[+] '+'/'.join(names)
+        self._logger.info(message)
+    
+    #TODO: move to settings
     @cachedproperty
     def _logger(self):
         formatter = logging.Formatter('%(message)s')
