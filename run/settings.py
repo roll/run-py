@@ -3,11 +3,12 @@ from .version import version
 
 class Settings(Settings):
     
-    #Public
+    #Defaults
     
     default_attribute = 'default'
     default_arguments = []
     default_file = 'runfile.py'
+    default_logging_level = 'WARNING'
     default_main_module_name = '__main__'
     default_names = []
     default_path = '.'
@@ -125,41 +126,43 @@ class Settings(Settings):
             ],        
         }
         
-    logging = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'loggers': {
-            '': {
-                'handlers': ['default'],        
-                'level': 'WARNING',
-                'propagate': True,
+    @property
+    def logging(self):
+        return {
+            'version': 1,
+            'disable_existing_loggers': False,
+            'loggers': {
+                '': {
+                    'handlers': ['default'],        
+                    'level': self.default_logging_level,
+                    'propagate': True,
+                },
+                'executed': {                  
+                    'handlers': ['executed'], 
+                    'propagate': False,  
+                }                    
             },
-            'executed': {                  
-                'handlers': ['executed'], 
-                'propagate': False,  
-            }                    
-        },
-        'handlers': {
-            'default': {
-                'level':'DEBUG',    
-                'class':'logging.StreamHandler',
-                'formatter': 'default',
+            'handlers': {
+                'default': {
+                    'level':'DEBUG',    
+                    'class':'logging.StreamHandler',
+                    'formatter': 'default',
+                },
+                'executed': {
+                    'level':'DEBUG',    
+                    'class':'logging.StreamHandler',
+                    'formatter': 'executed',                
+                },        
             },
-            'executed': {
-                'level':'DEBUG',    
-                'class':'logging.StreamHandler',
-                'formatter': 'executed',                
-            },        
-        },
-        'formatters': {
-            'default': {
-                'format': '[%(levelname)s] %(name)s: %(message)s'
+            'formatters': {
+                'default': {
+                    'format': '[%(levelname)s] %(name)s: %(message)s'
+                },
+                'executed': {
+                    'format': '[+] %(message)s'
+                },                       
             },
-            'executed': {
-                'format': '[+] %(message)s'
-            },                       
-        },
-    }
+        }
     
     
 settings = Settings()
