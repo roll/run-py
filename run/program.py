@@ -82,6 +82,10 @@ class Program(Program):
     @cachedproperty
     def _command(self):
         return Command(self._argv)
+     
+    @cachedproperty    
+    def _logger(self):
+        return logging.getLogger(__name__)
     
     def _on_initiated_attribute(self, signal):
         if not self._command.stackless:
@@ -109,10 +113,6 @@ class Program(Program):
             message = '/'.join(names)
         logger=logging.getLogger('executed')
         logger.info(message)
-     
-    @cachedproperty    
-    def _logger(self):
-        return logging.getLogger(__name__)
     
         
 program = Program(sys.argv)
