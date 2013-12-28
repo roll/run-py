@@ -8,8 +8,6 @@ class Command(Command):
     
     #Public
     
-    argparse = settings.argparse
-
     @property
     def attribute(self):
         attribute = self._namespace.attribute 
@@ -40,6 +38,8 @@ class Command(Command):
         return self._parsed_arguments[1]
     
     #Protected
+    
+    _default_config = settings.argparse
     
     @cachedproperty
     def _parsed_arguments(self):
