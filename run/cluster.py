@@ -29,7 +29,7 @@ class Cluster:
                 if not self._existent:
                     raise AttributeError(name) 
                 else:
-                    self._logger.warning(
+                    self._logger.info(
                         'No attribute "{0}" in module "{1}"'.
                         format(name, module.meta_name))
         return attributes
