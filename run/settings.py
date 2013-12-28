@@ -5,11 +5,10 @@ class Settings(Settings):
     
     #Public
     
-    default_main_module_name = '__main__'
-    
     default_attribute = 'default'
     default_arguments = []
     default_file = 'runfile.py'
+    default_main_module_name = '__main__'
     default_names = []
     default_path = '.'
     default_tags = []
