@@ -1,11 +1,12 @@
 import sys
-import logging
+import logging.config
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .cluster import Cluster
 from .dispatcher import dispatcher
 from .command import Command
 from .handler import CallbackHandler
+from .settings import settings
 from .task import Task, InitiatedTaskSignal, CompletedTaskSignal
 from .var import InitiatedVarSignal, RetrievedVarSignal
 
@@ -28,9 +29,7 @@ class Program(Program):
         self._config_dispatcher()
         
     def _config_logging(self):
-        logging.basicConfig(
-            level=logging.INFO, 
-            format='%(name)s: %(message)s')
+        logging.config.dictConfig(settings.logging)
         
     def _config_dispatcher(self):
         dispatcher.add_handler(CallbackHandler(
@@ -103,18 +102,7 @@ class Program(Program):
                     names.append(current.meta_name) 
                 previous = current
             message = '[+] '+'/'.join(names)
-        self._logger.info(message)
+        logging.info(message)
     
-    #TODO: move to settings
-    @cachedproperty
-    def _logger(self):
-        formatter = logging.Formatter('%(message)s')
-        handler = logging.StreamHandler()
-        handler.setFormatter(formatter)
-        logger = logging.getLogger('program')
-        logger.addHandler(handler)
-        logger.propagate = False
-        return logger    
-        
         
 program = Program(sys.argv)

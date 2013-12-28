@@ -120,7 +120,26 @@ class Settings(Settings):
         }
         
     logging = {
-    
+        'version': 1,
+        'disable_existing_loggers': False,
+        'loggers': {
+            '': {                  
+                'handlers': ['default'],        
+                'level': 'INFO',  
+                'propagate': True  
+            }
+        },
+        'handlers': {
+            'default': {
+                'level':'INFO',    
+                'class':'logging.StreamHandler',
+            },  
+        },
+        'formatters': {
+            'standard': {
+                'format': '%(message)s'
+            },
+        },
     }
     
     
