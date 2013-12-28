@@ -35,8 +35,8 @@ class Program(Program):
             logger.setLevel(logging.DEBUG)
         if self._command.verbose:
             logger.setLevel(logging.INFO)
-        if self._command.quite:
-            logger.setLevel(logging.ERROR)            
+        if self._command.quiet:
+            logger.setLevel(logging.ERROR)      
         
     def _config_dispatcher(self):
         dispatcher.add_handler(CallbackHandler(
