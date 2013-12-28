@@ -8,7 +8,7 @@ class Command(Command):
     
     #Public
     
-    schema = settings.command_schema
+    argparse = settings.argparse
 
     @property
     def attribute(self):

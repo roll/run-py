@@ -77,7 +77,7 @@ class Program(Program):
     
     @cachedproperty
     def _command(self):
-        return Command(self.argv)
+        return Command(self._argv)
     
     def _on_initiated_attribute(self, signal):
         if not self._command.stackless:

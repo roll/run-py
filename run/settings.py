@@ -5,6 +5,8 @@ class Settings(Settings):
     
     #Public
     
+    default_main_module_name = '__main__'
+    
     default_attribute = 'default'
     default_arguments = []
     default_file = 'runfile.py'
@@ -12,10 +14,8 @@ class Settings(Settings):
     default_path = '.'
     default_tags = []
     
-    default_main_module_name = '__main__'
-    
     @property
-    def command_schema(self):
+    def argparse(self):
         return {
             'prog': 'run',
             'add_help': False,            
@@ -120,7 +120,7 @@ class Settings(Settings):
             ],        
         }
         
-    logging_schema = {
+    logging = {
     
     }
     
