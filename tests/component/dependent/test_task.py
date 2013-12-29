@@ -31,8 +31,7 @@ class DependentAttributeTaskTest(unittest.TestCase):
         
     def test_with_args_and_kwargs(self):
         attr = MockAttribute()
-        task = DependentAttributeTask(
-            ('task', ('arg',), {'kwarg': 'kwarg'}))
+        task = DependentAttributeTask(('task', ('arg',), {'kwarg': 'kwarg'}))
         self.assertEqual(task.name, 'task')
         self.assertEqual(task.args, ('arg',))
         self.assertEqual(task.kwargs, {'kwarg': 'kwarg'})
