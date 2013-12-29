@@ -32,7 +32,7 @@ class DependentAttributeTask:
     
     def _unpack(self, task):
         self._name = ''
-        self._args = []
+        self._args = ()
         self._kwargs = {}
         if isinstance(task, tuple):
             try:
