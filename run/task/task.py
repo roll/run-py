@@ -16,7 +16,7 @@ class Task(DependentAttribute):
             raise TypeError(
             'Attribute "{0}" is task "{1}" and '
             'can be set only to callable value'.
-            format(self._meta_attribute_name, self))
+            format(self._meta_name, self))
     
     def __call__(self, *args, **kwargs):
         dispatcher.add_signal(InitiatedTaskSignal(self))

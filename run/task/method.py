@@ -17,7 +17,7 @@ class MethodTask(Task):
         
     @property
     def meta_signature(self):
-        return (super().meta_name+
+        return (super().meta_qualname+
                 str(inspect.signature(self._method)))
     
     @property    

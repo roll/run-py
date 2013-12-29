@@ -37,8 +37,8 @@ class Attribute(metaclass=AttributeMetaclass):
         pass #pragma: no cover
     
     def __repr__(self):
-        return '<{0} "{1}">'.format(
-            self.meta_type, self.meta_name)
+        return '<{type} "{qualname}">'.format(
+            type=self.meta_type, name=self.meta_qualname)
         
     @property
     def meta_module(self):
@@ -52,30 +52,23 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_type(self):
         return self.__class__.__name__
     
-    #TODO: meta_name, meta_module_name, meta_attribute_name to
-    #meta_qualname, meta_name?
-    
+    @property
+    def meta_qualname(self):
+        if (self.meta_module and 
+            self.meta_module.meta_name != 
+            settings.default_main_module_name):
+            if self.meta_module.meta_is_main_module:
+                pattern = '[{module_name}] {name}'
+            else:
+                pattern = '{module_name}.{name}'
+            return pattern.format(
+                module_name=self.meta_module.meta_name, 
+                name=self.meta_name)
+        else:
+            return self.meta_name
+        
     @property
     def meta_name(self):
-        name = ''
-        if (self.meta_module_name and 
-            self.meta_module_name != settings.default_main_module_name):
-            if self.meta_module.meta_is_main_module:
-                name += '['+self.meta_module_name+'] '
-            else:
-                name += self.meta_module_name+'.'
-        name += self.meta_attribute_name
-        return name
-    
-    @property
-    def meta_module_name(self):
-        if self.meta_module:
-            return self.meta_module.meta_name
-        else:
-            return ''
-    
-    @property
-    def meta_attribute_name(self):
         if self.meta_module:
             attributes = self.meta_module.meta_attributes
             name = attributes.find(self, default='')
@@ -95,7 +88,7 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.__signature:
             return self.__signature
         else:
-            return self.meta_name    
+            return self.meta_qualname    
     
     @property
     def meta_docstring(self):

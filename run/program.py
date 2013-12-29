@@ -98,17 +98,17 @@ class Program(Program):
     
     def _log_executed_attribute(self, attribute):
         if self._command.stackless:
-            message = attribute.meta_name
+            message = attribute.meta_qualname
         else:
             names = []
             previous = self._stack[0]
-            names.append(previous.meta_name)
+            names.append(previous.meta_qualname)
             for attribute in self._stack[1:]:
                 current = attribute
                 if current.meta_module == previous.meta_module:
-                    names.append(current.meta_attribute_name)
+                    names.append(current.meta_name)
                 else:
-                    names.append(current.meta_name) 
+                    names.append(current.meta_qualname) 
                 previous = current
             message = '/'.join(names)
         logger=logging.getLogger('executed')

@@ -47,7 +47,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def __set__(self, module, value):
         raise AttributeError(
             'Attribute "{0}" is module "{1}" and can\'t be set'.
-            format(self._meta_attribute_name, self))
+            format(self._name, self))
     
     def __getattr__(self, name):
         try:
@@ -55,7 +55,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         except ValueError:
             raise AttributeError(
                 'No attribute "{0}" in module "{1}"'.
-                format(name, self.meta_name)) from None
+                format(name, self.meta_qualname)) from None
         module = getattr(self, module_name)
         attribute = getattr(module, attribute_name)
         return attribute
@@ -106,7 +106,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             attributes = self.meta_attributes
         for attribute in attributes.values():
-            names.append(attribute.meta_name)
+            names.append(attribute.meta_qualname)
         for name in sorted(names):
             print(name)
 
