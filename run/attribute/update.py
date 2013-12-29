@@ -27,9 +27,9 @@ class AttributeBuilderCall(AttributeBuilderUpdate):
     
     def __init__(self, name, *args, **kwargs):
         self._name = name
-        self._args = kwargs
+        self._args = args
         self._kwargs = kwargs
         
     def apply(self, obj):
         method = getattr(obj, self._name)
-        method(*self._args, **self.kwarg)
+        method(*self._args, **self._kwargs)
