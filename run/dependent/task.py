@@ -30,6 +30,8 @@ class DependentAttributeTask:
     
     #Protected
     
+    #TODO: unexpected behaviour with type error 
+    #like task=('task', {'kwarg': 'kwarg'}) for example
     def _unpack(self, task):
         self._name = ''
         self._args = ()
