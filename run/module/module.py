@@ -46,16 +46,17 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     def __set__(self, module, value):
         raise AttributeError(
-            'Attribute "{0}" is module "{1}" and can\'t be set'.
-            format(self._name, self))
+            'Attribute "{name}" is module '
+            '"{module}" and can\'t be set'.
+            format(name=self._name, module=self))
     
     def __getattr__(self, name):
         try:
             module_name, attribute_name = name.split('.', 1)
         except ValueError:
             raise AttributeError(
-                'No attribute "{0}" in module "{1}"'.
-                format(name, self.meta_qualname)) from None
+                'No attribute "{name}" in module "{qualname}"'.format(
+                name=name, qualname=self.meta_qualname)) from None
         module = getattr(self, module_name)
         attribute = getattr(module, attribute_name)
         return attribute

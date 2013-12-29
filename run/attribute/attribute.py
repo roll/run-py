@@ -38,7 +38,8 @@ class Attribute(metaclass=AttributeMetaclass):
     
     def __repr__(self):
         return '<{type} "{qualname}">'.format(
-            type=self.meta_type, name=self.meta_qualname)
+            type=self.meta_type, 
+            name=self.meta_qualname)
         
     @property
     def meta_module(self):

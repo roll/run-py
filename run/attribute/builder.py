@@ -22,9 +22,9 @@ class AttributeBuilder:
             return getattr(self._class, name)
         except AttributeError:
             raise AttributeError(
-                'No attribute "{0}" in attribute builder "{1}" '
-                '(also looking in attribute class "{2}")'.
-                format(name, self, self._class))
+                'No attribute "{name}" in attribute builder "{builder}" '
+                '(also looking in attribute class "{cls}")'.
+                format(name=name, builder=self, cls=self._class))
         
     def __setattr__(self, name, value):
         self._updates.append(AttributeBuilderSet(name, value))     

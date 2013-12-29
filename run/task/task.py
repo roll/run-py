@@ -14,9 +14,9 @@ class Task(DependentAttribute):
             self.complete = value
         else:
             raise TypeError(
-            'Attribute "{0}" is task "{1}" and '
+            'Attribute "{name}" is task "{task}" and '
             'can be set only to callable value'.
-            format(self._meta_name, self))
+            format(name=self.meta_name, task=self))
     
     def __call__(self, *args, **kwargs):
         dispatcher.add_signal(InitiatedTaskSignal(self))
