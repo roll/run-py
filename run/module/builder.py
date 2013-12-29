@@ -26,7 +26,7 @@ class ModuleBuilder(AttributeBuilder):
     def _builded_class_dict(self):
         dct = {}
         for cls in reversed(self._class.mro()):
-            for key, attr in cls.__dict__.items():
+            for key, attr in vars(cls).items():
                 if isinstance(attr, AttributeBuilder):
                     dct[key] = attr()
         #TODO: check attributes to copy (less/more)
