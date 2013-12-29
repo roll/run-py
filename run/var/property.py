@@ -10,8 +10,8 @@ class PropertyVar(Var):
  
     def retrieve(self):
         return self._property.__get__(
-            self.meta_module, self.meta_module.__class__)
+            self.meta_module, type(self.meta_module))
     
     @property    
     def meta_docstring(self):
-        return str(inspect.getdoc(self._property))  
+        return str(inspect.getdoc(self._property))

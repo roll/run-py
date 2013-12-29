@@ -87,7 +87,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_attributes(self):
         attributes = {}
-        for name, attr in vars(self.__class__).items():
+        for name, attr in vars(type(self)).items():
             if isinstance(attr, Attribute):
                 attributes[name] = attr
         return attributes

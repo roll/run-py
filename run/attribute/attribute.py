@@ -50,7 +50,7 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_type(self):
-        return self.__class__.__name__
+        return type(self).__name__
     
     #TODO: rename to absname?
     @property
