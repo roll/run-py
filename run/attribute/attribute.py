@@ -37,9 +37,9 @@ class Attribute(metaclass=AttributeMetaclass):
         pass #pragma: no cover
     
     def __repr__(self):
-        return '<{type} "{qualname}">'.format(
+        return ('<{type} "{qualname}">'.format(
             type=self.meta_type, 
-            name=self.meta_qualname)
+            name=self.meta_qualname))
         
     @property
     def meta_module(self):

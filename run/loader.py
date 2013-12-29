@@ -29,7 +29,7 @@ class Loader(ObjectLoader):
     
     def _filter_object_by_name(self, obj):
         if self._names:
-            if obj.meta_qualname not in self._names:
+            if obj.meta_name not in self._names:
                 return False
         return True
     
