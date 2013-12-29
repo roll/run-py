@@ -5,7 +5,6 @@ from ..attribute import AttributeBuilder, AttributeMetaclass, Attribute
 from ..settings import settings
 from ..task import Task, MethodTask
 from ..var import ValueVar, PropertyVar
-from .attributes import ModuleAttributes
 from .builder import ModuleBuilder
 
 class ModuleMetaclass(AttributeMetaclass):
@@ -62,7 +61,14 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         return attribute
     
     #TODO: decide about meta_* to attribute or module
-    
+   
+    @property
+    def meta_name(self):
+        if super().meta_name:
+            return super().meta_name
+        else:
+            return settings.default_main_module_name
+        
     @property
     def meta_main_module(self):
         if self.meta_module:
@@ -79,14 +85,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             
     @property
     def meta_attributes(self):
-        return ModuleAttributes(self)
-   
-    @property
-    def meta_name(self):
-        if super().meta_name:
-            return super().meta_name
-        else:
-            return settings.default_main_module_name
+        attributes = {}
+        for name, attr in self.__class__.__dict__.items():
+            if isinstance(attr, Attribute):
+                attributes[name] = attr
+        return attributes
     
     @property
     def meta_tags(self):

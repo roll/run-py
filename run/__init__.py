@@ -7,7 +7,7 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask)
 from .dispatcher import Dispatcher, dispatcher
 from .loader import Loader
-from .module import ModuleBuilder, ModuleMetaclass, Module, ModuleAttributes
+from .module import ModuleBuilder, ModuleMetaclass, Module
 from .program import Program, program
 from .settings import Settings, settings
 from .task import Task, MethodTask, TaskDecorator, require, trigger

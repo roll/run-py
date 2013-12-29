@@ -70,12 +70,13 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @property
     def meta_name(self):
+        name = ''
         if self.meta_module:
             attributes = self.meta_module.meta_attributes
-            name = attributes.find(self, default='')
-            return name
-        else:
-            return ''
+            for key, attribute in attributes.items():
+                if attribute == self:
+                    name = key
+        return name
 
     @property
     def meta_info(self):
