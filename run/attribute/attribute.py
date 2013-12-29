@@ -28,6 +28,10 @@ class Attribute(metaclass=AttributeMetaclass):
         self.__signature = kwargs.pop('signature', None)
         self.__docstring = kwargs.pop('docstring', None)
     
+    def __repr__(self):
+        return '<{type} "{qualname}">'.format(
+            type=self.meta_type, qualname=self.meta_qualname)
+        
     @abstractmethod
     def __get__(self, module, module_class):
         pass #pragma: no cover
@@ -35,11 +39,6 @@ class Attribute(metaclass=AttributeMetaclass):
     @abstractmethod
     def __set__(self, module, value):
         pass #pragma: no cover
-    
-    def __repr__(self):
-        return ('<{type} "{qualname}">'.format(
-            type=self.meta_type, 
-            name=self.meta_qualname))
         
     @property
     def meta_module(self):
