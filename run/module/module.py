@@ -50,16 +50,16 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             format(name=self._name, module=self))
     
     def __getattr__(self, name):
-        try:
+        if '.' in name:
             module_name, attribute_name = name.split('.', 1)
-        except ValueError:
+            module = getattr(self, module_name)
+            attribute = getattr(module, attribute_name)
+            return attribute
+        else:
             raise AttributeError(
                 'No attribute "{name}" '
                 'in module "{qualname}"'.format(
-                name=name, qualname=self.meta_qualname)) from None
-        module = getattr(self, module_name)
-        attribute = getattr(module, attribute_name)
-        return attribute
+                name=name, qualname=self.meta_qualname))
     
     #TODO: decide about meta_* to attribute or module
    
