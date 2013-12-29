@@ -1,5 +1,5 @@
 import unittest
-from run import AttributeSignal
+from run.attribute.signal import AttributeSignal
 
 class AttributeSignalTest(unittest.TestCase):
 

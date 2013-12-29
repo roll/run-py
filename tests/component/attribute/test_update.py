@@ -1,5 +1,5 @@
 import unittest
-from run import AttributeBuilderSet, AttributeBuilderCall
+from run.attribute.update import AttributeBuilderSet, AttributeBuilderCall
 
 #Tests
 
