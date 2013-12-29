@@ -7,10 +7,6 @@ class MethodTask(Task):
 
     def __init__(self, method):
         self._method = method
-        
-    @property
-    def __doc__(self):
-        return self._method.__doc__
     
     def complete(self, *args, **kwargs):
         return self._method(self.meta_module, *args, **kwargs)
