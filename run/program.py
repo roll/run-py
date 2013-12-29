@@ -62,6 +62,7 @@ class Program(Program):
         except Exception as exception:
             self._logger.error(
                 str(exception), exc_info=self._command.debug)
+            sys.exit(1)
     
     @cachedproperty
     def _attributes(self):
