@@ -1,4 +1,5 @@
 import unittest
+from functools import partial
 from unittest.mock import Mock
 from run.cluster import Cluster
 
@@ -9,14 +10,30 @@ class ClusterTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.cluster = MockCluster(
+        self.cluster_draft = partial(MockCluster,
             names='names', tags='tags', path='path', 
             file_pattern='file_pattern', recursively='recursively',
             existent='existent')
 
     def test(self):
-        self.assertEqual(self.cluster.attr, ['attr1', 'attr2'])
-    
+        cluster = self.cluster_draft()
+        self.assertEqual(cluster.attr1, [1, 2, 3])
+        #Check loader calls
+        loader = cluster._module_loader
+        loader.__init__.assert_called_with(names='names', tags='tags')
+        loader.load.assert_called_with('path', 'file_pattern', 'recursively')
+        #Check modules calls
+        for module in cluster._modules:
+            module.__init__.assert_called_with(module=None)
+            
+    def test_attribute_error_with_existent_is_false(self):
+        cluster = self.cluster_draft(existent=False)
+        self.assertRaises(AttributeError, getattr, cluster, 'attr2')
+        
+    def test_attribute_error_with_existent_is_true(self):
+        cluster = self.cluster_draft(existent=True)
+        self.assertEqual(cluster.attr2, [1])           
+        
 
 #Fixtures
 
@@ -26,15 +43,24 @@ class MockModule1:
     #Public
 
     __init__ = Mock(return_value=None)
-    attr = 'attr1'
-    
+    attr1 = 1
+    attr2 = 1
+        
     
 class MockModule2:
 
     #Public
 
     __init__ = Mock(return_value=None)
-    attr = 'attr2'    
+    attr1 = 2
+    
+    
+class MockModule3:
+
+    #Public
+
+    __init__ = Mock(return_value=None)
+    attr1 = 3
     
     
 class MockLoader:
@@ -42,7 +68,8 @@ class MockLoader:
     #Public
     
     __init__ = Mock(return_value=None)
-    load = Mock(return_value=[x for x in [MockModule1, MockModule2]])
+    load = Mock(return_value=[module for module in 
+        [MockModule1, MockModule2, MockModule3]])
     
     
 class MockCluster(Cluster):
