@@ -10,7 +10,7 @@ class TaskDecorator(metaclass=ABCMeta):
         self._tasks = tasks
     
     def __call__(self, method):
-        if isinstance(method, DependentAttributeBuilder):
+        if isinstance(method, self._builder_class):
             builder = method
         else:
             builder = MethodTask(method)
@@ -18,6 +18,8 @@ class TaskDecorator(metaclass=ABCMeta):
         return builder
     
     #Protected
+    
+    _builder_class = DependentAttributeBuilder
     
     @abstractmethod
     def _add_dependency(self, builder):
