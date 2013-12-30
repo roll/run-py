@@ -37,18 +37,18 @@ class Cluster:
     @cachedproperty
     def _modules(self):
         modules = []
-        for module_class in self._classes:
+        for module_class in self._module_classes:
             module = module_class(module=None)
             modules.append(module)
         return modules
         
     @cachedproperty   
-    def _classes(self):
-        return list(self._loader.load(
+    def _module_classes(self):
+        return list(self._module_loader.load(
             self._path, self._file_pattern, self._recursively))
         
     @cachedproperty   
-    def _loader(self):
+    def _module_loader(self):
         return Loader(names=self._names, tags=self._tags)
     
     @cachedproperty   

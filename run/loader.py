@@ -12,6 +12,8 @@ class Loader(ObjectLoader):
     
     #Protected
     
+    _module_class = Module
+    
     def _filter_object(self, obj, module, name):
         result = (super()._filter_object(obj, module, name) and
                   self._filter_object_by_type(obj, module) and
@@ -22,7 +24,7 @@ class Loader(ObjectLoader):
     def _filter_object_by_type(self, obj, module):
         if (inspect.getmodule(obj) != module or
             not isinstance(obj, type) or
-            not issubclass(obj, Module) or
+            not issubclass(obj, self._module_class) or
             inspect.isabstract(obj)):
             return False
         return True
