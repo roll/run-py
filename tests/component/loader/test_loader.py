@@ -7,11 +7,24 @@ class ModuleLoaderTest(unittest.TestCase):
     #Public
 
     def setUp(self):
-        self.loader = Loader()
         self.path = os.path.join(os.path.dirname(__file__), 'fixtures')
         
     def test_load(self):
-        modules = list(self.loader.load(self.path, 'runfile.py', True))
-        self.assertEqual(len(modules), 2)
+        loader = Loader()
+        modules = list(loader.load(self.path, 'runfile.py', True))
+        self.assertEqual(len(modules), 3)
         self.assertEqual(modules[0].__name__, 'Module1')
         self.assertEqual(modules[1].__name__, 'Module2')
+        self.assertEqual(modules[2].__name__, 'Module3')
+    
+    def test_load_with_names(self):
+        loader = Loader(names=['name1'])
+        modules = list(loader.load(self.path, 'runfile.py', True))
+        self.assertEqual(len(modules), 1)
+        self.assertEqual(modules[0].__name__, 'Module1')
+
+    def test_load_with_tags(self):
+        loader = Loader(tags=['tag2'])
+        modules = list(loader.load(self.path, 'runfile.py', True))
+        self.assertEqual(len(modules), 1)
+        self.assertEqual(modules[0].__name__, 'Module2')        
