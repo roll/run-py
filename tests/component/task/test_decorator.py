@@ -1,43 +1,28 @@
 import unittest
 from unittest.mock import Mock
-from run.task.decorator import require, trigger
+from run.task.decorator import TaskDecorator, require, trigger
 
 #Tests
 
-class requireTest(unittest.TestCase):
+class TaskDecoratorTest(unittest.TestCase):
 
     #Public
     
     def test_with_method_is_builder(self):
-        require = MockRequire(['task1', 'task2'])
-        method = MockBuilder('method')
-        builder = require(method)
-        self.assertEqual(method, builder)
-        builder.require.assert_called_with(['task1', 'task2'])
+        tasks = ['task1', 'task2']
+        decorators = [MockRequire(tasks), MockTrigger(tasks)]
+        for decorator in decorators:
+            builder = MockBuilder('method')
+            builder = decorator(builder)
+            getattr(builder, decorator.name).assert_called_with(tasks)
         
     def test_with_raw_method(self):
-        require = MockRequire(['task1', 'task2'])
-        builder = require('method')
-        self.assertEqual(builder.method, 'method')
-        builder.require.assert_called_with(['task1', 'task2'])
-
-    
-class triggerTest(unittest.TestCase):
-
-    #Public
-    
-    def test_with_method_is_builder(self):
-        trigger = MockTrigger(['task1', 'task2'])
-        method = MockBuilder('method')
-        builder = trigger(method)
-        self.assertEqual(method, builder)
-        builder.trigger.assert_called_with(['task1', 'task2'])
-        
-    def test_with_raw_method(self):
-        trigger = MockTrigger(['task1', 'task2'])
-        builder = trigger('method')
-        self.assertEqual(builder.method, 'method')
-        builder.trigger.assert_called_with(['task1', 'task2'])
+        tasks = ['task1', 'task2']
+        decorators = [MockRequire(tasks), MockTrigger(tasks)]
+        for decorator in decorators:
+            builder = decorator('method')
+            self.assertEqual(builder.method, 'method')
+            getattr(builder, decorator.name).assert_called_with(tasks)
             
 
 #Fixtures
@@ -61,17 +46,23 @@ class MockAttribute:
         return MockBuilder(method) 
     
     
-class MockRequire(require):
+class MockTaskDecorator(TaskDecorator):
 
     #Public
 
     _builder_class = MockBuilder
     _attribute_class = MockAttribute
     
+
+class MockRequire(require, MockTaskDecorator): 
     
-class MockTrigger(trigger):
-
     #Public
-
-    _builder_class = MockBuilder
-    _attribute_class = MockAttribute    
+    
+    name = 'require'
+    
+        
+class MockTrigger(trigger, MockTaskDecorator):    
+    
+    #Public
+    
+    name = 'trigger'
