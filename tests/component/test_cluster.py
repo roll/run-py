@@ -15,7 +15,7 @@ class ClusterTest(unittest.TestCase):
             file_pattern='file_pattern', recursively='recursively',
             existent='existent')
 
-    def test(self):
+    def test___getattr__(self):
         cluster = self.cluster_draft()
         self.assertEqual(cluster.attr1, [1, 2, 3])
         #Check loader calls
@@ -26,11 +26,11 @@ class ClusterTest(unittest.TestCase):
         for module in cluster._modules:
             module.__init__.assert_called_with(module=None)
             
-    def test_attribute_error_with_existent_is_false(self):
+    def test___getattr__with_existent_is_false(self):
         cluster = self.cluster_draft(existent=False)
         self.assertRaises(AttributeError, getattr, cluster, 'attr2')
         
-    def test_attribute_error_with_existent_is_true(self):
+    def test___getattr___with_existent_is_true(self):
         cluster = self.cluster_draft(existent=True)
         self.assertEqual(cluster.attr2, [1])           
         
