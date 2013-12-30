@@ -14,8 +14,7 @@ class DependentAttributeTaskTest(unittest.TestCase):
         self.assertEqual(task.args, ())
         self.assertEqual(task.kwargs, {})
         self.assertEqual(task.is_executed, False)
-        result = task(attr)
-        self.assertEqual(result, ((), {}))
+        self.assertEqual(task(attr), ((), {}))
         self.assertEqual(task.is_executed, True)
     
     def test_with_args(self):
@@ -25,8 +24,7 @@ class DependentAttributeTaskTest(unittest.TestCase):
         self.assertEqual(task.args, ('arg',))
         self.assertEqual(task.kwargs, {})
         self.assertEqual(task.is_executed, False)
-        result = task(attr)
-        self.assertEqual(result, (('arg',),{}))
+        self.assertEqual(task(attr), (('arg',),{}))
         self.assertEqual(task.is_executed, True)
         
     def test_with_args_and_kwargs(self):
@@ -36,8 +34,7 @@ class DependentAttributeTaskTest(unittest.TestCase):
         self.assertEqual(task.args, ('arg',))
         self.assertEqual(task.kwargs, {'kwarg': 'kwarg'})
         self.assertEqual(task.is_executed, False)
-        result = task(attr)
-        self.assertEqual(result, (('arg',), {'kwarg': 'kwarg'}))
+        self.assertEqual(task(attr), (('arg',), {'kwarg': 'kwarg'}))
         self.assertEqual(task.is_executed, True)        
     
     

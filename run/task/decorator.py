@@ -13,13 +13,14 @@ class TaskDecorator(metaclass=ABCMeta):
         if isinstance(method, self._builder_class):
             builder = method
         else:
-            builder = MethodTask(method)
+            builder = self._attribute_class(method)
         self._add_dependency(builder)
         return builder
     
     #Protected
     
     _builder_class = DependentAttributeBuilder
+    _attribute_class = MethodTask
     
     @abstractmethod
     def _add_dependency(self, builder):
@@ -30,7 +31,6 @@ class require(TaskDecorator):
     
     #Protected
     
-    @abstractmethod
     def _add_dependency(self, builder):
         builder.require(self._tasks)
 
@@ -39,6 +39,5 @@ class trigger(TaskDecorator):
     
     #Protected
     
-    @abstractmethod
     def _add_dependency(self, builder):
         builder.trigger(self._tasks)
