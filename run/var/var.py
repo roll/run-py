@@ -13,12 +13,12 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         self._resolve_requirements()
         result = self.retrieve()
         self._process_triggers()
-        self.dispatcher.add_signal(
+        self._dispatcher.add_signal(
             self._retrieved_signal_class(self))
         return result
  
     def __set__(self, module, value):
-        self.retrieve = lambda self: value
+        self.retrieve = lambda: value
  
     @abstractmethod
     def retrieve(self):
