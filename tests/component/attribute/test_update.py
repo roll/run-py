@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import Mock
 from run.attribute.update import AttributeBuilderSet, AttributeBuilderCall
 
 #Tests
@@ -7,9 +8,9 @@ class AttributeBuilderSetTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
+    def test_apply(self):
         update = AttributeBuilderSet('name', 'value')
-        obj = MockObject()
+        obj = Mock()
         update.apply(obj)
         self.assertEqual(obj.name, 'value')
       
@@ -18,18 +19,8 @@ class AttributeBuilderCallTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
+    def test_apply(self):
         update = AttributeBuilderCall('method', 'value')
-        obj = MockObject()
+        obj = Mock(method=Mock())
         update.apply(obj)
-        self.assertEqual(obj.name, 'value')
-        
-        
-#Fixtures
-
-class MockObject:
-
-    #Public
-    
-    def method(self, value):
-        self.name = value
+        obj.method.assert_called_with('value')
