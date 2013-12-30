@@ -8,7 +8,7 @@ class CallbackHandlerTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
+    def test_handle(self):
         callback = Mock()
         signal = MockSignal()
         handler = CallbackHandler(callback, signals=[MockSignal])
