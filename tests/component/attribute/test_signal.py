@@ -5,7 +5,7 @@ class AttributeSignalTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
+    def test_attribute(self):
         signal = AttributeSignal('attribute')
         self.assertEqual(signal.attribute, 'attribute') 
         
