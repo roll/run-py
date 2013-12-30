@@ -4,4 +4,5 @@ class Module2(Module):
     
     #Public
     
-    pass
+    meta_name = 'name2'
+    meta_tags = ['tag2']

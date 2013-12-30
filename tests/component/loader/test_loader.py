@@ -1,6 +1,6 @@
 import os
 import unittest
-from run import Loader
+from run.loader import Loader
 
 class ModuleLoaderTest(unittest.TestCase):
 
