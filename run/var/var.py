@@ -8,11 +8,11 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     #Public
 
     def __get__(self, module, module_class=None):
-        dispatcher.add_signal(InitiatedVarSignal(self))
+        self._dispatcher.add_signal(InitiatedVarSignal(self))
         self._resolve_requirements()
         result = self.retrieve()
         self._process_triggers()
-        dispatcher.add_signal(RetrievedVarSignal(self))
+        self.dispatcher.add_signal(RetrievedVarSignal(self))
         return result
  
     def __set__(self, module, value):
@@ -22,6 +22,6 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     def retrieve(self):
         pass #pragma: no cover
     
+    #Protected
     
-    
-        
+    _dispatcher = dispatcher    
