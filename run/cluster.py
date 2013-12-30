@@ -32,7 +32,9 @@ class Cluster:
                     raise
         return attributes
         
-    #Protected    
+    #Protected
+    
+    _loader_class = Loader
         
     @cachedproperty
     def _modules(self):
@@ -49,7 +51,7 @@ class Cluster:
         
     @cachedproperty   
     def _module_loader(self):
-        return Loader(names=self._names, tags=self._tags)
+        return self._loader_class(names=self._names, tags=self._tags)
     
     @cachedproperty   
     def _logger(self):
