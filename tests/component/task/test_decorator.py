@@ -12,13 +12,13 @@ class TaskDecoratorTest(unittest.TestCase):
         self.tasks = ['task1', 'task2']
         self.decorator = MockTaskDecorator(self.tasks)
     
-    def test_with_method_is_builder(self):
+    def test___call__with_method_is_builder(self):
         builder = MockBuilder('method')
         decorated = self.decorator(builder)
         self.assertIs(decorated, builder)
         self.decorator._add_dependency.assert_called_with(decorated)
         
-    def test_with_method_raw_method(self):
+    def test___call__with_method_raw_method(self):
         method = 'method'
         decorated = self.decorator(method)
         self.assertIsInstance(decorated, MockBuilder)
