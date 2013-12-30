@@ -2,29 +2,52 @@ import unittest
 from unittest.mock import Mock
 from run.task.decorator import TaskDecorator, require, trigger
 
-#TODO: refactor
-
 #Tests
 
 class TaskDecoratorTest(unittest.TestCase):
 
     #Public
     
+    def setUp(self):
+        self.tasks = ['task1', 'task2']
+        self.decorator = MockTaskDecorator(self.tasks)
+    
     def test_with_method_is_builder(self):
-        tasks = ['task1', 'task2']
-        decorators = [MockRequire(tasks), MockTrigger(tasks)]
-        for decorator in decorators:
-            builder = MockBuilder('method')
-            builder = decorator(builder)
-            getattr(builder, decorator.name).assert_called_with(tasks)
+        builder = MockBuilder('method')
+        decorated = self.decorator(builder)
+        self.assertIs(decorated, builder)
+        self.decorator._add_dependency.assert_called_with(decorated)
         
-    def test_with_raw_method(self):
+    def test_with_method_raw_method(self):
+        method = 'method'
+        decorated = self.decorator(method)
+        self.assertIsInstance(decorated, MockBuilder)
+        decorated.__init__.assert_called_with(method)
+        self.decorator._add_dependency.assert_called_with(decorated)
+
+
+class requireTest(unittest.TestCase):
+
+    #Public
+
+    def test__add_dependency(self):
         tasks = ['task1', 'task2']
-        decorators = [MockRequire(tasks), MockTrigger(tasks)]
-        for decorator in decorators:
-            builder = decorator('method')
-            self.assertEqual(builder.method, 'method')
-            getattr(builder, decorator.name).assert_called_with(tasks)
+        builder = MockBuilder()
+        decorator = require(tasks)
+        decorator._add_dependency(builder)
+        builder.require.assert_called_with(tasks)
+        
+        
+class triggerTest(unittest.TestCase):
+
+    #Public
+
+    def test__add_dependency(self):
+        tasks = ['task1', 'task2']
+        builder = MockBuilder()
+        decorator = trigger(tasks)
+        decorator._add_dependency(builder)
+        builder.trigger.assert_called_with(tasks)        
             
 
 #Fixtures
@@ -32,39 +55,17 @@ class TaskDecoratorTest(unittest.TestCase):
 class MockBuilder:
 
     #Public
-
+    
+    __init__ = Mock(return_value=None)
     require = Mock()
     trigger = Mock()
-    
-    def __init__(self, method):
-        self.method = method
- 
-
-class MockAttribute:
-
-    #Public
-
-    def __new__(cls, method, *args, **kwargs):
-        return MockBuilder(method) 
     
     
 class MockTaskDecorator(TaskDecorator):
 
-    #Public
-
+    
+    #Protected
+    
     _builder_class = MockBuilder
-    _attribute_class = MockAttribute
-    
-
-class MockRequire(require, MockTaskDecorator): 
-    
-    #Public
-    
-    name = 'require'
-    
-        
-class MockTrigger(trigger, MockTaskDecorator):    
-    
-    #Public
-    
-    name = 'trigger'
+    _attribute_class = lambda self, method: MockBuilder(method)
+    _add_dependency = Mock()
