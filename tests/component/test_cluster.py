@@ -74,6 +74,6 @@ class MockLoader:
     
 class MockCluster(Cluster):
 
-    #Public
+    #Protected
 
     _loader_class = MockLoader
