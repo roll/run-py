@@ -43,7 +43,7 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMetaclass):
     @classmethod
     def _update_tasks(cls, group, tasks, disable=False):
         for task in tasks:
-            task = self._task_class(task)
+            task = cls._task_class(task)
             if disable:
                 group.pop(task.name, None)
             else:
