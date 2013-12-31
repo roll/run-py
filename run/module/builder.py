@@ -3,6 +3,8 @@ from ..attribute import AttributeBuilder
 class ModuleBuilder(AttributeBuilder):
         
     #Protected
+    
+    _attribute_builder_class = AttributeBuilder
        
     def _create_object(self):
         return object.__new__(self._builded_class)
@@ -27,7 +29,7 @@ class ModuleBuilder(AttributeBuilder):
         dct = {}
         for cls in reversed(self._class.mro()):
             for key, attr in vars(cls).items():
-                if isinstance(attr, AttributeBuilder):
+                if isinstance(attr, self._attribute_builder_class):
                     dct[key] = attr()
         dct['__doc__'] = self._class.__doc__
         dct['__module__'] = self._class.__module__
