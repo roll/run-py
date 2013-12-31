@@ -13,7 +13,7 @@ class ModuleBuilderTest(unittest.TestCase):
     
     def test__create_object(self):
         obj = self.builder._create_object()
-        #It doesn't work
+        #TODO: Why it doesn't work?
         #self.assertIsInstance(obj, self.builder._builded_class)
         self.assertIsInstance(obj, MockModule2)
         self.assertIsInstance(obj, MockModule1)
