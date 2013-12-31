@@ -28,6 +28,8 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMetaclass):
         self._update_tasks(self._triggers, tasks, disable)
             
     #Protected
+    
+    _task_class = DependentAttributeTask
             
     def _resolve_requirements(self):
         for task in self._requirments.values():
@@ -41,7 +43,7 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMetaclass):
     @classmethod
     def _update_tasks(cls, group, tasks, disable=False):
         for task in tasks:
-            task = DependentAttributeTask(task)
+            task = self._task_class(task)
             if disable:
                 group.pop(task.name, None)
             else:
