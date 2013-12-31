@@ -4,12 +4,10 @@ class LoadModule:
 
     #Public
 
-    def __new__(self, names=[], tags=[], path=None, 
-                file_pattern=None, recursively=False):
-        if not path:
-            path = self._default_path
-        if not file_pattern:
-            file_pattern = self._default_file_pattern
+    def __new__(self, names=[], tags=[],
+                 path=settings.default_path,
+                 file_pattern=settings.default_file, 
+                 recursively=False):
         loader = self._loader_class(names=names, tags=tags)
         for module_class in loader.load(path, file_pattern, recursively):
             module = module_class() 
@@ -25,6 +23,4 @@ class LoadModule:
             
     #Protected
     
-    _default_path = settings.default_path
-    _default_file_pattern = settings.default_file
     _loader_class = Loader
