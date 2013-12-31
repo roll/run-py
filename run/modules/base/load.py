@@ -8,7 +8,7 @@ class LoadModule:
                  path=settings.default_path,
                  file_pattern=settings.default_file, 
                  recursively=False):
-        loader = Loader(names=names, tags=tags)
+        loader = self._loader_class(names=names, tags=tags)
         for module_class in loader.load(path, file_pattern, recursively):
             module = module_class() 
             return module
@@ -20,3 +20,7 @@ class LoadModule:
                 format(names=names, tags=tags, path=path, 
                        file_pattern=file_pattern, 
                        recursively=recursively))
+            
+    #Protected
+    
+    _loader_class = Loader
