@@ -22,8 +22,8 @@ class AttributeBuilder:
             return getattr(self._class, name)
         except AttributeError:
             raise AttributeError(
-                'No attribute "{name}" in attribute builder "{builder}" '
-                '(also looking in attribute class "{cls}")'.
+                'No attribute "{name}" in attribute class "{cls}" '
+                '(builder {builder} provides only static attributes)'.
                 format(name=name, builder=self, cls=self._class))
         
     def __setattr__(self, name, value):
