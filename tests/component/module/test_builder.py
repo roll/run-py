@@ -17,6 +17,8 @@ class ModuleBuilderTest(unittest.TestCase):
         #self.assertIsInstance(obj, self.builder._builded_class)
         self.assertIsInstance(obj, MockModule2)
         self.assertIsInstance(obj, MockModule1)
+        self.assertEqual(obj.attr1, 'value1')
+        self.assertEqual(obj.attr2, 'value2')
         
     def test__builded_class(self):
         self.assertTrue(issubclass(self.builder._builded_class, MockModule2))
