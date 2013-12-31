@@ -1,21 +1,32 @@
 import unittest
-from run import Command
+from run.command import Command
 
 class CommandTest(unittest.TestCase):
     
     #Public
     
-    def test_argv1(self):
-        command = Command(['run', '-f', 'file', 'attribute', 
-                           'arg1,arg2,kwarg1=True,', 'kwarg2=2'])
-        self.assertEqual(command.file, 'file')
+    def test(self):
+        command = Command(
+            ['run', 'attribute', 'arg1,True,kwarg1=1,', 'kwarg2=1.5'])
         self.assertEqual(command.attribute, 'attribute')
-        self.assertEqual(command.args, ['arg1', 'arg2'])
-        self.assertEqual(command.kwargs, {'kwarg1': True, 'kwarg2': 2})
+        self.assertEqual(command.args, ['arg1', True])
+        self.assertEqual(command.kwargs, {'kwarg1': 1, 'kwarg2': 1.5})
+        
+    def test_with_list_flag(self):
+        command = Command(['run', 'attribute', '-l'])
+        self.assertEqual(command.attribute, 'list')
+        self.assertEqual(command.args, ['attribute'])
     
-    def test_argv2(self):
-        command = Command(['run', '-f', 'file', 'attribute', '3'])
-        self.assertEqual(command.file, 'file')
-        self.assertEqual(command.attribute, 'attribute')
-        self.assertEqual(command.args, [3])
-        self.assertEqual(command.kwargs, {})
+    def test_with_info_flag(self):
+        command = Command(['run', 'attribute', '-i'])
+        self.assertEqual(command.attribute, 'info')
+        self.assertEqual(command.args, ['attribute'])    
+        
+    def test_with_meta_flag(self):
+        command = Command(['run', 'attribute', '-m'])
+        self.assertEqual(command.attribute, 'meta')
+        self.assertEqual(command.args, ['attribute'])        
+        
+    def test_with_no_attribute(self):
+        command = Command(['run'])
+        self.assertTrue(command.attribute, command._default_attribute)
