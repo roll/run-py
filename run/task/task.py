@@ -19,12 +19,20 @@ class Task(DependentAttribute):
             format(name=self.meta_name, task=self))
     
     def __call__(self, *args, **kwargs):
-        dispatcher.add_signal(InitiatedTaskSignal(self))
+        self._dispatcher.add_signal(
+            self._initiated_signal_class(self))
         self._resolve_requirements()
         result = self.complete(*args, **kwargs)
         self._process_triggers()
-        dispatcher.add_signal(CompletedTaskSignal(self))
+        self._dispatcher.add_signal(
+            self._retrieved_signal_class(self))
         return result
     
     def complete(self, *args, **kwargs):
         pass
+    
+    #Protected
+    
+    _dispatcher = dispatcher
+    _initiated_signal_class = InitiatedTaskSignal
+    _retrieved_signal_class = CompletedTaskSignal    
