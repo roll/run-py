@@ -1,4 +1,3 @@
-import copy
 from .update import AttributeBuilderSet
 
 class AttributeBuilder:
@@ -35,8 +34,8 @@ class AttributeBuilder:
         return object.__new__(self._class)
         
     def _init_object(self, obj):
-        args = copy.copy(self._args)
-        kwargs = copy.copy(self._kwargs)
+        args = list(self._args)
+        kwargs = dict(self._kwargs)
         obj.__meta_init__(args, kwargs)
         obj.__init__(*args, **kwargs)
      
