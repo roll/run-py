@@ -29,7 +29,6 @@ class ModuleBuilder(AttributeBuilder):
             for key, attr in vars(cls).items():
                 if isinstance(attr, AttributeBuilder):
                     dct[key] = attr()
-        #TODO: check attributes to copy (less/more)
         dct['__doc__'] = self._class.__doc__
         dct['__module__'] = self._class.__module__
         return dct
