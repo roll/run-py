@@ -1,5 +1,5 @@
 import unittest
-from run.modules.base import InputVar
+from run.modules.base.input import InputVar
 
 class InputVarTest(unittest.TestCase):
     

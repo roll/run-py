@@ -1,6 +1,6 @@
 import os
 import unittest
-from run.modules.base import ParseVar
+from run.modules.base.parse import ParseVar
 
 class ParseVarTest(unittest.TestCase):
     
