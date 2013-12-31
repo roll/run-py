@@ -14,7 +14,7 @@ class LoadModule:
             return module
         else:
             raise ImportError(
-                'No modules finded with names "{names}", tags "{tags}", '
+                'No modules found with names "{names}", tags "{tags}", '
                 'path "{path}", file_pattern "{file_pattern}" and '
                 'recursively flag in "{recursively}"'.
                 format(names=names, tags=tags, path=path, 
