@@ -26,9 +26,11 @@ class AttributeBuilder:
                 format(name=name, builder=self, cls=self._class))
         
     def __setattr__(self, name, value):
-        self._updates.append(AttributeBuilderSet(name, value))     
+        self._updates.append(self._set_class(name, value))     
     
     #Protected
+    
+    _set_class = AttributeBuilderSet
              
     def _create_object(self):
         return object.__new__(self._class)
