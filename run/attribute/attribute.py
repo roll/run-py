@@ -63,9 +63,11 @@ class Attribute(metaclass=AttributeMetaclass):
 
     @property
     def meta_info(self):
-        lines = filter(None, [
-            self.meta_signature, 
-            self.meta_docstring])
+        lines = []
+        if self.meta_signature:
+            lines.append(self.meta_signature)
+        if self.meta_docstring:
+            lines.append(self.meta_docstring)
         return '\n'.join(lines)
 
     @property
