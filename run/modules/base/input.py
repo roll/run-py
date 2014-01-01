@@ -7,6 +7,7 @@ class InputVar(Var):
     
     #Public
     
+    #TODO: use names like initial_input_operator and move main to property
     def __init__(self, text, default='', options=[], attempts=None,
                  input_operator=None, print_operator=None, 
                  prompt_template=None, error_template=None):
