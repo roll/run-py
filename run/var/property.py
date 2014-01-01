@@ -1,6 +1,7 @@
 import inspect
 from .var import Var
 
+#TODO: rename to DescriptorVar?
 class PropertyVar(Var):
     
     #Public

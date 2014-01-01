@@ -1,6 +1,7 @@
 import inspect
 from .task import Task
 
+#TODO: rename to FunctionTask?
 class MethodTask(Task):
     
     #Public
