@@ -12,15 +12,15 @@ class ModuleMetaclass(AttributeMetaclass):
         for key, attr in dct.items():
             if key.startswith('_'):
                 continue
-            elif key.startswith('meta_'):
+            if key.startswith('meta_'):
                 continue
-            elif isinstance(attr, type):
+            if isinstance(attr, type):
                 continue
-            elif isinstance(attr, cls._attribute_class):
+            if isinstance(attr, cls._attribute_class):
                 continue
-            elif isinstance(attr, cls._attribute_builder_class):
+            if isinstance(attr, cls._attribute_builder_class):
                 continue
-            elif callable(attr):
+            if callable(attr):
                 dct[key] = cls._method_task_class(attr)
             elif inspect.isdatadescriptor(attr):
                 dct[key] = cls._property_var_class(attr)
