@@ -26,8 +26,9 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMetaclass):
             
     def _resolve_requirements(self):
         for task in self._requirments.values():
-            if not task.is_executed:
-                task(self)
+            if task.is_executed:
+                continue
+            task(self)
     
     def _process_triggers(self):
         for task in self._triggers.values():
