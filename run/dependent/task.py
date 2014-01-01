@@ -2,6 +2,7 @@ class DependentAttributeTask:
     
     #Public
     
+    #TODO: change call style to nested requires?
     def __init__(self, task):
         self._unpack(task)
         self._is_executed = False

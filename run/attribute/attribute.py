@@ -3,6 +3,7 @@ from abc import abstractmethod
 from ..settings import settings
 from .metaclass import AttributeMetaclass
 
+#TODO: add basedir
 class Attribute(metaclass=AttributeMetaclass):
     
     #Public
