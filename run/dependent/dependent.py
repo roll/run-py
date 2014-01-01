@@ -1,14 +1,7 @@
 from collections import OrderedDict
-from ..attribute import AttributeMetaclass, Attribute
-from .builder import DependentAttributeBuilder
+from ..attribute import Attribute
 from .task import DependentAttributeTask
-
-class DependentAttributeMetaclass(AttributeMetaclass):
-    
-    #Protected
-    
-    _builder_class = DependentAttributeBuilder
-    
+from .metaclass import DependentAttributeMetaclass
     
 class DependentAttribute(Attribute, metaclass=DependentAttributeMetaclass):
     

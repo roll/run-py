@@ -1,24 +1,8 @@
 import inspect
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 from ..settings import settings
-from .builder import AttributeBuilder
+from .metaclass import AttributeMetaclass
 
-class AttributeMetaclass(ABCMeta):
-    
-    #Public
-    
-    def __call__(self, *args, **kwargs):
-        builder = self._builder_class(self, *args, **kwargs)
-        if 'module' in kwargs:
-            return builder()
-        else:
-            return builder
-        
-    #Protected
-    
-    _builder_class = AttributeBuilder 
-    
-    
 class Attribute(metaclass=AttributeMetaclass):
     
     #Public

@@ -1,2 +1,3 @@
 from .builder import ModuleBuilder
-from .module import ModuleMetaclass, Module
+from .metaclass import ModuleMetaclass
+from .module import Module
