@@ -36,7 +36,6 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_type(self):
         return type(self).__name__
     
-    #TODO: rename to absname?
     @property
     def meta_qualname(self):
         if (self.meta_module and 
