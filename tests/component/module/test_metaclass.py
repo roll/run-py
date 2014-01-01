@@ -17,18 +17,22 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.assertEqual(MockModule.type_attr, Mock)
         self.assertIsInstance(MockModule.attribute_attr, Mock)
         self.assertIsInstance(MockModule.attribute_builder_attr, MagicMock)
-        self.assertEqual(MockModule.callable_attr, 'callable_attr')
-        self.assertEqual(MockModule.property_attr, 'property_attr')
-        self.assertEqual(MockModule.value_attr, 'value_attr')
-        MockModuleMetaclass._method_task_class.assert_called_with(call)
+        self.assertEqual(MockModule.abstract_method_attr, abstract_method)
+        self.assertEqual(MockModule.abstract_property_attr, abstract_property)
+        self.assertEqual(MockModule.method_attr, 'method_task_attr')
+        self.assertEqual(MockModule.property_attr, 'property_var_attr')
+        self.assertEqual(MockModule.value_attr, 'value_var_attr')
+        MockModuleMetaclass._method_task_class.assert_called_with(method)
         MockModuleMetaclass._property_var_class.assert_called_with(prop)
         MockModuleMetaclass._value_var_class.assert_called_with('value_attr')
     
     
 #Fixtures
 
-call = lambda: None
+method = lambda: None
 prop = property(lambda: None)
+abstract_method = abstractmethod(lambda: None)
+abstract_property = property(abstractmethod(lambda: None))
 
 class MockModuleMetaclass(ModuleMetaclass):
 
@@ -36,9 +40,9 @@ class MockModuleMetaclass(ModuleMetaclass):
 
     _attribute_class = Mock
     _attribute_builder_class = MagicMock
-    _method_task_class = Mock(return_value='callable_attr')
-    _property_var_class = Mock(return_value='property_attr')
-    _value_var_class = Mock(return_value='value_attr')
+    _method_task_class = Mock(return_value='method_task_attr')
+    _property_var_class = Mock(return_value='property_var_attr')
+    _value_var_class = Mock(return_value='value_var_attr')
     
     
 class MockModule(metaclass=MockModuleMetaclass):
@@ -50,7 +54,8 @@ class MockModule(metaclass=MockModuleMetaclass):
     type_attr = Mock
     attribute_attr = Mock()
     attribute_builder_attr = MagicMock()
-    abstract_attr = abstractmethod(lambda: None)
-    callable_attr = call
+    abstract_method_attr = abstract_method
+    abstract_property_attr = abstract_property
+    method_attr = method
     property_attr = prop
     value_attr = 'value_attr'
