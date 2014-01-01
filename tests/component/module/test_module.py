@@ -8,6 +8,7 @@ class ModuleTest(unittest.TestCase):
 
     #Public
 
+    #TODO: split for small tests?
     def test_with_module_is_none(self):
         module = MockModule(module=None)
         self.assertIs(module.__get__(None), module)
