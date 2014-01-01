@@ -61,6 +61,7 @@ class Program(Program):
                 else:
                     print(attribute)
         except Exception as exception:
+            #TODO: wrap in AttributeFailure
             self._logger.error(
                 str(exception), exc_info=self._command.debug)
             sys.exit(1)
