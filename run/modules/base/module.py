@@ -7,6 +7,7 @@ from .load import LoadModule
 from .parse import ParseVar
 from .render import RenderTask
 
+#TODO: return ClusterModule, CompositeTask, LoadModule to core?
 class BaseModule(Module):
     
     #Cluster
