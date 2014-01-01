@@ -22,10 +22,13 @@ class Loader(ObjectLoader):
         return result
     
     def _filter_object_by_type(self, obj, module):
-        if (inspect.getmodule(obj) != module or
-            not isinstance(obj, type) or
-            not issubclass(obj, self._module_class) or
-            inspect.isabstract(obj)):
+        if inspect.getmodule(obj) != module:
+            return False
+        if not isinstance(obj, type):
+            return False
+        if not issubclass(obj, self._module_class):
+            return False
+        if inspect.isabstract(obj):
             return False
         return True
     
