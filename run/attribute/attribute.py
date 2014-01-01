@@ -19,7 +19,7 @@ class Attribute(metaclass=AttributeMetaclass):
             type=self.meta_type, qualname=self.meta_qualname)
         
     @abstractmethod
-    def __get__(self, module, module_class):
+    def __get__(self, module, module_class=None):
         pass #pragma: no cover
     
     @abstractmethod

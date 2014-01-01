@@ -14,17 +14,19 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         for attribute in self.meta_attributes.values():
             attribute.meta_module = self
         
-    def __get__(self, module, module_class):
+    def __get__(self, module, module_class=None):
         return self
     
     def __set__(self, module, value):
         raise AttributeError(
             'Attribute "{name}" is module '
             '"{module}" and can\'t be set'.
-            format(name=self._name, module=self))
+            format(name=self.meta_name, module=self))
     
     def __getattr__(self, name):
         if '.' in name:
+            #TODO: it works also for no module attributes
+            #like default.meta_name or __getattr__.__doc__
             module_name, attribute_name = name.split('.', 1)
             module = getattr(self, module_name)
             attribute = getattr(module, attribute_name)
@@ -40,7 +42,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         if super().meta_name:
             return super().meta_name
         else:
-            return settings.default_main_module_name
+            return self._meta_default_main_module_name
         
     @property
     def meta_main_module(self):
@@ -85,15 +87,15 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         for attribute in attributes.values():
             names.append(attribute.meta_qualname)
         for name in sorted(names):
-            print(name)
+            self._meta_print_operator(name)
 
     def info(self, attribute=None):
         "Print information"
         if attribute and attribute in self.meta_attributes:
             attribute = self.meta_attributes[attribute]
-            print(attribute.meta_info)
+            self._meta_print_operator(attribute.meta_info)
         else:
-            print(self.meta_info)
+            self._meta_print_operator(self.meta_info)
         
     def meta(self, attribute=None):
         "Print metadata"
@@ -106,8 +108,16 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
                 meta[key] = getattr(attribute, name)
+        #TODO: fix
         pprint(meta)
+        #self._meta_formatted_print_operator(meta)
       
     default = Task(
         require=['list'],
-    )     
+    )
+    
+    #Protected
+    
+    _meta_default_main_module_name = settings.default_main_module_name
+    _meta_print_operator = print
+    _meta_formatted_print_operator = pprint
