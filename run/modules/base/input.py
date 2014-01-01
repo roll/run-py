@@ -7,29 +7,40 @@ class InputVar(Var):
     
     #Public
     
-    def __init__(self, text, default=None, options=[], 
-                 operator=None, prompt_template=None, error_template=None):
+    def __init__(self, text, default='', options=[], attempts=None,
+                 input_operator=None, print_operator=None, 
+                 prompt_template=None, error_template=None):
         self._text = text
         self._default = default
         self._options = options
-        self._operator = operator or self._default_operator
+        self._attempts = attempts or self._default_attempts
+        self._input_operator = input_operator or self._default_input_operator
+        self._print_operator = print_operator or self._default_print_operator
         self._prompt_template = prompt_template or self._default_prompt_template
         self._error_template = error_template or self._default_error_template
         
     def retrieve(self):
-        while True:
-            result = self._operator(self._prompt)
+        for _ in range(0, self._attempts):
+            result = self._input_operator(self._prompt)
             if not result:
                 result = self._default
             if self._options:
                 if result not in self._options:
-                    print(self._error)
+                    self._print_operator(self._error)
                     continue 
-            return result           
+            return result
+        else:
+            raise ValueError(
+                'Input error in all of {attempts} attempts '
+                'where options are "{options}"'.format(
+                    attempts=self._attempts,
+                    options=self._options))
     
     #Protected
     
-    _default_operator = input
+    _default_attempts = 3    
+    _default_input_operator = input
+    _default_print_operator = print
     _default_prompt_template = '{{ text }}'
     _default_error_template = 'Try again..'
     
