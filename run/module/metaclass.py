@@ -20,6 +20,8 @@ class ModuleMetaclass(AttributeMetaclass):
                 continue
             if isinstance(attr, cls._attribute_builder_class):
                 continue
+            if getattr(attr, '__isabstractmethod__', False):
+                continue   
             if callable(attr):
                 dct[key] = cls._method_task_class(attr)
             elif inspect.isdatadescriptor(attr):

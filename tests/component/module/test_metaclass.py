@@ -1,4 +1,5 @@
 import unittest
+from abc import abstractmethod
 from unittest.mock import Mock, MagicMock
 from run.module.metaclass import ModuleMetaclass
 
@@ -27,7 +28,7 @@ class ModuleMetaclassTest(unittest.TestCase):
 #Fixtures
 
 call = lambda: None
-prop = property()
+prop = property(lambda: None)
 
 class MockModuleMetaclass(ModuleMetaclass):
 
@@ -49,6 +50,7 @@ class MockModule(metaclass=MockModuleMetaclass):
     type_attr = Mock
     attribute_attr = Mock()
     attribute_builder_attr = MagicMock()
+    abstract_attr = abstractmethod(lambda: None)
     callable_attr = call
     property_attr = prop
     value_attr = 'value_attr'
