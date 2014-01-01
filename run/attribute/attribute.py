@@ -4,6 +4,7 @@ from ..settings import settings
 from .metaclass import AttributeMetaclass
 
 #TODO: add basedir
+#TODO: add is_bound
 class Attribute(metaclass=AttributeMetaclass):
     
     #Public
