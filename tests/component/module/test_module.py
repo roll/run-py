@@ -4,7 +4,7 @@ from run.module.module import Module
 
 #Tests
 
-class ModuleTest_with_module_is_none(unittest.TestCase):
+class ModuleTest(unittest.TestCase):
 
     #Public
     
@@ -57,12 +57,11 @@ class ModuleTest_with_module_is_none(unittest.TestCase):
         self.assertTrue(self.module._meta_formatted_print_operator.called)
         
         
-class ModuleTest_with_module_is_not_none(unittest.TestCase):
+class ModuleTest_with_module(ModuleTest):
 
     #Public
     
-    def setUp(self):
-        pass       
+    pass     
     
     
 #Fixtures
