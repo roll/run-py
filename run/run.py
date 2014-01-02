@@ -5,6 +5,7 @@ from .dispatcher import Dispatcher
 from .failure import Failure
 from .handler import CallbackHandler
 from .settings import settings
+from .stack import Stack
 from .task import Task, InitiatedTaskSignal, CompletedTaskSignal
 from .var import InitiatedVarSignal, RetrievedVarSignal
 
@@ -25,8 +26,6 @@ class Run:
         self._recursively = recursively
         self._existent = existent 
         self._stackless = stackless
-        self._handlers = []     
-        self._stack = []
         self._config()
                 
     def run(self, attribute, *args, **kwargs):
@@ -77,24 +76,14 @@ class Run:
             self._stack.append(signal.attribute)   
 
     def _on_executed_attribute(self, signal):
-        self._log_executed_attribute(signal.attribute)
         if not self._stackless:
-            self._stack.pop()
-    
-    def _log_executed_attribute(self, attribute):
-        if self._stackless:
-            message = attribute.meta_qualname
+            message = self._stack.formatted
+            self._stack.pop()            
         else:
-            names = []
-            previous = self._stack[0]
-            names.append(previous.meta_qualname)
-            for attribute in self._stack[1:]:
-                current = attribute
-                if current.meta_module == previous.meta_module:
-                    names.append(current.meta_name)
-                else:
-                    names.append(current.meta_qualname) 
-                previous = current
-            message = '/'.join(names)
+            message = signal.attribute.meta_qualname            
         logger=logging.getLogger('executed')
         logger.info(message)
+        
+    @cachedproperty
+    def _stack(self):
+        return Stack()         
