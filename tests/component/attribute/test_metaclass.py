@@ -12,7 +12,7 @@ class AttributeMetaclassTest(unittest.TestCase):
     def setUp(self):
         self.metaclass = MockAttributeMetaclass
 
-    def test_abc_meta_subclass(self):
+    def test(self):
         self.assertTrue(issubclass(self.metaclass, ABCMeta))
 
     def test___call__(self):
