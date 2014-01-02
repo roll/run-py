@@ -1,0 +1,5 @@
+class Stack:
+
+    #Public
+
+    pass
