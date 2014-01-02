@@ -8,7 +8,7 @@ class DispatcherTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
+    def test_add_handler_and_add_signal(self):
         handler = Mock(handle=Mock() )
         dispatcher = Dispatcher()
         dispatcher.add_handler(handler)
