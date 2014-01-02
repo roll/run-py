@@ -29,4 +29,4 @@ class CommandTest(unittest.TestCase):
         
     def test_with_no_attribute(self):
         command = Command(['run'])
-        self.assertTrue(command.attribute, command._default_attribute)
+        self.assertEqual(command.attribute, command._default_attribute)
