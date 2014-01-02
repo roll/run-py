@@ -70,11 +70,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def meta_tags(self):
         return []
         
-    #TODO: list, info, meta now supports only 
-    #the module attributes (not base.render)
-    
-    #TODO: "if attribute and attribute in self.meta_attributes"
-    #works bad for attribute not in self.meta_attributes
+    #TODO: refactor list, info, meta (add "attr.attr" support)
         
     def list(self, attribute=None):
         "Print attributes"
