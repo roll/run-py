@@ -14,11 +14,11 @@ class InputVar(Var):
         self._text = text
         self._default = default
         self._options = options
-        self._attempts = attempts or self._default_attempts
-        self._input_operator = input_operator or self._default_input_operator
-        self._print_operator = print_operator or self._default_print_operator
-        self._prompt_template = prompt_template or self._default_prompt_template
-        self._error_template = error_template or self._default_error_template
+        self._initial_attempts = attempts
+        self._initial_input_operator = input_operator
+        self._initial_print_operator = print_operator
+        self._initial_prompt_template = prompt_template
+        self._initial_error_template = error_template
         
     def retrieve(self):
         for _ in range(0, self._attempts):
@@ -40,8 +40,8 @@ class InputVar(Var):
     #Protected
     
     _default_attempts = 3    
-    _default_input_operator = input
-    _default_print_operator = print
+    _default_input_operator = staticmethod(input)
+    _default_print_operator = staticmethod(print)
     _default_prompt_template = '{{ text }}'
     _default_error_template = 'Try again..'
     
@@ -62,6 +62,41 @@ class InputVar(Var):
         return {'text': self._text,
                 'default': self._default,
                 'options': self._options,}
+    
+    @property
+    def _attempts(self):
+        if self._initial_attempts:
+            return self._initial_attempts
+        else:
+            return self._default_attempts
+        
+    @property
+    def _input_operator(self):
+        if self._initial_input_operator:
+            return self._initial_input_operator
+        else:
+            return self._default_input_operator
+        
+    @property
+    def _print_operator(self):
+        if self._initial_print_operator:
+            return self._initial_print_operator
+        else:
+            return self._default_print_operator
+        
+    @property   
+    def _prompt_template(self):
+        if self._initial_prompt_template:
+            return self._initial_prompt_template
+        else:
+            return self._default_prompt_template
+     
+    @property
+    def _error_template(self):
+        if self._initial_error_template:
+            return self._initial_error_template
+        else:
+            return self._default_error_template
    
     
 class HiddenInputVar(InputVar):    
