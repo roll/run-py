@@ -1,16 +1,17 @@
 import inspect
 from abc import abstractmethod
+from ..dispatcher import NullDispatcher
 from ..settings import settings
 from .metaclass import AttributeMetaclass
 
-#TODO: add basedir
-#TODO: add is_bound
 class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
     def __meta_init__(self, args, kwargs):
         self.__module = kwargs.pop('module', None)
+        self.__dispatcher = kwargs.pop('dispatcher', None)
+        self.__basedir = kwargs.pop('basedir', None)        
         self.__signature = kwargs.pop('signature', None)
         self.__docstring = kwargs.pop('docstring', None)
     
@@ -25,18 +26,44 @@ class Attribute(metaclass=AttributeMetaclass):
     @abstractmethod
     def __set__(self, module, value):
         pass #pragma: no cover
-        
+       
     @property
     def meta_module(self):
         return self.__module
     
     @meta_module.setter
     def meta_module(self, module):
-        self.__module = module
+        if self.meta_is_bound:
+            #TODO: improve message
+            raise AttributeError('Cant\'t set attribute')
+        else:
+            self.__module = module
+     
+    @property
+    def meta_is_bound(self):
+        if self.meta_module:
+            attributes = self.meta_module.meta_attributes
+            for _, attribute in attributes.items():
+                    if attribute == self:
+                        return True
+        return False      
+       
+    @property
+    def meta_dispatcher(self):
+        if self.__dispatcher:
+            return self.__dispatcher
+        elif self.meta_module:
+            return self.meta_module.meta_dispatcher
+        else:
+            self.__dispatcher = NullDispatcher()
+            return self.__dispatcher
     
     @property
-    def meta_type(self):
-        return type(self).__name__
+    def meta_basedir(self):
+        if self.__basedir:
+            return self.__basedir
+        elif self.meta_module:
+            return self.meta_module.meta_basedir
     
     #TODO: fix qualname with main_module [] issue
     #TODO: remove and in if?
@@ -86,4 +113,8 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.__docstring:
             return self.__docstring
         else:
-            return inspect.getdoc(self)         
+            return inspect.getdoc(self)
+    
+    @property
+    def meta_type(self):
+        return type(self).__name__        

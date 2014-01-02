@@ -16,7 +16,7 @@ class VarTest(unittest.TestCase):
         self.var.retrieve.assert_called_with()
         self.var._initiated_signal_class.assert_called_with(self.var)
         self.var._retrieved_signal_class.assert_called_with(self.var)
-        self.var._dispatcher.add_signal.assert_has_calls(
+        self.var.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('retrieved_signal')])
         
     def test___set__(self):
@@ -31,9 +31,9 @@ class MockVar(Var):
     #Public
     
     retrieve = Mock(return_value='value')
+    meta_dispatcher = Mock(add_signal = Mock())
 
     #Protected
 
-    _dispatcher = Mock(add_signal = Mock())
     _initiated_signal_class = Mock(return_value='initiated_signal')
     _retrieved_signal_class = Mock(return_value='retrieved_signal')

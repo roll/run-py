@@ -102,6 +102,8 @@ class MockModule(Module):
     #Public
 
     attr1 = 'value1'
+    meta_dispatcher = Mock(add_signal=Mock())
+    meta_basedir = None
     
     #Protected
     

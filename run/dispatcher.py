@@ -11,6 +11,11 @@ class Dispatcher:
     def add_signal(self, signal):
         for handler in self._handlers:
             handler.handle(signal)
-        
-
-dispatcher = Dispatcher()
+            
+            
+class NullDispatcher(Dispatcher):
+    
+    #Public
+    
+    def add_handler(self): pass
+    def add_signal(self): pass           

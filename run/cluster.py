@@ -11,13 +11,15 @@ class Cluster:
                  path=settings.default_path,
                  file_pattern=settings.default_file, 
                  recursively=False, 
-                 existent=False):
+                 existent=False,
+                 dispatcher=None):
         self._names = names
         self._tags = tags
         self._path = path
         self._file_pattern = file_pattern
         self._recursively = recursively
         self._existent = existent
+        self._dispatcher = dispatcher
     
     def __getattr__(self, name):
         attributes = []
@@ -40,7 +42,8 @@ class Cluster:
     def _modules(self):
         modules = []
         for module_class in self._module_classes:
-            module = module_class(module=None)
+            module = module_class(
+                module=None, dispatcher=self._dispatcher)
             modules.append(module)
         return modules
         

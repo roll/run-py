@@ -1,5 +1,4 @@
 from ..dependent import DependentAttribute
-from ..dispatcher import dispatcher
 from .signal import InitiatedTaskSignal, CompletedTaskSignal
 
 class Task(DependentAttribute):
@@ -19,12 +18,12 @@ class Task(DependentAttribute):
             format(name=self.meta_name, task=self))
     
     def __call__(self, *args, **kwargs):
-        self._dispatcher.add_signal(
+        self.meta_dispatcher.add_signal(
             self._initiated_signal_class(self))
         self._resolve_requirements()
         result = self.complete(*args, **kwargs)
         self._process_triggers()
-        self._dispatcher.add_signal(
+        self.meta_dispatcher.add_signal(
             self._retrieved_signal_class(self))
         return result
     
@@ -33,6 +32,5 @@ class Task(DependentAttribute):
     
     #Protected
     
-    _dispatcher = dispatcher
     _initiated_signal_class = InitiatedTaskSignal
     _retrieved_signal_class = CompletedTaskSignal    
