@@ -70,7 +70,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def meta_tags(self):
         return []
         
-    #TODO: refactor list, info, meta (add "attr.attr" support)
+    #TODO: refactor list, info, meta (add "attr1.attr2" support)
         
     def list(self, attribute=None):
         "Print attributes"
