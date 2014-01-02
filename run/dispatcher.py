@@ -17,5 +17,5 @@ class NullDispatcher(Dispatcher):
     
     #Public
     
-    def add_handler(self): pass
-    def add_signal(self): pass           
+    def add_handler(self, handler): pass
+    def add_signal(self, signal): pass           
