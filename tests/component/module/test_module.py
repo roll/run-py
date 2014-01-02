@@ -82,11 +82,11 @@ class ModuleTest_with_module_is_main(ModuleTest):
         self.module._meta_print_operator.reset_mock()
         self.module.list()
         self.module._meta_print_operator.assert_has_calls([
-            call('module.attr1'), 
-            call('module.default'), 
-            call('module.info'), 
-            call('module.list'), 
-            call('module.meta')])        
+            call('[main_module] module.attr1'), 
+            call('[main_module] module.default'), 
+            call('[main_module] module.info'), 
+            call('[main_module] module.list'), 
+            call('[main_module] module.meta')])        
         
     def test_info(self):
         self.module._meta_print_operator.reset_mock()

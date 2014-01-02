@@ -38,6 +38,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_type(self):
         return type(self).__name__
     
+    #TODO: fix qualname with main_module [] issue
     #TODO: remove and in if?
     @property
     def meta_qualname(self):
