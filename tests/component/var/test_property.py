@@ -7,13 +7,17 @@ from run.var.property import PropertyVar
 class PropertyVarTest(unittest.TestCase):
 
     #Public
+    
+    def setUp(self):
+        self.prop = MockProperty()
+        self.var = PropertyVar(self.prop, module=None)
 
-    def test(self):
-        prop = MockProperty()
-        var = PropertyVar(prop, module=None)
-        self.assertEqual(var.meta_docstring, 'docstring')
-        self.assertEqual(var.retrieve(), 'value')
-        prop.__get__.assert_called_with(None, type(None))
+    def test_retrieve(self):
+        self.assertEqual(self.var.retrieve(), 'value')
+        self.prop.__get__.assert_called_with(None, type(None))
+
+    def test_meta_docstring(self):
+        self.assertEqual(self.var.meta_docstring, 'docstring')
         
     
 #Fixtures
@@ -21,5 +25,4 @@ class PropertyVarTest(unittest.TestCase):
 class MockProperty:
     """docstring"""
     
-    __get__ =  Mock(return_value='value')
-    
+    __get__ =  Mock(return_value='value')   
