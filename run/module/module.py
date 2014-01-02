@@ -108,9 +108,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
                 meta[key] = getattr(attribute, name)
-        #TODO: fix
-        pprint(meta)
-        #self._meta_formatted_print_operator(meta)
+        self._meta_formatted_print_operator(meta)
       
     default = Task(
         require=['list'],
@@ -119,5 +117,5 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     #Protected
     
     _meta_default_main_module_name = settings.default_main_module_name
-    _meta_print_operator = print
-    _meta_formatted_print_operator = pprint
+    _meta_formatted_print_operator = staticmethod(pprint)
+    _meta_print_operator = staticmethod(print)

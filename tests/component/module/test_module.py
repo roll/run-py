@@ -38,5 +38,5 @@ class MockModule(Module):
     
     #Protected
     
+    _meta_formatted_print_operator = Mock()
     _meta_print_operator = Mock()
-    _meta_pprint_operator = Mock()
