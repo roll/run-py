@@ -1,6 +1,5 @@
 import inspect
 from abc import abstractmethod
-from ..dispatcher import NullDispatcher
 from ..settings import settings
 from .metaclass import AttributeMetaclass
 
@@ -55,6 +54,7 @@ class Attribute(metaclass=AttributeMetaclass):
         elif self.meta_module:
             return self.meta_module.meta_dispatcher
         else:
+            from ..dispatcher import NullDispatcher
             self.__dispatcher = NullDispatcher()
             return self.__dispatcher
     
