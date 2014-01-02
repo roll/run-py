@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import Mock
 from run.dependent.task import DependentAttributeTask
 
 #Tests
@@ -12,8 +13,9 @@ class DependentAttributeTaskTest(unittest.TestCase):
         
     def test___call__(self):
         attr = MockAttribute()
-        self.assertEqual(self.task(attr), ((), {}))
-        self.assertEqual(self.task.is_executed, True)
+        attr.meta_module.task.reset_mock()
+        self.task(attr)
+        attr.meta_module.task.assert_called_with()
 
     def test_name(self):
         self.assertEqual(self.task.name, 'task')
@@ -33,13 +35,15 @@ class DependentAttributeTaskTest_with_args_and_kwargs(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.task = DependentAttributeTask(
-            ('task', ('arg',), {'kwarg': 'kwarg'}))
+        self.args = ('arg',)
+        self.kwargs = {'kwarg': 'kwarg'}
+        self.task = DependentAttributeTask(('task', self.args, self.kwargs))
         
     def test___call__(self):
         attr = MockAttribute()
-        self.assertEqual(self.task(attr), (('arg',), {'kwarg': 'kwarg'}))
-        self.assertEqual(self.task.is_executed, True)
+        attr.meta_module.task.reset_mock()
+        self.task(attr)
+        attr.meta_module.task.assert_called_with(*self.args, **self.kwargs)
         
     def test_args(self):
         self.assertEqual(self.task.args, ('arg',))
@@ -50,21 +54,8 @@ class DependentAttributeTaskTest_with_args_and_kwargs(unittest.TestCase):
     
 #Fixtures
 
-class MockModule:
-    
-    #Public
-    
-    def task(self, *args, **kwargs):
-        return (args, kwargs) 
-    
-    
 class MockAttribute:
     
     #Public
     
-    def __init__(self):
-        self._module = MockModule()
-    
-    @property
-    def meta_module(self):
-        return self._module    
+    meta_module = Mock(task=Mock())
