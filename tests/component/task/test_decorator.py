@@ -18,7 +18,7 @@ class TaskDecoratorTest(unittest.TestCase):
         self.assertIs(decorated, builder)
         self.decorator._add_dependency.assert_called_with(decorated)
         
-    def test___call__with_method_raw_method(self):
+    def test___call__with_method_is_raw_method(self):
         method = 'method'
         decorated = self.decorator(method)
         self.assertIsInstance(decorated, MockBuilder)
