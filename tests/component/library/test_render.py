@@ -1,5 +1,5 @@
 import unittest
-from run.modules.base.render import RenderTask
+from run.library import RenderTask
 
 class RenderTaskTest(unittest.TestCase):
 

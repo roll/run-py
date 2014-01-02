@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.modules.base.load import LoadModule
+from run.library.load import LoadModule
 
 #Tests
 
