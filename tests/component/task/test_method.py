@@ -6,12 +6,18 @@ from run.task.method import MethodTask
 class MethodTaskTest(unittest.TestCase):
 
     #Public
-
-    def test(self):
-        task = MockMethodTask(mock_method, module=None)
-        self.assertEqual(task.meta_signature, 'qualname(module, value)')
-        self.assertEqual(task.meta_docstring, 'docstring')
-        self.assertEqual(task.complete('value'), 'value')
+    
+    def setUp(self):
+        self.task = MockMethodTask(mock_method, module=None)
+        
+    def test_complete(self):        
+        self.assertEqual(self.task.complete('value'), 'value')
+        
+    def test_meta_signature(self):
+        self.assertEqual(self.task.meta_signature, 'qualname(module, value)')
+       
+    def test_meta_docstring(self):        
+        self.assertEqual(self.task.meta_docstring, 'docstring')
     
     
 #Fixtures
