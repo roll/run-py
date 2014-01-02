@@ -6,36 +6,46 @@ from run.dependent.task import DependentAttributeTask
 class DependentAttributeTaskTest(unittest.TestCase):
 
     #Public
-
-    def test(self):
-        attr = MockAttribute()
-        task = DependentAttributeTask('task')
-        self.assertEqual(task.name, 'task')
-        self.assertEqual(task.args, ())
-        self.assertEqual(task.kwargs, {})
-        self.assertEqual(task.is_executed, False)
-        self.assertEqual(task(attr), ((), {}))
-        self.assertEqual(task.is_executed, True)
     
-    def test_with_args(self):
-        attr = MockAttribute()
-        task = DependentAttributeTask(('task', ('arg',)))
-        self.assertEqual(task.name, 'task')
-        self.assertEqual(task.args, ('arg',))
-        self.assertEqual(task.kwargs, {})
-        self.assertEqual(task.is_executed, False)
-        self.assertEqual(task(attr), (('arg',),{}))
-        self.assertEqual(task.is_executed, True)
+    def setUp(self):
+        self.task = DependentAttributeTask('task')
         
-    def test_with_args_and_kwargs(self):
+    def test___call__(self):
         attr = MockAttribute()
-        task = DependentAttributeTask(('task', ('arg',), {'kwarg': 'kwarg'}))
-        self.assertEqual(task.name, 'task')
-        self.assertEqual(task.args, ('arg',))
-        self.assertEqual(task.kwargs, {'kwarg': 'kwarg'})
-        self.assertEqual(task.is_executed, False)
-        self.assertEqual(task(attr), (('arg',), {'kwarg': 'kwarg'}))
-        self.assertEqual(task.is_executed, True)        
+        self.assertEqual(self.task(attr), ((), {}))
+        self.assertEqual(self.task.is_executed, True)
+
+    def test_name(self):
+        self.assertEqual(self.task.name, 'task')
+        
+    def test_args(self):
+        self.assertEqual(self.task.args, ())
+        
+    def test_kwargs(self):
+        self.assertEqual(self.task.kwargs, {})
+        
+    def test_is_executed(self):
+        self.assertEqual(self.task.is_executed, False)
+        
+        
+class DependentAttributeTaskTest_with_args_and_kwargs(unittest.TestCase):
+
+    #Public
+    
+    def setUp(self):
+        self.task = DependentAttributeTask(
+            ('task', ('arg',), {'kwarg': 'kwarg'}))
+        
+    def test___call__(self):
+        attr = MockAttribute()
+        self.assertEqual(self.task(attr), (('arg',), {'kwarg': 'kwarg'}))
+        self.assertEqual(self.task.is_executed, True)
+        
+    def test_args(self):
+        self.assertEqual(self.task.args, ('arg',))
+        
+    def test_kwargs(self):
+        self.assertEqual(self.task.kwargs, {'kwarg': 'kwarg'})       
     
     
 #Fixtures
