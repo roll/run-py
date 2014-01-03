@@ -91,23 +91,19 @@ class Attribute(metaclass=AttributeMetaclass):
                 name = key
         return name
       
-    #TODO: remove hardcoded settings.default_main_module_name
-    #TODO: fix qualname with main_module [] issue
-    #TODO: remove and in if?
     @property
     def meta_qualname(self):
-        if (self.meta_module and 
-            self.meta_module.meta_name != 
-            settings.default_main_module_name):
-            if self.meta_module.meta_is_main_module:
-                pattern = '[{module_name}] {name}'
+        if self.meta_module.meta_is_main_module:
+            if (self.meta_module.meta_name ==
+                self._meta_default_main_module_name):
+                pattern = '{name}'
             else:
-                pattern = '{module_name}.{name}'
-            return pattern.format(
-                module_name=self.meta_module.meta_name, 
-                name=self.meta_name)
+                pattern = '[{module_qualname}] {name}'
         else:
-            return self.meta_name
+            pattern = '{module_qualname}.{name}'
+        return pattern.format(
+            module_qualname=self.meta_module.meta_qualname,
+            name=self.meta_name)
 
     @property
     def meta_signature(self):
@@ -121,6 +117,8 @@ class Attribute(metaclass=AttributeMetaclass):
         return type(self).__name__
     
     #Protected
+    
+    _meta_default_main_module_name = settings.default_main_module_name
     
     @property
     def _meta_null_module_class(self):

@@ -80,7 +80,8 @@ class MockMainModule:
     meta_attributes = {}    
     meta_dispatcher = Mock(add_signal=Mock())
     meta_is_main_module = True
-    meta_name = 'main_module'    
+    meta_name = 'main_module'
+    meta_qualname = 'main_module'    
 
     @property
     def meta_main_module(self):

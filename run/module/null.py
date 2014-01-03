@@ -27,6 +27,10 @@ class NullModule(BaseModule):
         #TODO: improve message
         raise AttributeError('Cant\'t set attribute')
     
+    @property
+    def meta_qualname(self):
+        return self.meta_name    
+    
     #Protected
     
     _meta_null_dispatcher_class = NullDispatcher

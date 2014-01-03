@@ -138,6 +138,7 @@ class MockMainModule:
     meta_dispatcher = 'dispatcher'
     meta_is_main_module = True
     meta_name = 'main_module'
+    meta_qualname = 'main_module'    
     
     @property
     def meta_main_module(self):

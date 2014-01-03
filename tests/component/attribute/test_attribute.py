@@ -162,6 +162,7 @@ class MockModule:
     meta_dispatcher = 'dispatcher'
     meta_is_main_module = False    
     meta_name = 'module'
+    meta_qualname = 'module'
     
     
 class MockMainModule(MockModule):
