@@ -1,6 +1,6 @@
 from .module import Module
 
-class NullModule(Module):
+class NoneModule(Module):
 
     #Public
 

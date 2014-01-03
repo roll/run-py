@@ -8,7 +8,7 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
 from .dispatcher import Dispatcher, NoneDispatcher
 from .failure import Failure
 from .loader import Loader
-from .module import ModuleBuilder, ModuleMetaclass, Module
+from .module import ModuleBuilder, ModuleMetaclass, Module, NoneModule
 from .program import Program, program
 from .run import Run
 from .settings import Settings, settings
