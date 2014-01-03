@@ -7,6 +7,7 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
+    #TODO: change __* to _meta_*?
     def __meta_init__(self, args, kwargs):
         self.__basedir = kwargs.pop('basedir', None)
         self.__dispatcher = kwargs.pop('dispatcher', None)                 
