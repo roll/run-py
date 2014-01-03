@@ -57,10 +57,6 @@ class Cluster:
     def _module_loader(self):
         return self._loader_class(names=self._names, tags=self._tags)
     
-    @cachedproperty   
-    def _logger(self):
-        return logging.getLogger(__name__)
-    
     @property
     def _basedir(self):
         if self._input_basedir:
@@ -74,3 +70,7 @@ class Cluster:
             return self._input_file_pattern
         else:
             return self._default_file_pattern  
+    
+    @cachedproperty   
+    def _logger(self):
+        return logging.getLogger(__name__)        

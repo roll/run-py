@@ -15,15 +15,12 @@ class Run:
     
     #TODO: refactor defaults
     def __init__(self, names=[], tags=[], 
-                 basedir=settings.default_basedir,
-                 file_pattern=settings.default_file, 
-                 recursively=False, 
-                 existent=False,
-                 stackless=False):
+                 basedir=None, file_pattern=None, recursively=False, 
+                 existent=False, stackless=False):
         self._names = names
         self._tags = tags
-        self._basedir = basedir
-        self._file_pattern = file_pattern
+        self._input_basedir = basedir
+        self._input_file_pattern = file_pattern
         self._recursively = recursively
         self._existent = existent 
         self._stackless = stackless
@@ -47,6 +44,9 @@ class Run:
          
     #Protected
     
+    _default_basedir = settings.default_basedir
+    _default_file_pattern = settings.default_file    
+    
     def _config(self):
         self._dispatcher.add_handler(CallbackHandler(
             self._on_initiated_attribute, 
@@ -67,11 +67,25 @@ class Run:
             recursively=self._recursively,
             existent=self._existent,
             dispatcher=self._dispatcher)
+    
+    @property
+    def _basedir(self):
+        if self._input_basedir:
+            return self._input_basedir
+        else:
+            return self._default_basedir
+        
+    @property
+    def _file_pattern(self):
+        if self._input_file_pattern:
+            return self._input_file_pattern
+        else:
+            return self._default_file_pattern 
  
     @cachedproperty
     def _dispatcher(self):
-        return Dispatcher()  
-     
+        return Dispatcher()
+    
     def _on_initiated_attribute(self, signal):
         if not self._stackless:
             self._stack.append(signal.attribute)   
