@@ -45,7 +45,6 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
         return attributes
     
     #TODO: fix opportunity to set basedir
-    #TODO: check correctness
     @property
     def meta_basedir(self):
         return os.path.dirname(inspect.getfile(type(self.meta_main_module)))
