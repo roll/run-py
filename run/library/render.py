@@ -10,8 +10,8 @@ class RenderTask(Task):
     
     #TODO: adjust to new basedir!
     def __init__(self, source, target, **kwargs):
-        self._init_source = source
-        self._init_target = target
+        self._source = source
+        self._target = target
         
     def complete(self):
         dirname, filename = os.path.split(os.path.abspath(self._source))
