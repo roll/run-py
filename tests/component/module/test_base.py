@@ -1,5 +1,6 @@
+import os
+import inspect
 import unittest
-from unittest.mock import Mock
 from run.module.base import BaseModule
 
 #Tests
@@ -27,6 +28,14 @@ class BaseModuleTest(unittest.TestCase):
     def test_meta_attributes(self):
         self.assertEqual(len(self.module.meta_attributes), 1)  
     
+    def test_meta_basedir(self):
+        self.assertEqual(self.module.meta_basedir, 
+                         os.path.dirname(inspect.getfile(type(self))))
+        
+    def test_meta_dispatcher(self):
+        self.assertEqual(self.module.meta_dispatcher, 
+                         self.module.meta_module.meta_dispatcher)
+        
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
     
@@ -77,8 +86,7 @@ class MockMainModule:
     #Public
     
     meta_attributes = {}
-    meta_basedir = None    
-    meta_dispatcher = Mock(add_signal=Mock())
+    meta_dispatcher = 'dispatcher'
     meta_is_main_module = True
     meta_name = 'main_module'
     
