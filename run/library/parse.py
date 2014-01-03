@@ -1,6 +1,6 @@
 import os
 import re
-from run import Var, settings
+from run import Var
 
 class ParseVar(Var):
     
