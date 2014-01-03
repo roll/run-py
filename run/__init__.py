@@ -5,7 +5,7 @@ from .cluster import Cluster
 from .command import Command
 from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask)
-from .dispatcher import Dispatcher
+from .dispatcher import Dispatcher, NoneDispatcher
 from .failure import Failure
 from .loader import Loader
 from .module import ModuleBuilder, ModuleMetaclass, Module

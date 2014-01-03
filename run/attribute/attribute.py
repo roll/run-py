@@ -54,8 +54,8 @@ class Attribute(metaclass=AttributeMetaclass):
         elif self.meta_module:
             return self.meta_module.meta_dispatcher
         else:
-            from ..dispatcher import NullDispatcher
-            self.__dispatcher = NullDispatcher()
+            from ..dispatcher import NoneDispatcher
+            self.__dispatcher = NoneDispatcher()
             return self.__dispatcher
     
     @property

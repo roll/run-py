@@ -13,7 +13,7 @@ class Dispatcher:
             handler.handle(signal)
             
             
-class NullDispatcher(Dispatcher):
+class NoneDispatcher(Dispatcher):
     
     #Public
     
