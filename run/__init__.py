@@ -13,6 +13,6 @@ from .program import Program, program
 from .run import Run
 from .settings import Settings, settings
 from .stack import Stack
-from .task import Task, MethodTask, TaskDecorator, require, trigger
+from .task import Task, FunctionTask, TaskDecorator, require, trigger
 from .var import Var, ValueVar, PropertyVar
 from .version import Version, version

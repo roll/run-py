@@ -23,8 +23,8 @@ class StackTest(unittest.TestCase):
         self.assertEqual(self.stack.formatted, '')
         
     def test_formatted_1_attributes(self):
-        self.stack.push('attribute')
-        self.assertEqual(self.stack.formatted, 'attribute')
+        self.stack.push(MockAttribute1())
+        self.assertEqual(self.stack.formatted, 'module1.attribute1')
         
     def test_formatted_attributes_with_same_modules(self):
         self.stack.push(MockAttribute1())

@@ -1,14 +1,14 @@
 import unittest
-from run.task.method import MethodTask
+from run.task.function import FunctionTask
 
 #Tests
 
-class MethodTaskTest(unittest.TestCase):
+class FunctionTaskTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        self.task = MockMethodTask(mock_method, module=None)
+        self.task = MockFunctionTask(mock_function, module=None)
         
     def test_complete(self):        
         self.assertEqual(self.task.complete('value'), 'value')
@@ -22,13 +22,13 @@ class MethodTaskTest(unittest.TestCase):
     
 #Fixtures
 
-class MockMethodTask(MethodTask):
+class MockFunctionTask(FunctionTask):
     
     #Public
     
     meta_qualname = 'qualname'
     
 
-def mock_method(module, value):
+def mock_function(module, value):
     """docstring"""
     return value

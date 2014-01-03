@@ -9,9 +9,7 @@ class Stack(list):
     @property
     def formatted(self):
         names = []
-        if len(self) == 1:
-            names = self
-        if len(self) >= 2:
+        if len(self) >= 1:
             previous = self[0]
             names.append(previous.meta_qualname)
             for attribute in self[1:]:
