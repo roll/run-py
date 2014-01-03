@@ -9,7 +9,15 @@ class NullModule(BaseModule):
     
     def __bool__(self):
         return False
-        
+    
+    @property
+    def meta_basedir(self):
+        return self._meta_default_path
+    
+    @cachedproperty
+    def meta_dispatcher(self):
+        return self._meta_dispatcher_class()
+     
     @property
     def meta_module(self):
         return self
@@ -18,14 +26,6 @@ class NullModule(BaseModule):
     def meta_module(self, module):
         #TODO: improve message
         raise AttributeError('Cant\'t set attribute')
-    
-    @cachedproperty
-    def meta_dispatcher(self):
-        return self._meta_dispatcher_class()
-    
-    @property
-    def meta_basedir(self):
-        return self._meta_default_path
     
     #Protected
     

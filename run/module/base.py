@@ -35,6 +35,14 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
                 'No attribute "{name}" '
                 'in module "{qualname}"'.format(
                 name=name, qualname=self.meta_qualname))
+            
+    @property
+    def meta_attributes(self):
+        attributes = {}
+        for name, attr in vars(type(self)).items():
+            if isinstance(attr, Attribute):
+                attributes[name] = attr
+        return attributes
     
     #TODO: fix opportunity to set basedir
     #TODO: check correctness
@@ -43,11 +51,11 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
         return os.path.dirname(inspect.getfile(type(self.meta_main_module)))
     
     @property
-    def meta_name(self):
-        if super().meta_name:
-            return super().meta_name
+    def meta_is_main_module(self):
+        if self == self.meta_main_module:
+            return True
         else:
-            return self._meta_default_main_module_name
+            return False
         
     @property
     def meta_main_module(self):
@@ -57,19 +65,11 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
             return self
         
     @property
-    def meta_is_main_module(self):
-        if self == self.meta_main_module:
-            return True
+    def meta_name(self):
+        if super().meta_name:
+            return super().meta_name
         else:
-            return False
-            
-    @property
-    def meta_attributes(self):
-        attributes = {}
-        for name, attr in vars(type(self)).items():
-            if isinstance(attr, Attribute):
-                attributes[name] = attr
-        return attributes
+            return self._meta_default_main_module_name
     
     @property
     def meta_tags(self):

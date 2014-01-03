@@ -17,30 +17,30 @@ class AttributeTest(unittest.TestCase):
     def test___repr__(self):
         self.assertTrue(repr( self.attribute))  
     
+    def test_meta_docstring(self):
+        self.assertEqual(self.attribute.meta_docstring, 'docstring') 
+        
+    def test_meta_info(self):
+        self.assertEqual(self.attribute.meta_info, 'docstring')
+           
     def test_meta_module(self):
         self.assertEqual(self.attribute.meta_module, None)
         
     def test_meta_module_setter(self):
         self.attribute.meta_module = 'module'
-        self.assertEqual(self.attribute.meta_module, 'module')
-    
-    def test_meta_type(self):
-        self.assertEqual(self.attribute.meta_type, 'MockAttribute')
-           
-    def test_meta_qualname(self):
-        self.assertEqual(self.attribute.meta_qualname, '')      
+        self.assertEqual(self.attribute.meta_module, 'module')    
     
     def test_meta_name(self):
         self.assertEqual(self.attribute.meta_name, '')       
-    
-    def test_meta_info(self):
-        self.assertEqual(self.attribute.meta_info, 'docstring')      
+           
+    def test_meta_qualname(self):
+        self.assertEqual(self.attribute.meta_qualname, '') 
     
     def test_meta_signature(self):
         self.assertEqual(self.attribute.meta_signature, '')
     
-    def test_meta_docstring(self):
-        self.assertEqual(self.attribute.meta_docstring, 'docstring')        
+    def test_meta_type(self):
+        self.assertEqual(self.attribute.meta_type, 'MockAttribute')
         
         
 class AttributeTest_with_module(AttributeTest):
