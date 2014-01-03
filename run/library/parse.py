@@ -6,6 +6,7 @@ class ParseVar(Var):
     
     #Public
     
+    #TODO: adjust to new basedir!    
     def __init__(self, file_pattern, text_pattern, *,
                  file_pattern_flags=0,                 
                  text_pattern_flags=0,
