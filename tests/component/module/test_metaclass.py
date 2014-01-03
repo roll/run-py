@@ -18,21 +18,21 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.assertIsInstance(MockModule.attribute_attr, Mock)
         self.assertIsInstance(MockModule.attribute_builder_attr, MagicMock)
         self.assertEqual(MockModule.abstract_function_attr, abstract_function)
-        self.assertEqual(MockModule.abstract_property_attr, abstract_property)
+        self.assertEqual(MockModule.abstract_descriptor_attr, abstract_descriptor)
         self.assertEqual(MockModule.function_attr, 'function_task_attr')
-        self.assertEqual(MockModule.property_attr, 'property_var_attr')
+        self.assertEqual(MockModule.descriptor_attr, 'descriptor_var_attr')
         self.assertEqual(MockModule.value_attr, 'value_var_attr')
         MockModuleMetaclass._function_task_class.assert_called_with(function)
-        MockModuleMetaclass._property_var_class.assert_called_with(prop)
+        MockModuleMetaclass._descriptor_var_class.assert_called_with(descriptor)
         MockModuleMetaclass._value_var_class.assert_called_with('value_attr')
     
     
 #Fixtures
 
 function = lambda: None
-prop = property(lambda: None)
+descriptor = property(lambda: None)
 abstract_function = abstractmethod(lambda: None)
-abstract_property = property(abstractmethod(lambda: None))
+abstract_descriptor = property(abstractmethod(lambda: None))
 
 class MockModuleMetaclass(ModuleMetaclass):
 
@@ -41,7 +41,7 @@ class MockModuleMetaclass(ModuleMetaclass):
     _attribute_class = Mock
     _attribute_builder_class = MagicMock
     _function_task_class = Mock(return_value='function_task_attr')
-    _property_var_class = Mock(return_value='property_var_attr')
+    _descriptor_var_class = Mock(return_value='descriptor_var_attr')
     _value_var_class = Mock(return_value='value_var_attr')
     
     
@@ -55,7 +55,7 @@ class MockModule(metaclass=MockModuleMetaclass):
     attribute_attr = Mock()
     attribute_builder_attr = MagicMock()
     abstract_function_attr = abstract_function
-    abstract_property_attr = abstract_property
+    abstract_descriptor_attr = abstract_descriptor
     function_attr = function
-    property_attr = prop
+    descriptor_attr = descriptor
     value_attr = 'value_attr'

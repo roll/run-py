@@ -1,7 +1,7 @@
 import inspect
 from ..attribute import AttributeBuilder, AttributeMetaclass, Attribute
 from ..task import FunctionTask
-from ..var import ValueVar, PropertyVar
+from ..var import ValueVar, DescriptorVar
 from .builder import ModuleBuilder
 
 class ModuleMetaclass(AttributeMetaclass):
@@ -25,7 +25,7 @@ class ModuleMetaclass(AttributeMetaclass):
             if callable(attr):
                 dct[key] = cls._function_task_class(attr)
             elif inspect.isdatadescriptor(attr):
-                dct[key] = cls._property_var_class(attr)
+                dct[key] = cls._descriptor_var_class(attr)
             else:
                 dct[key] = cls._value_var_class(attr)
         return super().__new__(cls, name, bases, dct)
@@ -37,5 +37,5 @@ class ModuleMetaclass(AttributeMetaclass):
     _attribute_class = Attribute
     _attribute_builder_class = AttributeBuilder
     _function_task_class = FunctionTask
-    _property_var_class = PropertyVar
+    _descriptor_var_class = DescriptorVar
     _value_var_class = ValueVar
