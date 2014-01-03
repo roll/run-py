@@ -8,13 +8,13 @@ class InputVarTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.var_draft = partial(InputVar, 'text', module=None)
+        self.var_draft = partial(InputVar, 'prompt', module=None)
     
     def test_retireve(self):
         input_operator = Mock(return_value='input')
         var = self.var_draft(input_operator=input_operator)
         self.assertEqual(var.retrieve(), 'input')
-        input_operator.assert_called_with('text')
+        input_operator.assert_called_with('prompt')
         
     def test_retireve_with_default(self):
         input_operator = Mock(return_value='')
