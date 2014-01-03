@@ -14,7 +14,8 @@ class PropertyVarTest(unittest.TestCase):
 
     def test_retrieve(self):
         self.assertEqual(self.var.retrieve(), 'value')
-        self.prop.__get__.assert_called_with(None, type(None))
+        self.prop.__get__.assert_called_with(
+            self.var.meta_module, type(self.var.meta_module))
 
     def test_meta_docstring(self):
         self.assertEqual(self.var.meta_docstring, 'docstring')
