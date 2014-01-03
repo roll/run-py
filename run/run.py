@@ -13,6 +13,7 @@ class Run:
     
     #Public
     
+    #TODO: refactor defaults
     def __init__(self, names=[], tags=[], 
                  basedir=settings.default_basedir,
                  file_pattern=settings.default_file, 
@@ -77,7 +78,7 @@ class Run:
 
     def _on_executed_attribute(self, signal):
         if not self._stackless:
-            message = self._stack.formatted
+            message = str(self._stack)
             self._stack.pop()            
         else:
             message = signal.attribute.meta_qualname            

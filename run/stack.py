@@ -2,12 +2,7 @@ class Stack(list):
 
     #Public
 
-    def push(self, attribute):
-        self.append(attribute)
-        
-    #TODO: rename?
-    @property
-    def formatted(self):
+    def __str__(self):
         names = []
         if len(self) >= 1:
             previous = self[0]
@@ -19,6 +14,7 @@ class Stack(list):
                 else:
                     names.append(current.meta_qualname) 
                 previous = current
-        formatted = '/'.join(names)
-        return formatted
-            
+        return '/'.join(names)
+    
+    def push(self, attribute):
+        self.append(attribute)     

@@ -19,23 +19,23 @@ class StackTest(unittest.TestCase):
         self.assertEqual(self.stack.pop(), 'attribute')
         self.assertFalse(self.stack)
         
-    def test_formatted_0_attributes(self):
-        self.assertEqual(self.stack.formatted, '')
+    def test___str___0_attributes(self):
+        self.assertEqual(str(self.stack), '')
         
-    def test_formatted_1_attributes(self):
+    def test___str___1_attributes(self):
         self.stack.push(MockAttribute1())
-        self.assertEqual(self.stack.formatted, 'module1.attribute1')
+        self.assertEqual(str(self.stack), 'module1.attribute1')
         
-    def test_formatted_attributes_with_same_modules(self):
+    def test___str___attributes_with_same_modules(self):
         self.stack.push(MockAttribute1())
         self.stack.push(MockAttribute1())
-        self.assertEqual(self.stack.formatted, 
+        self.assertEqual(str(self.stack), 
                          'module1.attribute1/attribute1')
         
-    def test_formatted_attributes_with_different_modules(self):
+    def test___str___attributes_with_different_modules(self):
         self.stack.push(MockAttribute1())
         self.stack.push(MockAttribute2())
-        self.assertEqual(self.stack.formatted, 
+        self.assertEqual(str(self.stack), 
                          'module1.attribute1/module2.attribute2')                 
         
         
