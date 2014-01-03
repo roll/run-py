@@ -6,7 +6,8 @@ class ModuleBuilder(AttributeBuilder):
     #Protected
     
     _attribute_builder_class = AttributeBuilder
-       
+     
+    #TODO: add no builded class (use effective_class) if no builders?   
     def _create_object(self):
         return object.__new__(self._builded_class)
     
