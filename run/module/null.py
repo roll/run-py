@@ -12,16 +12,22 @@ class NullModule(BaseModule):
         
     @property
     def meta_module(self):
-        return None
+        return self
+    
+    @meta_module.setter
+    def meta_module(self, module):
+        #TODO: improve message
+        raise AttributeError('Cant\'t set attribute')
     
     @cachedproperty
     def meta_dispatcher(self):
-        return NullDispatcher()
+        return self._meta_dispatcher_class()
     
     @property
     def meta_basedir(self):
-        return settings.default_path
+        return self._meta_default_path
     
-    @property
-    def meta_name(self):
-        return ''    
+    #Protected
+    
+    _meta_dispatcher_class = NullDispatcher
+    _meta_default_path = settings.default_path
