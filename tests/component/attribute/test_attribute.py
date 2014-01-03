@@ -141,9 +141,9 @@ class MockModule:
 
     #Public
 
-    meta_name = 'module'
-    meta_is_main_module = False
     meta_attributes = {}
+    meta_is_main_module = False    
+    meta_name = 'module'
     
     
 class MockMainModule(MockModule):
