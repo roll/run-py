@@ -16,7 +16,7 @@ class NullModule(BaseModule):
     
     @cachedproperty
     def meta_dispatcher(self):
-        return self._meta_dispatcher_class()
+        return self._meta_null_dispatcher_class()
      
     @property
     def meta_module(self):
@@ -29,5 +29,5 @@ class NullModule(BaseModule):
     
     #Protected
     
-    _meta_dispatcher_class = NullDispatcher
+    _meta_null_dispatcher_class = NullDispatcher
     _meta_default_path = settings.default_path

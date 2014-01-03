@@ -71,8 +71,7 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_module(self):
         if self.__module == None:
-            from ..module import NullModule
-            self.__module = NullModule(module=None)
+            self.__module = self._meta_null_module_class(module=None)
         return self.__module
     
     @meta_module.setter
@@ -118,4 +117,11 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_type(self):
-        return type(self).__name__        
+        return type(self).__name__
+    
+    #Protected
+    
+    @property
+    def _meta_null_module_class(self):
+        from ..module import NullModule
+        return NullModule

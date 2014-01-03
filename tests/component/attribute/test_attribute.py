@@ -17,14 +17,27 @@ class AttributeTest(unittest.TestCase):
     def test___repr__(self):
         self.assertTrue(repr( self.attribute))  
     
+    def test_meta_basedir(self):
+        self.assertEqual(self.attribute.meta_basedir,
+                         self.attribute.meta_module.meta_basedir)     
+    
+    def test_meta_dispatcher(self):
+        self.assertEqual(self.attribute.meta_dispatcher,
+                         self.attribute.meta_module.meta_dispatcher)     
+    
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, 'docstring') 
         
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 'docstring')
+        
+    def test_meta_is_bound(self):
+        self.assertEqual(self.attribute.meta_is_bound, False)        
            
     def test_meta_module(self):
-        self.assertEqual(self.attribute.meta_module, None)
+        #Null module
+        self.assertNotEqual(self.attribute.meta_module, None)
+        self.assertFalse(self.attribute.meta_module)
         
     def test_meta_module_setter(self):
         self.attribute.meta_module = 'module'
@@ -55,6 +68,9 @@ class AttributeTest_with_module(AttributeTest):
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 
                          'module.attribute'+'\n'+'docstring') 
+        
+    def test_meta_is_bound(self):
+        self.assertEqual(self.attribute.meta_is_bound, True)  
         
     def test_meta_module(self):
         self.assertEqual(self.attribute.meta_module, self.module)
@@ -142,6 +158,8 @@ class MockModule:
     #Public
 
     meta_attributes = {}
+    meta_basedir = 'basedir'
+    meta_dispatcher = 'dispatcher'
     meta_is_main_module = False    
     meta_name = 'module'
     

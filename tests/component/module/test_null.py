@@ -21,7 +21,7 @@ class NullModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_basedir, 'default_path')
         
     def test_meta_dispatcher(self):
-        self.assertEqual(self.module.meta_dispatcher, 'dispatcher')
+        self.assertEqual(self.module.meta_dispatcher, 'null_dispatcher')
         
     def test_meta_docstring(self):
         self.assertEqual(self.module.meta_docstring, 'docstring')        
@@ -69,5 +69,5 @@ class MockNullModule(NullModule):
     #Protected
     
     _meta_default_main_module_name = '__main__'
-    _meta_dispatcher_class = Mock(return_value='dispatcher')  
+    _meta_null_dispatcher_class = Mock(return_value='null_dispatcher')  
     _meta_default_path = 'default_path'   
