@@ -102,4 +102,4 @@ class HiddenInputVar(InputVar):
     
     #Protected
     
-    _default_input_operator = getpass    
+    _default_input_operator = staticmethod(getpass)
