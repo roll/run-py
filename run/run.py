@@ -44,18 +44,26 @@ class Run:
     #Protected
     
     _default_basedir = settings.default_basedir
-    _default_file_pattern = settings.default_file    
+    _default_file_pattern = settings.default_file
+    _dispatcher_class = Dispatcher
+    _callback_handler_class = CallbackHandler
     
     def _config(self):
-        self._dispatcher.add_handler(CallbackHandler(
-            self._on_initiated_attribute, 
-            signals=[InitiatedTaskSignal, 
-                     InitiatedVarSignal]))
-        self._dispatcher.add_handler(CallbackHandler(
-            self._on_executed_attribute, 
-            signals=[CompletedTaskSignal, 
-                     RetrievedVarSignal])) 
-        
+        self._dispatcher.add_handler(
+            self._callback_handler_class(
+                self._on_initiated_attribute, 
+                signals=[InitiatedTaskSignal, 
+                         InitiatedVarSignal]))
+        self._dispatcher.add_handler(
+            self._callback_handler_class(
+                self._on_executed_attribute, 
+                signals=[CompletedTaskSignal, 
+                         RetrievedVarSignal])) 
+ 
+    @cachedproperty
+    def _dispatcher(self):
+        return self._dispatcher_class()
+      
     @cachedproperty   
     def _cluster(self):
         return Cluster(
@@ -80,10 +88,6 @@ class Run:
             return self._input_file_pattern
         else:
             return self._default_file_pattern 
- 
-    @cachedproperty
-    def _dispatcher(self):
-        return Dispatcher()
     
     def _on_initiated_attribute(self, signal):
         if not self._stackless:
