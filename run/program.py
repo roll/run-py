@@ -16,6 +16,7 @@ class Program(Program):
          
     #Protected
     
+    #TODO: remove hardcoded logging, settings.logging
     def _config(self):
         logging.config.dictConfig(settings.logging)        
         logger = logging.getLogger()
