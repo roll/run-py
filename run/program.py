@@ -46,7 +46,7 @@ class Program(Program):
         return Run(
             names=self._command.names,
             tags=self._command.tags,
-            path=self._command.path, 
+            basedir=self._command.basedir, 
             file_pattern=self._command.file,
             recursively=self._command.recursively,
             existent=self._command.existent,

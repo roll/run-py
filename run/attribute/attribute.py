@@ -8,9 +8,9 @@ class Attribute(metaclass=AttributeMetaclass):
     #Public
     
     def __meta_init__(self, args, kwargs):
+        self.__basedir = kwargs.pop('basedir', None)
+        self.__dispatcher = kwargs.pop('dispatcher', None)                 
         self.__module = kwargs.pop('module', None)
-        self.__dispatcher = kwargs.pop('dispatcher', None)
-        self.__basedir = kwargs.pop('basedir', None)        
         self.__signature = kwargs.pop('signature', None)
         self.__docstring = kwargs.pop('docstring', None)
     

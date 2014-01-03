@@ -12,7 +12,7 @@ class NullModule(BaseModule):
     
     @property
     def meta_basedir(self):
-        return self._meta_default_path
+        return self._meta_default_basedir
     
     @cachedproperty
     def meta_dispatcher(self):
@@ -30,4 +30,4 @@ class NullModule(BaseModule):
     #Protected
     
     _meta_null_dispatcher_class = NullDispatcher
-    _meta_default_path = settings.default_path
+    _meta_default_basedir = settings.default_basedir

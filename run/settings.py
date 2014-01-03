@@ -7,11 +7,11 @@ class Settings(Settings):
     
     default_attribute = 'default'
     default_arguments = []
+    default_basedir = '.'    
     default_file = 'runfile.py'
     default_logging_level = 'WARNING'
     default_main_module_name = '__main__'
     default_names = []
-    default_path = '.'
     default_tags = []
     
     @property
@@ -31,7 +31,13 @@ class Settings(Settings):
                  'nargs':'*',
                  'default': self.default_arguments,
                  'help': 'Arguments for attribute.',
-                },    
+                }, 
+                {
+                 'dest': 'basedir',
+                 'flags': ['-b', '--basedir'],
+                 'default': self.default_basedir,
+                 'help': 'Base directory path.',
+                },                             
                 {
                  'dest': 'debug',
                  'action': 'store_true',
@@ -80,12 +86,6 @@ class Settings(Settings):
                  'default': self.default_names,
                  'help': 'Main modules names to match.',
                 },
-                {
-                 'dest': 'path',
-                 'flags': ['-p', '--path'],
-                 'default': self.default_path,
-                 'help': 'Base directory path.',
-                },     
                 {
                  'dest': 'quiet',
                  'action': 'store_true',

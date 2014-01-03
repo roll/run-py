@@ -10,13 +10,13 @@ class LoadModuleTest(unittest.TestCase):
 
     def test___new__(self):
         module = MockLoadModule(
-            names='names', tags='tags', path='path', 
+            names='names', tags='tags', basedir='basedir', 
             file_pattern='file_pattern', recursively='recursively')
         self.assertIsInstance(module, MockModule)
         (MockLoadModule._loader_class.assert_called_with(
             names='names', tags='tags'))
         MockLoader.load.assert_called_with(
-            'path', 'file_pattern', 'recursively')
+            'basedir', 'file_pattern', 'recursively')
         
     def test___new___no_modules(self):
         self.assertRaises(ImportError, NoModulesMockLoadModule)

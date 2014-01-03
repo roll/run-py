@@ -7,15 +7,16 @@ class Cluster:
 
     #Public
 
+    #TODO: refactor defaults
     def __init__(self, names=[], tags=[], 
-                 path=settings.default_path,
+                 basedir=settings.default_basedir,
                  file_pattern=settings.default_file, 
                  recursively=False, 
                  existent=False,
                  dispatcher=None):
         self._names = names
         self._tags = tags
-        self._path = path
+        self._basedir = basedir
         self._file_pattern = file_pattern
         self._recursively = recursively
         self._existent = existent
@@ -43,14 +44,16 @@ class Cluster:
         modules = []
         for module_class in self._module_classes:
             module = module_class(
-                module=None, dispatcher=self._dispatcher)
+                basedir=self._basedir, 
+                dispatcher=self._dispatcher,
+                module=None)
             modules.append(module)
         return modules
         
     @cachedproperty   
     def _module_classes(self):
         return list(self._module_loader.load(
-            self._path, self._file_pattern, self._recursively))
+            self._basedir, self._file_pattern, self._recursively))
         
     @cachedproperty   
     def _module_loader(self):

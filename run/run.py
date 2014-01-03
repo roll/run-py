@@ -14,14 +14,14 @@ class Run:
     #Public
     
     def __init__(self, names=[], tags=[], 
-                 path=settings.default_path,
+                 basedir=settings.default_basedir,
                  file_pattern=settings.default_file, 
                  recursively=False, 
                  existent=False,
                  stackless=False):
         self._names = names
         self._tags = tags
-        self._path = path
+        self._basedir = basedir
         self._file_pattern = file_pattern
         self._recursively = recursively
         self._existent = existent 
@@ -61,7 +61,7 @@ class Run:
         return Cluster(
             names=self._names,
             tags=self._tags,
-            path=self._path, 
+            basedir=self._basedir, 
             file_pattern=self._file_pattern,
             recursively=self._recursively,
             existent=self._existent,

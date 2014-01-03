@@ -11,7 +11,7 @@ class ClusterTest(unittest.TestCase):
     
     def setUp(self):
         self.cluster_draft = partial(MockCluster,
-            names='names', tags='tags', path='path', 
+            names='names', tags='tags', basedir='basedir', 
             file_pattern='file_pattern', recursively='recursively',
             existent='existent', dispatcher='dispatcher')
 
@@ -21,11 +21,11 @@ class ClusterTest(unittest.TestCase):
         #Check loader calls
         loader = cluster._module_loader
         loader.__init__.assert_called_with(names='names', tags='tags')
-        loader.load.assert_called_with('path', 'file_pattern', 'recursively')
+        loader.load.assert_called_with('basedir', 'file_pattern', 'recursively')
         #Check modules calls
         for module in cluster._modules:
             module.__init__.assert_called_with(
-                module=None, dispatcher='dispatcher')
+                basedir='basedir', dispatcher='dispatcher', module=None)
             
     def test___getattr__with_existent_is_false(self):
         cluster = self.cluster_draft(existent=False)
