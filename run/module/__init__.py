@@ -1,4 +1,4 @@
 from .builder import ModuleBuilder
 from .metaclass import ModuleMetaclass
 from .module import Module
-from .none import NoneModule
+from .null import NullModule

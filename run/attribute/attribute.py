@@ -15,9 +15,13 @@ class Attribute(metaclass=AttributeMetaclass):
         self.__docstring = kwargs.pop('docstring', None)
     
     def __repr__(self):
-        return '<{type} "{qualname}">'.format(
-            type=self.meta_type, qualname=self.meta_qualname)
-        
+        try:
+            return '<{type} "{qualname}">'.format(
+                type=self.meta_type, 
+                qualname=self.meta_qualname)
+        except Exception:
+            return super().__repr__()
+         
     @abstractmethod
     def __get__(self, module, module_class=None):
         pass #pragma: no cover
@@ -25,9 +29,12 @@ class Attribute(metaclass=AttributeMetaclass):
     @abstractmethod
     def __set__(self, module, value):
         pass #pragma: no cover
-       
+         
     @property
     def meta_module(self):
+        if self.__module == None:
+            from ..module import NullModule
+            self.__module = NullModule(module=None)
         return self.__module
     
     @meta_module.setter
@@ -40,29 +47,24 @@ class Attribute(metaclass=AttributeMetaclass):
      
     @property
     def meta_is_bound(self):
-        if self.meta_module:
-            attributes = self.meta_module.meta_attributes
-            for _, attribute in attributes.items():
-                    if attribute == self:
-                        return True
+        attributes = self.meta_module.meta_attributes
+        for attribute in attributes.values():
+                if attribute == self:
+                    return True
         return False      
        
     @property
     def meta_dispatcher(self):
-        if self.__dispatcher:
+        if self.__dispatcher != None:
             return self.__dispatcher
-        elif self.meta_module:
-            return self.meta_module.meta_dispatcher
         else:
-            from ..dispatcher import NoneDispatcher
-            self.__dispatcher = NoneDispatcher()
-            return self.__dispatcher
+            return self.meta_module.meta_dispatcher
     
     @property
     def meta_basedir(self):
-        if self.__basedir:
+        if self.__basedir != None:
             return self.__basedir
-        elif self.meta_module:
+        else:
             return self.meta_module.meta_basedir
     
     #TODO: fix qualname with main_module [] issue
@@ -85,11 +87,10 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_name(self):
         name = ''
-        if self.meta_module:
-            attributes = self.meta_module.meta_attributes
-            for key, attribute in attributes.items():
-                if attribute == self:
-                    name = key
+        attributes = self.meta_module.meta_attributes
+        for key, attribute in attributes.items():
+            if attribute is self:
+                name = key
         return name
 
     @property
@@ -103,14 +104,14 @@ class Attribute(metaclass=AttributeMetaclass):
 
     @property
     def meta_signature(self):
-        if self.__signature:
+        if self.__signature != None:
             return self.__signature
         else:
             return self.meta_qualname    
     
     @property
     def meta_docstring(self):
-        if self.__docstring:
+        if self.__docstring != None:
             return self.__docstring
         else:
             return inspect.getdoc(self)
