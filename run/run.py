@@ -47,6 +47,7 @@ class Run:
     _default_file_pattern = settings.default_file
     _dispatcher_class = Dispatcher
     _callback_handler_class = CallbackHandler
+    _logging_module = logging
     
     def _config(self):
         self._dispatcher.add_handler(
@@ -99,7 +100,7 @@ class Run:
             self._stack.pop()            
         else:
             message = signal.attribute.meta_qualname            
-        logger=logging.getLogger('executed')
+        logger=self._logging_module.getLogger('executed')
         logger.info(message)
         
     @cachedproperty
