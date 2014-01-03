@@ -10,7 +10,6 @@ class RenderTask(Task):
     
     #TODO: adjust to new basedir!
     def __init__(self, source, target, **kwargs):
-        super().__init__(**kwargs)
         self._source = source
         self._target = target
         
