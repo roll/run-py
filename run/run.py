@@ -13,7 +13,6 @@ class Run:
     
     #Public
     
-    #TODO: refactor defaults
     def __init__(self, names=[], tags=[], 
                  basedir=None, file_pattern=None, recursively=False, 
                  existent=False, stackless=False):
