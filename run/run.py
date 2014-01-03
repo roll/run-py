@@ -43,23 +43,28 @@ class Run:
          
     #Protected
     
-    _default_basedir = settings.default_basedir
-    _default_file_pattern = settings.default_file
     _dispatcher_class = Dispatcher
+    _cluster_class = Cluster
     _callback_handler_class = CallbackHandler
+    _initiated_task_signal_class = InitiatedTaskSignal
+    _initiated_var_signal_class = InitiatedVarSignal
+    _completed_task_signal_class = CompletedTaskSignal
+    _retrieved_var_signal_class = RetrievedVarSignal
+    _default_basedir = settings.default_basedir
+    _default_file_pattern = settings.default_file        
     _logging_module = logging
     
     def _config(self):
         self._dispatcher.add_handler(
             self._callback_handler_class(
                 self._on_initiated_attribute, 
-                signals=[InitiatedTaskSignal, 
-                         InitiatedVarSignal]))
+                signals=[self._initiated_task_signal_class, 
+                         self._initiated_var_signal_class]))
         self._dispatcher.add_handler(
             self._callback_handler_class(
                 self._on_executed_attribute, 
-                signals=[CompletedTaskSignal, 
-                         RetrievedVarSignal])) 
+                signals=[self._completed_task_signal_class, 
+                         self._retrieved_var_signal_class])) 
  
     @cachedproperty
     def _dispatcher(self):
@@ -67,7 +72,7 @@ class Run:
       
     @cachedproperty   
     def _cluster(self):
-        return Cluster(
+        return self._cluster_class(
             names=self._names,
             tags=self._tags,
             basedir=self._basedir, 
