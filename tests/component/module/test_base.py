@@ -35,18 +35,46 @@ class BaseModuleTest(unittest.TestCase):
     def test_meta_dispatcher(self):
         self.assertEqual(self.module.meta_dispatcher, 
                          self.module.meta_module.meta_dispatcher)
+    
+    def test_meta_docstring(self):
+        self.assertEqual(self.module.meta_docstring, 'docstring')
+        
+    def test_meta_info(self):
+        self.assertEqual(self.module.meta_info, 
+                         '__main__'+'\n'+'docstring') 
+        
+    def test_meta_is_bound(self):
+        self.assertEqual(self.module.meta_is_bound, False)               
         
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
     
     def test_meta_main_module(self):
         self.assertIs(self.module.meta_main_module, self.module)
-          
+   
+    def test_meta_module(self):
+        #Null module
+        self.assertNotEqual(self.module.meta_module, None)
+        self.assertFalse(self.module.meta_module)
+        
+    def test_meta_module_setter(self):
+        self.module.meta_module = 'module'
+        self.assertEqual(self.module.meta_module, 'module')         
+            
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, '__main__')
         
+    def test_meta_qualname(self):
+        self.assertEqual(self.module.meta_qualname, '__main__')        
+        
+    def test_meta_signature(self):
+        self.assertEqual(self.module.meta_signature, '__main__')
+        
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
+        
+    def test_meta_type(self):
+        self.assertEqual(self.module.meta_type, 'MockBaseModuleBuilded')          
         
         
 class ModuleTest_with_module_is_main(BaseModuleTest):
@@ -57,20 +85,41 @@ class ModuleTest_with_module_is_main(BaseModuleTest):
         self.main_module = MockMainModule()
         self.module = MockBaseModule(module=self.main_module)
         self.main_module.meta_attributes = {'module': self.module}
+    
+    def test_meta_info(self):
+        self.assertEqual(self.module.meta_info, 
+                         '[main_module] module'+'\n'+'docstring') 
+        
+    def test_meta_is_bound(self):
+        self.assertEqual(self.module.meta_is_bound, True)        
         
     def test_meta_is_main_module(self):
         self.assertFalse(self.module.meta_is_main_module)  
         
     def test_meta_main_module(self):
         self.assertIs(self.module.meta_main_module, self.main_module)  
-         
+   
+    def test_meta_module(self):
+        self.assertEqual(self.module.meta_module, self.main_module)
+        
+    def test_meta_module_setter(self):
+        self.assertRaises(AttributeError, 
+            setattr, self.module, 'meta_module', 'module')          
+           
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, 'module')
-    
+        
+    def test_meta_qualname(self):
+        self.assertEqual(self.module.meta_qualname, '[main_module] module')         
+        
+    def test_meta_signature(self):
+        self.assertEqual(self.module.meta_signature, '[main_module] module') 
+        
     
 #Fixtures
 
 class MockBaseModule(BaseModule):
+    """docstring"""
 
     #Public
 
