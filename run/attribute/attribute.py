@@ -91,6 +91,7 @@ class Attribute(metaclass=AttributeMetaclass):
                 name = key
         return name
       
+    #TODO: remove hardcoded settings.default_main_module_name
     #TODO: fix qualname with main_module [] issue
     #TODO: remove and in if?
     @property
