@@ -7,17 +7,12 @@ class Cluster:
 
     #Public
 
-    #TODO: refactor defaults
-    def __init__(self, names=[], tags=[], 
-                 basedir=settings.default_basedir,
-                 file_pattern=settings.default_file, 
-                 recursively=False, 
-                 existent=False,
-                 dispatcher=None):
+    def __init__(self, names=[], tags=[], basedir=None,  file_pattern=None, 
+                 recursively=False, existent=False, dispatcher=None):
         self._names = names
         self._tags = tags
-        self._basedir = basedir
-        self._file_pattern = file_pattern
+        self._input_basedir = basedir
+        self._input_file_pattern = file_pattern
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
@@ -38,6 +33,8 @@ class Cluster:
     #Protected
     
     _loader_class = Loader
+    _default_basedir = settings.default_basedir
+    _default_file_pattern = settings.default_file
         
     @cachedproperty
     def _modules(self):
@@ -61,4 +58,18 @@ class Cluster:
     
     @cachedproperty   
     def _logger(self):
-        return logging.getLogger(__name__)  
+        return logging.getLogger(__name__)
+    
+    @property
+    def _basedir(self):
+        if self._input_basedir:
+            return self._input_basedir
+        else:
+            return self._default_basedir
+        
+    @property
+    def _file_pattern(self):
+        if self._input_file_pattern:
+            return self._input_file_pattern
+        else:
+            return self._default_file_pattern  
