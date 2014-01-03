@@ -7,8 +7,9 @@ class Cluster:
 
     #Public
 
-    def __init__(self, names=[], tags=[], basedir=None,  file_pattern=None, 
-                 recursively=False, existent=False, dispatcher=None):
+    def __init__(self, names=[], tags=[], 
+                 basedir=None, file_pattern=None, recursively=False, 
+                 existent=False, dispatcher=None):
         self._names = names
         self._tags = tags
         self._input_basedir = basedir
