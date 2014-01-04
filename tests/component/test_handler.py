@@ -2,20 +2,13 @@ import unittest
 from unittest.mock import Mock
 from run.handler import CallbackHandler
 
-#Tests
-
 class CallbackHandlerTest(unittest.TestCase):
 
     #Public
 
     def test_handle(self):
         callback = Mock()
-        signal = MockSignal()
-        handler = CallbackHandler(callback, signals=[MockSignal])
+        signal = Mock()
+        handler = CallbackHandler(callback, signals=[Mock])
         handler.handle(signal)
         callback.assert_called_with(signal)
-        
-    
-#Fixtures
-
-class MockSignal: pass    

@@ -2,8 +2,6 @@ import unittest
 from unittest.mock import Mock
 from run.dispatcher import Dispatcher
 
-#Tests
-
 class DispatcherTest(unittest.TestCase):
 
     #Public

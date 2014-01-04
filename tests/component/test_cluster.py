@@ -3,8 +3,6 @@ from functools import partial
 from unittest.mock import Mock
 from run.cluster import Cluster
 
-#Tests
-
 class ClusterTest(unittest.TestCase):
 
     #Public
