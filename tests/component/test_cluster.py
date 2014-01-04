@@ -31,7 +31,7 @@ class ClusterTest(unittest.TestCase):
     def test__modules(self):
         cluster = self.cluster_constructor()
         cluster._modules
-        for module in cluster._modules:
+        for module in cluster._loader_class.load.return_value:
             module.__init__.assert_called_with(
                 basedir='basedir', dispatcher='dispatcher', module=None)
         
