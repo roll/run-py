@@ -10,13 +10,13 @@ class ClusterTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.cluster_draft = partial(MockCluster,
+        self.cluster_constructor = partial(MockCluster,
             names='names', tags='tags', basedir='basedir', 
             file_pattern='file_pattern', recursively='recursively',
             existent='existent', dispatcher='dispatcher')
 
     def test___getattr__(self):
-        cluster = self.cluster_draft()
+        cluster = self.cluster_constructor()
         self.assertEqual(cluster.attr1, [1, 2, 3])
         #Check loader calls
         loader = cluster._module_loader
@@ -28,11 +28,11 @@ class ClusterTest(unittest.TestCase):
                 basedir='basedir', dispatcher='dispatcher', module=None)
             
     def test___getattr__with_existent_is_false(self):
-        cluster = self.cluster_draft(existent=False)
+        cluster = self.cluster_constructor(existent=False)
         self.assertRaises(AttributeError, getattr, cluster, 'attr2')
         
     def test___getattr___with_existent_is_true(self):
-        cluster = self.cluster_draft(existent=True)
+        cluster = self.cluster_constructor(existent=True)
         self.assertEqual(cluster.attr2, [1])           
         
 
