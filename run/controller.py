@@ -11,7 +11,7 @@ class Controller:
     
     def __init__(self, dispatcher, stackless=False):
         self._dispatcher = dispatcher
-        self._stackkess = stackless
+        self._stackless = stackless
         
     def listen(self):
         self._dispatcher.add_handler(

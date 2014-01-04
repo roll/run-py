@@ -2,6 +2,7 @@ from .attribute import (AttributeBuilder, AttributeBuilderUpdate,
                         AttributeBuilderSet, AttributeBuilderCall,
                         AttributeMetaclass, Attribute, AttributeSignal)
 from .cluster import Cluster
+from .controller import Controller
 from .command import Command
 from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask)
