@@ -47,6 +47,8 @@ class AttributeBuilderTest(unittest.TestCase):
                 kwargs.pop('kwarg2')
         return MockAttribute
     
+    #TODO: find and remove all cases like self.mock_set (use parameters)
+    #TOOD: find them by "def _make_mock"
     def _make_mock_attribute_builder_class(self):             
         class MockAttributeBuilder(AttributeBuilder): 
             #Protected
