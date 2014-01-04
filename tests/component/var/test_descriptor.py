@@ -2,8 +2,6 @@ import unittest
 from unittest.mock import Mock
 from run.var.descriptor import DescriptorVar
 
-#Tests
-
 class PropertyVarTest(unittest.TestCase):
 
     #Public
