@@ -3,8 +3,6 @@ import inspect
 import unittest
 from run.module.base import BaseModule
 
-#Tests
-
 class BaseModuleTest(unittest.TestCase):
 
     #Public
