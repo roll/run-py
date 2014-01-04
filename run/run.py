@@ -9,6 +9,7 @@ from .stack import Stack
 from .task import Task, InitiatedTaskSignal, CompletedTaskSignal
 from .var import InitiatedVarSignal, RetrievedVarSignal
 
+#TODO: split to Run/Registrar?
 class Run:
     
     #Public
