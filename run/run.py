@@ -1,15 +1,11 @@
-import logging
 from lib31.python import cachedproperty
 from .cluster import Cluster
+from .controller import Controller
 from .dispatcher import Dispatcher
 from .failure import Failure
-from .handler import CallbackHandler
 from .settings import settings
-from .stack import Stack
-from .task import Task, InitiatedTaskSignal, CompletedTaskSignal
-from .var import InitiatedVarSignal, RetrievedVarSignal
+from .task import Task
 
-#TODO: split to Run/Registrar?
 class Run:
     
     #Public
@@ -24,10 +20,10 @@ class Run:
         self._recursively = recursively
         self._existent = existent 
         self._stackless = stackless
-        self._config()
                 
     def run(self, attribute, *args, **kwargs):
         try:
+            self._controller.listen()
             attributes = getattr(self._cluster, attribute)
             for attribute in attributes:
                 if isinstance(attribute, self._task_class):
@@ -36,44 +32,32 @@ class Run:
                         self._print_operator(result)
                 else:
                     self._print_operator(attribute)
-        except Failure:
+        except self._failure_class:
             pass
         #TODO: implement
         except Exception as exception:
-            raise Failure(exception)
+            raise self._failure_class(exception)
          
     #Protected
     
     _print_operator = staticmethod(print)
+    _default_basedir = settings.default_basedir
+    _default_file_pattern = settings.default_file  
     _task_class = Task
+    _failure_class = Failure
+    _controller_class = Controller
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
-    _callback_handler_class = CallbackHandler
-    _initiated_task_signal_class = InitiatedTaskSignal
-    _initiated_var_signal_class = InitiatedVarSignal
-    _completed_task_signal_class = CompletedTaskSignal
-    _retrieved_var_signal_class = RetrievedVarSignal
-    _default_basedir = settings.default_basedir
-    _default_file_pattern = settings.default_file        
-    _logging_module = logging
-    _stack_class = Stack
     
-    def _config(self):
-        self._dispatcher.add_handler(
-            self._callback_handler_class(
-                self._on_initiated_attribute, 
-                signals=[self._initiated_task_signal_class, 
-                         self._initiated_var_signal_class]))
-        self._dispatcher.add_handler(
-            self._callback_handler_class(
-                self._on_executed_attribute, 
-                signals=[self._completed_task_signal_class, 
-                         self._retrieved_var_signal_class])) 
- 
+    @cachedproperty
+    def _controller(self):
+        return self._controller_class(
+            self._dispatcher, stackless=self._stackless)
+    
     @cachedproperty
     def _dispatcher(self):
         return self._dispatcher_class()
-      
+    
     @cachedproperty   
     def _cluster(self):
         return self._cluster_class(
@@ -97,21 +81,4 @@ class Run:
         if self._input_file_pattern:
             return self._input_file_pattern
         else:
-            return self._default_file_pattern 
-    
-    def _on_initiated_attribute(self, signal):
-        if not self._stackless:
-            self._stack.push(signal.attribute)   
-
-    def _on_executed_attribute(self, signal):
-        if not self._stackless:
-            message = str(self._stack)
-            self._stack.pop()            
-        else:
-            message = signal.attribute.meta_qualname            
-        logger=self._logging_module.getLogger('executed')
-        logger.info(message)
-        
-    @cachedproperty
-    def _stack(self):
-        return self._stack_class()         
+            return self._default_file_pattern    
