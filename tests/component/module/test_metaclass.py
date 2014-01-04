@@ -3,8 +3,6 @@ from abc import abstractmethod
 from unittest.mock import Mock, MagicMock
 from run.module.metaclass import ModuleMetaclass
 
-#Tests
-
 class ModuleMetaclassTest(unittest.TestCase):
 
     #Public
