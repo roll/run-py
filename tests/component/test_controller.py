@@ -3,13 +3,12 @@ from functools import partial
 from unittest.mock import Mock, call
 from run.controller import Controller
 
-#Tests
-
 class ControllerTest(unittest.TestCase):
 
-    #Public
+    #Tests
     
     def setUp(self):
+        MockController = self._make_mock_controller_class()
         self.dispatcher = Mock(add_handler=Mock())
         self.controller_draft = partial(MockController, self.dispatcher)
         self.signal = Mock(attribute=Mock(meta_qualname='attr_qualname'))
@@ -44,25 +43,26 @@ class ControllerTest(unittest.TestCase):
         controller = self.controller_draft(stackless=True)
         controller._on_executed_attribute(self.signal)
         (controller._logging_module.getLogger.return_value.info.
-            assert_called_with('attr_qualname'))                     
+            assert_called_with('attr_qualname'))
         
     def test__stack(self):
         controller = self.controller_draft()
         controller._stack
-        controller._stack_class.assert_called_with()               
+        controller._stack_class.assert_called_with()
     
+    #Fixtures
     
-#Fixtures  
-
-class MockController(Controller):
-
-    #Protected
-
-    _callback_handler_class = Mock(return_value=Mock())
-    _initiated_task_signal_class = 'initiated_task'
-    _initiated_var_signal_class = 'initiated_var'
-    _completed_task_signal_class = 'completed_task'
-    _retrieved_var_signal_class = 'retrieved_var'
-    _logging_module = Mock(getLogger=Mock(return_value=Mock(info=Mock())))
-    _stack_class = Mock(return_value=Mock(
-        __str__=Mock(return_value='stack'), push=Mock(), pop=Mock()))
+    def _make_mock_controller_class(self):
+        class MockController(Controller):
+            #Protected
+            _callback_handler_class = Mock(return_value=Mock())
+            _initiated_task_signal_class = 'initiated_task'
+            _initiated_var_signal_class = 'initiated_var'
+            _completed_task_signal_class = 'completed_task'
+            _retrieved_var_signal_class = 'retrieved_var'
+            _logging_module = Mock(getLogger=Mock(
+                return_value=Mock(info=Mock())))
+            _stack_class = Mock(return_value=Mock(
+                __str__=Mock(return_value='stack'), 
+                push=Mock(), pop=Mock()))         
+        return MockController
