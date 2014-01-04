@@ -11,7 +11,6 @@ class ModuleTest(unittest.TestCase):
         self.module = MockModule(module=None)              
     
     def test_list(self):
-        self.module._meta_print_operator.reset_mock()
         self.module.list()
         self.module._meta_print_operator.assert_has_calls([
             call('attr1'), 
@@ -21,12 +20,10 @@ class ModuleTest(unittest.TestCase):
             call('meta')])
     
     def test_info(self):
-        self.module._meta_print_operator.reset_mock()
         self.module.info()  
         self.module._meta_print_operator.assert_called_with('__main__')
     
     def test_meta(self):
-        self.module._meta_print_operator.reset_mock()
         self.module.meta()           
         self.assertTrue(self.module._meta_formatted_print_operator.called)
         
@@ -55,7 +52,6 @@ class ModuleTest_with_module_is_main(ModuleTest):
         self.main_module.meta_attributes = {'module': self.module}
         
     def test_list(self):
-        self.module._meta_print_operator.reset_mock()
         self.module.list()
         self.module._meta_print_operator.assert_has_calls([
             call('[main_module] module.attr1'), 
@@ -65,7 +61,6 @@ class ModuleTest_with_module_is_main(ModuleTest):
             call('[main_module] module.meta')])        
         
     def test_info(self):
-        self.module._meta_print_operator.reset_mock()
         self.module.info()  
         (self.module._meta_print_operator.
             assert_called_with('[main_module] module'))                        
