@@ -1,13 +1,13 @@
 import unittest
 from run.task.function import FunctionTask
 
-#Tests
-
 class FunctionTaskTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
+        MockFunctionTask = self._make_mock_function_task_class()
+        mock_function = self._make_mock_function()
         self.task = MockFunctionTask(mock_function, module=None)
         
     def test_complete(self):        
@@ -18,17 +18,17 @@ class FunctionTaskTest(unittest.TestCase):
        
     def test_meta_docstring(self):        
         self.assertEqual(self.task.meta_docstring, 'docstring')
+        
+    #Protected
     
+    def _make_mock_function_task_class(self):
+        class MockFunctionTask(FunctionTask):
+            #Public
+            meta_qualname = 'qualname'
+        return MockFunctionTask
     
-#Fixtures
-
-class MockFunctionTask(FunctionTask):
-    
-    #Public
-    
-    meta_qualname = 'qualname'
-    
-
-def mock_function(module, value):
-    """docstring"""
-    return value
+    def _make_mock_function(self):
+        def mock_function(module, value):
+            """docstring"""
+            return value
+        return mock_function    
