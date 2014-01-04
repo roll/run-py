@@ -8,10 +8,12 @@ class DependentAttributeTest(unittest.TestCase):
     
     def setUp(self):
         self.MockTask = self._make_mock_task_class()
-        self.MockDependentAttribute = self._make_mock_dependent_attribute_class()
+        self.MockDependentAttribute = (self.
+            _make_mock_dependent_attribute_class())
 
     def test_require_and_resolve_requirments(self):
-        attribute = self.MockDependentAttribute(require=['task1'], module=None)
+        attribute = self.MockDependentAttribute(
+            require=['task1'], module=None)
         attribute.require(['task2', 'task2'])
         attribute.require(['task3'])
         attribute.require(['task3'], disable=True)
@@ -22,7 +24,8 @@ class DependentAttributeTest(unittest.TestCase):
             call(attribute, task='task2')])
     
     def test_trigger_and_process_triggers(self):
-        attribute = self.MockDependentAttribute(trigger=['task1'], module=None)
+        attribute = self.MockDependentAttribute(
+            trigger=['task1'], module=None)
         attribute.trigger(['task2', 'task2'])
         attribute.trigger(['task3'])
         attribute.trigger(['task3'], disable=True)

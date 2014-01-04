@@ -8,7 +8,7 @@ class DependentAttributeBuilderTest(unittest.TestCase):
     
     def setUp(self):
         MockDependentAttributeBuilder = (self.
-         _make_dependent_attribute_builder_class())
+            _make_dependent_attribute_builder_class())
         self.builder = MockDependentAttributeBuilder(None)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
