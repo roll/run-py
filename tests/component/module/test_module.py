@@ -2,13 +2,12 @@ import unittest
 from unittest.mock import Mock, call
 from run.module.module import Module
 
-#Tests
-
 class ModuleTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
+        MockModule = self._make_mock_module_class()
         self.module = MockModule(module=None)              
     
     def test_list(self):
@@ -31,12 +30,26 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()           
         self.assertTrue(self.module._meta_formatted_print_operator.called)
         
+    #Protected
+    
+    def _make_mock_module_class(self):
+        class MockModule(Module):
+            #Public
+            attr1 = 'value1'
+            #Protected
+            _meta_default_main_module_name = '__main__'
+            _meta_formatted_print_operator = Mock()
+            _meta_print_operator = Mock()
+        return MockModule
+        
         
 class ModuleTest_with_module_is_main(ModuleTest):
 
     #Public
     
     def setUp(self):
+        MockModule = self._make_mock_module_class()
+        MockMainModule = self._make_mock_main_module_class()
         self.main_module = MockMainModule()
         self.module = MockModule(module=self.main_module)
         self.main_module.meta_attributes = {'module': self.module}
@@ -57,32 +70,17 @@ class ModuleTest_with_module_is_main(ModuleTest):
         (self.module._meta_print_operator.
             assert_called_with('[main_module] module'))                        
     
-    
-#Fixtures
-
-class MockModule(Module):
-
-    #Public
-
-    attr1 = 'value1'
-    
     #Protected
     
-    _meta_default_main_module_name = '__main__'
-    _meta_formatted_print_operator = Mock()
-    _meta_print_operator = Mock()
-    
-    
-class MockMainModule:
-
-    #Public
-    
-    meta_attributes = {}    
-    meta_dispatcher = Mock(add_signal=Mock())
-    meta_is_main_module = True
-    meta_name = 'main_module'
-    meta_qualname = 'main_module'    
-
-    @property
-    def meta_main_module(self):
-        return self    
+    def _make_mock_main_module_class(self):
+        class MockMainModule:
+            #Public
+            meta_attributes = {}    
+            meta_dispatcher = Mock(add_signal=Mock())
+            meta_is_main_module = True
+            meta_name = 'main_module'
+            meta_qualname = 'main_module'    
+            @property
+            def meta_main_module(self):
+                return self
+        return MockMainModule 
