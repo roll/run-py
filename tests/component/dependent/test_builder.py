@@ -2,13 +2,13 @@ import unittest
 from unittest.mock import Mock
 from run.dependent.builder import DependentAttributeBuilder
 
-#Tests
-
 class DependentAttributeBuilderTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
+        MockDependentAttributeBuilder = (self.
+         _make_dependent_attribute_builder_class())
         self.builder = MockDependentAttributeBuilder(None)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
@@ -21,13 +21,12 @@ class DependentAttributeBuilderTest(unittest.TestCase):
     def test_trigger(self):
         self.builder.trigger(*self.args, **self.kwargs)
         self.builder._call_class.assert_called_with(
-            'trigger', *self.args, **self.kwargs)        
-    
-    
-#Fixtures
-
-class MockDependentAttributeBuilder(DependentAttributeBuilder):
-    
+            'trigger', *self.args, **self.kwargs)
+        
     #Protected
     
-    _call_class = Mock()   
+    def _make_dependent_attribute_builder_class(self):
+        class MockDependentAttributeBuilder(DependentAttributeBuilder):
+            #Protected
+            _call_class = Mock()
+        return MockDependentAttributeBuilder  
