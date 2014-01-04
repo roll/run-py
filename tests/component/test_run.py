@@ -5,11 +5,11 @@ from run.run import Run
 
 class RunTest(unittest.TestCase):
 
-    #Tests
+    #Public
     
     def setUp(self):
         MockRun = self._make_mock_run_class()
-        self.run_draft = partial(MockRun,
+        self.run_constructor = partial(MockRun,
             names='names', 
             tags='tags', 
             basedir='basedir',
@@ -19,7 +19,7 @@ class RunTest(unittest.TestCase):
             stackless='dispatcher')
         
     def test_run(self):
-        run = self.run_draft()
+        run = self.run_constructor()
         args = ('arg1',)
         kwargs = {'kwarg1': 'kwarg1',}
         run.run('attribute', *args, **kwargs)
@@ -32,18 +32,18 @@ class RunTest(unittest.TestCase):
             call('attr3')])
     
     def test__controller(self):
-        run = self.run_draft()
+        run = self.run_constructor()
         run._controller
         run._controller_class.assert_called_with(
             run._dispatcher, stackless=run._stackless)
         
     def test__dispatcher(self):
-        run = self.run_draft()
+        run = self.run_constructor()
         run._dispatcher
         run._dispatcher_class.assert_called_with()
         
     def test__cluster(self):
-        run = self.run_draft()
+        run = self.run_constructor()
         run._cluster
         run._cluster_class.assert_called_with(
             names='names', 
@@ -55,14 +55,14 @@ class RunTest(unittest.TestCase):
             dispatcher=run._dispatcher_class.return_value)
         
     def test__basedir_default(self):
-        run = self.run_draft(basedir=None)
+        run = self.run_constructor(basedir=None)
         self.assertEqual(run._basedir, 'default_basedir')
         
     def test__file_pattern_default(self):
-        run = self.run_draft(file_pattern=None)
+        run = self.run_constructor(file_pattern=None)
         self.assertEqual(run._file_pattern, 'default_file_pattern')          
     
-    #Fixtures
+    #Protected
     
     def _make_mock_run_class(self):
         class MockRun(Run):
