@@ -2,17 +2,16 @@ import unittest
 from unittest.mock import Mock
 from run.module.null import NullModule
 
-#Tests
-
 class NullModuleTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        self.module = MockNullModule(module=None)
+        self.MockNullModule = self._make_mock_null_module_class()
+        self.module = self.MockNullModule(module=None)
         
     def test(self):
-        self.assertIsInstance(self.module, MockNullModule)
+        self.assertIsInstance(self.module, self.MockNullModule)
     
     def test_meta_attributes(self):
         self.assertEqual(self.module.meta_attributes, {})
@@ -58,16 +57,15 @@ class NullModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_tags, [])
               
     def test_meta_type(self):
-        self.assertEqual(self.module.meta_type, 'MockNullModuleBuilded')                                                 
-    
+        self.assertEqual(self.module.meta_type, 'MockNullModuleBuilded')
         
-#Fixtures
-
-class MockNullModule(NullModule):
-    """docstring"""
-    
     #Protected
     
-    _meta_default_main_module_name = '__main__'
-    _meta_null_dispatcher_class = Mock(return_value='null_dispatcher')  
-    _meta_default_basedir = 'default_basedir'   
+    def _make_mock_null_module_class(self):
+        class MockNullModule(NullModule):
+            """docstring"""
+            #Protected
+            _meta_default_main_module_name = '__main__'
+            _meta_null_dispatcher_class = Mock(return_value='null_dispatcher')  
+            _meta_default_basedir = 'default_basedir'
+        return MockNullModule
