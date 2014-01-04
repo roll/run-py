@@ -29,12 +29,12 @@ class Run:
         try:
             attributes = getattr(self._cluster, attribute)
             for attribute in attributes:
-                if isinstance(attribute, Task):
+                if isinstance(attribute, self._task_class):
                     result = attribute(*args, **kwargs)
                     if result:
-                        print(result)
+                        self._print_operator(result)
                 else:
-                    print(attribute)
+                    self._print_operator(attribute)
         except Failure:
             pass
         #TODO: implement
@@ -43,6 +43,8 @@ class Run:
          
     #Protected
     
+    _print_operator = staticmethod(print)
+    _task_class = Task
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
     _callback_handler_class = CallbackHandler
@@ -53,6 +55,7 @@ class Run:
     _default_basedir = settings.default_basedir
     _default_file_pattern = settings.default_file        
     _logging_module = logging
+    _stack_class = Stack
     
     def _config(self):
         self._dispatcher.add_handler(
@@ -110,4 +113,4 @@ class Run:
         
     @cachedproperty
     def _stack(self):
-        return Stack()         
+        return self._stack_class()         
