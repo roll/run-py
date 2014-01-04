@@ -100,7 +100,7 @@ class Run:
     
     def _on_initiated_attribute(self, signal):
         if not self._stackless:
-            self._stack.append(signal.attribute)   
+            self._stack.push(signal.attribute)   
 
     def _on_executed_attribute(self, signal):
         if not self._stackless:

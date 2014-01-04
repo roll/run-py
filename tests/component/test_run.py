@@ -64,7 +64,18 @@ class RunTest(unittest.TestCase):
         
     def test__file_pattern_default(self):
         run = self.run_draft(file_pattern=None)
-        self.assertEqual(run._file_pattern, 'default_file_pattern')                            
+        self.assertEqual(run._file_pattern, 'default_file_pattern')
+        
+    def test__on_initiated_attribute(self):
+        run = self.run_draft(stackless=False)
+        signal = Mock(attribute='attr')
+        run._on_initiated_attribute(signal)
+        run._stack_class.return_value.push.assert_called_with('attr')        
+        
+    def test__stack(self):
+        run = self.run_draft()
+        run._stack
+        run._stack_class.assert_called_with()               
     
     
 #Fixtures  
@@ -87,4 +98,5 @@ class MockRun(Run):
     _retrieved_var_signal_class = 'rvsc'
     _default_basedir = 'default_basedir'
     _default_file_pattern = 'default_file_pattern'        
-    _logging_module = Mock()    
+    _logging_module = Mock()
+    _stack_class = Mock(return_value=Mock(push=Mock()))
