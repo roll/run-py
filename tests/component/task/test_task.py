@@ -2,13 +2,12 @@ import unittest
 from unittest.mock import Mock, call
 from run.task.task import Task
 
-#Tests
-
 class TaskTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
+        MockTask = self._make_mock_task_class()
         self.task = MockTask(module=None)
 
     def test___get__(self):
@@ -33,18 +32,15 @@ class TaskTest(unittest.TestCase):
     def test_complete(self):
         task = Task(module=None)
         self.assertEqual(task.complete(), None)
-
-    
-#Fixtures
-
-class MockTask(Task):
-    
-    #Public
-    
-    complete = Mock(return_value='value')
-    meta_dispatcher = Mock(add_signal = Mock())
-
+        
     #Protected
-
-    _initiated_signal_class = Mock(return_value='initiated_signal')
-    _retrieved_signal_class = Mock(return_value='retrieved_signal')    
+    
+    def _make_mock_task_class(self):
+        class MockTask(Task):
+            #Public
+            complete = Mock(return_value='value')
+            meta_dispatcher = Mock(add_signal = Mock())
+            #Protected
+            _initiated_signal_class = Mock(return_value='initiated_signal')
+            _retrieved_signal_class = Mock(return_value='retrieved_signal')
+        return MockTask
