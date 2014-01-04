@@ -3,13 +3,12 @@ from functools import partial
 from unittest.mock import Mock, call
 from run.run import Run
 
-#Tests
-
 class RunTest(unittest.TestCase):
 
-    #Public
+    #Tests
     
     def setUp(self):
+        MockRun = self._make_mock_run_class()
         self.run_draft = partial(MockRun,
             names='names', 
             tags='tags', 
@@ -22,7 +21,7 @@ class RunTest(unittest.TestCase):
     def test_run(self):
         run = self.run_draft()
         args = ('arg1',)
-        kwargs = {'kwarg1': 'kwarg1'}
+        kwargs = {'kwarg1': 'kwarg1',}
         run.run('attribute', *args, **kwargs)
         for attr in run._cluster_class.return_value.attribute:
             if hasattr(attr, 'assert_called_with'):
@@ -31,15 +30,12 @@ class RunTest(unittest.TestCase):
             call('result1'), 
             call('result2'),
             call('attr3')])
-        
-    def test__config(self):
+    
+    def test__controller(self):
         run = self.run_draft()
-        run._callback_handler_class.assert_has_calls([
-            call(run._on_initiated_attribute, signals=['itsc', 'ivsc']),
-            call(run._on_executed_attribute, signals=['ctsc', 'rvsc'])])
-        run._dispatcher_class.return_value.add_handler.assert_has_calls([
-            call(run._callback_handler_class.return_value),
-            call(run._callback_handler_class.return_value)])
+        run._controller
+        run._controller_class.assert_called_with(
+            run._dispatcher, stackless=run._stackless)
         
     def test__dispatcher(self):
         run = self.run_draft()
@@ -64,39 +60,21 @@ class RunTest(unittest.TestCase):
         
     def test__file_pattern_default(self):
         run = self.run_draft(file_pattern=None)
-        self.assertEqual(run._file_pattern, 'default_file_pattern')
-        
-    def test__on_initiated_attribute(self):
-        run = self.run_draft(stackless=False)
-        signal = Mock(attribute='attr')
-        run._on_initiated_attribute(signal)
-        run._stack_class.return_value.push.assert_called_with('attr')        
-        
-    def test__stack(self):
-        run = self.run_draft()
-        run._stack
-        run._stack_class.assert_called_with()               
+        self.assertEqual(run._file_pattern, 'default_file_pattern')          
     
+    #Fixtures
     
-#Fixtures  
-
-class MockRun(Run):
-
-    #Protected
-
-    _print_operator = Mock()
-    _task_class = Mock
-    _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
-    _cluster_class = Mock(return_value=Mock(attribute = [
-        Mock(return_value='result1'), 
-        Mock(return_value='result2'),
-        'attr3']))    
-    _callback_handler_class = Mock(return_value=Mock())
-    _initiated_task_signal_class = 'itsc'
-    _initiated_var_signal_class = 'ivsc'
-    _completed_task_signal_class = 'ctsc'
-    _retrieved_var_signal_class = 'rvsc'
-    _default_basedir = 'default_basedir'
-    _default_file_pattern = 'default_file_pattern'        
-    _logging_module = Mock()
-    _stack_class = Mock(return_value=Mock(push=Mock()))
+    def _make_mock_run_class(self):
+        class MockRun(Run):
+            #Protected
+            _print_operator = Mock()
+            _task_class = Mock
+            _controller_class = Mock()
+            _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
+            _cluster_class = Mock(return_value=Mock(attribute = [
+                Mock(return_value='result1'), 
+                Mock(return_value='result2'),
+                'attr3']))
+            _default_basedir = 'default_basedir'
+            _default_file_pattern = 'default_file_pattern'        
+        return MockRun
