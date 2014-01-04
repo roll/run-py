@@ -19,14 +19,6 @@ class ClusterTest(unittest.TestCase):
     def test___getattr__(self):
         cluster = self.cluster_constructor()
         self.assertEqual(cluster.attr1, [1, 2, 3])
-        #Check loader calls
-        loader = cluster._module_loader
-        loader.__init__.assert_called_with(names='names', tags='tags')
-        loader.load.assert_called_with('basedir', 'file_pattern', 'recursively')
-        #Check modules calls
-        for module in cluster._modules:
-            module.__init__.assert_called_with(
-                basedir='basedir', dispatcher='dispatcher', module=None)
             
     def test___getattr__with_existent_is_false(self):
         cluster = self.cluster_constructor(existent=False)
@@ -34,7 +26,26 @@ class ClusterTest(unittest.TestCase):
         
     def test___getattr___with_existent_is_true(self):
         cluster = self.cluster_constructor(existent=True)
-        self.assertEqual(cluster.attr2, [1])           
+        self.assertEqual(cluster.attr2, [1])
+    
+    def test__modules(self):
+        cluster = self.cluster_constructor()
+        cluster._modules
+        for module in cluster._modules:
+            module.__init__.assert_called_with(
+                basedir='basedir', dispatcher='dispatcher', module=None)
+        
+    def test__module_classes(self):
+        cluster = self.cluster_constructor()
+        cluster._module_classes
+        cluster._loader_class.load.assert_called_with(
+           'basedir', 'file_pattern', 'recursively')
+            
+    def test__module_loader(self):
+        cluster = self.cluster_constructor()
+        cluster._module_loader
+        cluster._loader_class.__init__.assert_called_with(
+            names='names', tags='tags')
         
     #Protected
     
@@ -70,6 +81,16 @@ class ClusterTest(unittest.TestCase):
             load = Mock(return_value=[module for module in 
                 [MockModule1, MockModule2, MockModule3]])
         return MockLoader
+    
+#     def _make_mock_loader_class(self):
+#         class MockLoader:
+#             #Public
+#             __init__ = Mock(return_value=None)
+#             load = Mock(return_value=[module for module in 
+#                 [Mock(return_value=Mock(attr1=1, attr2=1)), 
+#                  Mock(return_value=Mock(attr1=2, attr2=2)), 
+#                  Mock(return_value=Mock(attr1=3))]])
+#         return MockLoader    
     
     def _make_mock_cluster_class(self):
         MockLoader = self._make_mock_loader_class()
