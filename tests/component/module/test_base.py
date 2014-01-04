@@ -10,10 +10,11 @@ class BaseModuleTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.module = MockBaseModule(module=None)
+        self.MockBaseModule = self._make_mock_base_module_class()
+        self.module = self.MockBaseModule(module=None)
     
     def test(self):
-        self.assertIsInstance(self.module, MockBaseModule)
+        self.assertIsInstance(self.module, self.MockBaseModule)
     
     def test___get__(self):
         self.assertIs(self.module.__get__(None), self.module)
@@ -74,7 +75,18 @@ class BaseModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_tags, [])
         
     def test_meta_type(self):
-        self.assertEqual(self.module.meta_type, 'MockBaseModuleBuilded')          
+        self.assertEqual(self.module.meta_type, 'MockBaseModuleBuilded')
+        
+    #Protected
+    
+    def _make_mock_base_module_class(self):
+        class MockBaseModule(BaseModule):
+            """docstring"""
+            #Public
+            attr1 = 'value1'
+            #Protected
+            _meta_default_main_module_name = '__main__'
+        return MockBaseModule      
         
         
 class ModuleTest_with_module_is_main(BaseModuleTest):
@@ -82,8 +94,10 @@ class ModuleTest_with_module_is_main(BaseModuleTest):
     #Public
     
     def setUp(self):
+        self.MockBaseModule = self._make_mock_base_module_class()
+        MockMainModule = self._make_mock_main_module_class()
         self.main_module = MockMainModule()
-        self.module = MockBaseModule(module=self.main_module)
+        self.module = self.MockBaseModule(module=self.main_module)
         self.main_module.meta_attributes = {'module': self.module}
     
     def test_meta_info(self):
@@ -115,31 +129,17 @@ class ModuleTest_with_module_is_main(BaseModuleTest):
     def test_meta_signature(self):
         self.assertEqual(self.module.meta_signature, '[main_module] module') 
         
-    
-#Fixtures
-
-class MockBaseModule(BaseModule):
-    """docstring"""
-
-    #Public
-
-    attr1 = 'value1'
-    
     #Protected
     
-    _meta_default_main_module_name = '__main__'
-    
-    
-class MockMainModule:
-
-    #Public
-    
-    meta_attributes = {}
-    meta_dispatcher = 'dispatcher'
-    meta_is_main_module = True
-    meta_name = 'main_module'
-    meta_qualname = 'main_module'    
-    
-    @property
-    def meta_main_module(self):
-        return self    
+    def _make_mock_main_module_class(self):
+        class MockMainModule:
+            #Public
+            meta_attributes = {}
+            meta_dispatcher = 'dispatcher'
+            meta_is_main_module = True
+            meta_name = 'main_module'
+            meta_qualname = 'main_module'    
+            @property
+            def meta_main_module(self):
+                return self
+        return MockMainModule 
