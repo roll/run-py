@@ -2,8 +2,6 @@ import unittest
 from unittest.mock import Mock
 from run.attribute.update import AttributeBuilderSet, AttributeBuilderCall
 
-#Tests
-
 class AttributeBuilderSetTest(unittest.TestCase):
 
     #Public
