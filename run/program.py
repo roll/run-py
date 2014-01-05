@@ -16,16 +16,20 @@ class Program(Program):
          
     #Protected
     
-    #TODO: remove hardcoded logging, settings.logging
+    _logging_module = logging
+    _logging_config = settings.logging
+    _command_class = Command
+    _run_class = Run
+    
     def _config(self):
-        logging.config.dictConfig(settings.logging)        
-        logger = logging.getLogger()
+        self._logging_module.config.dictConfig(self._logging_config)        
+        logger = self._logging_module.getLogger()
         if self._command.debug:
-            logger.setLevel(logging.DEBUG)
+            logger.setLevel(self._logging_module.DEBUG)
         if self._command.verbose:
-            logger.setLevel(logging.INFO)
+            logger.setLevel(self._logging_module.INFO)
         if self._command.quiet:
-            logger.setLevel(logging.ERROR)      
+            logger.setLevel(self._logging_module.ERROR)      
     
     def _execute(self):
         try:
@@ -40,11 +44,11 @@ class Program(Program):
     
     @cachedproperty
     def _command(self):
-        return Command(self._argv)
+        return self._command_class(self._argv)
             
     @cachedproperty   
     def _run(self):
-        return Run(
+        return self._run_class(
             names=self._command.names,
             tags=self._command.tags,
             basedir=self._command.basedir, 
@@ -55,7 +59,7 @@ class Program(Program):
      
     @cachedproperty    
     def _logger(self):
-        return logging.getLogger(__name__)
+        return self._logging_module.getLogger(__name__)
     
         
 program = Program(sys.argv)
