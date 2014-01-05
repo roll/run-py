@@ -43,6 +43,7 @@ class ModuleContext:
     def __init__(self, module):
         self._module = module
         
+    #TODO: hasattr?? (it hits Var.retrieve)
     def __contains__(self, key):
         return hasattr(self._module, key) 
         
