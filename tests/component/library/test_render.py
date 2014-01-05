@@ -1,13 +1,51 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, mock_open
 from run.library.render import RenderTask, ModuleTemplate, ModuleContext
 
 class RenderTaskTest(unittest.TestCase):
 
     #Public
 
-    def test(self):
-        pass
+    def setUp(self):
+        self.template = Mock(render=Mock(return_value='text'))
+        MockRenderTask = self._make_mock_render_task_class(self.template)
+        self.source = '/source'
+        self.target = '/target'
+        self.task = MockRenderTask(self.source, self.target, module=None)
+        
+    def test_complete(self):
+        self.task.complete()
+        self.task._open_operator.assert_called_with(self.target, 'w')
+        self.task._open_operator().write.assert_called_with('text')
+        
+    def test__context(self):
+        self.assertEqual(self.task._context, 'context')
+        self.task._module_context_class.assert_called_with('module')
+        
+    def test__template(self):
+        self.assertEqual(self.task._template, self.template)
+        self.task._file_system_loader_class.assert_called_with('/')
+        self.task._environment_class.assert_called_with(loader='loader')
+        self.assertEqual(
+            self.task._environment_class.return_value.template_class,
+            self.task._module_template_class)
+        (self.task._environment_class.return_value.get_template.
+            assert_called_with('source'))
+    
+    #Protected
+    
+    def _make_mock_render_task_class(self, template):
+        class MockRenderTask(RenderTask):
+            #Public
+            meta_module = 'module'
+            #Protected
+            _environment_class = Mock(return_value=Mock(
+                get_template=Mock(return_value=template)))
+            _file_system_loader_class = Mock(return_value='loader')
+            _module_template_class = Mock()
+            _module_context_class = Mock(return_value='context')
+            _open_operator = mock_open()
+        return MockRenderTask
     
 
 class ModuleTemplateTest(unittest.TestCase):    

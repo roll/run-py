@@ -1,5 +1,6 @@
 import os
 import sys
+from lib31.python import cachedproperty
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import concat
 from run import Task
@@ -14,14 +15,32 @@ class RenderTask(Task):
         self._target = target
         
     def complete(self):
-        dirname, filename = os.path.split(os.path.abspath(self._source))
-        environment = Environment(loader=FileSystemLoader(dirname))
-        environment.template_class = ModuleTemplate
-        template = environment.get_template(filename)
-        text = template.render(ModuleContext(self.meta_module))
-        with open(self._target, 'w') as file:
+        text = self._template.render(self._context)
+        with self._open_operator(self._target, 'w') as file:
             file.write(text)
             
+    #Protected
+    
+    _environment_class = Environment
+    _file_system_loader_class = FileSystemLoader
+    _module_template_class = property(lambda self: ModuleTemplate)
+    _module_context_class = property(lambda self: ModuleContext)
+    _open_operator = staticmethod(open)
+    
+    @cachedproperty
+    def _context(self):
+        context = self._module_context_class(self.meta_module)
+        return context  
+    
+    @cachedproperty
+    def _template(self):
+        dirname, filename = os.path.split(os.path.abspath(self._source))
+        loader = self._file_system_loader_class(dirname)
+        environment = self._environment_class(loader=loader)
+        environment.template_class = self._module_template_class
+        template = environment.get_template(filename)
+        return template
+
 
 class ModuleTemplate(Template):
     
