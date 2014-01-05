@@ -7,13 +7,12 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    #TODO: change __* to _meta_*?
     def __meta_init__(self, args, kwargs):
-        self.__basedir = kwargs.pop('basedir', None)
-        self.__dispatcher = kwargs.pop('dispatcher', None)                 
-        self.__module = kwargs.pop('module', None)
-        self.__signature = kwargs.pop('signature', None)
-        self.__docstring = kwargs.pop('docstring', None)
+        self._meta_basedir = kwargs.pop('basedir', None)
+        self._meta_dispatcher = kwargs.pop('dispatcher', None)                 
+        self._meta_module = kwargs.pop('module', None)
+        self._meta_signature = kwargs.pop('signature', None)
+        self._meta_docstring = kwargs.pop('docstring', None)
     
     def __repr__(self):
         try:
@@ -33,22 +32,22 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_basedir(self):
-        if self.__basedir != None:
-            return self.__basedir
+        if self._meta_basedir != None:
+            return self._meta_basedir
         else:
             return self.meta_module.meta_basedir
        
     @property
     def meta_dispatcher(self):
-        if self.__dispatcher != None:
-            return self.__dispatcher
+        if self._meta_dispatcher != None:
+            return self._meta_dispatcher
         else:
             return self.meta_module.meta_dispatcher
     
     @property
     def meta_docstring(self):
-        if self.__docstring != None:
-            return self.__docstring
+        if self._meta_docstring != None:
+            return self._meta_docstring
         else:
             return inspect.getdoc(self)
 
@@ -71,9 +70,9 @@ class Attribute(metaclass=AttributeMetaclass):
               
     @property
     def meta_module(self):
-        if self.__module == None:
-            self.__module = self._meta_null_module_class(module=None)
-        return self.__module
+        if self._meta_module == None:
+            self._meta_module = self._meta_null_module_class(module=None)
+        return self._meta_module
     
     @meta_module.setter
     def meta_module(self, module):
@@ -81,7 +80,7 @@ class Attribute(metaclass=AttributeMetaclass):
             #TODO: improve message
             raise AttributeError('Cant\'t set attribute')
         else:
-            self.__module = module
+            self._meta_module = module
         
     @property
     def meta_name(self):
@@ -108,8 +107,8 @@ class Attribute(metaclass=AttributeMetaclass):
 
     @property
     def meta_signature(self):
-        if self.__signature != None:
-            return self.__signature
+        if self._meta_signature != None:
+            return self._meta_signature
         else:
             return self.meta_qualname    
     
