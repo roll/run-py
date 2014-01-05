@@ -24,8 +24,8 @@ class NullModule(BaseModule):
     
     @meta_module.setter
     def meta_module(self, module):
-        #TODO: improve message
-        raise AttributeError('Cant\'t set attribute')
+        raise AttributeError(
+            'Can\'t set meta_module in NullModule')
     
     @property
     def meta_qualname(self):
