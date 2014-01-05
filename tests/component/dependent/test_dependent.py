@@ -9,7 +9,7 @@ class DependentAttributeTest(unittest.TestCase):
     def setUp(self):
         self.MockTask = self._make_mock_task_class()
         self.MockDependentAttribute = (self.
-            _make_mock_dependent_attribute_class())
+            _make_mock_dependent_attribute_class(self.MockTask))
 
     def test_require_and_resolve_requirments(self):
         attribute = self.MockDependentAttribute(
@@ -54,7 +54,7 @@ class DependentAttributeTest(unittest.TestCase):
                 return self.task
         return MockTask
     
-    def _make_mock_dependent_attribute_class(self):
+    def _make_mock_dependent_attribute_class(self, mock_task_class):
         class MockDependentAttribute(DependentAttribute):
             #Public
             __get__ = Mock()
@@ -62,5 +62,5 @@ class DependentAttributeTest(unittest.TestCase):
             #Protected
             @staticmethod
             def _task_class(task):
-                return self.MockTask(task)
+                return mock_task_class(task)
         return MockDependentAttribute

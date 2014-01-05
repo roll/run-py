@@ -121,7 +121,8 @@ class AttributeTest_with_module_is_main(AttributeTest_with_module):
     
     def setUp(self):
         MockAttribute = self._make_mock_attribute_class()
-        MockMainModule = self._make_mock_main_module_class()
+        MockModule = self._make_mock_module_class()
+        MockMainModule = self._make_mock_main_module_class(MockModule)
         self.module = MockMainModule()
         self.attribute = MockAttribute(module=self.module)
         self.module.meta_attributes = {'attribute': self.attribute}
@@ -138,9 +139,8 @@ class AttributeTest_with_module_is_main(AttributeTest_with_module):
         
     #Protected
     
-    def _make_mock_main_module_class(self):
-        MockModule = self._make_mock_module_class()
-        class MockMainModule(MockModule):
+    def _make_mock_main_module_class(self, mock_module_class):
+        class MockMainModule(mock_module_class):
             #Public
             meta_is_main_module = True
         return MockMainModule        

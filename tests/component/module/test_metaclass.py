@@ -13,7 +13,12 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.abstract_function = abstractmethod(lambda: None)
         self.abstract_descriptor = property(abstractmethod(lambda: None))
         self.MockModuleMetaclass = self._make_mock_module_metaclass()
-        self.MockModule = self._make_mock_module_class()
+        self.MockModule = self._make_mock_module_class(
+            self.MockModuleMetaclass,
+            function = self.function,
+            descriptor = self.descriptor,
+            abstract_function = self.abstract_function,
+            abstract_descriptor = self.abstract_descriptor)
 
     def test___new__(self):
         self.assertEqual(self.MockModule.__name__, 'MockModule')
@@ -44,17 +49,18 @@ class ModuleMetaclassTest(unittest.TestCase):
             _value_var_class = Mock(return_value='value_var_attr')
         return MockModuleMetaclass
     
-    def _make_mock_module_class(self):
-        class MockModule(metaclass=self.MockModuleMetaclass):
+    def _make_mock_module_class(self, mock_module_metaclass, 
+        function, descriptor, abstract_function, abstract_descriptor):
+        class MockModule(metaclass=mock_module_metaclass):
             #Public
             _underscore_attr = 'underscore_value'
             meta_attr = 'meta_value'
             type_attr = Mock
             attribute_attr = Mock()
             attribute_builder_attr = MagicMock()
-            abstract_function_attr = self.abstract_function
-            abstract_descriptor_attr = self.abstract_descriptor
-            function_attr = self.function
-            descriptor_attr = self.descriptor
+            abstract_function_attr = abstract_function
+            abstract_descriptor_attr = abstract_descriptor
+            function_attr = function
+            descriptor_attr = descriptor
             value_attr = 'value_attr'
         return MockModule

@@ -10,7 +10,8 @@ class AttributeBuilderTest(unittest.TestCase):
         self.args = ('arg1', 'arg2')
         self.kwargs = {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'}
         self.mock_set = Mock(apply = Mock())
-        MockAttributeBuilder = self._make_mock_attribute_builder_class()
+        MockAttributeBuilder = self._make_mock_attribute_builder_class(
+            self.mock_set)
         self.MockAttribute = self._make_mock_attribute_class()
         self.builder = MockAttributeBuilder(
             self.MockAttribute, *self.args, **self.kwargs)
@@ -47,10 +48,8 @@ class AttributeBuilderTest(unittest.TestCase):
                 kwargs.pop('kwarg2')
         return MockAttribute
     
-    #TODO: find and remove all cases like self.mock_set (use parameters)
-    #TOOD: find them by "def _make_mock"
-    def _make_mock_attribute_builder_class(self):             
+    def _make_mock_attribute_builder_class(self, mock_set):             
         class MockAttributeBuilder(AttributeBuilder): 
             #Protected
-            _set_class = Mock(return_value=self.mock_set)
+            _set_class = Mock(return_value=mock_set)
         return MockAttributeBuilder

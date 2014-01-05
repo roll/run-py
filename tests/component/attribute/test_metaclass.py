@@ -9,7 +9,8 @@ class AttributeMetaclassTest(unittest.TestCase):
 
     def setUp(self):
         self.MockAttributeMetaclass = self._make_mock_attribute_metaclass()
-        self.MockAttribute = self._make_mock_attribute_class()
+        self.MockAttribute = self._make_mock_attribute_class(
+            self.MockAttributeMetaclass)
 
     def test(self):
         self.assertTrue(issubclass(self.MockAttributeMetaclass, ABCMeta))
@@ -40,6 +41,6 @@ class AttributeMetaclassTest(unittest.TestCase):
             _builder_class = Mock(return_value=Mock(return_value=MagicMock()))
         return MockAttributeMetaclass
     
-    def _make_mock_attribute_class(self):
-            class MockAtrtibute(metaclass=self.MockAttributeMetaclass): pass
+    def _make_mock_attribute_class(self, mock_attribute_metaclass):
+            class MockAtrtibute(metaclass=mock_attribute_metaclass): pass
             return MockAtrtibute
