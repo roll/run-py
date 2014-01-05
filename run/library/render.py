@@ -16,14 +16,14 @@ class RenderTask(Task):
     def complete(self):
         dirname, filename = os.path.split(os.path.abspath(self._source))
         environment = Environment(loader=FileSystemLoader(dirname))
-        environment.template_class = NamespaceTemplate
+        environment.template_class = ModuleTemplate
         template = environment.get_template(filename)
         text = template.render(ModuleContext(self.meta_module))
         with open(self._target, 'w') as file:
             file.write(text)
             
 
-class NamespaceTemplate(Template):
+class ModuleTemplate(Template):
     
     #Public
     
