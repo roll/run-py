@@ -77,8 +77,10 @@ class Attribute(metaclass=AttributeMetaclass):
     @meta_module.setter
     def meta_module(self, module):
         if self.meta_is_bound:
-            #TODO: improve message
-            raise AttributeError('Cant\'t set attribute')
+            raise AttributeError(
+                'Can\'t set meta_module in Attribute "{attribute}" '
+                'because it is already bound to module "{module}"'.
+                format(attribute=self, module=self.meta_module))
         else:
             self._meta_module = module
         
