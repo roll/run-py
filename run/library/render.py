@@ -18,7 +18,7 @@ class RenderTask(Task):
         environment = Environment(loader=FileSystemLoader(dirname))
         environment.template_class = NamespaceTemplate
         template = environment.get_template(filename)
-        text = template.render(NamespaceContext(self.meta_module))
+        text = template.render(ModuleContext(self.meta_module))
         with open(self._target, 'w') as file:
             file.write(text)
             
@@ -36,7 +36,7 @@ class NamespaceTemplate(Template):
         return self.environment.handle_exception(exc_info, True)
         
         
-class NamespaceContext:
+class ModuleContext:
     
     #Public
     
@@ -44,7 +44,7 @@ class NamespaceContext:
         self._module = module
         
     def __contains__(self, key):
-        return key in self._module.meta_attributes 
+        return hasattr(self._module, key) 
         
     def __getitem__(self, key):
         try:
