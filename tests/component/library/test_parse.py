@@ -2,7 +2,6 @@ import os
 import unittest
 from run.library.parse import ParseVar
 
-#TODO: add caching!
 class ParseVarTest(unittest.TestCase):
     
     #Public
