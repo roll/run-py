@@ -30,10 +30,14 @@ class ModuleTemplate(Template):
     def render(self, module_context):
         try:
             context = self.new_context(module_context, shared=True)
-            return concat(self.root_render_func(context))
+            return self._concat_operator(self.root_render_func(context))
         except Exception:
             exc_info = sys.exc_info()
-        return self.environment.handle_exception(exc_info, True)
+            return self.environment.handle_exception(exc_info, True)
+    
+    #Protected
+    
+    _concat_operator = staticmethod(concat)
         
         
 class ModuleContext:
