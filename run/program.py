@@ -1,5 +1,5 @@
 import sys
-import logging.config
+import logging.config; logging.config #TODO: PyDev warning
 from lib31.program import Program
 from lib31.python import cachedproperty
 from .command import Command

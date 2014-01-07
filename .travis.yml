@@ -1,0 +1,17 @@
+language: python
+python:
+  - '3.3'
+install:
+  - pip install coveralls
+script:
+  - coverage run --source=lib31 setup.py test
+after_success:
+  - coveralls
+notifications:
+  email:
+    - roll@respect31.com
+deploy:
+  provider: pypi
+  user: roll
+  password:
+    secure: FKpWoIZXYzwqLjBycRS980UFnwyqp77W+IfjIo42tDr5UaN5TqBaPx/BqsRo1kN7vQZN8y00xAlJmTWpqzfIHL+pHFke4xju8AaslquR4G0zByDR3buY7E/0q5D9GOTCbkyhxK/L4kb+cTTpMlGG/4rE7dER4rJDqSngl6w/ikc=
