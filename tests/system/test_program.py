@@ -2,6 +2,7 @@ import os
 import unittest
 from run import Program
 
+#TODO: rewrite!
 class ProgramTest(unittest.TestCase):
 
     #Public
