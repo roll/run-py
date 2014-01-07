@@ -69,10 +69,12 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
             return super().meta_name
         else:
             return self._meta_default_main_module_name
-    
-    @property
-    def meta_tags(self):
-        return []
+ 
+#TODO: fix Loader name, tags properties issue!   
+#     @property
+#     def meta_tags(self):
+#         return []
+    meta_tags = []
     
     #Protected
     
