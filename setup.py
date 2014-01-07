@@ -30,6 +30,16 @@ setup(
 ===
 Run is program to run tasks from files.
 
+.. image:: https://secure.travis-ci.org/respect31/run.png?branch=master 
+     :target: https://travis-ci.org/respect31/run
+     :alt: build
+.. image:: https://coveralls.io/repos/respect31/run/badge.png?branch=master 
+     :target: https://coveralls.io/r/respect31/run  
+     :alt: coverage
+.. image:: https://badge.fury.io/py/runpack.png
+     :target: http://badge.fury.io/py/runpack
+     :alt: index
+
 Requirements
 ------------
 - Python 3.3 and higher
