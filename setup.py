@@ -6,7 +6,7 @@ setup(
 	#Main
 
     name='runpack',
-	version='0.8.0',
+	version='0.8.1',
 	packages=find_packages(os.path.dirname(__file__) or '.', exclude=['tests*']),
 	include_package_data=True,
     data_files=[('/etc/bash_completion.d', ['data/run.sh'])],
@@ -23,7 +23,7 @@ setup(
     maintainer_email='post@respect31.com',
     license='MIT License',    
     url='https://github.com/respect31/runpack',
-    download_url='https://github.com/respect31/runpack/tarball/0.8.0',    
+    download_url='https://github.com/respect31/runpack/tarball/0.8.1',    
     classifiers=['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
     description='Run is program to run tasks from files.',    
     long_description='''Run
