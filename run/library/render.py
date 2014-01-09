@@ -1,6 +1,6 @@
 import os
 import sys
-from lib31.python import cachedproperty
+from box.python import cachedproperty
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import concat
 from run import Task

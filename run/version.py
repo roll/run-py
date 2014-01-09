@@ -1,4 +1,4 @@
-from lib31.program import Version
+from box.program import Version
 
 class Version(Version):
     

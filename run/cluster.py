@@ -1,5 +1,5 @@
 import logging
-from lib31.python import cachedproperty
+from box.python import cachedproperty
 from .loader import Loader
 from .settings import settings
 

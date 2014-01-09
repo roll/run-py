@@ -1,4 +1,4 @@
-from lib31.program import Settings
+from box.program import Settings
 from .version import version
 
 class Settings(Settings):

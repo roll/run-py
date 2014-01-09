@@ -1,4 +1,4 @@
-from lib31.python import cachedproperty
+from box.python import cachedproperty
 from .cluster import Cluster
 from .controller import Controller
 from .dispatcher import Dispatcher

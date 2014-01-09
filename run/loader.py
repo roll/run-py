@@ -1,5 +1,5 @@
 import inspect
-from lib31.python import ObjectLoader
+from box.python import ObjectLoader
 from .module import Module
     
 class Loader(ObjectLoader):

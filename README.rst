@@ -28,9 +28,3 @@ Classifiers
 - Programming Language :: Python :: 3.3
 - Topic :: Software Development :: Libraries :: Python Modules
 - Topic :: System :: Systems Administration
-
-History
--------
-0.8.0
-`````
-- changed concept to build tool
