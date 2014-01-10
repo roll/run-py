@@ -7,7 +7,7 @@ class Settings(Settings):
     
     default_attribute = 'default'
     default_arguments = []
-    default_basedir = '.'    
+    default_basedir = ''    
     default_file = 'runfile.py'
     default_logging_level = 'WARNING'
     default_main_module_name = '__main__'
