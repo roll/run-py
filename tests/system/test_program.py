@@ -10,8 +10,8 @@ class ProgramTest(unittest.TestCase):
     def setUp(self):
         os.chdir(os.path.join(os.path.dirname(__file__), '..', '..'))
     
-    def test_render(self):
-        program = Program(['run', 'render', '-d'])
+    def test_build(self):
+        program = Program(['run', 'build', '-d'])
         program()
         
     def test_meta(self):
