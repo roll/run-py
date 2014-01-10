@@ -1,0 +1,19 @@
+#Builded for {{ name }} {{ version }} from _templates/.travis.yml
+
+language: python
+python:
+  - '3.3'
+install:
+  - pip install coveralls
+script:
+  - coverage run --source={{ name }} setup.py test
+after_success:
+  - coveralls
+notifications:
+  email:
+    - {{ author_email }}
+deploy:
+  provider: pypi
+  user: {{ pypi_user }}
+  password:
+    secure: {{ pypi_password_secure }}

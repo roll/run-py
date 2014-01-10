@@ -1,7 +1,40 @@
-MIT License
-===========
+.. Builded for {{ name }} {{ version }} from _templates/README.rst
 
-Copyright (c) 2012 Respect31 <post@respect31.com>
+{{ name|capitalize }}
+=====================
+{{ name|capitalize }} is library to provide common functionality.
+
+.. image:: https://secure.travis-ci.org/{{ github_user }}/{{ name }}.png?branch=master 
+     :target: https://travis-ci.org/{{ github_user }}/{{ name }} 
+     :alt: build
+.. image:: https://coveralls.io/repos/{{ github_user }}/{{ name }}/badge.png?branch=master 
+     :target: https://coveralls.io/r/{{ github_user }}/{{ name }}  
+     :alt: coverage
+.. image:: https://badge.fury.io/py/{{ pypi_name }}.png
+     :target: http://badge.fury.io/py/{{ pypi_name }}
+     :alt: index
+
+Requirements
+------------
+- Python 3.3 and higher
+
+Installation
+------------
+- pip install {{ pypi_name }}
+
+Authors
+-------
+- {{ author }} <{{ author_email }}>
+
+Maintainers
+-----------
+- {{ maintainer }} <{{ maintainer_email }}>
+
+License
+-------
+{{ license }}
+`````````````
+Copyright (c) 2014 Respect31 <post@respect31.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

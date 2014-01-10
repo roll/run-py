@@ -4,4 +4,22 @@ class MainModule(PythonPackgramModule):
         
     #Public
     
-    name = 'runpack'
+    author = 'roll'
+    author_email = 'roll@respect31.com'
+    classifiers = [
+        'Development Status :: 3 - Alpha',
+        'Intended Audience :: Developers', 
+        'License :: OSI Approved :: MIT License', 
+        'Programming Language :: Python :: 3.3', 
+        'Topic :: Software Development :: Libraries :: Python Modules', 
+        'Topic :: System :: Systems Administration', 
+    ]
+    github_user = 'respect31'
+    description = 'Run is program to run tasks from files.'
+    license = 'MIT License'  
+    maintainer = 'roll'
+    maintainer_email = 'roll@respect31.com'
+    name = 'run'
+    pypi_name = 'runpack'
+    pypi_user = 'roll'
+    pypi_password_secure = 'JaTeiyjnimmtwhbdfPMZZdtp+5S920vb0HobJWL1QQjHVAo5Hwt0kTWYG+zjDrpWUL+NanVNqhQA8xnvWKbI5cZ+n3PvS7KFbgn6XcTYfeEGyEdYUFi0sXaUsgcfke+9nyMBDLoRH2M7TGqpLY2dmXk5C0h0RMkkAPjxgZCan94='
