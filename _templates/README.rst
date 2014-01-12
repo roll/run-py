@@ -13,8 +13,8 @@
      
 Quick Links
 -----------
-- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name={{ pypi_name }}>`_
 - `Source code (GitHub) <https://github.com/{{ github_user }}/{{ name }}>`_
+- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name={{ pypi_name }}>`_
 - `Documentation (ReadTheDocs) <http://{{ name }}.readthedocs.org/en/latest/>`_
 
 Requirements

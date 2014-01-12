@@ -13,8 +13,8 @@ Run is library to provide common functionality.
      
 Quick Links
 -----------
-- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=runpack>`_
 - `Source code (GitHub) <https://github.com/respect31/run>`_
+- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=runpack>`_
 - `Documentation (ReadTheDocs) <http://run.readthedocs.org/en/latest/>`_
 
 Requirements
