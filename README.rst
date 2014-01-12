@@ -10,9 +10,12 @@ Run is library to provide common functionality.
 .. image:: https://coveralls.io/repos/respect31/run/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/run  
      :alt: coverage
-.. image:: https://badge.fury.io/py/runpack.png
-     :target: http://badge.fury.io/py/runpack
-     :alt: index
+     
+Quick Links
+-----------
+- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=runpack>`_
+- `Source code (GitHub) <https://github.com/respect31/run>`_
+- `Documentation (ReadTheDocs) <http://run.readthedocs.org/en/latest/>`_
 
 Requirements
 ------------

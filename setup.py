@@ -24,13 +24,14 @@ package = {
     
     'author': 'roll',
     'author_email': 'roll@respect31.com',
+    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
+    'description': 'Run is program to run tasks from files.',
+    'download_url':'https://github.com/respect31/run/tarball/0.8.1',
+    'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',
-    'license': 'MIT License',    
+    'platforms': ['Unix'],
     'url': 'https://github.com/respect31/run',
-    'download_url':'https://github.com/respect31/run/tarball/0.8.1',    
-    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],    
-    'description': 'Run is program to run tasks from files.',    
     'long_description': '''.. Builded for run 0.8.1 from _templates/README.rst
 
 Run
@@ -43,9 +44,12 @@ Run is library to provide common functionality.
 .. image:: https://coveralls.io/repos/respect31/run/badge.png?branch=master 
      :target: https://coveralls.io/r/respect31/run  
      :alt: coverage
-.. image:: https://badge.fury.io/py/runpack.png
-     :target: http://badge.fury.io/py/runpack
-     :alt: index
+     
+Quick Links
+-----------
+- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=runpack>`_
+- `Source code (GitHub) <https://github.com/respect31/run>`_
+- `Documentation (ReadTheDocs) <http://run.readthedocs.org/en/latest/>`_
 
 Requirements
 ------------
@@ -85,7 +89,7 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.''',
+THE SOFTWARE.''',   
     
 }
 
