@@ -8,7 +8,7 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask)
 from .dispatcher import Dispatcher, NullDispatcher
 from .failure import Failure
-from .loader import Loader
+from .finder import Finder
 from .module import ModuleBuilder, ModuleMetaclass, Module, NullModule
 from .program import Program, program
 from .run import Run

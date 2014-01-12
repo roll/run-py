@@ -1,7 +1,7 @@
 import csv
 import ast
-from box.program import Command
-from box.python import cachedproperty
+from box.argparse import Command
+from box.functools import cachedproperty
 from .settings import settings
 
 class Command(Command):

@@ -1,4 +1,4 @@
-from box.python import cachedproperty
+from box.functools import cachedproperty
 from ..attribute import AttributeBuilder
 
 class ModuleBuilder(AttributeBuilder):

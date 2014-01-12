@@ -12,8 +12,8 @@ class RunTest(unittest.TestCase):
         self.run_constructor = partial(MockRun,
             names='names', 
             tags='tags', 
+            filename='filename', 
             basedir='basedir',
-            file_pattern='file_pattern', 
             recursively='recursively',
             existent='existent', 
             stackless='dispatcher')
@@ -48,19 +48,19 @@ class RunTest(unittest.TestCase):
         run._cluster_class.assert_called_with(
             names='names', 
             tags='tags', 
+            filename='filename', 
             basedir='basedir',
-            file_pattern='file_pattern', 
             recursively='recursively',
             existent='existent', 
             dispatcher=run._dispatcher_class.return_value)
         
+    def test__filename_default(self):
+        run = self.run_constructor(filename=None)
+        self.assertEqual(run._filename, 'default_filename')  
+        
     def test__basedir_default(self):
         run = self.run_constructor(basedir=None)
         self.assertEqual(run._basedir, 'default_basedir')
-        
-    def test__file_pattern_default(self):
-        run = self.run_constructor(file_pattern=None)
-        self.assertEqual(run._file_pattern, 'default_file_pattern')          
     
     #Protected
     
@@ -75,6 +75,6 @@ class RunTest(unittest.TestCase):
                 Mock(return_value='result1'), 
                 Mock(return_value='result2'),
                 'attr3']))
+            _default_filename = 'default_filename'
             _default_basedir = 'default_basedir'
-            _default_file_pattern = 'default_file_pattern'        
         return MockRun

@@ -1,7 +1,7 @@
 import sys
 import logging.config; logging.config #TODO: PyDev warning
-from box.program import Program
-from box.python import cachedproperty
+from box.argparse import Program
+from box.functools import cachedproperty
 from .command import Command
 from .run import Run
 from .settings import settings
@@ -51,8 +51,8 @@ class Program(Program):
         return self._run_class(
             names=self._command.names,
             tags=self._command.tags,
+            filename=self._command.file,            
             basedir=self._command.basedir, 
-            file_pattern=self._command.file,
             recursively=self._command.recursively,
             existent=self._command.existent,
             stackless=self._command.stackless)

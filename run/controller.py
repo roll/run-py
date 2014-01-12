@@ -1,5 +1,5 @@
 import logging
-from box.python import cachedproperty
+from box.functools import cachedproperty
 from .handler import CallbackHandler
 from .stack import Stack
 from .task import InitiatedTaskSignal, CompletedTaskSignal

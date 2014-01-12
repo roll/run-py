@@ -12,8 +12,8 @@ class ClusterTest(unittest.TestCase):
         self.cluster_constructor = partial(MockCluster,
             names='names', 
             tags='tags', 
+            filename='filename',             
             basedir='basedir', 
-            file_pattern='file_pattern', 
             recursively='recursively',
             existent='existent', 
             dispatcher='dispatcher')
@@ -33,40 +33,40 @@ class ClusterTest(unittest.TestCase):
     def test__modules(self):
         cluster = self.cluster_constructor()
         cluster._modules
-        for module in cluster._loader_class.return_value.load.return_value:
+        for module in cluster._finder_class.return_value.find.return_value:
             module.assert_called_with(
                 basedir='basedir', dispatcher='dispatcher', module=None)
         
     def test__module_classes(self):
         cluster = self.cluster_constructor()
         cluster._module_classes
-        cluster._loader_class.return_value.load.assert_called_with(
-           'basedir', 'file_pattern', 'recursively')
+        cluster._finder_class.return_value.find.assert_called_with(
+            'filename', 'basedir', 'recursively')
             
     def test__module_loader(self):
         cluster = self.cluster_constructor()
         cluster._module_loader
-        cluster._loader_class.assert_called_with(
+        cluster._finder_class.assert_called_with(
             names='names', tags='tags')
         
     def test__basedir_default(self):
         cluster = self.cluster_constructor(basedir=None)
         self.assertEqual(cluster._basedir, 'default_basedir')
         
-    def test__file_pattern_default(self):
-        cluster = self.cluster_constructor(file_pattern=None)
-        self.assertEqual(cluster._file_pattern, 'default_file_pattern')
+    def test__filename_default(self):
+        cluster = self.cluster_constructor(filename=None)
+        self.assertEqual(cluster._filename, 'default_filename')
         
     #Protected
     
     def _make_mock_cluster_class(self):
         class MockCluster(Cluster):
             #Protected
-            _loader_class = Mock(return_value=Mock(load=
+            _finder_class = Mock(return_value=Mock(find=
                 Mock(return_value=[module_class for module_class in 
                     [Mock(return_value=Mock(attr1=1, attr2=1)), 
                      Mock(return_value=Mock(attr1=2, spec=['attr1'])), 
                      Mock(return_value=Mock(attr1=3, spec=['attr1']))]])))
             _default_basedir = 'default_basedir'
-            _default_file_pattern = 'default_file_pattern'            
+            _default_filename = 'default_filename'            
         return MockCluster

@@ -45,8 +45,8 @@ class ProgramTest(unittest.TestCase):
         self.program._run_class.assert_called_with(
             names='names',
             tags='tags',
+            filename='file',            
             basedir='basedir', 
-            file_pattern='file',
             recursively='recursively',
             existent='existent',
             stackless='stackless')       

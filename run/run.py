@@ -1,4 +1,4 @@
-from box.python import cachedproperty
+from box.functools import cachedproperty
 from .cluster import Cluster
 from .controller import Controller
 from .dispatcher import Dispatcher
@@ -11,12 +11,12 @@ class Run:
     #Public
     
     def __init__(self, names=[], tags=[], 
-                 basedir=None, file_pattern=None, recursively=False, 
+                 filename=None, basedir=None, recursively=False, 
                  existent=False, stackless=False):
         self._names = names
         self._tags = tags
+        self._input_filename = filename
         self._input_basedir = basedir
-        self._input_file_pattern = file_pattern
         self._recursively = recursively
         self._existent = existent 
         self._stackless = stackless
@@ -41,8 +41,8 @@ class Run:
     #Protected
     
     _print_operator = staticmethod(print)
+    _default_filename = settings.default_file  
     _default_basedir = settings.default_basedir
-    _default_file_pattern = settings.default_file  
     _task_class = Task
     _failure_class = Failure
     _controller_class = Controller
@@ -63,8 +63,8 @@ class Run:
         return self._cluster_class(
             names=self._names,
             tags=self._tags,
+            filename=self._filename,
             basedir=self._basedir, 
-            file_pattern=self._file_pattern,
             recursively=self._recursively,
             existent=self._existent,
             dispatcher=self._dispatcher)
@@ -77,8 +77,8 @@ class Run:
             return self._default_basedir
         
     @property
-    def _file_pattern(self):
-        if self._input_file_pattern:
-            return self._input_file_pattern
+    def _filename(self):
+        if self._input_filename:
+            return self._input_filename
         else:
-            return self._default_file_pattern    
+            return self._default_filename   

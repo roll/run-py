@@ -1,4 +1,4 @@
-from box.python import cachedproperty
+from box.functools import cachedproperty
 from ..dispatcher import NullDispatcher
 from ..settings import settings
 from .base import BaseModule

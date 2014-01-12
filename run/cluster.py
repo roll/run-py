@@ -1,6 +1,6 @@
 import logging
-from box.python import cachedproperty
-from .loader import Loader
+from box.functools import cachedproperty
+from .finder import Finder
 from .settings import settings
 
 class Cluster:
@@ -8,12 +8,12 @@ class Cluster:
     #Public
 
     def __init__(self, names=[], tags=[], 
-                 basedir=None, file_pattern=None, recursively=False, 
+                 filename=None, basedir=None, recursively=False, 
                  existent=False, dispatcher=None):
         self._names = names
         self._tags = tags
         self._input_basedir = basedir
-        self._input_file_pattern = file_pattern
+        self._input_filename = filename
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
@@ -33,9 +33,9 @@ class Cluster:
         
     #Protected
     
-    _loader_class = Loader
+    _finder_class = Finder
     _default_basedir = settings.default_basedir
-    _default_file_pattern = settings.default_file
+    _default_filename = settings.default_file
         
     @cachedproperty
     def _modules(self):
@@ -50,12 +50,12 @@ class Cluster:
         
     @cachedproperty   
     def _module_classes(self):
-        return list(self._module_loader.load(
-            self._basedir, self._file_pattern, self._recursively))
+        return list(self._module_finder.find(
+            self._filename, self._basedir, self._recursively))
         
     @cachedproperty   
-    def _module_loader(self):
-        return self._loader_class(names=self._names, tags=self._tags)
+    def _module_finder(self):
+        return self._finder_class(names=self._names, tags=self._tags)
     
     @property
     def _basedir(self):
@@ -65,11 +65,11 @@ class Cluster:
             return self._default_basedir
         
     @property
-    def _file_pattern(self):
-        if self._input_file_pattern:
-            return self._input_file_pattern
+    def _filename(self):
+        if self._input_filename:
+            return self._input_filename
         else:
-            return self._default_file_pattern  
+            return self._default_filename 
     
     @cachedproperty   
     def _logger(self):

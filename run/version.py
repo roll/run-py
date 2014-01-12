@@ -1,4 +1,4 @@
-from box.program import Version
+from box import Version
 
 class Version(Version):
     
