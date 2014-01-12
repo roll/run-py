@@ -10,12 +10,14 @@
 .. image:: https://coveralls.io/repos/{{ github_user }}/{{ name }}/badge.png?branch=master 
      :target: https://coveralls.io/r/{{ github_user }}/{{ name }}  
      :alt: coverage
+.. image:: http://b.repl.ca/v1/docs-uploaded-brightgreen.png
+     :target: http://{{ name }}.readthedocs.org/en/latest/
+     :alt: documentation
      
 Quick Links
 -----------
 - `Source code (GitHub) <https://github.com/{{ github_user }}/{{ name }}>`_
 - `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name={{ pypi_name }}>`_
-- `Documentation (ReadTheDocs) <http://{{ name }}.readthedocs.org/en/latest/>`_
 
 Requirements
 ------------
