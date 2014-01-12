@@ -2,18 +2,18 @@ import os
 import unittest
 from run import Program
 
-#TODO: rewrite!
 class ProgramTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        os.chdir(os.path.join(os.path.dirname(__file__), '..', '..'))
+        os.chdir(self._get_fixtures_path())
     
     def test_build(self):
-        program = Program(['run', 'build', '-d'])
+        program = Program(['run'])
         program()
         
-    def test_meta(self):
-        program = Program(['run', '-m'])
-        program()
+    #Protected
+    
+    def _get_fixtures_path(self, *args):
+        return os.path.join(os.path.dirname(__file__), 'fixtures', *args)
