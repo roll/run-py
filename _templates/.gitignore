@@ -1,4 +1,4 @@
-#Builded for run 0.8.1 from _templates/.gitignore
+#Builded for {{ name }} {{ version }} from _templates/.gitignore
 
 #Coverage
 .coverage
