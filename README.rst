@@ -11,7 +11,7 @@ Run is library to provide common functionality.
      :target: https://coveralls.io/r/respect31/run  
      :alt: coverage
 .. image:: http://b.repl.ca/v1/docs-uploaded-brightgreen.png
-     :target: http://run.readthedocs.org/en/latest/
+     :target: http://run.readthedocs.org
      :alt: documentation
      
 Quick Links

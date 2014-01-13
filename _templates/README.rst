@@ -11,7 +11,7 @@
      :target: https://coveralls.io/r/{{ github_user }}/{{ name }}  
      :alt: coverage
 .. image:: http://b.repl.ca/v1/docs-uploaded-brightgreen.png
-     :target: http://{{ name }}.readthedocs.org/en/latest/
+     :target: http://{{ name }}.readthedocs.org
      :alt: documentation
      
 Quick Links
