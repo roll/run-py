@@ -9,7 +9,8 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
 from .dispatcher import Dispatcher, NullDispatcher
 from .failure import Failure
 from .finder import Finder
-from .module import ModuleBuilder, ModuleMetaclass, Module, NullModule
+from .module import (ModuleBuilder, ModuleMetaclass, Module, ClusterModule,
+                     FindModule, NullModule, ProxyModule)
 from .program import Program, program
 from .run import Run
 from .settings import Settings, settings
