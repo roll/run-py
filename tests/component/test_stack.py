@@ -2,8 +2,6 @@ import unittest
 from unittest.mock import Mock
 from run.stack import Stack
 
-#Tests
-
 class StackTest(unittest.TestCase):
 
     #Public

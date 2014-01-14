@@ -2,8 +2,6 @@ import unittest
 from unittest.mock import Mock
 from run.attribute.attribute import Attribute
 
-#Tests
-
 class AttributeTest(unittest.TestCase):
     
     #Public
