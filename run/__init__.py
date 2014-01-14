@@ -14,8 +14,9 @@ from .program import Program, program
 from .run import Run
 from .settings import Settings, settings
 from .stack import Stack
-from .task import (Task, FunctionTask, PartialTask, InitiatedTaskSignal, 
-                   CompletedTaskSignal, TaskDecorator, require, trigger)
+from .task import (Task, CompositeTask, FunctionTask, PartialTask, 
+                   InitiatedTaskSignal, CompletedTaskSignal, 
+                   TaskDecorator, require, trigger)
 from .var import (Var, DescriptorVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, RetrievedVarSignal)
 from .version import Version, version

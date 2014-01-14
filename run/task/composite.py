@@ -1,4 +1,4 @@
-from run import Task
+from .task import Task
 
 #TODO: implement
 class CompositeTask(Task):
