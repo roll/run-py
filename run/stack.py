@@ -2,6 +2,7 @@ class Stack(list):
 
     #Public
 
+    #TODO: rename?
     def __str__(self):
         names = []
         if len(self) >= 1:
