@@ -16,5 +16,5 @@ from .settings import Settings, settings
 from .stack import Stack
 from .task import (Task, FunctionTask, PartialTask, 
                    TaskDecorator, require, trigger)
-from .var import Var, ValueVar, DescriptorVar
+from .var import Var, DescriptorVar, TaskVar, ValueVar
 from .version import Version, version
