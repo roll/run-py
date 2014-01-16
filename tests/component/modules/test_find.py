@@ -1,6 +1,6 @@
 import os
 import unittest
-from run.modules.parse import ParseVar
+from run.modules.find import ParseVar
 
 class ParseVarTest(unittest.TestCase):
     
@@ -8,7 +8,7 @@ class ParseVarTest(unittest.TestCase):
     
     def setUp(self):
         self.var = ParseVar(
-            'test_parse.py', 'import (.*test)\n', 
+            'test_find.py', 'import (.*test)\n', 
             basedir=os.path.dirname(__file__),
             module=None)
     
