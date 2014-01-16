@@ -1,41 +1,41 @@
-import os
 import unittest
-from run.modules.find import ParseVar
+from unittest.mock import Mock
+from run.modules.find import FindModule
 
-class ParseVarTest(unittest.TestCase):
+class FindModuleTest(unittest.TestCase):
     
     #Public
     
     def setUp(self):
-        self.var = ParseVar(
-            'test_find.py', 'import (.*test)\n', 
-            basedir=os.path.dirname(__file__),
-            module=None)
+        MockFindModule = self._make_mock_find_module_class()
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
+        self.module = MockFindModule(module=None)
     
-    def test_retrieve(self):
-        self.var.processors = [lambda items: items[0]]        
-        self.assertEqual(self.var.retrieve(), 'unittest')
+    def test_find_files(self):
+        files = self.module.find_files(*self.args, **self.kwargs)
+        self.assertEqual(files, 'files')
+        (self.module._find_files_function.
+            assert_called_with(*self.args, **self.kwargs))
+    
+    def test_find_strings(self):
+        strings = self.module.find_strings(*self.args, **self.kwargs)
+        self.assertEqual(strings, 'strings')
+        (self.module._find_strings_function.
+            assert_called_with(*self.args, **self.kwargs))
+    
+    def test_find_objects(self):
+        objects = self.module.find_objects(*self.args, **self.kwargs)
+        self.assertEqual(objects, 'objects')
+        (self.module._find_objects_function.
+            assert_called_with(*self.args, **self.kwargs))
+     
+    #Protected 
         
-    def test_retrieve_exception(self):
-        self.var.processors = [lambda items: 1/0]
-        self.var.fallback = 'fallback'     
-        self.assertEqual(self.var.retrieve(), 'fallback')        
-    
-    def test__search(self):
-        self.assertEqual(self.var._search(), ['unittest'])
-    
-    def test__process(self):
-        self.var.processors = [lambda x: x*2, lambda x: str(x)]
-        self.assertEqual(self.var._process(2), '4')
-    
-    def test__fallback_exception(self):
-        self.var.fallback = IndexError()
-        self.assertRaises(IndexError, self.var._fallback, KeyError())
-    
-    def test__fallback_callable(self):
-        self.var.fallback = lambda exception: 'fallback'
-        self.assertEqual(self.var._fallback(KeyError()), 'fallback')
-    
-    def test__fallback_var(self):
-        self.var.fallback = 'fallback'
-        self.assertEqual(self.var._fallback(KeyError()), 'fallback')           
+    def _make_mock_find_module_class(self):
+        class MockFindModule(FindModule):
+            #Protected
+            _find_files_function = Mock(return_value='files')
+            _find_strings_function = Mock(return_value='strings')
+            _find_objects_function = Mock(return_value='objects')
+        return MockFindModule
