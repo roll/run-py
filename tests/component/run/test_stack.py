@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import Mock
-from run.stack import Stack
+from run.run.stack import RunStack
 
 class StackTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
-        self.stack = Stack()
+        self.stack = RunStack()
         self.attribute1 = Mock(
             meta_module='module1',
             meta_name='attribute1',

@@ -1,11 +1,11 @@
 import logging
 from box.functools import cachedproperty
-from .handler import CallbackHandler
-from .stack import Stack
-from .task import InitiatedTaskSignal, CompletedTaskSignal
-from .var import InitiatedVarSignal, RetrievedVarSignal
+from ..handler import CallbackHandler
+from ..task import InitiatedTaskSignal, CompletedTaskSignal
+from ..var import InitiatedVarSignal, RetrievedVarSignal
+from .stack import RunStack
 
-class Controller:
+class RunController:
     
     #Public
     
@@ -33,7 +33,7 @@ class Controller:
     _completed_task_signal_class = CompletedTaskSignal
     _retrieved_var_signal_class = RetrievedVarSignal
     _logging_module = logging
-    _stack_class = Stack
+    _stack_class = RunStack
     
     def _on_initiated_attribute(self, signal):
         if not self._stackless:

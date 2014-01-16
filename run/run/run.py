@@ -1,11 +1,12 @@
 from box.functools import cachedproperty
-from .cluster import Cluster
-from .controller import Controller
-from .dispatcher import Dispatcher
-from .failure import Failure
-from .settings import settings
-from .task import Task
+from ..cluster import Cluster
+from ..dispatcher import Dispatcher
+from ..failure import Failure
+from ..settings import settings
+from ..task import Task
+from .controller import RunController
 
+#TODO: move stack ownership here, use to Stack/StacklessControllers?
 class Run:
     
     #Public
@@ -45,7 +46,7 @@ class Run:
     _default_basedir = settings.default_basedir
     _task_class = Task
     _failure_class = Failure
-    _controller_class = Controller
+    _controller_class = RunController
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
     

@@ -1,8 +1,8 @@
-class Stack(list):
+class RunStack(list):
 
     #Public
 
-    #TODO: rename?
+    #TODO: rename? join? stringify? format? as_str?
     def __str__(self):
         names = []
         if len(self) >= 1:
