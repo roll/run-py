@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, mock_open
-from run.library.render import RenderTask, ModuleTemplate, ModuleContext
+from run.modules.render import RenderTask, ModuleTemplate, ModuleContext
 
 class RenderTaskTest(unittest.TestCase):
 
