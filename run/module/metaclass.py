@@ -8,8 +8,11 @@ class ModuleMetaclass(AttributeMetaclass):
      
     #Public
      
+    #TODO: figyre out why staticmethods fails
     def __new__(cls, name, bases, dct):
         for key, attr in dct.items():
+            if key.isupper():
+                continue
             if key.startswith('_'):
                 continue
             if key.startswith('meta_'):
