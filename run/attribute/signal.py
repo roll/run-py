@@ -1,6 +1,6 @@
-from ..signal import Signal
+from ..dispatcher import DispatcherSignal
 
-class AttributeSignal(Signal):
+class AttributeSignal(DispatcherSignal):
 
     #Public
 

@@ -1,6 +1,6 @@
 import logging
 from box.functools import cachedproperty
-from ..handler import CallbackHandler
+from ..dispatcher import DispatcherCallbackHandler
 from ..task import InitiatedTaskSignal, CompletedTaskSignal
 from ..var import InitiatedVarSignal, RetrievedVarSignal
 from .stack import RunStack
@@ -27,7 +27,7 @@ class RunController:
          
     #Protected
     
-    _callback_handler_class = CallbackHandler
+    _callback_handler_class = DispatcherCallbackHandler
     _initiated_task_signal_class = InitiatedTaskSignal
     _initiated_var_signal_class = InitiatedVarSignal
     _completed_task_signal_class = CompletedTaskSignal

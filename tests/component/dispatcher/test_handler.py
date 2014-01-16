@@ -1,14 +1,14 @@
 import unittest
 from unittest.mock import Mock
-from run.handler import CallbackHandler
+from run.dispatcher.handler import DispatcherCallbackHandler
 
-class CallbackHandlerTest(unittest.TestCase):
+class DispatcherCallbackHandlerTest(unittest.TestCase):
 
     #Public
 
     def test_handle(self):
         callback = Mock()
         signal = Mock()
-        handler = CallbackHandler(callback, signals=[Mock])
+        handler = DispatcherCallbackHandler(callback, signals=[Mock])
         handler.handle(signal)
         callback.assert_called_with(signal)
