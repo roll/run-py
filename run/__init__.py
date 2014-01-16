@@ -10,7 +10,7 @@ from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler,
                          DispatcherCallbackHandler, DispatcherSignal)
 from .failure import Failure
 from .finder import Finder
-from .module import (ModuleBuilder, ModuleMetaclass, Module, ClusterModule,
+from .module import (ModuleBuilder, ModuleMetaclass, Module,
                      FindModule, NullModule, ProxyModule)
 from .program import Program, program
 from .run import Run, RunController, RunStack
