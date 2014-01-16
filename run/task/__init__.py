@@ -1,4 +1,3 @@
-from .composite import CompositeTask
 from .decorator import TaskDecorator, require, trigger
 from .function import FunctionTask
 from .partial import PartialTask
