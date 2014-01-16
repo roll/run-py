@@ -1,22 +1,19 @@
 import os
 import sys
-from box.functools import cachedproperty
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import concat
 from run import Task
 
-class RenderTask(Task):
+class RenderFileTask(Task):
     
     #Public
     
-    #TODO: adjust to new basedir!
-    def __init__(self, source, target):
-        self._source = source
-        self._target = target
-        
-    def complete(self):
-        text = self._template.render(self._context)
-        with self._open_operator(self._target, 'w') as file:
+    #TODO: adjust to new basedir!        
+    def complete(self, source, target):
+        template = self._get_template(source)
+        context = self._get_context()
+        text = template.render(context)
+        with self._open_operator(target, 'w') as file:
             file.write(text)
             
     #Protected
@@ -27,19 +24,17 @@ class RenderTask(Task):
     _module_context_class = property(lambda self: ModuleContext)
     _open_operator = staticmethod(open)
     
-    @cachedproperty
-    def _context(self):
-        context = self._module_context_class(self.meta_module)
-        return context  
-    
-    @cachedproperty
-    def _template(self):
-        dirname, filename = os.path.split(os.path.abspath(self._source))
+    def _get_template(self, source):
+        dirname, filename = os.path.split(os.path.abspath(source))
         loader = self._file_system_loader_class(dirname)
         environment = self._environment_class(loader=loader)
         environment.template_class = self._module_template_class
         template = environment.get_template(filename)
         return template
+    
+    def _get_context(self):
+        context = self._module_context_class(self.meta_module)
+        return context  
 
 
 class ModuleTemplate(Template):
