@@ -1,6 +1,6 @@
 from .var import Var
 
-class TaskVar(Var):
+class PartialVar(Var):
     
     #Public
     
