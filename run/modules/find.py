@@ -1,7 +1,6 @@
 from run import Module
 from box.findtools import find_files, find_strings, find_objects
 
-#TODO: rebase on ProxyModule
 class FindModule(Module):
     
     BREAK_BEFORE = find_files.BREAK_BEFORE
