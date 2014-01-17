@@ -1,4 +1,5 @@
 import unittest
+from unittest.mock import Mock
 from run.task.method import MethodTask
 
 class MethodTaskTest(unittest.TestCase):
@@ -6,29 +7,11 @@ class MethodTaskTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        MockMethodTask = self._make_mock_method_task_class()
-        mock_function = self._make_mock_function()
-        self.task = MockMethodTask(mock_function, module=None)
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
+        self.function = Mock(return_value='value')
+        self.task = MethodTask(self.function, module='module')
         
     def test_complete(self):        
-        self.assertEqual(self.task.complete('value'), 'value')
-        
-    def test_meta_signature(self):
-        self.assertEqual(self.task.meta_signature, 'qualname(module, value)')
-       
-    def test_meta_docstring(self):        
-        self.assertEqual(self.task.meta_docstring, 'docstring')
-        
-    #Protected
-    
-    def _make_mock_method_task_class(self):
-        class MockMethodTask(MethodTask):
-            #Public
-            meta_qualname = 'qualname'
-        return MockMethodTask
-    
-    def _make_mock_function(self):
-        def mock_function(module, value):
-            """docstring"""
-            return value
-        return mock_function    
+        self.assertEqual(self.task.complete(*self.args, **self.kwargs), 'value')
+        self.function.assert_called_with('module', *self.args, **self.kwargs)
