@@ -7,10 +7,10 @@ class MethodTaskTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.args = ('arg1',)
-        self.kwargs = {'kwarg1': 'kwarg1'}
         self.function = Mock(return_value='value')
         self.task = MethodTask(self.function, module='module')
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}        
         
     def test_complete(self):        
         self.assertEqual(self.task.complete(*self.args, **self.kwargs), 'value')
