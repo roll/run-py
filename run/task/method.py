@@ -1,7 +1,7 @@
 import inspect
 from .task import Task
 
-class FunctionTask(Task):
+class MethodTask(Task):
     
     #Public
 

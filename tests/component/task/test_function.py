@@ -1,14 +1,14 @@
 import unittest
-from run.task.function import FunctionTask
+from run.task.method import MethodTask
 
 class FunctionTaskTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        MockFunctionTask = self._make_mock_function_task_class()
+        MockMethodTask = self._make_mock_method_task_class()
         mock_function = self._make_mock_function()
-        self.task = MockFunctionTask(mock_function, module=None)
+        self.task = MockMethodTask(mock_function, module=None)
         
     def test_complete(self):        
         self.assertEqual(self.task.complete('value'), 'value')
@@ -21,11 +21,11 @@ class FunctionTaskTest(unittest.TestCase):
         
     #Protected
     
-    def _make_mock_function_task_class(self):
-        class MockFunctionTask(FunctionTask):
+    def _make_mock_method_task_class(self):
+        class MockMethodTask(MethodTask):
             #Public
             meta_qualname = 'qualname'
-        return MockFunctionTask
+        return MockMethodTask
     
     def _make_mock_function(self):
         def mock_function(module, value):

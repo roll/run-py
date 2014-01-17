@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from ..dependent import DependentAttributeBuilder
-from .function import FunctionTask       
+from .method import MethodTask       
 
 class TaskDecorator(metaclass=ABCMeta):
     
@@ -20,7 +20,7 @@ class TaskDecorator(metaclass=ABCMeta):
     #Protected
     
     _builder_class = DependentAttributeBuilder
-    _attribute_class = FunctionTask
+    _attribute_class = MethodTask
     
     @abstractmethod
     def _add_dependency(self, builder):
