@@ -15,7 +15,7 @@ from .module import (ModuleBuilder, ModuleMetaclass, Module,
 from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings
-from .task import (Task, FunctionTask, MethodTask, PartialTask, 
+from .task import (Task, FunctionTask, MethodTask, NullTask, PartialTask, 
                    InitiatedTaskSignal, CompletedTaskSignal, 
                    TaskDecorator, require, trigger)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 

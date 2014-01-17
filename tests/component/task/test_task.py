@@ -29,10 +29,6 @@ class TaskTest(unittest.TestCase):
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('retrieved_signal')])
         
-    def test_complete(self):
-        task = Task(module=None)
-        self.assertEqual(task.complete(), None)
-        
     #Protected
     
     def _make_mock_task_class(self):

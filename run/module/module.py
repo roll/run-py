@@ -1,6 +1,6 @@
 from pprint import pprint
 from collections import OrderedDict
-from ..task import Task
+from ..task import NullTask
 from .base import BaseModule
 
 class Module(BaseModule):
@@ -43,7 +43,7 @@ class Module(BaseModule):
                 meta[key] = getattr(attribute, name)
         self._meta_formatted_print_operator(meta)
       
-    default = Task(
+    default = NullTask(
         require=['list'],
     )
     

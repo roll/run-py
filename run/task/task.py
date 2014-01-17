@@ -1,7 +1,8 @@
+from abc import ABCMeta, abstractmethod
 from ..dependent import DependentAttribute
 from .signal import InitiatedTaskSignal, CompletedTaskSignal
 
-class Task(DependentAttribute):
+class Task(DependentAttribute, metaclass=ABCMeta):
     
     #Public
     
@@ -27,8 +28,9 @@ class Task(DependentAttribute):
             self._retrieved_signal_class(self))
         return result
     
+    @abstractmethod
     def complete(self, *args, **kwargs):
-        pass
+        pass #pragma: no cover
     
     #Protected
     
