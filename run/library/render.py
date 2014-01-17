@@ -2,7 +2,7 @@ import os
 import sys
 from jinja2 import Environment, FileSystemLoader, Template
 from jinja2.utils import concat
-from run import Task
+from run import Module, Task
 
 class RenderFileTask(Task):
     
@@ -69,4 +69,11 @@ class ModuleContext:
         try:
             return getattr(self._module, key)
         except AttributeError:
-            raise KeyError(key)        
+            raise KeyError(key)
+        
+        
+class RenderModule(Module):
+    
+    #Public
+    
+    render_file = RenderFileTask()
