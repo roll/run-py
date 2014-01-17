@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock
-from run.library.input import InputVar
+from run.modules.input import InputVar
 
 class InputVarTest(unittest.TestCase):
     
