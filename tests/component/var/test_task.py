@@ -1,16 +1,16 @@
 import unittest
 from unittest.mock import Mock
-from run.var.partial import PartialVar
+from run.var.task import TaskVar
 
 class PartialVarTest(unittest.TestCase):
 
     #Public
 
     def setUp(self):
-        MockPartialVar = self._make_mock_partial_var_class()
+        MockTaskVar = self._make_mock_task_var_class()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.var = MockPartialVar(
+        self.var = MockTaskVar(
             'task', *self.args, module=None, **self.kwargs)
         
     def test_retrieve(self):
@@ -20,8 +20,8 @@ class PartialVarTest(unittest.TestCase):
         
     #Protected
     
-    def _make_mock_partial_var_class(self):
-        class MockPartialVar(PartialVar):
+    def _make_mock_task_var_class(self):
+        class MockTaskVar(TaskVar):
             #Public
             meta_module = Mock(task=Mock(return_value='value'))
-        return MockPartialVar
+        return MockTaskVar
