@@ -18,6 +18,6 @@ from .settings import Settings, settings
 from .task import (Task, FunctionTask, MethodTask, PartialTask, 
                    InitiatedTaskSignal, CompletedTaskSignal, 
                    TaskDecorator, require, trigger)
-from .var import (Var, DescriptorVar, PartialVar, ValueVar, 
+from .var import (Var, DescriptorVar, FunctionVar, PartialVar, ValueVar, 
                   InitiatedVarSignal, RetrievedVarSignal)
 from .version import Version, version
