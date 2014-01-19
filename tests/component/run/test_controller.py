@@ -10,11 +10,11 @@ class RunControllerTest(unittest.TestCase):
     def setUp(self):
         MockController = self._make_mock_controller_class()
         self.dispatcher = Mock(add_handler=Mock())
-        self.controller_constructor = partial(MockController, self.dispatcher)
+        self.partial_controller = partial(MockController, self.dispatcher)
         self.signal = Mock(attribute=Mock(meta_qualname='attr_qualname'))
             
     def test_listen(self):
-        controller = self.controller_constructor()
+        controller = self.partial_controller()
         controller.listen()
         controller._callback_handler_class.assert_has_calls([
             call(controller._on_initiated_attribute, 
@@ -26,13 +26,13 @@ class RunControllerTest(unittest.TestCase):
             call(controller._callback_handler_class.return_value)])
         
     def test__on_initiated_attribute(self):
-        controller = self.controller_constructor()
+        controller = self.partial_controller()
         controller._on_initiated_attribute(self.signal)
         (controller._stack_class.return_value.push.
             assert_called_with(self.signal.attribute))
         
     def test__on_executed_attribute(self):
-        controller = self.controller_constructor()
+        controller = self.partial_controller()
         controller._on_executed_attribute(self.signal)
         controller._stack_class.return_value.__str__.assert_called_with()   
         controller._stack_class.return_value.pop.assert_called_with()
@@ -40,13 +40,13 @@ class RunControllerTest(unittest.TestCase):
             assert_called_with('stack'))
         
     def test__on_executed_attribute_with_stackless_is_true(self):
-        controller = self.controller_constructor(stackless=True)
+        controller = self.partial_controller(stackless=True)
         controller._on_executed_attribute(self.signal)
         (controller._logging_module.getLogger.return_value.info.
             assert_called_with('attr_qualname'))
         
     def test__stack(self):
-        controller = self.controller_constructor()
+        controller = self.partial_controller()
         controller._stack
         controller._stack_class.assert_called_with()
     
