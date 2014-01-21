@@ -15,7 +15,7 @@ class Finder:
         
     def find(self, filename, basedir=None, recursively=False):
         if not basedir:
-            basedir = self._default_basedir
+            basedir = self.default_basedir
         if recursively:
             max_depth = None
         else:
