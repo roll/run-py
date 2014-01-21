@@ -4,12 +4,15 @@ class FindModule:
 
     #Public
 
+    default_filename = settings.default_file    
+    default_basedir = settings.default_basedir
+    
     def __new__(self, names=[], tags=[], 
                 filename=None, basedir=None, recursively=False):
-        if not basedir:
-            basedir = self._default_basedir
         if not filename:
-            filename = self._default_filename
+            filename = self.default_filename
+        if not basedir:
+            basedir = self.default_basedir
         finder_class = self._get_finder_class() 
         finder = finder_class(names=names, tags=tags)
         for module_class in finder.find(filename, basedir, recursively):
@@ -25,9 +28,6 @@ class FindModule:
                        recursively=recursively))
             
     #Protected
-    
-    _default_basedir = settings.default_basedir
-    _default_file_pattern = settings.default_file
     
     @staticmethod
     def _get_finder_class():
