@@ -7,6 +7,8 @@ class Finder:
     
     #Public
     
+    default_basedir = settings.default_basedir   
+    
     def __init__(self, names=[], tags=[]):
         self._names = names
         self._tags = tags
@@ -28,7 +30,6 @@ class Finder:
     
     #Protected
 
-    _default_basedir = settings.default_basedir    
     _module_class = Module
     
     
