@@ -11,16 +11,23 @@ class Run:
     
     #Public
     
+    default_filename = settings.default_file  
+    default_basedir = settings.default_basedir
+    
     def __init__(self, names=[], tags=[], 
                  filename=None, basedir=None, recursively=False, 
                  existent=False, stackless=False):
         self._names = names
         self._tags = tags
-        self._input_filename = filename
-        self._input_basedir = basedir
+        self._filename = filename
+        self._basedir = basedir
         self._recursively = recursively
         self._existent = existent 
         self._stackless = stackless
+        if not self._filename:
+            self._filename = self.default_filename
+        if not self._basedir:
+            self._basedir = self.default_basedir         
                 
     def run(self, attribute, *args, **kwargs):
         try:
@@ -42,8 +49,6 @@ class Run:
     #Protected
     
     _print_operator = staticmethod(print)
-    _default_filename = settings.default_file  
-    _default_basedir = settings.default_basedir
     _task_class = Task
     _failure_class = Failure
     _controller_class = RunController
@@ -68,18 +73,4 @@ class Run:
             basedir=self._basedir, 
             recursively=self._recursively,
             existent=self._existent,
-            dispatcher=self._dispatcher)
-    
-    @property
-    def _basedir(self):
-        if self._input_basedir:
-            return self._input_basedir
-        else:
-            return self._default_basedir
-        
-    @property
-    def _filename(self):
-        if self._input_filename:
-            return self._input_filename
-        else:
-            return self._default_filename   
+            dispatcher=self._dispatcher)  

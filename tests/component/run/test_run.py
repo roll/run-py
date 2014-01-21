@@ -66,6 +66,9 @@ class RunTest(unittest.TestCase):
     
     def _make_mock_run_class(self):
         class MockRun(Run):
+            #Public
+            default_filename = 'default_filename'
+            default_basedir = 'default_basedir'
             #Protected
             _print_operator = Mock()
             _task_class = Mock
@@ -75,6 +78,4 @@ class RunTest(unittest.TestCase):
                 Mock(return_value='result1'), 
                 Mock(return_value='result2'),
                 'attr3']))
-            _default_filename = 'default_filename'
-            _default_basedir = 'default_basedir'
         return MockRun
