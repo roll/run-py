@@ -8,6 +8,9 @@ class Command(Command):
     
     #Public
     
+    default_config = settings.argparse
+    default_attribute = settings.default_attribute
+    
     @property
     def attribute(self):
         attribute = self._namespace.attribute 
@@ -18,7 +21,7 @@ class Command(Command):
         elif self.meta:
             attribute = 'meta'
         elif not attribute:
-            attribute = self._default_attribute
+            attribute = self.default_attribute
         return attribute
     
     @property
@@ -38,9 +41,6 @@ class Command(Command):
         return self._parsed_arguments[1]
     
     #Protected
-    
-    _default_config = settings.argparse
-    _default_attribute = settings.default_attribute
     
     @cachedproperty
     def _parsed_arguments(self):

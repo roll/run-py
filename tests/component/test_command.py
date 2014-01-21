@@ -10,7 +10,7 @@ class CommandTest(unittest.TestCase):
         
     def test_attribute(self):
         self.assertEqual(self.command.attribute, 
-                         self.command._default_attribute)
+                         self.command.default_attribute)
         
     def test_args(self):
         self.assertEqual(self.command.args, [])
