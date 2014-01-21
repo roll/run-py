@@ -7,16 +7,23 @@ class Cluster:
 
     #Public
 
+    default_filename = settings.default_file
+    default_basedir = settings.default_basedir
+
     def __init__(self, names=[], tags=[], 
                  filename=None, basedir=None, recursively=False, 
                  existent=False, dispatcher=None):
         self._names = names
         self._tags = tags
-        self._input_basedir = basedir
-        self._input_filename = filename
+        self._filename = filename
+        self._basedir = basedir
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
+        if not self._filename:
+            self._filename = self.default_filename
+        if not self._basedir:
+            self._basedir = self.default_basedir                    
     
     def __getattr__(self, name):
         attributes = []
@@ -34,8 +41,6 @@ class Cluster:
     #Protected
     
     _finder_class = Finder
-    _default_basedir = settings.default_basedir
-    _default_filename = settings.default_file
         
     @cachedproperty
     def _modules(self):
@@ -56,20 +61,6 @@ class Cluster:
     @cachedproperty   
     def _module_finder(self):
         return self._finder_class(names=self._names, tags=self._tags)
-    
-    @property
-    def _basedir(self):
-        if self._input_basedir:
-            return self._input_basedir
-        else:
-            return self._default_basedir
-        
-    @property
-    def _filename(self):
-        if self._input_filename:
-            return self._input_filename
-        else:
-            return self._default_filename 
     
     @cachedproperty   
     def _logger(self):

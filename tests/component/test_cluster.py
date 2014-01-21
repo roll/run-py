@@ -61,12 +61,13 @@ class ClusterTest(unittest.TestCase):
     
     def _make_mock_cluster_class(self):
         class MockCluster(Cluster):
+            #Public
+            default_filename = 'default_filename'               
+            default_basedir = 'default_basedir'
             #Protected
             _finder_class = Mock(return_value=Mock(find=
                 Mock(return_value=[module_class for module_class in 
                     [Mock(return_value=Mock(attr1=1, attr2=1)), 
                      Mock(return_value=Mock(attr1=2, spec=['attr1'])), 
                      Mock(return_value=Mock(attr1=3, spec=['attr1']))]])))
-            _default_basedir = 'default_basedir'
-            _default_filename = 'default_filename'            
         return MockCluster
