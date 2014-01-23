@@ -36,7 +36,6 @@ class ModuleMetaclass(AttributeMetaclass):
     #Protected
     
     _builder_class = ModuleBuilder
-    
     _attribute_class = Attribute
     _attribute_builder_class = AttributeBuilder
     _method_task_class = MethodTask
