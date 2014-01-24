@@ -5,6 +5,7 @@ from ..failure import Failure
 from ..settings import settings
 from ..task import Task
 from .controller import RunController
+from .stack import RunStack
 
 class Run:
     
@@ -53,15 +54,12 @@ class Run:
     _controller_class = RunController
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
+    _stack_class = RunStack
     
     @cachedproperty
     def _controller(self):
         return self._controller_class(
-            self._dispatcher, stackless=self._stackless)
-    
-    @cachedproperty
-    def _dispatcher(self):
-        return self._dispatcher_class()
+            self._dispatcher, self._stack)
     
     @cachedproperty   
     def _cluster(self):
@@ -72,4 +70,15 @@ class Run:
             basedir=self._basedir, 
             recursively=self._recursively,
             existent=self._existent,
-            dispatcher=self._dispatcher)  
+            dispatcher=self._dispatcher)
+    
+    @cachedproperty
+    def _dispatcher(self):
+        return self._dispatcher_class()
+       
+    @cachedproperty
+    def _stack(self):
+        if not self._stackless:
+            return self._stack_class()
+        else:
+            return None

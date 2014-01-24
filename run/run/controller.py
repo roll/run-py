@@ -1,17 +1,15 @@
 import logging
-from box.functools import cachedproperty
 from ..dispatcher import DispatcherCallbackHandler
 from ..task import InitiatedTaskSignal, CompletedTaskSignal
 from ..var import InitiatedVarSignal, RetrievedVarSignal
-from .stack import RunStack
 
 class RunController:
     
     #Public
     
-    def __init__(self, dispatcher, stackless=False):
+    def __init__(self, dispatcher, stack=None):
         self._dispatcher = dispatcher
-        self._stackless = stackless
+        self._stack = stack
         
     def listen(self):
         self._dispatcher.add_handler(
@@ -33,21 +31,16 @@ class RunController:
     _completed_task_signal_class = CompletedTaskSignal
     _retrieved_var_signal_class = RetrievedVarSignal
     _logging_module = logging
-    _stack_class = RunStack
     
     def _on_initiated_attribute(self, signal):
-        if not self._stackless:
+        if self._stack != None:
             self._stack.push(signal.attribute)   
 
     def _on_executed_attribute(self, signal):
-        if not self._stackless:
+        if self._stack != None:
             message = str(self._stack)
             self._stack.pop()            
         else:
             message = signal.attribute.meta_qualname            
         logger=self._logging_module.getLogger('executed')
-        logger.info(message) 
-        
-    @cachedproperty
-    def _stack(self):
-        return self._stack_class()       
+        logger.info(message)    

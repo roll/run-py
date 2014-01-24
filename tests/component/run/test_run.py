@@ -15,8 +15,7 @@ class RunTest(unittest.TestCase):
             filename='filename', 
             basedir='basedir',
             recursively='recursively',
-            existent='existent', 
-            stackless='dispatcher')
+            existent='existent',)
         
     def test_run(self):
         run = self.partial_run()
@@ -35,12 +34,8 @@ class RunTest(unittest.TestCase):
         run = self.partial_run()
         run._controller
         run._controller_class.assert_called_with(
-            run._dispatcher, stackless=run._stackless)
-        
-    def test__dispatcher(self):
-        run = self.partial_run()
-        run._dispatcher
-        run._dispatcher_class.assert_called_with()
+            run._dispatcher_class.return_value, 
+            run._stack_class.return_value)
         
     def test__cluster(self):
         run = self.partial_run()
@@ -54,13 +49,32 @@ class RunTest(unittest.TestCase):
             existent='existent', 
             dispatcher=run._dispatcher_class.return_value)
         
-    def test__filename_default(self):
-        run = self.partial_run(filename=None)
-        self.assertEqual(run._filename, 'default_filename')  
+    def test__cluster_with_default_filename_and_basedir(self):
+        run = self.partial_run(filename=None, basedir=None)
+        run._cluster
+        run._cluster_class.assert_called_with(
+            names='names', 
+            tags='tags', 
+            filename='default_filename', 
+            basedir='default_basedir',
+            recursively='recursively',
+            existent='existent', 
+            dispatcher=run._dispatcher_class.return_value)        
         
-    def test__basedir_default(self):
-        run = self.partial_run(basedir=None)
-        self.assertEqual(run._basedir, 'default_basedir')
+    def test__dispatcher(self):
+        run = self.partial_run()
+        run._dispatcher
+        run._dispatcher_class.assert_called_with()
+        
+    def test__stack(self):
+        run = self.partial_run()
+        self.assertEqual(run._stack, 'stack')
+        run._stack_class.assert_called_with()
+        
+    def test__stack_with_stackless_is_true(self):
+        run = self.partial_run(stackless=True)
+        self.assertEqual(run._stack, None)
+        self.assertFalse(run._stack_class.called)                             
     
     #Protected
     
@@ -78,4 +92,5 @@ class RunTest(unittest.TestCase):
                 Mock(return_value='result1'), 
                 Mock(return_value='result2'),
                 'attr3']))
+            _stack_class = Mock(return_value='stack')
         return MockRun

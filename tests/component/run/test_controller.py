@@ -10,7 +10,8 @@ class RunControllerTest(unittest.TestCase):
     def setUp(self):
         MockController = self._make_mock_controller_class()
         self.dispatcher = Mock(add_handler=Mock())
-        self.partial_controller = partial(MockController, self.dispatcher)
+        self.stack = Mock(__str__=Mock(return_value='stack'), push=Mock(), pop=Mock())
+        self.partial_controller = partial(MockController, self.dispatcher, stack=self.stack)
         self.signal = Mock(attribute=Mock(meta_qualname='attr_qualname'))
             
     def test_listen(self):
@@ -28,27 +29,21 @@ class RunControllerTest(unittest.TestCase):
     def test__on_initiated_attribute(self):
         controller = self.partial_controller()
         controller._on_initiated_attribute(self.signal)
-        (controller._stack_class.return_value.push.
-            assert_called_with(self.signal.attribute))
+        self.stack.push.assert_called_with(self.signal.attribute)
         
     def test__on_executed_attribute(self):
         controller = self.partial_controller()
         controller._on_executed_attribute(self.signal)
-        controller._stack_class.return_value.__str__.assert_called_with()   
-        controller._stack_class.return_value.pop.assert_called_with()
+        self.stack.__str__.assert_called_with()   
+        self.stack.pop.assert_called_with()
         (controller._logging_module.getLogger.return_value.info.
             assert_called_with('stack'))
         
-    def test__on_executed_attribute_with_stackless_is_true(self):
-        controller = self.partial_controller(stackless=True)
+    def test__on_executed_attribute_with_stack_is_none(self):
+        controller = self.partial_controller(stack=None)
         controller._on_executed_attribute(self.signal)
         (controller._logging_module.getLogger.return_value.info.
             assert_called_with('attr_qualname'))
-        
-    def test__stack(self):
-        controller = self.partial_controller()
-        controller._stack
-        controller._stack_class.assert_called_with()
     
     #Protected
     
@@ -61,8 +56,5 @@ class RunControllerTest(unittest.TestCase):
             _completed_task_signal_class = 'completed_task'
             _retrieved_var_signal_class = 'retrieved_var'
             _logging_module = Mock(getLogger=Mock(
-                return_value=Mock(info=Mock())))
-            _stack_class = Mock(return_value=Mock(
-                __str__=Mock(return_value='stack'), 
-                push=Mock(), pop=Mock()))         
+                return_value=Mock(info=Mock())))       
         return MockController
