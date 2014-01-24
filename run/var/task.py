@@ -12,12 +12,10 @@ class TaskVar(Var):
     def retrieve(self):
         return self._task(*self._args, **self._kwargs)
         
-    #TODO: implement for var
     @property
     def meta_signature(self):
         return self._task.meta_signature
 
-    #TODO: implement for var    
     @property    
     def meta_docstring(self):
         return self._task.meta_docstring

@@ -2,7 +2,6 @@ class DependentAttributeTask:
     
     #Public
     
-    #TODO: change call style to nested requires?
     def __init__(self, task):
         self._unpack(task)
         self._is_executed = False
@@ -33,6 +32,7 @@ class DependentAttributeTask:
     
     #TODO: indefinite behaviour with type error 
     #like task=('task', {'kwarg': 'kwarg'}) for example
+    #Or it will be solved in new require/trigger style 
     def _unpack(self, task):
         self._name = ''
         self._args = ()

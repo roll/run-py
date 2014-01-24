@@ -2,7 +2,6 @@ from abc import ABCMeta, abstractmethod
 from ..dependent import DependentAttribute
 from .signal import InitiatedVarSignal, RetrievedVarSignal
 
-#TODO: add caching! (here or in concrete vars?)
 class Var(DependentAttribute, metaclass=ABCMeta):
     
     #Public

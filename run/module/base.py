@@ -70,7 +70,7 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
         else:
             return self._meta_default_main_module_name
  
-#TODO: fix Loader name, tags properties issue!   
+#     TODO: fix
 #     @property
 #     def meta_tags(self):
 #         return []

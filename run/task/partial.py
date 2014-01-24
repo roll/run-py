@@ -15,12 +15,10 @@ class PartialTask(Task):
         ekwargs.update(kwargs) 
         return self._task(*eargs, **ekwargs)
         
-    #TODO: implement for partial
     @property
     def meta_signature(self):
         return self._task.meta_signature
 
-    #TODO: implement for partial    
     @property    
     def meta_docstring(self):
         return self._task.meta_docstring

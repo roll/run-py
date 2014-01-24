@@ -1,5 +1,5 @@
 import sys
-import logging.config; logging.config #TODO: PyDev warning
+import logging.config; logging.config #PyDev warning
 from box.argparse import Program
 from box.functools import cachedproperty
 from .command import Command
