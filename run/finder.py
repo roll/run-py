@@ -20,12 +20,12 @@ class Finder:
             max_depth = None
         else:
             max_depth = 1
-        filters = [
-            FinderTypeFilter(self._module_class),
-            FinderMetaNameFilter(self._names),
-            FinderMetaTagFilter(self._tags),]
+        mappers = [
+            FinderTypeMapper(self._module_class),
+            FinderMetaNameMapper(self._names),
+            FinderMetaTagMapper(self._tags),]
         modules = find_objects(filename=filename, 
-            basedir=basedir, max_depth=max_depth, filters=filters)
+            basedir=basedir, max_depth=max_depth, mappers=mappers)
         return modules
     
     #Protected
@@ -33,50 +33,47 @@ class Finder:
     _module_class = Module
     
     
-class FinderTypeFilter:
+class FinderTypeMapper:
     
     #Public
     
     def __init__(self, module_class):
         self._module_class = module_class
         
-    def __call__(self, obj, name, module):
-        if inspect.getmodule(obj) != module:
-            return False
-        if not isinstance(obj, type):
-            return False
-        if not issubclass(obj, self._module_class):
-            return False
-        if inspect.isabstract(obj):
-            return False
-        return True
+    def __call__(self, emitter):
+        if inspect.getmodule(emitter.object) != emitter.module:
+            emitter.skip()
+        if not isinstance(emitter.object, type):
+            emitter.skip()
+        if not issubclass(emitter.object, self._module_class):
+            emitter.skip()
+        if inspect.isabstract(emitter.object):
+            emitter.skip()
     
     
-class FinderMetaNameFilter:
+class FinderMetaNameMapper:
     
     #Public
     
     def __init__(self, meta_names):
         self._meta_names = meta_names
         
-    def __call__(self, obj, name, module):
+    def __call__(self, emitter):
         if self._meta_names:
-            if obj.meta_name not in self._meta_names:
-                return False
-        return True
+            if emitter.object.meta_name not in self._meta_names:
+                emitter.skip()
     
     
-class FinderMetaTagFilter:
+class FinderMetaTagMapper:
     
     #Public
     
     def __init__(self, meta_tags):
         self._meta_tags = meta_tags
         
-    def __call__(self, obj, name, module):
+    def __call__(self, emitter):
         if self._meta_tags:
-            object_tags = set(obj.meta_tags)
+            object_tags = set(emitter.object.meta_tags)
             filter_tags = set(self._meta_tags)
             if set.isdisjoint(object_tags, filter_tags):
-                return False
-        return True        
+                emitter.skip()     
