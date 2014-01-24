@@ -5,6 +5,7 @@ python:
   - '3.3'
 install:
   - pip install coveralls
+  - pip install -r requirements.txt  
 script:
   - coverage run --source={{ name }} setup.py test
 after_success:
