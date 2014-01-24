@@ -1,7 +1,6 @@
 #Builded for {{ name }} {{ version }} from _templates/MANIFEST.in
 
 graft data
-graft docs
 graft {{ name }}
 graft tests
 

@@ -1,7 +1,6 @@
 #Builded for run 0.8.1 from _templates/MANIFEST.in
 
 graft data
-graft docs
 graft run
 graft tests
 

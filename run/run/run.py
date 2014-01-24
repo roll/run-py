@@ -6,7 +6,6 @@ from ..settings import settings
 from ..task import Task
 from .controller import RunController
 
-#TODO: move stack ownership here, use to Stack/StacklessControllers?
 class Run:
     
     #Public
