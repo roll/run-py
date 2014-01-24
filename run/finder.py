@@ -43,11 +43,11 @@ class FinderTypeMapper:
     def __call__(self, emitter):
         if inspect.getmodule(emitter.object) != emitter.module:
             emitter.skip()
-        if not isinstance(emitter.object, type):
+        elif not isinstance(emitter.object, type):
             emitter.skip()
-        if not issubclass(emitter.object, self._module_class):
+        elif not issubclass(emitter.object, self._module_class):
             emitter.skip()
-        if inspect.isabstract(emitter.object):
+        elif inspect.isabstract(emitter.object):
             emitter.skip()
     
     
