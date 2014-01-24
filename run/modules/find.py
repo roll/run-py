@@ -3,9 +3,6 @@ from box.findtools import find_files, find_strings, find_objects
 
 class FindModule(Module):
     
-    BREAK_BEFORE = find_files.BREAK_BEFORE
-    BREAK_AFTER = find_files.BREAK_AFTER
-    
     #Public
 
     def find_files(self, *args, **kwargs):
