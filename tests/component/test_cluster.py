@@ -49,14 +49,6 @@ class ClusterTest(unittest.TestCase):
         cluster._finder_class.assert_called_with(
             names='names', tags='tags')
         
-    def test__basedir_default(self):
-        cluster = self.partial_cluster(basedir=None)
-        self.assertEqual(cluster._basedir, 'default_basedir')
-        
-    def test__filename_default(self):
-        cluster = self.partial_cluster(filename=None)
-        self.assertEqual(cluster._filename, 'default_filename')
-        
     #Protected
     
     def _make_mock_cluster_class(self):
