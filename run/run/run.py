@@ -37,9 +37,9 @@ class Run:
                 if isinstance(attribute, self._task_class):
                     result = attribute(*args, **kwargs)
                     if result:
-                        self._print_operator(result)
+                        self._print_function(result)
                 else:
-                    self._print_operator(attribute)
+                    self._print_function(attribute)
         except self._failure_class:
             pass
         #TODO: implement
@@ -48,7 +48,7 @@ class Run:
          
     #Protected
     
-    _print_operator = staticmethod(print)
+    _print_function = staticmethod(print)
     _task_class = Task
     _failure_class = Failure
     _controller_class = RunController

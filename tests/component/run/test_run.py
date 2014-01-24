@@ -25,7 +25,7 @@ class RunTest(unittest.TestCase):
         for attr in run._cluster_class.return_value.attribute:
             if hasattr(attr, 'assert_called_with'):
                 attr.assert_called_with(*args, **kwargs)
-        run._print_operator.assert_has_calls([
+        run._print_function.assert_has_calls([
             call('result1'), 
             call('result2'),
             call('attr3')])
@@ -84,7 +84,7 @@ class RunTest(unittest.TestCase):
             default_filename = 'default_filename'
             default_basedir = 'default_basedir'
             #Protected
-            _print_operator = Mock()
+            _print_function = Mock()
             _task_class = Mock
             _controller_class = Mock()
             _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
