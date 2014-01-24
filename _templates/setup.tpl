@@ -16,7 +16,7 @@ package = {
 	'include_package_data': True,
 	'data_files': [('/etc/bash_completion.d', ['data/run.sh'])],
     'entry_points': {'console_scripts': ['run = run:program']},
-    'install_requires': ['box>=0.8', 'jinja2>=2.7'],  
+    'install_requires': ['box>=0.10.1', 'jinja2>=2.7'],  
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
