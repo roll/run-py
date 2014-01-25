@@ -137,10 +137,18 @@ class Settings(Settings):
                     'level': self.default_logging_level,
                     'propagate': True,
                 },
+                'initiated': {                  
+                    'handlers': ['initiated'], 
+                    'propagate': False,  
+                },
                 'executed': {                  
                     'handlers': ['executed'], 
                     'propagate': False,  
-                }                    
+                },
+                'failed': {                  
+                    'handlers': ['failed'], 
+                    'propagate': False,  
+                },                                                                    
             },
             'handlers': {
                 'default': {
@@ -148,19 +156,35 @@ class Settings(Settings):
                     'class':'logging.StreamHandler',
                     'formatter': 'default',
                 },
+                'initiated': {
+                    'level':'DEBUG',    
+                    'class':'logging.StreamHandler',
+                    'formatter': 'initiated',                
+                },
                 'executed': {
                     'level':'DEBUG',    
                     'class':'logging.StreamHandler',
                     'formatter': 'executed',                
-                },        
+                },
+                'failed': {
+                    'level':'DEBUG',    
+                    'class':'logging.StreamHandler',
+                    'formatter': 'failed',                
+                },                                                    
             },
             'formatters': {
                 'default': {
                     'format': '[%(levelname)s] %(name)s: %(message)s'
                 },
+                'initiated': {
+                    'format': '[.] %(message)s'
+                },                           
                 'executed': {
                     'format': '[+] %(message)s'
-                },                       
+                },
+                'failed': {
+                    'format': '[-] %(message)s'
+                },                                                
             },
         }
     
