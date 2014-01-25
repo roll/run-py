@@ -1,3 +1,4 @@
+import logging
 from box.functools import cachedproperty
 from ..cluster import Cluster
 from ..dispatcher import Dispatcher
@@ -39,13 +40,16 @@ class Run:
                         self._print_function(result)
                 else:
                     self._print_function(attribute)
-        #TODO: implement
         except Exception:
+            if self._stack != None:
+                logger=self._logging_module.getLogger('failed')
+                logger.info(str(self._stack))  
             raise
          
     #Protected
     
     _print_function = staticmethod(print)
+    _logging_module = logging
     _task_class = Task
     _controller_class = RunController
     _dispatcher_class = Dispatcher
