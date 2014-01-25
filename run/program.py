@@ -38,8 +38,7 @@ class Program(Program):
                 *self._command.args, 
                 **self._command.kwargs)
         except Exception as exception:
-            self._logger.error(
-                str(exception), exc_info=self._command.debug)
+            self._logger.error(str(exception), exc_info=self._command.debug)
             sys.exit(1)
     
     @cachedproperty
