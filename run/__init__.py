@@ -7,7 +7,6 @@ from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
                         DependentAttribute, DependentAttributeTask)
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
                          DispatcherCallbackHandler, DispatcherSignal)
-from .failure import Failure
 from .finder import Finder
 from .module import (ModuleBuilder, ModuleMetaclass, Module,
                      FindModule, NullModule, ProxyModule)
