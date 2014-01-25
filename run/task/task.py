@@ -25,7 +25,7 @@ class Task(DependentAttribute, metaclass=ABCMeta):
         result = self.complete(*args, **kwargs)
         self._process_triggers()
         self.meta_dispatcher.add_signal(
-            self._retrieved_signal_class(self))
+            self._completed_signal_class(self))
         return result
     
     @abstractmethod
@@ -35,4 +35,4 @@ class Task(DependentAttribute, metaclass=ABCMeta):
     #Protected
     
     _initiated_signal_class = InitiatedTaskSignal
-    _retrieved_signal_class = CompletedTaskSignal    
+    _completed_signal_class = CompletedTaskSignal    

@@ -25,7 +25,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.__call__(), 'value')
         self.task.complete.assert_called_with()
         self.task._initiated_signal_class.assert_called_with(self.task)
-        self.task._retrieved_signal_class.assert_called_with(self.task)
+        self.task._completed_signal_class.assert_called_with(self.task)
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('retrieved_signal')])
         
@@ -38,5 +38,5 @@ class TaskTest(unittest.TestCase):
             meta_dispatcher = Mock(add_signal = Mock())
             #Protected
             _initiated_signal_class = Mock(return_value='initiated_signal')
-            _retrieved_signal_class = Mock(return_value='retrieved_signal')
+            _completed_signal_class = Mock(return_value='retrieved_signal')
         return MockTask
