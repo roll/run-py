@@ -1,7 +1,6 @@
 from box.functools import cachedproperty
 from ..cluster import Cluster
 from ..dispatcher import Dispatcher
-from ..failure import Failure
 from ..settings import settings
 from ..task import Task
 from .controller import RunController
@@ -40,17 +39,14 @@ class Run:
                         self._print_function(result)
                 else:
                     self._print_function(attribute)
-        except self._failure_class:
-            pass
         #TODO: implement
-        except Exception as exception:
-            raise self._failure_class(exception)
+        except Exception:
+            raise
          
     #Protected
     
     _print_function = staticmethod(print)
     _task_class = Task
-    _failure_class = Failure
     _controller_class = RunController
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
