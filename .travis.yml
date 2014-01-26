@@ -1,4 +1,4 @@
-#Builded for run 0.8.1 from _templates/.travis.yml
+#Builded for run 0.9.0 from _templates/.travis.yml
 
 language: python
 python:
