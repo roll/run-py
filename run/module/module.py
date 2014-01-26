@@ -47,5 +47,5 @@ class Module(BaseModule):
     
     #Protected
     
+    _meta_print_function = staticmethod(print)    
     _meta_pprint_function = staticmethod(pprint)
-    _meta_print_function = staticmethod(print)

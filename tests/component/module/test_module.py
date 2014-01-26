@@ -35,8 +35,8 @@ class ModuleTest(unittest.TestCase):
             attr1 = 'value1'
             #Protected
             _meta_default_main_module_name = '__main__'
+            _meta_print_function = Mock()            
             _meta_pprint_function = Mock()
-            _meta_print_function = Mock()
         return MockModule
         
         
