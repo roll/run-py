@@ -20,8 +20,9 @@ class Module(BaseModule):
             for name in sorted(names):
                 self._meta_print_function(name)
         else:
-            raise TypeError('Attribute "{attribute}" is not a module.'.
-                            format(attribute=attribute))
+            raise TypeError(
+                'Attribute "{attribute}" is not a module.'.
+                format(attribute=attribute))
 
     def info(self, attribute=None):
         "Print information"
