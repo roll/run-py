@@ -2,7 +2,7 @@
 
 {{ name|capitalize }}
 =====================
-{{ name|capitalize }} is library to provide common functionality.
+{{ description }}
 
 .. image:: https://secure.travis-ci.org/{{ github_user }}/{{ name }}.png?branch=master 
      :target: https://travis-ci.org/{{ github_user }}/{{ name }} 

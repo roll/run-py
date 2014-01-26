@@ -2,7 +2,7 @@
 
 Run
 =====================
-Run is library to provide common functionality.
+Run is program to run tasks from files.
 
 .. image:: https://secure.travis-ci.org/respect31/run.png?branch=master 
      :target: https://travis-ci.org/respect31/run 
