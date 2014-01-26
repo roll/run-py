@@ -2,6 +2,7 @@ import os
 import inspect
 from ..attribute import Attribute
 from ..settings import settings
+from .attributes import ModuleAttributes 
 from .metaclass import ModuleMetaclass
 
 class BaseModule(Attribute, metaclass=ModuleMetaclass):
@@ -38,11 +39,7 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
             
     @property
     def meta_attributes(self):
-        attributes = {}
-        for name, attr in vars(type(self)).items():
-            if isinstance(attr, Attribute):
-                attributes[name] = attr
-        return attributes
+        return ModuleAttributes(self)
     
     #TODO: fix opportunity to set basedir
     @property
