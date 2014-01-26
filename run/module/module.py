@@ -18,15 +18,15 @@ class Module(BaseModule):
         for attribute in attributes.values():
             names.append(attribute.meta_qualname)
         for name in sorted(names):
-            self._meta_print_operator(name)
+            self._meta_print_function(name)
 
     def info(self, attribute=None):
         "Print information"
         if attribute and attribute in self.meta_attributes:
             attribute = self.meta_attributes[attribute]
-            self._meta_print_operator(attribute.meta_info)
+            self._meta_print_function(attribute.meta_info)
         else:
-            self._meta_print_operator(self.meta_info)
+            self._meta_print_function(self.meta_info)
         
     def meta(self, attribute=None):
         "Print metadata"
@@ -39,7 +39,7 @@ class Module(BaseModule):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
                 meta[key] = getattr(attribute, name)
-        self._meta_formatted_print_operator(meta)
+        self._meta_pprint_function(meta)
       
     default = NullTask(
         require=['list'],
@@ -47,5 +47,5 @@ class Module(BaseModule):
     
     #Protected
     
-    _meta_formatted_print_operator = staticmethod(pprint)
-    _meta_print_operator = staticmethod(print)
+    _meta_pprint_function = staticmethod(pprint)
+    _meta_print_function = staticmethod(print)
