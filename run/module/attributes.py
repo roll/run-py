@@ -13,8 +13,9 @@ class ModuleAttributes(dict):
     def __getitem__(self, key):
         if '.' in key:
             module_name, attribute_name = key.split('.', 1)
-            module = getattr(self._module, module_name)
-            attribute = module.meta_attributes[attribute_name]
-            return attribute
-        else:
-            return super().__getitem__(key)
+            module = self.get(module_name, None)
+            module_attributes = getattr(module, 'meta_attributes', None)
+            if isinstance(module_attributes, type(self)):
+                attribute = module_attributes[attribute_name]
+                return attribute
+        return super().__getitem__(key)

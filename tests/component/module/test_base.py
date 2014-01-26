@@ -20,9 +20,13 @@ class BaseModuleTest(unittest.TestCase):
     def test___set__(self):
         self.assertRaises(AttributeError, self.module.__set__, None, 'value')
 
-    def test___getattr__(self):
-        self.assertEqual(getattr(self.module, '__getattr__.__doc__'), None)
+#     #TODO: implement
+#     def test___getattr__(self):
+#         self.assertEqual(getattr(self.module, '__getattr__.__doc__'), None)
+        
+    def test___getattr___no_attribute(self):
         self.assertRaises(AttributeError, getattr, self.module, 'no_attr')
+        self.assertRaises(AttributeError, getattr, self.module, 'no_attr.req')      
         
     def test_meta_attributes(self):
         self.assertEqual(len(self.module.meta_attributes), 1)  

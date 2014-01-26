@@ -14,7 +14,7 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
         for attribute in self.meta_attributes.values():
             attribute.meta_module = self
         
-    def __get__(self, module, module_class=None):
+    def __get__(self, module=None, module_class=None):
         return self
     
     def __set__(self, module, value):
@@ -24,14 +24,11 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
             format(name=self.meta_name, module=self))
     
     def __getattr__(self, name):
-        if '.' in name:
-            #TODO: it works also for no module attributes
-            #like default.meta_name or __getattr__.__doc__
-            module_name, attribute_name = name.split('.', 1)
-            module = getattr(self, module_name)
-            attribute = getattr(module, attribute_name)
-            return attribute
-        else:
+        try:
+            attribute = self.meta_attributes[name]
+            attribute_value = attribute.__get__(attribute.meta_module)
+            return attribute_value
+        except KeyError:
             raise AttributeError(
                 'No attribute "{name}" '
                 'in module "{qualname}"'.format(
