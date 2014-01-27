@@ -5,23 +5,25 @@ class TaskVar(Var):
     #Public
     
     def __init__(self, task, *args, **kwargs):
-        self._task_name = task
+        self._task = task
         self._args = args
         self._kwargs = kwargs
  
     def retrieve(self):
-        return self._task(*self._args, **self._kwargs)
+        return self._base_task(*self._args, **self._kwargs)
         
     @property
     def meta_signature(self):
-        return self._task.meta_signature
+        return self._base_task.meta_signature
 
     @property    
     def meta_docstring(self):
-        return self._task.meta_docstring
+        return self._base_task.meta_docstring
     
     #Protected
     
     @property
-    def _task(self):
-        return getattr(self.meta_module, self._task_name)
+    def _base_task(self):
+        task = self.meta_module.meta_attributes[self._task]
+        base_task = task.meta_builder(module=self.meta_module)
+        return base_task
