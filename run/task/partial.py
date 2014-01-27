@@ -27,6 +27,5 @@ class PartialTask(Task):
     @property
     def _base_task(self):
         task = self.meta_module.meta_attributes[self._task]
-        base_task = task.meta_builder()
-        base_task.meta_module = self.meta_module
+        base_task = task.meta_builder(module=self.meta_module)
         return base_task  
