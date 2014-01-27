@@ -10,11 +10,9 @@ class AttributeBuilderTest(unittest.TestCase):
         self.args = ('arg1', 'arg2')
         self.kwargs = {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'}
         self.mock_set = Mock(apply = Mock())
-        MockAttributeBuilder = self._make_mock_attribute_builder_class(
-            self.mock_set)
+        MockBuilder = self._make_mock_builder_class(self.mock_set)
         self.MockAttribute = self._make_mock_attribute_class()
-        self.builder = MockAttributeBuilder(
-            self.MockAttribute, *self.args, **self.kwargs)
+        self.builder = MockBuilder(self.MockAttribute, *self.args, **self.kwargs)
 
     def test___call__(self):
         self.builder.attr2 = 'value2'
@@ -43,13 +41,13 @@ class AttributeBuilderTest(unittest.TestCase):
             #Public
             __init__ = Mock(return_value=None)
             attr1 = 'value1' 
-            def __meta_init__(self, args, kwargs):
+            def __meta_init__(self, builder, args, kwargs):
                 args.remove('arg2')
                 kwargs.pop('kwarg2')
         return MockAttribute
     
-    def _make_mock_attribute_builder_class(self, mock_set):             
-        class MockAttributeBuilder(AttributeBuilder): 
+    def _make_mock_builder_class(self, mock_set):             
+        class MockBuilder(AttributeBuilder): 
             #Protected
             _set_class = Mock(return_value=mock_set)
-        return MockAttributeBuilder
+        return MockBuilder

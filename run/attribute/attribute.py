@@ -7,12 +7,13 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __meta_init__(self, args, kwargs):
+    def __meta_init__(self, builder, args, kwargs):
+        self._meta_builder = builder
         self._meta_basedir = kwargs.pop('basedir', None)
-        self._meta_dispatcher = kwargs.pop('dispatcher', None)                 
+        self._meta_dispatcher = kwargs.pop('dispatcher', None)   
+        self._meta_docstring = kwargs.pop('docstring', None)              
         self._meta_module = kwargs.pop('module', None)
         self._meta_signature = kwargs.pop('signature', None)
-        self._meta_docstring = kwargs.pop('docstring', None)
     
     def __repr__(self):
         try:
@@ -36,6 +37,10 @@ class Attribute(metaclass=AttributeMetaclass):
             return self._meta_basedir
         else:
             return self.meta_module.meta_basedir
+        
+    @property
+    def meta_builder(self):
+        return self._meta_builder      
        
     @property
     def meta_dispatcher(self):

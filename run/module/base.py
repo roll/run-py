@@ -9,8 +9,8 @@ class BaseModule(Attribute, metaclass=ModuleMetaclass):
     
     #Public
     
-    def __meta_init__(self, args, kwargs):
-        super().__meta_init__(args, kwargs)
+    def __meta_init__(self, builder, args, kwargs):
+        super().__meta_init__(builder, args, kwargs)
         for attribute in self.meta_attributes.values():
             attribute.meta_module = self
         

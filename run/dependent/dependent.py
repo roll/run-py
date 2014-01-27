@@ -7,8 +7,8 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMetaclass):
     
     #Public
     
-    def __meta_init__(self, args, kwargs):
-        super().__meta_init__(args, kwargs)
+    def __meta_init__(self, builder, args, kwargs):
+        super().__meta_init__(builder, args, kwargs)
         self._requirments = OrderedDict()
         self._triggers = OrderedDict()
         self.require(kwargs.pop('require', []))
