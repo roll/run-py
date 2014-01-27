@@ -41,8 +41,9 @@ class AttributeBuilderTest(unittest.TestCase):
             #Public
             __init__ = Mock(return_value=None)
             attr1 = 'value1' 
-            def __meta_init__(self, builder, args, kwargs):
+            def __meta_init__(self, args, kwargs):
                 args.remove('arg2')
+                kwargs.pop('builder')
                 kwargs.pop('kwarg2')
         return MockAttribute
     

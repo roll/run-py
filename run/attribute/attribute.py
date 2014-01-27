@@ -7,9 +7,9 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __meta_init__(self, builder, args, kwargs):
-        self._meta_builder = builder
+    def __meta_init__(self, args, kwargs):
         self._meta_basedir = kwargs.pop('basedir', None)
+        self._meta_builder = kwargs.pop('builder', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)              
         self._meta_module = kwargs.pop('module', None)
@@ -40,7 +40,12 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @property
     def meta_builder(self):
-        return self._meta_builder      
+        if self._meta_builder != None:
+            return self._meta_builder
+        else:
+            raise ValueError(
+                'Attribute "{attribute}" has no assotiated builder'.
+                format(attribute=self, module=self.meta_module))        
        
     @property
     def meta_dispatcher(self):

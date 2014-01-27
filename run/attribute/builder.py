@@ -38,7 +38,8 @@ class AttributeBuilder:
     def _init_object(self, obj):
         args = list(self._args)
         kwargs = dict(self._kwargs)
-        obj.__meta_init__(self, args, kwargs)
+        kwargs['builder'] = self
+        obj.__meta_init__(args, kwargs)
         obj.__init__(*args, **kwargs)
      
     def _update_object(self, obj):
