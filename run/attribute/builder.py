@@ -1,3 +1,4 @@
+from copy import copy
 from .update import AttributeBuilderSet
 
 class AttributeBuilder:
@@ -11,9 +12,9 @@ class AttributeBuilder:
         super().__setattr__('_kwargs', kwargs)
         super().__setattr__('_updates', [])
         
-    def __call__(self):
+    def __call__(self, *args, **kwargs):
         obj = self._create_object()
-        self._init_object(obj)
+        self._init_object(obj, *args, **kwargs)
         self._update_object(obj)
         return obj
     
@@ -36,11 +37,12 @@ class AttributeBuilder:
     def _create_object(self):
         return object.__new__(self._class)
         
-    def _init_object(self, obj):
-        args = list(self._args)
-        kwargs = dict(self._kwargs)
-        obj.__meta_init__(args, kwargs)
-        obj.__init__(*args, **kwargs)
+    def _init_object(self, obj, *args, **kwargs):
+        eargs = list(self._args+args)
+        ekwargs = copy(self._kwargs)
+        ekwargs.update(kwargs)
+        obj.__meta_init__(eargs, ekwargs)
+        obj.__init__(*eargs, **ekwargs)
      
     def _update_object(self, obj):
         for update in self._updates:
