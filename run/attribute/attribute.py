@@ -64,8 +64,8 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_is_bound(self):
         attributes = self.meta_module.meta_attributes
         for attribute in attributes.values():
-                if attribute == self:
-                    return True
+            if attribute == self:
+                return True
         return False   
               
     @property
