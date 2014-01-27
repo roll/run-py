@@ -5,7 +5,6 @@ class AttributeBuilder:
     #Public
     
     def __init__(self, cls, *args, **kwargs):
-        kwargs['builder'] = self
         super().__setattr__('_class', cls)
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
@@ -39,6 +38,7 @@ class AttributeBuilder:
     def _init_object(self, obj):
         args = list(self._args)
         kwargs = dict(self._kwargs)
+        kwargs['builder'] = self        
         obj.__meta_init__(args, kwargs)
         obj.__init__(*args, **kwargs)
      
