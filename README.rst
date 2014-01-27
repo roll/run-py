@@ -2,7 +2,7 @@
 
 Run
 =====================
-Run is program to run tasks from files.
+Run is a program to run tasks from files.
 
 .. image:: https://secure.travis-ci.org/respect31/run.png?branch=master 
      :target: https://travis-ci.org/respect31/run 

@@ -15,7 +15,7 @@ class MainModule(PythonPackgramModule):
         'Topic :: System :: Systems Administration', 
     ]
     github_user = 'respect31'
-    description = 'Run is program to run tasks from files.'
+    description = 'Run is a program to run tasks from files.'
     license = 'MIT License'  
     maintainer = 'roll'
     maintainer_email = 'roll@respect31.com'
