@@ -1,3 +1,4 @@
+from copy import copy
 from .task import Task
 
 class PartialTask(Task):
@@ -11,7 +12,7 @@ class PartialTask(Task):
     
     def complete(self, *args, **kwargs):
         eargs = self._args+args
-        ekwargs = self._kwargs
+        ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs) 
         return self._base_task(*eargs, **ekwargs)
         
