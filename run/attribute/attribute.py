@@ -22,7 +22,13 @@ class Attribute(metaclass=AttributeMetaclass):
                 qualname=self.meta_qualname)
         except Exception:
             return super().__repr__()
-         
+        
+    def __enter__(self):
+        return self
+        
+    def __exit__(self, *args, **kwargs):
+        pass
+      
     @abstractmethod
     def __get__(self, module, module_class=None):
         pass #pragma: no cover
