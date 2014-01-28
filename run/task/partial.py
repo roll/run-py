@@ -27,11 +27,11 @@ class PartialTask(Task):
         
     @property
     def meta_signature(self):
-        return self._base_task.meta_signature
+        return self._task.meta_signature
 
     @property
     def meta_docstring(self):
-        return self._base_task.meta_docstring
+        return self._task.meta_docstring
     
     @property
     def _task(self):
