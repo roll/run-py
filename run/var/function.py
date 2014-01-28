@@ -10,7 +10,7 @@ class FunctionVar(Var):
         self._args = args
         self._kwargs = kwargs
     
-    def retrieve(self):
+    def invoke(self):
         return self._function(*self._args, **self._kwargs)
     
     @property    

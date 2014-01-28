@@ -27,7 +27,7 @@ class MockTask(Task):
     
     #Protected
     
-    def complete(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         pass
     
     
@@ -35,7 +35,7 @@ class MockVar(Var):
     
     #Protected
     
-    def retrieve(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         pass    
 
 

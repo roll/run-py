@@ -12,8 +12,8 @@ class PropertyVarTest(unittest.TestCase):
             __doc__='docstring')
         self.var = DescriptorVar(self.descriptor, module=None)
 
-    def test_retrieve(self):
-        self.assertEqual(self.var.retrieve(), 'value')
+    def test_invoke(self):
+        self.assertEqual(self.var.invoke(), 'value')
         self.descriptor.__get__.assert_called_with(
             self.var.meta_module, type(self.var.meta_module))
 

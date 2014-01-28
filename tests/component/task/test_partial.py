@@ -13,14 +13,14 @@ class PartialTaskTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.task = MockTask('task', *self.args, module=None, **self.kwargs)
         
-    def test_complete(self):
-        self.assertEqual(self.task.complete(), 'value')
+    def test_invoke(self):
+        self.assertEqual(self.task.invoke(), 'value')
         self.task.meta_module.task.assert_called_with('arg1', kwarg1='kwarg1')
 
-    def test_complete_with_args_and_kwargs(self):
+    def test_invoke_with_args_and_kwargs(self):
         args = ('arg2',)
         kwargs = {'kwarg2': 'kwarg2'}
-        self.assertEqual(self.task.complete(*args, **kwargs), 'value')
+        self.assertEqual(self.task.invoke(*args, **kwargs), 'value')
         self.task.meta_module.task.assert_called_with(
             'arg1', 'arg2', kwarg1='kwarg1', kwarg2='kwarg2')
         

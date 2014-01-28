@@ -10,17 +10,17 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         self.meta_dispatcher.add_signal(
             self._initiated_signal_class(self))
         self._resolve_requirements()
-        result = self.retrieve()
+        result = self.invoke()
         self._process_triggers()
         self.meta_dispatcher.add_signal(
             self._processed_signal_class(self))
         return result
  
     def __set__(self, module, value):
-        self.retrieve = lambda: value
+        self.invoke = lambda: value
  
     @abstractmethod
-    def retrieve(self):
+    def invoke(self):
         pass #pragma: no cover
     
     #Protected

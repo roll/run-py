@@ -11,7 +11,7 @@ class Task(DependentAttribute, metaclass=ABCMeta):
     
     def __set__(self, module, value):
         if callable(value):
-            self.complete = value
+            self.invoke = value
         else:
             raise TypeError(
             'Attribute "{name}" is task "{task}" and '
@@ -22,14 +22,14 @@ class Task(DependentAttribute, metaclass=ABCMeta):
         self.meta_dispatcher.add_signal(
             self._initiated_signal_class(self))
         self._resolve_requirements()
-        result = self.complete(*args, **kwargs)
+        result = self.invoke(*args, **kwargs)
         self._process_triggers()
         self.meta_dispatcher.add_signal(
             self._processed_signal_class(self))
         return result
     
     @abstractmethod
-    def complete(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         pass #pragma: no cover
     
     #Protected

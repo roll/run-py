@@ -12,6 +12,6 @@ class MethodTaskTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}        
         
-    def test_complete(self):        
-        self.assertEqual(self.task.complete(*self.args, **self.kwargs), 'value')
+    def test_invoke(self):        
+        self.assertEqual(self.task.invoke(*self.args, **self.kwargs), 'value')
         self.function.assert_called_with('module', *self.args, **self.kwargs)

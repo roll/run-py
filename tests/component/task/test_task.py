@@ -16,14 +16,14 @@ class TaskTest(unittest.TestCase):
     def test___set__(self):
         value = lambda: 'value'
         self.task.__set__('module', value)
-        self.assertEqual(self.task.complete, value)
+        self.assertEqual(self.task.invoke, value)
         
     def test___set___not_callable(self):
         self.assertRaises(TypeError, self.task.__set__, 'module', 'value')        
         
     def test___call__(self):
         self.assertEqual(self.task.__call__(), 'value')
-        self.task.complete.assert_called_with()
+        self.task.invoke.assert_called_with()
         self.task._initiated_signal_class.assert_called_with(self.task)
         self.task._processed_signal_class.assert_called_with(self.task)
         self.task.meta_dispatcher.add_signal.assert_has_calls(
@@ -34,7 +34,7 @@ class TaskTest(unittest.TestCase):
     def _make_mock_task_class(self):
         class MockTask(Task):
             #Public
-            complete = Mock(return_value='value')
+            invoke = Mock(return_value='value')
             meta_dispatcher = Mock(add_signal = Mock())
             #Protected
             _initiated_signal_class = Mock(return_value='initiated_signal')

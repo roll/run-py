@@ -4,5 +4,5 @@ class NullTask(Task):
 
     #Public
 
-    def complete(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         pass

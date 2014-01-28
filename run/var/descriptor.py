@@ -8,7 +8,7 @@ class DescriptorVar(Var):
     def __init__(self, descriptor):
         self._descriptor = descriptor
  
-    def retrieve(self):
+    def invoke(self):
         return self._descriptor.__get__(
             self.meta_module, type(self.meta_module))
     

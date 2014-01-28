@@ -13,8 +13,8 @@ class FunctionTaskTest(unittest.TestCase):
         self.var = FunctionVar(
             self.function, *self.args, module=None, **self.kwargs)
         
-    def test_retrieve(self):        
-        self.assertEqual(self.var.retrieve(), 'value')
+    def test_invoke(self):        
+        self.assertEqual(self.var.invoke(), 'value')
         self.function.assert_called_with(*self.args, **self.kwargs)
        
     def test_meta_docstring(self):        

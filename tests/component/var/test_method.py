@@ -13,6 +13,6 @@ class MethodTaskTest(unittest.TestCase):
         self.var = MethodVar(
             self.function, *self.args, module='module', **self.kwargs)       
         
-    def test_complete(self):        
-        self.assertEqual(self.var.retrieve(), 'value')
+    def test_invoke(self):        
+        self.assertEqual(self.var.invoke(), 'value')
         self.function.assert_called_with('module', *self.args, **self.kwargs)

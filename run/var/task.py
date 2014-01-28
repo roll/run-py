@@ -13,10 +13,10 @@ class TaskVar(Var):
         self._args = args
         self._kwargs = kwargs
  
-    def retrieve(self):
+    def invoke(self):
         if self._is_builtin:
-            #Complete without resolving requirements, triggers
-            result = self._task.complete(*self._args, **self._kwargs)
+            #Invoke without resolving requirements, triggers
+            result = self._task.invoke(*self._args, **self._kwargs)
         else:
             result = self._task(*self._args, **self._kwargs)
         return result    

@@ -7,5 +7,5 @@ class ValueVar(Var):
     def __init__(self, value):
         self._value = value
  
-    def retrieve(self):
+    def invoke(self):
         return self._value

@@ -13,8 +13,8 @@ class PartialVarTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.var = MockVar('task', *self.args, module=None, **self.kwargs)
         
-    def test_retrieve(self):
-        self.assertEqual(self.var.retrieve(), 'value')
+    def test_invoke(self):
+        self.assertEqual(self.var.invoke(), 'value')
         self.var.meta_module.task.assert_called_with('arg1', kwarg1='kwarg1')
         
     #Protected

@@ -14,13 +14,13 @@ class PartialTask(Task):
         self._args = args
         self._kwargs = kwargs
     
-    def complete(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         eargs = self._args+args
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
         if self._is_builtin:
-            #Complete without resolving requirements, triggers
-            result = self._task.complete(*eargs, **ekwargs)
+            #Invoke without resolving requirements, triggers
+            result = self._task.invoke(*eargs, **ekwargs)
         else:
             result = self._task(*eargs, **ekwargs)
         return result

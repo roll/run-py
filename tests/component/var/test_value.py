@@ -5,6 +5,6 @@ class ValueVarTest(unittest.TestCase):
 
     #Public
 
-    def test_retrieve(self):
+    def test_invoke(self):
         var = ValueVar('value', module=None)
-        self.assertEqual(var.retrieve(), 'value')
+        self.assertEqual(var.invoke(), 'value')

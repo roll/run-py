@@ -8,7 +8,7 @@ class FunctionTask(Task):
     def __init__(self, function):
         self._function = function
     
-    def complete(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         return self._function(*args, **kwargs)
         
     @property
