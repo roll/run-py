@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from ..dependent import DependentAttributeBuilder
 from .method import MethodTask       
 
-class TaskDecorator(metaclass=ABCMeta):
+class TaskDependency(metaclass=ABCMeta):
     
     #Public
     
@@ -27,7 +27,7 @@ class TaskDecorator(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-class require(TaskDecorator):
+class require(TaskDependency):
     
     #Protected
     
@@ -35,7 +35,7 @@ class require(TaskDecorator):
         builder.require(self._tasks)
 
 
-class trigger(TaskDecorator):
+class trigger(TaskDependency):
     
     #Protected
     

@@ -1,4 +1,4 @@
-from .decorator import TaskDecorator, require, trigger
+from .dependency import TaskDependency, require, trigger
 from .function import FunctionTask
 from .method import MethodTask
 from .null import NullTask
