@@ -6,7 +6,6 @@ class AttributeBuilder:
     #Public
     
     def __init__(self, cls, *args, **kwargs):
-        kwargs.setdefault('builder', self)
         super().__setattr__('_class', cls)
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
@@ -42,6 +41,7 @@ class AttributeBuilder:
         eargs = list(self._args+args)
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
+        ekwargs.update({'builder': self})
         obj.__meta_init__(eargs, ekwargs)
         obj.__init__(*eargs, **ekwargs)
      
