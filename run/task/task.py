@@ -23,7 +23,7 @@ class Task(DependentAttribute, metaclass=ABCMeta):
             self._initiated_signal_class(self))
         self._resolve_requirements()
         result = self.invoke(*args, **kwargs)
-        self._process_triggers()
+        self._resolve_triggers()
         self.meta_dispatcher.add_signal(
             self._processed_signal_class(self))
         return result

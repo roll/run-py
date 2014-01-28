@@ -4,7 +4,7 @@ from .attribute import (AttributeBuilder, AttributeBuilderUpdate,
 from .cluster import Cluster
 from .command import Command
 from .dependent import (DependentAttributeBuilder, DependentAttributeMetaclass,
-                        DependentAttribute, DependentAttributeTask)
+                        DependentAttribute, DependentAttributeDependency)
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
                          DispatcherCallbackHandler, DispatcherSignal)
 from .finder import Finder

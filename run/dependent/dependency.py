@@ -1,15 +1,15 @@
-class DependentAttributeTask:
+class DependentAttributeDependency:
     
     #Public
     
     def __init__(self, task):
         self._unpack(task)
-        self._is_processed = False
+        self._is_resolved = False
         
-    def __call__(self, attribute):
+    def resolve(self, attribute):
         task = getattr(attribute.meta_module, self.name)
         result = task(*self.args, **self.kwargs)
-        self._is_processed = True
+        self._is_resolved = True
         return result
     
     @property
@@ -25,8 +25,8 @@ class DependentAttributeTask:
         return self._kwargs
     
     @property
-    def is_processed(self):
-        return self._is_processed
+    def is_resolved(self):
+        return self._is_resolved
     
     #Protected
     

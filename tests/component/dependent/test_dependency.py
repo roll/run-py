@@ -1,30 +1,30 @@
 import unittest
 from unittest.mock import Mock
-from run.dependent.task import DependentAttributeTask
+from run.dependent.dependency import DependentAttributeDependency
 
 class DependentAttributeTaskTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        self.task = DependentAttributeTask('task')
+        self.dependency = DependentAttributeDependency('task')
         self.attribute = Mock(meta_module=Mock(task=Mock()))
         
-    def test___call__(self):
-        self.task(self.attribute)
+    def test_resolve(self):
+        self.dependency.resolve(self.attribute)
         self.attribute.meta_module.task.assert_called_with()
 
     def test_name(self):
-        self.assertEqual(self.task.name, 'task')
+        self.assertEqual(self.dependency.name, 'task')
         
     def test_args(self):
-        self.assertEqual(self.task.args, ())
+        self.assertEqual(self.dependency.args, ())
         
     def test_kwargs(self):
-        self.assertEqual(self.task.kwargs, {})
+        self.assertEqual(self.dependency.kwargs, {})
         
-    def test_is_processed(self):
-        self.assertEqual(self.task.is_processed, False)
+    def test_is_resolved(self):
+        self.assertEqual(self.dependency.is_resolved, False)
         
         
 class DependentAttributeTaskTest_with_args_and_kwargs(unittest.TestCase):
@@ -34,16 +34,17 @@ class DependentAttributeTaskTest_with_args_and_kwargs(unittest.TestCase):
     def setUp(self):
         self.args = ('arg',)
         self.kwargs = {'kwarg': 'kwarg'}
-        self.task = DependentAttributeTask(('task', self.args, self.kwargs))
+        self.dependency = DependentAttributeDependency(
+            ('task', self.args, self.kwargs))
         self.attribute = Mock(meta_module=Mock(task=Mock()))
         
-    def test___call__(self):
-        self.task(self.attribute)
+    def test_resolve(self):
+        self.dependency.resolve(self.attribute)
         self.attribute.meta_module.task.assert_called_with(
             *self.args, **self.kwargs)
         
     def test_args(self):
-        self.assertEqual(self.task.args, ('arg',))
+        self.assertEqual(self.dependency.args, ('arg',))
         
     def test_kwargs(self):
-        self.assertEqual(self.task.kwargs, {'kwarg': 'kwarg'})       
+        self.assertEqual(self.dependency.kwargs, {'kwarg': 'kwarg'})       
