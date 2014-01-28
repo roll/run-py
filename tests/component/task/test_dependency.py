@@ -37,7 +37,7 @@ class TaskDependencyTest(unittest.TestCase):
         return MockDependency
 
 
-class requireTest(TaskDependencyTest):
+class require_Test(TaskDependencyTest):
 
     #Public
 
@@ -49,7 +49,7 @@ class requireTest(TaskDependencyTest):
         builder.require.assert_called_with(tasks)
         
         
-class triggerTest(TaskDependencyTest):
+class trigger_Test(TaskDependencyTest):
 
     #Public
 
