@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from ..dependent import DependentAttribute
-from .signal import InitiatedVarSignal, RetrievedVarSignal
+from .signal import InitiatedVarSignal, ProcessedVarSignal
 
 class Var(DependentAttribute, metaclass=ABCMeta):
     
@@ -13,7 +13,7 @@ class Var(DependentAttribute, metaclass=ABCMeta):
         result = self.retrieve()
         self._process_triggers()
         self.meta_dispatcher.add_signal(
-            self._retrieved_signal_class(self))
+            self._processed_signal_class(self))
         return result
  
     def __set__(self, module, value):
@@ -26,4 +26,4 @@ class Var(DependentAttribute, metaclass=ABCMeta):
     #Protected
     
     _initiated_signal_class = InitiatedVarSignal
-    _retrieved_signal_class = RetrievedVarSignal
+    _processed_signal_class = ProcessedVarSignal

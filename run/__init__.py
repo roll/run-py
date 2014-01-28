@@ -14,8 +14,8 @@ from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings
 from .task import (Task, FunctionTask, MethodTask, NullTask, PartialTask, 
-                   InitiatedTaskSignal, CompletedTaskSignal, 
+                   InitiatedTaskSignal, ProcessedTaskSignal, 
                    TaskDecorator, require, trigger)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
-                  InitiatedVarSignal, RetrievedVarSignal)
+                  InitiatedVarSignal, ProcessedVarSignal)
 from .version import Version, version

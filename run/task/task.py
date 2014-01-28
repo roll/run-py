@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from ..dependent import DependentAttribute
-from .signal import InitiatedTaskSignal, CompletedTaskSignal
+from .signal import InitiatedTaskSignal, ProcessedTaskSignal
 
 class Task(DependentAttribute, metaclass=ABCMeta):
     
@@ -25,7 +25,7 @@ class Task(DependentAttribute, metaclass=ABCMeta):
         result = self.complete(*args, **kwargs)
         self._process_triggers()
         self.meta_dispatcher.add_signal(
-            self._completed_signal_class(self))
+            self._processed_signal_class(self))
         return result
     
     @abstractmethod
@@ -35,4 +35,4 @@ class Task(DependentAttribute, metaclass=ABCMeta):
     #Protected
     
     _initiated_signal_class = InitiatedTaskSignal
-    _completed_signal_class = CompletedTaskSignal    
+    _processed_signal_class = ProcessedTaskSignal    

@@ -21,7 +21,7 @@ class RunControllerTest(unittest.TestCase):
             call(controller._on_initiated_attribute, 
                  signals=['initiated_task', 'initiated_var']),
             call(controller._on_executed_attribute, 
-                 signals=['completed_task', 'retrieved_var'])])
+                 signals=['processed_task', 'processed_var'])])
         self.dispatcher.add_handler.assert_has_calls([
             call(controller._callback_handler_class.return_value),
             call(controller._callback_handler_class.return_value)])
@@ -53,8 +53,8 @@ class RunControllerTest(unittest.TestCase):
             _callback_handler_class = Mock(return_value=Mock())
             _initiated_task_signal_class = 'initiated_task'
             _initiated_var_signal_class = 'initiated_var'
-            _completed_task_signal_class = 'completed_task'
-            _retrieved_var_signal_class = 'retrieved_var'
+            _processed_task_signal_class = 'processed_task'
+            _processed_var_signal_class = 'processed_var'
             _logging_module = Mock(getLogger=Mock(
                 return_value=Mock(info=Mock())))       
         return MockController
