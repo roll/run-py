@@ -38,7 +38,7 @@ class AttributeBuilder:
         return object.__new__(self._class)
         
     def _init_object(self, obj, *args, **kwargs):
-        #List (mutable) for __meta_init__  
+        #Mutable list for __meta_init__  
         eargs = list(self._args+args)
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
