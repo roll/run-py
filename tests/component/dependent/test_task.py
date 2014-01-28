@@ -23,8 +23,8 @@ class DependentAttributeTaskTest(unittest.TestCase):
     def test_kwargs(self):
         self.assertEqual(self.task.kwargs, {})
         
-    def test_is_executed(self):
-        self.assertEqual(self.task.is_executed, False)
+    def test_is_processed(self):
+        self.assertEqual(self.task.is_processed, False)
         
         
 class DependentAttributeTaskTest_with_args_and_kwargs(unittest.TestCase):

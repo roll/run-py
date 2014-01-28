@@ -26,7 +26,7 @@ class DependentAttribute(Attribute, metaclass=DependentAttributeMetaclass):
             
     def _resolve_requirements(self):
         for task in self._requirments.values():
-            if task.is_executed:
+            if task.is_processed:
                 continue
             task(self)
     

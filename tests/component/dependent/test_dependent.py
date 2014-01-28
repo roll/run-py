@@ -45,10 +45,10 @@ class DependentAttributeTest(unittest.TestCase):
             call = Mock()
             def __call__(self, attribute):
                 self.call(attribute, task=self.task)
-                self.is_executed = True
+                self.is_processed = True
             def __init__(self, task):
                 self.task = task
-                self.is_executed = False
+                self.is_processed = False
             @property
             def name(self):
                 return self.task

@@ -19,7 +19,7 @@ class RunController:
                          self._initiated_var_signal_class]))
         self._dispatcher.add_handler(
             self._callback_handler_class(
-                self._on_executed_attribute, 
+                self._on_processed_attribute, 
                 signals=[self._processed_task_signal_class, 
                          self._processed_var_signal_class]))
          
@@ -36,11 +36,11 @@ class RunController:
         if self._stack != None:
             self._stack.push(signal.attribute)   
 
-    def _on_executed_attribute(self, signal):
+    def _on_processed_attribute(self, signal):
         if self._stack != None:
             message = str(self._stack)
             self._stack.pop()            
         else:
             message = signal.attribute.meta_qualname            
-        logger=self._logging_module.getLogger('executed')
+        logger=self._logging_module.getLogger('processed')
         logger.info(message)    

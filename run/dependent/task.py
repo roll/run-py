@@ -4,12 +4,12 @@ class DependentAttributeTask:
     
     def __init__(self, task):
         self._unpack(task)
-        self._is_executed = False
+        self._is_processed = False
         
     def __call__(self, attribute):
         task = getattr(attribute.meta_module, self.name)
         result = task(*self.args, **self.kwargs)
-        self._is_executed = True
+        self._is_processed = True
         return result
     
     @property
@@ -25,8 +25,8 @@ class DependentAttributeTask:
         return self._kwargs
     
     @property
-    def is_executed(self):
-        return self._is_executed
+    def is_processed(self):
+        return self._is_processed
     
     #Protected
     

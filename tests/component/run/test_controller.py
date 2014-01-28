@@ -20,7 +20,7 @@ class RunControllerTest(unittest.TestCase):
         controller._callback_handler_class.assert_has_calls([
             call(controller._on_initiated_attribute, 
                  signals=['initiated_task', 'initiated_var']),
-            call(controller._on_executed_attribute, 
+            call(controller._on_processed_attribute, 
                  signals=['processed_task', 'processed_var'])])
         self.dispatcher.add_handler.assert_has_calls([
             call(controller._callback_handler_class.return_value),
@@ -31,17 +31,17 @@ class RunControllerTest(unittest.TestCase):
         controller._on_initiated_attribute(self.signal)
         self.stack.push.assert_called_with(self.signal.attribute)
         
-    def test__on_executed_attribute(self):
+    def test__on_processed_attribute(self):
         controller = self.partial_controller()
-        controller._on_executed_attribute(self.signal)
+        controller._on_processed_attribute(self.signal)
         self.stack.__str__.assert_called_with()   
         self.stack.pop.assert_called_with()
         (controller._logging_module.getLogger.return_value.info.
             assert_called_with('stack'))
         
-    def test__on_executed_attribute_with_stack_is_none(self):
+    def test__on_processed_attribute_with_stack_is_none(self):
         controller = self.partial_controller(stack=None)
-        controller._on_executed_attribute(self.signal)
+        controller._on_processed_attribute(self.signal)
         (controller._logging_module.getLogger.return_value.info.
             assert_called_with('attr_qualname'))
     
