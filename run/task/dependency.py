@@ -9,11 +9,11 @@ class TaskDependency(metaclass=ABCMeta):
     def __init__(self, tasks):
         self._tasks = tasks
     
-    def __call__(self, function):
-        if isinstance(function, self._builder_class):
-            builder = function
+    def __call__(self, method):
+        if isinstance(method, self._builder_class):
+            builder = method
         else:
-            builder = self._attribute_class(function)
+            builder = self._attribute_class(method)
         self._add_dependency(builder)
         return builder
     
