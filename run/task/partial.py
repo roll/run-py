@@ -33,6 +33,8 @@ class PartialTask(Task):
     def meta_docstring(self):
         return self._task.meta_docstring
     
+    #Protected
+    
     @property
     def _task(self):
         task = getattr(self.meta_module, self._task_name)
