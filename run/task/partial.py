@@ -7,7 +7,7 @@ class PartialTask(Task):
     
     def __meta_init__(self, args, kwargs):
         super().__meta_init__(args, kwargs)
-        self._is_builtin = kwargs.pop('is_builtin', False)
+        self._is_merged = kwargs.pop('is_merged', False)
 
     def __init__(self, task, *args, **kwargs):
         self._task_name = task
@@ -18,7 +18,7 @@ class PartialTask(Task):
         eargs = self._args+args
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
-        if self._is_builtin:
+        if self._is_merged:
             #Invoke without resolving requirements, triggers
             result = self._task.invoke(*eargs, **ekwargs)
         else:
@@ -36,7 +36,7 @@ class PartialTask(Task):
     @property
     def _task(self):
         task = getattr(self.meta_module, self._task_name)
-        if self._is_builtin:
+        if self._is_merged:
             #Rebuild task with rebase on own module
             task = task.meta_builder(module=self.meta_module)
         return task
