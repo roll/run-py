@@ -1,27 +1,16 @@
-from abc import ABCMeta, abstractmethod
-from ..dependent import DependentAttribute
+from abc import ABCMeta
+from ..task import Task
 from .signal import InitiatedVarSignal, ProcessedVarSignal
 
-class Var(DependentAttribute, metaclass=ABCMeta):
+class Var(Task, metaclass=ABCMeta):
     
     #Public
 
     def __get__(self, module, module_class=None):
-        self.meta_dispatcher.add_signal(
-            self._initiated_signal_class(self))
-        self._resolve_requirements()
-        result = self.invoke()
-        self._resolve_triggers()
-        self.meta_dispatcher.add_signal(
-            self._processed_signal_class(self))
-        return result
+        return self()
  
     def __set__(self, module, value):
         self.invoke = lambda: value
- 
-    @abstractmethod
-    def invoke(self):
-        pass #pragma: no cover
     
     #Protected
     
