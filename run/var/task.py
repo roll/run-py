@@ -7,7 +7,7 @@ class TaskVar(Var):
     
     def __meta_init__(self, args, kwargs):
         super().__meta_init__(args, kwargs)
-        self._is_merged = kwargs.pop('is_merged', False)
+        self._is_merge = kwargs.pop('is_merge', False)
         
     def __init__(self, task, *args, **kwargs):
         self._task_name = task
@@ -15,7 +15,7 @@ class TaskVar(Var):
         self._kwargs = kwargs
  
     def invoke(self):
-        if self._is_merged:
+        if self._is_merge:
             #Invoke without resolving requirements, triggers
             result = self._task.invoke(*self._args, **self._kwargs)
         else:
@@ -35,7 +35,7 @@ class TaskVar(Var):
     @property
     def _task(self):
         task = getattr(self.meta_module, self._task_name)
-        if self._is_merged:
+        if self._is_merge:
             #Rebuild task with rebase on own module
             task = task.meta_builder(module=self.meta_module)
         return task
