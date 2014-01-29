@@ -9,6 +9,7 @@ class PartialTask(Task):
     def __meta_init__(self, args, kwargs):
         super().__meta_init__(args, kwargs)
         self._is_merge = kwargs.pop('is_merge', False)
+        self._is_expand = kwargs.pop('is_expand', True)
 
     def __init__(self, task, *args, **kwargs):
         self._task_name = task
