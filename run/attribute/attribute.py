@@ -51,7 +51,7 @@ class Attribute(metaclass=AttributeMetaclass):
         else:
             raise ValueError(
                 'Attribute "{attribute}" has no assotiated builder'.
-                format(attribute=self, module=self.meta_module))        
+                format(attribute=self))        
        
     @property
     def meta_dispatcher(self):
