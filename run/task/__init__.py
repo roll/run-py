@@ -6,3 +6,4 @@ from .null import NullTask
 from .partial import PartialTask
 from .signal import InitiatedTaskSignal, ProcessedTaskSignal
 from .task import Task
+from .value import ValueTask
