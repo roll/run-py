@@ -1,3 +1,4 @@
+import inspect
 from .var import Var
 
 class TaskVar(Var):
@@ -38,3 +39,8 @@ class TaskVar(Var):
             #Rebuild task with rebase on own module
             task = task.meta_builder(module=self.meta_module)
         return task
+    
+    def _expand(self, value):
+        if inspect.isdatadescriptor(value):
+            value = value.__get__(self.meta_module, type(self.meta_module))
+        return value    

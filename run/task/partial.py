@@ -1,3 +1,4 @@
+import inspect
 from copy import copy
 from .task import Task
 
@@ -42,3 +43,8 @@ class PartialTask(Task):
             #Rebuild task with rebase on own module
             task = task.meta_builder(module=self.meta_module)
         return task
+    
+    def _expand(self, value):
+        if inspect.isdatadescriptor(value):
+            value = value.__get__(self.meta_module, type(self.meta_module))
+        return value
