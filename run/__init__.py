@@ -10,7 +10,7 @@ from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler,
                          DispatcherCallbackHandler, DispatcherSignal)
 from .finder import Finder
 from .module import (ModuleBuilder, ModuleMetaclass, Module,
-                     AutoModule, FindModule, NullModule)
+                     ModuleAttributes, AutoModule, FindModule, NullModule)
 from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings

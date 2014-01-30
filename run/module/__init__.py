@@ -1,3 +1,4 @@
+from .attributes import ModuleAttributes
 from .auto import AutoModule
 from .builder import ModuleBuilder
 from .find import FindModule
