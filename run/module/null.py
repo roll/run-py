@@ -1,9 +1,9 @@
 from box.functools import cachedproperty
 from ..dispatcher import NullDispatcher
 from ..settings import settings
-from .base import BaseModule
+from .module import Module
 
-class NullModule(BaseModule):
+class NullModule(Module):
 
     #Public
     
@@ -16,7 +16,7 @@ class NullModule(BaseModule):
     
     @cachedproperty
     def meta_dispatcher(self):
-        return self._meta_null_dispatcher_class()
+        return self._meta_null_dispatcher_class()     
      
     @property
     def meta_module(self):

@@ -14,7 +14,7 @@ class NullModuleTest(unittest.TestCase):
         self.assertIsInstance(self.module, self.MockNullModule)
     
     def test_meta_attributes(self):
-        self.assertEqual(self.module.meta_attributes, {})
+        self.assertEqual(len(self.module.meta_attributes), 4)
         
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, 'default_basedir')

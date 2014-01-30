@@ -11,7 +11,7 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_builder = kwargs.pop('builder', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
-        self._meta_docstring = kwargs.pop('docstring', None)              
+        self._meta_docstring = kwargs.pop('docstring', None)            
         self._meta_module = kwargs.pop('module', None)
         self._meta_signature = kwargs.pop('signature', None)
     
@@ -78,10 +78,11 @@ class Attribute(metaclass=AttributeMetaclass):
      
     @property
     def meta_is_bound(self):
-        attributes = self.meta_module.meta_attributes
-        for attribute in attributes.values():
-            if attribute == self:
-                return True
+        if self._meta_module != None:
+            attributes = self.meta_module.meta_attributes
+            for attribute in attributes.values():
+                if attribute == self:
+                    return True
         return False   
               
     @property
@@ -92,13 +93,13 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @meta_module.setter
     def meta_module(self, module):
-        if self.meta_is_bound:
+        if not self.meta_is_bound:
+            self._meta_module = module            
+        else:
             raise AttributeError(
                 'Can\'t set meta_module in Attribute "{attribute}" '
                 'because it is already bound to module "{module}"'.
                 format(attribute=self, module=self.meta_module))
-        else:
-            self._meta_module = module
         
     @property
     def meta_name(self):
