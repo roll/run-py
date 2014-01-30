@@ -1,4 +1,4 @@
-from .dependency import TaskDependency, require, trigger
+from .constraint import TaskConstraint, require, trigger
 from .descriptor import DescriptorTask
 from .function import FunctionTask
 from .method import MethodTask

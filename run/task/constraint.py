@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from ..dependent import DependentAttributeBuilder
 from .method import MethodTask       
 
-class TaskDependency(metaclass=ABCMeta):
+class TaskConstraint(metaclass=ABCMeta):
     
     #Public
     
@@ -27,7 +27,7 @@ class TaskDependency(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-class require(TaskDependency):
+class require(TaskConstraint):
     
     #Protected
     
@@ -35,7 +35,7 @@ class require(TaskDependency):
         builder.require(self._tasks)
 
 
-class trigger(TaskDependency):
+class trigger(TaskConstraint):
     
     #Protected
     

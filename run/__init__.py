@@ -17,7 +17,7 @@ from .settings import Settings, settings
 from .task import (Task, DescriptorTask, FunctionTask, MethodTask, 
                    NullTask, PartialTask, ValueTask, 
                    InitiatedTaskSignal, ProcessedTaskSignal, 
-                   TaskDependency, require, trigger)
+                   TaskConstraint, require, trigger)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, ProcessedVarSignal)
 from .version import Version, version
