@@ -1,6 +1,6 @@
 from .module import Module
 
-class ProxyModule(Module):
+class AutoModule(Module):
 
     #Public
 
