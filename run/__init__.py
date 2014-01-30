@@ -12,10 +12,11 @@ from .module import (ModuleBuilder, ModuleMetaclass, Module,
 from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings
-from .task import (Task, DescriptorTask, FunctionTask, MethodTask, 
+from .task import (TaskBuilder, TaskMetaclass, Task, 
+                   DescriptorTask, FunctionTask, MethodTask, 
                    NullTask, PartialTask, ValueTask, 
                    InitiatedTaskSignal, ProcessedTaskSignal, 
-                   TaskConstraint, require, trigger)
+                   TaskDependency, TaskConstraint, require, trigger)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, ProcessedVarSignal)
 from .version import Version, version
