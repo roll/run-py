@@ -1,4 +1,4 @@
-class DependentAttributeDependency:
+class TaskDependency:
     
     #Public
     

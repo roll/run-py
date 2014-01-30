@@ -1,6 +1,6 @@
 from ..attribute import AttributeBuilder, AttributeBuilderCall
 
-class DependentAttributeBuilder(AttributeBuilder):
+class TaskBuilder(AttributeBuilder):
     
     #Public
     

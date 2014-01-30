@@ -1,15 +1,14 @@
 import unittest
 from unittest.mock import Mock
-from run.dependent.builder import DependentAttributeBuilder
+from run.task.builder import TaskBuilder
 
-class DependentAttributeBuilderTest(unittest.TestCase):
+class TaskBuilderTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        MockDependentAttributeBuilder = (self.
-            _make_dependent_attribute_builder_class())
-        self.builder = MockDependentAttributeBuilder(None)
+        MockBuilder = self._make_mock_builder_class()
+        self.builder = MockBuilder(None)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
 
@@ -25,8 +24,8 @@ class DependentAttributeBuilderTest(unittest.TestCase):
         
     #Protected
     
-    def _make_dependent_attribute_builder_class(self):
-        class MockDependentAttributeBuilder(DependentAttributeBuilder):
+    def _make_mock_builder_class(self):
+        class MockBuilder(TaskBuilder):
             #Protected
             _call_class = Mock()
-        return MockDependentAttributeBuilder  
+        return MockBuilder  

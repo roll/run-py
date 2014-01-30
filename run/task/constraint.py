@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from ..dependent import DependentAttributeBuilder
+from .builder import TaskBuilder
 from .method import MethodTask       
 
 class TaskConstraint(metaclass=ABCMeta):
@@ -19,7 +19,7 @@ class TaskConstraint(metaclass=ABCMeta):
     
     #Protected
     
-    _builder_class = DependentAttributeBuilder
+    _builder_class = TaskBuilder
     _attribute_class = MethodTask
     
     @abstractmethod

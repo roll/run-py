@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import Mock
-from run.dependent.dependency import DependentAttributeDependency
+from run.task.dependency import TaskDependency
 
 class DependentAttributeTaskTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        self.dependency = DependentAttributeDependency('task')
+        self.dependency = TaskDependency('task')
         self.attribute = Mock(meta_module=Mock(task=Mock()))
         
     def test_resolve(self):
@@ -34,7 +34,7 @@ class DependentAttributeTaskTest_with_args_and_kwargs(unittest.TestCase):
     def setUp(self):
         self.args = ('arg',)
         self.kwargs = {'kwarg': 'kwarg'}
-        self.dependency = DependentAttributeDependency(
+        self.dependency = TaskDependency(
             ('task', self.args, self.kwargs))
         self.attribute = Mock(meta_module=Mock(task=Mock()))
         

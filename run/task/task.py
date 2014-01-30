@@ -1,11 +1,21 @@
-from abc import ABCMeta, abstractmethod
-from ..dependent import DependentAttribute
+from collections import OrderedDict
+from abc import abstractmethod
+from ..attribute import Attribute
+from .dependency import TaskDependency
+from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, ProcessedTaskSignal
 
-class Task(DependentAttribute, metaclass=ABCMeta):
+class Task(Attribute, metaclass=TaskMetaclass):
     
     #Public
     
+    def __meta_init__(self, args, kwargs):
+        super().__meta_init__(args, kwargs)
+        self._requirments = OrderedDict()
+        self._triggers = OrderedDict()
+        self.require(kwargs.pop('require', []))
+        self.trigger(kwargs.pop('trigger', []))
+        
     def __get__(self, module, module_class=None):
         return self
     
@@ -27,7 +37,13 @@ class Task(DependentAttribute, metaclass=ABCMeta):
         self.meta_dispatcher.add_signal(
             self._processed_signal_class(self))
         return result
-    
+        
+    def require(self, tasks, disable=False):
+        self._update_dependencies(self._requirments, tasks, disable)
+        
+    def trigger(self, tasks, disable=False):
+        self._update_dependencies(self._triggers, tasks, disable)
+        
     @abstractmethod
     def invoke(self, *args, **kwargs):
         pass #pragma: no cover
@@ -36,3 +52,24 @@ class Task(DependentAttribute, metaclass=ABCMeta):
     
     _initiated_signal_class = InitiatedTaskSignal
     _processed_signal_class = ProcessedTaskSignal    
+    _dependency_class = TaskDependency
+            
+    def _resolve_requirements(self):
+        for dependency in self._requirments.values():
+            if dependency.is_resolved:
+                continue
+            dependency.resolve(self)
+    
+    def _resolve_triggers(self):
+        for dependency in self._triggers.values():
+            dependency.resolve(self)
+            
+    @classmethod
+    def _update_dependencies(cls, group, tasks, disable=False):
+        for task in tasks:
+            dependency = cls._dependency_class(task)
+            if disable:
+                group.pop(dependency.name, None)
+            else:
+                if dependency.name not in group:
+                    group[dependency.name] = dependency    
