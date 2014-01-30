@@ -1,22 +1,16 @@
 import inspect
-from copy import copy
-from .task import Task
+from .partial import PartialTask
 
-class FunctionTask(Task):
+class FunctionTask(PartialTask):
     
     #Public
 
     def __init__(self, function, *args, **kwargs):
         self._function = function
-        self._args = args
-        self._kwargs = kwargs
+        super().__init__(*args, **kwargs)
     
-    def invoke(self, *args, **kwargs):
-        eargs = copy(self._args)
-        eargs = eargs+args
-        ekwargs = copy(self._kwargs)
-        ekwargs.update(kwargs)
-        return self._function(*eargs, **ekwargs)
+    def effective_invoke(self, *args, **kwargs):
+        return self._function(*args, **kwargs)
         
     @property
     def meta_signature(self):

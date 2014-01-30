@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
-from run.task.partial import PartialTask
+from run.task.nested import NestedTask
 
-class PartialTaskTest(unittest.TestCase):
+class NestedTaskTest(unittest.TestCase):
 
     #Public
 
@@ -27,7 +27,7 @@ class PartialTaskTest(unittest.TestCase):
     #Protected
     
     def _make_mock_task_class(self, builtin_task):
-        class MockTask(PartialTask):
+        class MockTask(NestedTask):
             #Public
             meta_module = Mock(task=Mock(
                 return_value='value',

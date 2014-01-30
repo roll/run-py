@@ -14,7 +14,7 @@ from .run import Run, RunController, RunStack
 from .settings import Settings, settings
 from .task import (TaskBuilder, TaskMetaclass, Task, 
                    DescriptorTask, FunctionTask, MethodTask, 
-                   NullTask, PartialTask, ValueTask, 
+                   NestedTask, NullTask, PartialTask, ValueTask, 
                    InitiatedTaskSignal, ProcessedTaskSignal, 
                    TaskDependency, TaskConstraint, require, trigger)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 

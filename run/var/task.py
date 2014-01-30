@@ -1,4 +1,4 @@
-from ..task import PartialTask
+from ..task import NestedTask
 from .var import Var
 
-class TaskVar(Var, PartialTask): pass
+class TaskVar(Var, NestedTask): pass
