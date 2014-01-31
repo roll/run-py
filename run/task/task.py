@@ -13,6 +13,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         super().__meta_init__(args, kwargs)
         self._requirments = OrderedDict()
         self._triggers = OrderedDict()
+        self._is_chdir = kwargs.pop('is_chdir', True)        
         self.require(kwargs.pop('require', []))
         self.trigger(kwargs.pop('trigger', []))
         
