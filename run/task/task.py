@@ -58,10 +58,24 @@ class Task(Attribute, metaclass=TaskMetaclass):
     _processed_signal_class = ProcessedTaskSignal    
     _dependency_class = TaskDependency
             
+    @classmethod
+    def _update_dependencies(cls, group, tasks, disable=False):
+        for task in tasks:
+            dependency = cls._dependency_class(task)
+            if disable:
+                group.pop(dependency.name, None)
+            else:
+                if dependency.name not in group:
+                    group[dependency.name] = dependency
+                         
     def _resolve_requirements(self):
         for dependency in self._requirments.values():
             if dependency.is_resolved:
                 continue
+            dependency.resolve(self)
+        
+    def _resolve_triggers(self):
+        for dependency in self._triggers.values():
             dependency.resolve(self)
      
     @contextmanager       
@@ -72,19 +86,4 @@ class Task(Attribute, metaclass=TaskMetaclass):
             yield
             os.chdir(cwd)
         else:
-            yield
-        
-    def _resolve_triggers(self):
-        for dependency in self._triggers.values():
-            dependency.resolve(self)
-        
-            
-    @classmethod
-    def _update_dependencies(cls, group, tasks, disable=False):
-        for task in tasks:
-            dependency = cls._dependency_class(task)
-            if disable:
-                group.pop(dependency.name, None)
-            else:
-                if dependency.name not in group:
-                    group[dependency.name] = dependency    
+            yield  
