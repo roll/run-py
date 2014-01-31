@@ -9,8 +9,8 @@ class ModuleMetaclass(AttributeMetaclass):
     #Public
      
     #TODO: figure out why staticmethods fails
-    def __new__(cls, name, bases, dct):
-        for key, attr in dct.items():
+    def __new__(cls, name, bases, attrs):
+        for key, attr in attrs.items():
             if key.isupper():
                 continue
             if key.startswith('_'):
@@ -26,12 +26,12 @@ class ModuleMetaclass(AttributeMetaclass):
             if getattr(attr, '__isabstractmethod__', False):
                 continue   
             if callable(attr):
-                dct[key] = cls._method_task_class(attr)
+                attrs[key] = cls._method_task_class(attr)
             elif inspect.isdatadescriptor(attr):
-                dct[key] = cls._descriptor_var_class(attr)
+                attrs[key] = cls._descriptor_var_class(attr)
             else:
-                dct[key] = cls._value_var_class(attr)
-        return super().__new__(cls, name, bases, dct)
+                attrs[key] = cls._value_var_class(attr)
+        return super().__new__(cls, name, bases, attrs)
     
     #Protected
     
