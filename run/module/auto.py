@@ -6,12 +6,14 @@ class AutoModule(Module):
     #Public
 
     def __init__(self, *objects):
-        self._objects = objects
+        self._objects = objects+self._default_objects
         for name, function in self._functions.items():
             if not hasattr(type(self), name):
                 setattr(type(self), name, FunctionTask(function))
                 
     #Protected
+    
+    _default_objects = []
     
     @property
     def _functions(self):
