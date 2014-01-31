@@ -58,10 +58,9 @@ class Task(Attribute, metaclass=TaskMetaclass):
     _processed_signal_class = ProcessedTaskSignal    
     _dependency_class = TaskDependency
             
-    @classmethod
-    def _update_dependencies(cls, group, tasks, disable=False):
+    def _update_dependencies(self, group, tasks, disable=False):
         for task in tasks:
-            dependency = cls._dependency_class(task)
+            dependency = self._dependency_class(task)
             if disable:
                 group.pop(dependency.name, None)
             else:
