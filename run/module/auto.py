@@ -5,8 +5,8 @@ class AutoModule(Module):
 
     #Public
 
-    def __init__(self, objects=[]):
-        self._objects = objects+self._default_objects
+    def __init__(self, sources=[]):
+        self._sources = sources+self._default_sources
         for name, function in self._functions.items():
             if not hasattr(type(self), name):
                 task = FunctionTask(function, module=self)
@@ -14,12 +14,12 @@ class AutoModule(Module):
                 
     #Protected
     
-    _default_objects = []
+    _default_sources = []
     
     @property
     def _functions(self):
         functions = {}
-        for obj in reversed(self._objects):
+        for obj in reversed(self._sources):
             for name in dir(obj):
                 if name.startswith('_'):
                     continue

@@ -5,4 +5,4 @@ class InputModule(AutoModule):
     
     #Protected
 
-    _default_objects = [input]
+    _default_sources = [input]

@@ -5,4 +5,4 @@ class FindModule(AutoModule):
     
     #Protected
 
-    _default_objects = [findtools]
+    _default_sources = [findtools]

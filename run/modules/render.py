@@ -5,4 +5,4 @@ class RenderModule(AutoModule):
     
     #Protected
 
-    _default_objects = [jinja2]
+    _default_sources = [jinja2]
