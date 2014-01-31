@@ -8,7 +8,6 @@ class ModuleMetaclass(AttributeMetaclass):
      
     #Public
      
-    #TODO: figure out why staticmethods fails
     def __new__(cls, name, bases, attrs):
         for key, attr in attrs.items():
             if key.isupper():
