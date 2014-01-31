@@ -1,3 +1,5 @@
+import os
+from contextlib import contextmanager
 from collections import OrderedDict
 from abc import abstractmethod
 from ..attribute import Attribute
@@ -33,7 +35,8 @@ class Task(Attribute, metaclass=TaskMetaclass):
         self.meta_dispatcher.add_signal(
             self._initiated_signal_class(self))
         self._resolve_requirements()
-        result = self.invoke(*args, **kwargs)
+        with self._effective_dir():
+            result = self.invoke(*args, **kwargs)
         self._resolve_triggers()
         self.meta_dispatcher.add_signal(
             self._processed_signal_class(self))
@@ -60,10 +63,21 @@ class Task(Attribute, metaclass=TaskMetaclass):
             if dependency.is_resolved:
                 continue
             dependency.resolve(self)
-    
+     
+    @contextmanager       
+    def _effective_dir(self):
+        if self._is_chdir:
+            cwd = os.getcwd()
+            os.chdir(self.meta_basedir)
+            yield
+            os.chdir(cwd)
+        else:
+            yield
+        
     def _resolve_triggers(self):
         for dependency in self._triggers.values():
             dependency.resolve(self)
+        
             
     @classmethod
     def _update_dependencies(cls, group, tasks, disable=False):
