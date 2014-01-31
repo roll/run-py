@@ -6,17 +6,17 @@ class AutoModule(Module):
     #Public
 
     def __init__(self, *objects):
-        self._objects = objects
-        for name, function in self._functions.items():
+        self._meta_objects = objects
+        for name, function in self._meta_functions.items():
             if not hasattr(type(self), name):
                 setattr(type(self), name, FunctionTask(function))
                 
     #Protected
     
     @property
-    def _functions(self):
+    def _meta_functions(self):
         functions = {}
-        for obj in reversed(self._objects):
+        for obj in reversed(self._meta_objects):
             for name in dir(obj):
                 if name.startswith('_'):
                     continue
