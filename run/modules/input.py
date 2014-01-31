@@ -1,9 +1,8 @@
-from box.input import input
-from run import Module
+from run import AutoModule
+from box import input
 
-class InputModule(Module):
+class InputModule(AutoModule):
     
-    #Public
+    #Protected
 
-    def input(self, *args, **kwargs):
-        return input(*args, **kwargs)
+    _default_objects = [input]

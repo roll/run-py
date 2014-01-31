@@ -3,6 +3,6 @@ from box import findtools
 
 class FindModule(AutoModule):
     
-    #Public
+    #Protected
 
     _default_objects = [findtools]
