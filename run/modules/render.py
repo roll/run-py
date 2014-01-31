@@ -1,9 +1,8 @@
-from box.jinja2 import render_file
-from run import Module     
-        
-class RenderModule(Module):
-    
-    #Public
+from run import AutoModule
+from box import jinja2
 
-    def render_file(self, *args, **kwargs):
-        return render_file(*args, **kwargs)
+class RenderModule(AutoModule):
+    
+    #Protected
+
+    _default_objects = [jinja2]
