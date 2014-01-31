@@ -5,8 +5,8 @@ class AutoModule(Module):
 
     #Public
 
-    def __init__(self, *objects):
-        self._objects = list(objects)+self._default_objects
+    def __init__(self, objects=[]):
+        self._objects = objects+self._default_objects
         for name, function in self._functions.items():
             if not hasattr(type(self), name):
                 task = FunctionTask(function, module=self)
