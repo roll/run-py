@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.var.nested import NestedVar
+from run.var.task import TaskVar
 
 class PartialVarTest(unittest.TestCase):
 
@@ -20,7 +20,7 @@ class PartialVarTest(unittest.TestCase):
     #Protected
     
     def _make_mock_var_class(self, builtin_task):
-        class MockVar(NestedVar):
+        class MockVar(TaskVar):
             #Public
             meta_module = Mock(task=Mock(
                 return_value='value',

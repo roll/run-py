@@ -17,7 +17,6 @@ from .task import (TaskBuilder, TaskMetaclass, Task,
                    NestedTask, NullTask, PartialTask, ValueTask, 
                    InitiatedTaskSignal, ProcessedTaskSignal, 
                    TaskDependency, TaskConstraint, require, trigger)
-from .var import (Var, DescriptorVar, FunctionVar, 
-                  MethodVar, NestedVar, ValueVar, 
+from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, ProcessedVarSignal)
 from .version import Version, version
