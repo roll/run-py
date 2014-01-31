@@ -20,10 +20,10 @@ class AutoModule(Module):
             for name in dir(obj):
                 if name.startswith('_'):
                     continue
-                value = getattr(obj, name)
-                if not callable(value):
+                attr = getattr(obj, name)
+                if not callable(attr):
                     continue
-                if isinstance(value, type):
+                if isinstance(attr, type):
                     continue
-                functions[name] = value
+                functions[name] = attr
         return functions                   
