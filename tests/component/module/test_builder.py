@@ -28,8 +28,8 @@ class ModuleBuilderTest(unittest.TestCase):
         self.assertEqual(self.builder._builded_class_bases, 
                          (self.MockModule,))
         
-    def test__builded_class_dict(self):
-        self.assertEqual(self.builder._builded_class_dict, {
+    def test__builded_class_attrs(self):
+        self.assertEqual(self.builder._builded_class_attrs, {
             '__doc__': 'docstring',
             '__module__': type(self).__module__,
             'attr1': 'value1',
