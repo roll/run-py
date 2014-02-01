@@ -13,7 +13,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     def __meta_init__(self, args, kwargs):
         super().__meta_init__(args, kwargs)
-        self._requirments = OrderedDict()
+        self._requirements = OrderedDict()
         self._triggers = OrderedDict()
         self._is_chdir = kwargs.pop('is_chdir', True)        
         self.require(kwargs.pop('require', []))
@@ -43,7 +43,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         return result
         
     def require(self, tasks, disable=False):
-        self._update_dependencies(self._requirments, tasks, disable)
+        self._update_dependencies(self._requirements, tasks, disable)
         
     def trigger(self, tasks, disable=False):
         self._update_dependencies(self._triggers, tasks, disable)
@@ -68,7 +68,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
                     group[dependency.name] = dependency
                          
     def _resolve_requirements(self):
-        for dependency in self._requirments.values():
+        for dependency in self._requirements.values():
             if dependency.is_resolved:
                 continue
             dependency.resolve(self)
