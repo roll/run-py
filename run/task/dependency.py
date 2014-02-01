@@ -7,10 +7,15 @@ class TaskDependency(metaclass=ABCMeta):
     #Public
     
     def __init__(self, task, *args, **kwargs):
+        self._components = []
         if not isinstance(task, list):
-            self._dependencies = [task]
+            dependencies = [task]
         else:
-            self._dependencies = task
+            dependencies = task
+        for dependency in dependencies:
+            self._components.append(
+                {'dependency': dependency, 
+                 'active': True})
         self._args = args
         self._kwargs = kwargs
         self._is_resolved = False
@@ -24,20 +29,16 @@ class TaskDependency(metaclass=ABCMeta):
         return builder
     
     def enable(self, task):
-        pass
+        for component in self._components:
+            component.enable(task)
     
     def disable(self, task):
-        for dependency in self._dependencies:
-            if isinstance(dependency, type(self)):
-                dependency.disable(task)
+        for component in self._components:
+            component.disable(task)
         
     def resolve(self, attribute):
-        for dependency in self._dependencies:
-            if isinstance(dependency, type(self)):
-                dependency.resolve(attribute)
-            else:
-                task = getattr(attribute.meta_module, dependency)
-                task(*self._args, **self._kwargs)
+        for component in self._components:
+            component.resolve(attribute)
         self._is_resolved = True
 
     @property
@@ -52,8 +53,36 @@ class TaskDependency(metaclass=ABCMeta):
     @abstractmethod
     def _apply_dependency(self, builder):
         pass #pragma: no cover
+        
 
-
+class TaskDependencyComponent:
+    
+    #Public
+    
+    def __init__(self, dependency):
+        self._dependency = dependency
+        self._active = True
+        
+    def enable(self, task):
+        if isinstance(self._dependency, TaskDependency):
+            self._dependency.enable(task)
+        else:
+            self._active = True
+    
+    def disable(self, task):
+        if isinstance(self._dependency, TaskDependency):
+            self._dependency.disable(task)
+        else:
+            self._active = False
+        
+    def resolve(self, attribute):
+        if isinstance(self._dependency, TaskDependency):
+            self._dependency.resolve(attribute)
+        else:
+            task = getattr(attribute.meta_module, self._dependency)
+            task(*self._args, **self._kwargs)
+    
+    
 class require(TaskDependency):
     
     #Protected
