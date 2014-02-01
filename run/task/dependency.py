@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
 from .builder import TaskBuilder
-from .method import MethodTask       
 
 class TaskDependency(metaclass=ABCMeta):
     
@@ -13,10 +12,8 @@ class TaskDependency(metaclass=ABCMeta):
         else:
             dependencies = task
         for dependency in dependencies:
-            component = TaskDependencyComponent(dependency)
+            component = TaskDependencyComponent(dependency, *args, **kwargs)
             self._components.append(component)
-        self._args = args
-        self._kwargs = kwargs
         self._is_resolved = False
     
     def __call__(self, method):
@@ -47,7 +44,12 @@ class TaskDependency(metaclass=ABCMeta):
     #Protected
     
     _builder_class = TaskBuilder
-    _method_task_class = MethodTask
+    
+    @property
+    def _method_task_class(self):
+        #Cycle dependency if static
+        from .method import MethodTask    
+        return MethodTask
     
     @abstractmethod
     def _apply_dependency(self, builder):
@@ -58,8 +60,10 @@ class TaskDependencyComponent:
     
     #Public
     
-    def __init__(self, dependency):
+    def __init__(self, dependency, *args, **kwargs):
         self._dependency = dependency
+        self._args = args
+        self._kwargs = kwargs
         self._enabled = True
         
     def enable(self, task):

@@ -149,5 +149,6 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def _meta_null_module_class(self):
+        #Cycle dependency if static
         from ..module import NullModule
         return NullModule
