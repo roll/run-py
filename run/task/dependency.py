@@ -14,15 +14,14 @@ class TaskDependency(metaclass=ABCMeta):
     
     def __call__(self, builder):
         if not isinstance(builder, self._builder_class):
-            builder = self._attribute_class(builder)
+            builder = self._method_task_class(builder)
         self._apply_dependency(builder)
         return builder
         
     def resolve(self, attribute):
         task = getattr(attribute.meta_module, self._task)
-        result = task(*self._args, **self._kwargs)
+        task(*self._args, **self._kwargs)
         self._is_resolved = True
-        return result
 
     @property
     def is_resolved(self):
@@ -31,7 +30,7 @@ class TaskDependency(metaclass=ABCMeta):
     #Protected
     
     _builder_class = TaskBuilder
-    _attribute_class = MethodTask
+    _method_task_class = MethodTask
     
     @abstractmethod
     def _apply_dependency(self, builder):
