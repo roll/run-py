@@ -30,7 +30,6 @@ class TaskDependency(metaclass=ABCMeta):
         for dependency in self._dependencies:
             if isinstance(dependency, type(self)):
                 dependency.disable(task)
-                    
         
     def resolve(self, attribute):
         for dependency in self._dependencies:
