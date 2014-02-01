@@ -7,20 +7,38 @@ class TaskDependency(metaclass=ABCMeta):
     #Public
     
     def __init__(self, task, *args, **kwargs):
-        self._task = task
+        if not isinstance(task, list):
+            self._dependencies = [task]
+        else:
+            self._dependencies = task
         self._args = args
         self._kwargs = kwargs
         self._is_resolved = False
     
-    def __call__(self, builder):
-        if not isinstance(builder, self._builder_class):
-            builder = self._method_task_class(builder)
+    def __call__(self, method):
+        if not isinstance(method, self._builder_class):
+            builder = self._method_task_class(method)
+        else:
+            builder = method
         self._apply_dependency(builder)
         return builder
+    
+    def enable(self, task):
+        pass
+    
+    def disable(self, task):
+        for dependency in self._dependencies:
+            if isinstance(dependency, type(self)):
+                dependency.disable(task)
+                    
         
     def resolve(self, attribute):
-        task = getattr(attribute.meta_module, self._task)
-        task(*self._args, **self._kwargs)
+        for dependency in self._dependencies:
+            if isinstance(dependency, type(self)):
+                dependency.resolve(attribute)
+            else:
+                task = getattr(attribute.meta_module, dependency)
+                task(*self._args, **self._kwargs)
         self._is_resolved = True
 
     @property
