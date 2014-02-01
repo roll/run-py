@@ -1,48 +1,54 @@
-class TaskDependency:
+from abc import ABCMeta, abstractmethod
+from .builder import TaskBuilder
+from .method import MethodTask       
+
+class TaskDependency(metaclass=ABCMeta):
     
     #Public
     
-    def __init__(self, task):
-        self._unpack(task)
+    def __init__(self, task, *args, **kwargs):
+        self._task = task
+        self._args = args
+        self._kwargs = kwargs
         self._is_resolved = False
+    
+    def __call__(self, builder):
+        if not isinstance(builder, self._builder_class):
+            builder = self._attribute_class(builder)
+        self._apply_dependency(builder)
+        return builder
         
     def resolve(self, attribute):
-        task = getattr(attribute.meta_module, self.name)
-        result = task(*self.args, **self.kwargs)
+        task = getattr(attribute.meta_module, self._task)
+        result = task(*self._args, **self._kwargs)
         self._is_resolved = True
         return result
-    
-    @property
-    def name(self):
-        return self._name
-    
-    @property
-    def args(self):
-        return self._args
-    
-    @property
-    def kwargs(self):
-        return self._kwargs
-    
+
     @property
     def is_resolved(self):
         return self._is_resolved
     
     #Protected
     
-    #TODO: indefinite behaviour with type error 
-    #like task=('task', {'kwarg': 'kwarg'}) for example
-    #Or it will be solved in new require/trigger style 
-    def _unpack(self, task):
-        self._name = ''
-        self._args = ()
-        self._kwargs = {}
-        if isinstance(task, tuple):
-            try:
-                self._name = task[0]
-                self._args = task[1]
-                self._kwargs = task[2]
-            except IndexError:
-                pass
-        else:
-            self._name = task
+    _builder_class = TaskBuilder
+    _attribute_class = MethodTask
+    
+    @abstractmethod
+    def _apply_dependency(self, builder):
+        pass #pragma: no cover
+
+
+class require(TaskDependency):
+    
+    #Protected
+    
+    def _apply_dependency(self, builder):
+        builder.require(self)
+
+
+class trigger(TaskDependency):
+    
+    #Protected
+    
+    def _apply_dependency(self, builder):
+        builder.trigger(self)
