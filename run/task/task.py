@@ -1,9 +1,8 @@
 import os
 from contextlib import contextmanager
-from collections import OrderedDict
 from abc import abstractmethod
 from ..attribute import Attribute
-from .dependency import TaskDependency
+from .dependency import require, trigger
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, ProcessedTaskSignal
 
@@ -13,11 +12,13 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     def __meta_init__(self, args, kwargs):
         super().__meta_init__(args, kwargs)
-        self._requirements = OrderedDict()
-        self._triggers = OrderedDict()
         self._is_chdir = kwargs.pop('is_chdir', True)        
-        self.require(kwargs.pop('require', []))
-        self.trigger(kwargs.pop('trigger', []))
+        self._requires = []
+        self._triggers = []
+        for dependency in kwargs.pop('require', []):
+            self.require(dependency)
+        for dependency in kwargs.pop('trigger', []):
+            self.trigger(dependency)
         
     def __get__(self, module, module_class=None):
         return self
@@ -34,7 +35,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def __call__(self, *args, **kwargs):
         self.meta_dispatcher.add_signal(
             self._initiated_signal_class(self))
-        self._resolve_requirements()
+        self._resolve_requires()
         with self._effective_dir():
             result = self.invoke(*args, **kwargs)
         self._resolve_triggers()
@@ -42,11 +43,17 @@ class Task(Attribute, metaclass=TaskMetaclass):
             self._processed_signal_class(self))
         return result
         
-    def require(self, tasks, disable=False):
-        self._update_dependencies(self._requirements, tasks, disable)
+    def require(self, task, *args, **kwargs):
+        self._apply_dependency(
+            self._requires, 
+            self._require_class, 
+            task, *args, **kwargs)
         
-    def trigger(self, tasks, disable=False):
-        self._update_dependencies(self._triggers, tasks, disable)
+    def trigger(self, task, *args, **kwargs):
+        self._apply_dependency(
+            self._triggers, 
+            self._trigger_class, 
+            task, *args, **kwargs)
         
     @abstractmethod
     def invoke(self, *args, **kwargs):
@@ -56,19 +63,25 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     _initiated_signal_class = InitiatedTaskSignal
     _processed_signal_class = ProcessedTaskSignal    
-    _dependency_class = TaskDependency
+    _require_class = require
+    _trigger_class = trigger
             
-    def _update_dependencies(self, group, tasks, disable=False):
-        for task in tasks:
-            dependency = self._dependency_class(task)
-            if disable:
-                group.pop(dependency.name, None)
+    def _apply_dependency(self, lst, cls, task, *args, **kwargs):
+        if kwargs.pop('is_enable', False):
+            for dependency in lst:
+                dependency.enable(task)
+        elif kwargs.pop('is_disable', False):
+            for dependency in lst:
+                dependency.disable(task)
+        else:
+            if not isinstance(task, cls):
+                dependency = cls(task, *args, **kwargs)
             else:
-                if dependency.name not in group:
-                    group[dependency.name] = dependency
+                dependency = task
+            lst.append(dependency)
                          
-    def _resolve_requirements(self):
-        for dependency in self._requirements.values():
+    def _resolve_requires(self):
+        for dependency in self._requires.values():
             if dependency.is_resolved:
                 continue
             dependency.resolve(self)

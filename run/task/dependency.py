@@ -13,9 +13,8 @@ class TaskDependency(metaclass=ABCMeta):
         else:
             dependencies = task
         for dependency in dependencies:
-            self._components.append(
-                {'dependency': dependency, 
-                 'active': True})
+            component = TaskDependencyComponent(dependency)
+            self._components.append(component)
         self._args = args
         self._kwargs = kwargs
         self._is_resolved = False
@@ -61,26 +60,27 @@ class TaskDependencyComponent:
     
     def __init__(self, dependency):
         self._dependency = dependency
-        self._active = True
+        self._enabled = True
         
     def enable(self, task):
         if isinstance(self._dependency, TaskDependency):
             self._dependency.enable(task)
         else:
-            self._active = True
+            self._enabled = True
     
     def disable(self, task):
         if isinstance(self._dependency, TaskDependency):
             self._dependency.disable(task)
         else:
-            self._active = False
+            self._enabled = False
         
     def resolve(self, attribute):
-        if isinstance(self._dependency, TaskDependency):
-            self._dependency.resolve(attribute)
-        else:
-            task = getattr(attribute.meta_module, self._dependency)
-            task(*self._args, **self._kwargs)
+        if self._enabled:
+            if isinstance(self._dependency, TaskDependency):
+                self._dependency.resolve(attribute)
+            else:
+                task = getattr(attribute.meta_module, self._dependency)
+                task(*self._args, **self._kwargs)
     
     
 class require(TaskDependency):
