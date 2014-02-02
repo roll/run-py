@@ -8,8 +8,7 @@ class TaskTest(unittest.TestCase):
     #Public
 
     def setUp(self):
-        self.MockDependency = self._make_mock_dependency_class()
-        self.MockTask = self._make_mock_task_class(self.MockDependency)
+        self.MockTask = self._make_mock_task_class()
         self.partial_task = partial(self.MockTask, module=None)
 
     def test___get__(self):
@@ -33,58 +32,16 @@ class TaskTest(unittest.TestCase):
         task._initiated_signal_class.assert_called_with(task)
         task._processed_signal_class.assert_called_with(task)
         task.meta_dispatcher.add_signal.assert_has_calls(
-            [call('initiated_signal'), call('processed_signal')])
-        
-    def test_require_and_resolve_requirments(self):
-        task = self.partial_task(require=['task1'])
-        task.require(['task2', 'task2'])
-        task.require(['task3'])
-        task.require(['task3'], disable=True)
-        task._resolve_dependencies(task._requires)
-        task._resolve_dependencies(task._requires)
-        self.MockDependency.call.assert_has_calls([
-            call(task, task='task1'), 
-            call(task, task='task2')])
-    
-    def test_trigger_and_resolve_triggers(self):
-        task = self.partial_task(trigger=['task1'])
-        task.trigger(['task2', 'task2'])
-        task.trigger(['task3'])
-        task.trigger(['task3'], disable=True)
-        task._resolve_dependencies(task._triggers)
-        task._resolve_dependencies(task._triggers)
-        self.MockDependency.call.assert_has_calls([
-            call(task, task='task1'), 
-            call(task, task='task2'),
-            call(task, task='task1'), 
-            call(task, task='task2')])        
+            [call('initiated_signal'), call('processed_signal')])     
         
     #Protected
     
-    def _make_mock_dependency_class(self):
-        class MockDependency:
-            #Public
-            call = Mock()
-            def __init__(self, task):
-                self.task = task
-                self.is_resolved = False
-            def resolve(self, attribute):
-                self.call(attribute, task=self.task)
-                self.is_resolved = True                
-            @property
-            def name(self):
-                return self.task
-        return MockDependency
-    
-    def _make_mock_task_class(self, mock_dependency_class):
+    def _make_mock_task_class(self):
         class MockTask(Task):
             #Public
             invoke = Mock(return_value='value')
             meta_dispatcher = Mock(add_signal = Mock())
             #Protected
             _initiated_signal_class = Mock(return_value='initiated_signal')
-            _processed_signal_class = Mock(return_value='processed_signal')
-            @staticmethod            
-            def _dependency_class(task):
-                return mock_dependency_class(task)
+            _processed_signal_class = Mock(return_value='processed_signal')        
         return MockTask   
