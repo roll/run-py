@@ -63,7 +63,6 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     _initiated_signal_class = InitiatedTaskSignal
     _processed_signal_class = ProcessedTaskSignal
-    _dependency_class = dependency.TaskDependency
     _require_class = dependency.require
     _trigger_class = dependency.trigger
             
@@ -75,7 +74,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
             for dependency in lst:
                 dependency.disable(task)
         else:
-            if not isinstance(task, self._dependency_class):
+            if not isinstance(task, cls):
                 dependency = cls(task, *args, **kwargs)
             else:
                 dependency = task

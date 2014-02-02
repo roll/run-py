@@ -6,14 +6,19 @@ class TaskDependency(metaclass=ABCMeta):
     #Public
     
     def __init__(self, task, *args, **kwargs):
-        self._components = []
         if not isinstance(task, list):
-            dependencies = [task]
+            self._is_composite = False
+            self._task = task
         else:
-            dependencies = task
-        for dependency in dependencies:
-            component = TaskDependencyComponent(dependency, *args, **kwargs)
-            self._components.append(component)
+            self._is_composite = True
+            self._dependencies = []
+            for dependency in task:
+                if not isinstance(task, type(self)):
+                    dependency = type(self)(dependency, *args, **kwargs)
+                self._dependencies.append(dependency)
+        self._args = args
+        self._kwargs = kwargs
+        self._enabled = True
         self._resolves = 0
     
     def __call__(self, method):
@@ -25,18 +30,29 @@ class TaskDependency(metaclass=ABCMeta):
         return builder
     
     def enable(self, task):
-        for component in self._components:
-            component.enable(task)
+        if not self._is_composite:
+            self._enabled = True
+        else:
+            for dependency in self._dependencies:
+                dependency.enable(task)
     
     def disable(self, task):
-        for component in self._components:
-            component.disable(task)
+        if not self._is_composite:
+            self._enabled = False
+        else:
+            for dependency in self._dependencies:
+                dependency.disable(task)
         
     def resolve(self, attribute):
-        for component in self._components:
-            component.resolve(attribute)
+        if not self._is_composite:
+            task = getattr(attribute.meta_module, self._task)
+            task(*self._args, **self._kwargs)
+        else:       
+            for dependency in self._dependencies:
+                dependency.resolve(attribute)
         self._resolves += 1
 
+    @property
     @abstractmethod
     def is_resolved(self):
         pass #pragma: no cover
@@ -54,43 +70,13 @@ class TaskDependency(metaclass=ABCMeta):
     @abstractmethod
     def _add_dependency(self, builder):
         pass #pragma: no cover
-        
-
-class TaskDependencyComponent:
-    
-    #Public
-    
-    def __init__(self, dependency, *args, **kwargs):
-        self._dependency = dependency
-        self._args = args
-        self._kwargs = kwargs
-        self._enabled = True
-        
-    def enable(self, task):
-        if isinstance(self._dependency, TaskDependency):
-            self._dependency.enable(task)
-        else:
-            self._enabled = True
-    
-    def disable(self, task):
-        if isinstance(self._dependency, TaskDependency):
-            self._dependency.disable(task)
-        else:
-            self._enabled = False
-        
-    def resolve(self, attribute):
-        if self._enabled:
-            if isinstance(self._dependency, TaskDependency):
-                self._dependency.resolve(attribute)
-            else:
-                task = getattr(attribute.meta_module, self._dependency)
-                task(*self._args, **self._kwargs)
 
     
 class require(TaskDependency):
     
     #Public
     
+    @property
     def is_resolved(self):
         return bool(self._resolves)    
     
@@ -104,6 +90,7 @@ class trigger(TaskDependency):
     
     #Public
     
+    @property
     def is_resolved(self):
         return False
     
