@@ -40,8 +40,8 @@ class TaskTest(unittest.TestCase):
         task.require(['task2', 'task2'])
         task.require(['task3'])
         task.require(['task3'], disable=True)
-        task._resolve_requirements()
-        task._resolve_requirements()
+        task._resolve_dependencies(task._requires)
+        task._resolve_dependencies(task._requires)
         self.MockDependency.call.assert_has_calls([
             call(task, task='task1'), 
             call(task, task='task2')])
@@ -51,8 +51,8 @@ class TaskTest(unittest.TestCase):
         task.trigger(['task2', 'task2'])
         task.trigger(['task3'])
         task.trigger(['task3'], disable=True)
-        task._resolve_triggers()
-        task._resolve_triggers()
+        task._resolve_dependencies(task._triggers)
+        task._resolve_dependencies(task._triggers)
         self.MockDependency.call.assert_has_calls([
             call(task, task='task1'), 
             call(task, task='task2'),

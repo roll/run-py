@@ -1,8 +1,8 @@
 import os
 from contextlib import contextmanager
 from abc import abstractmethod
-from ..attribute import Attribute
 from .. import dependency
+from ..attribute import Attribute
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, ProcessedTaskSignal
 
