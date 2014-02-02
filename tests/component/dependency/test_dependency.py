@@ -13,17 +13,17 @@ class DependencyTest(unittest.TestCase):
         self.tasks = ['task1', 'task2']
         self.dependency = MockDependency(self.tasks)
         
-    def test___call__with_function_is_builder(self):
-        builder = self.dependency._method_task_class('method')
-        decorated = self.dependency(builder)
-        self.assertIs(decorated, builder)
-        self.dependency._add_dependency.assert_called_with(decorated)
-        
-    def test___call__with_function_is_raw_function(self):
+    def test___call__(self):
         function = 'function'
         decorated = self.dependency(function)
         self.assertIsInstance(decorated, self.dependency._builder_class)
         self.dependency._method_task_class.assert_called_with(function)
+        self.dependency._add_dependency.assert_called_with(decorated)
+        
+    def test___call__with_method_is_builder(self):
+        builder = self.dependency._method_task_class('method')
+        decorated = self.dependency(builder)
+        self.assertIs(decorated, builder)
         self.dependency._add_dependency.assert_called_with(decorated)
         
     def test_resolve(self):
