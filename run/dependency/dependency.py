@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from ..task import TaskBuilder
+from .resolver import DependencyTaskResolver, DependencyNestedResolver
 
 class Dependency(metaclass=ABCMeta):
     
@@ -7,18 +8,14 @@ class Dependency(metaclass=ABCMeta):
     
     def __init__(self, task, *args, **kwargs):
         if not isinstance(task, list):
-            self._is_composite = False
-            self._task = task
+            self._resolver = DependencyTaskResolver(task, *args, **kwargs)
         else:
-            self._is_composite = True
-            self._dependencies = []
+            dependencies = []
             for dependency in task:
                 if not isinstance(task, type(self)):
                     dependency = type(self)(dependency, *args, **kwargs)
-                self._dependencies.append(dependency)
-        self._args = args
-        self._kwargs = kwargs
-        self._enabled = True
+                    dependencies.append(dependency)
+            self._resolver = DependencyNestedResolver(dependencies)
         self._resolves = 0
     
     def __call__(self, method):
@@ -30,26 +27,13 @@ class Dependency(metaclass=ABCMeta):
         return builder
     
     def enable(self, task):
-        if not self._is_composite:
-            self._enabled = True
-        else:
-            for dependency in self._dependencies:
-                dependency.enable(task)
+        self._resolver.enable(task)
     
     def disable(self, task):
-        if not self._is_composite:
-            self._enabled = False
-        else:
-            for dependency in self._dependencies:
-                dependency.disable(task)
+        self._resolver.disable(task)
         
     def resolve(self, attribute):
-        if not self._is_composite:
-            task = getattr(attribute.meta_module, self._task)
-            task(*self._args, **self._kwargs)
-        else:       
-            for dependency in self._dependencies:
-                dependency.resolve(attribute)
+        self._resolver.resolve(attribute)
         self._resolves += 1
 
     @property
