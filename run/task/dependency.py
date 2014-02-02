@@ -14,7 +14,7 @@ class TaskDependency(metaclass=ABCMeta):
         for dependency in dependencies:
             component = TaskDependencyComponent(dependency, *args, **kwargs)
             self._components.append(component)
-        self._is_resolved = False
+        self._resolves = 0
     
     def __call__(self, method):
         if not isinstance(method, self._builder_class):
@@ -35,11 +35,11 @@ class TaskDependency(metaclass=ABCMeta):
     def resolve(self, attribute):
         for component in self._components:
             component.resolve(attribute)
-        self._is_resolved = True
+        self._resolves += 1
 
-    @property
+    @abstractmethod
     def is_resolved(self):
-        return self._is_resolved
+        pass #pragma: no cover
     
     #Protected
     
@@ -85,9 +85,14 @@ class TaskDependencyComponent:
             else:
                 task = getattr(attribute.meta_module, self._dependency)
                 task(*self._args, **self._kwargs)
-    
+
     
 class require(TaskDependency):
+    
+    #Public
+    
+    def is_resolved(self):
+        return bool(self._resolves)    
     
     #Protected
     
@@ -96,6 +101,11 @@ class require(TaskDependency):
 
 
 class trigger(TaskDependency):
+    
+    #Public
+    
+    def is_resolved(self):
+        return False
     
     #Protected
     
