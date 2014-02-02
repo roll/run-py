@@ -45,17 +45,14 @@ class DependencyNestedResolver(metaclass=ABCMeta):
     def __init__(self, dependencies):
         self._dependencies = dependencies
 
-    @abstractmethod
     def enable(self, task):
         for dependency in self._dependencies:
             dependency.enable(task)
     
-    @abstractmethod
     def disable(self, task):
         for dependency in self._dependencies:
             dependency.disable(task)
     
-    @abstractmethod    
     def resolve(self, attribute):
         for dependency in self._dependencies:
             dependency.resolve(attribute)
