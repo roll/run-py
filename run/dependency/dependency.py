@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
-from .builder import TaskBuilder
+from ..task import TaskBuilder
 
-class TaskDependency(metaclass=ABCMeta):
+class Dependency(metaclass=ABCMeta):
     
     #Public
     
@@ -64,37 +64,9 @@ class TaskDependency(metaclass=ABCMeta):
     @property
     def _method_task_class(self):
         #Cycle dependency if static
-        from .method import MethodTask    
+        from ..task import MethodTask    
         return MethodTask
     
     @abstractmethod
     def _add_dependency(self, builder):
         pass #pragma: no cover
-
-    
-class require(TaskDependency):
-    
-    #Public
-    
-    @property
-    def is_resolved(self):
-        return bool(self._resolves)    
-    
-    #Protected
-    
-    def _add_dependency(self, builder):
-        builder.require(self)
-
-
-class trigger(TaskDependency):
-    
-    #Public
-    
-    @property
-    def is_resolved(self):
-        return False
-    
-    #Protected
-    
-    def _add_dependency(self, builder):
-        builder.trigger(self)

@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.task.dependency import TaskDependency, require, trigger
 
-class TaskConstraintTest(unittest.TestCase):
+class TaskDependencyTest(unittest.TestCase):
 
     #Public
     

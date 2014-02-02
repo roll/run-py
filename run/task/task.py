@@ -2,9 +2,9 @@ import os
 from contextlib import contextmanager
 from abc import abstractmethod
 from ..attribute import Attribute
+from .. import dependency
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, ProcessedTaskSignal
-from . import dependency
 
 class Task(Attribute, metaclass=TaskMetaclass):
     
