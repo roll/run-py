@@ -11,7 +11,6 @@ class DependencyResolver(metaclass=ABCMeta):
     @abstractmethod
     def disable(self, task):
         pass #pragma: no cover
-
     
     @abstractmethod    
     def resolve(self, attribute):
