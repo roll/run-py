@@ -35,10 +35,10 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def __call__(self, *args, **kwargs):
         self.meta_dispatcher.add_signal(
             self._initiated_signal_class(self))
-        self._resolve_requires()
+        self._resolve_dependencies(self._requires)
         with self._effective_dir():
             result = self.invoke(*args, **kwargs)
-        self._resolve_triggers()
+        self._resolve_dependencies(self._triggers)
         self.meta_dispatcher.add_signal(
             self._processed_signal_class(self))
         return result
@@ -80,15 +80,11 @@ class Task(Attribute, metaclass=TaskMetaclass):
             else:
                 dependency = task
             lst.append(dependency)
-                         
-    def _resolve_requires(self):
-        for dependency in self._requires:
+    
+    def _resolve_dependencies(self, lst):
+        for dependency in lst:
             if dependency.is_resolved:
                 continue
-            dependency.resolve(self)
-        
-    def _resolve_triggers(self):
-        for dependency in self._triggers:
             dependency.resolve(self)
      
     @contextmanager       
