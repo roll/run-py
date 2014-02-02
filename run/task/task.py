@@ -44,13 +44,13 @@ class Task(Attribute, metaclass=TaskMetaclass):
         return result
         
     def require(self, task, *args, **kwargs):
-        self._apply_dependency(
+        self._add_dependency(
             self._requires, 
             self._require_class, 
             task, *args, **kwargs)
         
     def trigger(self, task, *args, **kwargs):
-        self._apply_dependency(
+        self._add_dependency(
             self._triggers, 
             self._trigger_class, 
             task, *args, **kwargs)
@@ -67,7 +67,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     _require_class = dependency.require
     _trigger_class = dependency.trigger
             
-    def _apply_dependency(self, lst, cls, task, *args, **kwargs):
+    def _add_dependency(self, lst, cls, task, *args, **kwargs):
         if kwargs.pop('is_enable', False):
             for dependency in lst:
                 dependency.enable(task)

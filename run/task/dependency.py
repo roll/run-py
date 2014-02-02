@@ -21,7 +21,7 @@ class TaskDependency(metaclass=ABCMeta):
             builder = self._method_task_class(method)
         else:
             builder = method
-        self._apply_dependency(builder)
+        self._add_dependency(builder)
         return builder
     
     def enable(self, task):
@@ -52,7 +52,7 @@ class TaskDependency(metaclass=ABCMeta):
         return MethodTask
     
     @abstractmethod
-    def _apply_dependency(self, builder):
+    def _add_dependency(self, builder):
         pass #pragma: no cover
         
 
@@ -96,7 +96,7 @@ class require(TaskDependency):
     
     #Protected
     
-    def _apply_dependency(self, builder):
+    def _add_dependency(self, builder):
         builder.require(self)
 
 
@@ -109,5 +109,5 @@ class trigger(TaskDependency):
     
     #Protected
     
-    def _apply_dependency(self, builder):
+    def _add_dependency(self, builder):
         builder.trigger(self)
