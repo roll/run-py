@@ -1,4 +1,5 @@
 import inspect
+from box.functools import cachedproperty
 from box.findtools import find_objects
 from .module import Module
 from .settings import settings
@@ -73,7 +74,21 @@ class FinderMetaTagMapper:
         
     def __call__(self, emitter):
         if self._meta_tags:
-            object_tags = set(emitter.object.meta_tags)
-            filter_tags = set(self._meta_tags)
-            if set.isdisjoint(object_tags, filter_tags):
-                emitter.skip()     
+            if inspect.isdatadescriptor(emitter.object.meta_tags):
+                if 'meta_tags' in vars(emitter.object):
+                    self._logger.warning(
+                        'Module class {object} skipped because meta_tags '
+                        'is not a static attribute (required for tags filter)'.
+                        format(object=emitter.object))
+                emitter.skip()
+            else:
+                object_tags = set(emitter.object.meta_tags)
+                filter_tags = set(self._meta_tags)
+                if set.isdisjoint(object_tags, filter_tags):
+                    emitter.skip()
+    
+    #Protected
+                
+    @cachedproperty
+    def _logger(self):
+        return self._logging_module.getLogger(__name__)
