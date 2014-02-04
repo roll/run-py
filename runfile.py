@@ -2,11 +2,7 @@ from packgram.manage import PythonPackgramModule
     
 class MainModule(PythonPackgramModule):
         
-    #Public
-    
-    @property
-    def meta_tags(self):
-        return []    
+    #Public 
     
     author = 'roll'
     author_email = 'roll@respect31.com'
