@@ -7,5 +7,6 @@ from .nested import NestedTask
 from .null import NullTask
 from .partial import PartialTask
 from .signal import InitiatedTaskSignal, ProcessedTaskSignal
+from .subprocess import SubprocessTask
 from .task import Task
 from .value import ValueTask

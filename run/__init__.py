@@ -16,7 +16,7 @@ from .settings import Settings, settings
 from .task import (TaskBuilder, TaskMetaclass, Task, 
                    DescriptorTask, FunctionTask, MethodTask, 
                    NestedTask, NullTask, PartialTask, ValueTask, 
-                   InitiatedTaskSignal, ProcessedTaskSignal)
+                   SubprocessTask, InitiatedTaskSignal, ProcessedTaskSignal)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, ProcessedVarSignal)
 from .version import Version, version
