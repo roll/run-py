@@ -8,8 +8,8 @@ from .dependency import Dependency, require, trigger
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
                          DispatcherCallbackHandler, DispatcherSignal)
 from .finder import Finder
-from .module import (ModuleBuilder, ModuleMetaclass, Module,
-                     ModuleAttributes, AutoModule, FindModule, NullModule)
+from .module import (ModuleBuilder, ModuleMetaclass, Module, ModuleAttributes, 
+                     AutoModule, FindModule, NullModule, SubprocessModule)
 from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings
