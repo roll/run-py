@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class DependencyResolver(metaclass=ABCMeta):
+class TaskResolver(metaclass=ABCMeta):
 
     #Public
     
@@ -17,7 +17,7 @@ class DependencyResolver(metaclass=ABCMeta):
         pass #pragma: no cover
         
         
-class DependencyTaskResolver(DependencyResolver):
+class TaskCommonResolver(TaskResolver):
 
     #Public
     
@@ -25,34 +25,36 @@ class DependencyTaskResolver(DependencyResolver):
         self._task = task
         self._args = args
         self._kwargs = kwargs
-        self._enabled = True 
+        self._enabled = True
 
     def enable(self, task):
-        self._enabled = True
+        if task == self._task:
+            self._enabled = True
     
     def disable(self, task):
-        self._enabled = False
+        if task == self._task:
+            self._enabled = False
     
     def resolve(self, attribute):
         task = getattr(attribute.meta_module, self._task)
         task(*self._args, **self._kwargs)
         
         
-class DependencyNestedResolver(DependencyResolver):
+class TaskNestedResolver(TaskResolver):
 
     #Public
     
-    def __init__(self, dependencies):
-        self._dependencies = dependencies
+    def __init__(self, resolvers):
+        self._resolvers = resolvers
 
     def enable(self, task):
-        for dependency in self._dependencies:
-            dependency.enable(task)
+        for resolver in self._resolvers:
+            resolver.enable(task)
     
     def disable(self, task):
-        for dependency in self._dependencies:
-            dependency.disable(task)
+        for resolver in self._resolvers:
+            resolver.disable(task)
     
     def resolve(self, attribute):
-        for dependency in self._dependencies:
-            dependency.resolve(attribute)
+        for resolver in self._resolvers:
+            resolver.resolve(attribute)

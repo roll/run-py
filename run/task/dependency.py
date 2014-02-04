@@ -1,21 +1,21 @@
 from abc import ABCMeta, abstractmethod
-from ..task import TaskBuilder
-from .resolver import DependencyTaskResolver, DependencyNestedResolver
+from .builder import TaskBuilder
+from .resolver import TaskResolver, TaskCommonResolver, TaskNestedResolver
 
-class Dependency(metaclass=ABCMeta):
+class TaskDependency(TaskResolver, metaclass=ABCMeta):
     
     #Public
     
     def __init__(self, task, *args, **kwargs):
         if not isinstance(task, list):
-            self._resolver = DependencyTaskResolver(task, *args, **kwargs)
+            self._resolver = TaskCommonResolver(task, *args, **kwargs)
         else:
             dependencies = []
             for dependency in task:
                 if not isinstance(task, type(self)):
                     dependency = type(self)(dependency, *args, **kwargs)
                     dependencies.append(dependency)
-            self._resolver = DependencyNestedResolver(dependencies)
+            self._resolver = TaskNestedResolver(dependencies)
         self._resolves = 0
     
     def __call__(self, method):
@@ -48,9 +48,37 @@ class Dependency(metaclass=ABCMeta):
     @property
     def _method_task_class(self):
         #Cycle dependency if static
-        from ..task import MethodTask    
+        from .method import MethodTask    
         return MethodTask
     
     @abstractmethod
     def _add_dependency(self, builder):
         pass #pragma: no cover
+               
+
+class require(TaskDependency):
+    
+    #Public
+    
+    @property
+    def is_resolved(self):
+        return bool(self._resolves)    
+    
+    #Protected
+    
+    def _add_dependency(self, builder):
+        builder.require(self)
+        
+        
+class trigger(TaskDependency):
+    
+    #Public
+    
+    @property
+    def is_resolved(self):
+        return False
+    
+    #Protected
+    
+    def _add_dependency(self, builder):
+        builder.trigger(self)                 

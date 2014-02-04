@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
-from run.dependency.dependency import Dependency
+from run.task.dependency import TaskDependency
 
-class DependencyTest(unittest.TestCase):
+class TaskDependencyTest(unittest.TestCase):
 
     #Public
     
@@ -39,7 +39,7 @@ class DependencyTest(unittest.TestCase):
     #Protected
     
     def _make_mock_dependency_class(self):
-        class MockDependency(Dependency):
+        class MockDependency(TaskDependency):
             #Public
             is_resolved = False
             #Protected

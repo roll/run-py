@@ -1,8 +1,8 @@
 import os
 from contextlib import contextmanager
 from abc import abstractmethod
-from .. import dependency
 from ..attribute import Attribute
+from .dependency import require, trigger
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, ProcessedTaskSignal
 
@@ -45,14 +45,12 @@ class Task(Attribute, metaclass=TaskMetaclass):
         
     def require(self, task, *args, **kwargs):
         self._add_dependency(
-            self._requires, 
-            self._require_class, 
+            self._requires, require, 
             task, *args, **kwargs)
         
     def trigger(self, task, *args, **kwargs):
         self._add_dependency(
-            self._triggers, 
-            self._trigger_class, 
+            self._triggers, trigger, 
             task, *args, **kwargs)
         
     @abstractmethod
@@ -63,8 +61,6 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     _initiated_signal_class = InitiatedTaskSignal
     _processed_signal_class = ProcessedTaskSignal
-    _require_class = dependency.require
-    _trigger_class = dependency.trigger
             
     def _add_dependency(self, lst, cls, task, *args, **kwargs):
         if kwargs.pop('is_enable', False):
