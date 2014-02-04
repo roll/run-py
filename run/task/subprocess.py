@@ -5,11 +5,12 @@ class SubprocessTask(Task):
 
     #Public
 
-    def __init__(self, prefix=''):
+    def __init__(self, prefix='', separator=' '):
         self._prefix = prefix
         
     def invoke(self, command):
-        ecommand = self._prefix+command
+        ecommand = self._separator.join(
+            filter([self._prefix, command]))
         process = Popen(ecommand, shell=True, 
             stdin=PIPE, stdout=PIPE, stderr=PIPE)
         returncode = process.wait()
