@@ -62,8 +62,16 @@ class FinderMetaNameMapper:
         
     def __call__(self, emitter):
         if self._meta_names:
-            if emitter.object.meta_name not in self._meta_names:
+            if inspect.isdatadescriptor(emitter.object.meta_name):
+                if 'meta_name' in vars(emitter.object):
+                    self._logger.warning(
+                        'Module class {object} skipped because meta_name '
+                        'is not a static attribute (required for name filter)'.
+                        format(object=emitter.object))
                 emitter.skip()
+            else:            
+                if emitter.object.meta_name not in self._meta_names:
+                    emitter.skip()
     
     
 class FinderMetaTagMapper:
@@ -79,7 +87,7 @@ class FinderMetaTagMapper:
                 if 'meta_tags' in vars(emitter.object):
                     self._logger.warning(
                         'Module class {object} skipped because meta_tags '
-                        'is not a static attribute (required for tags filter)'.
+                        'is not a static attribute (required for tag filter)'.
                         format(object=emitter.object))
                 emitter.skip()
             else:
