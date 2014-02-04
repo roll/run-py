@@ -7,10 +7,10 @@ class AutoModule(Module):
 
     def __init__(self, sources=[]):
         self._sources = sources+self._default_sources
-        for name, function in self._functions.items():
-            if not hasattr(type(self), name):
-                task = FunctionTask(function, module=self)
-                setattr(type(self), name, task)
+        for task_name, task_function in self._functions.items():
+            if not hasattr(type(self), task_name):
+                task = FunctionTask(task_function, module=self)
+                setattr(type(self), task_name, task)
                 
     #Protected
     
