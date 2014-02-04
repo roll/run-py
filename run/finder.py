@@ -73,6 +73,14 @@ class FinderMetaNameMapper:
                 if emitter.object.meta_name not in self._meta_names:
                     emitter.skip()
     
+    #Protected
+    
+    _logging_module = logging
+                
+    @cachedproperty
+    def _logger(self):
+        return self._logging_module.getLogger(__name__)                    
+    
     
 class FinderMetaTagMapper:
     

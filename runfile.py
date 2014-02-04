@@ -4,6 +4,10 @@ class MainModule(PythonPackgramModule):
         
     #Public
     
+    @property
+    def meta_tags(self):
+        return []    
+    
     author = 'roll'
     author_email = 'roll@respect31.com'
     classifiers = [
