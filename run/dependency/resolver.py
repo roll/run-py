@@ -17,7 +17,7 @@ class DependencyResolver(metaclass=ABCMeta):
         pass #pragma: no cover
         
         
-class DependencyTaskResolver(metaclass=ABCMeta):
+class DependencyTaskResolver(DependencyResolver):
 
     #Public
     
@@ -38,7 +38,7 @@ class DependencyTaskResolver(metaclass=ABCMeta):
         task(*self._args, **self._kwargs)
         
         
-class DependencyNestedResolver(metaclass=ABCMeta):
+class DependencyNestedResolver(DependencyResolver):
 
     #Public
     
