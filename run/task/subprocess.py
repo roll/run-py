@@ -7,6 +7,7 @@ class SubprocessTask(Task):
 
     def __init__(self, prefix='', separator=' '):
         self._prefix = prefix
+        self._separator = separator
         
     def invoke(self, command):
         ecommand = self._separator.join(
