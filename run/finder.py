@@ -1,4 +1,5 @@
 import inspect
+import logging
 from box.functools import cachedproperty
 from box.findtools import find_objects
 from .module import Module
@@ -88,6 +89,8 @@ class FinderMetaTagMapper:
                     emitter.skip()
     
     #Protected
+    
+    _logging_module = logging
                 
     @cachedproperty
     def _logger(self):

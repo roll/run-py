@@ -66,11 +66,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             return self._meta_default_main_module_name
  
-#     TODO: fix
-#     @property
-#     def meta_tags(self):
-#         return []
-    meta_tags = []
+    @property
+    def meta_tags(self):
+        return []
     
     def list(self, attribute=None):
         "Print attributes"
