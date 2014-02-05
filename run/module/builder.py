@@ -31,7 +31,7 @@ class ModuleBuilder(AttributeBuilder):
         for cls in reversed(self._class.mro()):
             for key, attr in vars(cls).items():
                 if isinstance(attr, self._attribute_builder_class):
-                    attrs[key] = attr(is_bound=True)
+                    attrs[key] = attr()
         attrs['__doc__'] = self._class.__doc__
         attrs['__module__'] = self._class.__module__
         return attrs
