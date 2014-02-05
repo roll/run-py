@@ -12,8 +12,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Public
     
-    def __meta_init__(self, args, kwargs):
-        super().__meta_init__(args, kwargs)
+    def __on_created__(self, args, kwargs):
+        super().__on_created__(args, kwargs)
         for attribute in self.meta_attributes.values():
             attribute.meta_module = self
         

@@ -10,8 +10,8 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     #Public
     
-    def __meta_init__(self, args, kwargs):
-        super().__meta_init__(args, kwargs)
+    def __on_created__(self, args, kwargs):
+        super().__on_created__(args, kwargs)
         self._is_chdir = kwargs.pop('is_chdir', True)        
         self._requires = []
         self._triggers = []

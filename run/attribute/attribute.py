@@ -7,7 +7,7 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __meta_init__(self, args, kwargs):
+    def __on_created__(self, args, kwargs):
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_builder = kwargs.pop('builder', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   

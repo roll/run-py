@@ -7,8 +7,8 @@ class Var(Task, metaclass=ABCMeta):
     
     #Public
     
-    def __meta_init__(self, args, kwargs):
-        super().__meta_init__(args, kwargs)
+    def __on_created__(self, args, kwargs):
+        super().__on_created__(args, kwargs)
         self._is_cache = kwargs.pop('is_cache', True)
         self._cache = DEFAULT
 

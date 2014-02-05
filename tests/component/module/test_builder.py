@@ -41,7 +41,7 @@ class ModuleBuilderTest(unittest.TestCase):
     def _make_mock_module_class(self):
         class BaseMockModule:
             #Public
-            __meta_init__ = lambda *args, **kwargs: None
+            __on_created__ = lambda *args, **kwargs: None
             attr1 = Mock(return_value='value1')
         class MockModule(BaseMockModule):
             """docstring"""
