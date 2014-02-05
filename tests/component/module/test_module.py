@@ -125,10 +125,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
     
     def test_meta_info(self):
         self.assertEqual(self.module.meta_info, 
-                         '[main_module] module'+'\n'+'docstring') 
-        
-    def test_meta_is_bound(self):
-        self.assertEqual(self.module.meta_is_bound, True)        
+                         '[main_module] module'+'\n'+'docstring')     
         
     def test_meta_is_main_module(self):
         self.assertFalse(self.module.meta_is_main_module)  
@@ -140,8 +137,8 @@ class ModuleTest_with_module_is_main(ModuleTest):
         self.assertEqual(self.module.meta_module, self.main_module)
         
     def test_meta_module_setter(self):
-        self.assertRaises(AttributeError, 
-            setattr, self.module, 'meta_module', 'module')          
+        self.module.meta_module = 'module'
+        self.assertEqual(self.module.meta_module, 'module')        
            
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, 'module')
