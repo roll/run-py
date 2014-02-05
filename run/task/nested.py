@@ -4,9 +4,9 @@ class NestedTask(PartialTask):
 
     #Public
     
-    def __on_created__(self, args, kwargs):
-        super().__on_created__(args, kwargs)
+    def __system_prepare__(self, *args, **kwargs):
         self._is_merge = kwargs.pop('is_merge', False)
+        super().__system_prepare__(*args, **kwargs)
         
     def __init__(self, task, *args, **kwargs):
         self._task_name = task

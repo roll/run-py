@@ -11,20 +11,25 @@ from .metaclass import ModuleMetaclass
 class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Public
-    
-    def __on_created__(self, args, kwargs):
-        super().__on_created__(args, kwargs)
+        
+    def __system_bind__(self, module):
+        super().__system_bind__(module)
         for attribute in self.meta_attributes.values():
-            attribute.meta_module = self
+            attribute.__system_bind__(self)
+            
+    def __system_init__(self):
+        super().__system_init__()
+        for attribute in self.meta_attributes.values():
+            attribute.__system_init__()            
         
     def __get__(self, module=None, module_class=None):
         return self
     
     def __set__(self, module, value):
         raise AttributeError(
-            'Attribute "{name}" is module '
-            '"{module}" and can\'t be set'.
-            format(name=self.meta_name, module=self))
+            'Attribute is module "{module}" '
+            'and can\'t be set to any value'.
+            format(module=self))
     
     def __getattr__(self, name):
         try:
@@ -32,10 +37,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             attribute_value = attribute.__get__(attribute.meta_module)
             return attribute_value
         except KeyError:
-            raise AttributeError(
-                'No attribute "{name}" '
-                'in module "{qualname}"'.format(
-                name=name, qualname=self.meta_qualname))
+            raise AttributeError(name)
             
     @property
     def meta_attributes(self):
@@ -47,10 +49,10 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     @property
     def meta_is_main_module(self):
-        if self == self.meta_main_module:
-            return True
-        else:
+        if self.meta_module:
             return False
+        else:
+            return True
         
     @property
     def meta_main_module(self):

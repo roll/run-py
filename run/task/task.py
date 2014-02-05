@@ -10,15 +10,20 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     #Public
     
-    def __on_created__(self, args, kwargs):
-        super().__on_created__(args, kwargs)
-        self._is_chdir = kwargs.pop('is_chdir', True)        
+    def __system_prepare__(self, *args, **kwargs):
+        self._is_chdir = kwargs.pop('is_chdir', True)
+        self._require = kwargs.pop('require', [])
+        self._trigger = kwargs.pop('trigger', [])
+        super().__system_prepare__(*args, **kwargs)
+        
+    def __system_init__(self):
         self._requires = []
         self._triggers = []
-        for dependency in kwargs.pop('require', []):
+        for dependency in self._require:
             self.require(dependency)
-        for dependency in kwargs.pop('trigger', []):
+        for dependency in self._trigger:
             self.trigger(dependency)
+        super().__system_init__()
         
     def __get__(self, module, module_class=None):
         return self
@@ -28,9 +33,9 @@ class Task(Attribute, metaclass=TaskMetaclass):
             self.invoke = value
         else:
             raise TypeError(
-            'Attribute "{name}" is task "{task}" and '
+            'Attribute is task "{task}" and '
             'can be set only to callable value'.
-            format(name=self.meta_name, task=self))
+            format(task=self))
     
     def __call__(self, *args, **kwargs):
         self.meta_dispatcher.add_signal(

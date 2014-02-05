@@ -7,8 +7,8 @@ class AttributeBuilderTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.args = ('arg1', 'arg2')
-        self.kwargs = {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'}
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
         self.mock_set = Mock(apply = Mock())
         MockBuilder = self._make_mock_builder_class(self.mock_set)
         self.MockAttribute = self._make_mock_attribute_class()
@@ -16,13 +16,13 @@ class AttributeBuilderTest(unittest.TestCase):
 
     def test___call__(self):
         self.builder.attr2 = 'value2'
-        obj1 = self.builder()
-        obj2 = self.builder()
-        self.assertIsInstance(obj1, self.MockAttribute)
-        self.assertIsInstance(obj2, self.MockAttribute)
-        obj1.__init__.assert_called_with('arg1', kwarg1='kwarg1')
-        obj2.__init__.assert_called_with('arg1', kwarg1='kwarg1')
-        self.mock_set.apply.assert_has_calls([call(obj1), call(obj2)])
+        obj = self.builder()
+        self.assertIsInstance(obj, self.MockAttribute)
+        obj.__system_prepare__.assert_called_with(
+            'arg1', kwarg1='kwarg1', builder=self.builder)
+        obj.__system_bind__.assert_called_with(None)
+        obj.__system_init__.assert_called_with()
+        self.mock_set.apply.assert_has_calls([call(obj)])
     
     def test___getattr__(self):
         self.assertEqual(self.builder.attr1, 'value1') 
@@ -39,12 +39,10 @@ class AttributeBuilderTest(unittest.TestCase):
     def _make_mock_attribute_class(self):
         class MockAttribute:
             #Public
-            __init__ = Mock(return_value=None)
+            __system_prepare__ = Mock()
+            __system_bind__ = Mock()
+            __system_init__ = Mock()
             attr1 = 'value1' 
-            def __on_created__(self, args, kwargs):
-                args.remove('arg2')
-                kwargs.pop('builder')
-                kwargs.pop('kwarg2')
         return MockAttribute
     
     def _make_mock_builder_class(self, mock_set):             

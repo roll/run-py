@@ -21,10 +21,7 @@ class AttributeBuilder:
         try:
             return getattr(self._class, name)
         except AttributeError:
-            raise AttributeError(
-                'No attribute "{name}" in attribute class "{cls}" '
-                '(builder {builder} provides only static attributes)'.
-                format(name=name, builder=self, cls=self._class))
+            raise AttributeError(name)
         
     def __setattr__(self, name, value):
         self._updates.append(self._set_class(name, value))     
@@ -37,13 +34,15 @@ class AttributeBuilder:
         return object.__new__(self._class)
         
     def _init_object(self, obj, *args, **kwargs):
-        #Mutable list for __on_created__  
-        eargs = list(self._args+args)
+        eargs = self._args+args
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
         ekwargs.update({'builder': self})
-        obj.__on_created__(eargs, ekwargs)
-        obj.__init__(*eargs, **ekwargs)
+        module = ekwargs.pop('module', None)
+        obj.__system_prepare__(*eargs, **ekwargs)
+        if module != True:
+            obj.__system_bind__(module)
+            obj.__system_init__()
      
     def _update_object(self, obj):
         for update in self._updates:

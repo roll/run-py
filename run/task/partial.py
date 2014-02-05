@@ -7,9 +7,9 @@ class PartialTask(Task, metaclass=ABCMeta):
 
     #Public
     
-    def __on_created__(self, args, kwargs):
-        super().__on_created__(args, kwargs)
+    def __system_prepare__(self, *args, **kwargs):
         self._is_expand = kwargs.pop('is_expand', True)
+        super().__system_prepare__(*args, **kwargs)
 
     def __init__(self, *args, **kwargs):
         self._args = args

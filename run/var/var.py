@@ -7,10 +7,13 @@ class Var(Task, metaclass=ABCMeta):
     
     #Public
     
-    def __on_created__(self, args, kwargs):
-        super().__on_created__(args, kwargs)
+    def __system_prepare__(self, *args, **kwargs):
         self._is_cache = kwargs.pop('is_cache', True)
-        self._cache = DEFAULT
+        super().__system_prepare__(*args, **kwargs)
+        
+    def __system_init__(self):
+        self._cache = DEFAULT        
+        super().__system_init__()        
 
     def __get__(self, module, module_class=None):
         if self._is_cache:

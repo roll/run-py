@@ -29,18 +29,11 @@ class AttributeTest(unittest.TestCase):
         
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 'docstring')
-        
-    def test_meta_is_bound(self):
-        self.assertEqual(self.attribute.meta_is_bound, False)        
            
     def test_meta_module(self):
         #Null module
         self.assertNotEqual(self.attribute.meta_module, None)
-        self.assertFalse(self.attribute.meta_module)
-        
-    def test_meta_module_setter(self):
-        self.attribute.meta_module = 'module'
-        self.assertEqual(self.attribute.meta_module, 'module')    
+        self.assertFalse(self.attribute.meta_module) 
     
     def test_meta_name(self):
         self.assertEqual(self.attribute.meta_name, '')       
@@ -79,9 +72,6 @@ class AttributeTest_with_module(AttributeTest):
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 
                          'module.attribute'+'\n'+'docstring') 
-        
-    def test_meta_is_bound(self):
-        self.assertEqual(self.attribute.meta_is_bound, True)  
         
     def test_meta_module(self):
         self.assertEqual(self.attribute.meta_module, self.module)

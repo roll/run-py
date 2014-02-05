@@ -28,9 +28,6 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_info(self):
         self.assertEqual(self.module.meta_info, '__main__'+'\n'+'docstring')
            
-    def test_meta_is_bound(self):
-        self.assertEqual(self.module.meta_is_bound, False)
-           
     def test_meta_is_main_module(self):
         self.assertEqual(self.module.meta_is_main_module, True)
            

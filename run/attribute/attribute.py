@@ -7,13 +7,20 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __on_created__(self, args, kwargs):
+    def __system_prepare__(self, *args, **kwargs):
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_builder = kwargs.pop('builder', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
-        self._meta_docstring = kwargs.pop('docstring', None)            
-        self._meta_module = kwargs.pop('module', None)
+        self._meta_docstring = kwargs.pop('docstring', None)
         self._meta_signature = kwargs.pop('signature', None)
+        self._meta_args = args
+        self._meta_kwargs = kwargs
+        
+    def __system_bind__(self, module):
+        self._meta_module = module
+        
+    def __system_init__(self):
+        self.__init__(*self._meta_args, **self._meta_kwargs)               
     
     def __repr__(self):
         try:
@@ -79,35 +86,16 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.meta_docstring:
             lines.append(self.meta_docstring)
         return '\n'.join(lines)
-     
-    @property
-    def meta_is_bound(self):
-        if self._meta_module != None:
-            attributes = self.meta_module.meta_attributes
-            for attribute in attributes.values():
-                if attribute == self:
-                    return True
-        return False   
    
     @property
     def meta_main_module(self):
-        return self.meta_module.meta_main_module         
+        return self.meta_module.meta_main_module            
     
     @property
     def meta_module(self):
         if self._meta_module == None:
             self._meta_module = self._meta_null_module_class(module=None)
         return self._meta_module
-    
-    @meta_module.setter
-    def meta_module(self, module):
-        if not self.meta_is_bound:
-            self._meta_module = module            
-        else:
-            raise AttributeError(
-                'Can\'t set meta_module in Attribute "{attribute}" '
-                'because it is already bound to module "{module}"'.
-                format(attribute=self, module=self.meta_module))
         
     @property
     def meta_name(self):

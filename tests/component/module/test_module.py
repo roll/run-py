@@ -47,9 +47,6 @@ class ModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_info, 
                          '__main__'+'\n'+'docstring') 
         
-    def test_meta_is_bound(self):
-        self.assertEqual(self.module.meta_is_bound, False)               
-        
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
     
@@ -60,10 +57,6 @@ class ModuleTest(unittest.TestCase):
         #Null module
         self.assertNotEqual(self.module.meta_module, None)
         self.assertFalse(self.module.meta_module)
-        
-    def test_meta_module_setter(self):
-        self.module.meta_module = 'module'
-        self.assertEqual(self.module.meta_module, 'module')         
             
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, '__main__')
@@ -125,10 +118,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
     
     def test_meta_info(self):
         self.assertEqual(self.module.meta_info, 
-                         '[main_module] module'+'\n'+'docstring') 
-        
-    def test_meta_is_bound(self):
-        self.assertEqual(self.module.meta_is_bound, True)        
+                         '[main_module] module'+'\n'+'docstring')      
         
     def test_meta_is_main_module(self):
         self.assertFalse(self.module.meta_is_main_module)  

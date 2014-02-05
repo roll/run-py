@@ -22,11 +22,6 @@ class NullModule(Module):
     def meta_module(self):
         return self
     
-    @meta_module.setter
-    def meta_module(self, module):
-        raise AttributeError(
-            'Can\'t set meta_module in NullModule')
-    
     @property
     def meta_qualname(self):
         return self.meta_name    
