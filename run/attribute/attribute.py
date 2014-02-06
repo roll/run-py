@@ -30,20 +30,6 @@ class Attribute(metaclass=AttributeMetaclass):
         
     def __system_ready__(self):
         self.__init__(*self.__system_args__, **self.__system_kwargs__)             
-    
-    def __repr__(self):
-        try:
-            return '<{type} "{qualname}">'.format(
-                type=self.meta_type, 
-                qualname=self.meta_qualname)
-        except Exception:
-            return super().__repr__()
-        
-    def __enter__(self):
-        return self
-        
-    def __exit__(self, *args, **kwargs):
-        pass
       
     @abstractmethod
     def __get__(self, module, module_class=None):
@@ -52,6 +38,20 @@ class Attribute(metaclass=AttributeMetaclass):
     @abstractmethod
     def __set__(self, module, value):
         pass #pragma: no cover
+        
+    def __enter__(self):
+        return self
+        
+    def __exit__(self, *args, **kwargs):
+        pass
+    
+    def __repr__(self):
+        try:
+            return '<{type} "{qualname}">'.format(
+                type=self.meta_type, 
+                qualname=self.meta_qualname)
+        except Exception:
+            return super().__repr__()    
     
     @property
     def meta_basedir(self):
