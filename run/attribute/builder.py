@@ -43,6 +43,7 @@ class AttributeBuilder:
         if module != True:
             obj.__system_bind__(module)
             obj.__system_init__()
+            obj.__system_ready__()
      
     def _update_object(self, obj):
         for update in self._updates:

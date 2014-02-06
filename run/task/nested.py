@@ -3,13 +3,10 @@ from .partial import PartialTask
 class NestedTask(PartialTask):
 
     #Public
-    
-    def __system_prepare__(self, *args, **kwargs):
-        self._is_merge = kwargs.pop('is_merge', False)
-        super().__system_prepare__(*args, **kwargs)
         
-    def __init__(self, task, *args, **kwargs):
+    def __init__(self, task, *args, is_merge=False, **kwargs):
         self._task_name = task
+        self._is_merge = is_merge
         super().__init__(*args, **kwargs)       
 
     def effective_invoke(self, *args, **kwargs):

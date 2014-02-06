@@ -8,19 +8,22 @@ class Attribute(metaclass=AttributeMetaclass):
     #Public
     
     def __system_prepare__(self, *args, **kwargs):
-        self._meta_basedir = kwargs.pop('basedir', None)
-        self._meta_builder = kwargs.pop('builder', None)
-        self._meta_dispatcher = kwargs.pop('dispatcher', None)   
-        self._meta_docstring = kwargs.pop('docstring', None)
-        self._meta_signature = kwargs.pop('signature', None)
-        self._meta_args = args
-        self._meta_kwargs = kwargs
+        self.__system_args__ = list(args)
+        self.__system_kwargs__ = kwargs
         
     def __system_bind__(self, module):
         self._meta_module = module
         
     def __system_init__(self):
-        self.__init__(*self._meta_args, **self._meta_kwargs)               
+        kwargs = self.__system_kwargs__
+        self._meta_basedir = kwargs.pop('basedir', None)
+        self._meta_builder = kwargs.pop('builder', None)
+        self._meta_dispatcher = kwargs.pop('dispatcher', None)   
+        self._meta_docstring = kwargs.pop('docstring', None)
+        self._meta_signature = kwargs.pop('signature', None)
+        
+    def __system_ready__(self):
+        self.__init__(*self.__system_args__, **self.__system_kwargs__)             
     
     def __repr__(self):
         try:

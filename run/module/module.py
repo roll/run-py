@@ -16,11 +16,16 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         super().__system_bind__(module)
         for attribute in self.meta_attributes.values():
             attribute.__system_bind__(self)
-            
+    
     def __system_init__(self):
         super().__system_init__()
         for attribute in self.meta_attributes.values():
-            attribute.__system_init__()            
+            attribute.__system_init__()  
+                
+    def __system_ready__(self):
+        super().__system_ready__()
+        for attribute in self.meta_attributes.values():
+            attribute.__system_ready__()            
         
     def __get__(self, module=None, module_class=None):
         return self

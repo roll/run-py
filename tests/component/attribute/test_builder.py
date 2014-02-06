@@ -22,6 +22,7 @@ class AttributeBuilderTest(unittest.TestCase):
             'arg1', kwarg1='kwarg1', builder=self.builder)
         obj.__system_bind__.assert_called_with(None)
         obj.__system_init__.assert_called_with()
+        obj.__system_ready__.assert_called_with()
         self.mock_set.apply.assert_has_calls([call(obj)])
     
     def test___getattr__(self):
@@ -42,6 +43,7 @@ class AttributeBuilderTest(unittest.TestCase):
             __system_prepare__ = Mock()
             __system_bind__ = Mock()
             __system_init__ = Mock()
+            __system_ready__ = Mock()
             attr1 = 'value1' 
         return MockAttribute
     

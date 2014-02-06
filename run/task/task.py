@@ -9,21 +9,17 @@ from .signal import InitiatedTaskSignal, ProcessedTaskSignal
 class Task(Attribute, metaclass=TaskMetaclass):
     
     #Public
-    
-    def __system_prepare__(self, *args, **kwargs):
-        self._is_chdir = kwargs.pop('is_chdir', True)
-        self._require = kwargs.pop('require', [])
-        self._trigger = kwargs.pop('trigger', [])
-        super().__system_prepare__(*args, **kwargs)
         
     def __system_init__(self):
+        super().__system_init__()
+        kwargs = self.__system_kwargs__        
+        self._is_chdir = kwargs.pop('is_chdir', True)
         self._requires = []
         self._triggers = []
-        for dependency in self._require:
+        for dependency in kwargs.pop('require', []):
             self.require(dependency)
-        for dependency in self._trigger:
+        for dependency in kwargs.pop('trigger', []):
             self.trigger(dependency)
-        super().__system_init__()
         
     def __get__(self, module, module_class=None):
         return self
