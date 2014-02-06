@@ -15,12 +15,17 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_module = module
         
     def __system_init__(self):
+        args = self.__system_args__
         kwargs = self.__system_kwargs__
+        if kwargs.get('is_expand', True):
+            self._meta_expand(args)
+            self._meta_expand(kwargs)
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_builder = kwargs.pop('builder', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
         self._meta_is_chdir = kwargs.pop('is_chdir', True)
+        self._meta_is_expand = kwargs.pop('is_expand', True)
         self._meta_signature = kwargs.pop('signature', None)
         
     def __system_ready__(self):
@@ -148,3 +153,17 @@ class Attribute(metaclass=AttributeMetaclass):
         #Cycle dependency if static
         from ..module import NullModule
         return NullModule
+    
+    def _meta_expand(self, args):
+        try:
+            iterator = args.items()
+        except AttributeError:
+            iterator = enumerate(args)
+        for key, value in iterator:
+            args[key] = self._meta_expand_value(value)
+        return args
+    
+    def _meta_expand_value(self, value):
+        if inspect.isdatadescriptor(value):
+            value = value.__get__(self.meta_module, type(self.meta_module))
+        return value    
