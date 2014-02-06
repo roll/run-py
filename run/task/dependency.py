@@ -26,6 +26,9 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
         self._add_dependency(builder)
         return builder
     
+    def __repr__(self):
+        return repr(self._resolver)
+    
     def enable(self, task):
         self._resolver.enable(task)
     
