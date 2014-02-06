@@ -31,6 +31,6 @@ class NestedTask(PartialTask):
     def _task(self):
         task = getattr(self.meta_module, self._task_name)
         if self._is_merge:
-            #Rebuild task with rebase on own module
+            #Rebuild task with rebase on nested task module
             task = task.meta_builder(module=self.meta_module)
         return task    
