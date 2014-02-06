@@ -62,7 +62,7 @@ class require(TaskDependency):
     
     @property
     def is_resolved(self):
-        return bool(self._resolves)    
+        return bool(self._resolves)  
     
     #Protected
     
