@@ -13,8 +13,8 @@ class VarTest(unittest.TestCase):
     def test___get__(self):
         self.assertEqual(self.var.__get__('module'), 'value')
         self.var.invoke.assert_called_with()
-        self.var._initiated_signal_class.assert_called_with(self.var)
-        self.var._processed_signal_class.assert_called_with(self.var)
+        self.var._meta_initiated_signal_class.assert_called_with(self.var)
+        self.var._meta_processed_signal_class.assert_called_with(self.var)
         self.var.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('processed_signal')])
         
@@ -30,6 +30,6 @@ class VarTest(unittest.TestCase):
             invoke = Mock(return_value='value')
             meta_dispatcher = Mock(add_signal = Mock())
             #Protected
-            _initiated_signal_class = Mock(return_value='initiated_signal')
-            _processed_signal_class = Mock(return_value='processed_signal')
+            _meta_initiated_signal_class = Mock(return_value='initiated_signal')
+            _meta_processed_signal_class = Mock(return_value='processed_signal')
         return MockVar

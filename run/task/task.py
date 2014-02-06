@@ -13,8 +13,8 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def __system_init__(self):
         super().__system_init__()
         kwargs = self.__system_kwargs__        
-        self._requires = []
-        self._triggers = []
+        self._meta_requires = []
+        self._meta_triggers = []
         for dependency in kwargs.pop('require', []):
             self.require(dependency)
         for dependency in kwargs.pop('trigger', []):
@@ -34,23 +34,31 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     def __call__(self, *args, **kwargs):
         self.meta_dispatcher.add_signal(
-            self._initiated_signal_class(self))
-        self._resolve_dependencies(self._requires)
-        with self._effective_dir():
+            self._meta_initiated_signal_class(self))
+        self._meta_resolve_dependencies(self._meta_requires)
+        with self._meta_effective_dir():
             result = self.invoke(*args, **kwargs)
-        self._resolve_dependencies(self._triggers)
+        self._meta_resolve_dependencies(self._meta_triggers)
         self.meta_dispatcher.add_signal(
-            self._processed_signal_class(self))
+            self._meta_processed_signal_class(self))
         return result
-        
+    
+    @property
+    def meta_requires(self):
+        return self._meta_requires
+    
+    @property
+    def meta_triggers(self):
+        return self._meta_triggers
+       
     def require(self, task, *args, **kwargs):
-        self._add_dependency(
-            self._requires, require, 
+        self._meta_add_dependency(
+            self._meta_requires, require, 
             task, *args, **kwargs)
         
     def trigger(self, task, *args, **kwargs):
-        self._add_dependency(
-            self._triggers, trigger, 
+        self._meta_add_dependency(
+            self._meta_triggers, trigger, 
             task, *args, **kwargs)
         
     @abstractmethod
@@ -59,10 +67,10 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     #Protected
     
-    _initiated_signal_class = InitiatedTaskSignal
-    _processed_signal_class = ProcessedTaskSignal
+    _meta_initiated_signal_class = InitiatedTaskSignal
+    _meta_processed_signal_class = ProcessedTaskSignal
             
-    def _add_dependency(self, lst, cls, task, *args, **kwargs):
+    def _meta_add_dependency(self, lst, cls, task, *args, **kwargs):
         if kwargs.pop('is_enable', False):
             for dependency in lst:
                 dependency.enable(task)
@@ -76,14 +84,14 @@ class Task(Attribute, metaclass=TaskMetaclass):
                 dependency = task
             lst.append(dependency)
     
-    def _resolve_dependencies(self, lst):
+    def _meta_resolve_dependencies(self, lst):
         for dependency in lst:
             if dependency.is_resolved:
                 continue
             dependency.resolve(self)
      
     @contextmanager       
-    def _effective_dir(self):
+    def _meta_effective_dir(self):
         if self.meta_is_chdir:
             cwd = os.getcwd()
             os.chdir(self.meta_basedir)
