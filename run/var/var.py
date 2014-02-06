@@ -11,7 +11,7 @@ class Var(Task, metaclass=ABCMeta):
         super().__system_init__()
         kwargs = self.__system_kwargs__
         self._is_cache = kwargs.pop('is_cache', True)
-        self._cache = DEFAULT        
+        self._cache = DEFAULT
 
     def __get__(self, module, module_class=None):
         if self._is_cache:
@@ -22,6 +22,10 @@ class Var(Task, metaclass=ABCMeta):
  
     def __set__(self, module, value):
         self.invoke = lambda: value
+    
+    @property    
+    def meta_is_cache(self):
+        return self._is_cache
     
     #Protected
     
