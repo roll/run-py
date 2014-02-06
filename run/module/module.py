@@ -3,7 +3,6 @@ import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..attribute import Attribute
-from ..settings import settings
 from ..task import NullTask
 from .attributes import ModuleAttributes
 from .metaclass import ModuleMetaclass
@@ -121,6 +120,5 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Protected
     
-    _meta_default_main_module_name = settings.default_main_module_name
     _meta_print_function = staticmethod(print)    
     _meta_pprint_function = staticmethod(pprint)
