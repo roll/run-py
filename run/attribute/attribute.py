@@ -99,6 +99,10 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_is_chdir(self):
         return self._meta_is_chdir
+    
+    @property
+    def meta_is_expand(self):
+        return self._meta_is_expand  
    
     @property
     def meta_main_module(self):
