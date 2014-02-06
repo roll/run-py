@@ -20,6 +20,7 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_builder = kwargs.pop('builder', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
+        self._meta_is_chdir = kwargs.pop('is_chdir', True)
         self._meta_signature = kwargs.pop('signature', None)
         
     def __system_ready__(self):
@@ -89,6 +90,10 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.meta_docstring:
             lines.append(self.meta_docstring)
         return '\n'.join(lines)
+   
+    @property
+    def meta_is_chdir(self):
+        return self._meta_is_chdir
    
     @property
     def meta_main_module(self):

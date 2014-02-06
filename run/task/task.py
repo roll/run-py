@@ -13,7 +13,6 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def __system_init__(self):
         super().__system_init__()
         kwargs = self.__system_kwargs__        
-        self._is_chdir = kwargs.pop('is_chdir', True)
         self._requires = []
         self._triggers = []
         for dependency in kwargs.pop('require', []):
@@ -85,7 +84,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
      
     @contextmanager       
     def _effective_dir(self):
-        if self._is_chdir:
+        if self.meta_is_chdir:
             cwd = os.getcwd()
             os.chdir(self.meta_basedir)
             yield
