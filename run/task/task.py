@@ -62,14 +62,14 @@ class Task(Attribute, metaclass=TaskMetaclass):
             dependency = trigger(task, *args, **kwargs)
         self.depend(dependency)
            
-    def enable_dependency(self, task, cls=None):
+    def enable_dependency(self, task, base=None):
         for dependency in self._meta_dependencies:
-            if isinstance(dependency, cls):
+            if isinstance(dependency, base):
                 dependency.enable(task)
         
-    def disable_dependency(self, task, cls=None):
+    def disable_dependency(self, task, base=None):
         for dependency in self._meta_dependencies:
-            if isinstance(dependency, cls):
+            if isinstance(dependency, base):
                 dependency.disable(task)         
         
     @abstractmethod
