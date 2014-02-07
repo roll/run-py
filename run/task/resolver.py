@@ -50,7 +50,8 @@ class TaskCommonResolver(TaskResolver):
                 self._attribute.meta_module, self._task_name)
         else:
             raise RuntimeError(
-                'Dependency resolver "{resolver}" is unbound'.
+                'Dependency resolver "{resolver}" '
+                'is not bound to any attribute'.
                 format(resolver=self))
         
         
