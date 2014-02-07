@@ -81,7 +81,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     def _meta_dispose_dependencies(self, container, category=None):
         for dependency in container:
-            if not isinstance(dependency, category):
+            if category and not isinstance(dependency, category):
                 dependency = category(dependency)
             self.depend(dependency)
                 
