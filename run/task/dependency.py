@@ -11,7 +11,7 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
         self._task = task
         self._args = args
         self._kwargs = kwargs
-        self._resolves = 0
+        self._is_resolved = False
     
     def __call__(self, method):
         if not isinstance(method, self._builder_class):
@@ -29,15 +29,14 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
     
     def disable(self, task):
         self._resolver.disable(task)
-        
-    def resolve(self):
-        self._resolver.resolve()
-        self._resolves += 1
+     
+    @abstractmethod    
+    def resolve(self, after=False):
+        pass #pragma: no cover
 
     @property
-    @abstractmethod
     def is_resolved(self):
-        pass #pragma: no cover
+        return self._is_resolved
     
     #Protected
     
@@ -72,10 +71,12 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
 class require(TaskDependency):
     
     #Public
-    
-    @property
-    def is_resolved(self):
-        return bool(self._resolves)  
+     
+    def resolve(self, after=False):
+        if not after:
+            if not self._is_resolved:
+                self._resolver.resolve()
+                self._is_resolved = True
     
     #Protected
     
@@ -86,10 +87,10 @@ class require(TaskDependency):
 class trigger(TaskDependency):
     
     #Public
-    
-    @property
-    def is_resolved(self):
-        return False
+     
+    def resolve(self, after=False):
+        if after:
+            self._resolver.resolve()
     
     #Protected
     
