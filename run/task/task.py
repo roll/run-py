@@ -43,12 +43,8 @@ class Task(Attribute, metaclass=TaskMetaclass):
         return result
     
     @property
-    def meta_requires(self):
-        return self._meta_requires
-    
-    @property
-    def meta_triggers(self):
-        return self._meta_triggers
+    def meta_dependencies(self):
+        return self._meta_dependencies
        
     def require(self, task, *args, **kwargs):
         self._meta_depend(require, task, *args, **kwargs)
