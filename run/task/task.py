@@ -62,12 +62,12 @@ class Task(Attribute, metaclass=TaskMetaclass):
            
     def enable_dependency(self, task, category=None):
         for dependency in self._meta_dependencies:
-            if isinstance(dependency, category):
+            if not category or isinstance(dependency, category):
                 dependency.enable(task)
         
     def disable_dependency(self, task, category=None):
         for dependency in self._meta_dependencies:
-            if isinstance(dependency, category):
+            if not category or isinstance(dependency, category):
                 dependency.disable(task)         
         
     @abstractmethod
