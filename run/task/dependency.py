@@ -57,7 +57,7 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
             builder = self._method_task_class(method)
         else:
             builder = method
-        builder.add_dependency(self._dependency)
+        builder.depend(self._dependency)
         return builder
     
     #Protected    
@@ -76,7 +76,21 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
         pass #pragma: no cover
         
         
-class require(TaskDependency, TaskDependencyDecorator):
+class depend(TaskDependencyDecorator):
+    
+    #Public
+    
+    def __init__(self, dependency):
+        self._dep = dependency
+    
+    #Protected
+    
+    @property
+    def _dependency(self):
+        return self._dep
+
+        
+class require(TaskDependencyDecorator, TaskDependency):
     
     #Public
      
@@ -93,7 +107,7 @@ class require(TaskDependency, TaskDependencyDecorator):
         return self
         
         
-class trigger(TaskDependency, TaskDependencyDecorator):
+class trigger(TaskDependencyDecorator, TaskDependency):
     
     #Public
      
@@ -106,17 +120,3 @@ class trigger(TaskDependency, TaskDependencyDecorator):
     @property
     def _dependency(self):
         return self
-        
-        
-class depend(TaskDependencyDecorator):
-    
-    #Public
-    
-    def __init__(self, dependency):
-        self._dep = dependency
-    
-    #Protected
-    
-    @property
-    def _dependency(self):
-        return self._dep                          

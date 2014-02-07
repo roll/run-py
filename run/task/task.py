@@ -46,9 +46,21 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def meta_dependencies(self):
         return self._meta_dependencies
     
-    def add_dependency(self, dependency):
+    def depend(self, dependency):
         dependency.bind(self.meta_module)
         self._meta_dependencies.append(dependency)
+         
+    def require(self, task, *args, **kwargs):
+        dependency = task
+        if not isinstance(task, require):
+            dependency = require(task, *args, **kwargs)
+        self.depend(dependency)
+        
+    def trigger(self, task, *args, **kwargs):
+        dependency = task
+        if not isinstance(task, trigger):
+            dependency = trigger(task, *args, **kwargs)
+        self.depend(dependency)
         
     def enable_dependency(self, task, cls=None):
         for dependency in self._meta_dependencies:
@@ -58,19 +70,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def disable_dependency(self, task, cls=None):
         for dependency in self._meta_dependencies:
             if isinstance(dependency, cls):
-                dependency.disable(task)       
-         
-    def require(self, task, *args, **kwargs):
-        dependency = task
-        if not isinstance(task, require):
-            dependency = require(task, *args, **kwargs)
-        self.add_dependency(dependency)
-        
-    def trigger(self, task, *args, **kwargs):
-        dependency = task
-        if not isinstance(task, trigger):
-            dependency = trigger(task, *args, **kwargs)
-        self.add_dependency(dependency)
+                dependency.disable(task)         
         
     @abstractmethod
     def invoke(self, *args, **kwargs):
