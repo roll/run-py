@@ -47,19 +47,26 @@ class Task(Attribute, metaclass=TaskMetaclass):
     @property
     def meta_dependencies(self):
         return self._meta_dependencies
-    
+                                     
+    @abstractmethod
+    def invoke(self, *args, **kwargs):
+        pass #pragma: no cover
+             
     def depend(self, dependency):
-        dependency.bind(self)
-        self._meta_dependencies.append(dependency)
+        self.add_dependency(dependency)
            
     def require(self, task, *args, **kwargs):
         dependency = require(task, *args, **kwargs)
-        self.depend(dependency)
+        self.add_dependency(dependency)
         
     def trigger(self, task, *args, **kwargs):
         dependency = trigger(task, *args, **kwargs)
-        self.depend(dependency)
-           
+        self.add_dependency(dependency)
+    
+    def add_dependency(self, dependency):
+        dependency.bind(self)
+        self._meta_dependencies.append(dependency)
+             
     def enable_dependency(self, task, category=None):
         for dependency in self._meta_dependencies:
             if not category or isinstance(dependency, category):
@@ -68,11 +75,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def disable_dependency(self, task, category=None):
         for dependency in self._meta_dependencies:
             if not category or isinstance(dependency, category):
-                dependency.disable(task)         
-        
-    @abstractmethod
-    def invoke(self, *args, **kwargs):
-        pass #pragma: no cover
+                dependency.disable(task)
     
     #Protected
     
@@ -83,7 +86,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         for dependency in container:
             if category and not isinstance(dependency, category):
                 dependency = category(dependency)
-            self.depend(dependency)
+            self.add_dependency(dependency)
                 
     def _meta_resolve_dependencies(self, after=False):
         for dependency in self._meta_dependencies:

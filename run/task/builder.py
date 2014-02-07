@@ -3,7 +3,7 @@ from ..attribute import AttributeBuilder, AttributeBuilderCall
 class TaskBuilder(AttributeBuilder):
     
     #Public
-    
+        
     def depend(self, *args, **kwargs):
         self._updates.append(self._call_class(
             'depend', *args, **kwargs))
@@ -14,15 +14,19 @@ class TaskBuilder(AttributeBuilder):
         
     def trigger(self, *args, **kwargs):
         self._updates.append(self._call_class(
-            'trigger', *args, **kwargs))
-        
-    def ebable_dependency(self, *args, **kwargs):
+            'trigger', *args, **kwargs))    
+    
+    def add_dependency(self, *args, **kwargs):
         self._updates.append(self._call_class(
-            'ebable_dependency', *args, **kwargs))
+            'add_dependency', *args, **kwargs))
+          
+    def enable_dependency(self, *args, **kwargs):
+        self._updates.append(self._call_class(
+            'enable_dependency', *args, **kwargs))
         
     def disable_dependency(self, *args, **kwargs):
         self._updates.append(self._call_class(
-            'disable_dependency', *args, **kwargs))         
+            'disable_dependency', *args, **kwargs))   
         
     #Protected
     
