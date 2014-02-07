@@ -17,7 +17,8 @@ from .task import (TaskBuilder, TaskMetaclass, Task,
                    NestedTask, NullTask, PartialTask, ValueTask,
                    SubprocessTask, InitiatedTaskSignal, ProcessedTaskSignal,
                    TaskResolver, TaskCommonResolver, TaskNestedResolver,
-                   TaskDependency, require, trigger)
+                   TaskDependency, TaskDependencyDecorator, 
+                   require, trigger, depend)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, ProcessedVarSignal)
 from .version import Version, version
