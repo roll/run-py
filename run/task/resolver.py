@@ -4,8 +4,8 @@ class TaskResolver(metaclass=ABCMeta):
 
     #Public
     
-    def bind(self, module):
-        self._module = module 
+    def bind(self, attribute):
+        self._attribute = attribute 
         
     @abstractmethod
     def enable(self, task):
@@ -45,8 +45,9 @@ class TaskCommonResolver(TaskResolver):
     
     @property
     def _task(self):
-        if self._module:
-            return getattr(self._module, self._task_name)
+        if self._attribute:
+            return getattr(
+                self._attribute.meta_module, self._task_name)
         else:
             raise RuntimeError(
                 'Dependency resolver "{resolver}" is unbound'.
@@ -60,9 +61,9 @@ class TaskNestedResolver(TaskResolver):
     def __init__(self, resolvers):
         self._resolvers = resolvers
         
-    def bind(self, module):
+    def bind(self, attribute):
         for resolver in self._resolvers:
-            resolver.bind(module)       
+            resolver.bind(attribute)       
 
     def enable(self, task):
         for resolver in self._resolvers:

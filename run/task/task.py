@@ -47,7 +47,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         return self._meta_dependencies
     
     def depend(self, dependency):
-        dependency.bind(self.meta_module)
+        dependency.bind(self)
         self._meta_dependencies.append(dependency)
            
     def require(self, task, *args, **kwargs):

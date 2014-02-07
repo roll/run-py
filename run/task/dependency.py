@@ -13,8 +13,8 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
         self._kwargs = kwargs
         self._is_resolved = False
     
-    def bind(self, module):
-        self._resolver.bind(module)    
+    def bind(self, attribute):
+        self._resolver.bind(attribute)    
     
     def enable(self, task):
         self._resolver.enable(task)
