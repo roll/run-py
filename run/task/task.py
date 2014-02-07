@@ -52,14 +52,12 @@ class Task(Attribute, metaclass=TaskMetaclass):
         return self._meta_triggers
        
     def require(self, task, *args, **kwargs):
-        self._meta_add_dependency(
-            self._meta_requires, require, 
-            task, *args, **kwargs)
+        self._meta_depend(self._meta_requires, 
+                          require, task, *args, **kwargs)
         
     def trigger(self, task, *args, **kwargs):
-        self._meta_add_dependency(
-            self._meta_triggers, trigger, 
-            task, *args, **kwargs)
+        self._meta_depend(self._meta_triggers, 
+                          trigger, task, *args, **kwargs)
         
     @abstractmethod
     def invoke(self, *args, **kwargs):
@@ -69,15 +67,18 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     _meta_initiated_signal_class = InitiatedTaskSignal
     _meta_processed_signal_class = ProcessedTaskSignal
-            
-    def _meta_add_dependency(self, lst, cls, task, *args, **kwargs):
+    
+    def _meta_depend(self, lst, cls, task, *args, **kwargs):
         if kwargs.pop('is_enable', False):
-            for dependency in lst:
-                dependency.enable(task)
+            self._meta_enable_dependency(lst, task)
         elif kwargs.pop('is_disable', False):
-            for dependency in lst:
-                dependency.disable(task)
+            self._meta_disable_dependency(lst, task)
         else:
+            self._meta_add_dependency(
+                lst, cls, task, *args, **kwargs)
+               
+    def _meta_add_dependency(self, 
+            lst, cls, task, *args, **kwargs):
             if not isinstance(task, cls):
                 dependency = cls(task, *args, **kwargs)
             else:
@@ -85,6 +86,14 @@ class Task(Attribute, metaclass=TaskMetaclass):
             dependency.bind(self.meta_module)
             lst.append(dependency)
     
+    def _meta_enable_dependency(self, lst, task):
+        for dependency in lst:
+            dependency.enable(task)
+            
+    def _meta_disable_dependency(self, lst, task):
+        for dependency in lst:
+            dependency.disable(task)            
+            
     def _meta_resolve_dependencies(self, lst):
         for dependency in lst:
             if dependency.is_resolved:
