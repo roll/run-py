@@ -31,7 +31,19 @@ class TaskCommonResolver(TaskResolver):
         self._enabled = True
         
     def __repr__(self):
-        return repr(self._task)
+        result = repr(self._task)
+        if self._args or self._kwargs:
+            result += '('
+            elements = []
+            for arg in self._args:
+                element = repr(arg)
+                elements.append(element)
+            for kwarg in self._kwargs.items():
+                element = '{0}={1}'.format(*kwarg)
+                elements.append(element)
+            result += ', '.join(elements)
+            result += ')'
+        return result
 
     def enable(self, task):
         if task == self._task:
@@ -50,7 +62,8 @@ class TaskCommonResolver(TaskResolver):
     def _task(self):
         if self._attribute:
             return getattr(
-                self._attribute.meta_module, self._task_name)
+                self._attribute.meta_module, 
+                self._task_name)
         else:
             raise RuntimeError(
                 'Dependency resolver "{resolver}" '

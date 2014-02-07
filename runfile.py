@@ -2,7 +2,7 @@ from packgram.manage import PythonPackgramModule
     
 class MainModule(PythonPackgramModule):
         
-    #Public 
+    #Public
     
     author = 'roll'
     author_email = 'roll@respect31.com'
