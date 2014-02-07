@@ -82,13 +82,14 @@ class Task(Attribute, metaclass=TaskMetaclass):
                 dependency = cls(task, *args, **kwargs)
             else:
                 dependency = task
+            dependency.bind(self.meta_module)
             lst.append(dependency)
     
     def _meta_resolve_dependencies(self, lst):
         for dependency in lst:
             if dependency.is_resolved:
                 continue
-            dependency.resolve(self)
+            dependency.resolve()
      
     @contextmanager       
     def _meta_effective_dir(self):

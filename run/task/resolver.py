@@ -4,6 +4,9 @@ class TaskResolver(metaclass=ABCMeta):
 
     #Public
     
+    def bind(self, module):
+        self._module = module 
+        
     @abstractmethod
     def enable(self, task):
         pass #pragma: no cover
@@ -22,7 +25,7 @@ class TaskCommonResolver(TaskResolver):
     #Public
     
     def __init__(self, task, *args, **kwargs):
-        self._task = task
+        self._task_name = task
         self._args = args
         self._kwargs = kwargs
         self._enabled = True
@@ -35,9 +38,19 @@ class TaskCommonResolver(TaskResolver):
         if task == self._task:
             self._enabled = False
     
-    def resolve(self, attribute):
-        task = getattr(attribute.meta_module, self._task)
-        task(*self._args, **self._kwargs)
+    def resolve(self):
+        self._task(*self._args, **self._kwargs)
+        
+    #Protected
+    
+    @property
+    def _task(self):
+        if self._module:
+            return getattr(self._module, self._task_name)
+        else:
+            raise RuntimeError(
+                'Resolver {resolver} is unbound'.
+                format(resolver=self))
         
         
 class TaskNestedResolver(TaskResolver):
@@ -46,6 +59,10 @@ class TaskNestedResolver(TaskResolver):
     
     def __init__(self, resolvers):
         self._resolvers = resolvers
+        
+    def bind(self, module):
+        for resolver in self._resolvers:
+            resolver.bind(module)       
 
     def enable(self, task):
         for resolver in self._resolvers:
@@ -55,6 +72,6 @@ class TaskNestedResolver(TaskResolver):
         for resolver in self._resolvers:
             resolver.disable(task)
     
-    def resolve(self, attribute):
+    def resolve(self):
         for resolver in self._resolvers:
-            resolver.resolve(attribute)
+            resolver.resolve()
