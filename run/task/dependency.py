@@ -32,14 +32,6 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
     
     #Protected
     
-    _builder_class = TaskBuilder
-    
-    @property
-    def _method_task_class(self):
-        #Cycle dependency if static
-        from .method import MethodTask    
-        return MethodTask
-    
     @cachedproperty
     def _resolver(self):
         if not isinstance(self._task, list):
@@ -69,6 +61,14 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
         return builder
     
     #Protected    
+    
+    _builder_class = TaskBuilder
+    
+    @property
+    def _method_task_class(self):
+        #Cycle dependency if static
+        from .method import MethodTask    
+        return MethodTask    
     
     @property
     @abstractmethod
