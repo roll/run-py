@@ -14,10 +14,12 @@ class Task(Attribute, metaclass=TaskMetaclass):
         super().__system_init__()
         kwargs = self.__system_kwargs__        
         self._meta_dependencies = []
-        for dependency in kwargs.pop('require', []):
-            self.require(dependency)
-        for dependency in kwargs.pop('trigger', []):
-            self.trigger(dependency)
+        self._meta_add_dependencies(
+            kwargs.pop('depend', []))        
+        self._meta_add_dependencies(
+            kwargs.pop('require', []), require)
+        self._meta_add_dependencies(
+            kwargs.pop('trigger', []), trigger)
         
     def __get__(self, module, module_class=None):
         return self
@@ -51,15 +53,11 @@ class Task(Attribute, metaclass=TaskMetaclass):
         self._meta_dependencies.append(dependency)
            
     def require(self, task, *args, **kwargs):
-        dependency = task
-        if not isinstance(task, require):
-            dependency = require(task, *args, **kwargs)
+        dependency = require(task, *args, **kwargs)
         self.depend(dependency)
         
     def trigger(self, task, *args, **kwargs):
-        dependency = task
-        if not isinstance(task, trigger):
-            dependency = trigger(task, *args, **kwargs)
+        dependency = trigger(task, *args, **kwargs)
         self.depend(dependency)
            
     def enable_dependency(self, task, category=None):
@@ -80,7 +78,13 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     _meta_initiated_signal_class = InitiatedTaskSignal
     _meta_processed_signal_class = ProcessedTaskSignal 
-            
+    
+    def _meta_add_dependencies(self, container, category=None):
+        for dependency in container:
+            if not isinstance(dependency, category):
+                dependency = category(dependency)
+            self.depend(dependency)
+                
     def _meta_resolve_dependencies(self, after=False):
         for dependency in self._meta_dependencies:
             dependency.resolve(after=after)
