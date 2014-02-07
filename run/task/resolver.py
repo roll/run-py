@@ -29,6 +29,9 @@ class TaskCommonResolver(TaskResolver):
         self._args = args
         self._kwargs = kwargs
         self._enabled = True
+        
+    def __repr__(self):
+        return repr(self._task)
 
     def enable(self, task):
         if task == self._task:
@@ -61,6 +64,12 @@ class TaskNestedResolver(TaskResolver):
     
     def __init__(self, resolvers):
         self._resolvers = resolvers
+        
+    def __repr__(self):
+        elements = []
+        for resolver in self._resolvers:
+            elements.append(repr(resolver))        
+        return repr(elements)        
         
     def bind(self, attribute):
         for resolver in self._resolvers:

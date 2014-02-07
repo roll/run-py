@@ -12,6 +12,11 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
         self._args = args
         self._kwargs = kwargs
         self._is_resolved = False
+        
+    def __repr__(self):
+        return '{category} {resolver}'.format(
+            category=type(self).__name__,
+            resolver=repr(self._resolver))        
     
     def bind(self, attribute):
         self._resolver.bind(attribute)    
@@ -90,7 +95,7 @@ class depend(TaskDependencyDecorator):
 class require(TaskDependencyDecorator, TaskDependency):
     
     #Public
-     
+    
     def resolve(self, after=False):
         if not after:
             if not self._is_resolved:
