@@ -1,6 +1,6 @@
 from .builder import TaskBuilder
 from .dependency import (TaskDependency, TaskDependencyDecorator, 
-                         require, trigger)
+                         require, trigger, depend)
 from .descriptor import DescriptorTask
 from .function import FunctionTask
 from .metaclass import TaskMetaclass
