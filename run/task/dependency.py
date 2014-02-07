@@ -13,14 +13,6 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
         self._kwargs = kwargs
         self._is_resolved = False
     
-    def __call__(self, method):
-        if not isinstance(method, self._builder_class):
-            builder = self._method_task_class(method)
-        else:
-            builder = method
-        self._add_dependency(builder)
-        return builder
-    
     def bind(self, module):
         self._resolver.bind(module)    
     
@@ -48,10 +40,6 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
         from .method import MethodTask    
         return MethodTask
     
-    @abstractmethod
-    def _add_dependency(self, builder):
-        pass #pragma: no cover
-    
     @cachedproperty
     def _resolver(self):
         if not isinstance(self._task, list):
@@ -66,9 +54,29 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
                 dependencies.append(dependency)
             resolver = TaskNestedResolver(dependencies)
         return resolver
-               
-
-class require(TaskDependency):
+    
+    
+class TaskDependencyDecorator(metaclass=ABCMeta):
+    
+    #Public    
+    
+    def __call__(self, method):
+        if not isinstance(method, self._builder_class):
+            builder = self._method_task_class(method)
+        else:
+            builder = method
+        builder.add_dependency(self._dependency)
+        return builder
+    
+    #Protected    
+    
+    @property
+    @abstractmethod
+    def _dependency(self):
+        pass #pragma: no cover
+        
+        
+class require(TaskDependency, TaskDependencyDecorator):
     
     #Public
      
@@ -80,11 +88,12 @@ class require(TaskDependency):
     
     #Protected
     
-    def _add_dependency(self, builder):
-        builder.require(self)
+    @property
+    def _dependency(self):
+        return self
         
         
-class trigger(TaskDependency):
+class trigger(TaskDependency, TaskDependencyDecorator):
     
     #Public
      
@@ -94,5 +103,20 @@ class trigger(TaskDependency):
     
     #Protected
     
-    def _add_dependency(self, builder):
-        builder.trigger(self)                 
+    @property
+    def _dependency(self):
+        return self
+        
+        
+class depend(TaskDependencyDecorator):
+    
+    #Public
+    
+    def __init__(self, dependency):
+        self._dep = dependency
+    
+    #Protected
+    
+    @property
+    def _dependency(self):
+        return self._dep                          

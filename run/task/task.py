@@ -45,12 +45,32 @@ class Task(Attribute, metaclass=TaskMetaclass):
     @property
     def meta_dependencies(self):
         return self._meta_dependencies
-       
+    
+    def add_dependency(self, dependency):
+        dependency.bind(self.meta_module)
+        self._meta_dependencies.append(dependency)
+        
+    def enable_dependency(self, task, cls=None):
+        for dependency in self._meta_dependencies:
+            if isinstance(dependency, cls):
+                dependency.enable(task)
+        
+    def disable_dependency(self, task, cls=None):
+        for dependency in self._meta_dependencies:
+            if isinstance(dependency, cls):
+                dependency.disable(task)       
+         
     def require(self, task, *args, **kwargs):
-        self._meta_depend(require, task, *args, **kwargs)
+        dependency = task
+        if not isinstance(task, require):
+            dependency = require(task, *args, **kwargs)
+        self.add_dependency(dependency)
         
     def trigger(self, task, *args, **kwargs):
-        self._meta_depend(trigger, task, *args, **kwargs)
+        dependency = task
+        if not isinstance(task, trigger):
+            dependency = trigger(task, *args, **kwargs)
+        self.add_dependency(dependency)
         
     @abstractmethod
     def invoke(self, *args, **kwargs):
@@ -59,33 +79,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     #Protected
     
     _meta_initiated_signal_class = InitiatedTaskSignal
-    _meta_processed_signal_class = ProcessedTaskSignal
-    
-    def _meta_depend(self, cls, task, *args, **kwargs):
-        if kwargs.pop('is_enable', False):
-            self._meta_enable_dependency(cls, task)
-        elif kwargs.pop('is_disable', False):
-            self._meta_disable_dependency(cls, task)
-        else:
-            self._meta_add_dependency(cls, task, *args, **kwargs)
-               
-    def _meta_add_dependency(self, cls, task, *args, **kwargs):
-            if not isinstance(task, cls):
-                dependency = cls(task, *args, **kwargs)
-            else:
-                dependency = task
-            dependency.bind(self.meta_module)
-            self._meta_dependencies.append(dependency)
-    
-    def _meta_enable_dependency(self, cls, task):
-        for dependency in self._meta_dependencies:
-            if isinstance(dependency, cls):
-                dependency.enable(task)
-            
-    def _meta_disable_dependency(self, cls, task):
-        for dependency in self._meta_dependencies:
-            if isinstance(dependency, cls):
-                dependency.disable(task)     
+    _meta_processed_signal_class = ProcessedTaskSignal 
             
     def _meta_resolve_dependencies(self, after=False):
         for dependency in self._meta_dependencies:
