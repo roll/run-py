@@ -49,7 +49,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def depend(self, dependency):
         dependency.bind(self.meta_module)
         self._meta_dependencies.append(dependency)
-         
+           
     def require(self, task, *args, **kwargs):
         dependency = task
         if not isinstance(task, require):
@@ -61,7 +61,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         if not isinstance(task, trigger):
             dependency = trigger(task, *args, **kwargs)
         self.depend(dependency)
-        
+           
     def enable_dependency(self, task, cls=None):
         for dependency in self._meta_dependencies:
             if isinstance(dependency, cls):
