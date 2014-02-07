@@ -1,51 +1,34 @@
 import unittest
 from unittest.mock import Mock
-from run.task.dependency import TaskDependency
+from run.task.dependency import TaskDependencyDecorator
 
-class TaskDependencyTest(unittest.TestCase):
+class TaskDependencyDecoratorTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        MockDependency = self._make_mock_dependency_class()
-        self.tasks = ['task1', 'task2']
-        self.args = ('arg',)
-        self.kwargs = {'kwarg': 'kwarg'}
-        self.dependency = MockDependency(
-            self.tasks, *self.args, **self.kwargs)
-        self.attribute = Mock(meta_module=Mock(
-            task1=Mock(), task2=Mock()))        
+        self.builder = Mock(depend=Mock())
+        self.MockDecorator = self._make_mock_decorator_class(self.builder)
+        self.decorator = self.MockDecorator()       
         
     def test___call__(self):
         function = 'function'
-        decorated = self.dependency(function)
-        self.assertIsInstance(decorated, self.dependency._builder_class)
-        self.dependency._method_task_class.assert_called_with(function)
-        self.dependency._add_dependency.assert_called_with(decorated)
+        decorated = self.decorator(function)
+        self.assertIs(decorated, self.builder)
+        self.decorator._method_task_class.assert_called_with(function)
+        self.builder.depend.assert_called_with(self.decorator._dependency) 
         
     def test___call__with_method_is_builder(self):
-        builder = self.dependency._method_task_class('method')
-        decorated = self.dependency(builder)
-        self.assertIs(decorated, builder)
-        self.dependency._add_dependency.assert_called_with(decorated)
-        
-    def test_resolve(self):
-        self.dependency.resolve(self.attribute)
-        (self.attribute.meta_module.task1.
-            assert_called_with('arg', kwarg='kwarg'))
-        (self.attribute.meta_module.task2.
-            assert_called_with('arg', kwarg='kwarg'))        
+        decorated = self.decorator(self.builder)
+        self.assertIs(decorated, self.builder)
+        self.builder.depend.assert_called_with(self.decorator._dependency)      
         
     #Protected
     
-    def _make_mock_dependency_class(self):
-        class MockDependency(TaskDependency):
-            #Public
-            is_resolved = False
+    def _make_mock_decorator_class(self, builder):
+        class MockDecorator(TaskDependencyDecorator):
             #Protected
             _builder_class = Mock
-            _method_task_class = Mock(return_value=Mock(
-                require=Mock(), 
-                trigger=Mock()))
-            _add_dependency = Mock()
-        return MockDependency          
+            _method_task_class = Mock(return_value=builder)
+            _dependency = Mock()
+        return MockDecorator          

@@ -53,10 +53,9 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
     #Public    
     
     def __call__(self, method):
+        builder = method
         if not isinstance(method, self._builder_class):
             builder = self._method_task_class(method)
-        else:
-            builder = method
         builder.depend(self._dependency)
         return builder
     
