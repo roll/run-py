@@ -49,7 +49,7 @@ class TaskCommonResolver(TaskResolver):
             return getattr(self._module, self._task_name)
         else:
             raise RuntimeError(
-                'Resolver {resolver} is unbound'.
+                'Dependency resolver "{resolver}" is unbound'.
                 format(resolver=self))
         
         
