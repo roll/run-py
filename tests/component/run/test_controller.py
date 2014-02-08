@@ -10,7 +10,7 @@ class RunControllerTest(unittest.TestCase):
     def setUp(self):
         MockController = self._make_mock_controller_class()
         self.dispatcher = Mock(add_handler=Mock())
-        self.stack = Mock(__str__=Mock(
+        self.stack = Mock(__repr__=Mock(
             return_value='stack'), push=Mock(), pop=Mock())
         self.partial_controller = partial(
             MockController, self.dispatcher, stack=self.stack)
@@ -34,7 +34,7 @@ class RunControllerTest(unittest.TestCase):
     def test__on_processed_task(self):
         controller = self.partial_controller()
         controller._on_processed_task(self.signal)
-        self.stack.__str__.assert_called_with()   
+        self.stack.__repr__.assert_called_with()   
         self.stack.pop.assert_called_with()
         (controller._logging_module.getLogger.return_value.info.
             assert_called_with('stack'))

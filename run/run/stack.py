@@ -2,7 +2,7 @@ class RunStack(list):
 
     #Public
 
-    def __str__(self):
+    def __repr__(self):
         names = []
         if len(self) >= 1:
             previous = self[0]

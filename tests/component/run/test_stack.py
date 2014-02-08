@@ -26,21 +26,21 @@ class StackTest(unittest.TestCase):
         self.assertEqual(self.stack.pop(), 'attribute')
         self.assertFalse(self.stack)
         
-    def test___str___0_attributes(self):
+    def test___repr___0_attributes(self):
         self.assertEqual(str(self.stack), '')
         
-    def test___str___1_attributes(self):
+    def test___repr___1_attributes(self):
         self.stack.push(self.attribute1)
-        self.assertEqual(str(self.stack), 'module1.attribute1')
+        self.assertEqual(repr(self.stack), 'module1.attribute1')
         
-    def test___str___attributes_with_same_modules(self):
+    def test___repr___attributes_with_same_modules(self):
         self.stack.push(self.attribute1)
         self.stack.push(self.attribute1)
-        self.assertEqual(str(self.stack), 
+        self.assertEqual(repr(self.stack), 
                          'module1.attribute1/attribute1')
         
-    def test___str___attributes_with_different_modules(self):
+    def test___repr___attributes_with_different_modules(self):
         self.stack.push(self.attribute1)
         self.stack.push(self.attribute2)
-        self.assertEqual(str(self.stack), 
+        self.assertEqual(repr(self.stack), 
                          'module1.attribute1/module2.attribute2')                    

@@ -33,7 +33,7 @@ class RunController:
 
     def _on_processed_task(self, signal):
         if self._stack != None:
-            message = str(self._stack)
+            message = repr(self._stack)
             self._stack.pop()            
         else:
             message = signal.attribute.meta_qualname            
