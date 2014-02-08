@@ -48,6 +48,7 @@ class RunController:
     def _on_failed_task(self, signal):
         if self._stack != None:
             message = repr(self._stack)
+            self._stack.pop()
         else:
             message = signal.attribute.meta_qualname            
         logger=self._logging_module.getLogger('failed')
