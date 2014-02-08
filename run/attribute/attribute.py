@@ -7,16 +7,16 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __system_prepare__(self, *args, **kwargs):
-        self.__system_args__ = list(args)
-        self.__system_kwargs__ = kwargs
+    def __meta_prepare__(self, *args, **kwargs):
+        self._meta_args = list(args)
+        self._meta_kwargs = kwargs
         
-    def __system_bind__(self, module):
+    def __meta_bind__(self, module):
         self._meta_module = module
         
-    def __system_init__(self):
-        args = self.__system_args__
-        kwargs = self.__system_kwargs__
+    def __meta_init__(self):
+        args = self._meta_args
+        kwargs = self._meta_kwargs
         if kwargs.get('is_expand', True):
             self._meta_expand(args)
             self._meta_expand(kwargs)
@@ -28,8 +28,8 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_is_expand = kwargs.pop('is_expand', True)
         self._meta_signature = kwargs.pop('signature', None)
         
-    def __system_ready__(self):
-        self.__init__(*self.__system_args__, **self.__system_kwargs__)             
+    def __meta_ready__(self):
+        self.__init__(*self._meta_args, **self._meta_kwargs)             
       
     @abstractmethod
     def __get__(self, module, module_class=None):

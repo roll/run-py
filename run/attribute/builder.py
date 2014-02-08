@@ -39,11 +39,11 @@ class AttributeBuilder:
         ekwargs.update(kwargs)
         ekwargs.update({'builder': self})
         module = ekwargs.pop('module', None)
-        obj.__system_prepare__(*eargs, **ekwargs)
+        obj.__meta_prepare__(*eargs, **ekwargs)
         if module != True:
-            obj.__system_bind__(module)
-            obj.__system_init__()
-            obj.__system_ready__()
+            obj.__meta_bind__(module)
+            obj.__meta_init__()
+            obj.__meta_ready__()
      
     def _update_object(self, obj):
         for update in self._updates:

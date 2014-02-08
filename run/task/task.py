@@ -10,9 +10,9 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     #Public
         
-    def __system_init__(self):
-        super().__system_init__()
-        kwargs = self.__system_kwargs__        
+    def __meta_init__(self):
+        super().__meta_init__()
+        kwargs = self._meta_kwargs        
         self._meta_dependencies = []
         self._meta_dispose_dependencies(
             kwargs.pop('depend', []))        

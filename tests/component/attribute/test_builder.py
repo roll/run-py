@@ -18,11 +18,11 @@ class AttributeBuilderTest(unittest.TestCase):
         self.builder.attr2 = 'value2'
         obj = self.builder()
         self.assertIsInstance(obj, self.MockAttribute)
-        obj.__system_prepare__.assert_called_with(
+        obj.__meta_prepare__.assert_called_with(
             'arg1', kwarg1='kwarg1', builder=self.builder)
-        obj.__system_bind__.assert_called_with(None)
-        obj.__system_init__.assert_called_with()
-        obj.__system_ready__.assert_called_with()
+        obj.__meta_bind__.assert_called_with(None)
+        obj.__meta_init__.assert_called_with()
+        obj.__meta_ready__.assert_called_with()
         self.mock_set.apply.assert_has_calls([call(obj)])
     
     def test___getattr__(self):
@@ -40,10 +40,10 @@ class AttributeBuilderTest(unittest.TestCase):
     def _make_mock_attribute_class(self):
         class MockAttribute:
             #Public
-            __system_prepare__ = Mock()
-            __system_bind__ = Mock()
-            __system_init__ = Mock()
-            __system_ready__ = Mock()
+            __meta_prepare__ = Mock()
+            __meta_bind__ = Mock()
+            __meta_init__ = Mock()
+            __meta_ready__ = Mock()
             attr1 = 'value1' 
         return MockAttribute
     

@@ -11,20 +11,20 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Public
         
-    def __system_bind__(self, module):
-        super().__system_bind__(module)
+    def __meta_bind__(self, module):
+        super().__meta_bind__(module)
         for attribute in self.meta_attributes.values():
-            attribute.__system_bind__(self)
+            attribute.__meta_bind__(self)
     
-    def __system_init__(self):
-        super().__system_init__()
+    def __meta_init__(self):
+        super().__meta_init__()
         for attribute in self.meta_attributes.values():
-            attribute.__system_init__()  
+            attribute.__meta_init__()  
                 
-    def __system_ready__(self):
-        super().__system_ready__()
+    def __meta_ready__(self):
+        super().__meta_ready__()
         for attribute in self.meta_attributes.values():
-            attribute.__system_ready__()            
+            attribute.__meta_ready__()            
         
     def __get__(self, module=None, module_class=None):
         return self
