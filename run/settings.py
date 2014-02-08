@@ -141,8 +141,8 @@ class Settings(Settings):
                     'handlers': ['initiated'], 
                     'propagate': False,  
                 },
-                'processed': {                  
-                    'handlers': ['processed'], 
+                'successed': {                  
+                    'handlers': ['successed'], 
                     'propagate': False,  
                 },
                 'failed': {                  
@@ -161,10 +161,10 @@ class Settings(Settings):
                     'class':'logging.StreamHandler',
                     'formatter': 'initiated',                
                 },
-                'processed': {
+                'successed': {
                     'level':'DEBUG',    
                     'class':'logging.StreamHandler',
-                    'formatter': 'processed',                
+                    'formatter': 'successed',                
                 },
                 'failed': {
                     'level':'DEBUG',    
@@ -179,7 +179,7 @@ class Settings(Settings):
                 'initiated': {
                     'format': '[.] %(message)s'
                 },                           
-                'processed': {
+                'successed': {
                     'format': '[+] %(message)s'
                 },
                 'failed': {

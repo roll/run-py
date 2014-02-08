@@ -15,10 +15,10 @@ from .settings import Settings, settings
 from .task import (TaskBuilder, TaskMetaclass, Task, 
                    DescriptorTask, FunctionTask, MethodTask, 
                    NestedTask, NullTask, PartialTask, ValueTask,
-                   SubprocessTask, InitiatedTaskSignal, ProcessedTaskSignal,
+                   SubprocessTask, InitiatedTaskSignal, SuccessedTaskSignal,
                    TaskResolver, TaskCommonResolver, TaskNestedResolver,
                    TaskDependency, TaskDependencyDecorator, 
                    require, trigger, depend)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
-                  InitiatedVarSignal, ProcessedVarSignal)
+                  InitiatedVarSignal, SuccessedVarSignal)
 from .version import Version, version

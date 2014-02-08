@@ -1,7 +1,7 @@
 from abc import ABCMeta
 from box.functools import DEFAULT
 from ..task import Task
-from .signal import InitiatedVarSignal, ProcessedVarSignal
+from .signal import InitiatedVarSignal, SuccessedVarSignal
 
 class Var(Task, metaclass=ABCMeta):
     
@@ -30,4 +30,4 @@ class Var(Task, metaclass=ABCMeta):
     #Protected
     
     _meta_initiated_signal_class = InitiatedVarSignal
-    _meta_processed_signal_class = ProcessedVarSignal
+    _meta_successed_signal_class = SuccessedVarSignal

@@ -1,6 +1,6 @@
 import logging
 from ..dispatcher import DispatcherCallbackHandler
-from ..task import InitiatedTaskSignal, ProcessedTaskSignal
+from ..task import InitiatedTaskSignal, SuccessedTaskSignal
 
 class RunController:
     
@@ -17,25 +17,25 @@ class RunController:
                 signals=[self._initiated_task_signal_class]))
         self._dispatcher.add_handler(
             self._callback_handler_class(
-                self._on_processed_task, 
-                signals=[self._processed_task_signal_class]))
+                self._on_successed_task, 
+                signals=[self._successed_task_signal_class]))
          
     #Protected
     
     _callback_handler_class = DispatcherCallbackHandler
     _initiated_task_signal_class = InitiatedTaskSignal
-    _processed_task_signal_class = ProcessedTaskSignal
+    _successed_task_signal_class = SuccessedTaskSignal
     _logging_module = logging
     
     def _on_initiated_task(self, signal):
         if self._stack != None:
             self._stack.push(signal.attribute)   
 
-    def _on_processed_task(self, signal):
+    def _on_successed_task(self, signal):
         if self._stack != None:
             message = repr(self._stack)
             self._stack.pop()            
         else:
             message = signal.attribute.meta_qualname            
-        logger=self._logging_module.getLogger('processed')
+        logger=self._logging_module.getLogger('successed')
         logger.info(message)    
