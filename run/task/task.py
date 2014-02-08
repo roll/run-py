@@ -14,11 +14,11 @@ class Task(Attribute, metaclass=TaskMetaclass):
         super().__meta_init__()
         kwargs = self._meta_kwargs        
         self._meta_dependencies = []
-        self._meta_dispose_dependencies(
+        self._meta_add_dependencies(
             kwargs.pop('depend', []))        
-        self._meta_dispose_dependencies(
+        self._meta_add_dependencies(
             kwargs.pop('require', []), require)
-        self._meta_dispose_dependencies(
+        self._meta_add_dependencies(
             kwargs.pop('trigger', []), trigger)
         
     def __get__(self, module, module_class=None):
@@ -82,7 +82,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     _meta_initiated_signal_class = InitiatedTaskSignal
     _meta_processed_signal_class = ProcessedTaskSignal 
     
-    def _meta_dispose_dependencies(self, container, category=None):
+    def _meta_add_dependencies(self, container, category=None):
         for dependency in container:
             if category and not isinstance(dependency, category):
                 dependency = category(dependency)
