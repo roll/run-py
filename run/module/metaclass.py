@@ -22,6 +22,10 @@ class ModuleMetaclass(AttributeMetaclass):
                 continue
             if isinstance(attr, cls._attribute_builder_class):
                 continue
+            if isinstance(attr, staticmethod):
+                continue
+            if isinstance(attr, classmethod):
+                continue
             if getattr(attr, '__isabstractmethod__', False):
                 continue   
             if callable(attr):
