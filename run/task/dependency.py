@@ -28,7 +28,7 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
         self._resolver.disable(task)
      
     @abstractmethod    
-    def resolve(self, after=False):
+    def resolve(self, is_fail=None):
         pass #pragma: no cover
 
     @property
@@ -96,8 +96,8 @@ class require(TaskDependencyDecorator, TaskDependency):
     
     #Public
     
-    def resolve(self, after=False):
-        if not after:
+    def resolve(self, is_fail=None):
+        if is_fail == None:
             if not self._is_resolved:
                 self._resolver.resolve()
                 self._is_resolved = True
@@ -105,16 +105,24 @@ class require(TaskDependencyDecorator, TaskDependency):
     #Protected
     
     def _add_dependency(self, builder):
-        builder.add_dependency(self)    
+        builder.add_dependency(self)
         
         
 class trigger(TaskDependencyDecorator, TaskDependency):
     
     #Public
+    
+    def __init__(self, task, *args, **kwargs):
+        self._on_success = kwargs.pop('on_success', True)
+        self._on_fail = kwargs.pop('on_fail', False)          
+        super().__init__(task, *args, **kwargs)
+
      
-    def resolve(self, after=False):
-        if after:
-            self._resolver.resolve()
+    def resolve(self, is_fail=None):
+        if is_fail != None:
+            if (self._on_success and not is_fail or
+                self._on_fail and is_fail):
+                self._resolver.resolve()
     
     #Protected
     

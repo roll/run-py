@@ -39,7 +39,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         self._meta_resolve_dependencies()
         with self._meta_effective_dir():
             result = self.invoke(*args, **kwargs)
-        self._meta_resolve_dependencies(after=True)
+        self._meta_resolve_dependencies(is_fail=False)
         self.meta_dispatcher.add_signal(
             self._meta_successed_signal_class(self))
         return result
@@ -88,9 +88,9 @@ class Task(Attribute, metaclass=TaskMetaclass):
                 dependency = category(dependency)
             self.add_dependency(dependency)
                 
-    def _meta_resolve_dependencies(self, after=False):
+    def _meta_resolve_dependencies(self, is_fail=None):
         for dependency in self._meta_dependencies:
-            dependency.resolve(after=after)
+            dependency.resolve(is_fail=is_fail)
      
     @contextmanager       
     def _meta_effective_dir(self):
