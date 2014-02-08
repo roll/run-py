@@ -32,7 +32,7 @@ class Cluster:
                 attribute = getattr(module, name)
                 attributes.append(attribute)
             except AttributeError as exception:
-                if not self._existent:
+                if self._existent:
                     self._logger.warning(str(exception))
                 else:
                     raise
