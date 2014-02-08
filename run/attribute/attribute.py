@@ -10,6 +10,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def __meta_prepare__(self, *args, **kwargs):
         self._meta_args = list(args)
         self._meta_kwargs = kwargs
+        self._meta_initiated = False
         
     def __meta_bind__(self, module):
         self._meta_module = module
@@ -29,7 +30,8 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_signature = kwargs.pop('signature', None)
         
     def __meta_ready__(self):
-        self.__init__(*self._meta_args, **self._meta_kwargs)             
+        self.__init__(*self._meta_args, **self._meta_kwargs)
+        self._meta_initiated = True      
       
     @abstractmethod
     def __get__(self, module, module_class=None):
