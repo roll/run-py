@@ -35,15 +35,18 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     def __call__(self, *args, **kwargs):
         self._meta_add_signal('initiated')
-        self._meta_resolve_dependencies()
         try:
-            with self._meta_effective_dir():
-                result = self.invoke(*args, **kwargs)
+            self._meta_resolve_dependencies()
+            try:
+                with self._meta_effective_dir():
+                    result = self.invoke(*args, **kwargs)
+            except Exception:
+                self._meta_resolve_dependencies(is_fail=True)
+                raise
+            self._meta_resolve_dependencies(is_fail=False)
         except Exception:
-            self._meta_resolve_dependencies(is_fail=True)
             self._meta_add_signal('failed')
             raise
-        self._meta_resolve_dependencies(is_fail=False)
         self._meta_add_signal('successed')
         return result
     

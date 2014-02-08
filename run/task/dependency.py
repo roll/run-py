@@ -19,7 +19,7 @@ class TaskDependency(TaskResolver, metaclass=ABCMeta):
             resolver=repr(self._resolver))        
     
     def bind(self, attribute):
-        self._resolver.bind(attribute)    
+        self._resolver.bind(attribute)
     
     def enable(self, task):
         self._resolver.enable(task)
