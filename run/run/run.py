@@ -43,7 +43,7 @@ class Run:
         except Exception:
             if not self._stackless:
                 logger=self._logging_module.getLogger('failed')
-                logger.info(str(self._stack))  
+                logger.info(repr(self._stack))  
             raise
          
     #Protected
