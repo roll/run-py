@@ -48,12 +48,11 @@ class Attribute(metaclass=AttributeMetaclass):
         pass
     
     def __repr__(self):
-        try:
-            return '<{type} "{qualname}">'.format(
-                type=self.meta_type, 
+        if self._meta_initiated:
+            return '<{category} "{qualname}">'.format(
+                category=self.meta_type, 
                 qualname=self.meta_qualname)
-        except Exception:
-            return super().__repr__()    
+        return super().__repr__()
     
     @property
     def meta_basedir(self):

@@ -36,8 +36,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             format(module=self))
     
     def __getattr__(self, name):
-        if not self._meta_initiated:
-            raise AttributeError(name)
         try:
             attribute = self.meta_attributes[name]
             attribute_value = attribute.__get__(attribute.meta_module)
