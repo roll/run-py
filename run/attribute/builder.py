@@ -21,7 +21,9 @@ class AttributeBuilder:
         try:
             return getattr(self._class, name)
         except AttributeError:
-            raise AttributeError(name)
+            raise AttributeError(                
+                'Builder "{builder}" has no attribute "{name}"'.
+                format(builder=self, name=name))
         
     def __setattr__(self, name, value):
         self._updates.append(self._set_class(name, value))     
