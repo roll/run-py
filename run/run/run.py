@@ -41,7 +41,7 @@ class Run:
                 else:
                     self._print_function(attribute)
         except Exception:
-            if self._stack != None:
+            if not self._stackless:
                 logger=self._logging_module.getLogger('failed')
                 logger.info(str(self._stack))  
             raise
