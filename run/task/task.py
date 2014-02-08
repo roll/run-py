@@ -4,7 +4,7 @@ from abc import abstractmethod
 from ..attribute import Attribute
 from .dependency import require, trigger
 from .metaclass import TaskMetaclass
-from .signal import InitiatedTaskSignal, SuccessedTaskSignal
+from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
 class Task(Attribute, metaclass=TaskMetaclass):
     
@@ -37,8 +37,14 @@ class Task(Attribute, metaclass=TaskMetaclass):
         self.meta_dispatcher.add_signal(
             self._meta_initiated_signal_class(self))
         self._meta_resolve_dependencies()
-        with self._meta_effective_dir():
-            result = self.invoke(*args, **kwargs)
+        try:
+            with self._meta_effective_dir():
+                result = self.invoke(*args, **kwargs)
+        except Exception:
+            self._meta_resolve_dependencies(is_fail=True)
+            self.meta_dispatcher.add_signal(
+                self._meta_failed_signal_class(self))
+            raise
         self._meta_resolve_dependencies(is_fail=False)
         self.meta_dispatcher.add_signal(
             self._meta_successed_signal_class(self))
@@ -80,7 +86,8 @@ class Task(Attribute, metaclass=TaskMetaclass):
     #Protected
     
     _meta_initiated_signal_class = InitiatedTaskSignal
-    _meta_successed_signal_class = SuccessedTaskSignal 
+    _meta_successed_signal_class = SuccessedTaskSignal
+    _meta_failed_signal_class = FailedTaskSignal 
     
     def _meta_add_dependencies(self, container, category=None):
         for dependency in container:
