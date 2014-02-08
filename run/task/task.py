@@ -34,20 +34,17 @@ class Task(Attribute, metaclass=TaskMetaclass):
             format(task=self))
     
     def __call__(self, *args, **kwargs):
-        self.meta_dispatcher.add_signal(
-            self._meta_initiated_signal_class(self))
+        self._meta_add_signal('initiated')
         self._meta_resolve_dependencies()
         try:
             with self._meta_effective_dir():
                 result = self.invoke(*args, **kwargs)
         except Exception:
             self._meta_resolve_dependencies(is_fail=True)
-            self.meta_dispatcher.add_signal(
-                self._meta_failed_signal_class(self))
+            self._meta_add_signal('failed')
             raise
         self._meta_resolve_dependencies(is_fail=False)
-        self.meta_dispatcher.add_signal(
-            self._meta_successed_signal_class(self))
+        self._meta_add_signal('successed')
         return result
     
     @property
@@ -98,6 +95,12 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def _meta_resolve_dependencies(self, is_fail=None):
         for dependency in self._meta_dependencies:
             dependency.resolve(is_fail=is_fail)
+            
+    def _meta_add_signal(self, name):
+        signal_class_attr = '_meta_'+name+'_signal_class' 
+        signal_class = getattr(self, signal_class_attr)
+        signal = signal_class(self)
+        self.meta_dispatcher.add_signal(signal)
      
     @contextmanager       
     def _meta_effective_dir(self):
