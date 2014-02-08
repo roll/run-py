@@ -30,21 +30,15 @@ class Run:
             self._basedir = self.default_basedir         
                 
     def run(self, attribute, *args, **kwargs):
-        try:
-            self._controller.listen()
-            attributes = getattr(self._cluster, attribute)
-            for attribute in attributes:
-                if isinstance(attribute, self._task_class):
-                    result = attribute(*args, **kwargs)
-                    if result:
-                        self._print_function(result)
-                else:
-                    self._print_function(attribute)
-        except Exception:
-            if not self._stackless:
-                logger=self._logging_module.getLogger('failed')
-                logger.info(repr(self._stack))  
-            raise
+        self._controller.listen()
+        attributes = getattr(self._cluster, attribute)
+        for attribute in attributes:
+            if isinstance(attribute, self._task_class):
+                result = attribute(*args, **kwargs)
+                if result:
+                    self._print_function(result)
+            else:
+                self._print_function(attribute)
          
     #Protected
     
