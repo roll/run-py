@@ -34,11 +34,13 @@ class Program(Program):
     def _execute(self):
         try:
             self._run.run(
-                self._command.attribute, 
+                self._command.attribute,
                 *self._command.args, 
                 **self._command.kwargs)
         except Exception as exception:
-            self._logger.error(str(exception), exc_info=self._command.debug)
+            self._logger.error(
+                self._format_exception(exception), 
+                exc_info=self._command.debug)
             sys.exit(1)
     
     @cachedproperty
@@ -59,6 +61,11 @@ class Program(Program):
     @cachedproperty    
     def _logger(self):
         return self._logging_module.getLogger(__name__)
+    
+    def _format_exception(self, exception):
+        return '{category}: {message}'.format(
+            category=type(exception).__name__,
+            message=str(exception))
     
         
 program = Program(sys.argv)

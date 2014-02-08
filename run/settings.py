@@ -174,7 +174,7 @@ class Settings(Settings):
             },
             'formatters': {
                 'default': {
-                    'format': '[%(levelname)s] %(name)s: %(message)s'
+                    'format': '[%(levelname)s] %(message)s'
                 },
                 'initiated': {
                     'format': '[.] %(message)s'
