@@ -20,5 +20,5 @@ from .task import (TaskBuilder, TaskMetaclass, Task,
                    TaskDependency, TaskDependencyDecorator, 
                    require, trigger, depend)
 from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
-                  InitiatedVarSignal, SuccessedVarSignal)
+                  InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)
 from .version import Version, version
