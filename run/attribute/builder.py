@@ -14,7 +14,6 @@ class AttributeBuilder:
     def __call__(self, *args, **kwargs):
         obj = self._create_object()
         self._init_object(obj, *args, **kwargs)
-        self._update_object(obj)
         return obj
     
     def __getattr__(self, name):
@@ -36,17 +35,15 @@ class AttributeBuilder:
         return object.__new__(self._class)
         
     def _init_object(self, obj, *args, **kwargs):
+        builder = self
+        updates = copy(self._updates)
         eargs = self._args+args
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
-        ekwargs.update({'builder': self})
         module = ekwargs.pop('module', None)
-        obj.__meta_prepare__(*eargs, **ekwargs)
+        obj.__meta_build__(builder, updates, *eargs, **ekwargs)
         if module != True:
             obj.__meta_bind__(module)
             obj.__meta_init__()
+            obj.__meta_update__()
             obj.__meta_ready__()
-     
-    def _update_object(self, obj):
-        for update in self._updates:
-            update.apply(obj)

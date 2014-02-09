@@ -7,10 +7,12 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __meta_prepare__(self, *args, **kwargs):
+    def __meta_build__(self, builder, updates, *args, **kwargs):
+        self._meta_builder = builder
+        self._meta_updates = updates
         self._meta_args = list(args)
         self._meta_kwargs = kwargs
-        self._meta_initiated = False
+        self._meta_ready = False
         
     def __meta_bind__(self, module):
         self._meta_module = module
@@ -22,16 +24,19 @@ class Attribute(metaclass=AttributeMetaclass):
             self._meta_expand(args)
             self._meta_expand(kwargs)
         self._meta_basedir = kwargs.pop('basedir', None)
-        self._meta_builder = kwargs.pop('builder', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
         self._meta_is_chdir = kwargs.pop('is_chdir', True)
         self._meta_is_expand = kwargs.pop('is_expand', True)
         self._meta_signature = kwargs.pop('signature', None)
+        self.__init__(*self._meta_args, **self._meta_kwargs)
+    
+    def __meta_update__(self):
+        for update in self._meta_updates:
+            update.apply(self) 
         
     def __meta_ready__(self):
-        self.__init__(*self._meta_args, **self._meta_kwargs)
-        self._meta_initiated = True      
+        self._meta_ready = True      
       
     @abstractmethod
     def __get__(self, module, module_class=None):
@@ -48,7 +53,7 @@ class Attribute(metaclass=AttributeMetaclass):
         pass
     
     def __repr__(self):
-        if self._meta_initiated:
+        if self._meta_ready:
             return '<{category} "{qualname}">'.format(
                 category=self.meta_type, 
                 qualname=self.meta_qualname)
