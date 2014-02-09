@@ -7,6 +7,9 @@ class NullModule(Module):
 
     #Public
     
+    def __meta_bind__(self, module):
+        self._meta_module = self
+        
     def __bool__(self):
         return False
     
@@ -16,11 +19,7 @@ class NullModule(Module):
     
     @cachedproperty
     def meta_dispatcher(self):
-        return self._meta_null_dispatcher_class()     
-     
-    @property
-    def meta_module(self):
-        return self
+        return self._meta_null_dispatcher_class()
     
     @property
     def meta_qualname(self):

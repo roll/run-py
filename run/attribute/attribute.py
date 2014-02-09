@@ -16,6 +16,8 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_ready = False
         
     def __meta_bind__(self, module):
+        if module == None:
+            module = self._meta_null_module_class(module=None)
         self._meta_module = module
         
     def __meta_init__(self):
@@ -117,8 +119,6 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_module(self):
-        if self._meta_module == None:
-            self._meta_module = self._meta_null_module_class(module=None)
         return self._meta_module
         
     @property
