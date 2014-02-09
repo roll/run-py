@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, call
+from unittest.mock import Mock, ANY
 from run.attribute.builder import AttributeBuilder
 
 class AttributeBuilderTest(unittest.TestCase):
@@ -18,8 +18,7 @@ class AttributeBuilderTest(unittest.TestCase):
         self.builder.attr2 = 'value2'
         obj = self.builder()
         self.assertIsInstance(obj, self.MockAttribute)
-        obj.__meta_build__.assert_called_with(
-            self.builder, [self.mock_set], 'arg1', kwarg1='kwarg1')
+        obj.__meta_build__.assert_called_with(ANY)
         obj.__meta_bind__.assert_called_with(None)
         obj.__meta_init__.assert_called_with()
         obj.__meta_update__.assert_called_with()
