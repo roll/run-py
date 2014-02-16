@@ -27,8 +27,8 @@ class AutoModule(Module):
                 attr = getattr(obj, name)
                 if not callable(attr):
                     continue
-                if (isinstance(attr, type) and
-                    not isinstance(attr, FunctionCallMetaclass)):
-                    continue
+                if isinstance(attr, type):
+                    if not isinstance(attr, FunctionCallMetaclass):
+                        continue
                 functions[name] = attr
         return functions                   
