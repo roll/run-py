@@ -1,3 +1,4 @@
+from box.functools import FunctionCallMetaclass
 from ..task import FunctionTask
 from .module import Module
 
@@ -26,7 +27,8 @@ class AutoModule(Module):
                 attr = getattr(obj, name)
                 if not callable(attr):
                     continue
-                if isinstance(attr, type):
+                if (isinstance(attr, type) and
+                    not isinstance(attr, FunctionCallMetaclass)):
                     continue
                 functions[name] = attr
         return functions                   
