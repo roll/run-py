@@ -19,15 +19,15 @@ class Finder:
         if not basedir:
             basedir = self.default_basedir
         if recursively:
-            max_depth = None
+            maxdepth = None
         else:
-            max_depth = 1
+            maxdepth = 1
         mappers = [
             FinderTypeMapper(self._module_class),
             FinderMetaNameMapper(self._names),
             FinderMetaTagMapper(self._tags),]
         modules = find_objects(filename=filename, 
-            basedir=basedir, max_depth=max_depth, mappers=mappers)
+            basedir=basedir, maxdepth=maxdepth, mappers=mappers)
         return modules
     
     #Protected
