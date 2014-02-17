@@ -34,3 +34,6 @@ __pycache__/
 
 #Sphinx
 docs/_build/
+
+#Virtualenv
+env/
