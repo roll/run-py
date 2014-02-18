@@ -40,3 +40,5 @@ env/
 envs/
 venv/
 venvs/
+virtualenv/
+virtualenvs/
