@@ -13,15 +13,15 @@ sdist/
 *.egg-info/
 *.egg
 
-#Misc
-tmp/
-
 #Nosetests
 nosetests.xml
 
 #Pip
 pip-log.txt
 pip-delete-this-directory.txt
+
+#Project
+tmp/
 
 #PyDev
 .settings/
@@ -37,3 +37,6 @@ docs/_build/
 
 #Virtualenv
 env/
+envs/
+venv/
+venvs/
