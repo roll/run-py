@@ -1,3 +1,3 @@
-#Builded for run 0.11.0 from _templates/requirements.txt
+#Builded for run 0.11.1 from _templates/requirements.txt
 
 box>=0.12

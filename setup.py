@@ -1,4 +1,4 @@
-#Builded for run 0.11.0 from _templates/setup.tpl
+#Builded for run 0.11.1 from _templates/setup.tpl
 
 import os
 from setuptools import find_packages, setup
@@ -8,7 +8,7 @@ package = {
 	#Main
 
     'name': 'runpack',
-	'version':'0.11.0',
+	'version':'0.11.1',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
@@ -26,13 +26,13 @@ package = {
     'author_email': 'roll@respect31.com',
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Run is a program to run tasks from files.',
-    'download_url':'https://github.com/respect31/run/tarball/0.11.0',
+    'download_url':'https://github.com/respect31/run/tarball/0.11.1',
     'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/run',
-    'long_description': '''.. Builded for run 0.11.0 from _templates/README.rst
+    'long_description': '''.. Builded for run 0.11.1 from _templates/README.rst
 
 Run
 =====================
