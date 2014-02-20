@@ -16,7 +16,7 @@ package = {
 	'include_package_data': True,
 	'data_files': [('/etc/bash_completion.d', ['data/run.sh'])],
     'entry_points': {'console_scripts': ['run = run:program']},
-    'install_requires': ['box>=0.11'],  
+    'install_requires': ['box>=0.12'],  
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
