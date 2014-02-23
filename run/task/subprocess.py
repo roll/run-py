@@ -9,7 +9,7 @@ class SubprocessTask(Task):
         self._prefix = prefix
         self._separator = separator
         
-    def invoke(self, command):
+    def invoke(self, command=''):
         ecommand = self._separator.join(
             filter([self._prefix, command]))
         process = Popen(ecommand, shell=True, 
