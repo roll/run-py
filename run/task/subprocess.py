@@ -11,7 +11,7 @@ class SubprocessTask(Task):
         
     def invoke(self, command=''):
         ecommand = self._separator.join(
-            filter([self._prefix, command]))
+            filter(None, [self._prefix, command]))
         process = Popen(ecommand, shell=True, 
             stdin=PIPE, stdout=PIPE, stderr=PIPE)
         returncode = process.wait()
