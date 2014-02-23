@@ -33,4 +33,4 @@ __pycache__/
 *.py[cod]
 
 #Sphinx
-docs/_build/
+docs/
