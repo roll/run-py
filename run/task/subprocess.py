@@ -1,4 +1,4 @@
-from subprocess import Popen, PIPE
+from subprocess import Popen
 from .task import Task
 
 class SubprocessTask(Task):
@@ -12,8 +12,7 @@ class SubprocessTask(Task):
     def invoke(self, command=''):
         ecommand = self._separator.join(
             filter(None, [self._prefix, command]))
-        process = Popen(ecommand, shell=True, 
-            stdin=PIPE, stdout=PIPE, stderr=PIPE)
+        process = Popen(ecommand, shell=True)
         returncode = process.wait()
         if returncode != 0:
             raise RuntimeError(
