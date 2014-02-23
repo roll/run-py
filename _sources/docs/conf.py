@@ -7,7 +7,6 @@ class Settings(Settings):
         
     extensions = ['sphinx.ext.autodoc']
     master_doc = 'index'
-    exclude_patterns = ['_build']
     pygments_style = 'sphinx'
 
     #Project
