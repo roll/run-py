@@ -14,9 +14,7 @@ package = {
         exclude=['tests*']
     ),
 	'include_package_data': True,
-	'data_files': [('/etc/bash_completion.d', ['data/run.sh'])],
-    'entry_points': {'console_scripts': ['run = run:program']},
-    'install_requires': ['box>=0.12'],  
+    'install_requires': [],  
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
@@ -32,7 +30,7 @@ package = {
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/run',
-    'long_description': '''.. Builded for run 0.11.1 from _templates/README.rst
+    'long_description': '''.. Builded for run 0.11.1 from _sources/README.rst
 
 Run
 =====================
@@ -91,12 +89,14 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.''',   
+THE SOFTWARE.''',  
     
 }
 
+if (not os.environ.get('TRAVIS', None) and  
+	not	os.environ.get('READTHEDOCS', None)):
+	package['entry_points'] = {'console_scripts': ['run = run:program']}
+	package['data_files'] = [('/etc/bash_completion.d', ['data/run.sh'])]	
+
 if __name__ == '__main__':
-	if (os.environ.get('TRAVIS', None) or 
-		os.environ.get('READTHEDOCS', None)):
-		package['data_files'] = []	
 	setup(**package)

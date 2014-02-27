@@ -2,7 +2,7 @@ from packgram.manage import PythonPackgramModule
     
 class MainModule(PythonPackgramModule):
         
-    #Public
+    #Vars
     
     author = 'roll'
     author_email = 'roll@respect31.com'
@@ -14,12 +14,17 @@ class MainModule(PythonPackgramModule):
         'Topic :: Software Development :: Libraries :: Python Modules', 
         'Topic :: System :: Systems Administration', 
     ]
-    github_user = 'respect31'
     description = 'Run is a program to run tasks from files.'
+    development_requires = [] 
+    github_user = 'respect31'
+    install_requires = []
     license = 'MIT License'  
     maintainer = 'roll'
     maintainer_email = 'roll@respect31.com'
     name = 'run'
+    platforms = ['Unix'] 
     pypi_name = 'runpack'
     pypi_user = 'roll'
     pypi_password_secure = 'JaTeiyjnimmtwhbdfPMZZdtp+5S920vb0HobJWL1QQjHVAo5Hwt0kTWYG+zjDrpWUL+NanVNqhQA8xnvWKbI5cZ+n3PvS7KFbgn6XcTYfeEGyEdYUFi0sXaUsgcfke+9nyMBDLoRH2M7TGqpLY2dmXk5C0h0RMkkAPjxgZCan94='
+    tests_require = ['nose']
+    test_suite = 'nose.collector'    

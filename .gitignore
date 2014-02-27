@@ -13,15 +13,15 @@ sdist/
 *.egg-info/
 *.egg
 
-#Misc
-tmp/
-
 #Nosetests
 nosetests.xml
 
 #Pip
 pip-log.txt
 pip-delete-this-directory.txt
+
+#Project
+tmp/
 
 #PyDev
 .settings/
@@ -34,3 +34,11 @@ __pycache__/
 
 #Sphinx
 docs/
+
+#Virtualenv
+env/
+envs/
+venv/
+venvs/
+virtualenv/
+virtualenvs/

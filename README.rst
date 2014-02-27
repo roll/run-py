@@ -1,4 +1,4 @@
-.. Builded for run 0.11.1 from _templates/README.rst
+.. Builded for run 0.11.1 from _sources/README.rst
 
 Run
 =====================
