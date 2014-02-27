@@ -1,3 +1,5 @@
-#Builded for {{ name }} {{ version }} from _templates/requirements.txt
+#Builded for {{ name }} {{ version }} from _sources/requirements.txt
 
-box>=0.12
+{% for dependency in development_requires+install_requires+tests_require -%}
+{{ dependency }}
+{% endfor %}
