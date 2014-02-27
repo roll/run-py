@@ -1,4 +1,4 @@
-.. Builded for {{ name }} {{ version }} from _templates/README.rst
+.. Builded for {{ name }} {{ version }} from _sources/README.rst
 
 {{ name|capitalize }}
 =====================
