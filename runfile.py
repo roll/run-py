@@ -17,7 +17,7 @@ class MainModule(PythonPackgramModule):
     description = 'Run is a program to run tasks from files.'
     development_requires = [] 
     github_user = 'respect31'
-    install_requires = []
+    install_requires = ['box>=0.12']
     license = 'MIT License'  
     maintainer = 'roll'
     maintainer_email = 'roll@respect31.com'
