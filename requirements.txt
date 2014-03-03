@@ -1,4 +1,4 @@
 #Builded for run 0.11.1 from _sources/requirements.txt
 
-box>=0.12
+box>=0.13
 nose
