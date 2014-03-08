@@ -42,15 +42,17 @@ class ModuleBuilderTest(unittest.TestCase):
         class BaseMockModule:
             #Public
             __on_created__ = lambda *args, **kwargs: None
-            attr1 = Mock(return_value='value1')
+            attr1 = Mock(meta_builder=Mock(
+                build=Mock(return_value='value1')))
         class MockModule(BaseMockModule):
             """docstring"""
             #Public
-            attr2 = Mock(return_value='value2')
+            attr2 = Mock(meta_builder=Mock(
+                build=Mock(return_value='value2')))
         return MockModule
     
     def _make_mock_module_builder_class(self):    
         class MockModuleBuilder(ModuleBuilder):
             #Protected
-            _attribute_builder_class = Mock
+            _attribute_draft_class = Mock
         return MockModuleBuilder

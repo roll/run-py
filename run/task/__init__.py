@@ -1,7 +1,7 @@
-from .builder import TaskBuilder
 from .dependency import (TaskDependency, TaskDependencyDecorator, 
                          require, trigger, depend)
 from .descriptor import DescriptorTask
+from .draft import TaskDraft
 from .function import FunctionTask
 from .metaclass import TaskMetaclass
 from .method import MethodTask

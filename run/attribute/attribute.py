@@ -10,9 +10,9 @@ class Attribute(metaclass=AttributeMetaclass):
     
     def __meta_build__(self, builder):
         self._meta_builder = builder
-        self._meta_args = copy(builder.meta_args)
-        self._meta_kwargs = copy(builder.meta_kwargs)
-        self._meta_updates = copy(builder.meta_updates)        
+        self._meta_args = copy(builder.args)
+        self._meta_kwargs = copy(builder.kwargs)
+        self._meta_updates = copy(builder.updates)        
         self._meta_ready = False
         
     def __meta_bind__(self, module):
@@ -71,12 +71,7 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @property
     def meta_builder(self):
-        if self._meta_builder != None:
-            return self._meta_builder
-        else:
-            raise ValueError(
-                'Attribute "{attribute}" has no assotiated builder'.
-                format(attribute=self))
+        return self._meta_builder
             
     @property
     def meta_context(self):

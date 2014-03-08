@@ -1,8 +1,8 @@
 from ..attribute import AttributeMetaclass
-from .builder import TaskBuilder
+from .draft import TaskDraft
 
 class TaskMetaclass(AttributeMetaclass):
     
     #Protected
     
-    _builder_class = TaskBuilder
+    _draft_class = TaskDraft

@@ -1,17 +1,19 @@
 from abc import ABCMeta
-from .builder import AttributeBuilder
+from .builder import build
+from .draft import AttributeDraft
 
 class AttributeMetaclass(ABCMeta):
     
     #Public
     
     def __call__(self, *args, **kwargs):
-        builder = self._builder_class(self, *args, **kwargs)
+        draft = self._draft_class(self, *args, **kwargs)
         if 'module' in kwargs:
-            return builder()
+            return self._build_function(draft)
         else:
-            return builder
+            return draft
         
     #Protected
     
-    _builder_class = AttributeBuilder
+    _draft_class = AttributeDraft
+    _build_function = staticmethod(build)

@@ -1,8 +1,8 @@
 import inspect
-from ..attribute import AttributeBuilder, AttributeMetaclass, Attribute
+from ..attribute import AttributeDraft, AttributeMetaclass, Attribute
 from ..task import MethodTask
 from ..var import ValueVar, DescriptorVar
-from .builder import ModuleBuilder
+from .draft import ModuleDraft
 
 class ModuleMetaclass(AttributeMetaclass):
      
@@ -20,7 +20,7 @@ class ModuleMetaclass(AttributeMetaclass):
                 continue
             if isinstance(attr, cls._attribute_class):
                 continue
-            if isinstance(attr, cls._attribute_builder_class):
+            if isinstance(attr, cls._attribute_draft_class):
                 continue
             if isinstance(attr, staticmethod):
                 continue
@@ -38,9 +38,9 @@ class ModuleMetaclass(AttributeMetaclass):
     
     #Protected
     
-    _builder_class = ModuleBuilder
+    _draft_class = ModuleDraft
     _attribute_class = Attribute
-    _attribute_builder_class = AttributeBuilder
+    _attribute_draft_class = AttributeDraft
     _method_task_class = MethodTask
     _descriptor_var_class = DescriptorVar
     _value_var_class = ValueVar

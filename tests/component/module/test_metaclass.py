@@ -43,7 +43,7 @@ class ModuleMetaclassTest(unittest.TestCase):
         class MockModuleMetaclass(ModuleMetaclass):
             #Public
             _attribute_class = Mock
-            _attribute_builder_class = MagicMock
+            _attribute_draft_class = MagicMock
             _method_task_class = Mock(return_value='method_task_attr')
             _descriptor_var_class = Mock(return_value='descriptor_var_attr')
             _value_var_class = Mock(return_value='value_var_attr')

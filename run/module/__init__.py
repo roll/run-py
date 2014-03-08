@@ -1,6 +1,7 @@
 from .attributes import ModuleAttributes
 from .auto import AutoModule
 from .builder import ModuleBuilder
+from .draft import ModuleDraft
 from .find import FindModule
 from .metaclass import ModuleMetaclass
 from .module import Module

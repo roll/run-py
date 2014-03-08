@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class AttributeBuilderUpdate(metaclass=ABCMeta):
+class AttributeUpdate(metaclass=ABCMeta):
     
     #Public
     
@@ -9,7 +9,7 @@ class AttributeBuilderUpdate(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-class AttributeBuilderSet(AttributeBuilderUpdate):
+class AttributeSet(AttributeUpdate):
     
     #Public
     
@@ -21,7 +21,7 @@ class AttributeBuilderSet(AttributeBuilderUpdate):
         setattr(obj, self._name, self._value)
     
     
-class AttributeBuilderCall(AttributeBuilderUpdate):
+class AttributeCall(AttributeUpdate):
     
     #Public
     

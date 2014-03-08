@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
-from .builder import TaskBuilder
+from .draft import TaskDraft
 from .resolver import TaskResolver, TaskCommonResolver, TaskNestedResolver
 
 class TaskDependency(TaskResolver, metaclass=ABCMeta):
@@ -58,15 +58,15 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
     #Public    
     
     def __call__(self, method):
-        builder = method
-        if not isinstance(method, self._builder_class):
-            builder = self._method_task_class(method)
-        self._add_dependency(builder)
-        return builder
+        draft = method
+        if not isinstance(method, self._draft_class):
+            draft = self._method_task_class(method)
+        self._add_dependency(draft)
+        return draft
     
     #Protected    
     
-    _builder_class = TaskBuilder
+    _draft_class = TaskDraft
     
     @property
     def _method_task_class(self):
