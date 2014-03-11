@@ -6,9 +6,8 @@ class PartialTask(Task, metaclass=ABCMeta):
 
     #Public
 
-    def __init__(self, *args, is_expand=True, **kwargs):
+    def __init__(self, *args, **kwargs):
         self._args = args
-        self._is_expand = is_expand
         self._kwargs = kwargs
     
     def invoke(self, *args, **kwargs):
