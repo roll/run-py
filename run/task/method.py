@@ -17,7 +17,7 @@ class task:
     
     def __new__(cls, *args, **kwargs):
         if args:
-            return  cls._make_task(args[0], **kwargs)
+            return cls._make_task(args[0], **kwargs)
         else:
             return super().__new__(cls)
     
