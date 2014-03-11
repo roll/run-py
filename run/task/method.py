@@ -19,7 +19,7 @@ class task:
         if args:
             return MethodTask(args[0], **kwargs)
         else:
-            return cls(**kwargs)
+            return super().__new__(cls)
     
     def __init__(self, **kwargs):
         self._kwargs = kwargs
