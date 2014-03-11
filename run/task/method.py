@@ -15,6 +15,12 @@ class task:
     
     #Public
     
+    def __new__(cls, *args, **kwargs):
+        if args:
+            return MethodTask(args[0], **kwargs)
+        else:
+            return cls(**kwargs)
+    
     def __init__(self, **kwargs):
         self._kwargs = kwargs
         
