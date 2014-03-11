@@ -17,7 +17,7 @@ class task:
     
     def __new__(cls, *args, **kwargs):
         if args:
-            return MethodTask(args[0], **kwargs)
+            return  cls._make_task(args[0], **kwargs)
         else:
             return super().__new__(cls)
     
@@ -25,4 +25,10 @@ class task:
         self._kwargs = kwargs
         
     def __call__(self, method):
-        return MethodTask(method, **self._kwargs)
+        return self._make_task(method, **self._kwargs)
+    
+    #Protected
+    
+    @staticmethod
+    def _make_task(method, **kwargs):
+        return MethodTask(method, **kwargs)
