@@ -13,7 +13,7 @@ from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings
 from .task import (TaskDraft, TaskMetaclass, Task, 
-                   DescriptorTask, FunctionTask, MethodTask, 
+                   DescriptorTask, FunctionTask, MethodTask, task, 
                    NestedTask, NullTask, PartialTask, ValueTask, SubprocessTask, 
                    InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal,
                    TaskResolver, TaskCommonResolver, TaskNestedResolver,
