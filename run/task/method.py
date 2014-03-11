@@ -15,9 +15,8 @@ class task:
     
     #Public
     
-    def __init__(self, *args, **kwargs):
-        self._args = args
+    def __init__(self, **kwargs):
         self._kwargs = kwargs
         
     def __call__(self, method):
-        return MethodTask(method, *self._args, **self._kwargs)
+        return MethodTask(method, **self._kwargs)
