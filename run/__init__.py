@@ -19,6 +19,7 @@ from .task import (TaskDraft, TaskMetaclass, Task,
                    TaskResolver, TaskCommonResolver, TaskNestedResolver,
                    TaskDependency, TaskDependencyDecorator, 
                    require, trigger, depend)
-from .var import (Var, DescriptorVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
+from .var import (Var, DescriptorVar, var,
+                  FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)
 from .version import Version, version

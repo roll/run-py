@@ -1,4 +1,4 @@
-from .descriptor import DescriptorVar
+from .descriptor import DescriptorVar, var
 from .function import FunctionVar
 from .method import MethodVar
 from .signal import InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal
