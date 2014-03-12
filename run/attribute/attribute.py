@@ -23,14 +23,14 @@ class Attribute(metaclass=AttributeMetaclass):
     def __meta_init__(self):
         args = self._meta_args
         kwargs = self._meta_kwargs
-        if kwargs.get('is_expand', True):
-            self._meta_expand(args)
-            self._meta_expand(kwargs)
+        if kwargs.get('expand', True):
+            self._meta_expand_args(args)
+            self._meta_expand_args(kwargs)
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
         self._meta_is_chdir = kwargs.pop('is_chdir', True)
-        self._meta_is_expand = kwargs.pop('is_expand', True)
+        self._meta_expand = kwargs.pop('expand', True)
         self._meta_signature = kwargs.pop('signature', None)
         self.__init__(*self._meta_args, **self._meta_kwargs)
     
@@ -90,7 +90,11 @@ class Attribute(metaclass=AttributeMetaclass):
             return self._meta_docstring
         else:
             return inspect.getdoc(self)
-
+    
+    @property
+    def meta_expand(self):
+        return self._meta_expand
+    
     @property
     def meta_info(self):
         lines = []
@@ -103,10 +107,6 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_is_chdir(self):
         return self._meta_is_chdir
-    
-    @property
-    def meta_is_expand(self):
-        return self._meta_is_expand  
    
     @property
     def meta_main_module(self):
@@ -160,7 +160,7 @@ class Attribute(metaclass=AttributeMetaclass):
         from ..module import NullModule
         return NullModule
     
-    def _meta_expand(self, args):
+    def _meta_expand_args(self, args):
         try:
             iterator = args.items()
         except AttributeError:

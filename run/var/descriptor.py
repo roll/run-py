@@ -14,7 +14,7 @@ class var(task):
     
     @staticmethod
     def _make_task(method, **kwargs):
-        if kwargs.get('is_expand', True):
+        if kwargs.get('expand', True):
             descriptor = property(lambda *args, **kwargs: property(method))
         else:
             descriptor = property(method)
