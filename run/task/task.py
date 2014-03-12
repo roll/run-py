@@ -105,9 +105,9 @@ class Task(Attribute, metaclass=TaskMetaclass):
         signal = signal_class(self)
         self.meta_dispatcher.add_signal(signal)
      
-    @contextmanager       
+    @contextmanager
     def _meta_effective_dir(self):
-        if self.meta_is_chdir:
+        if self.meta_chdir:
             cwd = os.getcwd()
             os.chdir(self.meta_basedir)
             yield

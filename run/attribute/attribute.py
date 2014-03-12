@@ -29,7 +29,7 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
-        self._meta_is_chdir = kwargs.pop('is_chdir', True)
+        self._meta_chdir = kwargs.pop('chdir', True)
         self._meta_expand = kwargs.pop('expand', True)
         self._meta_signature = kwargs.pop('signature', None)
         self.__init__(*self._meta_args, **self._meta_kwargs)
@@ -72,7 +72,11 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_builder(self):
         return self._meta_builder
-            
+   
+    @property
+    def meta_chdir(self):
+        return self._meta_chdir
+           
     @property
     def meta_context(self):
         return self.meta_main_module                     
@@ -103,10 +107,6 @@ class Attribute(metaclass=AttributeMetaclass):
         if self.meta_docstring:
             lines.append(self.meta_docstring)
         return '\n'.join(lines)
-   
-    @property
-    def meta_is_chdir(self):
-        return self._meta_is_chdir
    
     @property
     def meta_main_module(self):
