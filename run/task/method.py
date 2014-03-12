@@ -36,3 +36,4 @@ class task:
     
 def skip(method):
     setattr(method, '__isskippedmethod__', True)
+    return method    

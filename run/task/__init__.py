@@ -4,7 +4,7 @@ from .descriptor import DescriptorTask
 from .draft import TaskDraft
 from .function import FunctionTask
 from .metaclass import TaskMetaclass
-from .method import MethodTask, task
+from .method import MethodTask, task, skip
 from .nested import NestedTask
 from .null import NullTask
 from .partial import PartialTask
