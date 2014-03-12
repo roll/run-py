@@ -9,23 +9,23 @@ class Var(Task, metaclass=ABCMeta):
         
     def __meta_init__(self):
         kwargs = self._meta_kwargs
-        self._meta_is_cache = kwargs.pop('is_cache', True)
-        self._meta_cache = DEFAULT
+        self._meta_cache = kwargs.pop('cache', True)
+        self._meta_cached = DEFAULT
         super().__meta_init__()
 
     def __get__(self, module, module_class=None):
-        if self.meta_is_cache:
-            if self._meta_cache == DEFAULT:
-                self._meta_cache = self()
-            return self._meta_cache
+        if self.meta_cache:
+            if self._meta_cached == DEFAULT:
+                self._meta_cached = self()
+            return self._meta_cached
         return self()
  
     def __set__(self, module, value):
         self.invoke = lambda: value
     
     @property    
-    def meta_is_cache(self):
-        return self._meta_is_cache
+    def meta_cache(self):
+        return self._meta_cache
     
     #Protected
     
