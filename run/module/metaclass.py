@@ -27,7 +27,9 @@ class ModuleMetaclass(AttributeMetaclass):
             if isinstance(attr, classmethod):
                 continue
             if getattr(attr, '__isabstractmethod__', False):
-                continue   
+                continue
+            if getattr(attr, '__isskippedmethod__', False):
+                continue               
             if callable(attr):
                 attrs[key] = cls._method_task_class(attr)
             elif inspect.isdatadescriptor(attr):
