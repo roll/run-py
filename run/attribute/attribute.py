@@ -89,8 +89,13 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_chdir(self):
         """Return attribute's chdir.
            See meta_basedir.
-           This property is read-only."""          
+           This property is writable."""          
         return self._meta_chdir
+        
+    @meta_chdir.setter   
+    def meta_chidir(self, value):
+        """Set attribute's chdir flag."""
+        self._meta_chdir = value
            
     @property
     def meta_context(self):
