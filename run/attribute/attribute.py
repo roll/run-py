@@ -144,7 +144,11 @@ class Attribute(metaclass=AttributeMetaclass):
         if self._meta_signature != None:
             return self._meta_signature
         else:
-            return self.meta_qualname    
+            return self.meta_qualname
+        
+    @meta_signature.setter
+    def meta_signature(self, value):
+        self._meta_signature = value
     
     @property
     def meta_type(self):
