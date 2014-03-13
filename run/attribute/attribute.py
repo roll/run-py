@@ -64,39 +64,44 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_basedir(self):
-        """Return basedir.
+        """Return attribute's basedir.
            If meta_chdir is True some type of attributes (tasks, vars)
            change current directory to basedir when invoking.
-           This property is read-only."""        
+           This property is writable."""        
         if self._meta_basedir != None:
             return self._meta_basedir
         else:
             return self.meta_module.meta_basedir
         
+    @meta_basedir.setter
+    def meta_basedir(self, value):
+        """Set attribute's basedir."""
+        self._meta_basedir = value
+        
     @property
     def meta_builder(self):
-        """Return builder.
+        """Return attribute's builder.
            To fork attribute use builder.build(*args, **kwargs).
            This property is read-only."""         
         return self._meta_builder
    
     @property
     def meta_chdir(self):
-        """Return chdir.
+        """Return attribute's chdir.
            See meta_basedir.
            This property is read-only."""          
         return self._meta_chdir
            
     @property
     def meta_context(self):
-        """Return context.
+        """Return attribute's context.
            Context has been using in render-type tasks.
            This property is read-only."""          
         return self.meta_main_module                 
        
     @property
     def meta_dispatcher(self):
-        """Return dispatcher.
+        """Return attribute's dispatcher.
            Dispatcher has been using to operate signals.
            This property is read-only."""         
         if self._meta_dispatcher != None:
@@ -106,7 +111,7 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_docstring(self):
-        """Return docstring.
+        """Return attribute's docstring.
            This property is read-only."""        
         if self._meta_docstring != None:
             return self._meta_docstring
@@ -115,14 +120,14 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_expand(self):
-        """Return expand setting.
+        """Return attribute's expand setting.
            If expand is True it means args was preprocessed.
            This property is read-only."""        
         return self._meta_expand
     
     @property
     def meta_info(self):
-        """Return info as string.
+        """Return attribute's info as string.
            By default it's a combination of signature and docstring.
            This property is read-only."""
         lines = []
@@ -134,13 +139,13 @@ class Attribute(metaclass=AttributeMetaclass):
    
     @property
     def meta_main_module(self):
-        """Return main module of module hierarchy.
+        """Return attribute's main module of module hierarchy.
            This property is read-only."""          
         return self.meta_module.meta_main_module            
     
     @property
     def meta_module(self):
-        """Return module. 
+        """Return attribute's module. 
            If attribute has been created with module it returns module.
            In other case it returns None.
            This property is read-only."""         
@@ -148,7 +153,7 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @property
     def meta_name(self):
-        """Return name. 
+        """Return attribute's name. 
            Name is defined as attribute name in attribute module.
            If module is None name will be empty string.
            This property is read-only.""" 
@@ -161,7 +166,7 @@ class Attribute(metaclass=AttributeMetaclass):
       
     @property
     def meta_qualname(self):
-        """Return qualified name.
+        """Return attribute's qualified name.
            Qualname includes module name and attribute name.
            This property is read-only.""" 
         if self.meta_module.meta_is_main_module:
@@ -178,7 +183,7 @@ class Attribute(metaclass=AttributeMetaclass):
 
     @property
     def meta_signature(self):
-        """Return signature.
+        """Return attribute's signature.
            This property is read-only.""" 
         if self._meta_signature != None:
             return self._meta_signature
@@ -187,7 +192,7 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_type(self):
-        """Return type as string. 
+        """Return attribute's type as string. 
            This property is read-only.""" 
         return type(self).__name__
     
