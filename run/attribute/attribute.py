@@ -64,6 +64,10 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_basedir(self):
+        """Return basedir.
+           If meta_chdir is True some type of attributes (tasks, vars)
+           change current directory to basedir when invoking.
+           This property is read-only."""        
         if self._meta_basedir != None:
             return self._meta_basedir
         else:
@@ -71,18 +75,30 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @property
     def meta_builder(self):
+        """Return builder.
+           To fork attribute use builder.build(*args, **kwargs).
+           This property is read-only."""         
         return self._meta_builder
    
     @property
     def meta_chdir(self):
+        """Return chdir.
+           See meta_basedir.
+           This property is read-only."""          
         return self._meta_chdir
            
     @property
     def meta_context(self):
-        return self.meta_main_module                     
+        """Return context.
+           Context has been using in render-type tasks.
+           This property is read-only."""          
+        return self.meta_main_module                 
        
     @property
     def meta_dispatcher(self):
+        """Return dispatcher.
+           Dispatcher has been using to operate signals.
+           This property is read-only."""         
         if self._meta_dispatcher != None:
             return self._meta_dispatcher
         else:
@@ -90,6 +106,8 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_docstring(self):
+        """Return docstring.
+           This property is read-only."""        
         if self._meta_docstring != None:
             return self._meta_docstring
         else:
@@ -97,10 +115,16 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_expand(self):
+        """Return expand setting.
+           If expand is True it means args was preprocessed.
+           This property is read-only."""        
         return self._meta_expand
     
     @property
     def meta_info(self):
+        """Return info as string.
+           By default it's a combination of signature and docstring.
+           This property is read-only."""
         lines = []
         if self.meta_signature:
             lines.append(self.meta_signature)
@@ -110,14 +134,24 @@ class Attribute(metaclass=AttributeMetaclass):
    
     @property
     def meta_main_module(self):
+        """Return main module of module hierarchy.
+           This property is read-only."""          
         return self.meta_module.meta_main_module            
     
     @property
     def meta_module(self):
+        """Return module. 
+           If attribute has been created with module it returns module.
+           In other case it returns None.
+           This property is read-only."""         
         return self._meta_module
         
     @property
     def meta_name(self):
+        """Return name. 
+           Name is defined as attribute name in attribute module.
+           If module is None name will be empty string.
+           This property is read-only.""" 
         name = ''
         attributes = self.meta_module.meta_attributes
         for key, attribute in attributes.items():
@@ -127,6 +161,9 @@ class Attribute(metaclass=AttributeMetaclass):
       
     @property
     def meta_qualname(self):
+        """Return qualified name.
+           Qualname includes module name and attribute name.
+           This property is read-only.""" 
         if self.meta_module.meta_is_main_module:
             if (self.meta_module.meta_name ==
                 self._meta_default_main_module_name):
@@ -141,13 +178,17 @@ class Attribute(metaclass=AttributeMetaclass):
 
     @property
     def meta_signature(self):
+        """Return signature.
+           This property is read-only.""" 
         if self._meta_signature != None:
             return self._meta_signature
         else:
-            return self.meta_qualname    
+            return self.meta_qualname
     
     @property
     def meta_type(self):
+        """Return type as string. 
+           This property is read-only.""" 
         return type(self).__name__
     
     #Protected
