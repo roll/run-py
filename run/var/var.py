@@ -23,9 +23,15 @@ class Var(Task, metaclass=ABCMeta):
     def __set__(self, module, value):
         self.invoke = lambda: value
     
-    @property    
+    @property
     def meta_cache(self):
+        """Return caching status (enabled or disabled).
+           This property is writable.""" 
         return self._meta_cache
+    
+    @meta_cache.setter
+    def meta_cache(self, value):
+        self._meta_cache = value
     
     #Protected
     
