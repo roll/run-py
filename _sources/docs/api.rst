@@ -9,8 +9,13 @@ run
    :members:
    :undoc-members:
    
+.. autoclass:: run.Module
+   :members:
+   :undoc-members:
+   :exclude-members: meta_basedir, meta_main_module, meta_name
+   
 .. automodule:: run
    :members:
    :undoc-members:
    :imported-members:
-   :exclude-members: Attribute
+   :exclude-members: Attribute, Module

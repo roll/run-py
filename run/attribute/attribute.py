@@ -93,7 +93,7 @@ class Attribute(metaclass=AttributeMetaclass):
         return self._meta_chdir
         
     @meta_chdir.setter   
-    def meta_chidir(self, value):
+    def meta_chdir(self, value):
         """Set attribute's chdir flag."""
         self._meta_chdir = value
            
