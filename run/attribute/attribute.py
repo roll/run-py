@@ -75,7 +75,6 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @meta_basedir.setter
     def meta_basedir(self, value):
-        """Set attribute's basedir."""
         self._meta_basedir = value
         
     @property
@@ -94,7 +93,6 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @meta_chdir.setter   
     def meta_chdir(self, value):
-        """Set attribute's chdir flag."""
         self._meta_chdir = value
            
     @property
