@@ -38,6 +38,9 @@ class ModuleMetaclass(AttributeMetaclass):
                 attrs[key] = cls._value_var_class(attr)
         return super().__new__(cls, name, bases, attrs)
     
+    def __copy__(self):
+        pass
+    
     #Protected
     
     _draft_class = ModuleDraft
