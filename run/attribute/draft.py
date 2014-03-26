@@ -19,6 +19,9 @@ class AttributeDraft:
         
     def __setattr__(self, name, value):
         self._builder.updates.append(self._set_class(name, value))
+        
+    def __copy__(self):
+        return self
       
     @property
     def meta_builder(self):
