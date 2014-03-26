@@ -10,6 +10,9 @@ class AttributeBuilder:
         self._class = cls
         self._args = list(args)
         self._kwargs = kwargs
+        
+    def __copy__(self):
+        return self.fork()
             
     def fork(self, *args, **kwargs):
         eargs = self._args+list(args)
