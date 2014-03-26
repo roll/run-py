@@ -13,6 +13,11 @@ class AttributeBuilder:
         
     def __copy__(self):
         return self.fork()
+     
+    def build(self, *args, **kwargs):
+        builder = self.fork(*args, **kwargs)
+        obj = builder._build_object()
+        return obj
             
     def fork(self, *args, **kwargs):
         eargs = self._args+list(args)
@@ -22,12 +27,7 @@ class AttributeBuilder:
         ekwargs.setdefault('updates', copy(self._updates))
         builder = type(self)(self._class, *eargs, **ekwargs)
         return builder
-     
-    def build(self, *args, **kwargs):
-        builder = self.fork(*args, **kwargs)
-        obj = builder._build_object()
-        return obj
-    
+        
     @property
     def cls(self):
         return self._class
