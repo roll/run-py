@@ -11,7 +11,7 @@ class NestedTaskTest(unittest.TestCase):
         MockTask = self._make_mock_task_class(self.builtin_task)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.task = MockTask('task', *self.args, module=None, **self.kwargs)
+        self.task = MockTask('task', *self.args, build=True, **self.kwargs)
         
     def test_invoke(self):
         self.assertEqual(self.task.invoke(), 'value')

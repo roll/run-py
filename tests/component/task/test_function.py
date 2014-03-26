@@ -9,7 +9,7 @@ class FunctionTaskTest(unittest.TestCase):
     def setUp(self):
         MockFunctionTask = self._make_mock_function_task_class()
         self.function = Mock(return_value='value', __doc__='docstring')        
-        self.task = MockFunctionTask(self.function, module=None)
+        self.task = MockFunctionTask(self.function, build=True)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}        
         

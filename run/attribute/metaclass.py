@@ -7,8 +7,9 @@ class AttributeMetaclass(ABCMeta):
     #Public
     
     def __call__(self, *args, **kwargs):
+        build = kwargs.pop('build', False)
         draft = self._draft_class(self, *args, **kwargs)
-        if 'module' in kwargs:
+        if build:
             return self._build_function(draft)
         else:
             return draft

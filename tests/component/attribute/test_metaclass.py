@@ -26,10 +26,10 @@ class AttributeMetaclassTest(unittest.TestCase):
             return_value.called))
     
     def test___call___with_module(self):
-        attribute = self.MockAttribute(module='module')
+        attribute = self.MockAttribute(build=True)
         self.assertIsInstance(attribute, MagicMock)
         (self.MockAttributeMetaclass._draft_class.
-            assert_called_with(self.MockAttribute, module='module'))
+            assert_called_with(self.MockAttribute))
         (self.MockAttributeMetaclass._draft_class.
             return_value.meta_builder.build.assert_called_with())
         

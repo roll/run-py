@@ -8,7 +8,7 @@ class ModuleTest(unittest.TestCase):
     #Public
 
     def setUp(self):
-        self.run = MockMainModule(module=None)
+        self.run = MockMainModule(build=True)
         
     def test_list(self):
         self.run.list()
