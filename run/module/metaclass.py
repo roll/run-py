@@ -1,4 +1,5 @@
 import inspect
+from copy import copy
 from ..attribute import AttributeDraft, AttributeMetaclass, Attribute
 from ..task import MethodTask
 from ..var import ValueVar, DescriptorVar
@@ -39,7 +40,14 @@ class ModuleMetaclass(AttributeMetaclass):
         return super().__new__(cls, name, bases, attrs)
     
     def __copy__(self):
-        pass
+        attrs = {}
+        for cls in reversed(self.mro()):
+            for key, attr in vars(cls).items():
+                if isinstance(attr, self._attribute_draft_class):
+                    attrs[key] = copy(attr)
+        attrs['__doc__'] = self.__doc__
+        attrs['__module__'] = self.__module__
+        return type(self)(self.__name__, (self,), attrs)
     
     #Protected
     

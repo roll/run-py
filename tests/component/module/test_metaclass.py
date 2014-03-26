@@ -1,4 +1,5 @@
 import unittest
+from copy import copy
 from abc import abstractmethod
 from unittest.mock import Mock, MagicMock
 from run.module.metaclass import ModuleMetaclass
@@ -36,6 +37,9 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.MockModuleMetaclass._method_task_class.assert_called_with(self.method)
         self.MockModuleMetaclass._descriptor_var_class.assert_called_with(self.descriptor)
         self.MockModuleMetaclass._value_var_class.assert_called_with('value_attr')
+        
+    def test___copy__(self):
+        self.assertTrue(issubclass(copy(self.MockModule), self.MockModule))
         
     #Protected
     
