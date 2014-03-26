@@ -24,8 +24,8 @@ class AttributeBuilder:
         return builder
      
     def build(self, *args, **kwargs):
-        obj = self._create_object()
-        self._init_object(obj, *args, **kwargs)
+        builder = self.fork(*args, **kwargs)
+        obj = builder._build_object()
         return obj
     
     @property
@@ -46,18 +46,22 @@ class AttributeBuilder:
     
     @property
     def updates(self):
-        return self._updates        
+        return self._updates
     
     #Protected
+    
+    def _build_object(self):
+        obj = self._create_object()
+        self._init_object(obj)
+        return obj             
              
     def _create_object(self):
         return object.__new__(self._class)
         
-    def _init_object(self, obj, *args, **kwargs):
-        builder = self.fork(*args, **kwargs)
-        obj.__meta_build__(builder)
-        if builder.module != True:
-            obj.__meta_bind__(builder.module)
+    def _init_object(self, obj):
+        obj.__meta_build__(self)
+        if self._module != True:
+            obj.__meta_bind__(self._module)
             obj.__meta_init__()
             obj.__meta_update__()
             obj.__meta_ready__()
