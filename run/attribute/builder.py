@@ -15,13 +15,13 @@ class AttributeBuilder:
         return self.fork()
      
     def build(self, *args, **kwargs):
-        """Make object using forked with args, kwargs builder"""
+        """Make object using forked builder with args, kwargs"""
         builder = self.fork(*args, **kwargs)
         obj = builder.make()
         return obj
             
     def fork(self, *args, **kwargs):
-        """Fork builder with different args, kwargs"""
+        """Fork builder with applied args, kwargs"""
         eargs = self._args+list(args)
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
