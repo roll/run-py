@@ -13,12 +13,9 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def __meta_init__(self):
         kwargs = self._meta_kwargs        
         self._meta_dependencies = []
-        self._meta_add_dependencies(
-            kwargs.pop('depend', []))        
-        self._meta_add_dependencies(
-            kwargs.pop('require', []), require)
-        self._meta_add_dependencies(
-            kwargs.pop('trigger', []), trigger)
+        self._meta_add_dependencies(kwargs.pop('depend', []))        
+        self._meta_add_dependencies(kwargs.pop('require', []), require)
+        self._meta_add_dependencies(kwargs.pop('trigger', []), trigger)
         super().__meta_init__()
         
     def __get__(self, module, module_class=None):
