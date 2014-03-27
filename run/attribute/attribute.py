@@ -23,14 +23,10 @@ class Attribute(metaclass=AttributeMetaclass):
     def __meta_init__(self):
         args = self._meta_args
         kwargs = self._meta_kwargs
-        if kwargs.get('expand', True):
-            self._meta_expand_args(args)
-            self._meta_expand_args(kwargs)
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
         self._meta_chdir = kwargs.pop('chdir', True)
-        self._meta_expand = kwargs.pop('expand', True)
         self._meta_signature = kwargs.pop('signature', None)
         self.__init__(*self._meta_args, **self._meta_kwargs)
     
@@ -122,13 +118,6 @@ class Attribute(metaclass=AttributeMetaclass):
             return inspect.getdoc(self)
     
     @property
-    def meta_expand(self):
-        """Return attribute's expand setting.
-           If expand is True it means args was preprocessed.
-           This property is read-only."""        
-        return self._meta_expand
-    
-    @property
     def meta_info(self):
         """Return attribute's info as string.
            By default it's a combination of signature and docstring.
@@ -207,18 +196,4 @@ class Attribute(metaclass=AttributeMetaclass):
     def _meta_null_module_class(self):
         #Cycle dependency if static
         from ..module import NullModule
-        return NullModule
-    
-    def _meta_expand_args(self, args):
-        try:
-            iterator = args.items()
-        except AttributeError:
-            iterator = enumerate(args)
-        for key, value in iterator:
-            args[key] = self._meta_expand_value(value)
-        return args
-    
-    def _meta_expand_value(self, value):
-        if inspect.isdatadescriptor(value):
-            value = value.__get__(self.meta_module, type(self.meta_module))
-        return value    
+        return NullModule   
