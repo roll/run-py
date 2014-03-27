@@ -8,6 +8,7 @@ from .method import MethodTask, task, skip
 from .nested import NestedTask
 from .null import NullTask
 from .partial import PartialTask
+from .render import RenderTask
 from .resolver import TaskResolver, TaskCommonResolver, TaskNestedResolver
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 from .subprocess import SubprocessTask

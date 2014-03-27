@@ -14,7 +14,8 @@ from .run import Run, RunController, RunStack
 from .settings import Settings, settings
 from .task import (TaskDraft, TaskMetaclass, Task, 
                    DescriptorTask, FunctionTask, MethodTask, task, skip, 
-                   NestedTask, NullTask, PartialTask, ValueTask, SubprocessTask, 
+                   NestedTask, NullTask, PartialTask, 
+                   RenderTask, ValueTask, SubprocessTask, 
                    InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal,
                    TaskResolver, TaskCommonResolver, TaskNestedResolver,
                    TaskDependency, TaskDependencyDecorator, 
