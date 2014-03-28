@@ -67,7 +67,6 @@ class AttributeBuilder:
             obj.__meta_bind__(self._module)
             obj.__meta_init__()
             obj.__meta_update__()
-            obj.__meta_ready__()
     
     
 def build(attribute, *args, **kwargs):

@@ -32,10 +32,8 @@ class Attribute(metaclass=AttributeMetaclass):
     
     def __meta_update__(self):
         for update in self._meta_updates:
-            update.apply(self) 
-        
-    def __meta_ready__(self):
-        self._meta_ready = True      
+            update.apply(self)
+        self._meta_ready = True  
       
     @abstractmethod
     def __get__(self, module, module_class=None):

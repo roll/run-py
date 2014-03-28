@@ -25,12 +25,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def __meta_update__(self):
         super().__meta_update__()
         for attribute in self.meta_attributes.values():
-            attribute.__meta_update__()
-                    
-    def __meta_ready__(self):
-        super().__meta_ready__()
-        for attribute in self.meta_attributes.values():
-            attribute.__meta_ready__()            
+            attribute.__meta_update__()          
         
     def __get__(self, module=None, module_class=None):
         return self
