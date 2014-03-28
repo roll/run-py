@@ -12,29 +12,13 @@ class AttributeBuilder:
         self._kwargs = kwargs
         
     def __copy__(self):
-        return self.fork()
+        return self._fork_builder()
      
     def build(self, *args, **kwargs):
         """Make object using forked builder with args, kwargs"""
-        builder = self.fork(*args, **kwargs)
-        obj = builder.make()
+        builder = self._fork_builder(*args, **kwargs)
+        obj = builder._build_object()
         return obj
-            
-    def fork(self, *args, **kwargs):
-        """Fork builder with applied args, kwargs"""
-        eargs = self._args+list(args)
-        ekwargs = copy(self._kwargs)
-        ekwargs.update(kwargs)
-        ekwargs.setdefault('module', self._module)
-        ekwargs.setdefault('updates', copy(self._updates))
-        builder = type(self)(self._class, *eargs, **ekwargs)
-        return builder
-    
-    def make(self):
-        """Make object for this builder"""
-        obj = self._create_object()
-        self._init_object(obj)
-        return obj     
     
     @property
     def cls(self):
@@ -57,7 +41,21 @@ class AttributeBuilder:
         return self._updates
     
     #Protected
-             
+            
+    def _fork_builder(self, *args, **kwargs):
+        eargs = self._args+list(args)
+        ekwargs = copy(self._kwargs)
+        ekwargs.update(kwargs)
+        ekwargs.setdefault('module', self._module)
+        ekwargs.setdefault('updates', copy(self._updates))
+        builder = type(self)(self._class, *eargs, **ekwargs)
+        return builder
+    
+    def _build_object(self):
+        obj = self._create_object()
+        self._init_object(obj)
+        return obj    
+          
     def _create_object(self):
         return object.__new__(self._class)
         
