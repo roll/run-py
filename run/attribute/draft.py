@@ -22,15 +22,15 @@ class AttributeDraft:
         
     def __setattr__(self, name, value):
         self._updates.append(self._set_class(name, value))
-        
-    def __copy__(self):
-        return self._fork_draft()
      
     def __call__(self, *args, **kwargs):
         """Build object using forked draft with applied args, kwargs"""
         draft = self._fork_draft(*args, **kwargs)
         obj = draft._build_object()
         return obj
+        
+    def __copy__(self):
+        return self._fork_draft()
       
     @property
     def meta_draft(self):
@@ -58,10 +58,9 @@ class AttributeDraft:
         return object.__new__(self._class)
         
     def _init_object(self, obj):
-        ekwargs = copy(self._kwargs)
-        ekwargs.setdefault('module', self._module)
-        ekwargs.setdefault('updates', copy(self._updates))        
-        obj.__meta_build__(self, *self._args, **self._kwargs)
+        kwargs = copy(self._kwargs)
+        kwargs.setdefault('updates', copy(self._updates))        
+        obj.__meta_build__(self, *self._args, **kwargs)
         if self._module != True:
             obj.__meta_init__(self._module)  
             
