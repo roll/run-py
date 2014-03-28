@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, ANY
 from run.attribute.draft import AttributeDraft
 
 class AttributeBuilderTest(unittest.TestCase):
@@ -8,16 +8,12 @@ class AttributeBuilderTest(unittest.TestCase):
     
     def setUp(self):
         self.args = ('arg1',)
-        self.kwargs = {'kwarg1': 'kwarg1'}
+        self.kwargs = {'kwarg1': 'kwarg1', 'updates': Mock()}
         self.mock_set = Mock(apply = Mock())
-        self.MockAttribute = Mock(attr1='value1', spec_set=['attr1'])
+        self.MockAttribute = self._make_mock_attribute_class()
         self.MockDraft = self._make_mock_draft_class(
             self.MockAttribute, self.mock_set)
         self.draft = self.MockDraft(
-            self.MockAttribute, *self.args, **self.kwargs)
-    
-    def test(self):
-        self.draft._builder_class.assert_called_with(
             self.MockAttribute, *self.args, **self.kwargs)
     
     def test___getattr__(self):
@@ -29,23 +25,38 @@ class AttributeBuilderTest(unittest.TestCase):
     def test___setattr__(self):
         self.draft.attr2 = 'value2'
         self.draft._set_class.assert_called_with('attr2', 'value2')
-        (self.draft._builder_class.return_value.updates.append.
-             assert_called_with(self.mock_set))
+        self.kwargs['updates'].append.assert_called_with(self.mock_set)
+
+    def test___call__(self):
+        self.draft.attr2 = 'value2'
+        obj = self.draft()
+        self.assertIsInstance(obj, self.MockAttribute)
+        obj.__meta_build__.assert_called_with(ANY)
+        obj.__meta_init__.assert_called_with(None)
         
-    def test_meta_builder(self):
+    def test_meta_draft(self):
         self.assertEqual(
-            self.draft.meta_builder, 
-            self.draft._builder_class.return_value)
+            self.draft.meta_draft, 
+            self.draft)
         
+    def test_args(self):
+        self.assertEqual(self.draft.args, ['arg1'])
+        
+    def test_kwargs(self):
+        self.assertEqual(self.draft.kwargs, {'kwarg1': 'kwarg1'})
+          
     #Protected
     
     def _make_mock_draft_class(self, MockAttribute, mock_set):
-        class MockBuilder: 
-            #Public
-            cls = MockAttribute
-            updates = Mock()
         class MockDraft(AttributeDraft): 
             #Protected
-            _builder_class = Mock(return_value=MockBuilder)
             _set_class = Mock(return_value=mock_set)
         return MockDraft
+    
+    def _make_mock_attribute_class(self):
+        class MockAttribute:
+            #Public
+            __meta_build__ = Mock()
+            __meta_init__ = Mock()
+            attr1 = 'value1' 
+        return MockAttribute    

@@ -31,7 +31,7 @@ class AttributeMetaclassTest(unittest.TestCase):
         (self.MockAttributeMetaclass._draft_class.
             assert_called_with(self.MockAttribute))
         (self.MockAttributeMetaclass._draft_class.
-            return_value.meta_builder.build.assert_called_with())
+            return_value.meta_draft.assert_called_with())
         
     #Protected
     
@@ -39,7 +39,7 @@ class AttributeMetaclassTest(unittest.TestCase):
         class MockAttributeMetaclass(AttributeMetaclass):
             #Protected
             _draft_class = Mock(return_value=Mock(
-                meta_builder=Mock(build=MagicMock())))
+                meta_draft=Mock(return_value=MagicMock())))
         return MockAttributeMetaclass
     
     def _make_mock_attribute_class(self, mock_attribute_metaclass):

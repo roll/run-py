@@ -1,4 +1,4 @@
-from .attribute import (AttributeDraft, AttributeBuilder, build,
+from .attribute import (AttributeDraft, build,
                         AttributeMetaclass, Attribute, AttributeSignal,
                         AttributeUpdate, AttributeSet, AttributeCall)
 from .cluster import Cluster
@@ -6,7 +6,7 @@ from .command import Command
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
                          DispatcherCallbackHandler, DispatcherSignal)
 from .finder import Finder
-from .module import (ModuleDraft, ModuleBuilder, ModuleMetaclass, 
+from .module import (ModuleDraft, ModuleMetaclass, 
                      Module, ModuleAttributes, AutoModule, 
                      FindModule, NullModule, SubprocessModule)
 from .program import Program, program

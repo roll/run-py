@@ -75,7 +75,7 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
         return MethodTask    
     
     @abstractmethod
-    def _add_dependency(self, builder):
+    def _add_dependency(self, draft):
         pass #pragma: no cover
         
         
@@ -88,8 +88,8 @@ class depend(TaskDependencyDecorator):
     
     #Protected
     
-    def _add_dependency(self, builder):
-        builder.add_dependency(self._dep)
+    def _add_dependency(self, draft):
+        draft.add_dependency(self._dep)
 
         
 class require(TaskDependencyDecorator, TaskDependency):
@@ -104,8 +104,8 @@ class require(TaskDependencyDecorator, TaskDependency):
     
     #Protected
     
-    def _add_dependency(self, builder):
-        builder.add_dependency(self)
+    def _add_dependency(self, draft):
+        draft.add_dependency(self)
         
         
 class trigger(TaskDependencyDecorator, TaskDependency):
@@ -126,5 +126,5 @@ class trigger(TaskDependencyDecorator, TaskDependency):
     
     #Protected
     
-    def _add_dependency(self, builder):
-        builder.add_dependency(self)
+    def _add_dependency(self, draft):
+        draft.add_dependency(self)

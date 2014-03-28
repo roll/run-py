@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from .builder import build
+from .draft import build
 from .draft import AttributeDraft
 
 class AttributeMetaclass(ABCMeta):

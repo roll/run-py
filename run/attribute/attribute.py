@@ -8,11 +8,11 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __meta_build__(self, builder):
-        self._meta_builder = builder
-        self._meta_args = copy(builder.args)
-        self._meta_kwargs = copy(builder.kwargs)
-        self._meta_updates = copy(builder.updates)
+    def __meta_build__(self, draft):
+        self._meta_draft = draft
+        self._meta_args = copy(draft.args)
+        self._meta_kwargs = copy(draft.kwargs)
+        self._meta_updates = copy(draft.updates)
         self._meta_ready = False
         
     def __meta_init__(self, module):
@@ -68,11 +68,12 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_basedir = value
         
     @property
-    def meta_builder(self):
-        """Return attribute's builder.
-           To fork attribute use builder.build(*args, **kwargs).
+    def meta_draft(self):
+        """Return attribute's draft.
+           To fork attribute call attr.meta_draft(*args, **kwargs) or
+           shortcut build(attr, *args, **kwargs).
            This property is read-only."""         
-        return self._meta_builder
+        return self._meta_draft
    
     @property
     def meta_chdir(self):
