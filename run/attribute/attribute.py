@@ -29,8 +29,6 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_chdir = kwargs.pop('chdir', True)
         self._meta_signature = kwargs.pop('signature', None)
         self.__init__(*self._meta_args, **self._meta_kwargs)
-    
-    def __meta_update__(self):
         for update in self._meta_updates:
             update.apply(self)
         self._meta_ready = True  
