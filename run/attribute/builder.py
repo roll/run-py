@@ -15,7 +15,7 @@ class AttributeBuilder:
         return self._fork_builder()
      
     def build(self, *args, **kwargs):
-        """Make object using forked builder with args, kwargs"""
+        """Make object using forked builder with applied args, kwargs"""
         builder = self._fork_builder(*args, **kwargs)
         obj = builder._build_object()
         return obj

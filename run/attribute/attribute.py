@@ -12,7 +12,7 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_builder = builder
         self._meta_args = copy(builder.args)
         self._meta_kwargs = copy(builder.kwargs)
-        self._meta_updates = copy(builder.updates)        
+        self._meta_updates = copy(builder.updates)
         self._meta_ready = False
         
     def __meta_init__(self, module):
