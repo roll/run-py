@@ -35,26 +35,6 @@ class AttributeDraft:
     @property
     def meta_draft(self):
         return self
-    
-    @property
-    def cls(self):
-        return self._class
-    
-    @property
-    def args(self):
-        return self._args
-    
-    @property
-    def kwargs(self):
-        return self._kwargs
-    
-    @property
-    def module(self):
-        return self._module
-    
-    @property
-    def updates(self):
-        return self._updates
      
     #Protected
     
@@ -78,7 +58,10 @@ class AttributeDraft:
         return object.__new__(self._class)
         
     def _init_object(self, obj):
-        obj.__meta_build__(self)
+        ekwargs = copy(self._kwargs)
+        ekwargs.setdefault('module', self._module)
+        ekwargs.setdefault('updates', copy(self._updates))        
+        obj.__meta_build__(self, *self._args, **self._kwargs)
         if self._module != True:
             obj.__meta_init__(self._module)  
             

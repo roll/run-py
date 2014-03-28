@@ -31,19 +31,13 @@ class AttributeBuilderTest(unittest.TestCase):
         self.draft.attr2 = 'value2'
         obj = self.draft()
         self.assertIsInstance(obj, self.MockAttribute)
-        obj.__meta_build__.assert_called_with(ANY)
+        obj.__meta_build__.assert_called_with(ANY, 'arg1', kwarg1='kwarg1')
         obj.__meta_init__.assert_called_with(None)
         
     def test_meta_draft(self):
         self.assertEqual(
             self.draft.meta_draft, 
             self.draft)
-        
-    def test_args(self):
-        self.assertEqual(self.draft.args, ['arg1'])
-        
-    def test_kwargs(self):
-        self.assertEqual(self.draft.kwargs, {'kwarg1': 'kwarg1'})
           
     #Protected
     

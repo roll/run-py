@@ -1,5 +1,4 @@
 import inspect
-from copy import copy
 from abc import abstractmethod
 from ..settings import settings
 from .metaclass import AttributeMetaclass
@@ -8,11 +7,11 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __meta_build__(self, draft):
+    def __meta_build__(self, draft, *args, **kwargs):
         self._meta_draft = draft
-        self._meta_args = copy(draft.args)
-        self._meta_kwargs = copy(draft.kwargs)
-        self._meta_updates = copy(draft.updates)
+        self._meta_updates = kwargs.pop('updates', [])     
+        self._meta_args = list(args)
+        self._meta_kwargs = kwargs
         self._meta_ready = False
         
     def __meta_init__(self, module):
