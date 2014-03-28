@@ -64,8 +64,7 @@ class AttributeBuilder:
     def _init_object(self, obj):
         obj.__meta_build__(self)
         if self._module != True:
-            obj.__meta_bind__(self._module)
-            obj.__meta_init__()
+            obj.__meta_init__(self._module)
     
     
 def build(attribute, *args, **kwargs):

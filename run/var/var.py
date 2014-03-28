@@ -7,11 +7,11 @@ class Var(Task, metaclass=ABCMeta):
     
     #Public
         
-    def __meta_init__(self):
+    def __meta_init__(self, module):
         kwargs = self._meta_kwargs
         self._meta_cache = kwargs.pop('cache', True)
         self._meta_cached = DEFAULT
-        super().__meta_init__()
+        super().__meta_init__(module)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:

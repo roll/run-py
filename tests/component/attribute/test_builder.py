@@ -19,8 +19,7 @@ class AttributeBuilderTest(unittest.TestCase):
         obj = self.builder.build()
         self.assertIsInstance(obj, self.MockAttribute)
         obj.__meta_build__.assert_called_with(ANY)
-        obj.__meta_bind__.assert_called_with(None)
-        obj.__meta_init__.assert_called_with()
+        obj.__meta_init__.assert_called_with(None)
         
     def test_args(self):
         self.assertEqual(self.builder.args, list(self.args))
@@ -34,7 +33,6 @@ class AttributeBuilderTest(unittest.TestCase):
         class MockAttribute:
             #Public
             __meta_build__ = Mock()
-            __meta_bind__ = Mock()
             __meta_init__ = Mock()
             attr1 = 'value1' 
         return MockAttribute

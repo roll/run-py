@@ -10,17 +10,12 @@ from .metaclass import ModuleMetaclass
 class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Public
-        
-    def __meta_bind__(self, module):
-        super().__meta_bind__(module)
-        for attribute in self.meta_attributes.values():
-            attribute.__meta_bind__(self)
     
-    def __meta_init__(self):
+    def __meta_init__(self, module):
         self._meta_tags = []
-        super().__meta_init__()
+        super().__meta_init__(module)
         for attribute in self.meta_attributes.values():
-            attribute.__meta_init__()  
+            attribute.__meta_init__(self)  
         
     def __get__(self, module=None, module_class=None):
         return self

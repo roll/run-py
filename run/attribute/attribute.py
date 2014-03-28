@@ -15,12 +15,10 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_updates = copy(builder.updates)        
         self._meta_ready = False
         
-    def __meta_bind__(self, module):
+    def __meta_init__(self, module):
         if module == None:
             module = self._meta_null_module_class(build=True)
         self._meta_module = module
-        
-    def __meta_init__(self):
         args = self._meta_args
         kwargs = self._meta_kwargs
         self._meta_basedir = kwargs.pop('basedir', None)
