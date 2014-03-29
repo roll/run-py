@@ -7,7 +7,7 @@ class ModulePrototype(AttributePrototype):
     
     _attribute_prototype_class = AttributePrototype
      
-    def _create_object(self):
+    def _create_attribute(self):
         return object.__new__(self._builded_class)
     
     @cachedproperty

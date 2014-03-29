@@ -26,7 +26,7 @@ class AttributePrototype:
     def __call__(self, *args, **kwargs):
         """Build object using forked prototype with applied args, kwargs"""
         prototype = self._fork_prototype(*args, **kwargs)
-        obj = prototype._build_object()
+        obj = prototype._build_attribute()
         return obj
         
     def __copy__(self):
@@ -49,20 +49,20 @@ class AttributePrototype:
         prototype = type(self)(self._class, *eargs, **ekwargs)
         return prototype
     
-    def _build_object(self):
-        obj = self._create_object()
-        self._init_object(obj)
-        return obj    
+    def _build_attribute(self):
+        attribute = self._create_attribute()
+        self._init_attribute(attribute)
+        return attribute    
           
-    def _create_object(self):
+    def _create_attribute(self):
         return object.__new__(self._class)
         
-    def _init_object(self, obj):
+    def _init_attribute(self, attribute):
         kwargs = copy(self._kwargs)
         kwargs.setdefault('updates', copy(self._updates))        
-        obj.__meta_build__(self, *self._args, **kwargs)
+        attribute.__meta_build__(self, *self._args, **kwargs)
         if self._module != True:
-            obj.__meta_init__(self._module)  
+            attribute.__meta_init__(self._module)  
             
             
 def build(attribute, *args, **kwargs):

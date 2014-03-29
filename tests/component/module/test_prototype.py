@@ -11,8 +11,8 @@ class ModulePrototypeTest(unittest.TestCase):
         self.MockModule = self._make_mock_module_class()
         self.prototype = MockModulePrototype(self.MockModule)
     
-    def test__create_object(self):
-        obj = self.prototype._create_object()
+    def test__create_attribute(self):
+        obj = self.prototype._create_attribute()
         self.assertIsInstance(obj, self.prototype._builded_class)
         
     def test__builded_class(self):
