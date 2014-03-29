@@ -1,7 +1,13 @@
+from copy import copy
 from box.functools import cachedproperty
 from ..attribute import AttributePrototype, build
 
 class ModulePrototype(AttributePrototype):
+    
+    #Public
+    
+    def __init__(self, cls, *args, **kwargs):
+        super().__init__(copy(cls), *args, **kwargs)
         
     #Protected
     
