@@ -26,8 +26,8 @@ class AttributePrototype:
     def __call__(self, *args, **kwargs):
         """Build object using forked prototype with applied args, kwargs"""
         prototype = self._fork_prototype(*args, **kwargs)
-        obj = prototype._build_attribute()
-        return obj
+        attribute = prototype._build_attribute()
+        return attribute
         
     def __copy__(self):
         return self._fork_prototype()
