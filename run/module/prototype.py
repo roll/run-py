@@ -1,11 +1,11 @@
 from box.functools import cachedproperty
-from ..attribute import AttributeDraft, build
+from ..attribute import AttributePrototype, build
 
-class ModuleDraft(AttributeDraft):
+class ModulePrototype(AttributePrototype):
         
     #Protected
     
-    _attribute_draft_class = AttributeDraft
+    _attribute_prototype_class = AttributePrototype
      
     def _create_object(self):
         return object.__new__(self._builded_class)
@@ -30,7 +30,7 @@ class ModuleDraft(AttributeDraft):
         attrs = {}
         for cls in reversed(self._class.mro()):
             for key, attr in vars(cls).items():
-                if isinstance(attr, self._attribute_draft_class):
+                if isinstance(attr, self._attribute_prototype_class):
                     attrs[key] = build(attr, module=True)
         attrs['__doc__'] = self._class.__doc__
         attrs['__module__'] = self._class.__module__

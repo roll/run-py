@@ -1,9 +1,9 @@
 import inspect
 from copy import copy
-from ..attribute import AttributeDraft, AttributeMetaclass, Attribute
+from ..attribute import AttributePrototype, AttributeMetaclass, Attribute
 from ..task import MethodTask
 from ..var import ValueVar, DescriptorVar
-from .draft import ModuleDraft
+from .prototype import ModulePrototype
 
 class ModuleMetaclass(AttributeMetaclass):
      
@@ -21,7 +21,7 @@ class ModuleMetaclass(AttributeMetaclass):
                 continue
             if isinstance(attr, cls._attribute_class):
                 continue
-            if isinstance(attr, cls._attribute_draft_class):
+            if isinstance(attr, cls._attribute_prototype_class):
                 continue
             if isinstance(attr, staticmethod):
                 continue
@@ -43,7 +43,7 @@ class ModuleMetaclass(AttributeMetaclass):
         attrs = {}
         for cls in reversed(self.mro()):
             for key, attr in vars(cls).items():
-                if isinstance(attr, self._attribute_draft_class):
+                if isinstance(attr, self._attribute_prototype_class):
                     attrs[key] = copy(attr)
         attrs['__doc__'] = self.__doc__
         attrs['__module__'] = self.__module__
@@ -51,9 +51,9 @@ class ModuleMetaclass(AttributeMetaclass):
     
     #Protected
     
-    _draft_class = ModuleDraft
+    _prototype_class = ModulePrototype
     _attribute_class = Attribute
-    _attribute_draft_class = AttributeDraft
+    _attribute_prototype_class = AttributePrototype
     _method_task_class = MethodTask
     _descriptor_var_class = DescriptorVar
     _value_var_class = ValueVar

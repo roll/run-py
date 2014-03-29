@@ -1,6 +1,6 @@
-from ..attribute import AttributeDraft, AttributeCall
+from ..attribute import AttributePrototype, AttributeCall
 
-class TaskDraft(AttributeDraft):
+class TaskPrototype(AttributePrototype):
     
     #Public
         

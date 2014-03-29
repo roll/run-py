@@ -20,26 +20,26 @@ class AttributeMetaclassTest(unittest.TestCase):
         kwargs = {'kwarg1': 'kwarg1'}
         attribute = self.MockAttribute(*args, **kwargs)
         self.assertIsInstance(attribute, Mock)
-        (self.MockAttributeMetaclass._draft_class.
+        (self.MockAttributeMetaclass._prototype_class.
             assert_called_with(self.MockAttribute, *args, **kwargs))
-        (self.assertFalse(self.MockAttributeMetaclass._draft_class.
+        (self.assertFalse(self.MockAttributeMetaclass._prototype_class.
             return_value.called))
     
     def test___call___with_module(self):
         attribute = self.MockAttribute(build=True)
         self.assertIsInstance(attribute, MagicMock)
-        (self.MockAttributeMetaclass._draft_class.
+        (self.MockAttributeMetaclass._prototype_class.
             assert_called_with(self.MockAttribute))
-        (self.MockAttributeMetaclass._draft_class.
-            return_value.meta_draft.assert_called_with())
+        (self.MockAttributeMetaclass._prototype_class.
+            return_value.meta_prototype.assert_called_with())
         
     #Protected
     
     def _make_mock_attribute_metaclass(self):
         class MockAttributeMetaclass(AttributeMetaclass):
             #Protected
-            _draft_class = Mock(return_value=Mock(
-                meta_draft=Mock(return_value=MagicMock())))
+            _prototype_class = Mock(return_value=Mock(
+                meta_prototype=Mock(return_value=MagicMock())))
         return MockAttributeMetaclass
     
     def _make_mock_attribute_class(self, mock_attribute_metaclass):

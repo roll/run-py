@@ -1,8 +1,8 @@
 from ..attribute import AttributeMetaclass
-from .draft import TaskDraft
+from .prototype import TaskPrototype
 
 class TaskMetaclass(AttributeMetaclass):
     
     #Protected
     
-    _draft_class = TaskDraft
+    _prototype_class = TaskPrototype

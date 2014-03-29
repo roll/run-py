@@ -1,6 +1,5 @@
 from abc import ABCMeta
-from .draft import build
-from .draft import AttributeDraft
+from .prototype import AttributePrototype, build
 
 class AttributeMetaclass(ABCMeta):
     
@@ -8,13 +7,13 @@ class AttributeMetaclass(ABCMeta):
     
     def __call__(self, *args, **kwargs):
         build = kwargs.pop('build', False)
-        draft = self._draft_class(self, *args, **kwargs)
+        prototype = self._prototype_class(self, *args, **kwargs)
         if build:
-            return self._build_function(draft)
+            return self._build_function(prototype)
         else:
-            return draft
+            return prototype
         
     #Protected
     
-    _draft_class = AttributeDraft
+    _prototype_class = AttributePrototype
     _build_function = staticmethod(build)

@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
-from .draft import TaskDraft
+from .prototype import TaskPrototype
 from .resolver import TaskResolver, TaskCommonResolver, TaskNestedResolver
 
 class TaskDependency(TaskResolver, metaclass=ABCMeta):
@@ -58,15 +58,15 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
     #Public    
     
     def __call__(self, method):
-        draft = method
-        if not isinstance(method, self._draft_class):
-            draft = self._method_task_class(method)
-        self._add_dependency(draft)
-        return draft
+        prototype = method
+        if not isinstance(method, self._prototype_class):
+            prototype = self._method_task_class(method)
+        self._add_dependency(prototype)
+        return prototype
     
     #Protected    
     
-    _draft_class = TaskDraft
+    _prototype_class = TaskPrototype
     
     @property
     def _method_task_class(self):
@@ -75,7 +75,7 @@ class TaskDependencyDecorator(metaclass=ABCMeta):
         return MethodTask    
     
     @abstractmethod
-    def _add_dependency(self, draft):
+    def _add_dependency(self, prototype):
         pass #pragma: no cover
         
         
@@ -88,8 +88,8 @@ class depend(TaskDependencyDecorator):
     
     #Protected
     
-    def _add_dependency(self, draft):
-        draft.add_dependency(self._dep)
+    def _add_dependency(self, prototype):
+        prototype.add_dependency(self._dep)
 
         
 class require(TaskDependencyDecorator, TaskDependency):
@@ -104,8 +104,8 @@ class require(TaskDependencyDecorator, TaskDependency):
     
     #Protected
     
-    def _add_dependency(self, draft):
-        draft.add_dependency(self)
+    def _add_dependency(self, prototype):
+        prototype.add_dependency(self)
         
         
 class trigger(TaskDependencyDecorator, TaskDependency):
@@ -126,5 +126,5 @@ class trigger(TaskDependencyDecorator, TaskDependency):
     
     #Protected
     
-    def _add_dependency(self, draft):
-        draft.add_dependency(self)
+    def _add_dependency(self, prototype):
+        prototype.add_dependency(self)

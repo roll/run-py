@@ -7,8 +7,8 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public
     
-    def __meta_build__(self, draft, *args, **kwargs):
-        self._meta_draft = draft
+    def __meta_build__(self, prototype, *args, **kwargs):
+        self._meta_prototype = prototype
         self._meta_updates = kwargs.pop('updates', [])     
         self._meta_args = list(args)
         self._meta_kwargs = kwargs
@@ -67,12 +67,12 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_basedir = value
         
     @property
-    def meta_draft(self):
-        """Return attribute's draft.
-           To fork attribute call attr.meta_draft(*args, **kwargs) or
+    def meta_prototype(self):
+        """Return attribute's prototype.
+           To fork attribute call attr.meta_prototype(*args, **kwargs) or
            shortcut build(attr, *args, **kwargs).
            This property is read-only."""         
-        return self._meta_draft
+        return self._meta_prototype
    
     @property
     def meta_chdir(self):
