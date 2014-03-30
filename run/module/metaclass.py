@@ -41,9 +41,10 @@ class ModuleMetaclass(AttributeMetaclass):
     
     def __copy__(self):
         attrs = {}
-        for cls in reversed(self.mro()):
+        for cls in self.mro():
             for key, attr in vars(cls).items():
-                if isinstance(attr, self._attribute_prototype_class):
+                if (key not in attrs and
+                    isinstance(attr, self._attribute_prototype_class)):
                     attrs[key] = copy(attr)
         attrs['__doc__'] = self.__doc__
         attrs['__module__'] = self.__module__
