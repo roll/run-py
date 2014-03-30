@@ -5,7 +5,7 @@ class AttributePrototype:
 
     #Public
     
-    def __init__(self, cls, updates=None, *args, **kwargs):
+    def __init__(self, cls, updates, *args, **kwargs):
         super().__setattr__('_class', cls)
         super().__setattr__('_updates', updates or [])        
         super().__setattr__('_args', args)
