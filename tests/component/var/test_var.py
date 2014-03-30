@@ -8,7 +8,7 @@ class VarTest(unittest.TestCase):
     
     def setUp(self):
         MockVar = self._make_mock_var_class()
-        self.var = MockVar(build=True)
+        self.var = MockVar(module=None)
 
     def test___get__(self):
         self.assertEqual(self.var.__get__('module'), 'value')

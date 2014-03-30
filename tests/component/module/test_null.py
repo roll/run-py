@@ -8,7 +8,7 @@ class NullModuleTest(unittest.TestCase):
     
     def setUp(self):
         self.MockNullModule = self._make_mock_null_module_class()
-        self.module = self.MockNullModule(build=True)
+        self.module = self.MockNullModule(module=None)
         
     def test(self):
         self.assertIsInstance(self.module, self.MockNullModule)

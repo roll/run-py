@@ -35,7 +35,7 @@ class ClusterTest(unittest.TestCase):
         cluster._modules
         for module in cluster._finder_class.return_value.find.return_value:
             module.assert_called_with(
-                basedir='basedir', dispatcher='dispatcher', build=True)
+                basedir='basedir', dispatcher='dispatcher', module=None)
         
     def test__module_classes(self):
         cluster = self.partial_cluster()

@@ -11,7 +11,7 @@ class SubprocessModule(Module):
         for task_name, task_prefix in mapping.items():
             if not hasattr(type(self), task_name):
                 eprefix = separator.join(filter(None, [prefix, task_prefix]))
-                task = SubprocessTask(eprefix, separator, module=self, build=True)
+                task = SubprocessTask(eprefix, separator, module=self)
                 setattr(type(self), task_name, task)        
         
     #Protected

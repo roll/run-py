@@ -49,7 +49,7 @@ class Cluster:
             module = module_class(
                 basedir=self._basedir, 
                 dispatcher=self._dispatcher,
-                build=True)
+                module=None)
             modules.append(module)
         return modules
         

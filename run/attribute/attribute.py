@@ -10,7 +10,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def __meta_init__(self, module, *args, **kwargs):
         #TODO: fix NullModule
 #         if module == None:
-#             module = self._meta_null_module_class(build=True)
+#             module = self._meta_null_module_class(module=None)
         self._meta_ready = False
         self._meta_module = module
         self._meta_basedir = kwargs.pop('basedir', None)
