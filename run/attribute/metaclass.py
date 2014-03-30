@@ -1,4 +1,5 @@
 from abc import ABCMeta
+from box.functools import DEFAULT
 from .prototype import AttributePrototype
 
 class AttributeMetaclass(ABCMeta):
@@ -6,10 +7,10 @@ class AttributeMetaclass(ABCMeta):
     #Public
     
     def __call__(self, *args, **kwargs):
-        build = kwargs.pop('build', False)
+        module = kwargs.pop('module', DEFAULT)
         prototype = self._prototype_class(self, *args, **kwargs)
-        if build:
-            return prototype()
+        if module != DEFAULT:
+            return prototype(module)
         else:
             return prototype
         

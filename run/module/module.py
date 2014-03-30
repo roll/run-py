@@ -11,11 +11,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Public
     
-    def __meta_init__(self, module):
+    def __meta_init__(self, module, *args, **kwargs):
         self._meta_tags = []
-        super().__meta_init__(module)
-        for attribute in self.meta_attributes.values():
-            attribute.__meta_init__(self)  
+        super().__meta_init__(module, *args, **kwargs)
         
     def __get__(self, module=None, module_class=None):
         return self

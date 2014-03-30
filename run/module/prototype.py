@@ -13,8 +13,9 @@ class ModulePrototype(AttributePrototype):
     _attribute_prototype_class = AttributePrototype
      
     def _create_attribute(self):
-        cls = copy(self._class)
-        for key, attr in vars(cls).items():
+        module = object.__new__(self._class)
+        for key, attr in vars(self._class).items():
             if isinstance(attr, self._attribute_prototype_class):
-                    setattr(cls, key, attr(module=True))
-        return object.__new__(cls)
+                    setattr(self._class, key, attr(module))
+        return module   
+        

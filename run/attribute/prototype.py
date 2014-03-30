@@ -5,12 +5,11 @@ class AttributePrototype:
 
     #Public
     
-    def __init__(self, cls, *args, **kwargs):
-        super().__setattr__('_module', kwargs.pop('module', None))
-        super().__setattr__('_updates', kwargs.pop('updates', []))
+    def __init__(self, cls, updates=None, *args, **kwargs):
         super().__setattr__('_class', cls)
+        super().__setattr__('_updates', updates or [])        
         super().__setattr__('_args', list(args))
-        super().__setattr__('_kwargs', kwargs)        
+        super().__setattr__('_kwargs', kwargs)       
     
     def __getattr__(self, name):
         try:
@@ -23,19 +22,18 @@ class AttributePrototype:
     def __setattr__(self, name, value):
         self._updates.append(self._set_class(name, value))
      
-    def __call__(self, **kwargs):
-        """Create attribute"""
-        #TODO: temporary fix
-        self._kwargs.update(kwargs)
+    def __call__(self, module):
+        """Build attribute"""
         attribute = self._create_attribute()
-        self._init_attribute(attribute)
+        self._init_attribute(attribute, module)
+        self._update_attribute(attribute)
         return attribute
         
     def __copy__(self):
         """Copy prototype"""
         return type(self)(
-            self._class, *self._args, module=self._module, 
-            updates=copy(self._updates), **self._kwargs)
+            self._class, copy(self._updates), 
+            *self._args, **self._kwargs)
      
     #Protected
     
@@ -44,9 +42,9 @@ class AttributePrototype:
     def _create_attribute(self):
         return object.__new__(self._class)
         
-    def _init_attribute(self, attribute):
-        kwargs = copy(self._kwargs)
-        kwargs.setdefault('updates', copy(self._updates))        
-        attribute.__meta_build__(*self._args, **kwargs)
-        if self._module != True:
-            attribute.__meta_init__(self._module)
+    def _init_attribute(self, attribute, module):
+        attribute.__meta_init__(module, *self._args, **self._kwargs)
+        
+    def _update_attribute(self, attribute):
+        for update in self._updates:
+            update.apply(attribute)

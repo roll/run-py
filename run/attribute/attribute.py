@@ -5,28 +5,20 @@ from .metaclass import AttributeMetaclass
 
 class Attribute(metaclass=AttributeMetaclass):
     
-    #Public
-    
-    def __meta_build__(self, *args, **kwargs):
-        self._meta_updates = kwargs.pop('updates', [])     
-        self._meta_args = list(args)
-        self._meta_kwargs = kwargs
-        self._meta_ready = False
+    #Public        
         
-    def __meta_init__(self, module):
-        if module == None:
-            module = self._meta_null_module_class(build=True)
+    def __meta_init__(self, module, *args, **kwargs):
+        #TODO: fix NullModule
+#         if module == None:
+#             module = self._meta_null_module_class(build=True)
+        self._meta_ready = False
         self._meta_module = module
-        args = self._meta_args
-        kwargs = self._meta_kwargs
         self._meta_basedir = kwargs.pop('basedir', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
         self._meta_chdir = kwargs.pop('chdir', True)
         self._meta_signature = kwargs.pop('signature', None)
-        self.__init__(*self._meta_args, **self._meta_kwargs)
-        for update in self._meta_updates:
-            update.apply(self)
+        self.__init__(*args, **kwargs)
         self._meta_ready = True  
       
     @abstractmethod

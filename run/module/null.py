@@ -7,8 +7,8 @@ class NullModule(Module):
 
     #Public
     
-    def __meta_init__(self, module):
-        super().__meta_init__(self)
+    def __meta_init__(self, module, *args, **kwargs):
+        super().__meta_init__(self, *args, **kwargs)
         
     def __bool__(self):
         return False
