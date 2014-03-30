@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from .prototype import AttributePrototype, build
+from .prototype import AttributePrototype
 
 class AttributeMetaclass(ABCMeta):
     
@@ -9,11 +9,10 @@ class AttributeMetaclass(ABCMeta):
         build = kwargs.pop('build', False)
         prototype = self._prototype_class(self, *args, **kwargs)
         if build:
-            return self._build_function(prototype)
+            return prototype()
         else:
             return prototype
         
     #Protected
     
     _prototype_class = AttributePrototype
-    _build_function = staticmethod(build)

@@ -1,6 +1,6 @@
-from .attribute import (AttributePrototype, build,
-                        AttributeMetaclass, Attribute, AttributeSignal,
-                        AttributeUpdate, AttributeSet, AttributeCall)
+from .attribute import (AttributePrototype, AttributeMetaclass, Attribute, 
+                        AttributeSignal,AttributeUpdate, 
+                        AttributeSet, AttributeCall)
 from .cluster import Cluster
 from .command import Command
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 

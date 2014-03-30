@@ -1,22 +1,16 @@
-from ..attribute import build
 from .partial import PartialTask
 
 class NestedTask(PartialTask):
 
     #Public
-        
-    def __init__(self, task, *args, merge=False, **kwargs):
+    
+    #TODO: remove merge functionality    
+    def __init__(self, task, *args, **kwargs):
         self._task_name = task
-        self._merge = merge
         super().__init__(*args, **kwargs)       
 
     def effective_invoke(self, *args, **kwargs):
-        if self._merge:
-            #Invoke without resolving requirements, triggers
-            result = self._task.invoke(*args, **kwargs)
-        else:
-            result = self._task(*args, **kwargs)
-        return result
+        return self._task(*args, **kwargs)
         
     @property
     def meta_signature(self):
@@ -30,8 +24,4 @@ class NestedTask(PartialTask):
     
     @property
     def _task(self):
-        task = getattr(self.meta_module, self._task_name)
-        if self._merge:
-            #Rebuild task with rebase on nested task module
-            task = build(task, module=self.meta_module)
-        return task    
+        return getattr(self.meta_module, self._task_name)
