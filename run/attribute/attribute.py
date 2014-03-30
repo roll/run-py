@@ -8,9 +8,8 @@ class Attribute(metaclass=AttributeMetaclass):
     #Public        
         
     def __meta_init__(self, module, *args, **kwargs):
-        #TODO: fix NullModule
-#         if module == None:
-#             module = self._meta_null_module_class(module=None)
+        if module == None:
+            module = self._meta_null_module_class(module=None)
         self._meta_ready = False
         self._meta_module = module
         self._meta_basedir = kwargs.pop('basedir', None)
@@ -36,10 +35,11 @@ class Attribute(metaclass=AttributeMetaclass):
         pass
     
     def __repr__(self):
-        if self._meta_ready:
-            return '<{category} "{qualname}">'.format(
-                category=self.meta_type, 
-                qualname=self.meta_qualname)
+        #TODO: return
+#         if self._meta_ready:
+#             return '<{category} "{qualname}">'.format(
+#                 category=self.meta_type, 
+#                 qualname=self.meta_qualname)
         return super().__repr__()
     
     @property
