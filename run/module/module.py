@@ -2,6 +2,7 @@ import os
 import inspect
 from pprint import pprint
 from collections import OrderedDict
+from box.functools import cachedproperty
 from ..attribute import Attribute
 from ..task import NullTask
 from .attributes import ModuleAttributes
@@ -10,10 +11,6 @@ from .metaclass import ModuleMetaclass
 class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Public
-    
-    def __meta_init__(self, module, *args, **kwargs):
-        self._meta_tags = []
-        super().__meta_init__(module, *args, **kwargs)
         
     def __get__(self, module=None, module_class=None):
         return self
@@ -71,11 +68,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             return self._meta_default_main_module_name
  
-    @property
+    @cachedproperty
     def meta_tags(self):
         """Return module's tag list.
            This property is read-only."""        
-        return self._meta_tags
+        return []
     
     def list(self, attribute=None):
         """Print attributes"""
