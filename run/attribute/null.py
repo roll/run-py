@@ -2,6 +2,7 @@ from box.functools import cachedproperty
 from ..dispatcher import NullDispatcher
 from ..settings import settings
 
+#TODO: finish interface emulation
 class NullModule:
 
     #Public
