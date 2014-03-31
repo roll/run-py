@@ -30,7 +30,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             raise AttributeError(
                 'Module "{module}" has no attribute "{name}"'.
                 format(module=self, name=name))
-            
+     
+    #TODO: cachedproperty?       
     @property
     def meta_attributes(self):
         """Return module's attributes dict-like object.
