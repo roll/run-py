@@ -1,6 +1,6 @@
 from abc import ABCMeta
 from box.functools import DEFAULT
-from .null import NullModule
+from .null_module import NullModule
 from .prototype import AttributePrototype
 
 class AttributeMetaclass(ABCMeta):
