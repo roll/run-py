@@ -1,6 +1,7 @@
 from .attribute import (AttributePrototype, AttributeMetaclass, Attribute, 
-                        AttributeSignal,AttributeUpdate, 
-                        AttributeSet, AttributeCall)
+                        AttributeSignal, AttributeUpdate, 
+                        AttributeSet, AttributeCall,
+                        NullModule)
 from .cluster import Cluster
 from .command import Command
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
@@ -8,7 +9,7 @@ from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler,
 from .finder import Finder
 from .module import (ModulePrototype, ModuleMetaclass, 
                      Module, ModuleAttributes, AutoModule, 
-                     FindModule, NullModule, SubprocessModule)
+                     FindModule, SubprocessModule)
 from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings

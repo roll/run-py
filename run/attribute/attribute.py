@@ -8,8 +8,6 @@ class Attribute(metaclass=AttributeMetaclass):
     #Public        
         
     def __meta_init__(self, module, *args, **kwargs):
-        if module == None:
-            module = self._meta_null_module_class(module=None)
         self._meta_ready = False
         self._meta_module = module
         self._meta_basedir = kwargs.pop('basedir', None)
@@ -168,9 +166,3 @@ class Attribute(metaclass=AttributeMetaclass):
     #Protected
     
     _meta_default_main_module_name = settings.default_main_module_name
-    
-    @property
-    def _meta_null_module_class(self):
-        #Cycle dependency if static
-        from ..module import NullModule
-        return NullModule   
