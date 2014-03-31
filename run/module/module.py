@@ -27,7 +27,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def __getattr__(self, name):
         try:
             attribute = self.meta_attributes[name]
-            attribute_value = attribute.__get__(attribute.meta_module)
+            attribute_value = attribute.__get__(self)
             return attribute_value
         except KeyError:
             raise AttributeError(
