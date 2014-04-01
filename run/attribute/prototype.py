@@ -7,9 +7,11 @@ class AttributePrototype:
     
     def __init__(self, cls, updates, *args, **kwargs):
         super().__setattr__('_class', cls)
-        super().__setattr__('_updates', updates or [])        
+        super().__setattr__('_updates', updates)        
         super().__setattr__('_args', args)
-        super().__setattr__('_kwargs', kwargs)       
+        super().__setattr__('_kwargs', kwargs)   
+        if self._updates == None:
+            super().__setattr__('_updates', []) 
     
     def __getattr__(self, name):
         try:
