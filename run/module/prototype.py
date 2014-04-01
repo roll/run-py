@@ -13,7 +13,7 @@ class ModulePrototype(AttributePrototype):
     _attribute_prototype_class = AttributePrototype
      
     def _create_attribute(self):
-        module = object.__new__(self._class)
+        module = super()._create_attribute()
         for key, attr in vars(self._class).items():
             if isinstance(attr, self._attribute_prototype_class):
                     setattr(self._class, key, attr(module))
