@@ -7,50 +7,25 @@ class ModulePrototypeTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        MockModulePrototype = self._make_mock_module_prototype_class()
+        self.MockPrototype = self._make_mock_prototype_class()
         self.MockModule = self._make_mock_module_class()
-        self.prototype = MockModulePrototype(self.MockModule)
+        self.prototype = self.MockPrototype(self.MockModule, None)
     
     def test__create_attribute(self):
-        obj = self.prototype._create_attribute()
-        self.assertIsInstance(obj, self.prototype._builded_class)
-        
-    def test__builded_class(self):
-        self.assertTrue(issubclass(self.prototype._builded_class, 
-                                   self.MockModule))
-        
-    def test__builded_class_name(self):
-        self.assertEqual(
-            self.prototype._builded_class_name, 
-                         'MockModuleBuilded')    
-     
-    def test__builded_class_bases(self):
-        self.assertEqual(self.prototype._builded_class_bases, 
-                         (self.MockModule,))
-        
-    def test__builded_class_attrs(self):
-        self.assertEqual(self.prototype._builded_class_attrs, {
-            '__doc__': 'docstring',
-            '__module__': type(self).__module__,
-            'attr1': 'value1',
-            'attr2': 'value2',
-        })
+        module = self.prototype._create_attribute()
+        self.assertIsInstance(module, self.MockModule)
+        self.assertEqual(module.attr, 'value')
     
     #Protected
     
     def _make_mock_module_class(self):
-        class BaseMockModule:
+        class MockModule:
             #Public
-            __on_created__ = lambda *args, **kwargs: None
-            attr1 = Mock(meta_prototype=Mock(return_value='value1'))
-        class MockModule(BaseMockModule):
-            """docstring"""
-            #Public
-            attr2 = Mock(meta_prototype=Mock(return_value='value2'))
+            attr = Mock(return_value='value')
         return MockModule
     
-    def _make_mock_module_prototype_class(self):    
-        class MockModulePrototype(ModulePrototype):
+    def _make_mock_prototype_class(self):    
+        class MockPrototype(ModulePrototype):
             #Protected
             _attribute_prototype_class = Mock
-        return MockModulePrototype
+        return MockPrototype

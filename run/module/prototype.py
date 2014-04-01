@@ -5,8 +5,8 @@ class ModulePrototype(AttributePrototype):
     
     #Public
     
-    def __init__(self, cls, *args, **kwargs):
-        super().__init__(copy(cls), *args, **kwargs)
+    def __init__(self, cls, updates, *args, **kwargs):
+        super().__init__(copy(cls), updates, *args, **kwargs)
         
     #Protected
     
