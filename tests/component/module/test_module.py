@@ -123,11 +123,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
         self.assertIs(self.module.meta_main_module, self.main_module)  
    
     def test_meta_module(self):
-        self.assertEqual(self.module.meta_module, self.main_module)
-        
-    def test_meta_module_setter(self):
-        self.assertRaises(AttributeError, 
-            setattr, self.module, 'meta_module', 'module')          
+        self.assertEqual(self.module.meta_module, self.main_module)         
            
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, 'module')

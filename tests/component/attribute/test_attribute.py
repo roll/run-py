@@ -75,10 +75,6 @@ class AttributeTest_with_module(AttributeTest):
         
     def test_meta_module(self):
         self.assertEqual(self.attribute.meta_module, self.module)
-        
-    def test_meta_module_setter(self):
-        self.assertRaises(AttributeError, 
-            setattr, self.attribute, 'meta_module', 'value')
     
     def test_meta_name(self):
         self.assertEqual(self.attribute.meta_name, 'attribute')
