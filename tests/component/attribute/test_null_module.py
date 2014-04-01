@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.module.null import NullModule
+from run.attribute.null_module import NullModule
 
 class NullModuleTest(unittest.TestCase):
 
@@ -8,13 +8,13 @@ class NullModuleTest(unittest.TestCase):
     
     def setUp(self):
         self.MockNullModule = self._make_mock_null_module_class()
-        self.module = self.MockNullModule(module=None)
+        self.module = self.MockNullModule()
         
     def test(self):
         self.assertIsInstance(self.module, self.MockNullModule)
     
     def test_meta_attributes(self):
-        self.assertEqual(len(self.module.meta_attributes), 4)
+        self.assertEqual(self.module.meta_attributes, {})
         
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, 'default_basedir')
@@ -23,10 +23,10 @@ class NullModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_dispatcher, 'null_dispatcher')
         
     def test_meta_docstring(self):
-        self.assertEqual(self.module.meta_docstring, 'docstring')        
+        self.assertEqual(self.module.meta_docstring, '')        
         
     def test_meta_info(self):
-        self.assertEqual(self.module.meta_info, '__main__'+'\n'+'docstring')
+        self.assertEqual(self.module.meta_info, '__main__')
            
     def test_meta_is_main_module(self):
         self.assertEqual(self.module.meta_is_main_module, True)
@@ -36,10 +36,6 @@ class NullModuleTest(unittest.TestCase):
                
     def test_meta_module(self):
         self.assertEqual(self.module.meta_module, self.module)
-        
-    def test_meta_module_setter(self):
-        self.assertRaises(AttributeError, 
-            setattr, self.module, 'meta_module', 'module')  
     
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, '__main__') 
@@ -54,7 +50,7 @@ class NullModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_tags, [])
               
     def test_meta_type(self):
-        self.assertEqual(self.module.meta_type, 'MockNullModuleBuilded')
+        self.assertEqual(self.module.meta_type, 'MockNullModule')
         
     #Protected
     
@@ -62,7 +58,7 @@ class NullModuleTest(unittest.TestCase):
         class MockNullModule(NullModule):
             """docstring"""
             #Protected
-            _meta_default_main_module_name = '__main__'
-            _meta_null_dispatcher_class = Mock(return_value='null_dispatcher')  
             _meta_default_basedir = 'default_basedir'
+            _meta_null_dispatcher_class = Mock(return_value='null_dispatcher')
+            _meta_default_main_module_name = '__main__'
         return MockNullModule

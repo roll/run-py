@@ -2,7 +2,6 @@ import os
 import inspect
 from pprint import pprint
 from collections import OrderedDict
-from box.functools import cachedproperty
 from ..attribute import Attribute
 from ..task import NullTask
 from .attributes import ModuleAttributes
@@ -38,6 +37,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
            This property is read-only."""
         return ModuleAttributes(self)
     
+    #TODO: move to attribute?
     @property
     def meta_basedir(self):
         if self._meta_basedir != None:
@@ -69,7 +69,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             return self._meta_default_main_module_name
  
-    @cachedproperty
+    @property
     def meta_tags(self):
         """Return module's tag list.
            This property is read-only."""        

@@ -23,8 +23,16 @@ class NullModule:
         return self._meta_null_dispatcher_class()
     
     @property
+    def meta_docstring(self):
+        return ''
+    
+    @property
     def meta_is_main_module(self):
         return True
+    
+    @property
+    def meta_info(self):
+        return self.meta_signature  
     
     @property
     def meta_main_module(self):
@@ -40,7 +48,19 @@ class NullModule:
     
     @property
     def meta_qualname(self):
-        return self.meta_name    
+        return self.meta_name
+    
+    @property
+    def meta_signature(self):
+        return self.meta_qualname
+    
+    @property
+    def meta_tags(self):
+        return []    
+    
+    @property
+    def meta_type(self):
+        return type(self).__name__    
     
     #Protected
     
