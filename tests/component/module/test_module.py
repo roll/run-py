@@ -67,7 +67,7 @@ class ModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_tags, [])
         
     def test_meta_type(self):
-        self.assertEqual(self.module.meta_type, 'MockModuleBuilded')
+        self.assertEqual(self.module.meta_type, 'MockModule')
         
     def test_list(self):
         self.module.list()
