@@ -2,15 +2,15 @@ import unittest
 from unittest.mock import Mock
 from run.task.prototype import TaskPrototype
 
-class TaskBuilderTest(unittest.TestCase):
+class TaskPrototypeTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        MockBuilder = self._make_mock_builder_class()
-        self.prototype = MockBuilder(None)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
+        self.MockPrototype = self._make_mock_prototype_class()
+        self.prototype = self.MockPrototype('class', None)
 
     def test_require(self):
         self.prototype.require(*self.args, **self.kwargs)
@@ -24,7 +24,7 @@ class TaskBuilderTest(unittest.TestCase):
         
     #Protected
     
-    def _make_mock_builder_class(self):
+    def _make_mock_prototype_class(self):
         class MockPrototype(TaskPrototype):
             #Protected
             _call_class = Mock()
