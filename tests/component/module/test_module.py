@@ -10,7 +10,7 @@ class ModuleTest(unittest.TestCase):
     
     def setUp(self):
         self.MockModule = self._make_mock_module_class()
-        self.module = self.MockModule(module=None)              
+        self.module = self.MockModule(meta_module=None)              
     
     def test(self):
         self.assertIsInstance(self.module, self.MockModule)
@@ -109,7 +109,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
         self.MockModule = self._make_mock_module_class()
         self.MockMainModule = self._make_mock_main_module_class()
         self.main_module = self.MockMainModule()
-        self.module = self.MockModule(module=self.main_module)
+        self.module = self.MockModule(meta_module=self.main_module)
         self.main_module.meta_attributes = {'module': self.module}
     
     def test_meta_info(self):

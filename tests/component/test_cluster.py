@@ -37,7 +37,7 @@ class ClusterTest(unittest.TestCase):
             module.assert_called_with(
                 meta_basedir='basedir', 
                 meta_dispatcher='dispatcher', 
-                module=None)
+                meta_module=None)
         
     def test__module_classes(self):
         cluster = self.partial_cluster()

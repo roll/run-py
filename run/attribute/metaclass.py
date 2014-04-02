@@ -8,7 +8,7 @@ class AttributeMetaclass(ABCMeta):
     #Public
     
     def __call__(self, *args, **kwargs):
-        module = kwargs.pop('module', DEFAULT)
+        module = kwargs.pop('meta_module', DEFAULT)
         prototype = self._prototype_class(self, None, *args, **kwargs)
         if module != DEFAULT:
             if module == None:

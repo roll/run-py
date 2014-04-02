@@ -8,7 +8,7 @@ class MethodTaskTest(unittest.TestCase):
     
     def setUp(self):
         self.function = Mock(return_value='value')
-        self.task = MethodTask(self.function, module='module')
+        self.task = MethodTask(self.function, meta_module='module')
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}        
         

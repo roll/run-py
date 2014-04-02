@@ -8,7 +8,7 @@ class AttributeTest(unittest.TestCase):
     
     def setUp(self):
         MockAttribute = self._make_mock_attribute_class()
-        self.attribute = MockAttribute(module=None)
+        self.attribute = MockAttribute(meta_module=None)
 
     def test(self):
         self.assertIsInstance(self.attribute, Attribute)
@@ -66,7 +66,7 @@ class AttributeTest_with_module(AttributeTest):
         MockAttribute = self._make_mock_attribute_class()
         MockModule = self._make_mock_module_class()
         self.module = MockModule()
-        self.attribute = MockAttribute(module=self.module)
+        self.attribute = MockAttribute(meta_module=self.module)
         self.module.meta_attributes = {'attribute': self.attribute}
         
     def test_meta_info(self):
@@ -108,7 +108,7 @@ class AttributeTest_with_module_is_main(AttributeTest_with_module):
         MockModule = self._make_mock_module_class()
         MockMainModule = self._make_mock_main_module_class(MockModule)
         self.module = MockMainModule()
-        self.attribute = MockAttribute(module=self.module)
+        self.attribute = MockAttribute(meta_module=self.module)
         self.module.meta_attributes = {'attribute': self.attribute}
           
     def test_meta_info(self):
@@ -139,7 +139,7 @@ class AttributeTest_with_docstring(AttributeTest):
         self.docstring = 'new_docstring'
         self.attribute = MockAttribute(
             meta_docstring=self.docstring,
-            module=None)
+            meta_module=None)
     
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, self.docstring)
@@ -159,7 +159,7 @@ class AttributeTest_with_signature_and_docstring(AttributeTest_with_docstring):
         self.attribute = MockAttribute(
             meta_docstring=self.docstring, 
             meta_signature=self.signature, 
-            module=None)
+            meta_module=None)
 
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 

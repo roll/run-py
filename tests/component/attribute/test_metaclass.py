@@ -25,7 +25,7 @@ class AttributeMetaclassTest(unittest.TestCase):
         self.assertFalse(self.MockPrototype.return_value.called)
     
     def test___call___with_module(self):
-        instance = self.MockClass(module='module')
+        instance = self.MockClass(meta_module='module')
         self.assertIsInstance(instance, Mock)
         self.MockPrototype.assert_called_with(self.MockClass, None)
         self.MockPrototype.return_value.assert_called_with('module')

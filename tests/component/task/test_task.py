@@ -9,7 +9,7 @@ class TaskTest(unittest.TestCase):
 
     def setUp(self):
         self.MockTask = self._make_mock_task_class()
-        self.partial_task = partial(self.MockTask, module=None)
+        self.partial_task = partial(self.MockTask, meta_module=None)
 
     def test___get__(self):
         task = self.partial_task()

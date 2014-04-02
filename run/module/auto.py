@@ -10,7 +10,7 @@ class AutoModule(Module):
         self._sources = sources+self._default_sources
         for task_name, task_function in self._functions.items():
             if not hasattr(type(self), task_name):
-                task = FunctionTask(task_function, module=self)
+                task = FunctionTask(task_function, meta_module=self)
                 setattr(type(self), task_name, task)
                 
     #Protected
