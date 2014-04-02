@@ -65,13 +65,6 @@ class Attribute(metaclass=AttributeMetaclass):
     @meta_chdir.setter   
     def meta_chdir(self, value):
         self._meta_chdir = value
-           
-    @property
-    def meta_context(self):
-        """Return attribute's context.
-           Context has been using in render-type tasks.
-           This property is read-only."""          
-        return self.meta_main_module                 
        
     @property
     def meta_dispatcher(self):

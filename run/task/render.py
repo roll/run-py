@@ -11,5 +11,5 @@ class RenderTask(Task):
         
     def invoke(self):
         return render_file(self._source, 
-                           context=self.meta_module, 
+                           context=self.meta_module.meta_context, 
                            target=self._target)
