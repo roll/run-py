@@ -10,7 +10,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def __meta_init__(self, module, *args, **kwargs):
         self._meta_ready = False
         self._meta_module = module
-        self._meta_basedir = kwargs.pop('basedir', None)
+        self._meta_basedir = kwargs.pop('meta_basedir', None)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
         self._meta_chdir = kwargs.pop('chdir', True)
