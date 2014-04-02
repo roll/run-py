@@ -1,4 +1,5 @@
 import os
+from copy import copy
 from contextlib import contextmanager
 from abc import abstractmethod
 from ..attribute import Attribute
@@ -11,11 +12,17 @@ class Task(Attribute, metaclass=TaskMetaclass):
     #Public
         
     def __meta_init__(self, module, *args, **kwargs):
+        self._args = ()
+        self._kwargs = {}
         self._meta_dependencies = []
         self._add_dependencies(kwargs.pop('depend', []))        
         self._add_dependencies(kwargs.pop('require', []), require)
         self._add_dependencies(kwargs.pop('trigger', []), trigger)
         super().__meta_init__(module, *args, **kwargs)
+        
+    def __init__(self, *args, **kwargs):
+        self._args = args
+        self._kwargs = kwargs        
         
     def __get__(self, module, module_class=None):
         return self
@@ -35,7 +42,9 @@ class Task(Attribute, metaclass=TaskMetaclass):
             self._resolve_dependencies()
             try:
                 with self._effective_dir():
-                    result = self.invoke(*args, **kwargs)
+                    result = self.invoke(
+                        *self._effective_args(*args), 
+                        **self._effective_kwargs(**kwargs))
             except Exception:
                 self._resolve_dependencies(is_fail=True)
                 raise
@@ -109,4 +118,12 @@ class Task(Attribute, metaclass=TaskMetaclass):
             yield
             os.chdir(cwd)
         else:
-            yield  
+            yield 
+            
+    def _effective_args(self, *args):
+        return self._args+args
+     
+    def _effective_kwargs(self, **kwargs):
+        ekwargs = copy(self._kwargs)
+        ekwargs.update(kwargs)
+        return ekwargs       

@@ -1,7 +1,7 @@
 import inspect
-from .partial import PartialTask
+from .task import Task
 
-class FunctionTask(PartialTask):
+class FunctionTask(Task):
     
     #Public
 
@@ -9,7 +9,7 @@ class FunctionTask(PartialTask):
         self._function = function
         super().__init__(*args, **kwargs)
     
-    def effective_invoke(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         return self._function(*args, **kwargs)
         
     @property

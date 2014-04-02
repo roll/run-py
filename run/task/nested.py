@@ -1,6 +1,6 @@
-from .partial import PartialTask
+from .task import Task
 
-class NestedTask(PartialTask):
+class NestedTask(Task):
 
     #Public
     
@@ -9,7 +9,7 @@ class NestedTask(PartialTask):
         self._task_name = task
         super().__init__(*args, **kwargs)       
 
-    def effective_invoke(self, *args, **kwargs):
+    def invoke(self, *args, **kwargs):
         return self._task(*args, **kwargs)
         
     @property

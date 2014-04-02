@@ -6,7 +6,6 @@ from .metaclass import TaskMetaclass
 from .method import MethodTask, task, skip
 from .nested import NestedTask
 from .null import NullTask
-from .partial import PartialTask
 from .prototype import TaskPrototype
 from .render import RenderTask
 from .resolver import TaskResolver, TaskCommonResolver, TaskNestedResolver
