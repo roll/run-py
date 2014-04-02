@@ -4,7 +4,6 @@ class NestedTask(Task):
 
     #Public
     
-    #TODO: remove merge functionality    
     def __init__(self, task, *args, **kwargs):
         self._task_name = task
         super().__init__(*args, **kwargs)       
