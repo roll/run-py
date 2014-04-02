@@ -11,9 +11,9 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_ready = False
         self._meta_module = module
         self._meta_basedir = kwargs.pop('meta_basedir', None)
+        self._meta_chdir = kwargs.pop('meta_chdir', True)
         self._meta_dispatcher = kwargs.pop('dispatcher', None)   
         self._meta_docstring = kwargs.pop('docstring', None)
-        self._meta_chdir = kwargs.pop('chdir', True)
         self._meta_signature = kwargs.pop('signature', None)
         self.__init__(*args, **kwargs)
         self._meta_ready = True  
@@ -57,7 +57,7 @@ class Attribute(metaclass=AttributeMetaclass):
    
     @property
     def meta_chdir(self):
-        """Return attribute's chdir.
+        """Return attribute's chdir flag.
            See meta_basedir.
            This property is writable."""          
         return self._meta_chdir
