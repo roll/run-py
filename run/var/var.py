@@ -34,5 +34,5 @@ class Var(Task, metaclass=ABCMeta):
     
     #Protected
     
-    _meta_initiated_signal_class = InitiatedVarSignal
-    _meta_successed_signal_class = SuccessedVarSignal
+    _initiated_signal_class = InitiatedVarSignal
+    _successed_signal_class = SuccessedVarSignal

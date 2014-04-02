@@ -29,8 +29,8 @@ class TaskTest(unittest.TestCase):
         task = self.partial_task() 
         self.assertEqual(task.__call__(), 'value')
         task.invoke.assert_called_with()
-        task._meta_initiated_signal_class.assert_called_with(task)
-        task._meta_successed_signal_class.assert_called_with(task)
+        task._initiated_signal_class.assert_called_with(task)
+        task._successed_signal_class.assert_called_with(task)
         task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('successed_signal')])     
         
@@ -42,6 +42,6 @@ class TaskTest(unittest.TestCase):
             invoke = Mock(return_value='value')
             meta_dispatcher = Mock(add_signal = Mock())
             #Protected
-            _meta_initiated_signal_class = Mock(return_value='initiated_signal')
-            _meta_successed_signal_class = Mock(return_value='successed_signal')        
+            _initiated_signal_class = Mock(return_value='initiated_signal')
+            _successed_signal_class = Mock(return_value='successed_signal')        
         return MockTask   

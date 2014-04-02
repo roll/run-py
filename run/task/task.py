@@ -6,16 +6,15 @@ from .dependency import require, trigger
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
-#TODO: remove meta_?
 class Task(Attribute, metaclass=TaskMetaclass):
     
     #Public
         
     def __meta_init__(self, module, *args, **kwargs):
         self._meta_dependencies = []
-        self._meta_add_dependencies(kwargs.pop('depend', []))        
-        self._meta_add_dependencies(kwargs.pop('require', []), require)
-        self._meta_add_dependencies(kwargs.pop('trigger', []), trigger)
+        self._add_dependencies(kwargs.pop('depend', []))        
+        self._add_dependencies(kwargs.pop('require', []), require)
+        self._add_dependencies(kwargs.pop('trigger', []), trigger)
         super().__meta_init__(module, *args, **kwargs)
         
     def __get__(self, module, module_class=None):
@@ -31,20 +30,20 @@ class Task(Attribute, metaclass=TaskMetaclass):
             format(task=self))
     
     def __call__(self, *args, **kwargs):
-        self._meta_add_signal('initiated')
+        self._add_signal('initiated')
         try:
-            self._meta_resolve_dependencies()
+            self._resolve_dependencies()
             try:
-                with self._meta_effective_dir():
+                with self._effective_dir():
                     result = self.invoke(*args, **kwargs)
             except Exception:
-                self._meta_resolve_dependencies(is_fail=True)
+                self._resolve_dependencies(is_fail=True)
                 raise
-            self._meta_resolve_dependencies(is_fail=False)
+            self._resolve_dependencies(is_fail=False)
         except Exception:
-            self._meta_add_signal('failed')
+            self._add_signal('failed')
             raise
-        self._meta_add_signal('successed')
+        self._add_signal('successed')
         return result
     
     @property
@@ -82,28 +81,28 @@ class Task(Attribute, metaclass=TaskMetaclass):
     
     #Protected
     
-    _meta_initiated_signal_class = InitiatedTaskSignal
-    _meta_successed_signal_class = SuccessedTaskSignal
-    _meta_failed_signal_class = FailedTaskSignal 
+    _initiated_signal_class = InitiatedTaskSignal
+    _successed_signal_class = SuccessedTaskSignal
+    _failed_signal_class = FailedTaskSignal 
     
-    def _meta_add_dependencies(self, container, category=None):
+    def _add_dependencies(self, container, category=None):
         for dependency in container:
             if category and not isinstance(dependency, category):
                 dependency = category(dependency)
             self.add_dependency(dependency)
                 
-    def _meta_resolve_dependencies(self, is_fail=None):
+    def _resolve_dependencies(self, is_fail=None):
         for dependency in self._meta_dependencies:
             dependency.resolve(is_fail=is_fail)
             
-    def _meta_add_signal(self, name):
-        signal_class_attr = '_meta_'+name+'_signal_class' 
+    def _add_signal(self, name):
+        signal_class_attr = '_'+name+'_signal_class' 
         signal_class = getattr(self, signal_class_attr)
         signal = signal_class(self)
         self.meta_dispatcher.add_signal(signal)
      
     @contextmanager
-    def _meta_effective_dir(self):
+    def _effective_dir(self):
         if self.meta_chdir:
             cwd = os.getcwd()
             os.chdir(self.meta_basedir)
