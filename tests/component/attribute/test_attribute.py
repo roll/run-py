@@ -158,7 +158,7 @@ class AttributeTest_with_signature_and_docstring(AttributeTest_with_docstring):
         self.signature = 'new_signature'
         self.attribute = MockAttribute(
             meta_docstring=self.docstring, 
-            signature=self.signature, 
+            meta_signature=self.signature, 
             module=None)
 
     def test_meta_info(self):

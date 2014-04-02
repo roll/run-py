@@ -14,7 +14,7 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_chdir = kwargs.pop('meta_chdir', True)
         self._meta_dispatcher = kwargs.pop('meta_dispatcher', None)   
         self._meta_docstring = kwargs.pop('meta_docstring', None)
-        self._meta_signature = kwargs.pop('signature', None)
+        self._meta_signature = kwargs.pop('meta_signature', None)
         self.__init__(*args, **kwargs)
         self._meta_ready = True  
       
