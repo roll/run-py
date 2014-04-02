@@ -48,7 +48,7 @@ class Cluster:
         for module_class in self._module_classes:
             module = module_class(
                 meta_basedir=self._basedir, 
-                dispatcher=self._dispatcher,
+                meta_dispatcher=self._dispatcher,
                 module=None)
             modules.append(module)
         return modules
