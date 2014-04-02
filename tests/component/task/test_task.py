@@ -32,7 +32,14 @@ class TaskTest(unittest.TestCase):
         task._initiated_signal_class.assert_called_with(task)
         task._successed_signal_class.assert_called_with(task)
         task.meta_dispatcher.add_signal.assert_has_calls(
-            [call('initiated_signal'), call('successed_signal')])     
+            [call('initiated_signal'), call('successed_signal')])
+
+#     def test___call___with_args_and_kwargs(self):
+#         args = ('arg2',)
+#         kwargs = {'kwarg2': 'kwarg2'}
+#         self.assertEqual(self.task.invoke(*args, **kwargs), 'value')
+#         self.task.meta_module.task.assert_called_with(
+#             'arg1', 'arg2', kwarg1='kwarg1', kwarg2='kwarg2')          
         
     #Protected
     
