@@ -23,14 +23,13 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def __getattr__(self, name):
         try:
             attribute = self.meta_attributes[name]
-            attribute_value = attribute.__get__(self)
+            attribute_value = attribute.__get__(attribute.meta_module)
             return attribute_value
         except KeyError:
             raise AttributeError(
                 'Module "{module}" has no attribute "{name}"'.
                 format(module=self, name=name))
      
-    #TODO: cachedproperty?       
     @property
     def meta_attributes(self):
         """Return module's attributes dict-like object.
