@@ -15,11 +15,11 @@ class NullModule:
     
     @property
     def meta_basedir(self):
-        return self._meta_default_basedir
+        return self._default_basedir
     
     @cachedproperty
     def meta_dispatcher(self):
-        return self._meta_null_dispatcher_class()
+        return self._null_dispatcher_class()
     
     @property
     def meta_docstring(self):
@@ -43,7 +43,7 @@ class NullModule:
     
     @property
     def meta_name(self):
-        return self._meta_default_main_module_name
+        return self._default_main_module_name
     
     @property
     def meta_qualname(self):
@@ -63,6 +63,6 @@ class NullModule:
     
     #Protected
     
-    _meta_default_basedir = settings.default_basedir    
-    _meta_null_dispatcher_class = NullDispatcher
-    _meta_default_main_module_name = settings.default_main_module_name
+    _default_basedir = settings.default_basedir    
+    _null_dispatcher_class = NullDispatcher
+    _default_main_module_name = settings.default_main_module_name

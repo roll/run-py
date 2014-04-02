@@ -73,7 +73,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         if super().meta_name:
             return super().meta_name
         else:
-            return self._meta_default_main_module_name
+            return self._default_main_module_name
  
     @property
     def meta_tags(self):
@@ -92,7 +92,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             for attribute in attribute.meta_attributes.values():
                 names.append(attribute.meta_qualname)
             for name in sorted(names):
-                self._meta_print_function(name)
+                self._print_function(name)
         else:
             raise TypeError(
                 'Attribute "{attribute}" is not a module.'.
@@ -104,7 +104,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             attribute = self.meta_attributes[attribute]
         else:
             attribute = self
-        self._meta_print_function(attribute.meta_info)
+        self._print_function(attribute.meta_info)
         
     def meta(self, attribute=None):
         """Print metadata"""
@@ -117,7 +117,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
                 meta[key] = getattr(attribute, name)
-        self._meta_pprint_function(meta)
+        self._pprint_function(meta)
       
     default = NullTask(
         require=['list'],
@@ -125,5 +125,5 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Protected
     
-    _meta_print_function = staticmethod(print)    
-    _meta_pprint_function = staticmethod(pprint)
+    _print_function = staticmethod(print)    
+    _pprint_function = staticmethod(pprint)
