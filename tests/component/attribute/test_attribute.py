@@ -137,7 +137,9 @@ class AttributeTest_with_docstring(AttributeTest):
     def setUp(self):
         MockAttribute = self._make_mock_attribute_class()
         self.docstring = 'new_docstring'
-        self.attribute = MockAttribute(module=None, docstring=self.docstring)
+        self.attribute = MockAttribute(
+            meta_docstring=self.docstring,
+            module=None)
     
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, self.docstring)
@@ -155,7 +157,9 @@ class AttributeTest_with_signature_and_docstring(AttributeTest_with_docstring):
         self.docstring = 'new_docstring'
         self.signature = 'new_signature'
         self.attribute = MockAttribute(
-            module=None, docstring=self.docstring, signature=self.signature)
+            meta_docstring=self.docstring, 
+            signature=self.signature, 
+            module=None)
 
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 
