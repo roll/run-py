@@ -8,16 +8,17 @@ class Var(Task, metaclass=ABCMeta):
     #Public
         
     def __meta_init__(self, module, *args, **kwargs):
+        self._cached_value = DEFAULT
         self._meta_cache = kwargs.pop('meta_cache', True)
-        self._meta_cached = DEFAULT
         super().__meta_init__(module, *args, **kwargs)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:
-            if self._meta_cached == DEFAULT:
-                self._meta_cached = self()
-            return self._meta_cached
-        return self()
+            if self._cached_value == DEFAULT:
+                self._cached_value = self()
+            return self._cached_value
+        else:
+            return self()
  
     def __set__(self, module, value):
         self.invoke = lambda: value
