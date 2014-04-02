@@ -6,6 +6,7 @@ from .dependency import require, trigger
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
+#TODO: remove meta_?
 class Task(Attribute, metaclass=TaskMetaclass):
     
     #Public
