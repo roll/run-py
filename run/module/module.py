@@ -36,7 +36,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
            This property is read-only."""
         return ModuleAttributes(self)
     
-    #TODO: move to attribute?
     @property
     def meta_basedir(self):
         if self._meta_basedir != None:
