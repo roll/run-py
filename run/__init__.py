@@ -19,7 +19,8 @@ from .run import Run, RunController, RunStack
 from .settings import Settings, settings
 from .task import (TaskPrototype, TaskMetaclass, Task, 
                    DescriptorTask, FunctionTask, MethodTask, task, skip, 
-                   NestedTask, NullTask, RenderTask, ValueTask, SubprocessTask, 
+                   InputTask, NestedTask, NullTask, 
+                   RenderTask, ValueTask, SubprocessTask, 
                    InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal)
 from .var import (Var, DescriptorVar, var,
                   FunctionVar, MethodVar, TaskVar, ValueVar, 

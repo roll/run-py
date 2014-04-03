@@ -1,5 +1,6 @@
 from .descriptor import DescriptorTask
 from .function import FunctionTask
+from .input import InputTask
 from .metaclass import TaskMetaclass
 from .method import MethodTask, task, skip
 from .nested import NestedTask
