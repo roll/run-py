@@ -1,4 +1,5 @@
 from .descriptor import DescriptorTask
+from .find import FindTask
 from .function import FunctionTask
 from .input import InputTask
 from .metaclass import TaskMetaclass
