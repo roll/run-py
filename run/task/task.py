@@ -41,10 +41,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         try:
             self._resolve_dependencies()
             try:
-                with self._effective_dir():
-                    result = self.invoke(
-                        *self._effective_args(*args), 
-                        **self._effective_kwargs(**kwargs))
+                result = self.effective_invoke(*args, **kwargs)
             except Exception:
                 self._resolve_dependencies(is_fail=True)
                 raise
@@ -58,10 +55,6 @@ class Task(Attribute, metaclass=TaskMetaclass):
     @property
     def meta_dependencies(self):
         return self._meta_dependencies
-                                     
-    @abstractmethod
-    def invoke(self, *args, **kwargs):
-        pass #pragma: no cover
              
     def depend(self, dependency):
         """Add custom dependency."""
@@ -87,6 +80,16 @@ class Task(Attribute, metaclass=TaskMetaclass):
         for dependency in self._meta_dependencies:
             if not category or isinstance(dependency, category):
                 dependency.disable(task)
+    
+    def effective_invoke(self, *args, **kwargs):
+        with self._effective_dir():
+            return self.invoke(
+                *self._effective_args(*args), 
+                **self._effective_kwargs(**kwargs))
+                                     
+    @abstractmethod
+    def invoke(self, *args, **kwargs):
+        pass #pragma: no cover
     
     #Protected
     
