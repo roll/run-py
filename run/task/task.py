@@ -64,19 +64,19 @@ class Task(Attribute, metaclass=TaskMetaclass):
         pass #pragma: no cover
              
     def depend(self, dependency):
-        self.add_dependency(dependency)
-           
-    def require(self, task, *args, **kwargs):
-        dependency = require(task, *args, **kwargs)
-        self.add_dependency(dependency)
-        
-    def trigger(self, task, *args, **kwargs):
-        dependency = trigger(task, *args, **kwargs)
-        self.add_dependency(dependency)
-    
-    def add_dependency(self, dependency):
+        """Add custom dependency."""
         dependency.bind(self)
         self._meta_dependencies.append(dependency)
+           
+    def require(self, task, *args, **kwargs):
+        """Add require dependency."""
+        dependency = require(task, *args, **kwargs)
+        self.depend(dependency)
+        
+    def trigger(self, task, *args, **kwargs):
+        """Add trigger dependency."""        
+        dependency = trigger(task, *args, **kwargs)
+        self.depend(dependency)
              
     def enable_dependency(self, task, category=None):
         for dependency in self._meta_dependencies:
@@ -98,7 +98,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
         for dependency in container:
             if category and not isinstance(dependency, category):
                 dependency = category(dependency)
-            self.add_dependency(dependency)
+            self.depend(dependency)
                 
     def _resolve_dependencies(self, is_fail=None):
         for dependency in self._meta_dependencies:

@@ -14,4 +14,4 @@ class require(DependencyDecorator, Dependency):
     #Protected
     
     def _add_dependency(self, prototype):
-        prototype.add_dependency(self)
+        prototype.depend(self)

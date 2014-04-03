@@ -15,10 +15,6 @@ class TaskPrototype(AttributePrototype):
     def trigger(self, *args, **kwargs):
         update = self._call_class('trigger', *args, **kwargs)
         self._updates.append(update)        
-    
-    def add_dependency(self, *args, **kwargs):
-        update = self._call_class('add_dependency', *args, **kwargs)
-        self._updates.append(update)        
           
     def enable_dependency(self, *args, **kwargs):
         update = self._call_class('enable_dependency', *args, **kwargs)

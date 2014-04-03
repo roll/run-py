@@ -82,7 +82,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         return []
     
     def list(self, attribute=None):
-        """Print attributes"""
+        """Print attributes."""
         if attribute:
             attribute = self.meta_attributes[attribute]
         else:
@@ -99,7 +99,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
                 format(attribute=attribute))
 
     def info(self, attribute=None):
-        """Print information"""
+        """Print information."""
         if attribute:
             attribute = self.meta_attributes[attribute]
         else:
@@ -107,7 +107,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         self._print_function(attribute.meta_info)
         
     def meta(self, attribute=None):
-        """Print metadata"""
+        """Print metadata."""
         if attribute:
             attribute = self.meta_attributes[attribute]
         else:

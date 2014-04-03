@@ -32,4 +32,4 @@ class depend(DependencyDecorator):
     #Protected
     
     def _add_dependency(self, prototype):
-        prototype.add_dependency(self._dep)
+        prototype.depend(self._dep)
