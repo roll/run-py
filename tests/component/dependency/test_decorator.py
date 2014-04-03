@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
-from run.task.dependency import TaskDependencyDecorator
+from run.dependency.decorator import DependencyDecorator
 
-class TaskDependencyDecoratorTest(unittest.TestCase):
+class DependencyDecoratorTest(unittest.TestCase):
 
     #Public
     
@@ -26,7 +26,7 @@ class TaskDependencyDecoratorTest(unittest.TestCase):
     #Protected
     
     def _make_mock_decorator_class(self, builder):
-        class MockDecorator(TaskDependencyDecorator):
+        class MockDecorator(DependencyDecorator):
             #Protected
             _builder_class = Mock
             _method_task_class = Mock(return_value=builder)

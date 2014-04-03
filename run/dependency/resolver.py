@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class TaskResolver(metaclass=ABCMeta):
+class DependencyResolver(metaclass=ABCMeta):
 
     #Public
     
@@ -20,7 +20,7 @@ class TaskResolver(metaclass=ABCMeta):
         pass #pragma: no cover
         
         
-class TaskCommonResolver(TaskResolver):
+class DependencyCommonResolver(DependencyResolver):
 
     #Public
     
@@ -71,7 +71,7 @@ class TaskCommonResolver(TaskResolver):
                 format(resolver=self))
         
         
-class TaskNestedResolver(TaskResolver):
+class DependencyNestedResolver(DependencyResolver):
 
     #Public
     

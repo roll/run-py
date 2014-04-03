@@ -4,6 +4,10 @@ from .attribute import (AttributePrototype, AttributeMetaclass, Attribute,
                         NullModule)
 from .cluster import Cluster
 from .command import Command
+from .dependency import (Dependency, require, trigger,
+                         DependencyDecorator, depend,
+                         DependencyResolver, DependencyCommonResolver, 
+                         DependencyNestedResolver)
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
                          DispatcherCallbackHandler, DispatcherSignal)
 from .finder import Finder
@@ -16,10 +20,7 @@ from .settings import Settings, settings
 from .task import (TaskPrototype, TaskMetaclass, Task, 
                    DescriptorTask, FunctionTask, MethodTask, task, skip, 
                    NestedTask, NullTask, RenderTask, ValueTask, SubprocessTask, 
-                   InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal,
-                   TaskResolver, TaskCommonResolver, TaskNestedResolver,
-                   TaskDependency, TaskDependencyDecorator, 
-                   require, trigger, depend)
+                   InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal)
 from .var import (Var, DescriptorVar, var,
                   FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)

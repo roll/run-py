@@ -3,7 +3,7 @@ from copy import copy
 from contextlib import contextmanager
 from abc import abstractmethod
 from ..attribute import Attribute
-from .dependency import require, trigger
+from ..dependency import require, trigger
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
