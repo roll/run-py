@@ -5,11 +5,6 @@ class RenderTask(Task):
 
     #Public
 
-    def __init__(self, source, target=None):
-        self._source = source
-        self._target = target
-        
-    def invoke(self):
-        return render_file(self._source, 
-                           context=self.meta_module.meta_context, 
-                           target=self._target)
+    def invoke(self, *args, **kwargs):
+        kwargs.setdefault('context', self.meta_module)
+        return render_file(*args, **kwargs)
