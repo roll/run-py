@@ -5,11 +5,19 @@ class DependencyDecorator(metaclass=ABCMeta):
     #Public    
     
     def __call__(self, method):
-        prototype = self._method_task_class(method)
+        prototype = method
+        if not isinstance(method, self._prototype_class):
+            prototype = self._method_task_class(method)
         self._add_dependency(prototype)
         return prototype
     
-    #Protected
+    #Protected    
+    
+    @property
+    def _prototype_class(self):
+        #Cycle dependency if static
+        from ..task import TaskPrototype    
+        return TaskPrototype  
     
     @property
     def _method_task_class(self):
