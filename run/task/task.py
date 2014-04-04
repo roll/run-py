@@ -124,12 +124,22 @@ class Task(Attribute, metaclass=TaskMetaclass):
             yield 
             
     def _effective_args(self, *args):
-        return self._args+args
+        eargs = self._args+args
+        eargs = tuple(map(self._expand_arg, eargs))
+        return eargs
      
     def _effective_kwargs(self, **kwargs):
         ekwargs = copy(self._kwargs)
         ekwargs.update(kwargs)
+        for key, value in ekwargs.items():
+            ekwargs[key] = self._expand_arg(value)
         return ekwargs
+    
+    def _expand_arg(self, value):
+        result = value
+        if isinstance(value, module):
+            result = value.expand(self)
+        return result
     
 
 class module:
