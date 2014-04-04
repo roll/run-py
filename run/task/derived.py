@@ -1,6 +1,6 @@
 from .task import Task
 
-class NestedTask(Task):
+class DerivedTask(Task):
 
     #Public
     

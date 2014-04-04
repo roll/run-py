@@ -19,11 +19,11 @@ from .run import Run, RunController, RunStack
 from .settings import Settings, settings
 from .task import (TaskPrototype, TaskMetaclass, Task, module,
                    DescriptorTask, FunctionTask, MethodTask, task, skip, 
-                   NestedTask, NullTask, ValueTask,
+                   DerivedTask, NullTask, ValueTask,
                    FindTask, InputTask, RenderTask, SubprocessTask, 
                    InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal)
 from .var import (Var, DescriptorVar, var,
-                  FindVar, FunctionVar, InputVar,
-                  MethodVar, RenderVar, TaskVar, ValueVar, 
+                  DerivedVar, FindVar, FunctionVar, 
+                  InputVar, MethodVar, RenderVar, ValueVar, 
                   InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)
 from .version import Version, version

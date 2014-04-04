@@ -1,8 +1,8 @@
 import unittest
 from unittest.mock import Mock
-from run.task.nested import NestedTask
+from run.task.derived import DerivedTask
 
-class NestedTaskTest(unittest.TestCase):
+class DerivedTaskTest(unittest.TestCase):
 
     #Public
 
@@ -19,7 +19,7 @@ class NestedTaskTest(unittest.TestCase):
     #Protected
     
     def _make_mock_task_class(self):
-        class MockTask(NestedTask):
+        class MockTask(DerivedTask):
             #Public
             meta_module = Mock(task=Mock(return_value='value'))
         return MockTask
