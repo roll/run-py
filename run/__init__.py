@@ -23,6 +23,6 @@ from .task import (TaskPrototype, TaskMetaclass, Task, module,
                    FindTask, InputTask, RenderTask, SubprocessTask, 
                    InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal)
 from .var import (Var, DescriptorVar, var,
-                  FunctionVar, MethodVar, TaskVar, ValueVar, 
+                  FindVar, FunctionVar, MethodVar, TaskVar, ValueVar, 
                   InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)
 from .version import Version, version
