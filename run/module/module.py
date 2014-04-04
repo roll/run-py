@@ -43,14 +43,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             return os.path.dirname(
                 inspect.getfile(type(self.meta_main_module)))
-           
-    @property
-    def meta_context(self):
-        """Return module's context.
-           Context has been using in render-type tasks.
-           By default context is main module.
-           This property is read-only."""          
-        return self.meta_main_module 
     
     @property
     def meta_is_main_module(self):
