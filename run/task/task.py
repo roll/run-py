@@ -138,7 +138,7 @@ class Task(Attribute, metaclass=TaskMetaclass):
     def _expand_arg(self, value):
         result = value
         if isinstance(value, module):
-            result = value.expand(self)
+            result = value.expand(self.meta_module)
         return result
     
 
@@ -155,7 +155,7 @@ class module:
         
     def __getattr__(self, name):
         self._get = True
-        self._attr = '.'.join(self._attr, name)
+        self._attr = '.'.join(filter(None, [self._attr, name]))
         return self
     
     def __call__(self, *args, **kwargs):
