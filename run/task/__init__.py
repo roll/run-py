@@ -10,5 +10,5 @@ from .prototype import TaskPrototype
 from .render import RenderTask
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 from .subprocess import SubprocessTask
-from .task import Task
+from .task import Task, module
 from .value import ValueTask
