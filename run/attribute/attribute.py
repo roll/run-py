@@ -7,7 +7,7 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Public        
         
-    def __meta_init__(self, module, *args, **kwargs):
+    def __build__(self, module, *args, **kwargs):
         self._meta_module = module
         self._meta_basedir = kwargs.pop('meta_basedir', None)
         self._meta_chdir = kwargs.pop('meta_chdir', True)

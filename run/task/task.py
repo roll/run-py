@@ -10,14 +10,14 @@ class Task(Attribute, metaclass=ABCMeta):
     
     #Public
         
-    def __meta_init__(self, module, *args, **kwargs):
+    def __build__(self, module, *args, **kwargs):
         self._args = ()
         self._kwargs = {}
         self._meta_dependencies = []
         self._add_dependencies(kwargs.pop('depend', []))        
         self._add_dependencies(kwargs.pop('require', []), require)
         self._add_dependencies(kwargs.pop('trigger', []), trigger)
-        super().__meta_init__(module, *args, **kwargs)
+        super().__build__(module, *args, **kwargs)
         
     def __init__(self, *args, **kwargs):
         self._args = args

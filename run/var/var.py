@@ -7,10 +7,10 @@ class Var(Task, metaclass=ABCMeta):
     
     #Public
         
-    def __meta_init__(self, module, *args, **kwargs):
+    def __build__(self, module, *args, **kwargs):
         self._cached_value = DEFAULT
         self._meta_cache = kwargs.pop('meta_cache', True)
-        super().__meta_init__(module, *args, **kwargs)
+        super().__build__(module, *args, **kwargs)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:

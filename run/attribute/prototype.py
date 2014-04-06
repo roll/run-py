@@ -57,7 +57,7 @@ class AttributePrototype:
         return object.__new__(self._class)
         
     def _init_attribute(self, attribute, module):
-        attribute.__meta_init__(module, *self._args, **self._kwargs)
+        attribute.__build__(module, *self._args, **self._kwargs)
         
     def _update_attribute(self, attribute):
         for update in self._updates:

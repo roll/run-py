@@ -40,7 +40,7 @@ class AttributePrototypeTest(unittest.TestCase):
         self.prototype.attr4(*self.args, **self.kwargs)
         attribute = self.prototype.__build__('module')
         self.assertIsInstance(attribute, self.MockAttribute)
-        attribute.__meta_init__.assert_called_with(
+        attribute.__build__.assert_called_with(
             'module', *self.args, **self.kwargs)
         self.set.apply.assert_called_with(attribute)
         self.call.apply.assert_called_with(attribute)
@@ -50,7 +50,7 @@ class AttributePrototypeTest(unittest.TestCase):
     def _make_mock_attribute_class(self):
         class MockAttribute:
             #Public
-            __meta_init__ = Mock()
+            __build__ = Mock()
             attr1 = 'value1' 
         return MockAttribute  
     
