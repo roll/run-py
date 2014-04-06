@@ -7,8 +7,8 @@ class ModulePrototypeTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.MockPrototype = self._make_mock_prototype_class()
         self.MockModule = self._make_mock_module_class()
+        self.MockPrototype = self._make_mock_prototype_class()
         self.prototype = self.MockPrototype(self.MockModule, None)
     
     def test__create_attribute(self):
@@ -21,7 +21,7 @@ class ModulePrototypeTest(unittest.TestCase):
     def _make_mock_module_class(self):
         class MockModule:
             #Public
-            attr = Mock(return_value='value')
+            attr = Mock(__build__=Mock(return_value='value'))
         return MockModule
     
     def _make_mock_prototype_class(self):    

@@ -13,7 +13,7 @@ class AttributeMetaclass(ABCMeta):
         if module != DEFAULT:
             if module == None:
                 module = NullModule()
-            return prototype(module)
+            return prototype.__build__(module)
         else:
             return prototype
         

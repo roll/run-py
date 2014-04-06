@@ -1,13 +1,12 @@
 import os
 from copy import copy
 from contextlib import contextmanager
-from abc import abstractmethod
+from abc import ABCMeta, abstractmethod
 from ..attribute import Attribute
 from ..dependency import require, trigger
-from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
-class Task(Attribute, metaclass=TaskMetaclass):
+class Task(Attribute, metaclass=ABCMeta):
     
     #Public
         

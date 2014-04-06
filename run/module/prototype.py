@@ -16,6 +16,6 @@ class ModulePrototype(AttributePrototype):
         module = super()._create_attribute()
         for key, attr in vars(self._class).items():
             if isinstance(attr, self._attribute_prototype_class):
-                    setattr(self._class, key, attr(module))
+                setattr(self._class, key, attr.__build__(module))
         return module   
         

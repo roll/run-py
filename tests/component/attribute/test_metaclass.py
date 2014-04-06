@@ -10,7 +10,7 @@ class AttributeMetaclassTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.MockPrototype = Mock(return_value=Mock())
+        self.MockPrototype = Mock(return_value=Mock(__build__=Mock()))
         self.MockMetaclass = self._make_mock_metaclass(self.MockPrototype)
         self.MockClass = self._make_mock_class(self.MockMetaclass)
 
@@ -28,7 +28,7 @@ class AttributeMetaclassTest(unittest.TestCase):
         instance = self.MockClass(meta_module='module')
         self.assertIsInstance(instance, Mock)
         self.MockPrototype.assert_called_with(self.MockClass, None)
-        self.MockPrototype.return_value.assert_called_with('module')
+        self.MockPrototype.return_value.__build__.assert_called_with('module')
         
     #Protected
     

@@ -7,11 +7,13 @@ class AttributePrototypeTest(unittest.TestCase):
     #Public
     
     def setUp(self):
+        self.set = Mock(apply = Mock())
+        self.call = Mock(apply = Mock())
         self.updates = []
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.MockAttribute = self._make_mock_attribute_class()
-        self.MockPrototype = self._make_mock_prototype_class()
+        self.MockPrototype = self._make_mock_prototype_class(self.set, self.call)
         self.prototype = self.MockPrototype(
             self.MockAttribute, self.updates, *self.args, **self.kwargs)
     
@@ -19,21 +21,29 @@ class AttributePrototypeTest(unittest.TestCase):
         self.assertEqual(self.prototype.attr1, 'value1') 
         
     def test___getattr___no_attribute(self):
-        self.assertRaises(AttributeError, getattr, self.prototype, 'attr3')         
+        self.assertEqual(self.prototype.attr2, self.prototype)          
            
     def test___setattr__(self):
-        self.prototype.attr2 = 'value2'
-        self.prototype._set_class.assert_called_with('attr2', 'value2')
-        self.assertEqual(self.updates, [self.prototype._set_class.return_value])
+        self.prototype.attr3 = 'value3'
+        self.prototype._set_class.assert_called_with('attr3', 'value3')
+        self.assertEqual(self.updates, [self.set])
+        
+    def test___callattr__(self):
+        result = self.prototype.attr4(*self.args, **self.kwargs)
+        self.assertEqual(result, self.prototype)
+        self.prototype._call_class.assert_called_with(
+            'attr4', *self.args, **self.kwargs)
+        self.assertEqual(self.updates, [self.call])        
 
-    def test___call__(self):
-        self.prototype.attr2 = 'value2'
-        attribute = self.prototype('module')
+    def test___build__(self):
+        self.prototype.attr3 = 'value3'
+        self.prototype.attr4(*self.args, **self.kwargs)
+        attribute = self.prototype.__build__('module')
         self.assertIsInstance(attribute, self.MockAttribute)
-        (attribute.__meta_init__.
-            assert_called_with('module', *self.args, **self.kwargs))
-        (self.prototype._set_class.return_value.apply.
-            assert_called_with(attribute))
+        attribute.__meta_init__.assert_called_with(
+            'module', *self.args, **self.kwargs)
+        self.set.apply.assert_called_with(attribute)
+        self.call.apply.assert_called_with(attribute)
           
     #Protected
     
@@ -44,8 +54,9 @@ class AttributePrototypeTest(unittest.TestCase):
             attr1 = 'value1' 
         return MockAttribute  
     
-    def _make_mock_prototype_class(self):
+    def _make_mock_prototype_class(self, st, call):
         class MockPrototype(AttributePrototype): 
             #Protected
-            _set_class = Mock(return_value=Mock(apply = Mock()))
+            _set_class = Mock(return_value=st)
+            _call_class = Mock(return_value=call)
         return MockPrototype  

@@ -17,7 +17,7 @@ from .module import (ModulePrototype, ModuleMetaclass,
 from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings
-from .task import (TaskPrototype, TaskMetaclass, Task, module,
+from .task import (Task, module,
                    DescriptorTask, FunctionTask, MethodTask, task, skip, 
                    DerivedTask, NullTask, ValueTask,
                    FindTask, InputTask, RenderTask, SubprocessTask, 

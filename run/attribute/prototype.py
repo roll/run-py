@@ -1,6 +1,7 @@
 from copy import copy
-from .update import AttributeSet
+from .update import AttributeSet, AttributeCall
 
+#TODO: add _getattr state check
 class AttributePrototype:
 
     #Public
@@ -9,37 +10,48 @@ class AttributePrototype:
         super().__setattr__('_class', cls)
         super().__setattr__('_updates', updates)        
         super().__setattr__('_args', args)
-        super().__setattr__('_kwargs', kwargs)   
+        super().__setattr__('_kwargs', kwargs)
+        super().__setattr__('_getattr', None) 
         if self._updates == None:
-            super().__setattr__('_updates', []) 
-    
+            super().__setattr__('_updates', [])
+            
     def __getattr__(self, name):
-        try:
+        try: 
             return getattr(self._class, name)
         except AttributeError:
-            raise AttributeError(                
-                'AttributePrototype "{prototype}" has no attribute "{name}"'.
-                format(prototype=self, name=name))
+            if not name.startswith('_'):
+                super().__setattr__('_getattr', name)
+                return self
+            else:
+                raise AttributeError(name)
         
     def __setattr__(self, name, value):
-        self._updates.append(self._set_class(name, value))
-     
-    def __call__(self, module):
-        """Build attribute"""
-        attribute = self._create_attribute()
-        self._init_attribute(attribute, module)
-        self._update_attribute(attribute)
-        return attribute
+        update = self._set_class(name, value)
+        self._updates.append(update)
+    
+    def __call__(self, *args, **kwargs):
+        update = self._call_class(self._getattr, *args, **kwargs)
+        super().__setattr__('_getattr', None)
+        self._updates.append(update)
+        return self
         
     def __copy__(self):
         """Copy prototype"""
         return type(self)(
             self._class, copy(self._updates), 
             *self._args, **self._kwargs)
+    
+    def __build__(self, module):
+        """Build attribute"""
+        attribute = self._create_attribute()
+        self._init_attribute(attribute, module)
+        self._update_attribute(attribute)
+        return attribute        
      
     #Protected
     
     _set_class = AttributeSet
+    _call_class = AttributeCall
           
     def _create_attribute(self):
         return object.__new__(self._class)

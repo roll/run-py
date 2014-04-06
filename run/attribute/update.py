@@ -1,15 +1,15 @@
-from abc import ABCMeta, abstractmethod
+from abc import ABCMeta, abstractmethod        
 
 class AttributeUpdate(metaclass=ABCMeta):
     
     #Public
     
     @abstractmethod
-    def apply(self, obj):
+    def apply(self, attribute):
         pass #pragma: no cover
-
-
-class AttributeSet(AttributeUpdate):
+            
+            
+class AttributeSet:
     
     #Public
     
@@ -17,11 +17,11 @@ class AttributeSet(AttributeUpdate):
         self._name = name
         self._value = value
     
-    def apply(self, obj):
-        setattr(obj, self._name, self._value)
-    
-    
-class AttributeCall(AttributeUpdate):
+    def apply(self, attribute):
+        setattr(attribute, self._name, self._value)
+        
+        
+class AttributeCall:
     
     #Public
     
@@ -30,6 +30,6 @@ class AttributeCall(AttributeUpdate):
         self._args = args
         self._kwargs = kwargs
         
-    def apply(self, obj):
-        method = getattr(obj, self._name)
+    def apply(self, attribute):
+        method = getattr(attribute, self._name)
         method(*self._args, **self._kwargs)

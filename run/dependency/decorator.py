@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from ..attribute import AttributePrototype
 
 class DependencyDecorator(metaclass=ABCMeta):
     
@@ -6,18 +7,12 @@ class DependencyDecorator(metaclass=ABCMeta):
     
     def __call__(self, method):
         prototype = method
-        if not isinstance(method, self._prototype_class):
+        if not isinstance(method, AttributePrototype):
             prototype = self._method_task_class(method)
         self._add_dependency(prototype)
         return prototype
     
     #Protected    
-    
-    @property
-    def _prototype_class(self):
-        #Cycle dependency if static
-        from ..task import TaskPrototype    
-        return TaskPrototype  
     
     @property
     def _method_task_class(self):
