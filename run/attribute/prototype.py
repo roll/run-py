@@ -6,9 +6,6 @@ class AttributePrototype:
 
     #Public
     
-    __isabstractmethod__ = False
-    __isskippedmethod__ = False
-    
     def __init__(self, cls, updates, *args, **kwargs):
         super().__setattr__('_class', cls)
         super().__setattr__('_updates', updates)        
@@ -19,6 +16,8 @@ class AttributePrototype:
             super().__setattr__('_updates', [])
             
     def __getattr__(self, name):
+        if name.startswith('_'):
+            return super().__getattr__(name)
         try: 
             return getattr(self._class, name)
         except AttributeError:
