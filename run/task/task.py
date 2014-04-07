@@ -14,6 +14,7 @@ class Task(Attribute, metaclass=ABCMeta):
         self._args = ()
         self._kwargs = {}
         self._meta_dependencies = []
+        self._meta_fallback = kwargs.pop('meta_fallback', None)
         self._add_dependencies(kwargs.pop('depend', []))        
         self._add_dependencies(kwargs.pop('require', []), require)
         self._add_dependencies(kwargs.pop('trigger', []), trigger)
@@ -42,8 +43,11 @@ class Task(Attribute, metaclass=ABCMeta):
             try:
                 result = self.effective_invoke(*args, **kwargs)
             except Exception:
-                self._resolve_dependencies(is_fail=True)
-                raise
+                if self.meta_fallback != None:
+                    result = self.meta_fallback
+                else:
+                    self._resolve_dependencies(is_fail=True)
+                    raise
             self._resolve_dependencies(is_fail=False)
         except Exception:
             self._add_signal('failed')
@@ -54,6 +58,10 @@ class Task(Attribute, metaclass=ABCMeta):
     @property
     def meta_dependencies(self):
         return self._meta_dependencies
+    
+    @property
+    def meta_fallback(self):
+        return self._meta_fallback    
              
     def depend(self, dependency):
         """Add custom dependency."""
