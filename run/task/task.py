@@ -57,12 +57,12 @@ class Task(Attribute, metaclass=ABCMeta):
     
     @property
     def meta_dependencies(self):
-        """Return list of task dependencies"""
+        """Return list of task's dependencies"""
         return self._meta_dependencies
     
     @property
     def meta_fallback(self):
-        """Return value of task fallback"""
+        """Return value of task's fallback"""
         return self._meta_fallback    
              
     def depend(self, dependency):
