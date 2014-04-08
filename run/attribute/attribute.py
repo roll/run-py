@@ -72,6 +72,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_dispatcher(self):
         """Return attribute's dispatcher.
            Dispatcher has been using to operate signals.
+           This property is inherited from module.           
            This property is read-only."""         
         if self._meta_dispatcher != None:
             return self._meta_dispatcher
