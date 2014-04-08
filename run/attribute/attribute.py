@@ -217,6 +217,10 @@ class Attribute(metaclass=AttributeMetaclass):
         else:
             return self.meta_qualname
     
+    @meta_signature.setter   
+    def meta_signature(self, value):
+        self._meta_signature = value 
+        
     @property
     def meta_type(self):
         """Return attribute's type as string. 
