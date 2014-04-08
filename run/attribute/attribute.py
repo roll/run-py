@@ -15,6 +15,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def __build__(self, module, *args, **kwargs):
         self._meta_module = module
         self._meta_basedir = kwargs.pop('meta_basedir', None)
+        self._meta_cache = kwargs.pop('meta_cache', True)        
         self._meta_chdir = kwargs.pop('meta_chdir', True)
         self._meta_dispatcher = kwargs.pop('meta_dispatcher', None)   
         self._meta_docstring = kwargs.pop('meta_docstring', None)
@@ -65,7 +66,17 @@ class Attribute(metaclass=AttributeMetaclass):
     @meta_basedir.setter
     def meta_basedir(self, value):
         self._meta_basedir = value
-   
+    
+    @property
+    def meta_cache(self):
+        """Return caching status (enabled or disabled).
+           This property is writable.""" 
+        return self._meta_cache
+    
+    @meta_cache.setter
+    def meta_cache(self, value):
+        self._meta_cache = value
+           
     @property
     def meta_chdir(self):
         """Return attribute's change directory flag. 
