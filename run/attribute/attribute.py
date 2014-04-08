@@ -4,6 +4,11 @@ from ..settings import settings
 from .metaclass import AttributeMetaclass
 
 class Attribute(metaclass=AttributeMetaclass):
+    """Main base class for attributes.
+    
+    This class is abstract base class for every attribute
+    used in run. Abstract methods: __get__, __set__.
+    """
     
     #Public        
         
@@ -42,10 +47,15 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_basedir(self):
         """Return attribute's basedir.
-           If meta_chdir is True some type of attributes (tasks, vars)
-           change current directory to basedir when invoking.
-           This property is inherited from module.
-           This property is writable."""        
+           
+        If meta_chdir is True some type of attributes (tasks, vars)
+        change current directory to meta_basedir when invoking.
+           
+        Property resolving order:
+           
+        - attribute's value (initiable, writable)
+        - module's value
+        """        
         if self._meta_basedir != None:
             return self._meta_basedir
         else:
@@ -57,9 +67,15 @@ class Attribute(metaclass=AttributeMetaclass):
    
     @property
     def meta_chdir(self):
-        """Return attribute's chdir flag. See meta_basedir.
-           This property is inherited from module.           
-           This property is writable."""     
+        """Return attribute's chdir flag. 
+        
+        See meta_basedir.
+        
+        Property resolving order:
+           
+        - attribute's value (initiable, writable)
+        - module's value
+        """     
         if self._meta_chdir != None:
             return self._meta_chdir
         else:
@@ -72,9 +88,14 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_dispatcher(self):
         """Return attribute's dispatcher.
-           Dispatcher has been using to operate signals.
-           This property is inherited from module.           
-           This property is read-only."""         
+        
+        Dispatcher has been using to operate signals.
+           
+        Property resolving order:
+           
+        - attribute's value (initiable, read-only)
+        - module's value
+        """         
         if self._meta_dispatcher != None:
             return self._meta_dispatcher
         else:
@@ -83,7 +104,12 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_docstring(self):
         """Return attribute's docstring.
-           This property is read-only."""        
+           
+        Property resolving order:
+           
+        - attribute's value (initiable, read-only)
+        - attribute inspection
+        """        
         if self._meta_docstring != None:
             return self._meta_docstring
         else:
@@ -92,8 +118,13 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_info(self):
         """Return attribute's info as string.
-           By default it's a combination of signature and docstring.
-           This property is read-only."""
+           
+        By default it's a combination of signature and docstring.
+        
+        Property resolving order:
+           
+        - attribute inspection
+        """
         lines = []
         if self.meta_signature:
             lines.append(self.meta_signature)
@@ -104,23 +135,37 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_main_module(self):
         """Return attribute's main module of module hierarchy.
-           This property is read-only."""          
+           
+        Property resolving order:
+           
+        - module's value
+        """          
         return self.meta_module.meta_main_module            
     
     @property
     def meta_module(self):
         """Return attribute's module. 
-           If attribute has been created with module it returns module.
-           In other case it returns None.
-           This property is read-only."""         
+           
+        If attribute has been created with module it returns module.
+        In other case it returns None.
+           
+        Property resolving order:
+           
+        - attribute's value (initiable, read-only)
+        """         
         return self._meta_module
         
     @property
     def meta_name(self):
         """Return attribute's name. 
-           Name is defined as attribute name in attribute module.
-           If module is None name will be empty string.
-           This property is read-only.""" 
+           
+        Name is defined as attribute name in attribute module.
+        If module is None name will be empty string.
+           
+        Property resolving order:
+           
+        - attribute inspection
+        """ 
         name = ''
         attributes = self.meta_module.meta_attributes
         for key, attribute in attributes.items():
@@ -131,8 +176,13 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_qualname(self):
         """Return attribute's qualified name.
-           Qualname includes module name and attribute name.
-           This property is read-only.""" 
+           
+        Qualname includes module name and attribute name.
+        
+        Property resolving order:
+           
+        - attribute inspection
+        """ 
         if self.meta_module.meta_is_main_module:
             if (self.meta_module.meta_name ==
                 self._default_main_module_name):
@@ -148,7 +198,12 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_signature(self):
         """Return attribute's signature.
-           This property is read-only.""" 
+           
+        Property resolving order:
+           
+        - attribute's value (initiable, read-only)
+        - attribute inspection
+        """ 
         if self._meta_signature != None:
             return self._meta_signature
         else:
@@ -157,7 +212,11 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_type(self):
         """Return attribute's type as string. 
-           This property is read-only.""" 
+           
+        Property resolving order:
+           
+        - attribute inspection
+        """ 
         return type(self).__name__
     
     #Protected
