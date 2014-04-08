@@ -93,13 +93,17 @@ class Attribute(metaclass=AttributeMetaclass):
            
         Property resolving order:
            
-        - attribute's value (initiable, read-only)
+        - attribute's value (initiable, writable)
         - module's value
         """         
         if self._meta_dispatcher != None:
             return self._meta_dispatcher
         else:
             return self.meta_module.meta_dispatcher
+        
+    @meta_dispatcher.setter   
+    def meta_dispatcher(self, value):
+        self._meta_dispatcher = value        
     
     @property
     def meta_docstring(self):
