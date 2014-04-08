@@ -38,7 +38,6 @@ class Attribute(metaclass=AttributeMetaclass):
     def __exit__(self, *args, **kwargs):
         pass
     
-    #TODO: with Module.__getattr__ it brings strange errors
     def __repr__(self):
         try:
             return '<{category} "{qualname}">'.format(
