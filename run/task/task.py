@@ -14,7 +14,6 @@ class Task(Attribute, metaclass=ABCMeta):
         self._args = ()
         self._kwargs = {}
         self._meta_dependencies = []
-        self._meta_fallback = kwargs.pop('meta_fallback', None)
         self._add_dependencies(kwargs.pop('depend', []))        
         self._add_dependencies(kwargs.pop('require', []), require)
         self._add_dependencies(kwargs.pop('trigger', []), trigger)
@@ -59,15 +58,6 @@ class Task(Attribute, metaclass=ABCMeta):
     def meta_dependencies(self):
         """Return list of task's dependencies"""
         return self._meta_dependencies
-    
-    @property
-    def meta_fallback(self):
-        """Return value of task's fallback"""
-        return self._meta_fallback    
-    
-    @meta_fallback.setter   
-    def meta_fallback(self, value):
-        self._meta_fallback = value    
              
     def depend(self, dependency):
         """Add custom dependency."""

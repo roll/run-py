@@ -18,6 +18,7 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_chdir = kwargs.pop('meta_chdir', True)
         self._meta_dispatcher = kwargs.pop('meta_dispatcher', None)   
         self._meta_docstring = kwargs.pop('meta_docstring', None)
+        self._meta_fallback = kwargs.pop('meta_fallback', None)        
         self._meta_signature = kwargs.pop('meta_signature', None)
         self.__init__(*args, **kwargs)
       
@@ -122,6 +123,15 @@ class Attribute(metaclass=AttributeMetaclass):
     @meta_docstring.setter   
     def meta_docstring(self, value):
         self._meta_docstring = value 
+    
+    @property
+    def meta_fallback(self):
+        """Return value of fallback"""
+        return self._meta_fallback    
+    
+    @meta_fallback.setter   
+    def meta_fallback(self, value):
+        self._meta_fallback = value         
         
     @property
     def meta_info(self):
