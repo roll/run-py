@@ -56,7 +56,8 @@ class Task(Attribute, metaclass=ABCMeta):
     
     @property
     def meta_dependencies(self):
-        """Return list of task's dependencies"""
+        """Return list of task's dependencies.
+        """
         return self._meta_dependencies
              
     def depend(self, dependency):

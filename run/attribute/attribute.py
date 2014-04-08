@@ -74,7 +74,9 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_cache(self):
         """Return caching status (enabled or disabled).
-           This property is writable.""" 
+           
+        This property is writable.
+        """ 
         if self._meta_cache != None:
             return self._meta_cache
         else:
@@ -144,7 +146,8 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_fallback(self):
-        """Return value of fallback"""
+        """Return value of fallback.
+        """
         if self._meta_fallback != None:
             return self._meta_fallback
         else:

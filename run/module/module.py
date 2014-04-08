@@ -31,13 +31,17 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_attributes(self):
         """Return module's attributes dict-like object.
-           This property is read-only."""
+           
+        This property is read-only.
+        """
         return ModuleAttributes(self)
     
     @property
     def meta_is_main_module(self):
         """Return True if module is main module in module hierarchy.
-           This property is read-only."""
+           
+        This property is read-only.
+        """
         if self.meta_module:
             return False
         else:
@@ -60,11 +64,14 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_tags(self):
         """Return module's tag list.
-           This property is read-only."""        
+           
+        This property is read-only.
+        """        
         return []
     
     def list(self, attribute=None):
-        """Print attributes."""
+        """Print attributes.
+        """
         if attribute:
             attribute = self.meta_attributes[attribute]
         else:
@@ -81,7 +88,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
                 format(attribute=attribute))
 
     def info(self, attribute=None):
-        """Print information."""
+        """Print information.
+        """
         if attribute:
             attribute = self.meta_attributes[attribute]
         else:
@@ -89,7 +97,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         self._print_function(attribute.meta_info)
         
     def meta(self, attribute=None):
-        """Print metadata."""
+        """Print metadata.
+        """
         if attribute:
             attribute = self.meta_attributes[attribute]
         else:
