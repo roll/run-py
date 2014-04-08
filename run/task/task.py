@@ -64,6 +64,10 @@ class Task(Attribute, metaclass=ABCMeta):
     def meta_fallback(self):
         """Return value of task's fallback"""
         return self._meta_fallback    
+    
+    @meta_fallback.setter   
+    def meta_fallback(self, value):
+        self._meta_fallback = value    
              
     def depend(self, dependency):
         """Add custom dependency."""

@@ -209,7 +209,7 @@ class Attribute(metaclass=AttributeMetaclass):
            
         Property resolving order:
            
-        - attribute's value (initiable, read-only)
+        - attribute's value (initiable, writable)
         - attribute inspection
         """ 
         if self._meta_signature != None:
