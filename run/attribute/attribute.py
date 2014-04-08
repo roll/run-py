@@ -111,7 +111,7 @@ class Attribute(metaclass=AttributeMetaclass):
            
         Property resolving order:
            
-        - attribute's value (initiable, read-only)
+        - attribute's value (initiable, writable)
         - attribute inspection
         """        
         if self._meta_docstring != None:
@@ -119,6 +119,10 @@ class Attribute(metaclass=AttributeMetaclass):
         else:
             return inspect.getdoc(self)
     
+    @meta_docstring.setter   
+    def meta_docstring(self, value):
+        self._meta_docstring = value 
+        
     @property
     def meta_info(self):
         """Return attribute's info as string.
