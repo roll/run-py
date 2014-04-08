@@ -17,6 +17,10 @@ class NullModule:
     def meta_basedir(self):
         return self._default_basedir
     
+    @property
+    def meta_cache(self):
+        return True    
+    
     @cachedproperty
     def meta_dispatcher(self):
         return self._null_dispatcher_class()
@@ -24,6 +28,10 @@ class NullModule:
     @property
     def meta_docstring(self):
         return ''
+    
+    @property
+    def meta_fallback(self):
+        return None
     
     @property
     def meta_is_main_module(self):

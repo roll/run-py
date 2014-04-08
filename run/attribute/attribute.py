@@ -135,14 +135,17 @@ class Attribute(metaclass=AttributeMetaclass):
         else:
             return inspect.getdoc(self)
     
-    @meta_docstring.setter   
+    @meta_docstring.setter
     def meta_docstring(self, value):
         self._meta_docstring = value 
     
     @property
     def meta_fallback(self):
         """Return value of fallback"""
-        return self._meta_fallback    
+        if self._meta_fallback != None:
+            return self._meta_fallback
+        else:
+            return self.meta_module.meta_fallback
     
     @meta_fallback.setter   
     def meta_fallback(self, value):
