@@ -67,9 +67,9 @@ class Attribute(metaclass=AttributeMetaclass):
    
     @property
     def meta_chdir(self):
-        """Return attribute's chdir flag. 
+        """Return attribute's change directory flag. 
         
-        See meta_basedir.
+        .. seealso:: :attr:`run.Attribute.meta_basedir`
         
         Property resolving order:
            
