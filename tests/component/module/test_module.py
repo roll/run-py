@@ -30,7 +30,7 @@ class ModuleTest(unittest.TestCase):
     
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, 
-                         os.path.dirname(inspect.getfile(type(self))))
+                         self.module.meta_module.meta_basedir)
         
     def test_meta_dispatcher(self):
         self.assertEqual(self.module.meta_dispatcher, 
@@ -153,7 +153,8 @@ class ModuleTest_with_module_is_main(ModuleTest):
     def _make_mock_main_module_class(self):
         class MockMainModule:
             #Public
-            meta_attributes = {}    
+            meta_attributes = {}   
+            meta_basedir = '.' 
             meta_dispatcher = Mock(add_signal=Mock())
             meta_is_main_module = True
             meta_name = 'main_module'

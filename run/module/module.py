@@ -1,5 +1,3 @@
-import os
-import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..attribute import Attribute
@@ -35,14 +33,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Return module's attributes dict-like object.
            This property is read-only."""
         return ModuleAttributes(self)
-    
-    @property
-    def meta_basedir(self):
-        if self._meta_basedir != None:
-            return self._meta_basedir
-        else:
-            return os.path.dirname(
-                inspect.getfile(type(self.meta_main_module)))
     
     @property
     def meta_is_main_module(self):

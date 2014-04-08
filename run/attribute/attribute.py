@@ -1,3 +1,4 @@
+import os
 import inspect
 from abc import abstractmethod
 from ..settings import settings
@@ -60,8 +61,11 @@ class Attribute(metaclass=AttributeMetaclass):
         """        
         if self._meta_basedir != None:
             return self._meta_basedir
-        else:
+        elif self.meta_module.meta_basedir != None:
             return self.meta_module.meta_basedir
+        else:
+            return os.path.dirname(inspect.getfile(
+                type(self.meta_main_module)))
         
     @meta_basedir.setter
     def meta_basedir(self, value):
