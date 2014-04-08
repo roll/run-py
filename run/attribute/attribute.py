@@ -43,6 +43,7 @@ class Attribute(metaclass=AttributeMetaclass):
         """Return attribute's basedir.
            If meta_chdir is True some type of attributes (tasks, vars)
            change current directory to basedir when invoking.
+           This property is inherited from module.
            This property is writable."""        
         if self._meta_basedir != None:
             return self._meta_basedir
@@ -55,10 +56,13 @@ class Attribute(metaclass=AttributeMetaclass):
    
     @property
     def meta_chdir(self):
-        """Return attribute's chdir flag.
-           See meta_basedir.
-           This property is writable."""          
-        return self._meta_chdir
+        """Return attribute's chdir flag. See meta_basedir.
+           This property is inherited from module.           
+           This property is writable."""     
+        if self._meta_chdir != None:
+            return self._meta_chdir
+        else:
+            return self.meta_module.meta_chdir                
         
     @meta_chdir.setter   
     def meta_chdir(self, value):
