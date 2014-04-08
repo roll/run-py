@@ -75,7 +75,10 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_cache(self):
         """Return caching status (enabled or disabled).
            This property is writable.""" 
-        return self._meta_cache
+        if self._meta_cache != None:
+            return self._meta_cache
+        else:
+            return self.meta_module.meta_cache
     
     @meta_cache.setter
     def meta_cache(self, value):

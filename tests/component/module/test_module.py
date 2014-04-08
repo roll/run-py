@@ -153,6 +153,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
             #Public
             meta_attributes = {}   
             meta_basedir = '.'
+            meta_cache = True
             meta_fallback = None
             meta_dispatcher = Mock(add_signal=Mock())
             meta_is_main_module = True
