@@ -57,35 +57,46 @@ class Task(Attribute, metaclass=ABCMeta):
     @property
     def meta_dependencies(self):
         """Return list of task's dependencies.
+        
+        This property is read-only.
         """
         return self._meta_dependencies
              
     def depend(self, dependency):
-        """Add custom dependency."""
+        """Add custom dependency.
+        """
         dependency.bind(self)
         self._meta_dependencies.append(dependency)
            
     def require(self, task, *args, **kwargs):
-        """Add require dependency."""
+        """Add require dependency.
+        """
         dependency = require(task, *args, **kwargs)
         self.depend(dependency)
         
     def trigger(self, task, *args, **kwargs):
-        """Add trigger dependency."""        
+        """Add trigger dependency.
+        """        
         dependency = trigger(task, *args, **kwargs)
         self.depend(dependency)
              
     def enable_dependency(self, task, category=None):
+        """Enable all dependencies for task.
+        """
         for dependency in self._meta_dependencies:
             if not category or isinstance(dependency, category):
                 dependency.enable(task)
         
     def disable_dependency(self, task, category=None):
+        """Disable all dependencies for task.
+        """        
         for dependency in self._meta_dependencies:
             if not category or isinstance(dependency, category):
                 dependency.disable(task)
     
     def effective_invoke(self, *args, **kwargs):
+        """Invoke task with effective dir, args and kwargs.
+        """
         with self._effective_dir():
             return self.invoke(
                 *self._effective_args(*args), 
@@ -93,6 +104,8 @@ class Task(Attribute, metaclass=ABCMeta):
                                      
     @abstractmethod
     def invoke(self, *args, **kwargs):
+        """Invoke task.
+        """        
         pass #pragma: no cover
     
     #Protected
