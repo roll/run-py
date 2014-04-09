@@ -19,7 +19,11 @@ class NullModule:
     
     @property
     def meta_cache(self):
-        return True    
+        return None
+    
+    @property
+    def meta_chdir(self):
+        return None      
     
     @cachedproperty
     def meta_dispatcher(self):

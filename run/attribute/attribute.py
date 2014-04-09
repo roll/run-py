@@ -16,8 +16,8 @@ class Attribute(metaclass=AttributeMetaclass):
     def __build__(self, module, *args, **kwargs):
         self._meta_module = module
         self._meta_basedir = kwargs.pop('meta_basedir', None)
-        self._meta_cache = kwargs.pop('meta_cache', True)        
-        self._meta_chdir = kwargs.pop('meta_chdir', True)
+        self._meta_cache = kwargs.pop('meta_cache', None)        
+        self._meta_chdir = kwargs.pop('meta_chdir', None)
         self._meta_dispatcher = kwargs.pop('meta_dispatcher', None)   
         self._meta_docstring = kwargs.pop('meta_docstring', None)
         self._meta_fallback = kwargs.pop('meta_fallback', None)        
@@ -55,8 +55,9 @@ class Attribute(metaclass=AttributeMetaclass):
            
         Property resolving order:
            
-        - attribute's value (initiable, writable)
+        - attribute's value
         - module's value
+        - inspection
         """        
         if self._meta_basedir != None:
             return self._meta_basedir
@@ -72,14 +73,23 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_cache(self):
-        """Return caching status (enabled or disabled).
+        """Return attribute's caching status (enabled or disabled).
+        
+        If meta_cache is True some type of attributes (vars)
+        cache results after first invocation.        
            
-        This property is writable.
+        Property resolving order:
+           
+        - attribute's value
+        - module's value
+        - default: True
         """ 
         if self._meta_cache != None:
             return self._meta_cache
-        else:
+        elif self.meta_module.meta_cache != None:
             return self.meta_module.meta_cache
+        else:
+            return True
     
     @meta_cache.setter
     def meta_cache(self, value):
@@ -87,19 +97,22 @@ class Attribute(metaclass=AttributeMetaclass):
            
     @property
     def meta_chdir(self):
-        """Return attribute's change directory flag. 
+        """Return attribute's chdir status (enabled or disabled).
         
         .. seealso:: :attr:`run.Attribute.meta_basedir`
         
         Property resolving order:
            
-        - attribute's value (initiable, writable)
+        - attribute's value
         - module's value
+        - default: True
         """     
         if self._meta_chdir != None:
             return self._meta_chdir
+        elif self.meta_module.meta_chdir != None:
+            return self.meta_module.meta_chdir
         else:
-            return self.meta_module.meta_chdir                
+            return True              
         
     @meta_chdir.setter   
     def meta_chdir(self, value):
@@ -113,7 +126,7 @@ class Attribute(metaclass=AttributeMetaclass):
            
         Property resolving order:
            
-        - attribute's value (initiable, writable)
+        - attribute's value
         - module's value
         """         
         if self._meta_dispatcher != None:
@@ -128,11 +141,11 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_docstring(self):
         """Return attribute's docstring.
-           
+        
         Property resolving order:
            
-        - attribute's value (initiable, writable)
-        - attribute inspection
+        - attribute's value
+        - inspection
         """        
         if self._meta_docstring != None:
             return self._meta_docstring
@@ -145,7 +158,12 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_fallback(self):
-        """Return value of fallback.
+        """Return attribute's fallback.
+        
+        Property resolving order:
+           
+        - attribute's value
+        - module's value        
         """
         if self._meta_fallback != None:
             return self._meta_fallback
@@ -160,11 +178,8 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_info(self):
         """Return attribute's info as string.
            
-        By default it's a combination of signature and docstring.
-        
-        Property resolving order:
-           
-        - attribute inspection
+        It's a combination of signature and docstring.
+        This property is read-only.
         """
         lines = []
         if self.meta_signature:
@@ -177,9 +192,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_main_module(self):
         """Return attribute's main module of module hierarchy.
            
-        Property resolving order:
-           
-        - module's value
+        This property is read-only.
         """          
         return self.meta_module.meta_main_module            
     
@@ -188,11 +201,7 @@ class Attribute(metaclass=AttributeMetaclass):
         """Return attribute's module. 
            
         If attribute has been created with module it returns module.
-        In other case it returns None.
-           
-        Property resolving order:
-           
-        - attribute's value (initiable, read-only)
+        In other case it returns None. This property is read-only.
         """         
         return self._meta_module
         
@@ -200,12 +209,9 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_name(self):
         """Return attribute's name. 
            
-        Name is defined as attribute name in attribute module.
-        If module is None name will be empty string.
-           
-        Property resolving order:
-           
-        - attribute inspection
+        Name is defined as attribute name in module of attribute.
+        If module is None name will be empty string. 
+        This property is read-only.
         """ 
         name = ''
         attributes = self.meta_module.meta_attributes
@@ -218,11 +224,8 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_qualname(self):
         """Return attribute's qualified name.
            
-        Qualname includes module name and attribute name.
-        
-        Property resolving order:
-           
-        - attribute inspection
+        Qualname combines module name and attribute name.
+        This property is read-only
         """ 
         if self.meta_module.meta_is_main_module:
             if (self.meta_module.meta_name ==
@@ -242,8 +245,8 @@ class Attribute(metaclass=AttributeMetaclass):
            
         Property resolving order:
            
-        - attribute's value (initiable, writable)
-        - attribute inspection
+        - attribute's value
+        - inspection
         """ 
         if self._meta_signature != None:
             return self._meta_signature
@@ -258,9 +261,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_type(self):
         """Return attribute's type as string. 
            
-        Property resolving order:
-           
-        - attribute inspection
+        This property is read-only.
         """ 
         return type(self).__name__
     
