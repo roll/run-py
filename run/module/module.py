@@ -38,7 +38,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     @property
     def meta_is_main_module(self):
-        """Return True if module is main module in module hierarchy.
+        """Return if module is main module.
            
         This property is read-only.
         """
