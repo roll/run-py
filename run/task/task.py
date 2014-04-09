@@ -66,7 +66,7 @@ class Task(Attribute, metaclass=ABCMeta):
         """Add custom dependency.
         """
         dependency.bind(self)
-        self._meta_dependencies.append(dependency)
+        self.meta_dependencies.append(dependency)
            
     def require(self, task, *args, **kwargs):
         """Add require dependency.
@@ -83,14 +83,14 @@ class Task(Attribute, metaclass=ABCMeta):
     def enable_dependency(self, task, category=None):
         """Enable all dependencies for task.
         """
-        for dependency in self._meta_dependencies:
+        for dependency in self.meta_dependencies:
             if not category or isinstance(dependency, category):
                 dependency.enable(task)
         
     def disable_dependency(self, task, category=None):
         """Disable all dependencies for task.
         """        
-        for dependency in self._meta_dependencies:
+        for dependency in self.meta_dependencies:
             if not category or isinstance(dependency, category):
                 dependency.disable(task)
     
@@ -121,7 +121,7 @@ class Task(Attribute, metaclass=ABCMeta):
             self.depend(dependency)
                 
     def _resolve_dependencies(self, is_fail=None):
-        for dependency in self._meta_dependencies:
+        for dependency in self.meta_dependencies:
             dependency.resolve(is_fail=is_fail)
             
     def _add_signal(self, name):
