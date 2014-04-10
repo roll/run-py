@@ -15,7 +15,7 @@ class MainModule(PythonPackgramModule):
         'Topic :: System :: Systems Administration', 
     ]
     description = 'Run is a program to run tasks from files.'
-    development_requires = [] 
+    development_requires = ['jinja2'] 
     github_user = 'respect31'
     install_requires = ['box>=0.13']
     license = 'MIT License'  
