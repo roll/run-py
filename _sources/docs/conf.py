@@ -17,5 +17,9 @@ class Settings(Settings):
     copyright = '2014, Respect31'
     version = run.version
     
+    #HTML
+    
+    html_theme = 'nature'
+    
 
 locals().update(Settings())
