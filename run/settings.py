@@ -24,7 +24,7 @@ class Settings(Settings):
                  'name': 'attribute',
                  'nargs': '?',
                  'default': None,
-                 'help': 'Attribute to process.',
+                 'help': 'Attribute to run.',
                 },
                 {
                  'name': 'arguments',
