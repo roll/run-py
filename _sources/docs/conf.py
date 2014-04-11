@@ -4,6 +4,9 @@ from box.sphinx import Settings
 
 class Settings(Settings):
     
+    #Documentation:
+    #http://sphinx-doc.org/config.html
+
     #Build
         
     extensions = ['sphinx.ext.autodoc']
