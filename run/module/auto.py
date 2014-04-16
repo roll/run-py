@@ -12,6 +12,14 @@ class AutoModule(Module):
             if not hasattr(type(self), task_name):
                 task = FunctionTask(task_function, meta_module=self)
                 setattr(type(self), task_name, task)
+   
+    @property             
+    def meta_docstring(self):
+        if self._meta_docstring != None:
+            return self._meta_docstring
+        else:
+            return ('AutoModule with sources: {sources}'.
+                    format(sources=self._sources))
                 
     #Protected
     
