@@ -18,7 +18,7 @@ class AutoModule(Module):
         if self._meta_docstring != None:
             return self._meta_docstring
         else:
-            return ('AutoModule with sources: {sources}'.
+            return ('AutoModule with following sources: {sources}'.
                     format(sources=self._sources))
                 
     #Protected
