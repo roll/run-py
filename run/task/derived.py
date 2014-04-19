@@ -10,14 +10,20 @@ class DerivedTask(Task):
 
     def invoke(self, *args, **kwargs):
         return self._task(*args, **kwargs)
-        
-    @property
-    def meta_signature(self):
-        return self._task.meta_signature
 
     @property
     def meta_docstring(self):
-        return self._task.meta_docstring
+        if self._meta_docstring != None:
+            return self._meta_signature
+        else:
+            return self._task.meta_docstring
+     
+    @property
+    def meta_signature(self):
+        if self._meta_signature != None:
+            return self._meta_signature
+        else:
+            return self._task.meta_signature
     
     #Protected
     
