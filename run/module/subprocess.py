@@ -12,7 +12,14 @@ class SubprocessModule(Module):
             if not hasattr(type(self), task_name):
                 eprefix = separator.join(filter(None, [prefix, task_prefix]))
                 task = SubprocessTask(eprefix, separator, meta_module=self)
-                setattr(type(self), task_name, task)        
+                setattr(type(self), task_name, task)
+                
+    @property             
+    def meta_docstring(self):
+        if self._meta_docstring != None:
+            return self._meta_docstring
+        else:
+            return 'SubprocessModule'      
         
     #Protected
     
