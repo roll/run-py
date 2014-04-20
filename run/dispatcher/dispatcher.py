@@ -4,6 +4,9 @@ class Dispatcher:
     
     def __init__(self):
         self._handlers = []
+        
+    def __repr__(self):
+        return '<Dispatcher>'
     
     def add_handler(self, handler):
         self._handlers.append(handler)
