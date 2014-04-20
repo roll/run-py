@@ -1,8 +1,9 @@
-from run import Module, NullTask, DerivedTask
+from run import Module, DerivedTask
 
 class MainModule(Module):
     
-    task = NullTask()
+    def task(self):
+        print('Hello world!')
     
     derived = DerivedTask(
         task='task',
