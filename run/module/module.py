@@ -1,3 +1,5 @@
+import os
+import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..attribute import Attribute
@@ -36,6 +38,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """
         return ModuleAttributes(self)
     
+    @property
+    def meta_basedir(self):
+        basedir = os.path.dirname(inspect.getfile(type(self.meta_main_module)))
+        return self._meta_params.get('basedir', basedir)
+            
     @property
     def meta_is_main_module(self):
         """Return if module is main module.

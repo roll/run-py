@@ -27,8 +27,8 @@ class ModuleTest(unittest.TestCase):
         self.assertEqual(len(self.module.meta_attributes), 5)  
     
     def test_meta_basedir(self):
-        self.assertEqual(self.module.meta_basedir, 
-                         self.module.meta_module.meta_basedir)
+        self.assertRegex(self.module.meta_basedir, 
+                         r'.*tests.component.module')
         
     def test_meta_dispatcher(self):
         self.assertEqual(self.module.meta_dispatcher, 

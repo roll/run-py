@@ -57,23 +57,14 @@ class Attribute(metaclass=AttributeMetaclass):
         If meta_chdir is True some type of attributes (tasks, vars)
         change current directory to meta_basedir when invoking.
            
-        Property resolving order:
-           
-        - attribute's value
-        - module's value
-        - inspection
+        This property is writable and inherited from module.
         """        
-        if self._meta_basedir != None:
-            return self._meta_basedir
-        elif self.meta_module.meta_basedir != None:
-            return self.meta_module.meta_basedir
-        else:
-            return os.path.dirname(inspect.getfile(
-                type(self.meta_main_module)))
+        basedir = self.meta_module.meta_basedir
+        return self._meta_params.get('basedir', basedir)
         
     @meta_basedir.setter
     def meta_basedir(self, value):
-        self._meta_basedir = value
+        self._meta_params['basedir'] = value
     
     @property
     def meta_cache(self):
