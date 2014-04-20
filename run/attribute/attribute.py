@@ -38,12 +38,15 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_basedir(self):
-        """Return attribute's basedir.
+        """Attribute's basedir.
            
         If meta_chdir is True some type of attributes (tasks, vars)
         change current directory to meta_basedir when invoking.
            
-        This property is writable and inherited from module.
+        This property is:
+        
+        - initable/writable
+        - inherited from module
         """        
         return self._meta_params.get('basedir', 
            self.meta_module.meta_basedir)
@@ -54,12 +57,15 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_cache(self):
-        """Return attribute's caching status (enabled or disabled).
+        """Attribute's caching status (enabled or disabled).
         
         If meta_cache is True some type of attributes (vars)
         cache results after first invocation.        
            
-        This property is writable and inherited from module.
+        This property is:
+        
+        - initable/writable
+        - inherited from module
         """ 
         return self._meta_params.get('cache', 
             self.meta_module.meta_cache)
@@ -70,11 +76,14 @@ class Attribute(metaclass=AttributeMetaclass):
            
     @property
     def meta_chdir(self):
-        """Return attribute's chdir status (enabled or disabled).
+        """Attribute's chdir status (enabled or disabled).
         
         .. seealso:: :attr:`run.Attribute.meta_basedir`
         
-        This property is writable and inherited from module.
+        This property is:
+        
+        - initable/writable
+        - inherited from module
         """     
         return self._meta_params.get('chdir', 
             self.meta_module.meta_chdir)            
@@ -85,11 +94,14 @@ class Attribute(metaclass=AttributeMetaclass):
        
     @property
     def meta_dispatcher(self):
-        """Return attribute's dispatcher.
+        """Attribute's dispatcher.
         
         Dispatcher has been using to operate signals.
            
-        This property is writable and inherited from module.
+        This property is:
+        
+        - initable/writable
+        - inherited from module
         """         
         return self._meta_params.get('dispatcher', 
             self.meta_module.meta_dispatcher)
@@ -100,9 +112,11 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_docstring(self):
-        """Return attribute's docstring.
+        """Attribute's docstring.
         
-        This property is writable.
+        This property is:
+        
+        - initable/writable
         """        
         return self._meta_params.get('docstring', 
             inspect.getdoc(self))        
@@ -113,12 +127,15 @@ class Attribute(metaclass=AttributeMetaclass):
     
     @property
     def meta_fallback(self):
-        """Return attribute's fallback.
+        """Attribute's fallback.
         
         In some attributes (tasks) fallback has been using when
         attribute invocation fails. 
         
-        This property is writable.
+        This property is:
+        
+        - initable/writable
+        - inherited from module
         """        
         return self._meta_params.get('fallback', 
             self.meta_module.meta_fallback)  
@@ -129,7 +146,7 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @property
     def meta_info(self):
-        """Return attribute's info as string.
+        """Attribute's info as a string.
            
         It's a combination of signature and docstring.
         """
@@ -142,21 +159,21 @@ class Attribute(metaclass=AttributeMetaclass):
    
     @property
     def meta_main_module(self):
-        """Return attribute's main module of module hierarchy.
+        """Attribute's main module of module hierarchy.
         """          
         return self.meta_module.meta_main_module            
     
     @property
     def meta_module(self):
-        """Return attribute's module. 
+        """Attribute's module. 
         """         
         return self._meta_module
         
     @property
     def meta_name(self):
-        """Return attribute's name. 
+        """Attribute's name. 
            
-        Name is defined as attribute name in module of attribute.
+        Name is defined as attribute name in module.
         If module is None name will be empty string. 
         """ 
         name = ''
@@ -168,7 +185,7 @@ class Attribute(metaclass=AttributeMetaclass):
       
     @property
     def meta_qualname(self):
-        """Return attribute's qualified name.
+        """Attribute's qualified name.
            
         Qualname combines module name and attribute name.
         """ 
@@ -186,9 +203,11 @@ class Attribute(metaclass=AttributeMetaclass):
 
     @property
     def meta_signature(self):
-        """Return attribute's signature.
+        """Attribute's signature.
         
-        This property is writable.
+        This property is:
+        
+        - initable/writable
         """        
         return self._meta_params.get('signature', 
             self.meta_qualname)
@@ -199,7 +218,7 @@ class Attribute(metaclass=AttributeMetaclass):
         
     @property
     def meta_type(self):
-        """Return attribute's type as string. 
+        """Attribute's type as a string. 
         """ 
         return type(self).__name__
     
