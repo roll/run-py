@@ -6,17 +6,15 @@ class DerivedTask(Task):
     
     def __init__(self, task, *args, **kwargs):
         self._task_name = task
-        super().__init__(*args, **kwargs)       
+        super().__init__(*args, **kwargs)
 
     def invoke(self, *args, **kwargs):
         return self._task(*args, **kwargs)
 
     @property
     def meta_docstring(self):
-        if self._meta_docstring != None:
-            return self._meta_signature
-        else:
-            return self._task.meta_docstring
+        return self._meta_params.get('docstring', 
+            self._task.meta_docstring)         
      
     @property
     def meta_signature(self):

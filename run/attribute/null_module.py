@@ -31,7 +31,7 @@ class NullModule:
     
     @property
     def meta_docstring(self):
-        return ''
+        return 'NullModule'
     
     @property
     def meta_fallback(self):

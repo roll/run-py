@@ -115,19 +115,14 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_docstring(self):
         """Return attribute's docstring.
         
-        Property resolving order:
-           
-        - attribute's value
-        - inspection
+        This property is writable.
         """        
-        if self._meta_docstring != None:
-            return self._meta_docstring
-        else:
-            return inspect.getdoc(self)
+        return self._meta_params.get('docstring', 
+            inspect.getdoc(self))        
     
     @meta_docstring.setter
     def meta_docstring(self, value):
-        self._meta_docstring = value 
+        self._meta_params['docstring'] = value
     
     @property
     def meta_fallback(self):

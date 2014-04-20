@@ -15,11 +15,9 @@ class AutoModule(Module):
    
     @property             
     def meta_docstring(self):
-        if self._meta_docstring != None:
-            return self._meta_docstring
-        else:
-            return ('AutoModule with following sources: {sources}'.
-                    format(sources=self._sources))
+        return self._meta_params.get('docstring', 
+            ('AutoModule with following sources: {sources}'.
+             format(sources=self._sources)))         
                 
     #Protected
     

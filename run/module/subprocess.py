@@ -16,10 +16,8 @@ class SubprocessModule(Module):
                 
     @property             
     def meta_docstring(self):
-        if self._meta_docstring != None:
-            return self._meta_docstring
-        else:
-            return 'SubprocessModule'      
+        return self._meta_params.get('docstring', 
+            'SubprocessModule')         
         
     #Protected
     

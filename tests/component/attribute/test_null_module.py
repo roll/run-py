@@ -23,7 +23,7 @@ class NullModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_dispatcher, 'null_dispatcher')
         
     def test_meta_docstring(self):
-        self.assertEqual(self.module.meta_docstring, '')        
+        self.assertEqual(self.module.meta_docstring, 'NullModule')        
         
     def test_meta_info(self):
         self.assertEqual(self.module.meta_info, '__main__')
