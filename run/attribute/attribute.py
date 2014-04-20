@@ -15,13 +15,18 @@ class Attribute(metaclass=AttributeMetaclass):
         
     def __build__(self, module, *args, **kwargs):
         self._meta_module = module
-        self._meta_basedir = kwargs.pop('meta_basedir', None)
-        self._meta_cache = kwargs.pop('meta_cache', None)        
-        self._meta_chdir = kwargs.pop('meta_chdir', None)
-        self._meta_dispatcher = kwargs.pop('meta_dispatcher', None)   
-        self._meta_docstring = kwargs.pop('meta_docstring', None)
-        self._meta_fallback = kwargs.pop('meta_fallback', None)        
-        self._meta_signature = kwargs.pop('meta_signature', None)
+        self._meta_basedir = kwargs.get('meta_basedir', None)
+        self._meta_cache = kwargs.get('meta_cache', None)        
+        self._meta_chdir = kwargs.get('meta_chdir', None)
+        self._meta_dispatcher = kwargs.get('meta_dispatcher', None)   
+        self._meta_docstring = kwargs.get('meta_docstring', None)
+        self._meta_fallback = kwargs.get('meta_fallback', None)        
+        self._meta_signature = kwargs.get('meta_signature', None)
+        self._meta = {}
+        self._meta['module'] = module
+        for key in list(kwargs):
+            if key.startswith('meta_'):
+                self._meta[key.lstrip('meta_')] = kwargs.pop(key)
         self.__init__(*args, **kwargs)
       
     @abstractmethod
