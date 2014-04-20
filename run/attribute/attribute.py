@@ -102,19 +102,14 @@ class Attribute(metaclass=AttributeMetaclass):
         
         Dispatcher has been using to operate signals.
            
-        Property resolving order:
-           
-        - attribute's value
-        - module's value
+        This property is writable and inherited from module.
         """         
-        if self._meta_dispatcher != None:
-            return self._meta_dispatcher
-        else:
-            return self.meta_module.meta_dispatcher
+        return self._meta_params.get('dispatcher', 
+            self.meta_module.meta_dispatcher)
         
-    @meta_dispatcher.setter   
+    @meta_dispatcher.setter
     def meta_dispatcher(self, value):
-        self._meta_dispatcher = value        
+        self._meta_params['dispatcher'] = value
     
     @property
     def meta_docstring(self):
