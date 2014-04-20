@@ -96,7 +96,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_dispatcher(self):
         """Attribute's dispatcher.
         
-        Dispatcher has been using to operate signals.
+        Dispatcher used to operate signals.
            
         This property is:
         
@@ -129,7 +129,7 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_fallback(self):
         """Attribute's fallback.
         
-        In some attributes (tasks) fallback has been using when
+        In some attributes (tasks) fallback used using when
         attribute invocation fails. 
         
         This property is:
