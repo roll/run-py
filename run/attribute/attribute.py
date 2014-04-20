@@ -58,8 +58,8 @@ class Attribute(metaclass=AttributeMetaclass):
            
         This property is writable and inherited from module.
         """        
-        basedir = self.meta_module.meta_basedir
-        return self._meta_params.get('basedir', basedir)
+        return self._meta_params.get('basedir', 
+           self.meta_module.meta_basedir)
         
     @meta_basedir.setter
     def meta_basedir(self, value):
@@ -74,8 +74,8 @@ class Attribute(metaclass=AttributeMetaclass):
            
         This property is writable and inherited from module.
         """ 
-        cache = self.meta_module.meta_cache
-        return self._meta_params.get('cache', cache)
+        return self._meta_params.get('cache', 
+            self.meta_module.meta_cache)
     
     @meta_cache.setter
     def meta_cache(self, value):

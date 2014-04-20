@@ -40,8 +40,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     @property
     def meta_basedir(self):
-        basedir = os.path.dirname(inspect.getfile(type(self.meta_main_module)))
-        return self._meta_params.get('basedir', basedir)
+        return self._meta_params.get('basedir', 
+            os.path.dirname(inspect.getfile(type(self.meta_main_module))))
             
     @property
     def meta_is_main_module(self):
