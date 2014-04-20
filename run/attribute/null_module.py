@@ -19,7 +19,7 @@ class NullModule:
     
     @property
     def meta_cache(self):
-        return None
+        return self._default_cache
     
     @property
     def meta_chdir(self):
@@ -75,6 +75,7 @@ class NullModule:
     
     #Protected
     
-    _default_basedir = settings.default_basedir    
+    _default_basedir = settings.default_basedir
+    _default_cache = settings.default_cache
     _null_dispatcher_class = NullDispatcher
     _default_main_module_name = settings.default_main_module_name

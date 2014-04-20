@@ -1,4 +1,3 @@
-import os
 import inspect
 from abc import abstractmethod
 from ..settings import settings
@@ -73,22 +72,14 @@ class Attribute(metaclass=AttributeMetaclass):
         If meta_cache is True some type of attributes (vars)
         cache results after first invocation.        
            
-        Property resolving order:
-           
-        - attribute's value
-        - module's value
-        - default: True
+        This property is writable and inherited from module.
         """ 
-        if self._meta_cache != None:
-            return self._meta_cache
-        elif self.meta_module.meta_cache != None:
-            return self.meta_module.meta_cache
-        else:
-            return True
+        cache = self.meta_module.meta_cache
+        return self._meta_params.get('cache', cache)
     
     @meta_cache.setter
     def meta_cache(self, value):
-        self._meta_cache = value
+        self._meta_params['cache'] = value
            
     @property
     def meta_chdir(self):
