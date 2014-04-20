@@ -141,7 +141,6 @@ class Attribute(metaclass=AttributeMetaclass):
         """Return attribute's info as string.
            
         It's a combination of signature and docstring.
-        This property is read-only.
         """
         lines = []
         if self.meta_signature:
@@ -153,17 +152,12 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_main_module(self):
         """Return attribute's main module of module hierarchy.
-           
-        This property is read-only.
         """          
         return self.meta_module.meta_main_module            
     
     @property
     def meta_module(self):
         """Return attribute's module. 
-           
-        If attribute has been created with module it returns module.
-        In other case it returns None. This property is read-only.
         """         
         return self._meta_module
         
@@ -173,7 +167,6 @@ class Attribute(metaclass=AttributeMetaclass):
            
         Name is defined as attribute name in module of attribute.
         If module is None name will be empty string. 
-        This property is read-only.
         """ 
         name = ''
         attributes = self.meta_module.meta_attributes
@@ -187,7 +180,6 @@ class Attribute(metaclass=AttributeMetaclass):
         """Return attribute's qualified name.
            
         Qualname combines module name and attribute name.
-        This property is read-only
         """ 
         if self.meta_module.meta_is_main_module:
             if (self.meta_module.meta_name ==
@@ -222,8 +214,6 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_type(self):
         """Return attribute's type as string. 
-           
-        This property is read-only.
         """ 
         return type(self).__name__
     

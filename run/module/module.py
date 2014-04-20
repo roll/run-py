@@ -33,8 +33,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_attributes(self):
         """Return module's attributes dict-like object.
-           
-        This property is read-only.
         """
         return ModuleAttributes(self)
     
@@ -46,8 +44,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_is_main_module(self):
         """Return if module is main module.
-           
-        This property is read-only.
         """
         if self.meta_module:
             return False
@@ -71,8 +67,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_tags(self):
         """Return module's tag list.
-           
-        This property is read-only.
         """        
         return []
     
