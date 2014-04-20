@@ -18,10 +18,8 @@ class DerivedTask(Task):
      
     @property
     def meta_signature(self):
-        if self._meta_signature != None:
-            return self._meta_signature
-        else:
-            return self._task.meta_signature
+        return self._meta_params.get('signature', 
+            self._task.meta_signature)        
     
     #Protected
     

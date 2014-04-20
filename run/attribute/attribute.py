@@ -196,20 +196,15 @@ class Attribute(metaclass=AttributeMetaclass):
     @property
     def meta_signature(self):
         """Return attribute's signature.
-           
-        Property resolving order:
-           
-        - attribute's value
-        - inspection
-        """ 
-        if self._meta_signature != None:
-            return self._meta_signature
-        else:
-            return self.meta_qualname
+        
+        This property is writable.
+        """        
+        return self._meta_params.get('signature', 
+            self.meta_qualname)
     
     @meta_signature.setter   
     def meta_signature(self, value):
-        self._meta_signature = value 
+        self._meta_params['signature'] = value
         
     @property
     def meta_type(self):
