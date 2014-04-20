@@ -34,12 +34,6 @@ class Attribute(metaclass=AttributeMetaclass):
     @abstractmethod
     def __set__(self, module, value):
         pass #pragma: no cover
-        
-    def __enter__(self):
-        return self
-        
-    def __exit__(self, *args, **kwargs):
-        pass
     
     def __repr__(self):
         try:
