@@ -87,22 +87,14 @@ class Attribute(metaclass=AttributeMetaclass):
         
         .. seealso:: :attr:`run.Attribute.meta_basedir`
         
-        Property resolving order:
-           
-        - attribute's value
-        - module's value
-        - default: True
+        This property is writable and inherited from module.
         """     
-        if self._meta_chdir != None:
-            return self._meta_chdir
-        elif self.meta_module.meta_chdir != None:
-            return self.meta_module.meta_chdir
-        else:
-            return True              
+        return self._meta_params.get('chdir', 
+            self.meta_module.meta_chdir)            
         
     @meta_chdir.setter   
     def meta_chdir(self, value):
-        self._meta_chdir = value
+        self._meta_params['chdir'] = value
        
     @property
     def meta_dispatcher(self):
