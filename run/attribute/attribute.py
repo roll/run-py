@@ -122,19 +122,17 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_fallback(self):
         """Return attribute's fallback.
         
-        Property resolving order:
-           
-        - attribute's value
-        - module's value        
-        """
-        if self._meta_fallback != None:
-            return self._meta_fallback
-        else:
-            return self.meta_module.meta_fallback
+        In some attributes (tasks) fallback has been using when
+        attribute invocation fails. 
+        
+        This property is writable.
+        """        
+        return self._meta_params.get('fallback', 
+            self.meta_module.meta_fallback)  
     
     @meta_fallback.setter   
     def meta_fallback(self, value):
-        self._meta_fallback = value         
+        self._meta_params['fallback'] = value        
         
     @property
     def meta_info(self):

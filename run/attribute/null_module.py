@@ -35,7 +35,7 @@ class NullModule:
     
     @property
     def meta_fallback(self):
-        return None
+        return self._default_fallback
     
     @property
     def meta_is_main_module(self):
@@ -78,5 +78,6 @@ class NullModule:
     _default_basedir = settings.default_basedir
     _default_cache = settings.default_cache
     _default_chdir = settings.default_chdir
+    _default_fallback = settings.default_fallback
     _null_dispatcher_class = NullDispatcher
     _default_main_module_name = settings.default_main_module_name
