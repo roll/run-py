@@ -22,11 +22,10 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_docstring = kwargs.get('meta_docstring', None)
         self._meta_fallback = kwargs.get('meta_fallback', None)        
         self._meta_signature = kwargs.get('meta_signature', None)
-        self._meta = {}
-        self._meta['module'] = module
+        self._meta_params = {}
         for key in list(kwargs):
             if key.startswith('meta_'):
-                self._meta[key.lstrip('meta_')] = kwargs.pop(key)
+                self._meta_params[key.lstrip('meta_')] = kwargs.pop(key)
         self.__init__(*args, **kwargs)
       
     @abstractmethod
