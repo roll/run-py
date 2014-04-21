@@ -155,7 +155,7 @@ class Attribute(metaclass=AttributeMetaclass):
             lines.append(self.meta_signature)
         if self.meta_docstring:
             lines.append(self.meta_docstring)
-        return '\n'.join(lines)
+        return '\n---\n'.join(lines)
    
     @property
     def meta_main_module(self):

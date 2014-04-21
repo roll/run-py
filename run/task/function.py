@@ -19,4 +19,4 @@ class FunctionTask(Task):
     
     @property    
     def meta_docstring(self):
-        return str(inspect.getdoc(self._function))
+        return str(inspect.getdoc(self._function)).strip()
