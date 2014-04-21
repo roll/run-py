@@ -71,7 +71,7 @@ class AttributeTest_with_module(AttributeTest):
         
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 
-                         'module.attribute'+'\n'+'docstring') 
+                         'module.attribute'+'\n---\n'+'docstring') 
         
     def test_meta_module(self):
         self.assertEqual(self.attribute.meta_module, self.module)
@@ -113,7 +113,7 @@ class AttributeTest_with_module_is_main(AttributeTest_with_module):
           
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 
-                         '[module] attribute'+'\n'+'docstring')
+                         '[module] attribute'+'\n---\n'+'docstring')
         
     def test_meta_qualname(self):
         self.assertEqual(self.attribute.meta_qualname, '[module] attribute')
@@ -163,7 +163,7 @@ class AttributeTest_with_signature_and_docstring(AttributeTest_with_docstring):
 
     def test_meta_info(self):
         self.assertEqual(self.attribute.meta_info, 
-                         self.signature+'\n'+self.docstring)
+                         self.signature+'\n---\n'+self.docstring)
     
     def test_meta_signature(self):
         self.assertEqual(self.attribute.meta_signature, self.signature)

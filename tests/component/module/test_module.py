@@ -39,7 +39,7 @@ class ModuleTest(unittest.TestCase):
         
     def test_meta_info(self):
         self.assertEqual(self.module.meta_info, 
-                         '__main__'+'\n'+'docstring') 
+                         '__main__'+'\n---\n'+'docstring') 
         
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
@@ -79,7 +79,7 @@ class ModuleTest(unittest.TestCase):
     def test_info(self):
         self.module.info()  
         self.module._print_function.assert_called_with(
-            '__main__'+'\n'+'docstring')
+            '__main__'+'\n---\n'+'docstring')
     
     def test_meta(self):
         self.module.meta()           
@@ -112,7 +112,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
     
     def test_meta_info(self):
         self.assertEqual(self.module.meta_info, 
-                         '[main_module] module'+'\n'+'docstring')      
+                         '[main_module] module'+'\n---\n'+'docstring')      
         
     def test_meta_is_main_module(self):
         self.assertFalse(self.module.meta_is_main_module)  
@@ -144,7 +144,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
     def test_info(self):
         self.module.info()  
         (self.module._print_function.
-            assert_called_with('[main_module] module'+'\n'+'docstring'))                        
+            assert_called_with('[main_module] module'+'\n---\n'+'docstring'))                        
     
     #Protected
     
