@@ -1,32 +1,36 @@
 import os 
 from run import (Module, DerivedTask, DescriptorTask, FindTask, 
-                 FunctionTask, MethodTask)
+                 FunctionTask, InputTask, MethodTask)
 
 class MainModule(Module):
     
     #Tasks
     
-    derived_task = DerivedTask(
+    derived = DerivedTask(
         task='method_task',
     )
     
     @DescriptorTask
     @property
-    def descriptor_task(self):
+    def descriptor(self):
         """Return True.
         """
         return True
         
     @MethodTask        
-    def method_task(self):
+    def method(self):
         """Print "Hello world!".
         """
         print('Hello world!')
         
-    find_task = FindTask(
+    find = FindTask(
         string='test',
     )
     
-    function_task = FunctionTask(
+    function = FunctionTask(
         function=os.path.abspath,
+    )
+    
+    input = InputTask(
+        prompt='Type here',                  
     )

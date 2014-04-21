@@ -1,9 +1,9 @@
 from box.input import input 
-from .task import Task
+from .function import FunctionTask
 
-class InputTask(Task):
+class InputTask(FunctionTask):
 
     #Public
-        
-    def invoke(self, *args, **kwargs):
-        return input(*args, **kwargs)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(input, *args, **kwargs)    
