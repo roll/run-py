@@ -8,9 +8,6 @@ class DerivedTask(Task):
         self._task_name = task
         super().__init__(*args, **kwargs)
 
-    def invoke(self, *args, **kwargs):
-        return self._task(*args, **kwargs)
-
     @property
     def meta_docstring(self):
         return self._meta_params.get('docstring', 
@@ -26,6 +23,9 @@ class DerivedTask(Task):
             '{qualname} > {task_signature}'.
             format(qualname=self.meta_qualname,
                    task_signature=self._task.meta_signature))        
+
+    def invoke(self, *args, **kwargs):
+        return self._task(*args, **kwargs)
     
     #Protected
     

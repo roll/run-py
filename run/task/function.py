@@ -9,9 +9,6 @@ class FunctionTask(Task):
         self._function = function
         super().__init__(*args, **kwargs)
     
-    def invoke(self, *args, **kwargs):
-        return self._function(*args, **kwargs)
-    
     @property    
     def meta_docstring(self):
         return self._meta_params.get('docstring', 
@@ -21,3 +18,6 @@ class FunctionTask(Task):
     def meta_signature(self):
         return self._meta_params.get('signature', 
             self.meta_qualname+str(inspect.signature(self._function)))
+    
+    def invoke(self, *args, **kwargs):
+        return self._function(*args, **kwargs)        
