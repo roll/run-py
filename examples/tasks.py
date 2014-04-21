@@ -11,12 +11,10 @@ class MainModule(Module):
         task='method_task',
     )
     
-    @DescriptorTask
-    @property
-    def descriptor(self):
-        """Return True.
-        """
-        return True
+    descriptor = DescriptorTask(
+        descriptor=property(lambda self: True),
+        meta_docstring='Return True.',                            
+    )
         
     find = FindTask(
         string='test',
@@ -29,12 +27,11 @@ class MainModule(Module):
     input = InputTask(
         prompt='Type here',                  
     )
-        
-    @MethodTask        
-    def method(self):
-        """Print "Hello world!".
-        """
-        print('Hello world!')
+    
+    method = MethodTask(
+        method=lambda self: print('Hello world!'),
+        meta_docstring='Print "Hello world!".',
+    )
         
     null = NullTask(
         require=['method'],                
