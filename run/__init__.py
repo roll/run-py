@@ -24,6 +24,6 @@ from .task import (Task, module,
                    InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal)
 from .var import (Var, DescriptorVar, var,
                   DerivedVar, FindVar, FunctionVar, 
-                  InputVar, MethodVar, RenderVar, ValueVar, 
+                  InputVar, MethodVar, NullVar, RenderVar, ValueVar, 
                   InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)
 from .version import Version, version
