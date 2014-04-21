@@ -1,6 +1,6 @@
 import os 
 from run import (Module, DerivedTask, DescriptorTask, FindTask, 
-                 FunctionTask, InputTask, MethodTask)
+                 FunctionTask, InputTask, MethodTask, NullTask)
 
 class MainModule(Module):
     
@@ -33,4 +33,8 @@ class MainModule(Module):
     def method(self):
         """Print "Hello world!".
         """
-        print('Hello world!')    
+        print('Hello world!')
+        
+    null = NullTask(
+        require=['method'],                
+    ) 

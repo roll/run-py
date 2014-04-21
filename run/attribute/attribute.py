@@ -210,7 +210,7 @@ class Attribute(metaclass=AttributeMetaclass):
         - initable/writable
         """        
         return self._meta_params.get('signature', 
-            self.meta_qualname)
+            '{qualname}()'.format(qualname=self.meta_qualname))
     
     @meta_signature.setter   
     def meta_signature(self, value):
