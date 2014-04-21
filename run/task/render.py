@@ -1,10 +1,10 @@
 from box.jinja2 import render_file 
-from .task import Task
+from .function import FunctionTask
 
-class RenderTask(Task):
+class RenderTask(FunctionTask):
 
     #Public
-
-    def invoke(self, *args, **kwargs):
+    
+    def __init__(self, *args, **kwargs):
         kwargs.setdefault('context', self.meta_module)
-        return render_file(*args, **kwargs)
+        super().__init__(render_file, *args, **kwargs)

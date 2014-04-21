@@ -1,6 +1,7 @@
 import os 
 from run import (Module, DerivedTask, DescriptorTask, FindTask, 
-                 FunctionTask, InputTask, MethodTask, NullTask)
+                 FunctionTask, InputTask, MethodTask, NullTask,
+                 RenderTask)
 
 class MainModule(Module):
     
@@ -37,4 +38,8 @@ class MainModule(Module):
         
     null = NullTask(
         require=['method'],                
-    ) 
+    )
+    
+    render = RenderTask(
+        source='/etc/hosts',
+    )
