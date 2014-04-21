@@ -1,7 +1,7 @@
 import os 
 from run import (Module, DerivedTask, DescriptorTask, FindTask, 
                  FunctionTask, InputTask, MethodTask, NullTask,
-                 RenderTask)
+                 RenderTask, SubprocessTask)
 
 class MainModule(Module):
     
@@ -42,4 +42,8 @@ class MainModule(Module):
     
     render = RenderTask(
         source='/etc/hosts',
+    )
+    
+    subprocess = SubprocessTask(
+        prefix='echo "Hello World!"',
     )
