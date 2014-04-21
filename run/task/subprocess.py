@@ -4,6 +4,11 @@ from .task import Task
 class SubprocessTask(Task):
 
     #Public
+    
+    @property    
+    def meta_docstring(self):
+        return self._meta_params.get('docstring', 
+            'Task executes shell command.') 
         
     def invoke(self, command='', prefix='', separator=' '):
         ecommand = separator.join(filter(None, [prefix, command]))
