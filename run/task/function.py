@@ -11,12 +11,13 @@ class FunctionTask(Task):
     
     def invoke(self, *args, **kwargs):
         return self._function(*args, **kwargs)
-        
-    @property
-    def meta_signature(self):
-        return (self.meta_qualname+
-                str(inspect.signature(self._function)))
     
     @property    
     def meta_docstring(self):
-        return str(inspect.getdoc(self._function)).strip()
+        return self._meta_params.get('docstring', 
+            inspect.getdoc(self._function).strip())
+        
+    @property
+    def meta_signature(self):
+        return self._meta_params.get('signature', 
+            self.meta_qualname+str(inspect.signature(self._function)))
