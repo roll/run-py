@@ -18,12 +18,13 @@ from .program import Program, program
 from .run import Run, RunController, RunStack
 from .settings import Settings, settings
 from .task import (Task, module,
-                   DescriptorTask, FunctionTask, MethodTask, task, skip, 
-                   DerivedTask, NullTask, ValueTask,
-                   FindTask, InputTask, RenderTask, SubprocessTask, 
+                   DerivedTask, DescriptorTask, FindTask, 
+                   FunctionTask, InputTask, MethodTask, task, skip, 
+                   NullTask, RenderTask, SubprocessTask, ValueTask,
                    InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal)
-from .var import (Var, DescriptorVar, var,
-                  DerivedVar, FindVar, FunctionVar, InputVar, 
-                  MethodVar, NullVar, RenderVar, SubprocessVar, ValueVar, 
+from .var import (Var, var,
+                  DerivedVar, DescriptorVar, FindVar, 
+                  FunctionVar, InputVar, MethodVar, 
+                  NullVar, RenderVar, SubprocessVar, ValueVar, 
                   InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)
 from .version import Version, version
