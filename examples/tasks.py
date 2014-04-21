@@ -17,12 +17,6 @@ class MainModule(Module):
         """
         return True
         
-    @MethodTask        
-    def method(self):
-        """Print "Hello world!".
-        """
-        print('Hello world!')
-        
     find = FindTask(
         string='test',
     )
@@ -34,3 +28,9 @@ class MainModule(Module):
     input = InputTask(
         prompt='Type here',                  
     )
+        
+    @MethodTask        
+    def method(self):
+        """Print "Hello world!".
+        """
+        print('Hello world!')    
