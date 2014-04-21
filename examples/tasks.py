@@ -1,4 +1,6 @@
-from run import Module, DerivedTask, DescriptorTask, FindTask, MethodTask
+import os 
+from run import (Module, DerivedTask, DescriptorTask, FindTask, 
+                 FunctionTask, MethodTask)
 
 class MainModule(Module):
     
@@ -11,16 +13,20 @@ class MainModule(Module):
     @DescriptorTask
     @property
     def descriptor_task(self):
-        """Return True
+        """Return True.
         """
         return True
         
     @MethodTask        
     def method_task(self):
-        """Print "Hello world!"
+        """Print "Hello world!".
         """
         print('Hello world!')
         
     find_task = FindTask(
         string='test',
+    )
+    
+    function_task = FunctionTask(
+        function=os.path.abspath,
     )
