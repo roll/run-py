@@ -1,4 +1,4 @@
-from run import Module, DerivedTask, DescriptorTask, MethodTask
+from run import Module, DerivedTask, DescriptorTask, FindTask, MethodTask
 
 class MainModule(Module):
     
@@ -19,4 +19,8 @@ class MainModule(Module):
     def method_task(self):
         """Print "Hello world!"
         """
-        print('Hello world!')        
+        print('Hello world!')
+        
+    find_task = FindTask(
+        string='test',
+    )

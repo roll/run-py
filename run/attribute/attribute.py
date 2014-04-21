@@ -119,7 +119,7 @@ class Attribute(metaclass=AttributeMetaclass):
         - initable/writable
         """        
         return self._meta_params.get('docstring', 
-            inspect.getdoc(self).strip())        
+            str(inspect.getdoc(self)).strip())        
     
     @meta_docstring.setter
     def meta_docstring(self, value):

@@ -1,9 +1,9 @@
 from box.findtools import find_strings 
-from .task import Task
+from .function import FunctionTask
 
-class FindTask(Task):
+class FindTask(FunctionTask):
 
     #Public
-        
-    def invoke(self, *args, **kwargs):
-        return find_strings(*args, **kwargs)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(find_strings, *args, **kwargs)

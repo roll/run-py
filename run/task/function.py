@@ -12,7 +12,7 @@ class FunctionTask(Task):
     @property    
     def meta_docstring(self):
         return self._meta_params.get('docstring', 
-            inspect.getdoc(self._function).strip())
+            str(inspect.getdoc(self._function)).strip())
         
     @property
     def meta_signature(self):
