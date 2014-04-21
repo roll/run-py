@@ -10,7 +10,8 @@ class DescriptorTask(Task):
     
     @property    
     def meta_docstring(self):
-        return inspect.getdoc(self._descriptor).strip() 
+        return self._meta_params.get('docstring', 
+            inspect.getdoc(self._descriptor).strip())           
  
     def invoke(self):
         return self._descriptor.__get__(
