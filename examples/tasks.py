@@ -2,6 +2,8 @@ from run import Module, DerivedTask, DescriptorTask, MethodTask
 
 class MainModule(Module):
     
+    #Tasks
+    
     derived_task = DerivedTask(
         task='method_task',
     )
