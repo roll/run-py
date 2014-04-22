@@ -38,8 +38,24 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     @property
     def meta_basedir(self):
-        return self._meta_params.get('basedir', 
-            os.path.dirname(inspect.getfile(type(self.meta_main_module))))
+        """Module's basedir.
+           
+        Define default meta_basedir for all attributes.
+           
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """         
+        if self.meta_is_main_module:
+            basedir = os.path.dirname(inspect.getfile(type(self)))
+        else:
+            basedir = self.meta_module.meta_basedir
+        return self._meta_params.get('basedir', basedir)
+        
+    @meta_basedir.setter
+    def meta_basedir(self, value):
+        self._meta_params['basedir'] = value        
             
     @property
     def meta_is_main_module(self):

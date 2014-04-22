@@ -10,37 +10,31 @@ class TaskTest(unittest.TestCase):
     def setUp(self):
         self.MockTask = self._make_mock_task_class()
         self.partial_task = partial(self.MockTask, meta_module=None)
+        self.task = self.partial_task()
 
     def test___get__(self):
-        task = self.partial_task()
-        self.assertEqual(task.__get__('module'), task)
+        self.assertEqual(self.task.__get__('module'), self.task)
         
     def test___set__(self):
-        task = self.partial_task()        
         value = lambda: 'value'
-        task.__set__('module', value)
-        self.assertEqual(task.invoke, value)
+        self.task.__set__('module', value)
+        self.assertEqual(self.task.invoke, value)
         
     def test___set___not_callable(self):
-        task = self.partial_task()         
-        self.assertRaises(TypeError, task.__set__, 'module', 'value')        
+        self.assertRaises(TypeError, self.task.__set__, 'module', 'value')        
         
     def test___call__(self):
-        task = self.partial_task() 
-        self.assertEqual(task.__call__(), 'value')
-        task.invoke.assert_called_with()
-        task._initiated_signal_class.assert_called_with(task)
-        task._successed_signal_class.assert_called_with(task)
-        task.meta_dispatcher.add_signal.assert_has_calls(
+        self.assertEqual(self.task.__call__(), 'value')
+        self.task.invoke.assert_called_with()
+        self.task._initiated_signal_class.assert_called_with(self.task)
+        self.task._successed_signal_class.assert_called_with(self.task)
+        self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('successed_signal')])
-
-#     def test___call___with_args_and_kwargs(self):
-#         args = ('arg2',)
-#         kwargs = {'kwarg2': 'kwarg2'}
-#         self.assertEqual(self.task.invoke(*args, **kwargs), 'value')
-#         self.task.meta_module.task.assert_called_with(
-#             'arg1', 'arg2', kwarg1='kwarg1', kwarg2='kwarg2')          
-        
+    
+    def test_meta_basedir(self):
+        self.assertEqual(self.task.meta_basedir,
+                         self.task.meta_module.meta_basedir)
+         
     #Protected
     
     def _make_mock_task_class(self):

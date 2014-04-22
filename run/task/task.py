@@ -55,6 +55,25 @@ class Task(Attribute, metaclass=ABCMeta):
         return result
     
     @property
+    def meta_basedir(self):
+        """Task's basedir.
+           
+        If meta_chdir is True current directory will be
+        changed to meta_basedir when task invoking.
+           
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """        
+        return self._meta_params.get('basedir', 
+           self.meta_module.meta_basedir)
+        
+    @meta_basedir.setter
+    def meta_basedir(self, value):
+        self._meta_params['basedir'] = value
+        
+    @property
     def meta_dependencies(self):
         """Task's list of dependencies.
         """

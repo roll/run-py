@@ -16,10 +16,6 @@ class AttributeTest(unittest.TestCase):
     def test___repr__(self):
         self.assertTrue(repr( self.attribute))  
     
-    def test_meta_basedir(self):
-        self.assertEqual(self.attribute.meta_basedir,
-                         self.attribute.meta_module.meta_basedir)     
-    
     def test_meta_dispatcher(self):
         self.assertEqual(self.attribute.meta_dispatcher,
                          self.attribute.meta_module.meta_dispatcher)     

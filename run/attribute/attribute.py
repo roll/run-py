@@ -37,25 +37,6 @@ class Attribute(metaclass=AttributeMetaclass):
             return super().__repr__()
     
     @property
-    def meta_basedir(self):
-        """Attribute's basedir.
-           
-        If meta_chdir is True some type of attributes (tasks, vars)
-        change current directory to meta_basedir when invoking.
-           
-        This property is:
-        
-        - initable/writable
-        - inherited from module
-        """        
-        return self._meta_params.get('basedir', 
-           self.meta_module.meta_basedir)
-        
-    @meta_basedir.setter
-    def meta_basedir(self, value):
-        self._meta_params['basedir'] = value
-    
-    @property
     def meta_cache(self):
         """Attribute's caching status (enabled or disabled).
         

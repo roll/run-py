@@ -110,6 +110,9 @@ class ModuleTest_with_module_is_main(ModuleTest):
         self.module = self.MockModule(meta_module=self.main_module)
         self.main_module.meta_attributes = {'module': self.module}
     
+    def test_meta_basedir(self):
+        self.assertRegex(self.module.meta_basedir, '.')
+        
     def test_meta_info(self):
         self.assertEqual(self.module.meta_info, 
                          '[main_module] module'+'\n---\n'+'docstring')      
