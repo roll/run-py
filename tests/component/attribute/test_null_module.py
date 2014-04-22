@@ -24,9 +24,6 @@ class NullModuleTest(unittest.TestCase):
         
     def test_meta_docstring(self):
         self.assertEqual(self.module.meta_docstring, 'NullModule')        
-        
-    def test_meta_info(self):
-        self.assertEqual(self.module.meta_info, '__main__')
            
     def test_meta_is_main_module(self):
         self.assertEqual(self.module.meta_is_main_module, True)
@@ -42,9 +39,6 @@ class NullModuleTest(unittest.TestCase):
               
     def test_meta_qualname(self):
         self.assertEqual(self.module.meta_qualname, '__main__')
-              
-    def test_meta_signature(self):
-        self.assertEqual(self.module.meta_signature, '__main__')
               
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])

@@ -42,10 +42,6 @@ class NullModule:
         return True
     
     @property
-    def meta_info(self):
-        return self.meta_signature  
-    
-    @property
     def meta_main_module(self):
         return self    
     
@@ -60,10 +56,6 @@ class NullModule:
     @property
     def meta_qualname(self):
         return self.meta_name
-    
-    @property
-    def meta_signature(self):
-        return self.meta_qualname
     
     @property
     def meta_tags(self):
