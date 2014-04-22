@@ -99,7 +99,8 @@ class Attribute(metaclass=AttributeMetaclass):
     def meta_qualname(self):
         """Attribute's qualified name.
            
-        Qualname combines module name and attribute name.
+        Qualname is full attribute name in hierarhy 
+        starts from main module.
         """ 
         if self.meta_module.meta_is_main_module:
             if (self.meta_module.meta_name ==

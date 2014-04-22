@@ -68,11 +68,10 @@ class ModuleTest(unittest.TestCase):
             call('info'), 
             call('list'), 
             call('meta')])
-    
+        
     def test_info(self):
         self.module.info()  
-        self.module._print_function.assert_called_with(
-            '__main__'+'\n---\n'+'docstring')
+        self.assertTrue(self.module._print_function.called)   
     
     def test_meta(self):
         self.module.meta()           
@@ -129,11 +128,6 @@ class ModuleTest_with_module_is_main(ModuleTest):
             call('[main_module] module.info'), 
             call('[main_module] module.list'), 
             call('[main_module] module.meta')])        
-        
-    def test_info(self):
-        self.module.info()  
-        (self.module._print_function.
-            assert_called_with('[main_module] module'+'\n---\n'+'docstring'))                        
     
     #Protected
     
