@@ -54,24 +54,6 @@ class Attribute(metaclass=AttributeMetaclass):
     @meta_cache.setter
     def meta_cache(self, value):
         self._meta_params['cache'] = value
-           
-    @property
-    def meta_chdir(self):
-        """Attribute's chdir status (enabled or disabled).
-        
-        .. seealso:: :attr:`run.Attribute.meta_basedir`
-        
-        This property is:
-        
-        - initable/writable
-        - inherited from module
-        """     
-        return self._meta_params.get('chdir', 
-            self.meta_module.meta_chdir)            
-        
-    @meta_chdir.setter   
-    def meta_chdir(self, value):
-        self._meta_params['chdir'] = value
        
     @property
     def meta_dispatcher(self):

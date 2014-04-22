@@ -56,6 +56,24 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @meta_basedir.setter
     def meta_basedir(self, value):
         self._meta_params['basedir'] = value        
+          
+    @property
+    def meta_chdir(self):
+        """Module's chdir status (enabled or disabled).
+        
+        Define default meta_chdir for all attributes.
+        
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """     
+        return self._meta_params.get('chdir', 
+            self.meta_module.meta_chdir)            
+        
+    @meta_chdir.setter   
+    def meta_chdir(self, value):
+        self._meta_params['chdir'] = value          
             
     @property
     def meta_is_main_module(self):

@@ -72,6 +72,24 @@ class Task(Attribute, metaclass=ABCMeta):
     @meta_basedir.setter
     def meta_basedir(self, value):
         self._meta_params['basedir'] = value
+     
+    @property
+    def meta_chdir(self):
+        """Task's chdir status (enabled or disabled).
+        
+        .. seealso:: :attr:`run.Task.meta_basedir`
+        
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """     
+        return self._meta_params.get('chdir', 
+            self.meta_module.meta_chdir)            
+        
+    @meta_chdir.setter   
+    def meta_chdir(self, value):
+        self._meta_params['chdir'] = value     
         
     @property
     def meta_dependencies(self):
