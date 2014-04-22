@@ -3,7 +3,7 @@ import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..attribute import Attribute
-from ..task import NullTask
+from ..task import Task, NullTask
 from .attributes import ModuleAttributes
 from .metaclass import ModuleMetaclass
 
@@ -166,8 +166,10 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         else:
             attribute = self
         info = attribute.meta_qualname
+        if isinstance(attribute, Task):
+            info += attribute.meta_signature        
         info += '\n---\n'
-        info += attribute.meta_docstring  
+        info += attribute.meta_docstring
         self._print_function(info)
         
     def meta(self, attribute=None):

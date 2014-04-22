@@ -20,9 +20,7 @@ class DerivedTask(Task):
     @property
     def meta_signature(self):
         return self._meta_params.get('signature', 
-            '{qualname} > {task_signature}'.
-            format(qualname=self.meta_qualname,
-                   task_signature=self._task.meta_signature))        
+            self._task.meta_signature)        
 
     def invoke(self, *args, **kwargs):
         return self._task(*args, **kwargs)
