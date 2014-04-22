@@ -169,6 +169,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         if isinstance(attribute, Task):
             info += attribute.meta_signature        
         info += '\n---\n'
+        info += 'Type: '+attribute.meta_type
+        if isinstance(attribute, Task):
+            info += '\n'
+            info += 'Dependencies: '+str(attribute.meta_dependencies)         
+        info += '\n---\n'
         info += attribute.meta_docstring
         self._print_function(info)
         
