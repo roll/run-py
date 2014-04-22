@@ -34,9 +34,6 @@ class AttributeTest(unittest.TestCase):
     def test_meta_qualname(self):
         self.assertEqual(self.attribute.meta_qualname, '') 
     
-    def test_meta_signature(self):
-        self.assertEqual(self.attribute.meta_signature, '')
-    
     def test_meta_type(self):
         self.assertEqual(self.attribute.meta_type, 'MockAttribute')
         
@@ -70,9 +67,6 @@ class AttributeTest_with_module(AttributeTest):
         
     def test_meta_qualname(self):
         self.assertEqual(self.attribute.meta_qualname, 'module.attribute') 
-         
-    def test_meta_signature(self):
-        self.assertEqual(self.attribute.meta_signature, 'module.attribute')
         
     #Protected
     
@@ -102,9 +96,6 @@ class AttributeTest_with_module_is_main(AttributeTest_with_module):
         
     def test_meta_qualname(self):
         self.assertEqual(self.attribute.meta_qualname, '[module] attribute')
-          
-    def test_meta_signature(self):
-        self.assertEqual(self.attribute.meta_signature, '[module] attribute')
         
     #Protected
     
@@ -128,20 +119,3 @@ class AttributeTest_with_docstring(AttributeTest):
     
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, self.docstring)
-        
-        
-class AttributeTest_with_signature_and_docstring(AttributeTest_with_docstring):
-    
-    #Public
-    
-    def setUp(self):
-        MockAttribute = self._make_mock_attribute_class()
-        self.docstring = 'new_docstring'
-        self.signature = 'new_signature'
-        self.attribute = MockAttribute(
-            meta_docstring=self.docstring, 
-            meta_signature=self.signature, 
-            meta_module=None)
-    
-    def test_meta_signature(self):
-        self.assertEqual(self.attribute.meta_signature, self.signature)

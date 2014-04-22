@@ -113,7 +113,21 @@ class Task(Attribute, metaclass=ABCMeta):
     
     @meta_fallback.setter   
     def meta_fallback(self, value):
-        self._meta_params['fallback'] = value    
+        self._meta_params['fallback'] = value
+
+    @property
+    def meta_signature(self):
+        """Task's signature.
+        
+        This property is:
+        
+        - initable/writable
+        """        
+        return self._meta_params.get('signature', '')
+    
+    @meta_signature.setter   
+    def meta_signature(self, value):
+        self._meta_params['signature'] = value        
              
     def depend(self, dependency):
         """Add custom dependency.

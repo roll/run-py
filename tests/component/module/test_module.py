@@ -54,9 +54,6 @@ class ModuleTest(unittest.TestCase):
     def test_meta_qualname(self):
         self.assertEqual(self.module.meta_qualname, '__main__')        
         
-    def test_meta_signature(self):
-        self.assertEqual(self.module.meta_signature, '__main__')
-        
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
         
@@ -123,9 +120,6 @@ class ModuleTest_with_module_is_main(ModuleTest):
         
     def test_meta_qualname(self):
         self.assertEqual(self.module.meta_qualname, '[main_module] module')         
-        
-    def test_meta_signature(self):
-        self.assertEqual(self.module.meta_signature, '[main_module] module')
          
     def test_list(self):
         self.module.list()

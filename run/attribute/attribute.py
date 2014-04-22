@@ -112,21 +112,6 @@ class Attribute(metaclass=AttributeMetaclass):
         return pattern.format(
             module_qualname=self.meta_module.meta_qualname,
             name=self.meta_name)
-
-    @property
-    def meta_signature(self):
-        """Attribute's signature.
-        
-        This property is:
-        
-        - initable/writable
-        """        
-        return self._meta_params.get('signature', 
-            self.meta_qualname)
-    
-    @meta_signature.setter   
-    def meta_signature(self, value):
-        self._meta_params['signature'] = value
         
     @property
     def meta_type(self):
