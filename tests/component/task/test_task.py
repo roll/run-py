@@ -36,7 +36,7 @@ class TaskTest(unittest.TestCase):
                          self.task.meta_module.meta_basedir)
     
     def test_meta_signature(self):
-        self.assertEqual(self.task.meta_signature, '')        
+        self.assertEqual(self.task.meta_signature, '()')        
          
     #Protected
     

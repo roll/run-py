@@ -123,7 +123,7 @@ class Task(Attribute, metaclass=ABCMeta):
         
         - initable/writable
         """        
-        return self._meta_params.get('signature', '')
+        return self._meta_params.get('signature', '()')
     
     @meta_signature.setter   
     def meta_signature(self, value):
