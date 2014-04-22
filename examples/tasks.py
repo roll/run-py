@@ -29,8 +29,8 @@ class MainModule(Module):
     )
     
     method = MethodTask(
-        method=lambda self: print('Hello world!'),
-        meta_docstring='Print "Hello world!".',
+        method=lambda self: 'Hello world!',
+        meta_docstring='Return "Hello world!".',
     )
         
     null = NullTask(
