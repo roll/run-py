@@ -7,7 +7,7 @@ class NullTask(Task):
     @property    
     def meta_docstring(self):
         return self._meta_params.get('docstring', 
-            'Task does nothing but resolve its dependencies.')    
+            'Do nothing but resolve dependencies.')    
 
     def invoke(self):
         pass

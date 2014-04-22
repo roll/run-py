@@ -11,7 +11,7 @@ class DerivedTask(Task):
     @property
     def meta_docstring(self):
         return self._meta_params.get('docstring', 
-            'Task is derived from task "{task_qualname}".\n'
+            'Derived from task "{task_qualname}".\n'
             'Task "{task_qualname}" has following docstring:\n'
             '{task_docstring}'.
             format(task_qualname=self._task.meta_qualname,
