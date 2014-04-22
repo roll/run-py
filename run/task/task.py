@@ -1,4 +1,5 @@
 import os
+import inspect
 from copy import copy
 from contextlib import contextmanager
 from abc import ABCMeta, abstractmethod
@@ -123,7 +124,8 @@ class Task(Attribute, metaclass=ABCMeta):
         
         - initable/writable
         """        
-        return self._meta_params.get('signature', '()')
+        return self._meta_params.get('signature', 
+            str(inspect.signature(self.invoke)))  
     
     @meta_signature.setter   
     def meta_signature(self, value):
