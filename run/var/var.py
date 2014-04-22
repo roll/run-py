@@ -41,6 +41,10 @@ class Var(Task, metaclass=ABCMeta):
     def meta_cache(self, value):
         self._meta_params['cache'] = value        
     
+    @property
+    def meta_signature(self):
+        return ''
+        
     #Protected
     
     _initiated_signal_class = InitiatedVarSignal

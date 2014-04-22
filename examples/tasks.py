@@ -8,7 +8,7 @@ class MainModule(Module):
     #Tasks
     
     derived = DerivedTask(
-        task='method_task',
+        task='method',
     )
     
     descriptor = DescriptorTask(
