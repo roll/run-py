@@ -37,10 +37,6 @@ class ModuleTest(unittest.TestCase):
     def test_meta_docstring(self):
         self.assertEqual(self.module.meta_docstring, 'docstring')
         
-    def test_meta_info(self):
-        self.assertEqual(self.module.meta_info, 
-                         '__main__'+'\n---\n'+'docstring') 
-        
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
     
@@ -112,10 +108,6 @@ class ModuleTest_with_module_is_main(ModuleTest):
     
     def test_meta_basedir(self):
         self.assertRegex(self.module.meta_basedir, '.')
-        
-    def test_meta_info(self):
-        self.assertEqual(self.module.meta_info, 
-                         '[main_module] module'+'\n---\n'+'docstring')      
         
     def test_meta_is_main_module(self):
         self.assertFalse(self.module.meta_is_main_module)  

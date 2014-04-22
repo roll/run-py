@@ -165,7 +165,10 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             attribute = self.meta_attributes[attribute]
         else:
             attribute = self
-        self._print_function(attribute.meta_info)
+        info = attribute.meta_qualname
+        info += '\n---\n'
+        info += attribute.meta_docstring  
+        self._print_function(info)
         
     def meta(self, attribute=None):
         """Print metadata.

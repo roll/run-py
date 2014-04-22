@@ -22,9 +22,6 @@ class AttributeTest(unittest.TestCase):
     
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, 'docstring') 
-        
-    def test_meta_info(self):
-        self.assertEqual(self.attribute.meta_info, 'docstring')
            
     def test_meta_module(self):
         #Null module
@@ -65,10 +62,6 @@ class AttributeTest_with_module(AttributeTest):
         self.attribute = MockAttribute(meta_module=self.module)
         self.module.meta_attributes = {'attribute': self.attribute}
         
-    def test_meta_info(self):
-        self.assertEqual(self.attribute.meta_info, 
-                         'module.attribute'+'\n---\n'+'docstring') 
-        
     def test_meta_module(self):
         self.assertEqual(self.attribute.meta_module, self.module)
     
@@ -106,10 +99,6 @@ class AttributeTest_with_module_is_main(AttributeTest_with_module):
         self.module = MockMainModule()
         self.attribute = MockAttribute(meta_module=self.module)
         self.module.meta_attributes = {'attribute': self.attribute}
-          
-    def test_meta_info(self):
-        self.assertEqual(self.attribute.meta_info, 
-                         '[module] attribute'+'\n---\n'+'docstring')
         
     def test_meta_qualname(self):
         self.assertEqual(self.attribute.meta_qualname, '[module] attribute')
@@ -140,9 +129,6 @@ class AttributeTest_with_docstring(AttributeTest):
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, self.docstring)
         
-    def test_meta_info(self):
-        self.assertEqual(self.attribute.meta_info, self.docstring)
-        
         
 class AttributeTest_with_signature_and_docstring(AttributeTest_with_docstring):
     
@@ -156,10 +142,6 @@ class AttributeTest_with_signature_and_docstring(AttributeTest_with_docstring):
             meta_docstring=self.docstring, 
             meta_signature=self.signature, 
             meta_module=None)
-
-    def test_meta_info(self):
-        self.assertEqual(self.attribute.meta_info, 
-                         self.signature+'\n---\n'+self.docstring)
     
     def test_meta_signature(self):
         self.assertEqual(self.attribute.meta_signature, self.signature)

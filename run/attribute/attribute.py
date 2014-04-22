@@ -68,19 +68,6 @@ class Attribute(metaclass=AttributeMetaclass):
     @meta_docstring.setter
     def meta_docstring(self, value):
         self._meta_params['docstring'] = value
-    
-    @property
-    def meta_info(self):
-        """Attribute's info as a string.
-           
-        It's a combination of signature and docstring.
-        """
-        lines = []
-        if self.meta_signature:
-            lines.append(self.meta_signature)
-        if self.meta_docstring:
-            lines.append(self.meta_docstring)
-        return '\n---\n'.join(lines)
    
     @property
     def meta_main_module(self):
