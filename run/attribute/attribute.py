@@ -37,25 +37,6 @@ class Attribute(metaclass=AttributeMetaclass):
             return super().__repr__()
     
     @property
-    def meta_cache(self):
-        """Attribute's caching status (enabled or disabled).
-        
-        If meta_cache is True some type of attributes (vars)
-        cache results after first invocation.        
-           
-        This property is:
-        
-        - initable/writable
-        - inherited from module
-        """ 
-        return self._meta_params.get('cache', 
-            self.meta_module.meta_cache)
-    
-    @meta_cache.setter
-    def meta_cache(self, value):
-        self._meta_params['cache'] = value
-       
-    @property
     def meta_dispatcher(self):
         """Attribute's dispatcher.
         

@@ -58,6 +58,24 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         self._meta_params['basedir'] = value        
           
     @property
+    def meta_cache(self):
+        """Module's caching status (enabled or disabled).
+        
+        Define default meta_cache for all attributes.       
+           
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """ 
+        return self._meta_params.get('cache', 
+            self.meta_module.meta_cache)
+    
+    @meta_cache.setter
+    def meta_cache(self, value):
+        self._meta_params['cache'] = value          
+          
+    @property
     def meta_chdir(self):
         """Module's chdir status (enabled or disabled).
         
