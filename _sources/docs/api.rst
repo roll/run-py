@@ -12,10 +12,17 @@ run
 .. autoclass:: run.Module
    :members:
    :undoc-members:
-   :exclude-members: meta_basedir, meta_main_module, meta_name
+
+.. autoclass:: run.Task
+   :members:
+   :undoc-members:
+   
+.. autoclass:: run.Var
+   :members:
+   :undoc-members:   
    
 .. automodule:: run
    :members:
    :undoc-members:
    :imported-members:
-   :exclude-members: Attribute, Module
+   :exclude-members: Attribute, Module, Task, Var
