@@ -17,7 +17,7 @@ class FunctionTask(Task):
     @property
     def meta_signature(self):
         return self._meta_params.get('signature', 
-            self.meta_qualname+str(inspect.signature(self._function)))
+            str(inspect.signature(self._function)))
     
     def invoke(self, *args, **kwargs):
         return self._function(*args, **kwargs)        
