@@ -122,10 +122,10 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         
     @property
     def meta_main_module(self):
-        if self.meta_module:
-            return self.meta_module.meta_main_module
-        else:
+        if self.meta_is_main_module:
             return self
+        else:
+            return self.meta_module.meta_main_module
         
     @property
     def meta_name(self):
