@@ -89,25 +89,6 @@ class Attribute(metaclass=AttributeMetaclass):
         self._meta_params['docstring'] = value
     
     @property
-    def meta_fallback(self):
-        """Attribute's fallback.
-        
-        In some attributes (tasks) fallback used using when
-        attribute invocation fails. 
-        
-        This property is:
-        
-        - initable/writable
-        - inherited from module
-        """        
-        return self._meta_params.get('fallback', 
-            self.meta_module.meta_fallback)  
-    
-    @meta_fallback.setter   
-    def meta_fallback(self, value):
-        self._meta_params['fallback'] = value        
-        
-    @property
     def meta_info(self):
         """Attribute's info as a string.
            

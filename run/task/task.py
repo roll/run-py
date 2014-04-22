@@ -96,6 +96,24 @@ class Task(Attribute, metaclass=ABCMeta):
         """Task's list of dependencies.
         """
         return self._meta_dependencies
+    
+    @property
+    def meta_fallback(self):
+        """Task's fallback.
+        
+        Fallback used when attribute invocation fails. 
+        
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """        
+        return self._meta_params.get('fallback', 
+            self.meta_module.meta_fallback)  
+    
+    @meta_fallback.setter   
+    def meta_fallback(self, value):
+        self._meta_params['fallback'] = value    
              
     def depend(self, dependency):
         """Add custom dependency.

@@ -74,6 +74,24 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @meta_chdir.setter   
     def meta_chdir(self, value):
         self._meta_params['chdir'] = value          
+         
+    @property
+    def meta_fallback(self):
+        """Module's fallback.
+        
+        Define default meta_fallback for all attributes.
+        
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """        
+        return self._meta_params.get('fallback', 
+            self.meta_module.meta_fallback)  
+    
+    @meta_fallback.setter   
+    def meta_fallback(self, value):
+        self._meta_params['fallback'] = value          
             
     @property
     def meta_is_main_module(self):
