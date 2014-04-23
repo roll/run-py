@@ -11,7 +11,7 @@ class MethodTask(FunctionTask):
     @property
     def meta_signature(self):
         return self._meta_params.get('signature', 
-            re.sub('self,?', '', super().meta_signature))        
+            re.sub('self[,\s]*', '', super().meta_signature))        
         
     def invoke(self, *args, **kwargs):
         return self._function(self.meta_module, *args, **kwargs)
