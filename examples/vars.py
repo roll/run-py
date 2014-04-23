@@ -1,14 +1,20 @@
 import os 
-from run import (Module, DerivedVar, DescriptorVar, FindVar, 
+from run import (Module, SubprocessTask, DerivedVar, DescriptorVar, FindVar, 
                  FunctionVar, InputVar, MethodVar, NullVar,
                  RenderVar, SubprocessVar, ValueVar)
 
 class MainModule(Module):
     
+    #Tasks
+    
+    subprocess_task = SubprocessTask(
+        prefix='echo "Hello World!"',
+    )    
+    
     #Vars
     
     derived = DerivedVar(
-        task='method',
+        task='subprocess_task',
     )
     
     descriptor = DescriptorVar(
@@ -36,7 +42,7 @@ class MainModule(Module):
     )
         
     null = NullVar(
-        require=['subprocess'],                
+        require=['subprocess_task'],                
     )
     
     render = RenderVar(

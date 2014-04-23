@@ -8,7 +8,7 @@ class MainModule(Module):
     #Tasks
     
     derived = DerivedTask(
-        task='method',
+        task='subprocess',
     )
     
     descriptor = DescriptorTask(
