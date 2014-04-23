@@ -18,6 +18,7 @@ class Task(Attribute, metaclass=ABCMeta):
         self._add_dependencies(kwargs.pop('depend', []))        
         self._add_dependencies(kwargs.pop('require', []), require)
         self._add_dependencies(kwargs.pop('trigger', []), trigger)
+        self._initial_dir = os.path.abspath(os.getcwd())
         super().__build__(module, *args, **kwargs)
         
     def __init__(self, *args, **kwargs):
