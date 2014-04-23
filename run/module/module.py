@@ -167,7 +167,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         info += 'Type: '+attribute.meta_type
         if isinstance(attribute, Task):
             info += '\n'
-            info += 'Dependencies: '+str(attribute.meta_dependencies)         
+            info += 'Dependencies: '+str(attribute.meta_dependencies)
+            info += '\n'
+            info += 'Default arguments: '+str(attribute.meta_args) 
+            info += '\n'
+            info += 'Default keyword arguments: '+str(attribute.meta_kwargs)       
         info += '\n---\n'
         info += attribute.meta_docstring
         self._print_function(info)
