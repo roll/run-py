@@ -14,12 +14,11 @@ class DerivedTaskTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}        
         self.assertEqual(self.task.invoke(*self.args, **self.kwargs), 'value')
-        self.task.meta_module.task.assert_called_with(*self.args, **self.kwargs)
         
     #Protected
     
     def _make_mock_task_class(self):
         class MockTask(DerivedTask):
-            #Public
-            meta_module = Mock(task=Mock(return_value='value'))
+            #Protected
+            _task = Mock(return_value='value')
         return MockTask

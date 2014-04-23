@@ -30,6 +30,6 @@ class DerivedTask(Task):
         task = getattr(self.meta_module, self._task_name)
         if not isinstance(task, Task):
             raise TypeError(
-                'Task to derive "{task_name}" must be Task.'.
+                'Attribute to derive "{task_name}" must be a Task.'.
                 format(task_name=self._task_name))
         return task
