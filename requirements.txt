@@ -1,5 +1,5 @@
 #Builded for run 0.11.1 from _sources/requirements.txt
 
-jinja2>=2.7
+Sphinx>=1.2
 box>=0.13
 nose
