@@ -18,4 +18,9 @@ class ModuleAttributes(dict):
             if isinstance(module_attributes, type(self)):
                 attribute = module_attributes[attribute_name]
                 return attribute
-        return super().__getitem__(key)
+        try:
+            return super().__getitem__(key)
+        except KeyError:
+            raise AttributeError(
+                'Module "{module}" has no attribute "{name}"'.
+                format(module=self._module, name=key)) from None
