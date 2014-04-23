@@ -22,5 +22,5 @@ class ModuleAttributes(dict):
             return super().__getitem__(key)
         except KeyError:
             raise AttributeError(
-                'Module "{module}" has no attribute "{name}"'.
+                'Module "{module}" has no attribute "{name}".'.
                 format(module=self._module, name=key)) from None
