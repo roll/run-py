@@ -28,8 +28,9 @@ class DerivedTask(Task):
     @property
     def _task(self):
         task = getattr(self.meta_module, self._task_name)
-        if not isinstance(task, Task):
+        if not callable(task):
             raise TypeError(
-                'Attribute to derive "{task_name}" must be a Task.'.
+                    'Attribute to derive from "{task_name}" '
+                    'must be a Task or a callable object.'.
                 format(task_name=self._task_name))
         return task

@@ -61,9 +61,13 @@ class DependencyCommonResolver(DependencyResolver):
     @property
     def _task(self):
         if self._attribute:
-            return getattr(
-                self._attribute.meta_module, 
-                self._task_name)
+            task = getattr(self._attribute.meta_module, self._task_name)
+            if not callable(task):
+                raise TypeError(
+                    'Attribute to depend upon "{task_name}" '
+                    'must be a Task or a callable object.'.
+                    format(task_name=self._task_name))
+            return task            
         else:
             raise RuntimeError(
                 'Dependency resolver "{resolver}" '
