@@ -12,8 +12,8 @@ class Task(Attribute, metaclass=ABCMeta):
     #Public
         
     def __build__(self, module, *args, **kwargs):
-        self._args = ()
-        self._kwargs = {}
+        self._meta_args = ()
+        self._meta_kwargs = {}
         self._meta_dependencies = []
         self._add_dependencies(kwargs.pop('depend', []))        
         self._add_dependencies(kwargs.pop('require', []), require)
@@ -22,8 +22,8 @@ class Task(Attribute, metaclass=ABCMeta):
         super().__build__(module, *args, **kwargs)
         
     def __init__(self, *args, **kwargs):
-        self._args = args
-        self._kwargs = kwargs        
+        self._meta_args = args
+        self._meta_kwargs = kwargs        
         
     def __get__(self, module, module_class=None):
         return self
@@ -55,6 +55,12 @@ class Task(Attribute, metaclass=ABCMeta):
             raise
         self._add_signal('successed')
         return result
+    
+    @property
+    def meta_args(self):
+        """Tasks's default arguments
+        """
+        return self._meta_args
     
     @property
     def meta_basedir(self):
@@ -116,7 +122,13 @@ class Task(Attribute, metaclass=ABCMeta):
     @meta_fallback.setter   
     def meta_fallback(self, value):
         self._meta_params['fallback'] = value
-
+    
+    @property
+    def meta_kwargs(self):
+        """Tasks's default keyword arguments
+        """
+        return self._meta_kwargs
+    
     @property
     def meta_signature(self):
         """Task's signature.
@@ -216,12 +228,12 @@ class Task(Attribute, metaclass=ABCMeta):
             yield 
             
     def _effective_args(self, *args):
-        eargs = self._args+args
+        eargs = self.meta_args+args
         eargs = tuple(map(self._expand_arg, eargs))
         return eargs
      
     def _effective_kwargs(self, **kwargs):
-        ekwargs = copy(self._kwargs)
+        ekwargs = copy(self.meta_kwargs)
         ekwargs.update(kwargs)
         for key, value in ekwargs.items():
             ekwargs[key] = self._expand_arg(value)
