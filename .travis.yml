@@ -1,4 +1,4 @@
-#Builded for run 0.11.1 from _sources/.travis.yml
+#Builded for run 0.12.0 from _sources/.travis.yml
 
 language: python
 python:
