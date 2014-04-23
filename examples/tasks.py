@@ -17,7 +17,8 @@ class MainModule(Module):
     )
         
     find = FindTask(
-        string='test',
+        string='find',
+        getfirst=True,   
     )
     
     function = FunctionTask(
@@ -34,11 +35,11 @@ class MainModule(Module):
     )
         
     null = NullTask(
-        require=['method'],                
+        require=['subprocess'],                
     )
     
     render = RenderTask(
-        source='/etc/hosts',
+        source=os.path.abspath((__file__)),
     )
     
     subprocess = SubprocessTask(

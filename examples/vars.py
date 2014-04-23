@@ -17,15 +17,17 @@ class MainModule(Module):
     )
         
     find = FindVar(
-        string='test',
+        string='find',
+        getfirst=True,        
     )
     
     function = FunctionVar(
         function=os.path.abspath,
+        path=__file__,
     )
     
     input = InputVar(
-        prompt='Type here',                  
+        prompt='Type here',              
     )
     
     method = MethodVar(
@@ -34,11 +36,11 @@ class MainModule(Module):
     )
         
     null = NullVar(
-        require=['method'],                
+        require=['subprocess'],                
     )
     
     render = RenderVar(
-        source='/etc/hosts',
+        source=os.path.abspath((__file__)),
     )
     
     subprocess = SubprocessVar(
