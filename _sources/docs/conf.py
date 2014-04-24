@@ -22,7 +22,12 @@ class Settings(Settings):
     
     #HTML
     
-    html_theme = 'nature'
+    @property
+    def html_theme(self):
+        if os.environ.get('READTHEDOCS', None):
+            return 'default'
+        else:
+            return 'nature'
     
 
 locals().update(Settings())
