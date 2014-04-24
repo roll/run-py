@@ -1,3 +1,4 @@
+from box.importlib import import_object
 from ..settings import settings
 
 class FindModule:
@@ -31,6 +32,4 @@ class FindModule:
     
     @staticmethod
     def _get_finder_class():
-        #Cycle dependency if static
-        from ..finder import Finder
-        return Finder
+        return import_object('..finder.Finder')

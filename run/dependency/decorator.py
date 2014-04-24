@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from box.importlib import import_object
 from ..attribute import AttributePrototype
 
 class DependencyDecorator(metaclass=ABCMeta):
@@ -16,9 +17,7 @@ class DependencyDecorator(metaclass=ABCMeta):
     
     @property
     def _method_task_class(self):
-        #Cycle dependency if static
-        from ..task import MethodTask    
-        return MethodTask    
+        return import_object('..task.MethodTask')
     
     @abstractmethod
     def _add_dependency(self, prototype):
