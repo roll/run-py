@@ -16,7 +16,8 @@ class ProgramTest(unittest.TestCase):
     
     def test_default(self):
         result = self._run_program(['run', '-f', 'tasks.py'])
-        self.assertEqual(result.splitlines(), 
+        self.assertEqual(
+            result.splitlines(), 
             ['default',
              'derived', 
              'descriptor', 
@@ -35,6 +36,10 @@ class ProgramTest(unittest.TestCase):
     def test_descriptor(self):
         result = self._run_program(['run', '-f', 'tasks.py', 'descriptor'])
         self.assertEqual(result, 'True\n')
+        
+    def test_find(self):
+        result = self._run_program(['run', '-f', 'tasks.py', 'find'])
+        self.assertEqual(result, 'find\n')        
         
     #Protected
     
