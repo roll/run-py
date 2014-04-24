@@ -14,11 +14,15 @@ class ModuleAttributes(dict):
     def get_attribute(self, name, *, category=Attribute, resolve=False):
         """Return attribute by given name.
         
-        Supports nested names like "module.attribute". 
-        If resolve is True returns attribute value. 
+        :param str name: attribute name, supports nested like "module.attribute"
+        :param None/type/str category: returns attribute only of given class
+        :param bool resolve: if True resolves attribute and returns value
         
-        :raise AttributeError: if module has not attribute for given name
-        :raise TypeError: if attribute is not instance of given category
+        :raises AttributeError: if module has not attribute for given name
+        :raises TypeError: if attribute is not instance of given category
+        
+        :return: attribute instance/attribute value
+        :rtype: :class:`run.Attribute`/mixed
         """
         try:
             name, nested_name = name.split('.', 1)
