@@ -17,8 +17,7 @@ class ProgramTest(unittest.TestCase):
     def test_default(self):
         Program(['run', '-f', 'tasks.py'])()
         result = self.stdout.getvalue()
-        self.assertEqual(
-            result.splitlines(), 
+        self.assertEqual(result.splitlines(), 
             ['default',
              'derived', 
              'descriptor', 
@@ -33,6 +32,11 @@ class ProgramTest(unittest.TestCase):
              'render', 
              'subprocess', 
              'value'])
+        
+    def test_descriptor(self):
+        Program(['run', '-f', 'tasks.py', 'descriptor'])()
+        result = self.stdout.getvalue()
+        self.assertEqual(result, 'True\n')
         
     #Protected
     
