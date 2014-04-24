@@ -20,6 +20,7 @@ class ModuleAttributes(dict):
         
         :raises AttributeError: if module has not attribute for given name
         :raises TypeError: if attribute is not instance of given category
+        :raises TypeError: if in nested name first attribute is not a Module
         
         :return: attribute instance/attribute value
         :rtype: :class:`run.Attribute`/mixed
@@ -41,9 +42,12 @@ class ModuleAttributes(dict):
                     'Attribute "{name}" is not a "{category}".'.
                     format(name=name, category=category))
         if nested_name:
-            #TODO: add is Module check? 
+            if not isinstance(attribute, import_object('.module.Module')):
+                raise TypeError(
+                    'Attribute "{name}" is not a Module.'.
+                    format(attribute=attribute))
             return attribute.meta_attributes.get_attribute(
-                nested_name, category=category, resolve=resolve)                
+                nested_name, category=category, resolve=resolve)
         if resolve:
             return attribute.__get__(attribute.meta_module)
         return attribute  
