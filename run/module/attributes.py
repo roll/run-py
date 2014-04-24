@@ -1,3 +1,4 @@
+from box.importlib import import_object
 from ..attribute import Attribute
 
 class ModuleAttributes(dict):
@@ -30,6 +31,7 @@ class ModuleAttributes(dict):
             'Module "{module}" has no attribute "{name}".'.
             format(module=self._module, name=name)) from None
         if category:
+            category = import_object(category)
             if not isinstance(attribute, category):
                 raise TypeError(
                     'Attribute "{name}" is not a "{category}".'.
