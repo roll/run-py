@@ -10,7 +10,7 @@ class ModuleAttributes(dict):
             if isinstance(attr, Attribute):
                 self[name] = attr
                 
-    def get_attribute(self, name, *, category=None, resolve=False):
+    def get_attribute(self, name, *, category=Attribute, resolve=False):
         """Return attribute by given name.
         
         Supports nested names like "module.attribute".
