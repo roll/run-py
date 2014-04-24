@@ -15,8 +15,7 @@ class ProgramTest(unittest.TestCase):
         self.addCleanup(patch.stopall)
     
     def test_default(self):
-        Program(['run', '-f', 'tasks.py'])()
-        result = self.stdout.getvalue()
+        result = self._run_program(['run', '-f', 'tasks.py'])
         self.assertEqual(result.splitlines(), 
             ['default',
              'derived', 
@@ -34,8 +33,7 @@ class ProgramTest(unittest.TestCase):
              'value'])
         
     def test_descriptor(self):
-        Program(['run', '-f', 'tasks.py', 'descriptor'])()
-        result = self.stdout.getvalue()
+        result = self._run_program(['run', '-f', 'tasks.py', 'descriptor'])
         self.assertEqual(result, 'True\n')
         
     #Protected
@@ -43,3 +41,8 @@ class ProgramTest(unittest.TestCase):
     def _get_exampes_path(self, *args):
         return os.path.join(
             os.path.dirname(__file__), '..', '..', 'examples', *args)
+        
+    def _run_program(self, argv):
+        program=Program(argv)
+        program()
+        return self.stdout.getvalue()
