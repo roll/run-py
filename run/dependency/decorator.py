@@ -1,5 +1,4 @@
 from abc import ABCMeta, abstractmethod
-from box.importlib import import_object
 from ..attribute import AttributePrototype
 
 class DependencyDecorator(metaclass=ABCMeta):

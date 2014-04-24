@@ -1,4 +1,3 @@
-from box.importlib import import_object
 from ..settings import settings
 
 class FindModule:
