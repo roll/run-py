@@ -10,17 +10,30 @@ class ModuleAttributes(dict):
             if isinstance(attr, Attribute):
                 self[name] = attr
                 
-    def __getitem__(self, key):
-        if '.' in key:
-            module_name, attribute_name = key.split('.', 1)
-            module = self.get(module_name, None)
-            module_attributes = getattr(module, 'meta_attributes', None)
-            if isinstance(module_attributes, type(self)):
-                attribute = module_attributes[attribute_name]
-                return attribute
+    def get_attribute(self, name, *, category=None, resolve=False):
+        """Return attribute by given name.
+        
+        Supports nested names like "module.attribute".
+        """
         try:
-            return super().__getitem__(key)
+            name, nested_name = name.split('.', 1)
+        except ValueError:
+            nested_name = None
+        try:
+            attribute = self[name]
         except KeyError:
             raise AttributeError(
-                'Module "{module}" has no attribute "{name}".'.
-                format(module=self._module, name=key)) from None
+            'Module "{module}" has no attribute "{name}".'.
+            format(module=self._module, name=name)) from None
+        if nested_name:
+            #TODO: add is Module check? 
+            return attribute.meta_attributes.get_attribute(
+                nested_name, category=None, resolve=False)
+        if category:
+            if not isinstance(attribute, category):
+                raise TypeError(
+                    'Attribute "{name}" is not a "{category}".'.
+                    format(name=name, category=category))
+        if resolve:
+            return attribute.__get__(attribute.meta_module)
+        return attribute  
