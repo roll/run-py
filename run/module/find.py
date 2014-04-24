@@ -32,4 +32,5 @@ class FindModule:
     
     @staticmethod
     def _get_finder_class():
-        return import_object('..finder.Finder')
+        from ..finder import Finder
+        return Finder

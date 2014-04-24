@@ -17,7 +17,8 @@ class DependencyDecorator(metaclass=ABCMeta):
     
     @property
     def _method_task_class(self):
-        return import_object('..task.MethodTask')
+        from ..task import MethodTask
+        return MethodTask
     
     @abstractmethod
     def _add_dependency(self, prototype):

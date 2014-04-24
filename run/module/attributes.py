@@ -42,7 +42,7 @@ class ModuleAttributes(dict):
                     'Attribute "{name}" is not a "{category}".'.
                     format(name=name, category=category))
         if nested_name:
-            Module = import_object('.module.Module')
+            from .module import Module
             if not isinstance(attribute, Module):
                 raise TypeError(
                     'Attribute "{name}" is not a Module.'.
