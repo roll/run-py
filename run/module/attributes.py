@@ -13,10 +13,11 @@ class ModuleAttributes(dict):
     def get_attribute(self, name, *, category=Attribute, resolve=False):
         """Return attribute by given name.
         
-        Supports nested names like "module.attribute".
+        Supports nested names like "module.attribute". 
+        If resolve is True returns attribute value. 
         
-        :raise AttributeError: if module has not this name attribute
-        :raise TypeError: if attribute is not instance of category
+        :raise AttributeError: if module has not attribute for given name
+        :raise TypeError: if attribute is not instance of given category
         """
         try:
             name, nested_name = name.split('.', 1)
