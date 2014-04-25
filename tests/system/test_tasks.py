@@ -33,7 +33,10 @@ class ProgramTest(unittest.TestCase):
         self.assertEqual(self._execute('find'), 'find\n')
         
     def test_function(self):
-        self.assertRegex(self._execute('function path'), '.*examples/path\n')                  
+        self.assertRegex(self._execute('function path'), '.*examples/path\n')
+        
+    def test_info(self):
+        self.assertRegex(self._execute('info default'), 'default.*')                          
         
     #Protected
     
