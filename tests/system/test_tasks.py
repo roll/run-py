@@ -17,21 +17,21 @@ class ProgramTest(unittest.TestCase):
     def test_default(self):
         result = self._run_program(['run', '-f', 'tasks.py'])
         self.assertEqual(
-            result.splitlines(), 
-            ['default',
-             'derived', 
-             'descriptor', 
-             'find', 
-             'function', 
-             'info', 
-             'input', 
-             'list', 
-             'meta', 
-             'method', 
-             'null',
-             'render', 
-             'subprocess', 
-             'value'])
+            result,
+            'default\n'
+            'derived\n' 
+            'descriptor\n' 
+            'find\n' 
+            'function\n' 
+            'info\n' 
+            'input\n' 
+            'list\n' 
+            'meta\n' 
+            'method\n' 
+            'null\n'
+            'render\n' 
+            'subprocess\n' 
+            'value\n')
         
     def test_descriptor(self):
         result = self._run_program(['run', '-f', 'tasks.py', 'descriptor'])
