@@ -51,7 +51,11 @@ class ProgramTest(unittest.TestCase):
     
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 14)                             
+        self.assertEqual(len(result.splitlines()), 14)
+        
+    def test_meta(self):
+        result = self._execute('meta default')
+        self.assertRegex(result, ".*'type': 'NullTask'}\n")                              
         
     #Protected
     
