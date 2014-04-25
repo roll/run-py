@@ -6,8 +6,9 @@ class ProgramTest(unittest.TestCase):
     #Public
     
     def test_default(self):
+        result = self._execute('-f tasks.py')
         self.assertEqual(
-            self._execute('-f tasks.py'),
+            result,
             'default\n'
             'derived\n' 
             'descriptor\n' 
@@ -24,19 +25,24 @@ class ProgramTest(unittest.TestCase):
             'value\n')
         
     def test_derived(self):
-        self.assertEqual(self._execute('derived'), 'Hello World!\n')
+        result = self._execute('derived')
+        self.assertEqual(result, 'Hello World!\n')
         
     def test_descriptor(self):
-        self.assertEqual(self._execute('descriptor'), 'True\n')
+        result = self._execute('descriptor')
+        self.assertEqual(result, 'True\n')
         
     def test_find(self):
-        self.assertEqual(self._execute('find'), 'find\n')
+        result = self._execute('find')
+        self.assertEqual(result, 'find\n')
         
     def test_function(self):
-        self.assertRegex(self._execute('function path'), '.*examples/path\n')
+        result = self._execute('function path')
+        self.assertRegex(result, '.*examples/path\n')
         
     def test_info(self):
-        self.assertRegex(self._execute('info default'), 'default.*')
+        result = self._execute('info default')
+        self.assertRegex(result, 'default.*')
         
     def test_input(self):
         #TODO: implement
@@ -44,7 +50,7 @@ class ProgramTest(unittest.TestCase):
     
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 14)                                 
+        self.assertEqual(len(result.splitlines()), 14)                             
         
     #Protected
     
