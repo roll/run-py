@@ -1,3 +1,4 @@
+import os
 import unittest
 from subprocess import check_output
 
@@ -55,8 +56,10 @@ class ProgramTest(unittest.TestCase):
     #Protected
     
     def _execute(self, command):
-        ecommand = 'cd ../../examples; '
-        ecommand += 'python3 -c "from run import program; program()" '
+        filedir = os.path.dirname(__file__)
+        basedir = os.path.abspath(os.path.join(filedir, '..', '..', 'examples'))
+        ecommand = 'python3 -c "from run import program; program()" '
+        ecommand += '-b {basedir} '.format(basedir=basedir) 
         ecommand += '-f tasks.py '
         ecommand += command
         result = check_output(ecommand, shell=True)
