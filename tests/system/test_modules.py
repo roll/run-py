@@ -31,7 +31,11 @@ class ModulesTest(ExamplesTest):
             'find.null\n'
             'find.render\n' 
             'find.subprocess\n' 
-            'find.value\n')               
+            'find.value\n')
+        
+    def test_find_value(self):
+        result = self._execute('find.value')
+        self.assertEqual(result, 'value\n')                          
      
     #Protected 
         
