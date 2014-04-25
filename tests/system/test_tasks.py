@@ -36,7 +36,15 @@ class ProgramTest(unittest.TestCase):
         self.assertRegex(self._execute('function path'), '.*examples/path\n')
         
     def test_info(self):
-        self.assertRegex(self._execute('info default'), 'default.*')                          
+        self.assertRegex(self._execute('info default'), 'default.*')
+        
+    def test_input(self):
+        #TODO: implement
+        pass
+    
+    def test_list(self):
+        result = self._execute('list')
+        self.assertEqual(len(result.splitlines()), 14)                                 
         
     #Protected
     
