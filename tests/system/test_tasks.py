@@ -23,6 +23,9 @@ class ProgramTest(unittest.TestCase):
             'subprocess\n' 
             'value\n')
         
+    def test_derived(self):
+        self.assertEqual(self._execute('derived'), 'Hello World!\n')
+        
     def test_descriptor(self):
         self.assertEqual(self._execute('descriptor'), 'True\n')
         
