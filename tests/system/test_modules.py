@@ -8,11 +8,17 @@ class ModulesTest(ExamplesTest):
     
     def test_auto_list(self):
         result = self._execute('auto.list')
-        self.assertRegex(result, '.*auto.factorial\n.*')
+        self.assertEqual(
+            result,
+            'auto.default\n'
+            'auto.gcd\n'
+            'auto.info\n' 
+            'auto.list\n' 
+            'auto.meta\n')
         
-    def test_auto_factorial(self):
-        result = self._execute('auto.factorial 5')
-        self.assertEqual(result, '120\n')
+    def test_auto_gcd(self):
+        result = self._execute('auto.gcd 10,15')
+        self.assertEqual(result, '5\n')
         
     def test_find_list(self):
         result = self._execute('find.list')

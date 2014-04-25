@@ -1,5 +1,5 @@
 import os
-import math
+import fractions
 from run import Module, AutoModule, FindModule, SubprocessModule
 
 class MainModule(Module):
@@ -7,7 +7,7 @@ class MainModule(Module):
     #Modules
     
     auto = AutoModule(
-        sources=[math],
+        sources=[fractions],
     )
     
     find = FindModule(
