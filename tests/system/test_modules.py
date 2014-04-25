@@ -6,17 +6,13 @@ class ModulesTest(ExamplesTest):
     
     __test__ = True   
     
-    def test_auto(self):
-        result = self._execute('auto -l')
-        self.assertEqual(
-            result,
-            'auto.default\n'
-            'auto.find_files\n' 
-            'auto.find_objects\n'
-            'auto.find_strings\n' 
-            'auto.info\n' 
-            'auto.list\n' 
-            'auto.meta\n')
+    def test_auto_list(self):
+        result = self._execute('auto.list')
+        self.assertRegex(result, '.*auto.factorial\n.*')
+        
+    def test_auto_factorial(self):
+        result = self._execute('auto.factorial 5')
+        self.assertEqual(result, '120\n')        
      
     #Protected 
         
