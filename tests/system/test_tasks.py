@@ -1,10 +1,10 @@
-import os
-import unittest
-from subprocess import check_output
+from tests.system.test_examples import ExamplesTest
 
-class ProgramTest(unittest.TestCase):
+class BaseTasksTest(ExamplesTest):
 
     #Public
+    
+    __test__ = False    
     
     def test_default(self):
         result = self._execute('-f tasks.py')
@@ -75,16 +75,17 @@ class ProgramTest(unittest.TestCase):
         
     def test_value(self):
         result = self._execute('value')
-        self.assertEqual(result, 'value\n')                                                 
+        self.assertEqual(result, 'value\n')
+     
+    #Protected 
         
-    #Protected
+    @property
+    def _filename(self):
+        return 'tasks.py'
     
-    def _execute(self, command):
-        filedir = os.path.dirname(__file__)
-        basedir = os.path.abspath(os.path.join(filedir, '..', '..', 'examples'))
-        ecommand = 'python3 -c "from run import program; program()" '
-        ecommand += '-b {basedir} '.format(basedir=basedir) 
-        ecommand += '-f tasks.py '
-        ecommand += command
-        result = check_output(ecommand, shell=True)
-        return result.decode()
+    
+class TasksTest(BaseTasksTest):
+
+    #Public
+    
+    __test__ = True  
