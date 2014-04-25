@@ -1,5 +1,10 @@
-from run import Module
+from run import Module, AutoModule
+from box import findtools
 
 class MainModule(Module):
     
-    pass
+    #Modules
+    
+    auto = AutoModule(
+        sources=[findtools],
+    )
