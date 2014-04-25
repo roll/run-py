@@ -71,7 +71,11 @@ class ProgramTest(unittest.TestCase):
         
     def test_subprocess(self):
         result = self._execute('subprocess')
-        self.assertEqual(result, 'Hello World!\n')                                            
+        self.assertEqual(result, 'Hello World!\n')
+        
+    def test_value(self):
+        result = self._execute('value')
+        self.assertEqual(result, 'value\n')                                                 
         
     #Protected
     
