@@ -10,7 +10,7 @@ class ExamplesTest(unittest.TestCase):
     
     #Protected
     
-    def _execute(self, command):
+    def _execute(self, command=''):
         ecommand = 'python3 -c "from run import program; program()" '
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
         ecommand += '-f {filename} '.format(filename=self._filename)

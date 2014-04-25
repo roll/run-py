@@ -4,10 +4,10 @@ class BaseTasksTest(ExamplesTest):
 
     #Public
     
-    __test__ = False    
+    __test__ = True   
     
     def test_default(self):
-        result = self._execute('-f tasks.py')
+        result = self._execute()
         self.assertEqual(
             result,
             'default\n'
@@ -82,10 +82,3 @@ class BaseTasksTest(ExamplesTest):
     @property
     def _filename(self):
         return 'tasks.py'
-    
-    
-class TasksTest(BaseTasksTest):
-
-    #Public
-    
-    __test__ = True  
