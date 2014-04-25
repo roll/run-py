@@ -63,7 +63,11 @@ class ProgramTest(unittest.TestCase):
         
     def test_null(self):
         result = self._execute('method')
-        self.assertEqual(result, 'Hello World!\n')                                     
+        self.assertEqual(result, 'Hello World!\n')
+        
+    def test_render(self):
+        result = self._execute('render')
+        self.assertRegex(result, '.*RenderTask.*')                                              
         
     #Protected
     
