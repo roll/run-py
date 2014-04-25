@@ -6,9 +6,8 @@ class ProgramTest(unittest.TestCase):
     #Public
     
     def test_default(self):
-        result = self._execute('-f tasks.py')
         self.assertEqual(
-            result,
+            self._execute('-f tasks.py'),
             'default\n'
             'derived\n' 
             'descriptor\n' 
@@ -25,12 +24,10 @@ class ProgramTest(unittest.TestCase):
             'value\n')
         
     def test_descriptor(self):
-        result = self._execute('descriptor')
-        self.assertEqual(result, 'True\n')
+        self.assertEqual(self._execute('descriptor'), 'True\n')
         
     def test_find(self):
-        result = self._execute('find')
-        self.assertEqual(result, 'find\n')        
+        self.assertEqual(self._execute('find'), 'find\n')        
         
     #Protected
     
