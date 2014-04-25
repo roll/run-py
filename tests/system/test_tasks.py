@@ -30,7 +30,10 @@ class ProgramTest(unittest.TestCase):
         self.assertEqual(self._execute('descriptor'), 'True\n')
         
     def test_find(self):
-        self.assertEqual(self._execute('find'), 'find\n')        
+        self.assertEqual(self._execute('find'), 'find\n')
+        
+    def test_function(self):
+        self.assertRegex(self._execute('function path'), '.*examples/path\n')                  
         
     #Protected
     
