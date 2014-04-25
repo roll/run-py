@@ -67,7 +67,11 @@ class ProgramTest(unittest.TestCase):
         
     def test_render(self):
         result = self._execute('render')
-        self.assertRegex(result, '.*RenderTask.*')                                              
+        self.assertRegex(result, '.*RenderTask.*')
+        
+    def test_subprocess(self):
+        result = self._execute('subprocess')
+        self.assertEqual(result, 'Hello World!\n')                                            
         
     #Protected
     
