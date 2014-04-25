@@ -30,8 +30,8 @@ class MainModule(Module):
     )
     
     method = MethodTask(
-        method=lambda self: 'Hello world!',
-        meta_docstring='Return "Hello world!".',
+        method=lambda self: 'Hello World!',
+        meta_docstring='Return "Hello World!".',
     )
         
     null = NullTask(
