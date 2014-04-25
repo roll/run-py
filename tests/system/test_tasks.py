@@ -67,7 +67,7 @@ class BaseTasksTest(ExamplesTest):
         
     def test_render(self):
         result = self._execute('render')
-        self.assertRegex(result, '.*RenderTask.*')
+        self.assertRegex(result, '.*Render.*')
         
     def test_subprocess(self):
         result = self._execute('subprocess')

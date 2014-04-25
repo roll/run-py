@@ -29,7 +29,7 @@ class MainModule(Module):
     
     function = FunctionVar(
         function=os.path.abspath,
-        path=__file__,
+        path='path',
     )
     
     input = InputVar(
@@ -37,8 +37,8 @@ class MainModule(Module):
     )
     
     method = MethodVar(
-        method=lambda self: 'Hello world!',
-        meta_docstring='Return "Hello world!".',
+        method=lambda self: 'Hello World!',
+        meta_docstring='Return "Hello World!".',
     )
         
     null = NullVar(
