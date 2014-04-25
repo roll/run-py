@@ -1,6 +1,6 @@
 from tests.system.test_examples import ExamplesTest
 
-class BaseTasksTest(ExamplesTest):
+class TasksTest(ExamplesTest):
 
     #Public
     
