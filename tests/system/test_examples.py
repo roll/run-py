@@ -10,14 +10,17 @@ class ExamplesTest(unittest.TestCase):
     
     #Protected
     
-    def _execute(self, command='', message=None, **kwargs):
+    def _execute(self, command='', messages=[None], **kwargs):
+        result = ''
         ecommand = 'python3 -c "from run import program; program()" '
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
         ecommand += '-f {filename} '.format(filename=self._filename)
         ecommand += command
         process = Popen(ecommand, shell=True, universal_newlines=True,
-            stdin=PIPE, stdout=PIPE, stderr=PIPE, **kwargs)
-        stdout, _ = process.communicate(message)
+                        stdin=PIPE, stdout=PIPE, stderr=PIPE, **kwargs)
+        for message in messages:
+            stdout, _ = process.communicate(message)
+            result += stdout
         return stdout
     
     @property
