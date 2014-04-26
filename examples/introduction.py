@@ -5,7 +5,7 @@ class MainModule(Module):
     #Tasks
     
     def ready(self):
-        print('Your choise is {greeting}. '
+        print('Your choice is {greeting}. '
               'We\'re ready.'.format(
             greeting=self.greeting,))    
     

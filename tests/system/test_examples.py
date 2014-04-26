@@ -16,10 +16,13 @@ class ExamplesTest(unittest.TestCase):
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
         ecommand += '-f {filename} '.format(filename=self._filename)
         ecommand += command
-        process = Popen(ecommand, shell=True, universal_newlines=True,
-                        stdin=PIPE, stdout=PIPE, stderr=PIPE, **kwargs)
+        process = Popen(
+            ecommand, shell=True, universal_newlines=True,
+            stdin=PIPE, stdout=PIPE, stderr=PIPE, **kwargs)
         for message in messages:
-            stdout, _ = process.communicate(message)
+            stdout, stderr = process.communicate(message)
+            if stderr:
+                raise RuntimeError(stderr)
             result += stdout
         return stdout
     
