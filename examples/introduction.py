@@ -22,6 +22,6 @@ class MainModule(Module):
     #Vars
     
     greeting = InputVar(
-        prompt='Your greeting',
+        prompt='Type your greeting',
         default='Hello',
     )

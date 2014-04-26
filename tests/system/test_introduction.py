@@ -4,11 +4,14 @@ class IntroductionTest(ExamplesTest):
     
     #Public        
     
-    __test__ = True    
+    __test__ = True
     
-    def greet(self):
-        result = self._execute('greet')
-        self.assertEqual(result, 'Hi World!\n')
+    def test_greet(self):
+        result = self._execute('greet', messages=['Hi'])
+        self.assertEqual(
+            result, 
+            'Type your greeting [Hello]: '
+            'Hi World!\n')
         
     #Protected 
         
