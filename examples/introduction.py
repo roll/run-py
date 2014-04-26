@@ -9,7 +9,7 @@ class MainModule(Module):
               'We\'re ready.'.format(
             greeting=self.greeting,))    
     
-    #@require('ready')
+    @require('ready')
     #@trigger('done')
     def greet(self, person='World'):
         print('{greeting} {person}!'.format(
