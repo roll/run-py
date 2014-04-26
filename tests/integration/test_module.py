@@ -8,10 +8,10 @@ class ModuleTest(unittest.TestCase):
     #Public
 
     def setUp(self):
-        self.run = MockMainModule(meta_module=None)
+        self.module = MockMainModule(meta_module=None)
         
     def test_list(self):
-        self.run.list()
+        self.module.list()
         
         
 #Fixtures
