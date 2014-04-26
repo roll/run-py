@@ -6,13 +6,17 @@ from run import Module, NullTask, require, trigger
 class DependencyTest(unittest.TestCase):
     
     #Public
-    
-    pass
+
+    def setUp(self):
+        self.module = MockMainModule(meta_module=None)
+        
+    def test_list(self):
+        self.module.list()
 
 
 #Fixtures
 
-class MainModule(Module):
+class MockMainModule(Module):
     
     #Tasks
     
