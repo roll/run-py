@@ -1,6 +1,6 @@
 import os
 import unittest
-from subprocess import check_output
+from subprocess import Popen, PIPE
 
 class ExamplesTest(unittest.TestCase):
 
@@ -10,13 +10,15 @@ class ExamplesTest(unittest.TestCase):
     
     #Protected
     
-    def _execute(self, command='', **kwargs):
+    def _execute(self, command='', message=None, **kwargs):
         ecommand = 'python3 -c "from run import program; program()" '
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
         ecommand += '-f {filename} '.format(filename=self._filename)
         ecommand += command
-        result = check_output(ecommand, shell=True, **kwargs)
-        return result.decode()
+        process = Popen(ecommand, shell=True, universal_newlines=True,
+            stdin=PIPE, stdout=PIPE, stderr=PIPE, **kwargs)
+        stdout, _ = process.communicate(message)
+        return stdout
     
     @property
     def _basedir(self):
