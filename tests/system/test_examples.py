@@ -10,12 +10,12 @@ class ExamplesTest(unittest.TestCase):
     
     #Protected
     
-    def _execute(self, command=''):
+    def _execute(self, command='', **kwargs):
         ecommand = 'python3 -c "from run import program; program()" '
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
         ecommand += '-f {filename} '.format(filename=self._filename)
         ecommand += command
-        result = check_output(ecommand, shell=True)
+        result = check_output(ecommand, shell=True, **kwargs)
         return result.decode()
     
     @property
