@@ -10,7 +10,7 @@ class Attribute(metaclass=AttributeMetaclass):
     used in run. Abstract methods: __get__, __set__.
     """
     
-    #Public        
+    #Public
         
     def __build__(self, module, *args, **kwargs):
         self._meta_module = module
