@@ -1,3 +1,4 @@
+from unittest import skip
 from tests.system.test_examples import ExamplesTest
 
 class IntroductionTest(ExamplesTest):
@@ -6,6 +7,7 @@ class IntroductionTest(ExamplesTest):
     
     __test__ = True
     
+    @skip('Requires box >= 0.14')
     def test_greet(self):
         result = self._execute('greet', messages=['Hi'])
         self.assertEqual(
