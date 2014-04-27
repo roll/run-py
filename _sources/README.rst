@@ -30,7 +30,7 @@ Installation
 Example
 -------
 
-The real simple example introduces some functionnality. 
+The real simple example introduces some functionality. 
 
 - create runfile.py in current working directory:
 
@@ -79,14 +79,14 @@ The real simple example introduces some functionnality.
 	meta
 	ready
 
-- autocomplete attributes from command line:
+- autocomplete attribute from command line:
 
   .. sourcecode:: bash
 
     $ run li<TAB>
     $ run list
     
-- get attributes infomation from command line:
+- get attribute infomation from command line:
 
   .. sourcecode:: bash
 
