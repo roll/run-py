@@ -27,6 +27,63 @@ Installation
 ------------
 - pip install runpack
 
+Example
+-------
+
+The real simple example introduces some functionnality. 
+
+- create runfile.py in current working directory:
+	    
+  .. literalinclude:: /examples/introduction.py  	    
+  .. literalinclude:: ../../examples/introduction.py
+	    
+- get run attributes list from command line::
+
+    $ run
+	default
+	done
+	greet
+	greeting
+	info
+	list
+	meta
+	ready
+
+- autocomplete attributes from command line::
+
+    $ run li<TAB>
+    $ run list
+    
+- get attributes infomation from command line::
+
+    $ run greet -i
+	greet(person='World')
+	---
+	Type: MethodTask
+	Dependencies: [trigger <MethodTask "done">, require <MethodTask "ready">]
+	Default arguments: ()
+	Default keyword arguments: {}
+	---
+	Greet the given person
+
+
+- run task from command line::
+
+    $ run greet Rachel
+	Type your greeting [Hello]: <Hi>
+	Your choice is "Hi".
+	We're ready.
+	Hi Rachel!
+	OK. We're done.
+	
+More usefull example you can find here:
+
+- `Base module <https://github.com/respect31/packgram/blob/master/packgram/manage/python.py>`_
+- `Run's module <https://github.com/respect31/run/blob/master/runfile.py>`_
+- `Run's templates <https://github.com/respect31/run/tree/master/_sources>`_
+
+That's how run builds himself using module inheritance.
+        
 Authors
 -------
 - roll <roll@respect31.com>

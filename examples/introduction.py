@@ -12,6 +12,7 @@ class MainModule(Module):
     @require('ready')
     @trigger('done')
     def greet(self, person='World'):
+        """Greet the given person."""
         print('{greeting} {person}!'.format(
             greeting=self.greeting, 
             person=person))
