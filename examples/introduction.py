@@ -11,11 +11,12 @@ class MainModule(Module):
     
     @require('ready')
     @trigger('done')
-    def greet(self, person='World'):
+    def greet(self, person='World', times=1):
         """Greet the given person."""
-        print('{greeting} {person}!'.format(
-            greeting=self.greeting, 
-            person=person))
+        for _ in range(times):
+            print('{greeting} {person}!'.format(
+                greeting=self.greeting, 
+                person=person))
         
     def done(self):
         print('OK. We\'re done.')

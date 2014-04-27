@@ -49,11 +49,12 @@ The real simple example introduces some functionality.
         
         @require('ready')
         @trigger('done')
-        def greet(self, person='World'):
-        	"""Greet the given person."""
-            print('{greeting} {person}!'.format(
-                greeting=self.greeting, 
-                person=person))
+        def greet(self, person='World', times=1):
+            """Greet the given person."""
+            for _ in range(times):
+                print('{greeting} {person}!'.format(
+                    greeting=self.greeting, 
+                    person=person))
             
         def done(self):
             print('OK. We\'re done.')
@@ -91,7 +92,7 @@ The real simple example introduces some functionality.
   .. code-block:: bash
 
     $ run greet -i
-    greet(person='World')
+    greet(person='World', times=1)
     ---
     Type: MethodTask
     Dependencies: [trigger <MethodTask "done">, require <MethodTask "ready">]
@@ -105,10 +106,12 @@ The real simple example introduces some functionality.
 
   .. code-block:: bash
 
-    $ run greet Rachel
+    $ run greet Rachel, times=3
     Type your greeting [Hello]: <Hi>
     Your choice is "Hi".
     We're ready.
+    Hi Rachel!
+    Hi Rachel!
     Hi Rachel!
     OK. We're done.
 	
