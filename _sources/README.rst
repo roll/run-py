@@ -32,10 +32,36 @@ Example
 
 The real simple example introduces some functionnality. 
 
-- create runfile.py in current working directory:
+- create runfile.py in current working directory::
+
+	from run import Module, InputVar, require, trigger
+	
+	class MainModule(Module):
 	    
-  .. include:: examples/introduction.py  	    
-  .. include:: ../../examples/introduction.py
+	    #Tasks
+	    
+	    def ready(self):
+	        print('Your choice is "{greeting}".\n'
+	              'We\'re ready.'.format(
+	            greeting=self.greeting,))    
+	    
+	    @require('ready')
+	    @trigger('done')
+	    def greet(self, person='World'):
+	    	"""Greet the given person."""
+	        print('{greeting} {person}!'.format(
+	            greeting=self.greeting, 
+	            person=person))
+	        
+	    def done(self):
+	        print('OK. We\'re done.')
+	        
+	    #Vars
+	    
+	    greeting = InputVar(
+	        prompt='Type your greeting',
+	        default='Hello',
+	    )
 	    
 - get run attributes list from command line::
 
