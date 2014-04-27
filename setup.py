@@ -66,83 +66,83 @@ The real simple example introduces some functionality.
 
 - create runfile.py in current working directory:
 
-.. code-block:: python
+  .. code-block:: python
 
-	from run import Module, InputVar, require, trigger
-	
-	class MainModule(Module):
-	    
-	    #Tasks
-	    
-	    def ready(self):
-	        print('Your choice is "{greeting}".\n'
-	              'We\'re ready.'.format(
-	            greeting=self.greeting,))    
-	    
-	    @require('ready')
-	    @trigger('done')
-	    def greet(self, person='World'):
-	    	"""Greet the given person."""
-	        print('{greeting} {person}!'.format(
-	            greeting=self.greeting, 
-	            person=person))
-	        
-	    def done(self):
-	        print('OK. We\'re done.')
-	        
-	    #Vars
-	    
-	    greeting = InputVar(
-	        prompt='Type your greeting',
-	        default='Hello',
-	    )
+    from run import Module, InputVar, require, trigger
+    
+    class MainModule(Module):
+        
+        #Tasks
+        
+        def ready(self):
+            print('Your choice is "{greeting}".\n'
+                  'We\'re ready.'.format(
+                greeting=self.greeting,))    
+        
+        @require('ready')
+        @trigger('done')
+        def greet(self, person='World'):
+        	"""Greet the given person."""
+            print('{greeting} {person}!'.format(
+                greeting=self.greeting, 
+                person=person))
+            
+        def done(self):
+            print('OK. We\'re done.')
+            
+        #Vars
+        
+        greeting = InputVar(
+            prompt='Type your greeting',
+            default='Hello',
+        )
 	    
 - get run attributes list from command line:
 
-.. code-block:: bash
+  .. code-block:: bash
 
     $ run
-	default
-	done
-	greet
-	greeting
-	info
-	list
-	meta
-	ready
+    default
+    done
+    greet
+    greeting
+    info
+    list
+    meta
+    ready
 
 - autocomplete attribute from command line:
 
-.. code-block:: bash
+  .. code-block:: bash
 
     $ run li<TAB>
     $ run list
     
 - get attribute infomation from command line:
 
-.. code-block:: bash
+  .. code-block:: bash
 
     $ run greet -i
-	greet(person='World')
-	---
-	Type: MethodTask
-	Dependencies: [trigger <MethodTask "done">, require <MethodTask "ready">]
-	Default arguments: ()
-	Default keyword arguments: {}
-	---
-	Greet the given person
+    greet(person='World')
+    ---
+    Type: MethodTask
+    Dependencies: [trigger <MethodTask "done">, require <MethodTask "ready">]
+    Default arguments: ()
+    Default keyword arguments: {}
+    ---
+    Greet the given person
 
 
 - run task from command line:
 
-.. code-block:: bash
+  .. code-block:: bash
 
     $ run greet Rachel
-	Type your greeting [Hello]: <Hi>
-	Your choice is "Hi".
-	We're ready.
-	Hi Rachel!
-	OK. We're done.
+    Type your greeting [Hello]: <Hi>
+    Your choice is "Hi".
+    We're ready.
+    Hi Rachel!
+    OK. We're done.
 	
 More usefull example you can find here:
 
