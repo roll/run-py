@@ -13,8 +13,10 @@ after_success:
 notifications:
   email:
     - {{ author_email }}
-#deploy:
-#  provider: pypi
-#  user: {{ pypi_user }}
-#  password:
-#    secure: {{ pypi_password_secure }}
+deploy:
+  provider: pypi
+  user: {{ pypi_user }}
+  password:
+    secure: {{ pypi_password_secure }}
+  on:
+    tags: true
