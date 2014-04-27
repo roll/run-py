@@ -64,7 +64,9 @@ Example
 
 The real simple example introduces some functionnality. 
 
-- create runfile.py in current working directory::
+- create runfile.py in current working directory:
+
+  .. sourcecode:: python
 
 	from run import Module, InputVar, require, trigger
 	
@@ -95,7 +97,9 @@ The real simple example introduces some functionnality.
 	        default='Hello',
 	    )
 	    
-- get run attributes list from command line::
+- get run attributes list from command line:
+
+  .. sourcecode:: bash
 
     $ run
 	default
@@ -107,12 +111,16 @@ The real simple example introduces some functionnality.
 	meta
 	ready
 
-- autocomplete attributes from command line::
+- autocomplete attributes from command line:
+
+  .. sourcecode:: bash
 
     $ run li<TAB>
     $ run list
     
-- get attributes infomation from command line::
+- get attributes infomation from command line:
+
+  .. sourcecode:: bash
 
     $ run greet -i
 	greet(person='World')
@@ -125,7 +133,9 @@ The real simple example introduces some functionnality.
 	Greet the given person
 
 
-- run task from command line::
+- run task from command line:
+
+  .. sourcecode:: bash
 
     $ run greet Rachel
 	Type your greeting [Hello]: <Hi>
