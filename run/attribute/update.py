@@ -30,6 +30,7 @@ class AttributeCall:
         self._args = args
         self._kwargs = kwargs
         
+    #TODO: add staticmethod/classmethod different cals        
     def apply(self, attribute):
         method = getattr(attribute, self._name)
         method(*self._args, **self._kwargs)

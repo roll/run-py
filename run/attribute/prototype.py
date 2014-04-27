@@ -1,3 +1,4 @@
+import inspect
 from copy import copy
 from .update import AttributeSet, AttributeCall
 
@@ -18,11 +19,12 @@ class AttributePrototype:
     def __getattr__(self, name):
         if name.startswith('_'):
             return super().__getattr__(name)
-        try: 
-            return getattr(self._class, name)
-        except AttributeError:
-            super().__setattr__('_getattr', name)
-            return self
+        if hasattr(self._class, name):
+            attr = getattr(self._class, name)
+            if not inspect.isfunction(attr):
+                return attr
+        super().__setattr__('_getattr', name)
+        return self
         
     def __setattr__(self, name, value):
         update = self._set_class(name, value)
