@@ -34,8 +34,8 @@ The real simple example introduces some functionnality.
 
 - create runfile.py in current working directory:
 	    
-  .. literalinclude:: /examples/introduction.py  	    
-  .. literalinclude:: ../../examples/introduction.py
+  .. include:: /examples/introduction.py  	    
+  .. include:: ../../examples/introduction.py
 	    
 - get run attributes list from command line::
 
