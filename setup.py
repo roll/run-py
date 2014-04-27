@@ -66,7 +66,7 @@ The real simple example introduces some functionality.
 
 - create runfile.py in current working directory:
 
-  .. sourcecode:: python
+.. code-block:: python
 
 	from run import Module, InputVar, require, trigger
 	
@@ -99,7 +99,7 @@ The real simple example introduces some functionality.
 	    
 - get run attributes list from command line:
 
-  .. sourcecode:: bash
+.. code-block:: bash
 
     $ run
 	default
@@ -113,14 +113,14 @@ The real simple example introduces some functionality.
 
 - autocomplete attribute from command line:
 
-  .. sourcecode:: bash
+.. code-block:: bash
 
     $ run li<TAB>
     $ run list
     
 - get attribute infomation from command line:
 
-  .. sourcecode:: bash
+.. code-block:: bash
 
     $ run greet -i
 	greet(person='World')
@@ -135,7 +135,7 @@ The real simple example introduces some functionality.
 
 - run task from command line:
 
-  .. sourcecode:: bash
+.. code-block:: bash
 
     $ run greet Rachel
 	Type your greeting [Hello]: <Hi>
