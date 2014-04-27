@@ -5,7 +5,7 @@ class MainModule(Module):
     #Tasks
     
     def ready(self):
-        print('Your choice is "{greeting}"\n'
+        print('Your choice is "{greeting}".\n'
               'We\'re ready.'.format(
             greeting=self.greeting,))    
     
@@ -17,7 +17,7 @@ class MainModule(Module):
             person=person))
         
     def done(self):
-        print('OK we\'re done.')
+        print('OK. We\'re done.')
         
     #Vars
     

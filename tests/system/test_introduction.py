@@ -11,7 +11,10 @@ class IntroductionTest(ExamplesTest):
         self.assertEqual(
             result, 
             'Type your greeting [Hello]: '
-            'Hi World!\n')
+            'Your choice is "Hi".\n'
+            'We\'re ready.\n'
+            'Hi World!\n'
+            'OK. We\'re done.\n')
         
     #Protected 
         
