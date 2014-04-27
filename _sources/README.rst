@@ -1,4 +1,4 @@
-.. Builded for {{ name }} {{ version }} from _sources/README.rst
+.. {{ caution }}
 
 {{ name|capitalize }}
 =====================

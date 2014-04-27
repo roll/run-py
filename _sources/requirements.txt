@@ -1,4 +1,4 @@
-#Builded for {{ name }} {{ version }} from _sources/requirements.txt
+#{{ caution }}
 
 {% for dependency in development_requires+install_requires+tests_require -%}
 {{ dependency }}

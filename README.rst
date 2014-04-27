@@ -1,4 +1,4 @@
-.. Builded for run 0.12.0 from _sources/README.rst
+.. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
 Run
 =====================

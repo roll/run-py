@@ -6,6 +6,7 @@ class MainModule(PythonPackgramModule):
     
     author = 'roll'
     author_email = 'roll@respect31.com'
+    caution = 'DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.'
     classifiers = [
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers', 

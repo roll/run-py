@@ -1,4 +1,4 @@
-#Builded for {{ name }} {{ version }} from _sources/.travis.yml
+#{{ caution }}
 
 language: python
 python:

@@ -2,7 +2,6 @@ import inspect
 from copy import copy
 from .update import AttributeSet, AttributeCall
 
-#TODO: add _getattr state check
 class AttributePrototype:
 
     #Public
@@ -16,6 +15,7 @@ class AttributePrototype:
         if self._updates == None:
             super().__setattr__('_updates', [])
             
+    #TODO: add _getattr state check            
     def __getattr__(self, name):
         if name.startswith('_'):
             return super().__getattr__(name)

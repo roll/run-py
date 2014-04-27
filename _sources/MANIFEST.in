@@ -1,4 +1,4 @@
-#Builded for {{ name }} {{ version }} from _templates/MANIFEST.in
+#{{ caution }}
 
 graft data
 graft {{ name }}

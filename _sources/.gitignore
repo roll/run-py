@@ -1,4 +1,4 @@
-#Builded for {{ name }} {{ version }} from _templates/.gitignore
+#{{ caution }}
 
 #Coverage
 .coverage

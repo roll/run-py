@@ -1,4 +1,4 @@
-#Builded for {{ name }} {{ version }} from _templates/setup.tpl
+#{{ caution }}
 
 import os
 from setuptools import find_packages, setup
