@@ -1,7 +1,8 @@
 import unittest
 from io import StringIO
 from unittest.mock import patch
-from run import Module, FunctionTask, task, require, trigger
+from run import Module, FunctionTask, require, trigger
+from run.task import task #Nosetest in shell import module instead of object
 
 #Tests
 
