@@ -21,7 +21,7 @@ class FinderTest(unittest.TestCase):
         self.assertEqual(modules[0].__name__, 'Module1')
         self.assertEqual(
             self.stdout.getvalue(), 
-            'Hits runfile #1\n')
+            'Hits runfile.py\n')
            
     def test_find_recursively(self):
         finder = Finder()
@@ -33,9 +33,9 @@ class FinderTest(unittest.TestCase):
         self.assertEqual(modules[2].__name__, 'Module3')
         self.assertEqual(
             self.stdout.getvalue(),
-            'Hits runfile #1\n'
-            'Hits runfile #2\n'
-            'Hits runfile #3\n')
+            'Hits runfile.py\n'
+            'Hits folder/runfile.py\n'
+            'Hits folder/subfolder/runfile.py\n')
     
     def test_find_with_names(self):
         finder = Finder(names=['name1'])

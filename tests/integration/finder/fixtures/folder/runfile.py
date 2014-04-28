@@ -1,6 +1,6 @@
 from run import Module
 
-print('Hits runfile #2')
+print('Hits folder/runfile.py')
 
 class Module2(Module):
     

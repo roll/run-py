@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from run import Module
 
-print('Hits runfile #1')
+print('Hits runfile.py')
 
 class Module1(Module):
     
