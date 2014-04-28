@@ -1,13 +1,11 @@
 import os
 import unittest
-from unittest import skip
 from run.finder import Finder
 
 class FinderTest(unittest.TestCase):
 
     #Public
     
-    @skip('Requires box>=0.14')
     def test_find(self):
         finder = Finder()
         modules = list(finder.find(
