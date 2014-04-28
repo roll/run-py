@@ -1,5 +1,5 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
 Sphinx>=1.2
-box>=0.13
+box>=0.14
 nose
