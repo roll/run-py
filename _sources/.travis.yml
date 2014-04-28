@@ -20,3 +20,4 @@ deploy:
     secure: {{ pypi_password_secure }}
   on:
     tags: true
+    all_branches: true
