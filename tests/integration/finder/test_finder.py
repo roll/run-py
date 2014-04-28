@@ -5,7 +5,14 @@ from run.finder import Finder
 class FinderTest(unittest.TestCase):
 
     #Public
-         
+    
+    def test_find(self):
+        finder = Finder()
+        modules = list(finder.find(
+            'runfile.py', basedir=self._basedir))
+        self.assertEqual(len(modules), 3)
+        self.assertEqual(modules[0].__name__, 'Module1')
+           
     def test_find_recursively(self):
         finder = Finder()
         modules = list(finder.find(
