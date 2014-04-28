@@ -1,10 +1,17 @@
 import os
 import unittest
+from io import StringIO
+from unittest.mock import patch
 from run.finder import Finder
 
 class FinderTest(unittest.TestCase):
 
     #Public
+    
+    def setUp(self):
+        self.patcher = patch('sys.stdout', new_callable=StringIO)
+        self.stdout = self.patcher.start()
+        self.addCleanup(patch.stopall)    
     
     def test_find(self):
         finder = Finder()
@@ -12,6 +19,9 @@ class FinderTest(unittest.TestCase):
             'runfile.py', basedir=self._basedir))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
+        self.assertEqual(
+            self.stdout.getvalue(), 
+            'Hits runfile #1\n')
            
     def test_find_recursively(self):
         finder = Finder()
@@ -21,6 +31,11 @@ class FinderTest(unittest.TestCase):
         self.assertEqual(modules[0].__name__, 'Module1')
         self.assertEqual(modules[1].__name__, 'Module2')
         self.assertEqual(modules[2].__name__, 'Module3')
+        self.assertEqual(
+            self.stdout.getvalue(),
+            'Hits runfile #1\n'
+            'Hits runfile #2\n'
+            'Hits runfile #3\n')
     
     def test_find_with_names(self):
         finder = Finder(names=['name1'])

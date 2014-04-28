@@ -1,5 +1,7 @@
 from run import Module
 
+print('Hits runfile #2')
+
 class Module2(Module):
     
     #Public
