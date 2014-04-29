@@ -8,13 +8,13 @@ package = {
 	#Main
 
     'name': 'runpack',
-	'version':'',
+	'version':'0.12.1',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
     ),
 	'include_package_data': True,
-    'install_requires': ['box>=0.14'],  
+    'install_requires': ['box>=0.15'],  
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
@@ -24,7 +24,7 @@ package = {
     'author_email': 'roll@respect31.com',
     'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3.3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Run is a program to run tasks from files.',
-    'download_url':'https://github.com/respect31/run/tarball/',
+    'download_url':'https://github.com/respect31/run/tarball/0.12.1',
     'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',
