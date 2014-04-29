@@ -32,7 +32,9 @@ Example
 
 The real simple example introduces some functionality. 
 
-- create runfile.py in current working directory::
+- create runfile.py in current working directory:
+
+  .. code-block:: python
 
     from run import Module, InputVar, require, trigger
     
@@ -64,7 +66,9 @@ The real simple example introduces some functionality.
             default='Hello',
         )
 	    
-- get run attributes list from command line::
+- get run attributes list from command line:
+
+  .. code-block:: bash
 
     $ run
     default
@@ -76,12 +80,16 @@ The real simple example introduces some functionality.
     meta
     ready
 
-- autocomplete attribute from command line::
+- autocomplete attribute from command line:
+
+  .. code-block:: bash
 
     $ run li<TAB>
     $ run list
     
-- get attribute infomation from command line::
+- get attribute infomation from command line:
+
+  .. code-block:: bash
 
     $ run greet -i
     greet(person='World', times=1)
@@ -94,7 +102,9 @@ The real simple example introduces some functionality.
     Greet the given person
 
 
-- run task from command line::
+- run task from command line:
+
+  .. code-block:: bash
 
     $ run greet Rachel, times=3
     Type your greeting [Hello]: <Hi>
