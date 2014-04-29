@@ -22,7 +22,7 @@ class ModuleAttributes(dict):
         :raises TypeError: if attribute is not instance of given category
         :raises TypeError: if in nested name first attribute is not a Module
         
-        :return: attribute instance/attribute value
+        :returns: attribute instance/attribute value
         :rtype: :class:`run.Attribute`/mixed
         """
         try:
