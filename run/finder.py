@@ -26,9 +26,9 @@ class Finder:
             FinderTypeMapper(self._module_class),
             FinderMetaNameMapper(self._names),
             FinderMetaTagMapper(self._tags),]
-        modules = find_objects(filename=filename, 
+        module_classes = find_objects(filename=filename, 
             basedir=basedir, maxdepth=maxdepth, mappers=mappers)
-        return modules
+        return module_classes
     
     #Protected
 
