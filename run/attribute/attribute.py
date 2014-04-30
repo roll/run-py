@@ -29,11 +29,11 @@ class Attribute(metaclass=AttributeMetaclass):
         pass #pragma: no cover
     
     def __repr__(self):
-        try:
+        if '_meta_module' in vars(self):
             return '<{category} "{qualname}">'.format(
                 category=self.meta_type, 
                 qualname=self.meta_qualname)
-        except Exception:
+        else:
             return super().__repr__()
     
     @property
