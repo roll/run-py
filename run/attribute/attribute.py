@@ -19,6 +19,7 @@ class Attribute(metaclass=AttributeMetaclass):
             if key.startswith('meta_'):
                 self._meta_params[key.lstrip('meta_')] = kwargs.pop(key)
         self.__init__(*args, **kwargs)
+        self._meta_builded = True
       
     @abstractmethod
     def __get__(self, module, module_class=None):
@@ -29,13 +30,22 @@ class Attribute(metaclass=AttributeMetaclass):
         pass #pragma: no cover
     
     def __repr__(self):
-        if '_meta_module' in vars(self):
+        if self.meta_builded:
             return '<{category} "{qualname}">'.format(
                 category=self.meta_type, 
                 qualname=self.meta_qualname)
         else:
             return super().__repr__()
-    
+        
+    @property
+    def meta_builded(self):
+        """Build status of attribute (builded or not).
+        
+        Attribute is builded after succefull __build__ call.
+        It includes some internal building and __init__ call. 
+        """
+        return vars(self).get('_meta_builded', False)
+        
     @property
     def meta_dispatcher(self):
         """Attribute's dispatcher.
