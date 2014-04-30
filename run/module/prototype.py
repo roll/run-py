@@ -14,7 +14,8 @@ class ModulePrototype(AttributePrototype):
      
     def _create_attribute(self):
         module = super()._create_attribute()
-        for key, attr in vars(self._class).items():
+        for name in dir(self._class):
+            attr = getattr(self._class, name)
             if isinstance(attr, self._attribute_prototype_class):
-                setattr(self._class, key, attr.__build__(module))
+                setattr(self._class, name, attr.__build__(module))
         return module    
