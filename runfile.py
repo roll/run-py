@@ -16,7 +16,11 @@ class MainModule(PythonPackgramModule):
         'Topic :: System :: Systems Administration', 
     ]
     description = 'Run is a program to run tasks from files.'
-    development_requires = ['Sphinx>=1.2'] 
+    development_requires = [
+        'packgram>=0.7',
+        'Sphinx',
+        'sphinx_rtd_theme',
+    ] 
     github_user = 'respect31'
     install_requires = ['box>=0.15']
     license = 'MIT License'  

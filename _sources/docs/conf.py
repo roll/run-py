@@ -22,12 +22,10 @@ class Settings(Settings):
     
     #HTML
     
-    @property
-    def html_theme(self):
-        if os.environ.get('READTHEDOCS', None):
-            return 'default'
-        else:
-            return 'nature'
+    if not os.environ.get('READTHEDOCS', False):
+        import sphinx_rtd_theme
+        html_theme = 'sphinx_rtd_theme'
+        html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
     
 
 locals().update(Settings())
