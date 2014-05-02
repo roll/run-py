@@ -1,7 +1,7 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
 packgram>=0.7
-Sphinx
+sphinx
 sphinx_rtd_theme
 box>=0.15
 nose
