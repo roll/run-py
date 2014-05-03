@@ -22,7 +22,7 @@ class MainModule(PythonPackgramModule):
         'sphinx_rtd_theme',
     ] 
     github_user = 'respect31'
-    install_requires = ['box>=0.15']
+    install_requires = ['box>=0.16']
     license = 'MIT License'  
     maintainer = 'roll'
     maintainer_email = 'roll@respect31.com'

@@ -1,4 +1,4 @@
-from box.intertools import rich_input
+from box.io import rich_input
 from .function import FunctionTask
 
 class InputTask(FunctionTask):
