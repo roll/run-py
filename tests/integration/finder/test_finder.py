@@ -34,8 +34,8 @@ class FinderTest(unittest.TestCase):
         self.assertEqual(
             self.stdout.getvalue(),
             'Hits runfile.py\n'
-            'Hits folder/runfile.py\n'
-            'Hits folder/subfolder/runfile.py\n')
+            'Hits dir/runfile.py\n'
+            'Hits dir/subdir/runfile.py\n')
     
     def test_find_with_names(self):
         finder = Finder(names=['name1'])
