@@ -137,7 +137,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print attributes.
         """
         if attribute:
-            attribute = self.meta_attributes[attribute]
+            attribute = self.meta_attributes.get_attribute(attribute)
         else:
             attribute = self
         names = []
@@ -155,7 +155,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print information.
         """
         if attribute:
-            attribute = self.meta_attributes[attribute]
+            attribute = self.meta_attributes.get_attribute(attribute)
         else:
             attribute = self
         info = attribute.meta_qualname
@@ -178,7 +178,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print metadata.
         """
         if attribute:
-            attribute = self.meta_attributes[attribute]
+            attribute = self.meta_attributes.get_attribute(attribute)
         else:
             attribute = self
         meta = OrderedDict()
