@@ -1,16 +1,14 @@
-.. include:: ../../README.rst
-
-Contents
---------
+Table of Contents
+=================
 
 .. toctree::
-     :maxdepth: 2
+     :maxdepth: 2   
+   
+     Introduction <intro>
+     api
 
-   api
-
-Indices and tables
-------------------
+Indices and Tables
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
