@@ -12,6 +12,8 @@ class Settings(Settings):
     extensions = ['sphinx.ext.autodoc']
     master_doc = 'index'
     pygments_style = 'sphinx'
+    autodoc_member_order = 'bysource'
+    autodoc_default_flags = ['members', 'undoc-members', 'show-inheritance']    
 
     #Project
     
