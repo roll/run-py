@@ -1,9 +1,10 @@
+import os
 from box import Settings
 from .version import version
 
 class Settings(Settings):
     
-    #Defaults
+    #Public
     
     default_attribute = 'default'
     default_arguments = []
@@ -190,6 +191,12 @@ class Settings(Settings):
                 },                                                
             },
         }
+        
+    #Protected
+    
+    _extensions = [
+        os.path.join(os.path.expanduser('~'), '.run', 'settings.py'),
+    ]
     
     
 settings = Settings()
