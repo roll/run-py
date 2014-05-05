@@ -25,7 +25,7 @@ class MainModule(PythonPackgramModule):
     entry_points = {'console_scripts': ['run = run:program']}
     github_user = 'respect31'
     install_requires = [
-        'box>=0.17', 
+        'box>=0.18', 
         'jinja2',
     ]
     license = 'MIT License'  
