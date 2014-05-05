@@ -5,9 +5,12 @@ from ..settings import settings
 class NullModule:
 
     #Public
-        
+    
     def __bool__(self):
         return False
+    
+    def __repr__(self):
+        return '<NullModule>'    
     
     @property
     def meta_attributes(self):
