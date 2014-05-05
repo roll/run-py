@@ -15,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': {{ install_requires }},  
-    'tests_require': {{ install_requires+tests_require }},
+    'tests_require': {{ tests_require }},
     'test_suite': '{{ test_suite }}',
     
     #Description

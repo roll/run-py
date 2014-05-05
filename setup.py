@@ -15,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': ['box>=0.16'],  
-    'tests_require': ['box>=0.16', 'nose'],
+    'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
     #Description
