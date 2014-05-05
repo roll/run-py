@@ -58,6 +58,6 @@ class Command(Command):
     def _parse_literal(self, literal):
         try:
             value = ast.literal_eval(literal)
-        except ValueError:
+        except Exception:
             return literal
         return value
