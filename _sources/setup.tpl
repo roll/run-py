@@ -36,8 +36,8 @@ package = {
 
 if (not os.environ.get('TRAVIS', None) and  
 	not	os.environ.get('READTHEDOCS', None)):
-	package['entry_points'] = {'console_scripts': ['run = run:program']}
-	package['data_files'] = [('/etc/bash_completion.d', ['data/run.sh'])]	
+	package['entry_points'] = {{ entry_points }}
+	package['data_files'] = {{ data_files }}	
 
 if __name__ == '__main__':
 	setup(**package)

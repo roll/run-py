@@ -15,12 +15,14 @@ class MainModule(PythonPackgramModule):
         'Topic :: Software Development :: Libraries :: Python Modules', 
         'Topic :: System :: Systems Administration', 
     ]
+    data_files = [('/etc/bash_completion.d', ['data/run.sh'])]
     description = 'Run is a program to run tasks from files.'
     development_requires = [
         'packgram>=0.7',
         'sphinx',
         'sphinx_rtd_theme',
-    ] 
+    ]
+    entry_points = {'console_scripts': ['run = run:program']}
     github_user = 'respect31'
     install_requires = [
         'box>=0.16', 
