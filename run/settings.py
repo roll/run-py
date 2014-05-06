@@ -69,7 +69,7 @@ class Settings(Settings):
                  'dest': 'file',
                  'flags': ['-f', '--file'],
                  'default': self.default_file,
-                 'help': 'Runfile filename pattern.',                 
+                 'help': 'Runfile filename.',                 
                 },
                 {
                  'dest': 'list',
