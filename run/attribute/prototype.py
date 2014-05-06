@@ -1,5 +1,5 @@
 import inspect
-from copy import copy
+from copy import copy as python_copy
 from .update import AttributeSet, AttributeCall
 
 class AttributePrototype:
@@ -39,7 +39,7 @@ class AttributePrototype:
     def __copy__(self, *args, **kwargs):
         """Copy prototype.
         """
-        eupdates = copy(self._updates)
+        eupdates = python_copy(self._updates)
         eargs = self._args+args
         ekwargs = self._kwargs
         ekwargs.update(kwargs)
