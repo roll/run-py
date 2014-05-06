@@ -36,12 +36,14 @@ class AttributePrototype:
         self._updates.append(update)
         return self
         
-    def __copy__(self):
+    def __copy__(self, *args, **kwargs):
         """Copy prototype.
         """
-        return type(self)(
-            self._class, copy(self._updates), 
-            *self._args, **self._kwargs)
+        eupdates = copy(self._updates)
+        eargs = self._args+args
+        ekwargs = self._kwargs
+        ekwargs.update(kwargs)
+        return type(self)(self._class, eupdates, *eargs, **ekwargs)
     
     def __build__(self, module):
         """Build attribute.
