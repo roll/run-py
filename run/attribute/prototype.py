@@ -37,13 +37,15 @@ class AttributePrototype:
         return self
         
     def __copy__(self):
-        """Copy prototype"""
+        """Copy prototype.
+        """
         return type(self)(
             self._class, copy(self._updates), 
             *self._args, **self._kwargs)
     
     def __build__(self, module):
-        """Build attribute"""
+        """Build attribute.
+        """
         attribute = self._create_attribute()
         self._init_attribute(attribute, module)
         self._update_attribute(attribute)
