@@ -1,5 +1,5 @@
 import inspect
-from copy import copy as python_copy
+from copy import copy as base_copy
 from .update import AttributeSet, AttributeCall
 
 class AttributePrototype:
@@ -39,7 +39,7 @@ class AttributePrototype:
     def __copy__(self, *args, **kwargs):
         """Copy prototype.
         """
-        eupdates = python_copy(self._updates)
+        eupdates = copy(self._updates)
         eargs = self._args+args
         ekwargs = self._kwargs
         ekwargs.update(kwargs)
@@ -71,5 +71,10 @@ class AttributePrototype:
             
 def copy(prototype, *args, **kwargs):
     """Copy prototype with optional args, kwargs altering.
+    
+    For other object types works as copy.copy.
     """
-    return prototype.__copy__(*args, **kwargs)
+    if isinstance(prototype, AttributePrototype):
+        return prototype.__copy__(*args, **kwargs)
+    else:
+        return base_copy(prototype)
