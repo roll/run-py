@@ -1,4 +1,5 @@
-from .attribute import (AttributePrototype, AttributeMetaclass, Attribute, 
+from .attribute import (AttributePrototype, copy,
+                        AttributeMetaclass, Attribute, 
                         AttributeSignal, AttributeUpdate, 
                         AttributeSet, AttributeCall,
                         NullModule)

@@ -67,3 +67,9 @@ class AttributePrototype:
     def _update_attribute(self, attribute):
         for update in self._updates:
             update.apply(attribute)
+            
+            
+def copy(prototype, *args, **kwargs):
+    """Copy prototype with optional args, kwargs altering.
+    """
+    return prototype.__copy__(*args, **kwargs)
