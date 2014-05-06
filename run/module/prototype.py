@@ -6,7 +6,8 @@ class ModulePrototype(AttributePrototype):
     #Public
     
     def __init__(self, cls, updates, *args, **kwargs):
-        super().__init__(copy(cls), updates, *args, **kwargs)
+        eclass = copy(cls)
+        super().__init__(eclass, updates, *args, **kwargs)
         
     #Protected
     
