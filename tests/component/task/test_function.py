@@ -9,7 +9,7 @@ class FunctionTaskTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'} 
-        MockFunctionTask = self._make_mock_function_task_class()
+        MockFunctionTask = self._make_mock_task_class()
         self.function = Mock(return_value='value', __doc__='docstring')        
         self.task = MockFunctionTask(self.function, meta_module=None)
         
@@ -25,7 +25,7 @@ class FunctionTaskTest(unittest.TestCase):
         
     #Protected
     
-    def _make_mock_function_task_class(self):
+    def _make_mock_task_class(self):
         class MockFunctionTask(FunctionTask):
             #Public
             meta_qualname = 'qualname'

@@ -62,7 +62,7 @@ class ModuleTest(unittest.TestCase):
         
     def test_list(self):
         self.module.list()
-        self.module._print_function.assert_has_calls([
+        self.module._print.assert_has_calls([
             call('attr1'), 
             call('default'), 
             call('info'), 
@@ -71,11 +71,11 @@ class ModuleTest(unittest.TestCase):
         
     def test_info(self):
         self.module.info()  
-        self.assertTrue(self.module._print_function.called)   
+        self.assertTrue(self.module._print.called)   
     
     def test_meta(self):
         self.module.meta()           
-        self.assertTrue(self.module._pprint_function.called)
+        self.assertTrue(self.module._pprint.called)
         
     #Protected
     
@@ -86,8 +86,8 @@ class ModuleTest(unittest.TestCase):
             attr1 = 'value1'
             #Protected
             _meta_default_main_module_name = '__main__'
-            _print_function = Mock()            
-            _pprint_function = Mock()
+            _print = Mock()            
+            _pprint = Mock()
         return MockModule
         
         
@@ -122,7 +122,7 @@ class ModuleTest_with_module_is_main(ModuleTest):
          
     def test_list(self):
         self.module.list()
-        self.module._print_function.assert_has_calls([
+        self.module._print.assert_has_calls([
             call('[main_module] module.attr1'), 
             call('[main_module] module.default'), 
             call('[main_module] module.info'), 

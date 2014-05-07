@@ -145,7 +145,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             for attribute in attribute.meta_attributes.values():
                 names.append(attribute.meta_qualname)
             for name in sorted(names):
-                self._print_function(name)
+                self._print(name)
         else:
             raise TypeError(
                 'Attribute "{attribute}" is not a module.'.
@@ -172,7 +172,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             info += 'Default keyword arguments: '+str(attribute.meta_kwargs)       
         info += '\n---\n'
         info += attribute.meta_docstring
-        self._print_function(info)
+        self._print(info)
         
     def meta(self, attribute=None):
         """Print metadata.
@@ -186,7 +186,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
                 meta[key] = getattr(attribute, name)
-        self._pprint_function(meta)
+        self._pprint(meta)
       
     default = NullTask(
         require=['list'],
@@ -194,5 +194,5 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     #Protected
     
-    _print_function = staticmethod(print)    
-    _pprint_function = staticmethod(pprint)
+    _print = staticmethod(print)    
+    _pprint = staticmethod(pprint)

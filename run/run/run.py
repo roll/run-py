@@ -1,4 +1,3 @@
-import logging
 from box.functools import cachedproperty
 from ..cluster import Cluster
 from ..dispatcher import Dispatcher
@@ -36,14 +35,13 @@ class Run:
             if isinstance(attribute, self._task_class):
                 result = attribute(*args, **kwargs)
                 if result:
-                    self._print_function(result)
+                    self._print(result)
             else:
-                self._print_function(attribute)
+                self._print(attribute)
          
     #Protected
     
-    _print_function = staticmethod(print)
-    _logging_module = logging
+    _print = staticmethod(print)
     _task_class = Task
     _controller_class = RunController
     _dispatcher_class = Dispatcher
