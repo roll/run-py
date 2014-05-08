@@ -50,7 +50,6 @@ class Cluster:
             self._filename, self._basedir, self._recursively)
         for module_class in module_classes:
             module = module_class(
-                meta_basedir=self._basedir, 
                 meta_dispatcher=self._dispatcher,
                 meta_module=None)
             modules.append(module)

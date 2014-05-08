@@ -35,7 +35,6 @@ class ClusterTest(unittest.TestCase):
         cluster._modules
         for module in cluster._finder_class.return_value.find.return_value:
             module.assert_called_with(
-                meta_basedir='basedir', 
                 meta_dispatcher='dispatcher', 
                 meta_module=None)
         
