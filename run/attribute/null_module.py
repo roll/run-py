@@ -1,3 +1,4 @@
+import os
 from box.functools import cachedproperty
 from ..dispatcher import NullDispatcher
 from ..settings import settings
@@ -18,7 +19,7 @@ class NullModule:
     
     @property
     def meta_basedir(self):
-        return self._default_basedir
+        return os.getcwd()
     
     @property
     def meta_cache(self):
@@ -70,7 +71,6 @@ class NullModule:
     
     #Protected
     
-    _default_basedir = settings.default_basedir
     _default_cache = settings.default_cache
     _default_chdir = settings.default_chdir
     _default_fallback = settings.default_fallback

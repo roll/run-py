@@ -1,3 +1,4 @@
+import os
 import unittest
 from unittest.mock import Mock
 from run.attribute.null_module import NullModule
@@ -17,7 +18,7 @@ class NullModuleTest(unittest.TestCase):
         self.assertEqual(self.module.meta_attributes, {})
         
     def test_meta_basedir(self):
-        self.assertEqual(self.module.meta_basedir, 'default_basedir')
+        self.assertEqual(self.module.meta_basedir, os.getcwd())
         
     def test_meta_dispatcher(self):
         self.assertEqual(self.module.meta_dispatcher, 'null_dispatcher')
@@ -52,7 +53,6 @@ class NullModuleTest(unittest.TestCase):
         class MockNullModule(NullModule):
             """docstring"""
             #Protected
-            _default_basedir = 'default_basedir'
             _null_dispatcher_class = Mock(return_value='null_dispatcher')
             _default_main_module_name = '__main__'
         return MockNullModule
