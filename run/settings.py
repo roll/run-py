@@ -4,17 +4,19 @@ from .version import version
 
 class Settings(Settings):
     
-    #Public
+    #Main
+    
+    default_meta_cache = True
+    default_meta_chdir = True
+    default_meta_fallback = None
+    default_meta_main_module_name = '__main__'
+    
+    #Console
     
     default_attribute = 'default'
     default_arguments = []
     default_basedir = '.'
-    default_cache = True
-    default_chdir = True
-    default_fallback = None
     default_file = 'runfile.py'
-    default_logging_level = 'WARNING'
-    default_main_module_name = '__main__'
     default_names = []
     default_tags = []
     
@@ -129,7 +131,11 @@ class Settings(Settings):
                 },                                                             
             ],        
         }
-        
+    
+    #Logging
+    
+    default_logging_level = 'WARNING'    
+   
     @property
     def logging(self):
         return {
@@ -192,7 +198,7 @@ class Settings(Settings):
             },
         }
         
-    #Protected
+    #Extensions
     
     _extensions = [
         os.path.join(os.path.expanduser('~'), '.run', 'settings.py'),

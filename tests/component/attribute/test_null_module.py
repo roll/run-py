@@ -54,5 +54,5 @@ class NullModuleTest(unittest.TestCase):
             """docstring"""
             #Protected
             _null_dispatcher_class = Mock(return_value='null_dispatcher')
-            _default_main_module_name = '__main__'
+            _default_meta_main_module_name = '__main__'
         return MockNullModule

@@ -125,7 +125,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         if super().meta_name:
             return super().meta_name
         else:
-            return self._default_main_module_name
+            return self._default_meta_main_module_name
  
     @property
     def meta_tags(self):

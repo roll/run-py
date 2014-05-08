@@ -114,7 +114,7 @@ class Attribute(metaclass=AttributeMetaclass):
         """ 
         if self.meta_module.meta_is_main_module:
             if (self.meta_module.meta_name ==
-                self._default_main_module_name):
+                self._default_meta_main_module_name):
                 pattern = '{name}'
             else:
                 pattern = '[{module_qualname}] {name}'
@@ -132,4 +132,4 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Protected
     
-    _default_main_module_name = settings.default_main_module_name
+    _default_meta_main_module_name = settings.default_meta_main_module_name

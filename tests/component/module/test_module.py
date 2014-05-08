@@ -85,7 +85,7 @@ class ModuleTest(unittest.TestCase):
             #Public
             attr1 = 'value1'
             #Protected
-            _meta_default_main_module_name = '__main__'
+            _meta_default_meta_main_module_name = '__main__'
             _print = Mock()            
             _pprint = Mock()
         return MockModule
