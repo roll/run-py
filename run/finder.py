@@ -1,6 +1,5 @@
 import inspect
 import logging
-from box.functools import cachedproperty
 from box.findtools import find_objects
 from .module import Module
 from .settings import settings
@@ -52,7 +51,7 @@ class FinderTypeMapper:
         elif inspect.isabstract(emitter.object):
             emitter.skip()
     
-    
+        
 class FinderMetaNameMapper:
     
     #Public
@@ -64,22 +63,14 @@ class FinderMetaNameMapper:
         if self._meta_names:
             if inspect.isdatadescriptor(emitter.object.meta_name):
                 if 'meta_name' in vars(emitter.object):
-                    self._logger.warning(
+                    logging.getLogger(__name__).warning(
                         'Module class {object} skipped because meta_name '
                         'is not a static attribute (required for name filter)'.
                         format(object=emitter.object))
                 emitter.skip()
             else:            
                 if emitter.object.meta_name not in self._meta_names:
-                    emitter.skip()
-    
-    #Protected
-    
-    _logging_module = logging
-                
-    @cachedproperty
-    def _logger(self):
-        return self._logging_module.getLogger(__name__)                    
+                    emitter.skip()                 
     
     
 class FinderMetaTagMapper:
@@ -93,7 +84,7 @@ class FinderMetaTagMapper:
         if self._meta_tags:
             if inspect.isdatadescriptor(emitter.object.meta_tags):
                 if 'meta_tags' in vars(emitter.object):
-                    self._logger.warning(
+                    logging.getLogger(__name__).warning(
                         'Module class {object} skipped because meta_tags '
                         'is not a static attribute (required for tag filter)'.
                         format(object=emitter.object))
@@ -103,11 +94,3 @@ class FinderMetaTagMapper:
                 filter_tags = set(self._meta_tags)
                 if set.isdisjoint(object_tags, filter_tags):
                     emitter.skip()
-    
-    #Protected
-    
-    _logging_module = logging
-                
-    @cachedproperty
-    def _logger(self):
-        return self._logging_module.getLogger(__name__)
