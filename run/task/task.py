@@ -216,11 +216,8 @@ class Task(Attribute, metaclass=ABCMeta):
     def _effective_dir(self):
         if self.meta_chdir:
             previous_dir = os.path.abspath(os.getcwd())
-            if os.path.isabs(self.meta_basedir):
-                following_dir = self.meta_basedir
-            else:
-                following_dir = os.path.join(
-                    self._initial_dir, self.meta_basedir)
+            following_dir = os.path.join(
+                self._initial_dir, self.meta_basedir)
             os.chdir(following_dir)
             yield
             os.chdir(previous_dir)
