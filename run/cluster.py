@@ -33,7 +33,8 @@ class Cluster:
                 attributes.append(attribute)
             except AttributeError as exception:
                 if self._existent:
-                    self._logger.warning(str(exception))
+                    logger = logging.getLogger(__name__)
+                    logger.warning(str(exception))
                 else:
                     raise
         return attributes
@@ -45,7 +46,9 @@ class Cluster:
     @cachedproperty
     def _modules(self):
         modules = []
-        for module_class in self._module_classes:
+        module_classes = self._finder.find(
+            self._filename, self._basedir, self._recursively)
+        for module_class in module_classes:
             module = module_class(
                 meta_basedir=self._basedir, 
                 meta_dispatcher=self._dispatcher,
@@ -54,14 +57,5 @@ class Cluster:
         return modules
         
     @cachedproperty   
-    def _module_classes(self):
-        return list(self._module_finder.find(
-            self._filename, self._basedir, self._recursively))
-        
-    @cachedproperty   
-    def _module_finder(self):
-        return self._finder_class(names=self._names, tags=self._tags)
-    
-    @cachedproperty   
-    def _logger(self):
-        return logging.getLogger(__name__)        
+    def _finder(self):
+        return self._finder_class(names=self._names, tags=self._tags)     
