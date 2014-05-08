@@ -1,9 +1,9 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock
-from run.cluster import Cluster
+from run.run.cluster import RunCluster
 
-class ClusterTest(unittest.TestCase):
+class RunClusterTest(unittest.TestCase):
 
     #Public
     
@@ -53,7 +53,7 @@ class ClusterTest(unittest.TestCase):
     #Protected
     
     def _make_mock_cluster_class(self):
-        class MockCluster(Cluster):
+        class MockCluster(RunCluster):
             #Public
             default_filename = 'default_filename'               
             default_basedir = 'default_basedir'

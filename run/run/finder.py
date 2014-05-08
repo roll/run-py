@@ -1,10 +1,10 @@
 import inspect
 import logging
 from box.findtools import find_objects
-from .module import Module
-from .settings import settings
+from ..module import Module
+from ..settings import settings
     
-class Finder:
+class RunFinder:
     
     #Public
     

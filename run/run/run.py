@@ -1,8 +1,8 @@
 from box.functools import cachedproperty
-from ..cluster import Cluster
 from ..dispatcher import Dispatcher
 from ..settings import settings
 from ..task import Task
+from .cluster import RunCluster
 from .controller import RunController
 from .stack import RunStack
 
@@ -45,7 +45,7 @@ class Run:
     _task_class = Task
     _controller_class = RunController
     _dispatcher_class = Dispatcher
-    _cluster_class = Cluster
+    _cluster_class = RunCluster
     _stack_class = RunStack
     
     @cachedproperty

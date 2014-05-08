@@ -3,7 +3,6 @@ from .attribute import (AttributePrototype, copy,
                         AttributeSignal, AttributeUpdate, 
                         AttributeSet, AttributeCall,
                         NullModule)
-from .cluster import Cluster
 from .command import Command
 from .dependency import (Dependency, require, trigger,
                          DependencyDecorator, depend,
@@ -11,12 +10,11 @@ from .dependency import (Dependency, require, trigger,
                          DependencyNestedResolver)
 from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
                          DispatcherCallbackHandler, DispatcherSignal)
-from .finder import Finder
 from .module import (ModulePrototype, ModuleMetaclass, 
                      Module, ModuleAttributes, AutoModule, 
                      FindModule, SubprocessModule)
 from .program import Program, program
-from .run import Run, RunController, RunStack
+from .run import Run, RunCluster, RunFinder, RunController, RunStack
 from .settings import Settings, settings
 from .task import (Task, module,
                    DerivedTask, DescriptorTask, FindTask, 
