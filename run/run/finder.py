@@ -10,6 +10,7 @@ class RunFinder:
     
     default_basedir = settings.default_basedir   
     
+    #TODO: why default [] not None?
     def __init__(self, names=[], tags=[]):
         self._names = names
         self._tags = tags
