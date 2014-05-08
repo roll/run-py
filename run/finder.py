@@ -17,10 +17,9 @@ class Finder:
     def find(self, filename, basedir=None, recursively=False):
         if not basedir:
             basedir = self.default_basedir
+        maxdepth = 1
         if recursively:
             maxdepth = None
-        else:
-            maxdepth = 1
         mappers = [
             FinderTypeMapper(self._module_class),
             FinderMetaNameMapper(self._names),
