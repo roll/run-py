@@ -15,7 +15,7 @@ class Settings(Settings):
     
     default_attribute = 'default'
     default_arguments = []
-    default_basedir = '.'
+    default_basedir = None
     default_file = 'runfile.py'
     default_names = []
     default_tags = []
