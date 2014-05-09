@@ -1,5 +1,5 @@
 import sys
-import logging.config; logging.config #PyDev warning
+import logging.config
 from box.argparse import Program
 from box.functools import cachedproperty
 from .command import Command
@@ -16,20 +16,19 @@ class Program(Program):
          
     #Protected
     
-    _logging_module = logging
     _logging_config = settings.logging
     _command_class = Command
     _run_class = Run
     
     def _config(self):
-        self._logging_module.config.dictConfig(self._logging_config)        
-        logger = self._logging_module.getLogger()
+        logging.config.dictConfig(self._logging_config)        
+        logger = logging.getLogger()
         if self._command.debug:
-            logger.setLevel(self._logging_module.DEBUG)
+            logger.setLevel(logging.DEBUG)
         if self._command.verbose:
-            logger.setLevel(self._logging_module.INFO)
+            logger.setLevel(logging.INFO)
         if self._command.quiet:
-            logger.setLevel(self._logging_module.ERROR)      
+            logger.setLevel(logging.ERROR)      
     
     def _execute(self):
         try:
@@ -38,7 +37,7 @@ class Program(Program):
                 *self._command.args, 
                 **self._command.kwargs)
         except Exception as exception:
-            self._logging_module.getLogger(__name__).error(
+            logging.getLogger(__name__).error(
                 self._format_exception(exception), 
                 exc_info=self._command.debug)
             sys.exit(1)

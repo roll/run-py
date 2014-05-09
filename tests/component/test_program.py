@@ -1,5 +1,6 @@
+import logging
 import unittest
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 from run.program import Program
 
 class ProgramTest(unittest.TestCase):
@@ -17,16 +18,17 @@ class ProgramTest(unittest.TestCase):
         program._config.assert_called_with()
         program._execute.assert_called_with()
     
-    def test_config(self):
+    @patch('logging.config')
+    @patch('logging.getLogger')
+    def test_config(self, get_logger, logging_config):
         self.program._config()
-        (self.program._logging_module.config.dictConfig.
-            assert_called_with(self.program._logging_config))
-        self.program._logging_module.getLogger.assert_called_with()
-        (self.program._logging_module.getLogger.return_value.setLevel.
-            assert_has_calls([
-                call(self.program._logging_module.DEBUG),
-                call(self.program._logging_module.INFO),
-                call(self.program._logging_module.ERROR)]))
+        logging_config.dictConfig.assert_called_with(
+            self.program._logging_config)
+        get_logger.assert_called_with()
+        get_logger.return_value.setLevel.assert_has_calls([
+            call(logging.DEBUG),
+            call(logging.INFO),
+            call(logging.ERROR)])
         
     def test_execute(self):
         self.program._execute()
@@ -56,12 +58,6 @@ class ProgramTest(unittest.TestCase):
     def _make_mock_program_class(self):
         class MockProgram(Program):
             #Protected
-            _logging_module = Mock(
-                config=Mock(dictConfig=Mock()),
-                getLogger=Mock(setLevel=Mock()),
-                DEBUG='DEBUG',
-                INFO='INFO',
-                ERROR='ERROR')
             _logging_config = 'config'
             _command_class = Mock(return_value=Mock(
                 attribute='attribute',
