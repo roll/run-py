@@ -31,5 +31,5 @@ class FindModule:
     
     @staticmethod
     def _get_finder_class():
-        from ..run import RunFinder
-        return RunFinder
+        from ..run import Finder
+        return Finder

@@ -4,7 +4,7 @@ from box.findtools import find_objects
 from ..module import Module
 from ..settings import settings
     
-class RunFinder:
+class Finder:
     
     #Public
     

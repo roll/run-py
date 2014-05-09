@@ -2,7 +2,7 @@ import os
 import unittest
 from io import StringIO
 from unittest.mock import patch
-from run.run.finder import RunFinder
+from run.run.finder import Finder
 
 class FinderTest(unittest.TestCase):
 
@@ -14,7 +14,7 @@ class FinderTest(unittest.TestCase):
         self.addCleanup(patch.stopall)    
     
     def test_find(self):
-        finder = RunFinder()
+        finder = Finder()
         modules = list(finder.find(
             'runfile.py', basedir=self._basedir))
         self.assertEqual(len(modules), 1)
@@ -24,7 +24,7 @@ class FinderTest(unittest.TestCase):
             'Hits runfile.py\n')
            
     def test_find_recursively(self):
-        finder = RunFinder()
+        finder = Finder()
         modules = list(finder.find(
             'runfile.py', basedir=self._basedir, recursively=True))
         self.assertEqual(len(modules), 3)
@@ -38,14 +38,14 @@ class FinderTest(unittest.TestCase):
             'Hits dir/subdir/runfile.py\n')
     
     def test_find_with_names(self):
-        finder = RunFinder(names=['name1'])
+        finder = Finder(names=['name1'])
         modules = list(finder.find(
             'runfile.py', basedir=self._basedir, recursively=True))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
 
     def test_find_with_tags(self):
-        finder = RunFinder(tags=['tag2'])
+        finder = Finder(tags=['tag2'])
         modules = list(finder.find(
             'runfile.py', basedir=self._basedir, recursively=True))
         self.assertEqual(len(modules), 1)

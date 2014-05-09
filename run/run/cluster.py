@@ -1,7 +1,7 @@
 import logging
 from box.functools import cachedproperty
 from ..settings import settings
-from .finder import RunFinder
+from .finder import Finder
 
 class Cluster:
 
@@ -41,7 +41,7 @@ class Cluster:
         
     #Protected
     
-    _finder_class = RunFinder
+    _finder_class = Finder
         
     @cachedproperty
     def _modules(self):
