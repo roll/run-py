@@ -3,7 +3,7 @@ from box.functools import cachedproperty
 from ..settings import settings
 from .finder import RunFinder
 
-class RunCluster:
+class Cluster:
 
     #Public
 

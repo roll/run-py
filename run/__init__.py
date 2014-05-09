@@ -14,7 +14,7 @@ from .module import (ModulePrototype, ModuleMetaclass,
                      Module, ModuleAttributes, AutoModule, 
                      FindModule, SubprocessModule)
 from .program import Program, program
-from .run import Run, RunCluster, RunFinder, RunController, RunStack
+from .run import Run, Cluster, RunFinder, RunController, RunStack
 from .settings import Settings, settings
 from .task import (Task, module,
                    DerivedTask, DescriptorTask, FindTask, 
