@@ -1,6 +1,6 @@
 import unittest
 from functools import partial
-from unittest.mock import Mock, call
+from unittest.mock import Mock, call, patch
 from run.run.controller import Controller
 
 class ControllerTest(unittest.TestCase):
@@ -30,20 +30,20 @@ class ControllerTest(unittest.TestCase):
         controller = self.partial_controller()
         controller._on_initiated_task(self.signal)
         self.stack.push.assert_called_with(self.signal.attribute)
-        
-    def test__on_successed_task(self):
+     
+    @patch('run.run.controller.logging')
+    def test__on_successed_task(self, logging):
         controller = self.partial_controller()
         controller._on_successed_task(self.signal)
         self.stack.__repr__.assert_called_with()   
         self.stack.pop.assert_called_with()
-        (controller._logging_module.getLogger.return_value.info.
-            assert_called_with('stack'))
-        
-    def test__on_successed_task_with_stack_is_none(self):
+        logging.getLogger.return_value.info.assert_called_with('stack')
+    
+    @patch('run.run.controller.logging')    
+    def test__on_successed_task_with_stack_is_none(self, logging):
         controller = self.partial_controller(stack=None)
         controller._on_successed_task(self.signal)
-        (controller._logging_module.getLogger.return_value.info.
-            assert_called_with('attr_qualname'))
+        logging.getLogger.return_value.info.assert_called_with('attr_qualname')
     
     #Protected
     
@@ -53,6 +53,4 @@ class ControllerTest(unittest.TestCase):
             _callback_handler_class = Mock(return_value=Mock())
             _initiated_task_signal_class = 'initiated_task'
             _successed_task_signal_class = 'successed_task'
-            _logging_module = Mock(getLogger=Mock(
-                return_value=Mock(info=Mock())))       
         return MockController

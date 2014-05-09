@@ -30,7 +30,6 @@ class Controller:
     _initiated_task_signal_class = InitiatedTaskSignal
     _successed_task_signal_class = SuccessedTaskSignal
     _failed_task_signal_class = FailedTaskSignal
-    _logging_module = logging
     
     def _on_initiated_task(self, signal):
         if self._stack != None:
@@ -42,7 +41,7 @@ class Controller:
             self._stack.pop()            
         else:
             message = signal.attribute.meta_qualname            
-        logger=self._logging_module.getLogger('successed')
+        logger = logging.getLogger('successed')
         logger.info(message)
         
     def _on_failed_task(self, signal):
@@ -51,5 +50,5 @@ class Controller:
             self._stack.pop()
         else:
             message = signal.attribute.meta_qualname            
-        logger=self._logging_module.getLogger('failed')
+        logger = logging.getLogger('failed')
         logger.info(message)         
