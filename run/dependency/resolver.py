@@ -20,7 +20,7 @@ class Resolver(metaclass=ABCMeta):
         pass #pragma: no cover
         
         
-class DependencyCommonResolver(Resolver):
+class CommonResolver(Resolver):
 
     #Public
     

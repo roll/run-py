@@ -6,8 +6,7 @@ from .attribute import (AttributePrototype, copy,
 from .command import Command
 from .dependency import (Dependency, require, trigger,
                          DependencyDecorator, depend,
-                         Resolver, DependencyCommonResolver, 
-                         NestedResolver)
+                         Resolver, CommonResolver, NestedResolver)
 from .dispatcher import (Dispatcher, NullDispatcher, Handler, 
                          CallbackHandler, Signal)
 from .module import (ModulePrototype, ModuleMetaclass, 
