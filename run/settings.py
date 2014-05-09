@@ -8,6 +8,8 @@ class Settings(Settings):
     
     default_basedir = None
     default_file = 'runfile.py'
+    default_names = None
+    default_tags = None    
     
     #Meta    
     
@@ -20,8 +22,6 @@ class Settings(Settings):
     
     default_attribute = 'default'
     default_arguments = []
-    default_names = []
-    default_tags = []
     
     @property
     def argparse(self):
@@ -74,7 +74,7 @@ class Settings(Settings):
                  'dest': 'file',
                  'flags': ['-f', '--file'],
                  'default': self.default_file,
-                 'help': 'Runfile file name/path/pattern.',                 
+                 'help': 'Runfile name/path/pattern.',                 
                 },
                 {
                  'dest': 'list',
