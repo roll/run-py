@@ -1,1 +1,1 @@
-class DispatcherSignal: pass
+class Signal: pass

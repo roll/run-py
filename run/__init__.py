@@ -9,7 +9,7 @@ from .dependency import (Dependency, require, trigger,
                          DependencyResolver, DependencyCommonResolver, 
                          DependencyNestedResolver)
 from .dispatcher import (Dispatcher, NullDispatcher, Handler, 
-                         CallbackHandler, DispatcherSignal)
+                         CallbackHandler, Signal)
 from .module import (ModulePrototype, ModuleMetaclass, 
                      Module, ModuleAttributes, AutoModule, 
                      FindModule, SubprocessModule)
