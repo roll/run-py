@@ -39,8 +39,7 @@ class find(find_objects):
     def _extension_mappers(self):
         return (super()._extension_mappers+
                 [FindTypeMapper(self._module_class),
-                 FindMetaNameMapper(self._names),
-                 FindMetaTagMapper(self._tags),])
+                 FindMetaMapper(self._names, self._tags)])
     
     
 class FindTypeMapper:
@@ -57,47 +56,37 @@ class FindTypeMapper:
             emitter.skip()
         elif not issubclass(emitter.object, self._module_class):
             emitter.skip()
-    
-        
-class FindMetaNameMapper:
-    
-    #Public
-    
-    def __init__(self, meta_names):
-        self._meta_names = meta_names
-        
-    def __call__(self, emitter):
-        if self._meta_names:
-            if inspect.isdatadescriptor(emitter.object.meta_name):
-                if 'meta_name' in vars(emitter.object):
-                    logging.getLogger(__name__).warning(
-                        'Module class {object} skipped because meta_name '
-                        'is not a static attribute (required for name filter)'.
-                        format(object=emitter.object))
-                emitter.skip()
-            else:            
-                if emitter.object.meta_name not in self._meta_names:
-                    emitter.skip()                 
-    
-    
-class FindMetaTagMapper:
+                    
+                    
+class FindMetaMapper:
     
     #Public
     
-    def __init__(self, meta_tags):
-        self._meta_tags = meta_tags
-        
+    def __init__(self, names, tags):
+        self._names = names
+        self._tags = tags
+     
     def __call__(self, emitter):
-        if self._meta_tags:
-            if inspect.isdatadescriptor(emitter.object.meta_tags):
-                if 'meta_tags' in vars(emitter.object):
-                    logging.getLogger(__name__).warning(
-                        'Module class {object} skipped because meta_tags '
-                        'is not a static attribute (required for tag filter)'.
-                        format(object=emitter.object))
+        if self._names:
+            if self._is_descriptor(emitter.object, 'meta_name'):
                 emitter.skip()
-            else:
-                object_tags = set(emitter.object.meta_tags)
-                filter_tags = set(self._meta_tags)
-                if set.isdisjoint(object_tags, filter_tags):
-                    emitter.skip()
+            elif emitter.object.meta_name not in self._names:
+                emitter.skip()
+        if self._tags:
+            if self._is_descriptor(emitter.object, 'meta_tags'):
+                emitter.skip()
+            elif set(emitter.object.meta_tags).isdisjoint(self._tags):
+                emitter.skip()
+        
+    #Protected
+    
+    def _is_descriptor(self, obj, name):
+        is_descriptor = False
+        if inspect.isdatadescriptor(getattr(obj, name)):
+            is_descriptor = True
+            if name in vars(object):
+                logging.getLogger(__name__).warning(
+                    'Module class {obj} skipped because "{name}" '
+                    'is not a static attribute (required for filter)'.
+                    format(obj=obj, name=name))
+        return is_descriptor
