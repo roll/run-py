@@ -31,7 +31,7 @@ class NullModule:
     
     @cachedproperty
     def meta_dispatcher(self):
-        return self._null_dispatcher_class()
+        return self._dispatcher_class()
     
     @property
     def meta_docstring(self):
@@ -71,7 +71,7 @@ class NullModule:
     
     #Protected
     
-    _null_dispatcher_class = NullDispatcher
+    _dispatcher_class = NullDispatcher
     _default_meta_cache = settings.default_meta_cache
     _default_meta_chdir  = settings.default_meta_chdir 
     _default_meta_fallback = settings.default_meta_fallback
