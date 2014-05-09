@@ -1,9 +1,9 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
-from .resolver import (DependencyResolver, DependencyCommonResolver, 
+from .resolver import (Resolver, DependencyCommonResolver, 
                        DependencyNestedResolver)
 
-class Dependency(DependencyResolver, metaclass=ABCMeta):
+class Dependency(Resolver, metaclass=ABCMeta):
     
     #Public
     

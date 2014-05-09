@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class DependencyResolver(metaclass=ABCMeta):
+class Resolver(metaclass=ABCMeta):
 
     #Public
     
@@ -20,7 +20,7 @@ class DependencyResolver(metaclass=ABCMeta):
         pass #pragma: no cover
         
         
-class DependencyCommonResolver(DependencyResolver):
+class DependencyCommonResolver(Resolver):
 
     #Public
     
@@ -71,7 +71,7 @@ class DependencyCommonResolver(DependencyResolver):
                 format(resolver=self))
         
         
-class DependencyNestedResolver(DependencyResolver):
+class DependencyNestedResolver(Resolver):
 
     #Public
     
