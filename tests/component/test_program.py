@@ -50,11 +50,6 @@ class ProgramTest(unittest.TestCase):
             recursively='recursively',
             existent='existent',
             stackless='stackless')       
-        
-    def test_logger(self):
-        self.program._logger
-        (self.program._logging_module.getLogger.
-            assert_called_with(Program.__module__))
     
     #Protected
     

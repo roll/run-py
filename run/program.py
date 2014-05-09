@@ -38,7 +38,7 @@ class Program(Program):
                 *self._command.args, 
                 **self._command.kwargs)
         except Exception as exception:
-            self._logger.error(
+            self._logging_module.getLogger(__name__).error(
                 self._format_exception(exception), 
                 exc_info=self._command.debug)
             sys.exit(1)
@@ -57,10 +57,6 @@ class Program(Program):
             recursively=self._command.recursively,
             existent=self._command.existent,
             stackless=self._command.stackless)
-     
-    @cachedproperty    
-    def _logger(self):
-        return self._logging_module.getLogger(__name__)
     
     def _format_exception(self, exception):
         return '{category}: {message}'.format(
