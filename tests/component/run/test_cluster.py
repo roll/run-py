@@ -12,7 +12,7 @@ class ClusterTest(unittest.TestCase):
         self.partial_cluster = partial(MockCluster,
             names='names', 
             tags='tags', 
-            filename='filename',             
+            file='file',             
             basedir='basedir', 
             recursively='recursively',
             existent='existent', 
@@ -33,34 +33,27 @@ class ClusterTest(unittest.TestCase):
     def test__modules(self):
         cluster = self.partial_cluster()
         cluster._modules
-        for module in cluster._finder_class.return_value.find.return_value:
+        cluster._find.assert_called_with(
+            names='names', 
+            tags='tags',                                                       
+            file='file', 
+            basedir='basedir', 
+            recursively='recursively')
+        for module in cluster._find.return_value:
             module.assert_called_with(
                 meta_dispatcher='dispatcher', 
                 meta_module=None)
-        
-    def test__module_classes(self):
-        cluster = self.partial_cluster()
-        cluster._module_classes
-        cluster._finder_class.return_value.find.assert_called_with(
-            'filename', 'basedir', 'recursively')
-            
-    def test__module_loader(self):
-        cluster = self.partial_cluster()
-        cluster._module_loader
-        cluster._finder_class.assert_called_with(
-            names='names', tags='tags')
         
     #Protected
     
     def _make_mock_cluster_class(self):
         class MockCluster(Cluster):
             #Public
-            default_filename = 'default_filename'               
+            default_file = 'default_file'               
             default_basedir = 'default_basedir'
             #Protected
-            _finder_class = Mock(return_value=Mock(find=
-                Mock(return_value=[module_class for module_class in 
-                    [Mock(return_value=Mock(attr1=1, attr2=1)), 
-                     Mock(return_value=Mock(attr1=2, spec=['attr1'])), 
-                     Mock(return_value=Mock(attr1=3, spec=['attr1']))]])))
+            _find = Mock(return_value=[module_class for module_class in 
+                [Mock(return_value=Mock(attr1=1, attr2=1)), 
+                 Mock(return_value=Mock(attr1=2, spec=['attr1'])), 
+                 Mock(return_value=Mock(attr1=3, spec=['attr1']))]])
         return MockCluster

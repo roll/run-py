@@ -1,27 +1,27 @@
 import logging
 from box.functools import cachedproperty
 from ..settings import settings
-from .finder import Finder
+from .find import find
 
 class Cluster:
 
     #Public
 
-    default_filename = settings.default_file
+    default_file = settings.default_file
     default_basedir = settings.default_basedir
 
     def __init__(self, names=None, tags=None, *, 
-                 filename=None, basedir=None, recursively=False, 
+                 file=None, basedir=None, recursively=False, 
                  existent=False, dispatcher=None):
         self._names = names
         self._tags = tags
-        self._filename = filename
+        self._file = file
         self._basedir = basedir
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
-        if self._filename == None:
-            self._filename = self.default_filename
+        if self._file == None:
+            self._file = self.default_file
         if self._basedir == None:
             self._basedir = self.default_basedir                    
     
@@ -41,20 +41,20 @@ class Cluster:
         
     #Protected
     
-    _finder_class = Finder
+    _find = staticmethod(find)
         
     @cachedproperty
     def _modules(self):
         modules = []
-        module_classes = self._finder.find(
-            self._filename, self._basedir, self._recursively)
+        module_classes = self._find(
+            names=self._names, 
+            tags=self._tags,
+            file=self._file, 
+            basedir=self._basedir, 
+            recursively=self._recursively)
         for module_class in module_classes:
             module = module_class(
                 meta_dispatcher=self._dispatcher,
                 meta_module=None)
             modules.append(module)
-        return modules
-        
-    @cachedproperty   
-    def _finder(self):
-        return self._finder_class(names=self._names, tags=self._tags)     
+        return modules    
