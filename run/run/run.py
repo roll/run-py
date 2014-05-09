@@ -10,21 +10,21 @@ class Run:
     
     #Public
     
-    default_filename = settings.default_file  
+    default_file = settings.default_file  
     default_basedir = settings.default_basedir
     
     def __init__(self, names=None, tags=None, *, 
-                 filename=None, basedir=None, recursively=False, 
+                 file=None, basedir=None, recursively=False, 
                  existent=False, stackless=False):
         self._names = names
         self._tags = tags
-        self._filename = filename
+        self._file = file
         self._basedir = basedir
         self._recursively = recursively
         self._existent = existent 
         self._stackless = stackless
-        if self._filename == None:
-            self._filename = self.default_filename
+        if self._file == None:
+            self._file = self.default_file
         if self._basedir == None:
             self._basedir = self.default_basedir         
                 
@@ -58,7 +58,7 @@ class Run:
         return self._cluster_class(
             names=self._names,
             tags=self._tags,
-            filename=self._filename,
+            file=self._file,
             basedir=self._basedir, 
             recursively=self._recursively,
             existent=self._existent,

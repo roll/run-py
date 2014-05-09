@@ -12,7 +12,7 @@ class RunTest(unittest.TestCase):
         self.partial_run = partial(MockRun,
             names='names', 
             tags='tags', 
-            filename='filename', 
+            file='file', 
             basedir='basedir',
             recursively='recursively',
             existent='existent',)
@@ -43,19 +43,19 @@ class RunTest(unittest.TestCase):
         run._cluster_class.assert_called_with(
             names='names', 
             tags='tags', 
-            filename='filename', 
+            file='file', 
             basedir='basedir',
             recursively='recursively',
             existent='existent', 
             dispatcher=run._dispatcher_class.return_value)
         
-    def test__cluster_with_default_filename_and_basedir(self):
-        run = self.partial_run(filename=None, basedir=None)
+    def test__cluster_with_default_file_and_basedir(self):
+        run = self.partial_run(file=None, basedir=None)
         run._cluster
         run._cluster_class.assert_called_with(
             names='names', 
             tags='tags', 
-            filename='default_filename', 
+            file='default_file', 
             basedir='default_basedir',
             recursively='recursively',
             existent='existent', 
@@ -81,7 +81,7 @@ class RunTest(unittest.TestCase):
     def _make_mock_run_class(self):
         class MockRun(Run):
             #Public
-            default_filename = 'default_filename'
+            default_file = 'default_file'
             default_basedir = 'default_basedir'
             #Protected
             _print = Mock()
