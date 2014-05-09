@@ -1,9 +1,9 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from run.run.controller import RunController
+from run.run.controller import Controller
 
-class RunControllerTest(unittest.TestCase):
+class ControllerTest(unittest.TestCase):
 
     #Public
     
@@ -48,7 +48,7 @@ class RunControllerTest(unittest.TestCase):
     #Protected
     
     def _make_mock_controller_class(self):
-        class MockController(RunController):
+        class MockController(Controller):
             #Protected
             _callback_handler_class = Mock(return_value=Mock())
             _initiated_task_signal_class = 'initiated_task'

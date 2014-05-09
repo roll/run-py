@@ -2,7 +2,7 @@ import logging
 from ..dispatcher import CallbackHandler
 from ..task import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
-class RunController:
+class Controller:
     
     #Public
     

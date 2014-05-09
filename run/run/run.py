@@ -3,7 +3,7 @@ from ..dispatcher import Dispatcher
 from ..settings import settings
 from ..task import Task
 from .cluster import Cluster
-from .controller import RunController
+from .controller import Controller
 from .stack import RunStack
 
 class Run:
@@ -43,7 +43,7 @@ class Run:
     
     _print = staticmethod(print)
     _task_class = Task
-    _controller_class = RunController
+    _controller_class = Controller
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
     _stack_class = RunStack
