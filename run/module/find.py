@@ -1,35 +1,25 @@
-from ..settings import settings
-
 class FindModule:
 
     #Public
-
-    default_filename = settings.default_file    
-    default_basedir = settings.default_basedir
     
-    def __new__(self, names=[], tags=[], 
-                filename=None, basedir=None, recursively=False):
-        if not filename:
-            filename = self.default_filename
-        if not basedir:
-            basedir = self.default_basedir
-        finder_class = self._get_finder_class() 
-        finder = finder_class(names=names, tags=tags)
-        for module_class in finder.find(filename, basedir, recursively):
+    def __new__(self, names=None, tags=None, 
+                file=None, basedir=None, recursively=False):
+        find = self._get_find() 
+        module_classes = find(
+            names=names,
+            tags=tags,
+            file=file, 
+            basedir=basedir, 
+            recursively=recursively)
+        for module_class in module_classes:
             module = module_class() 
             return module
         else:
-            raise ImportError(
-                'No modules found with names "{names}", tags "{tags}", '
-                'basedir "{basedir}", filename "{filename}" and '
-                'recursively flag in "{recursively}"'.
-                format(names=names, tags=tags, basedir=basedir, 
-                       filename=filename, 
-                       recursively=recursively))
+            raise ImportError('Module is not found.')
             
     #Protected
     
     @staticmethod
-    def _get_finder_class():
-        from ..run import Finder
-        return Finder
+    def _get_find():
+        from ..run import find
+        return find

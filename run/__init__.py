@@ -13,7 +13,7 @@ from .module import (ModulePrototype, ModuleMetaclass,
                      Module, ModuleAttributes, AutoModule, 
                      FindModule, SubprocessModule)
 from .program import Program, program
-from .run import Run, Cluster, Finder, Controller, Stack
+from .run import Run, Cluster, Controller, Stack, find
 from .settings import Settings, settings
 from .task import (Task, module,
                    DerivedTask, DescriptorTask, FindTask, 

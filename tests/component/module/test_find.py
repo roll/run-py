@@ -10,29 +10,30 @@ class FindModuleTest(unittest.TestCase):
         self.kwargs = {
             'names': 'names', 
             'tags': 'tags', 
-            'filename': 'filename',             
+            'file': 'file',             
             'basedir': 'basedir', 
             'recursively': 'recursively'}
 
     def test___new__(self):
         mock_module = Mock()
-        MockFindModule = self._make_mock_find_module_class([mock_module])
-        module = MockFindModule(**self.kwargs)
+        MockModule = self._make_mock_module_class([mock_module])
+        module = MockModule(**self.kwargs)
         self.assertIsInstance(module, Mock)
-        (MockFindModule._get_finder_class.return_value.
-            assert_called_with(names='names', tags='tags'))
-        (MockFindModule._get_finder_class.return_value.return_value.find.
-            assert_called_with('filename', 'basedir', 'recursively'))
+        MockModule._get_find.return_value.assert_called_with(
+            names='names', 
+            tags='tags',
+            file='file', 
+            basedir='basedir', 
+            recursively='recursively')
         
     def test___new___no_modules(self):
-        MockFindModule = self._make_mock_find_module_class([])
-        self.assertRaises(ImportError, MockFindModule, **self.kwargs)
+        MockModule = self._make_mock_module_class([])
+        self.assertRaises(ImportError, MockModule, **self.kwargs)
     
     #Protected
 
-    def _make_mock_find_module_class(self, modules):
+    def _make_mock_module_class(self, modules):
         class MockFindModule(FindModule):
             #Protected
-            _get_finder_class = Mock(return_value=Mock(return_value=Mock(
-                find=Mock(return_value=modules))))
+            _get_find = Mock(return_value=Mock(return_value=modules))
         return MockFindModule
