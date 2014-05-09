@@ -57,8 +57,6 @@ class FindTypeMapper:
             emitter.skip()
         elif not issubclass(emitter.object, self._module_class):
             emitter.skip()
-        elif inspect.isabstract(emitter.object):
-            emitter.skip()
     
         
 class FindMetaNameMapper:
