@@ -19,5 +19,5 @@ class IntroductionTest(ExamplesTest):
     #Protected 
         
     @property
-    def _filename(self):
+    def _file(self):
         return 'introduction.py'

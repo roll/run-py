@@ -14,7 +14,7 @@ class ExamplesTest(unittest.TestCase):
         result = ''
         ecommand = 'python3 -c "from run import program; program()" '
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
-        ecommand += '-f {filename} '.format(filename=self._filename)
+        ecommand += '-f {file} '.format(file=self._file)
         ecommand += command
         process = Popen(
             ecommand, shell=True, universal_newlines=True,
@@ -33,5 +33,5 @@ class ExamplesTest(unittest.TestCase):
         return basedir
     
     @property
-    def _filename(self):
+    def _file(self):
         return 'runfile.py'

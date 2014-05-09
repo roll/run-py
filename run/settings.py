@@ -71,7 +71,7 @@ class Settings(Settings):
                  'dest': 'file',
                  'flags': ['-f', '--file'],
                  'default': self.default_file,
-                 'help': 'Runfile filename.',                 
+                 'help': 'Runfile file name/path/pattern.',                 
                 },
                 {
                  'dest': 'list',

@@ -69,5 +69,5 @@ class VarsTest(ExamplesTest):
     #Protected
     
     @property
-    def _filename(self):
+    def _file(self):
         return 'vars.py'

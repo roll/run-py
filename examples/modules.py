@@ -11,7 +11,7 @@ class MainModule(Module):
     )
     
     find = FindModule(
-        filename='tasks.py',
+        file='tasks.py',
         basedir=os.path.dirname(__file__),
     )
     

@@ -80,5 +80,5 @@ class TasksTest(ExamplesTest):
     #Protected 
         
     @property
-    def _filename(self):
+    def _file(self):
         return 'tasks.py'
