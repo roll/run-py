@@ -4,7 +4,7 @@ from ..settings import settings
 from ..task import Task
 from .cluster import Cluster
 from .controller import Controller
-from .stack import RunStack
+from .stack import Stack
 
 class Run:
     
@@ -46,7 +46,7 @@ class Run:
     _controller_class = Controller
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
-    _stack_class = RunStack
+    _stack_class = Stack
     
     @cachedproperty
     def _controller(self):

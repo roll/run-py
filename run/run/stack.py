@@ -1,4 +1,4 @@
-class RunStack(list):
+class Stack(list):
 
     #Public
 
