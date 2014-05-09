@@ -10,7 +10,7 @@ class Cluster:
     default_filename = settings.default_file
     default_basedir = settings.default_basedir
 
-    def __init__(self, names=[], tags=[], 
+    def __init__(self, names=None, tags=None, *, 
                  filename=None, basedir=None, recursively=False, 
                  existent=False, dispatcher=None):
         self._names = names
@@ -20,9 +20,9 @@ class Cluster:
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
-        if not self._filename:
+        if self._filename == None:
             self._filename = self.default_filename
-        if not self._basedir:
+        if self._basedir == None:
             self._basedir = self.default_basedir                    
     
     def __getattr__(self, name):
