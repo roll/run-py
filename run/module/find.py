@@ -3,14 +3,15 @@ class FindModule:
     #Public
     
     def __new__(self, names=None, tags=None, *,
-                file=None, basedir=None, recursively=False):
+                file=None, basedir=None, recursively=False, **kwargs):
         find = self._get_find() 
         module_classes = find(
             names=names,
             tags=tags,
             file=file, 
             basedir=basedir, 
-            recursively=recursively)
+            recursively=recursively,
+            **kwargs)
         for module_class in module_classes:
             module = module_class() 
             return module
