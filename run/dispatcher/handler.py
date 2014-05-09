@@ -7,7 +7,7 @@ class Handler(metaclass=ABCMeta):
         pass #pragma: no cover
 
 
-class DispatcherCallbackHandler(Handler):
+class CallbackHandler(Handler):
     
     #Public
     

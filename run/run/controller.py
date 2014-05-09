@@ -1,5 +1,5 @@
 import logging
-from ..dispatcher import DispatcherCallbackHandler
+from ..dispatcher import CallbackHandler
 from ..task import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
 class RunController:
@@ -26,7 +26,7 @@ class RunController:
          
     #Protected
     
-    _callback_handler_class = DispatcherCallbackHandler
+    _callback_handler_class = CallbackHandler
     _initiated_task_signal_class = InitiatedTaskSignal
     _successed_task_signal_class = SuccessedTaskSignal
     _failed_task_signal_class = FailedTaskSignal
