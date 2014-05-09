@@ -35,7 +35,7 @@ class ModuleTest(unittest.TestCase):
 
 class MockModule(Module):
     
-    #Public
+    #Vars
     
     module_var = True
     
