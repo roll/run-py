@@ -8,7 +8,7 @@ from .dependency import (Dependency, require, trigger,
                          DependencyDecorator, depend,
                          DependencyResolver, DependencyCommonResolver, 
                          DependencyNestedResolver)
-from .dispatcher import (Dispatcher, NullDispatcher, DispatcherHandler, 
+from .dispatcher import (Dispatcher, NullDispatcher, Handler, 
                          DispatcherCallbackHandler, DispatcherSignal)
 from .module import (ModulePrototype, ModuleMetaclass, 
                      Module, ModuleAttributes, AutoModule, 
