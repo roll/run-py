@@ -12,8 +12,7 @@ class find(find_objects):
     default_basedir = settings.default_basedir    
     
     def __init__(self, names=None, tags=None, *,
-                 file=None, basedir=None, recursively=False, 
-                 **kwargs):
+                 file=None, basedir=None, recursively=False, **kwargs):
         self._names = names
         self._tags = tags
         if file == None:

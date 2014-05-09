@@ -2,7 +2,7 @@ class FindModule:
 
     #Public
     
-    def __new__(self, names=None, tags=None, 
+    def __new__(self, names=None, tags=None, *,
                 file=None, basedir=None, recursively=False):
         find = self._get_find() 
         module_classes = find(

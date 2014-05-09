@@ -6,6 +6,11 @@ class Settings(Settings):
     
     #Main
     
+    default_basedir = None
+    default_file = 'runfile.py'
+    
+    #Meta    
+    
     default_meta_cache = True
     default_meta_chdir = True
     default_meta_fallback = None
@@ -15,8 +20,6 @@ class Settings(Settings):
     
     default_attribute = 'default'
     default_arguments = []
-    default_basedir = None
-    default_file = 'runfile.py'
     default_names = []
     default_tags = []
     
