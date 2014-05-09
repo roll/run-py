@@ -1,3 +1,4 @@
+import os
 import inspect
 import logging
 from box.findtools import find_objects
@@ -16,15 +17,18 @@ class find(find_objects):
         self._names = names
         self._tags = tags
         if file == None:
-            file = self.default_file 
+            file = self.default_file
         if basedir == None:
             basedir = self.default_basedir 
-        maxdepth = 1
-        if recursively:
-            maxdepth = None
-        kwargs.setdefault('filename', file)
+        if os.path.sep not in file:
+            maxdepth = 1
+            if recursively:
+                maxdepth = None
+            kwargs.setdefault('filename', file)
+            kwargs.setdefault('maxdepth', maxdepth)
+        else:
+            kwargs.setdefault('filepath', file)
         kwargs.setdefault('basedir', basedir)
-        kwargs.setdefault('maxdepth', maxdepth)
         super().__init__(**kwargs)       
     
     #Protected
