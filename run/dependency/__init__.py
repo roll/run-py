@@ -2,5 +2,5 @@ from .decorator import DependencyDecorator, depend
 from .dependency import Dependency
 from .require import require
 from .resolver import (Resolver, DependencyCommonResolver, 
-                       DependencyNestedResolver)
+                       NestedResolver)
 from .trigger import trigger

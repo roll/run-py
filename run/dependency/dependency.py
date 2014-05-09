@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
 from .resolver import (Resolver, DependencyCommonResolver, 
-                       DependencyNestedResolver)
+                       NestedResolver)
 
 class Dependency(Resolver, metaclass=ABCMeta):
     
@@ -49,5 +49,5 @@ class Dependency(Resolver, metaclass=ABCMeta):
                     dependency = type(self)(
                         dependency, *self._args, **self._kwargs)
                 dependencies.append(dependency)
-            resolver = DependencyNestedResolver(dependencies)
+            resolver = NestedResolver(dependencies)
         return resolver

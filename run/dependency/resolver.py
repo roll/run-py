@@ -71,7 +71,7 @@ class DependencyCommonResolver(Resolver):
                 format(resolver=self))
         
         
-class DependencyNestedResolver(Resolver):
+class NestedResolver(Resolver):
 
     #Public
     
