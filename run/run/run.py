@@ -15,7 +15,7 @@ class Run:
     
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 existent=False, stackless=False, **kwargs):
+                 existent=False, stackless=False, **find_params):
         self._names = names
         self._tags = tags
         self._file = file
@@ -23,7 +23,7 @@ class Run:
         self._recursively = recursively
         self._existent = existent 
         self._stackless = stackless
-        self._kwargs = kwargs
+        self._find_params = find_params
         if self._file == None:
             self._file = self.default_file
         if self._basedir == None:
@@ -64,7 +64,7 @@ class Run:
             recursively=self._recursively,
             existent=self._existent,
             dispatcher=self._dispatcher,
-            **self._kwargs)
+            **self._find_params)
     
     @cachedproperty
     def _dispatcher(self):

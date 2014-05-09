@@ -12,7 +12,7 @@ class Cluster:
 
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 existent=False, dispatcher=None, **kwargs):
+                 existent=False, dispatcher=None, **find_params):
         self._names = names
         self._tags = tags
         self._file = file
@@ -20,7 +20,7 @@ class Cluster:
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
-        self._kwargs = kwargs        
+        self._find_params = find_params        
         if self._file == None:
             self._file = self.default_file
         if self._basedir == None:
@@ -53,7 +53,7 @@ class Cluster:
             file=self._file, 
             basedir=self._basedir, 
             recursively=self._recursively,
-            **self._kwargs)
+            **self._find_params)
         for module_class in module_classes:
             module = module_class(
                 meta_dispatcher=self._dispatcher,
