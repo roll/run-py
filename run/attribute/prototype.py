@@ -1,5 +1,5 @@
 import inspect
-from copy import copy as base_copy
+from copy import copy
 from .update import AttributeSet, AttributeCall
 
 class AttributePrototype:
@@ -67,14 +67,3 @@ class AttributePrototype:
     def _update_attribute(self, attribute):
         for update in self._updates:
             update.apply(attribute)
-            
-            
-def copy(prototype, *args, **kwargs):
-    """Copy prototype with optional args, kwargs altering.
-    
-    For other object types works as copy.copy.
-    """
-    if isinstance(prototype, AttributePrototype):
-        return prototype.__copy__(*args, **kwargs)
-    else:
-        return base_copy(prototype)
