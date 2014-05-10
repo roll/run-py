@@ -62,7 +62,8 @@ class CommonResolver(Resolver):
     def _task(self):
         if self._attribute:
             from ..task import Task
-            return self._attribute.meta_module.meta_attributes.get_attribute(
+            module = self._attribute.meta_module
+            return module.meta_attributes.get_attribute(
                 self._task_name, category=Task, resolve=True)
         else:
             raise RuntimeError(
