@@ -29,7 +29,7 @@ class ModuleMetaclass(AttributeMetaclass):
                 continue
             if getattr(attr, '__isabstractmethod__', False):
                 continue
-            if getattr(attr, '__isskippedmethod__', False):
+            if getattr(attr, '__isskippedattribute__', False):
                 continue               
             if callable(attr):
                 attrs[key] = cls._method_task_class(attr)

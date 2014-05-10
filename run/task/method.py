@@ -37,9 +37,4 @@ class task:
     
     @staticmethod
     def _make_task(method, **kwargs):
-        return MethodTask(method, **kwargs)
-    
-    
-def skip(method):
-    setattr(method, '__isskippedmethod__', True)
-    return method    
+        return MethodTask(method, **kwargs)   
