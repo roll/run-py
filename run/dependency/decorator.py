@@ -3,7 +3,7 @@ from ..attribute import AttributePrototype
 
 class DependencyDecorator(metaclass=ABCMeta):
     
-    #Public    
+    #Public
     
     def __call__(self, method):
         prototype = method
@@ -22,16 +22,3 @@ class DependencyDecorator(metaclass=ABCMeta):
     @abstractmethod
     def _add_dependency(self, prototype):
         pass #pragma: no cover
-        
-        
-class depend(DependencyDecorator):
-    
-    #Public
-    
-    def __init__(self, dependency):
-        self._dep = dependency
-    
-    #Protected
-    
-    def _add_dependency(self, prototype):
-        prototype.depend(self._dep)
