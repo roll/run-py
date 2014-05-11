@@ -1,8 +1,7 @@
 from .attribute import (AttributePrototype, copy,
                         AttributeMetaclass, Attribute, 
                         AttributeSignal, AttributeUpdate, 
-                        AttributeSet, AttributeCall,
-                        NullModule)
+                        AttributeSet, AttributeCall)
 from .command import Command
 from .dependency import (Dependency, require, trigger,
                          DependencyDecorator, depend,
@@ -11,7 +10,7 @@ from .dispatcher import (Dispatcher, NullDispatcher, Handler,
                          CallbackHandler, Signal)
 from .module import (ModulePrototype, ModuleMetaclass, 
                      Module, ModuleAttributes, AutoModule, 
-                     FindModule, skip, SubprocessModule)
+                     FindModule, NullModule, skip, SubprocessModule)
 from .program import Program, program
 from .run import Run, Cluster, Controller, Stack, find
 from .settings import Settings, settings

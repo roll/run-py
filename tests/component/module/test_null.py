@@ -1,7 +1,7 @@
 import os
 import unittest
 from unittest.mock import patch
-from run.attribute.null_module import NullModule
+from run.module.null import NullModule
 
 class NullModuleTest(unittest.TestCase):
 
