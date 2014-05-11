@@ -10,10 +10,10 @@ class DerivedTaskTest(unittest.TestCase):
         self.MockTask = self._make_mock_task_class()
         self.task = self.MockTask('task', meta_module=None)
         
-    def test_invoke(self):
+    def test___call__(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}        
-        self.assertEqual(self.task.invoke(*self.args, **self.kwargs), 'value')
+        self.assertEqual(self.task(*self.args, **self.kwargs), 'value')
         
     #Protected
     
