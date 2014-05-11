@@ -9,8 +9,8 @@ class TaskTest(unittest.TestCase):
 
     def setUp(self):
         self.MockTask = self._make_mock_task_class()
-        self.partial_task = partial(self.MockTask, meta_module=None)
-        self.task = self.partial_task()
+        self.ptask = partial(self.MockTask, meta_module=None)
+        self.task = self.ptask()
 
     def test___get__(self):
         self.assertEqual(self.task.__get__('module'), self.task)

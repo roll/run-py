@@ -9,7 +9,7 @@ class ClusterTest(unittest.TestCase):
     
     def setUp(self):
         MockCluster = self._make_mock_cluster_class()
-        self.partial_cluster = partial(MockCluster,
+        self.pcluster = partial(MockCluster,
             names='names', 
             tags='tags', 
             file='file',             
@@ -19,19 +19,19 @@ class ClusterTest(unittest.TestCase):
             dispatcher='dispatcher')
 
     def test___getattr__(self):
-        cluster = self.partial_cluster()
+        cluster = self.pcluster()
         self.assertEqual(cluster.attr1, [1, 2, 3])
             
     def test___getattr__with_existent_is_false(self):
-        cluster = self.partial_cluster(existent=False)
+        cluster = self.pcluster(existent=False)
         self.assertRaises(AttributeError, getattr, cluster, 'attr2')
         
     def test___getattr___with_existent_is_true(self):
-        cluster = self.partial_cluster(existent=True)
+        cluster = self.pcluster(existent=True)
         self.assertEqual(cluster.attr2, [1])
     
     def test__modules(self):
-        cluster = self.partial_cluster()
+        cluster = self.pcluster()
         cluster._modules
         cluster._find.assert_called_with(
             names='names', 

@@ -10,13 +10,12 @@ class find_Test(unittest.TestCase):
     #Public
     
     def setUp(self):
-        self.patcher = patch('sys.stdout', new_callable=StringIO)
-        self.stdout = self.patcher.start()
+        self.stdout = patch('sys.stdout', new_callable=StringIO).start()
         self.addCleanup(patch.stopall)
-        self.partial_find = partial(find, basedir=self._basedir) 
+        self.pfind = partial(find, basedir=self._basedir) 
     
     def test_find(self):
-        modules = list(self.partial_find(
+        modules = list(self.pfind(
             file='runfile.py'))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
@@ -25,7 +24,7 @@ class find_Test(unittest.TestCase):
             'Hits runfile.py\n')
            
     def test_find_recursively(self):
-        modules = list(self.partial_find(
+        modules = list(self.pfind(
             file='runfile.py', recursively=True))
         self.assertEqual(len(modules), 3)
         self.assertEqual(modules[0].__name__, 'Module1')
@@ -38,13 +37,13 @@ class find_Test(unittest.TestCase):
             'Hits dir/subdir/runfile.py\n')
     
     def test_find_with_names(self):
-        modules = list(self.partial_find(
+        modules = list(self.pfind(
             names=['name1'], file='runfile.py', recursively=True))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
 
     def test_find_with_tags(self):
-        modules = list(self.partial_find(
+        modules = list(self.pfind(
             tags=['tag2'], file='runfile.py', recursively=True))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module2')

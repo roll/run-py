@@ -12,12 +12,12 @@ class ControllerTest(unittest.TestCase):
         self.dispatcher = Mock(add_handler=Mock())
         self.stack = Mock(__repr__=Mock(
             return_value='stack'), push=Mock(), pop=Mock())
-        self.partial_controller = partial(
-            MockController, self.dispatcher, stack=self.stack)
+        self.pcontroller = partial(MockController, 
+            self.dispatcher, stack=self.stack)
         self.signal = Mock(attribute=Mock(meta_qualname='attr_qualname'))
             
     def test_listen(self):
-        controller = self.partial_controller()
+        controller = self.pcontroller()
         controller.listen()
         controller._callback_handler_class.assert_has_calls([
             call(controller._on_initiated_task, signals=['initiated_task']),
@@ -27,13 +27,13 @@ class ControllerTest(unittest.TestCase):
             call(controller._callback_handler_class.return_value)])
         
     def test__on_initiated_task(self):
-        controller = self.partial_controller()
+        controller = self.pcontroller()
         controller._on_initiated_task(self.signal)
         self.stack.push.assert_called_with(self.signal.attribute)
      
     @patch('run.run.controller.logging')
     def test__on_successed_task(self, logging):
-        controller = self.partial_controller()
+        controller = self.pcontroller()
         controller._on_successed_task(self.signal)
         self.stack.__repr__.assert_called_with()   
         self.stack.pop.assert_called_with()
@@ -41,7 +41,7 @@ class ControllerTest(unittest.TestCase):
     
     @patch('run.run.controller.logging')    
     def test__on_successed_task_with_stack_is_none(self, logging):
-        controller = self.partial_controller(stack=None)
+        controller = self.pcontroller(stack=None)
         controller._on_successed_task(self.signal)
         logging.getLogger.return_value.info.assert_called_with('attr_qualname')
     
