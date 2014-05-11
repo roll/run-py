@@ -22,6 +22,9 @@ class VarTest(unittest.TestCase):
         self.var.__set__('module', 'new_value')
         self.assertEqual(self.var.__get__('module'), 'new_value')
         
+    def test_meta_signature(self):
+        self.assertEqual(self.var.meta_signature, '')    
+        
     #Protected
     
     def _make_mock_var_class(self):
