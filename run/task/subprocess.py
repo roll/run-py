@@ -1,4 +1,4 @@
-from subprocess import Popen
+import subprocess
 from .task import Task
 
 class SubprocessTask(Task):
@@ -10,9 +10,9 @@ class SubprocessTask(Task):
         return self._meta_params.get('docstring', 
             'Execute shell command.')
         
-    def invoke(self, command='', prefix='', separator=' '):
+    def invoke(self, command='', *, prefix='', separator=' '):
         ecommand = separator.join(filter(None, [prefix, command]))
-        process = Popen(ecommand, shell=True)
+        process = subprocess.Popen(ecommand, shell=True)
         returncode = process.wait()
         if returncode != 0:
             raise RuntimeError(
