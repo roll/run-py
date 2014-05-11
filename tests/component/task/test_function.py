@@ -9,24 +9,16 @@ class FunctionTaskTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'} 
-        MockFunctionTask = self._make_mock_task_class()
-        self.function = Mock(return_value='value', __doc__='docstring')        
-        self.task = MockFunctionTask(self.function, meta_module=None)
+        self.function = Mock(__doc__='docstring')        
+        self.task = FunctionTask(self.function, meta_module=None)
         
-    def test_invoke(self):        
-        self.assertEqual(self.task.invoke(*self.args, **self.kwargs), 'value')
+    def test___call__(self):
+        result = self.task(*self.args, **self.kwargs)  
+        self.assertEqual(result, self.function.return_value)
         self.function.assert_called_with(*self.args, **self.kwargs)
         
     def test_meta_signature(self):
         self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
        
     def test_meta_docstring(self):        
-        self.assertEqual(self.task.meta_docstring, 'docstring')
-        
-    #Protected
-    
-    def _make_mock_task_class(self):
-        class MockFunctionTask(FunctionTask):
-            #Public
-            meta_qualname = 'qualname'
-        return MockFunctionTask 
+        self.assertEqual(self.task.meta_docstring, self.function.__doc__)
