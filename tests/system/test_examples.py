@@ -16,8 +16,8 @@ class ExamplesTest(unittest.TestCase):
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
         ecommand += '-f {file} '.format(file=self._file)
         ecommand += command
-        process = Popen(
-            ecommand, shell=True, universal_newlines=True,
+        process = Popen(ecommand, 
+            shell=True, universal_newlines=True,
             stdin=PIPE, stdout=PIPE, stderr=PIPE, **kwargs)
         for message in messages:
             stdout, stderr = process.communicate(message)
