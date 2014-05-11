@@ -1,6 +1,18 @@
 from .method import MethodTask
 
 class task:
+    """Make task from method with default kwargs to invoke.
+      
+    - as function::
+      
+       task = task(method, **kwargs)      
+      
+    - as decorator::
+      
+        @task(**kwargs)
+        def method(self):
+            pass
+    """
     
     #Public
     
@@ -18,6 +30,8 @@ class task:
     
     #Protected
     
-    @staticmethod
-    def _make_task(method, **kwargs):
-        return MethodTask(method, **kwargs) 
+    _task_class = MethodTask
+    
+    @classmethod
+    def _make_task(cls, method, **kwargs):
+        return cls._task_class(method, **kwargs) 
