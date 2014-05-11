@@ -9,5 +9,6 @@ class FindTask(FunctionTask):
         try:
             function = getattr(findtools, 'find_'+mode)
         except AttributeError:
-            raise ValueError('Unsupported mode "{mode}".'.format(mode=mode))
+            raise ValueError('Unsupported mode "{mode}".'.
+                             format(mode=mode))
         super().__init__(function, *args, **kwargs)
