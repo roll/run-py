@@ -1,6 +1,6 @@
-from packgram.manage import PythonPackgramModule
+from packgram import ManageModule
 
-class MainModule(PythonPackgramModule):
+class MainModule(ManageModule):
 
     #Vars
     
@@ -18,7 +18,7 @@ class MainModule(PythonPackgramModule):
     data_files = [('/etc/bash_completion.d', ['data/run.sh'])]
     description = 'Run is a program to run tasks from files.'
     development_requires = [
-        'packgram>=0.7',
+        'packgram>=0.8',
         'sphinx',
         'sphinx_rtd_theme',
     ]
