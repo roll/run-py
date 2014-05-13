@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Run &mdash; run 0.14.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="run 0.14.0 documentation" href="index.html"/>
+        <link rel="next" title="API Reference" href="api.html"/>
+        <link rel="prev" title="Table of Contents" href="index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="fa fa-home"> run</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#quick-links">Quick Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#maintainers">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/attribute.html">run.attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/module.html">run.module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/task.html">run.task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/var.html">run.var</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">run</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Run</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="_sources/intro.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="run">
+<h1>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h1>
+<p>Run is a program to run tasks from files.</p>
+<a class="reference external image-reference" href="https://travis-ci.org/respect31/run"><img alt="build" src="https://secure.travis-ci.org/respect31/run.png?branch=master" /></a>
+<a class="reference external image-reference" href="https://coveralls.io/r/respect31/run"><img alt="coverage" src="https://coveralls.io/repos/respect31/run/badge.png?branch=master" /></a>
+<a class="reference external image-reference" href="http://run.readthedocs.org"><img alt="documentation" src="http://b.repl.ca/v1/docs-uploaded-brightgreen.png" /></a>
+<div class="section" id="quick-links">
+<h2>Quick Links<a class="headerlink" href="#quick-links" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/respect31/run">Source code (GitHub)</a></li>
+<li><a class="reference external" href="https://pypi.python.org/pypi?:action=display&amp;name=runpack">Package index (PyPi)</a></li>
+</ul>
+</div>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Python 3.3 and higher</li>
+</ul>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>pip install runpack</li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>The real simple example introduces some functionality.</p>
+<ul>
+<li><p class="first">create runfile.py in current working directory:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">run</span> <span class="kn">import</span> <span class="n">Module</span><span class="p">,</span> <span class="n">InputVar</span><span class="p">,</span> <span class="n">require</span><span class="p">,</span> <span class="n">trigger</span>
+
+<span class="k">class</span> <span class="nc">MainModule</span><span class="p">(</span><span class="n">Module</span><span class="p">):</span>
+
+    <span class="c">#Tasks</span>
+
+    <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;Your choice is &quot;{greeting}&quot;.</span><span class="se">\n</span><span class="s">&#39;</span>
+              <span class="s">&#39;We</span><span class="se">\&#39;</span><span class="s">re ready.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">greeting</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">greeting</span><span class="p">,))</span>
+
+    <span class="nd">@require</span><span class="p">(</span><span class="s">&#39;ready&#39;</span><span class="p">)</span>
+    <span class="nd">@trigger</span><span class="p">(</span><span class="s">&#39;done&#39;</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">person</span><span class="o">=</span><span class="s">&#39;World&#39;</span><span class="p">,</span> <span class="n">times</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Greet the given person.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">times</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">&#39;{greeting} {person}!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">greeting</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">greeting</span><span class="p">,</span>
+                <span class="n">person</span><span class="o">=</span><span class="n">person</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">done</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;OK. We</span><span class="se">\&#39;</span><span class="s">re done.&#39;</span><span class="p">)</span>
+
+    <span class="c">#Vars</span>
+
+    <span class="n">greeting</span> <span class="o">=</span> <span class="n">InputVar</span><span class="p">(</span>
+        <span class="n">prompt</span><span class="o">=</span><span class="s">&#39;Type your greeting&#39;</span><span class="p">,</span>
+        <span class="n">default</span><span class="o">=</span><span class="s">&#39;Hello&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">get run attributes list from command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>run
+default
+<span class="k">done</span>
+greet
+greeting
+info
+list
+meta
+ready
+</pre></div>
+</div>
+</li>
+<li><p class="first">autocomplete attribute from command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>run li&lt;TAB&gt;
+<span class="nv">$ </span>run list
+</pre></div>
+</div>
+</li>
+<li><p class="first">get attribute infomation from command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>run greet -i
+greet<span class="o">(</span><span class="nv">person</span><span class="o">=</span><span class="s1">&#39;World&#39;</span>, <span class="nb">times</span><span class="o">=</span>1<span class="o">)</span>
+---
+Type: MethodTask
+Dependencies: <span class="o">[</span>trigger &lt;MethodTask <span class="s2">&quot;done&quot;</span>&gt;, require &lt;MethodTask <span class="s2">&quot;ready&quot;</span>&gt;<span class="o">]</span>
+Default arguments: <span class="o">()</span>
+Default keyword arguments: <span class="o">{}</span>
+---
+Greet the given person
+</pre></div>
+</div>
+</li>
+<li><p class="first">run task from command line:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>run greet Rachel, <span class="nb">times</span><span class="o">=</span>3
+Type your greeting <span class="o">[</span>Hello<span class="o">]</span>: &lt;Hi&gt;
+Your choice is <span class="s2">&quot;Hi&quot;</span>.
+We<span class="s1">&#39;re ready.</span>
+<span class="s1">Hi Rachel!</span>
+<span class="s1">Hi Rachel!</span>
+<span class="s1">Hi Rachel!</span>
+<span class="s1">OK. We&#39;</span>re <span class="k">done</span>.
+</pre></div>
+</div>
+</li>
+</ul>
+<p>More usefull example you can find here:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/respect31/packgram/blob/master/packgram/manage/python.py">Base module</a></li>
+<li><a class="reference external" href="https://github.com/respect31/run/blob/master/runfile.py">Run&#8217;s module</a></li>
+<li><a class="reference external" href="https://github.com/respect31/run/tree/master/_sources">Run&#8217;s templates</a></li>
+</ul>
+<p>That&#8217;s how run builds himself using module inheritance.</p>
+</div>
+<div class="section" id="authors">
+<h2>Authors<a class="headerlink" href="#authors" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>roll &lt;<a class="reference external" href="mailto:roll&#37;&#52;&#48;respect31&#46;com">roll<span>&#64;</span>respect31<span>&#46;</span>com</a>&gt;</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h2>Maintainers<a class="headerlink" href="#maintainers" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>roll &lt;<a class="reference external" href="mailto:roll&#37;&#52;&#48;respect31&#46;com">roll<span>&#64;</span>respect31<span>&#46;</span>com</a>&gt;</li>
+</ul>
+</div>
+<div class="section" id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mit-license">
+<h3>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h3>
+<p>Copyright (c) 2014 Respect31 &lt;<a class="reference external" href="mailto:post&#37;&#52;&#48;respect31&#46;com">post<span>&#64;</span>respect31<span>&#46;</span>com</a>&gt;</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &#8220;Software&#8221;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED &#8220;AS IS&#8221;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="api.html" class="btn btn-neutral float-right" title="API Reference"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Table of Contents"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Respect31.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.14.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

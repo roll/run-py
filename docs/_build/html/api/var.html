@@ -1,0 +1,294 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>run.var &mdash; run 0.14.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="run 0.14.0 documentation" href="../index.html"/>
+        <link rel="up" title="API Reference" href="../api.html"/>
+        <link rel="prev" title="run.task" href="task.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> run</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#quick-links">Quick Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#maintainers">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="attribute.html">run.attribute</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module.html">run.module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="task.html">run.task</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">run.var</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">run</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+      
+    <li>run.var</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/api/var.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="run-var">
+<h1>run.var<a class="headerlink" href="#run-var" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="run.var.Var">
+<em class="property">class </em><tt class="descclassname">run.var.</tt><tt class="descname">Var</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#run.var.Var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.task.task.Task</span></tt></p>
+<dl class="attribute">
+<dt id="run.var.Var.meta_cache">
+<tt class="descname">meta_cache</tt><a class="headerlink" href="#run.var.Var.meta_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Var&#8217;s caching status (enabled or disabled).</p>
+<p>If meta_cache is True var caches 
+results after first invocation.</p>
+<p>This property is:</p>
+<ul class="simple">
+<li>initable/writable</li>
+<li>inherited from module</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.Var.meta_signature">
+<tt class="descname">meta_signature</tt><a class="headerlink" href="#run.var.Var.meta_signature" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-run.var"></span><dl class="attribute">
+<dt id="run.var.DerivedVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">DerivedVar</tt><a class="headerlink" href="#run.var.DerivedVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.DescriptorVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">DescriptorVar</tt><a class="headerlink" href="#run.var.DescriptorVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="run.var.FailedVarSignal">
+<em class="property">class </em><tt class="descclassname">run.var.</tt><tt class="descname">FailedVarSignal</tt><big>(</big><em>attribute</em><big>)</big><a class="headerlink" href="#run.var.FailedVarSignal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.task.signal.FailedTaskSignal</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.FindVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">FindVar</tt><a class="headerlink" href="#run.var.FindVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.FunctionVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">FunctionVar</tt><a class="headerlink" href="#run.var.FunctionVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="run.var.InitiatedVarSignal">
+<em class="property">class </em><tt class="descclassname">run.var.</tt><tt class="descname">InitiatedVarSignal</tt><big>(</big><em>attribute</em><big>)</big><a class="headerlink" href="#run.var.InitiatedVarSignal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.task.signal.InitiatedTaskSignal</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.InputVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">InputVar</tt><a class="headerlink" href="#run.var.InputVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.MethodVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">MethodVar</tt><a class="headerlink" href="#run.var.MethodVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.NullVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">NullVar</tt><a class="headerlink" href="#run.var.NullVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.RenderVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">RenderVar</tt><a class="headerlink" href="#run.var.RenderVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.SubprocessVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">SubprocessVar</tt><a class="headerlink" href="#run.var.SubprocessVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="run.var.SuccessedVarSignal">
+<em class="property">class </em><tt class="descclassname">run.var.</tt><tt class="descname">SuccessedVarSignal</tt><big>(</big><em>attribute</em><big>)</big><a class="headerlink" href="#run.var.SuccessedVarSignal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.task.signal.SuccessedTaskSignal</span></tt></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.var.ValueVar">
+<tt class="descclassname">run.var.</tt><tt class="descname">ValueVar</tt><a class="headerlink" href="#run.var.ValueVar" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="run.var.var">
+<em class="property">class </em><tt class="descclassname">run.var.</tt><tt class="descname">var</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#run.var.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.task.task_function.task</span></tt></p>
+<p>Make var from method with default kwargs to invoke.</p>
+<ul>
+<li><p class="first">as function:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="n">method</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>      
+</pre></div>
+</div>
+</li>
+<li><p class="first">as decorator:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@var</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">method</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="task.html" class="btn btn-neutral" title="run.task"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Respect31.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.14.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

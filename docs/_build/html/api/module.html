@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>run.module &mdash; run 0.14.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+    <link rel="top" title="run 0.14.0 documentation" href="../index.html"/>
+        <link rel="up" title="API Reference" href="../api.html"/>
+        <link rel="next" title="run.task" href="task.html"/>
+        <link rel="prev" title="run.attribute" href="attribute.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="../index.html" class="fa fa-home"> run</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#quick-links">Quick Links</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#authors">Authors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#maintainers">Maintainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../intro.html#license">License</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="attribute.html">run.attribute</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="">run.module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="task.html">run.task</a></li>
+<li class="toctree-l2"><a class="reference internal" href="var.html">run.var</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">run</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+      
+    <li>run.module</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="../_sources/api/module.txt" rel="nofollow"> View page source</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="run-module">
+<h1>run.module<a class="headerlink" href="#run-module" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="run.module.Module">
+<em class="property">class </em><tt class="descclassname">run.module.</tt><tt class="descname">Module</tt><a class="headerlink" href="#run.module.Module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.attribute.attribute.Attribute</span></tt></p>
+<dl class="attribute">
+<dt id="run.module.Module.meta_attributes">
+<tt class="descname">meta_attributes</tt><a class="headerlink" href="#run.module.Module.meta_attributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module&#8217;s attributes dict-like object.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_basedir">
+<tt class="descname">meta_basedir</tt><a class="headerlink" href="#run.module.Module.meta_basedir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module&#8217;s basedir.</p>
+<p>Define default meta_basedir for all attributes.</p>
+<p>This property is:</p>
+<ul class="simple">
+<li>initable/writable</li>
+<li>inherited from module</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_cache">
+<tt class="descname">meta_cache</tt><a class="headerlink" href="#run.module.Module.meta_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module&#8217;s caching status (enabled or disabled).</p>
+<p>Define default meta_cache for all attributes.</p>
+<p>This property is:</p>
+<ul class="simple">
+<li>initable/writable</li>
+<li>inherited from module</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_chdir">
+<tt class="descname">meta_chdir</tt><a class="headerlink" href="#run.module.Module.meta_chdir" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module&#8217;s chdir status (enabled or disabled).</p>
+<p>Define default meta_chdir for all attributes.</p>
+<p>This property is:</p>
+<ul class="simple">
+<li>initable/writable</li>
+<li>inherited from module</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_fallback">
+<tt class="descname">meta_fallback</tt><a class="headerlink" href="#run.module.Module.meta_fallback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module&#8217;s fallback.</p>
+<p>Define default meta_fallback for all attributes.</p>
+<p>This property is:</p>
+<ul class="simple">
+<li>initable/writable</li>
+<li>inherited from module</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_is_main_module">
+<tt class="descname">meta_is_main_module</tt><a class="headerlink" href="#run.module.Module.meta_is_main_module" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module&#8217;s main module status (is main module or not).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_main_module">
+<tt class="descname">meta_main_module</tt><a class="headerlink" href="#run.module.Module.meta_main_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_name">
+<tt class="descname">meta_name</tt><a class="headerlink" href="#run.module.Module.meta_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta_tags">
+<tt class="descname">meta_tags</tt><a class="headerlink" href="#run.module.Module.meta_tags" title="Permalink to this definition">¶</a></dt>
+<dd><p>Module&#8217;s tag list.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.list">
+<tt class="descname">list</tt><em class="property"> = &lt;run.attribute.prototype.AttributePrototype object at 0x7fde16351850&gt;</em><a class="headerlink" href="#run.module.Module.list" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.info">
+<tt class="descname">info</tt><em class="property"> = &lt;run.attribute.prototype.AttributePrototype object at 0x7fde16351cd0&gt;</em><a class="headerlink" href="#run.module.Module.info" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.meta">
+<tt class="descname">meta</tt><em class="property"> = &lt;run.attribute.prototype.AttributePrototype object at 0x7fde16351710&gt;</em><a class="headerlink" href="#run.module.Module.meta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.Module.default">
+<tt class="descname">default</tt><em class="property"> = &lt;run.attribute.prototype.AttributePrototype object at 0x7fde16351a90&gt;</em><a class="headerlink" href="#run.module.Module.default" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-run.module"></span><dl class="attribute">
+<dt id="run.module.AutoModule">
+<tt class="descclassname">run.module.</tt><tt class="descname">AutoModule</tt><a class="headerlink" href="#run.module.AutoModule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="run.module.FindModule">
+<em class="property">class </em><tt class="descclassname">run.module.</tt><tt class="descname">FindModule</tt><a class="headerlink" href="#run.module.FindModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="run.module.ModuleAttributes">
+<em class="property">class </em><tt class="descclassname">run.module.</tt><tt class="descname">ModuleAttributes</tt><big>(</big><em>module</em><big>)</big><a class="headerlink" href="#run.module.ModuleAttributes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.dict</span></tt></p>
+<dl class="method">
+<dt id="run.module.ModuleAttributes.get_attribute">
+<tt class="descname">get_attribute</tt><big>(</big><em>name</em>, <em>*</em>, <em>category=&lt;class 'run.attribute.attribute.Attribute'&gt;</em>, <em>resolve=False</em><big>)</big><a class="headerlink" href="#run.module.ModuleAttributes.get_attribute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return attribute by given name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>name</strong> (<em>str</em>) &#8211; attribute name, supports nested like &#8220;module.attribute&#8221;</li>
+<li><strong>category</strong> (<em>None/type/str</em>) &#8211; returns attribute only of given class</li>
+<li><strong>resolve</strong> (<em>bool</em>) &#8211; if True resolves attribute and returns value</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><ul class="first simple">
+<li><strong>AttributeError</strong> &#8211; if module has not attribute for given name</li>
+<li><strong>TypeError</strong> &#8211; if attribute is not instance of given category</li>
+<li><strong>TypeError</strong> &#8211; if in nested name first attribute is not a Module</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">attribute instance/attribute value</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><tt class="xref py py-class docutils literal"><span class="pre">run.Attribute</span></tt>/mixed</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="run.module.ModuleMetaclass">
+<em class="property">class </em><tt class="descclassname">run.module.</tt><tt class="descname">ModuleMetaclass</tt><a class="headerlink" href="#run.module.ModuleMetaclass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.attribute.metaclass.AttributeMetaclass</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="run.module.ModulePrototype">
+<em class="property">class </em><tt class="descclassname">run.module.</tt><tt class="descname">ModulePrototype</tt><big>(</big><em>cls</em>, <em>updates</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#run.module.ModulePrototype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">run.attribute.prototype.AttributePrototype</span></tt></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="run.module.NullModule">
+<em class="property">class </em><tt class="descclassname">run.module.</tt><tt class="descname">NullModule</tt><a class="headerlink" href="#run.module.NullModule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">builtins.object</span></tt></p>
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_attributes">
+<tt class="descname">meta_attributes</tt><a class="headerlink" href="#run.module.NullModule.meta_attributes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_basedir">
+<tt class="descname">meta_basedir</tt><a class="headerlink" href="#run.module.NullModule.meta_basedir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_cache">
+<tt class="descname">meta_cache</tt><a class="headerlink" href="#run.module.NullModule.meta_cache" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_chdir">
+<tt class="descname">meta_chdir</tt><a class="headerlink" href="#run.module.NullModule.meta_chdir" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_docstring">
+<tt class="descname">meta_docstring</tt><a class="headerlink" href="#run.module.NullModule.meta_docstring" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_fallback">
+<tt class="descname">meta_fallback</tt><a class="headerlink" href="#run.module.NullModule.meta_fallback" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_is_main_module">
+<tt class="descname">meta_is_main_module</tt><a class="headerlink" href="#run.module.NullModule.meta_is_main_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_main_module">
+<tt class="descname">meta_main_module</tt><a class="headerlink" href="#run.module.NullModule.meta_main_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_module">
+<tt class="descname">meta_module</tt><a class="headerlink" href="#run.module.NullModule.meta_module" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_name">
+<tt class="descname">meta_name</tt><a class="headerlink" href="#run.module.NullModule.meta_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_qualname">
+<tt class="descname">meta_qualname</tt><a class="headerlink" href="#run.module.NullModule.meta_qualname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_tags">
+<tt class="descname">meta_tags</tt><a class="headerlink" href="#run.module.NullModule.meta_tags" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.NullModule.meta_type">
+<tt class="descname">meta_type</tt><a class="headerlink" href="#run.module.NullModule.meta_type" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="run.module.SubprocessModule">
+<tt class="descclassname">run.module.</tt><tt class="descname">SubprocessModule</tt><a class="headerlink" href="#run.module.SubprocessModule" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="run.module.skip">
+<tt class="descclassname">run.module.</tt><tt class="descname">skip</tt><big>(</big><em>attribute</em><big>)</big><a class="headerlink" href="#run.module.skip" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="task.html" class="btn btn-neutral float-right" title="run.task"/>Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="attribute.html" class="btn btn-neutral" title="run.attribute"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Respect31.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.14.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
