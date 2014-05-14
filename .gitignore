@@ -33,8 +33,7 @@ __pycache__/
 *.py[cod]
 
 #Sphinx
-/docs/doctrees
-/docs/html
+/docs/_build
 
 #Virtualenv
 /env/
