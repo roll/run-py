@@ -1,23 +1,12 @@
-import os
-import unittest
-from box.findtools import find_objects
-from run import version
+import run
+from packgram.tests import SetupTest
 
-class SetupTest(unittest.TestCase):
+class SetupTest(SetupTest):
 
     #Public
 
-    def test(self):
-        package = find_objects(
-            objname='package', 
-            filepath='setup.py', 
-            basedir=self._basedir, 
-            getfirst=True)
-        self.assertEqual(package['name'], 'runpack')
-        self.assertEqual(package['version'], version)
+    __test__ = True
         
     #Protected
     
-    @property
-    def _basedir(self, *args):
-        return os.path.join(os.path.dirname(__file__), '..', '..')
+    _package = run

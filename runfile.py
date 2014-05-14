@@ -18,14 +18,13 @@ class MainModule(ManageModule):
     data_files = [('/etc/bash_completion.d', ['data/run.sh'])]
     description = 'Run is a program to run tasks from files.'
     development_requires = [
-        'packgram>=0.8',
         'sphinx',
         'sphinx_rtd_theme',
     ]
     entry_points = {'console_scripts': ['run = run:program']}
     github_user = 'respect31'
     install_requires = [
-        'box>=0.20', 
+        'box>=0.20',
         'jinja2',
     ]
     license = 'MIT License'  
@@ -36,5 +35,8 @@ class MainModule(ManageModule):
     pypi_name = 'runpack'
     pypi_user = 'roll'
     pypi_password_secure = 'JaTeiyjnimmtwhbdfPMZZdtp+5S920vb0HobJWL1QQjHVAo5Hwt0kTWYG+zjDrpWUL+NanVNqhQA8xnvWKbI5cZ+n3PvS7KFbgn6XcTYfeEGyEdYUFi0sXaUsgcfke+9nyMBDLoRH2M7TGqpLY2dmXk5C0h0RMkkAPjxgZCan94='
-    tests_require = ['nose']
+    tests_require = [
+        'packgram>=0.8',        
+        'nose',
+    ]
     test_suite = 'nose.collector'    
