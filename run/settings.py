@@ -54,12 +54,6 @@ class Settings(Settings):
                  'help': 'Enable debug mode.',
                 }, 
                 {
-                 'dest': 'existent',
-                 'action': 'store_true',
-                 'flags': ['-e', '--existent'],
-                 'help': 'Process only existen attributes.',
-                }, 
-                {
                  'action': 'help',
                  'flags': ['-h', '--help'],
                  'help': 'Display this help message.',                         
@@ -113,6 +107,12 @@ class Settings(Settings):
                  'flags': ['-r', '--recursively'],
                  'help': 'Enable finding runfiles recursively.',
                 },
+                {
+                 'dest': 'strict',
+                 'action': 'store_true',
+                 'flags': ['-e', '--strict'],
+                 'help': 'Enable strict mode.',
+                },                           
                 {
                  'dest': 'tags',
                  'nargs':'*',

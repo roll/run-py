@@ -15,7 +15,7 @@ class RunTest(unittest.TestCase):
             file='file', 
             basedir='basedir',
             recursively='recursively',
-            existent='existent',)
+            strict='strict',)
         
     def test_run(self):
         run = self.prun()
@@ -46,7 +46,7 @@ class RunTest(unittest.TestCase):
             file='file', 
             basedir='basedir',
             recursively='recursively',
-            existent='existent', 
+            strict='strict', 
             dispatcher=run._dispatcher_class.return_value)
         
     def test__cluster_with_default_file_and_basedir(self):
@@ -58,7 +58,7 @@ class RunTest(unittest.TestCase):
             file='default_file', 
             basedir='default_basedir',
             recursively='recursively',
-            existent='existent', 
+            strict='strict', 
             dispatcher=run._dispatcher_class.return_value)        
         
     def test__dispatcher(self):

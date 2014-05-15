@@ -12,13 +12,13 @@ class Cluster:
 
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 existent=False, dispatcher=None, **find_params):
+                 strict=False, dispatcher=None, **find_params):
         self._names = names
         self._tags = tags
         self._file = file
         self._basedir = basedir
         self._recursively = recursively
-        self._existent = existent
+        self._strict = strict
         self._dispatcher = dispatcher
         self._find_params = find_params        
         if self._file == None:
@@ -33,11 +33,11 @@ class Cluster:
                 attribute = getattr(module, name)
                 attributes.append(attribute)
             except AttributeError as exception:
-                if self._existent:
-                    logger = logging.getLogger(__name__)
-                    logger.warning(str(exception))
-                else:
+                if self._strict:
                     raise
+                else:
+                    logger = logging.getLogger(__name__)
+                    logger.warning(str(exception))   
         return attributes
         
     #Protected
