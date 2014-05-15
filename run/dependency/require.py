@@ -5,8 +5,8 @@ class require(DependencyDecorator, Dependency):
     
     #Public
     
-    def resolve(self, is_fail=None):
-        if is_fail == None:
+    def resolve(self, failed=None):
+        if failed == None:
             if not self._is_resolved:
                 self._resolver.resolve()
                 self._is_resolved = True

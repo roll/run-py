@@ -28,7 +28,7 @@ class Dependency(Resolver, metaclass=ABCMeta):
         self._resolver.disable(task)
      
     @abstractmethod    
-    def resolve(self, is_fail=None):
+    def resolve(self, failed=None):
         pass #pragma: no cover
 
     @property

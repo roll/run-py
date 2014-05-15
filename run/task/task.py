@@ -48,9 +48,9 @@ class Task(Attribute, metaclass=ABCMeta):
                 if self.meta_fallback != None:
                     result = self.meta_fallback
                 else:
-                    self._resolve_dependencies(is_fail=True)
+                    self._resolve_dependencies(failed=True)
                     raise
-            self._resolve_dependencies(is_fail=False)
+            self._resolve_dependencies(failed=False)
         except Exception:
             self._add_signal('failed')
             raise
@@ -203,9 +203,9 @@ class Task(Attribute, metaclass=ABCMeta):
                 dependency = category(dependency)
             self.depend(dependency)
                 
-    def _resolve_dependencies(self, is_fail=None):
+    def _resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
-            dependency.resolve(is_fail=is_fail)
+            dependency.resolve(failed=failed)
             
     def _add_signal(self, name):
         signal_class_attr = '_'+name+'_signal_class' 

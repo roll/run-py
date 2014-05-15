@@ -11,10 +11,10 @@ class trigger(DependencyDecorator, Dependency):
         super().__init__(task, *args, **kwargs)
 
      
-    def resolve(self, is_fail=None):
-        if is_fail != None:
-            if (self._on_success and not is_fail or
-                self._on_fail and is_fail):
+    def resolve(self, failed=None):
+        if failed != None:
+            if (self._on_success and not failed or
+                self._on_fail and failed):
                 self._resolver.resolve()
     
     #Protected
