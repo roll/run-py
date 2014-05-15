@@ -56,6 +56,7 @@ class Cluster:
             **self._find_params)
         for module_class in module_classes:
             module = module_class(
+                meta_strict=self._strict,
                 meta_dispatcher=self._dispatcher,
                 meta_module=None)
             modules.append(module)

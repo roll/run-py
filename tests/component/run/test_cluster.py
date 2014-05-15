@@ -41,6 +41,7 @@ class ClusterTest(unittest.TestCase):
             recursively='recursively')
         for module in cluster._find.return_value:
             module.assert_called_with(
+                meta_strict='strict',
                 meta_dispatcher='dispatcher', 
                 meta_module=None)
         
