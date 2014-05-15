@@ -128,6 +128,24 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             return self._default_meta_main_module_name
  
     @property
+    def meta_strict(self):
+        """Module's strict mode status (enabled or disabled).
+        
+        Define default meta_strict for all attributes.
+        
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """     
+        return self._meta_params.get('strict', 
+            self.meta_module.meta_strict)            
+        
+    @meta_strict.setter   
+    def meta_strict(self, value):
+        self._meta_params['strict'] = value  
+ 
+    @property
     def meta_tags(self):
         """Module's tag list.
         """        

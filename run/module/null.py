@@ -62,6 +62,10 @@ class NullModule:
         return self.meta_name
     
     @property
+    def meta_strict(self):
+        return settings.default_meta_strict    
+    
+    @property
     def meta_tags(self):
         return []    
     

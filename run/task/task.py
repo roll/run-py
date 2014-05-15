@@ -144,6 +144,22 @@ class Task(Attribute, metaclass=ABCMeta):
     @meta_signature.setter   
     def meta_signature(self, value):
         self._meta_params['signature'] = value        
+    
+    @property
+    def meta_strict(self):
+        """Task's strict mode status (enabled or disabled).
+        
+        This property is:
+        
+        - initable/writable
+        - inherited from module
+        """     
+        return self._meta_params.get('strict', 
+            self.meta_module.meta_strict)            
+        
+    @meta_strict.setter   
+    def meta_strict(self, value):
+        self._meta_params['strict'] = value  
              
     def depend(self, dependency):
         """Add custom dependency.

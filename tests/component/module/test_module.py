@@ -142,7 +142,8 @@ class ModuleTest_with_module_is_main(ModuleTest):
             meta_dispatcher = Mock(add_signal=Mock())
             meta_is_main_module = True
             meta_name = 'main_module'
-            meta_qualname = 'main_module'    
+            meta_qualname = 'main_module'
+            meta_strict = None    
             @property
             def meta_main_module(self):
                 return self

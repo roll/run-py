@@ -17,6 +17,7 @@ class Settings(Settings):
     default_meta_chdir = True
     default_meta_fallback = None
     default_meta_main_module_name = '__main__'
+    default_meta_strict = False
     
     #Console
     
