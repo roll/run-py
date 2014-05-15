@@ -1,3 +1,5 @@
+import logging
+from box.functools import cachedproperty
 from abc import ABCMeta, abstractmethod
 
 class Resolver(metaclass=ABCMeta):
@@ -31,19 +33,23 @@ class CommonResolver(Resolver):
         self._enabled = True
         
     def __repr__(self):
-        result = repr(self._task)
-        if self._args or self._kwargs:
-            result += '('
-            elements = []
-            for arg in self._args:
-                element = repr(arg)
-                elements.append(element)
-            for kwarg in self._kwargs.items():
-                element = '{0}={1}'.format(*kwarg)
-                elements.append(element)
-            result += ', '.join(elements)
-            result += ')'
-        return result
+        if self._task:
+            result = repr(self._task)
+            if self._args or self._kwargs:
+                result += '('
+                elements = []
+                for arg in self._args:
+                    element = repr(arg)
+                    elements.append(element)
+                for kwarg in self._kwargs.items():
+                    element = '{0}={1}'.format(*kwarg)
+                    elements.append(element)
+                result += ', '.join(elements)
+                result += ')'
+            return result
+        else:
+            return ('<NotExistent "{task_name}">'.
+                format(task_name=self._task_name))
 
     def enable(self, task):
         if task == self._task:
@@ -54,17 +60,26 @@ class CommonResolver(Resolver):
             self._enabled = False
     
     def resolve(self):
-        self._task(*self._args, **self._kwargs)
+        if self._task:
+            self._task(*self._args, **self._kwargs)
         
     #Protected
     
-    @property
+    @cachedproperty
     def _task(self):
         if self._attribute:
             from ..task import Task
             module = self._attribute.meta_module
-            return module.meta_attributes.get_attribute(
-                self._task_name, category=Task, resolve=True)
+            try:
+                return module.meta_attributes.get_attribute(
+                    self._task_name, category=Task, resolve=True)
+            except AttributeError as exception:
+                if self._attribute.meta_strict:
+                    raise
+                else:
+                    logger = logging.getLogger(__name__)
+                    logger.warning(str(exception))
+                    return None
         else:
             raise RuntimeError(
                 'Dependency resolver "{resolver}" '
