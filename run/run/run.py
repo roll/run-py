@@ -15,14 +15,14 @@ class Run:
     
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 existent=False, stackless=False, **find_params):
+                 existent=False, plain=False, **find_params):
         self._names = names
         self._tags = tags
         self._file = file
         self._basedir = basedir
         self._recursively = recursively
         self._existent = existent 
-        self._stackless = stackless
+        self._plain = plain
         self._find_params = find_params
         if self._file == None:
             self._file = self.default_file
@@ -72,7 +72,7 @@ class Run:
        
     @cachedproperty
     def _stack(self):
-        if not self._stackless:
+        if not self._plain:
             return self._stack_class()
         else:
             return None

@@ -55,7 +55,7 @@ class Program(Program):
             basedir=self._command.basedir, 
             recursively=self._command.recursively,
             existent=self._command.existent,
-            stackless=self._command.stackless)
+            plain=self._command.plain)
     
     def _format_exception(self, exception):
         return '{category}: {message}'.format(

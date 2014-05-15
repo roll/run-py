@@ -51,7 +51,7 @@ class ProgramTest(unittest.TestCase):
             basedir='basedir', 
             recursively='recursively',
             existent='existent',
-            stackless='stackless')       
+            plain='plain')       
     
     #Protected
     
@@ -72,6 +72,6 @@ class ProgramTest(unittest.TestCase):
                 file='file',
                 recursively='recursively',
                 existent='existent',
-                stackless='stackless'))
+                plain='plain'))
             _run_class = Mock(return_value=Mock(run=Mock()))
         return MockProgram

@@ -100,19 +100,19 @@ class Settings(Settings):
                  'action': 'store_true',
                  'flags': ['-q', '--quiet'],
                  'help': 'Enable quiet mode.',
-                },                            
+                },     
+                {
+                 'dest': 'plain',
+                 'action': 'store_true',
+                 'flags': ['-p', '--plain'],
+                 'help': 'Enable plain mode.',
+                },                                                 
                 {
                  'dest': 'recursively',
                  'action': 'store_true',
                  'flags': ['-r', '--recursively'],
                  'help': 'Enable finding runfiles recursively.',
                 },
-                {
-                 'dest': 'stackless',
-                 'action': 'store_true',
-                 'flags': ['-s', '--stackless'],
-                 'help': 'Enable stackless mode.',
-                },                          
                 {
                  'dest': 'tags',
                  'nargs':'*',

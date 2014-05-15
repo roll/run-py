@@ -71,8 +71,8 @@ class RunTest(unittest.TestCase):
         self.assertEqual(run._stack, 'stack')
         run._stack_class.assert_called_with()
         
-    def test__stack_with_stackless_is_true(self):
-        run = self.prun(stackless=True)
+    def test__stack_with_plain_is_true(self):
+        run = self.prun(plain=True)
         self.assertEqual(run._stack, None)
         self.assertFalse(run._stack_class.called)                             
     
