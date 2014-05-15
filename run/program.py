@@ -54,7 +54,7 @@ class Program(Program):
             file=self._command.file,            
             basedir=self._command.basedir, 
             recursively=self._command.recursively,
-            strict=self._command.strict,
+            existent=self._command.existent,
             plain=self._command.plain)
     
     def _format_exception(self, exception):

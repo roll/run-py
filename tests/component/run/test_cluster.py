@@ -15,19 +15,19 @@ class ClusterTest(unittest.TestCase):
             file='file',             
             basedir='basedir', 
             recursively='recursively',
-            strict='strict', 
+            existent='existent', 
             dispatcher='dispatcher')
 
     def test___getattr__(self):
         cluster = self.pcluster()
         self.assertEqual(cluster.attr1, [1, 2, 3])
             
-    def test___getattr__with_strict_is_true(self):
-        cluster = self.pcluster(strict=True)
+    def test___getattr__with_existent_is_false(self):
+        cluster = self.pcluster(existent=False)
         self.assertRaises(AttributeError, getattr, cluster, 'attr2')
         
-    def test___getattr___with_strict_is_false(self):
-        cluster = self.pcluster(strict=False)
+    def test___getattr___with_existent_is_true(self):
+        cluster = self.pcluster(existent=True)
         self.assertEqual(cluster.attr2, [1])
     
     def test__modules(self):
@@ -41,7 +41,6 @@ class ClusterTest(unittest.TestCase):
             recursively='recursively')
         for module in cluster._find.return_value:
             module.assert_called_with(
-                meta_strict='strict',
                 meta_dispatcher='dispatcher', 
                 meta_module=None)
         

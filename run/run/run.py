@@ -15,14 +15,14 @@ class Run:
     
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 plain=False, strict=False, **find_params):
+                 existent=False, plain=False, **find_params):
         self._names = names
         self._tags = tags
         self._file = file
         self._basedir = basedir
         self._recursively = recursively
+        self._existent = existent 
         self._plain = plain        
-        self._strict = strict 
         self._find_params = find_params
         if self._file == None:
             self._file = self.default_file
@@ -62,7 +62,7 @@ class Run:
             file=self._file,
             basedir=self._basedir, 
             recursively=self._recursively,
-            strict=self._strict,
+            existent=self._existent,
             dispatcher=self._dispatcher,
             **self._find_params)
     

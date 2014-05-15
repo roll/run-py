@@ -15,9 +15,10 @@ class Settings(Settings):
     
     default_meta_cache = True
     default_meta_chdir = True
+    #TODO: we can't use fallback is None value now
     default_meta_fallback = None
     default_meta_main_module_name = '__main__'
-    default_meta_strict = False
+    default_meta_strict = True
     
     #Console
     
@@ -54,6 +55,12 @@ class Settings(Settings):
                  'flags': ['-d', '--debug'],
                  'help': 'Enable debug mode.',
                 }, 
+                {
+                 'dest': 'existent',
+                 'action': 'store_true',
+                 'flags': ['-e', '--existent'],
+                 'help': 'Process only existen attributes.',
+                },                          
                 {
                  'action': 'help',
                  'flags': ['-h', '--help'],
@@ -108,12 +115,6 @@ class Settings(Settings):
                  'flags': ['-r', '--recursively'],
                  'help': 'Enable finding runfiles recursively.',
                 },
-                {
-                 'dest': 'strict',
-                 'action': 'store_true',
-                 'flags': ['-e', '--strict'],
-                 'help': 'Enable strict mode.',
-                },                           
                 {
                  'dest': 'tags',
                  'nargs':'*',
