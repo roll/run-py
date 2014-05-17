@@ -29,12 +29,9 @@ class MainModule(ManageModule):
     github_user = 'respect31'
     install_requires = ['box>=0.20', 'jinja2']
     license = 'MIT License'  
-    maintainer = 'roll'
-    maintainer_email = 'roll@respect31.com'
     name = 'run'
     platforms = ['Unix'] 
     pypi_name = 'runpack'
-    pypi_user = 'roll'
     pypi_password_secure = 'JaTeiyjnimmtwhbdfPMZZdtp+5S920vb0HobJWL1QQjHVAo5Hwt0kTWYG+zjDrpWUL+NanVNqhQA8xnvWKbI5cZ+n3PvS7KFbgn6XcTYfeEGyEdYUFi0sXaUsgcfke+9nyMBDLoRH2M7TGqpLY2dmXk5C0h0RMkkAPjxgZCan94='
     tests_require = ['packgram>=0.9', 'nose']
     test_suite = 'nose.collector'    
