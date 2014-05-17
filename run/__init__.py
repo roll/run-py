@@ -1,7 +1,6 @@
-from .attribute import (AttributePrototype, copy,
-                        AttributeMetaclass, Attribute, 
-                        AttributeSignal, AttributeUpdate, 
-                        AttributeSet, AttributeCall)
+from .attribute import (AttributePrototype, AttributeMetaclass, Attribute, 
+                        AttributeUpdate, AttributeSet, AttributeCall,
+                        AttributeSignal, fork)
 from .command import Command
 from .dependency import (Dependency, require, trigger,
                          DependencyDecorator, depend,

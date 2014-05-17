@@ -1,5 +1,5 @@
 from .attribute import Attribute
-from .copy import copy
+from .fork import fork
 from .metaclass import AttributeMetaclass
 from .prototype import AttributePrototype
 from .signal import AttributeSignal
