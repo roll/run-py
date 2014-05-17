@@ -6,7 +6,7 @@ python:
   - '3.4'  
 install:
   - pip install coveralls
-  - pip install box>=0.20 jinja2 packgram>=0.9 nose
+  - pip install box>=0.20 jinja2 packgram>=0.9.1 nose
 script:
   - coverage run --source=run setup.py test
 after_success:
