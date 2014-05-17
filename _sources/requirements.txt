@@ -1,5 +1,0 @@
-#{{ caution }}
-
-{% for dependency in development_requires+install_requires+tests_require -%}
-{{ dependency }}
-{% endfor %}
