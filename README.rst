@@ -4,20 +4,21 @@ Run
 =====================
 Run is a program to run tasks from files.
 
-.. image:: https://secure.travis-ci.org/respect31/run.png?branch=master 
+.. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
+     :target: https://github.com/respect31/run
+     :alt: code
+.. image:: http://img.shields.io/travis/respect31/run/master.svg
      :target: https://travis-ci.org/respect31/run 
      :alt: build
-.. image:: https://coveralls.io/repos/respect31/run/badge.png?branch=master 
+.. image:: http://img.shields.io/coveralls/respect31/run/master.svg 
      :target: https://coveralls.io/r/respect31/run  
      :alt: coverage
-.. image:: http://b.repl.ca/v1/docs-uploaded-brightgreen.png
+.. image:: http://img.shields.io/badge/docs-RTD-brightgreen.svg
      :target: http://run.readthedocs.org
-     :alt: documentation
-     
-Quick Links
------------
-- `Source code (GitHub) <https://github.com/respect31/run>`_
-- `Package index (PyPi) <https://pypi.python.org/pypi?:action=display&name=runpack>`_
+     :alt: docs     
+.. image:: http://img.shields.io/pypi/v/runpack.svg
+     :target: https://pypi.python.org/pypi?:action=display&name=runpack
+     :alt: pypi
 
 Requirements
 ------------
@@ -117,12 +118,13 @@ The real simple example introduces some functionality.
 	
 More usefull example you can find here:
 
-- `Base module <https://github.com/respect31/packgram/blob/master/packgram/manage/python.py>`_
+- `Base module <https://github.com/respect31/packgram/blob/master/packgram/manage.py>`_
+- `Base templates <https://github.com/respect31/packgram/blob/master/packgram/_sources>`_
 - `Run's module <https://github.com/respect31/run/blob/master/runfile.py>`_
 - `Run's templates <https://github.com/respect31/run/tree/master/_sources>`_
 
 That's how run builds himself using module inheritance.
-        
+
 Authors
 -------
 - roll <roll@respect31.com>
