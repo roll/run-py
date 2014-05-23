@@ -1,26 +1,19 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
-
 language: 
   python
-
 python:
   - '3.3'
-  - '3.4'  
-
+  - '3.4'
 install:
   - pip install coveralls
-  - pip install box>=0.20 jinja2 packgram>=0.9.1 nose
-
+  - pip install box>=0.21 jinja2 packgram>=0.9.1 nose
 script:
   - coverage run --source=run setup.py test
-
 after_success:
   - coveralls
-
 notifications:
   email:
     - roll@respect31.com
-
 deploy:
   provider: pypi
   user: roll

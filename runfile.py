@@ -27,7 +27,7 @@ class MainModule(ManageModule):
     development_requires = ['sphinx', 'sphinx_rtd_theme']
     entry_points = {'console_scripts': ['run = run:program']}
     github_user = 'respect31'
-    install_requires = ['box>=0.20', 'jinja2']
+    install_requires = ['box>=0.21', 'jinja2']
     license = 'MIT License'  
     name = 'run'
     platforms = ['Unix'] 

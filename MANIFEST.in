@@ -1,10 +1,7 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
-
 graft data
 graft run
 graft tests
-
 include *.rst
 include *.py
-
 global-exclude __pycache__/*

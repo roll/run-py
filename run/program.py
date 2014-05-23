@@ -41,10 +41,6 @@ class Program(Program):
                 self._format_exception(exception), 
                 exc_info=self._command.debug)
             sys.exit(1)
-    
-    @cachedproperty
-    def _command(self):
-        return self._command_class(self._argv)
             
     @cachedproperty   
     def _run(self):
