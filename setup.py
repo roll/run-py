@@ -22,7 +22,7 @@ package = {
     
     'author': 'roll',
     'author_email': 'roll@respect31.com',
-    'classifiers': ['Development Status :: 3 - Alpha', 'Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
+    'classifiers': ['Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Run is a program to run tasks from files.',
     'download_url':'https://github.com/respect31/run/tarball/0.16.0',
     'license': 'MIT License',

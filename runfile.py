@@ -15,7 +15,6 @@ class MainModule(ManageModule):
     author = 'roll'
     author_email = 'roll@respect31.com'
     classifiers = [
-        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers', 
         'License :: OSI Approved :: MIT License', 
         'Programming Language :: Python :: 3', 
