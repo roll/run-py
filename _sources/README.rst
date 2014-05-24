@@ -1,7 +1,8 @@
-{% extends "packgram/README.rst/file" %}
+{% extends "packgram/README.rst" %}
 
 {% block installation %}
 {{ super() }}
+
 Example
 -------
 

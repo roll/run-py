@@ -1,4 +1,5 @@
 .. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+
 Run
 =====================
 Run is a program to run tasks from files.
@@ -22,9 +23,11 @@ Run is a program to run tasks from files.
 Requirements
 ------------
 - Python 3.3 and higher
+
 Installation
 ------------
 - pip install runpack
+
 Example
 -------
 
@@ -122,12 +125,15 @@ More usefull example you can find here:
 
 That's how run builds himself using module inheritance.
 
+
 Authors
 -------
 - roll <roll@respect31.com>
+
 Maintainers
 -----------
 - roll <roll@respect31.com>
+
 License
 -------
 MIT License

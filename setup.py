@@ -1,4 +1,5 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+
 import os
 from setuptools import find_packages
 
@@ -14,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': ['box>=0.21', 'jinja2'],  
-    'tests_require': ['packgram>=0.9.1', 'nose'],
+    'tests_require': ['packgram>=0.10', 'nose'],
     'test_suite': 'nose.collector',
     
     #Description
@@ -30,6 +31,7 @@ package = {
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/run',
     'long_description': '''.. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+
 Run
 =====================
 Run is a program to run tasks from files.
@@ -53,9 +55,11 @@ Run is a program to run tasks from files.
 Requirements
 ------------
 - Python 3.3 and higher
+
 Installation
 ------------
 - pip install runpack
+
 Example
 -------
 
@@ -153,12 +157,15 @@ More usefull example you can find here:
 
 That's how run builds himself using module inheritance.
 
+
 Authors
 -------
 - roll <roll@respect31.com>
+
 Maintainers
 -----------
 - roll <roll@respect31.com>
+
 License
 -------
 MIT License
@@ -189,6 +196,7 @@ if (not os.environ.get('TRAVIS', None) and
 	not	os.environ.get('READTHEDOCS', None)):
 	package['entry_points'] = {'console_scripts': ['run = run:program']}
 	package['data_files'] = [('/etc/bash_completion.d', ['data/run.sh'])]
+
 if __name__ == '__main__':
 	from setuptools import setup
 	setup(**package)
