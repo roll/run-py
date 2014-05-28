@@ -15,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': ['box>=0.21', 'jinja2'],  
-    'tests_require': ['packgram>=0.10', 'nose'],
+    'tests_require': ['packgram>=0.10.1', 'nose'],
     'test_suite': 'nose.collector',
     
     #Description
@@ -51,6 +51,9 @@ Run is a program to run tasks from files.
 .. image:: http://img.shields.io/pypi/v/runpack.svg
      :target: https://pypi.python.org/pypi?:action=display&name=runpack
      :alt: pypi
+
+*Package is under active development. Before version 1 backward-compatibility 
+on minor releases (0.x.0), documentation and changelog are not guaranteed.*
 
 Requirements
 ------------

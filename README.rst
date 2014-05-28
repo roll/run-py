@@ -20,6 +20,9 @@ Run is a program to run tasks from files.
      :target: https://pypi.python.org/pypi?:action=display&name=runpack
      :alt: pypi
 
+*Package is under active development. Before version 1 backward-compatibility 
+on minor releases (0.x.0), documentation and changelog are not guaranteed.*
+
 Requirements
 ------------
 - Python 3.3 and higher
