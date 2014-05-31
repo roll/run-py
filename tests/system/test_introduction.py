@@ -10,7 +10,7 @@ class IntroductionTest(ExamplesTest):
         result = self._execute('greet', messages=['Hi'])
         self.assertEqual(
             result, 
-            'Type your greeting [Hello]: '
+            'Type your greeting (Hello): '
             'Your choice is "Hi".\n'
             'We\'re ready.\n'
             'Hi World!\n'
