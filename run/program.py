@@ -1,46 +1,24 @@
 import sys
-import logging.config
 from box.argparse import Program
 from box.functools import cachedproperty
+from box.logging import LoggingProgram
 from .command import Command
 from .run import Run
 from .settings import settings
 
-class Program(Program):
-    
-    #Public
-     
-    def __call__(self):
-        self._config()
-        self._execute()
+class Program(LoggingProgram):
          
     #Protected
     
-    _logging_config = settings.logging
-    _command_class = Command
-    _run_class = Run
-    
-    def _config(self):
-        logging.config.dictConfig(self._logging_config)        
-        logger = logging.getLogger()
-        if self._command.debug:
-            logger.setLevel(logging.DEBUG)
-        if self._command.verbose:
-            logger.setLevel(logging.INFO)
-        if self._command.quiet:
-            logger.setLevel(logging.ERROR)      
+    _command_class = Command    
+    _settings = settings
+    _run_class = Run    
     
     def _execute(self):
-        try:
-            self._run.run(
-                self._command.attribute,
-                *self._command.args, 
-                **self._command.kwargs)
-        except Exception as exception:
-            logging.getLogger(__name__).error(
-                self._format_exception(exception), 
-                exc_info=self._command.debug)
-            sys.exit(1)
+        self._run.run(
+            self._command.attribute,
+            *self._command.args, 
+            **self._command.kwargs)
             
     @cachedproperty   
     def _run(self):
@@ -52,11 +30,6 @@ class Program(Program):
             recursively=self._command.recursively,
             existent=self._command.existent,
             plain=self._command.plain)
-    
-    def _format_exception(self, exception):
-        return '{category}: {message}'.format(
-            category=type(exception).__name__,
-            message=str(exception))
     
         
 program = Program(sys.argv)
