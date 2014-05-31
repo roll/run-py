@@ -1,5 +1,5 @@
 import os
-from box import Settings
+from box.packtools import Settings
 from .version import version
 
 class Settings(Settings):

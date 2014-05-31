@@ -1,4 +1,4 @@
-from box import Version
+from box.packtools import Version
 
 class Version(Version):
     
