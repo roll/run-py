@@ -1,5 +1,4 @@
 import sys
-from box.argparse import Program
 from box.functools import cachedproperty
 from box.logging import LoggingProgram
 from .command import Command
