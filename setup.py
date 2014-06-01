@@ -15,7 +15,7 @@ package = {
     ),
 	'include_package_data': True,
     'install_requires': ['box>=0.22', 'jinja2'],  
-    'tests_require': ['packgram>=0.10.1', 'nose'],
+    'tests_require': ['packgram>=0.10.2', 'nose'],
     'test_suite': 'nose.collector',
     
     #Description

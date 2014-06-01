@@ -4,5 +4,5 @@ sphinx
 sphinx_rtd_theme
 box>=0.22
 jinja2
-packgram>=0.10.1
+packgram>=0.10.2
 nose
