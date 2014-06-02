@@ -1,12 +1,15 @@
-import run
-from packgram.tests import SetupTest
+from box.importlib import check_module
 
-class SetupTest(SetupTest):
-
-    #Public
-
-    __test__ = True
-        
-    #Protected
+if check_module('packgram'):
+    import box
+    from packgram.tests import SetupTest
     
-    _package = run
+    class SetupTest(SetupTest):
+    
+        #Public
+    
+        __test__ = True
+            
+        #Protected
+        
+        _package = box
