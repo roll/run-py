@@ -1,11 +1,11 @@
 import sys
 from box.functools import cachedproperty
-from box.logging import LoggingProgram
+from box.logging import Program
 from .command import Command
 from .run import Run
 from .settings import settings
 
-class Program(LoggingProgram):
+class Program(Program):
          
     #Protected
     
