@@ -1,12 +1,17 @@
 import unittest
-from run.command import Command
+from box.functools import cachedproperty
+from run import Command, settings
 
 class CommandTest(unittest.TestCase):
     
     #Public
     
     def setUp(self):
-        self.command = Command(['run'])
+        self.argv = ['run']
+    
+    @cachedproperty    
+    def command(self):
+        return Command(self.argv, config=settings.argparse)
         
     def test_attribute(self):
         self.assertEqual(self.command.attribute, 
@@ -24,8 +29,7 @@ class CommandTest_with_attribute_and_arguments(CommandTest):
     #Public
     
     def setUp(self):
-        self.command = Command(
-            ['run', 'attribute', 'arg1,True,kwarg1=1,', 'kwarg2=1.5'])
+        self.argv = ['run', 'attribute', 'arg1,True,kwarg1=1,', 'kwarg2=1.5']
     
     def test_attribute(self):
         self.assertEqual(self.command.attribute, 'attribute')
@@ -42,7 +46,7 @@ class CommandTest_with_list_flag(CommandTest):
     #Public
     
     def setUp(self):
-        self.command = Command(['run', 'attribute', '-l'])
+        self.argv = ['run', 'attribute', '-l']
                 
     def test_attribute(self):
         self.assertEqual(self.command.attribute, 'list')
@@ -56,7 +60,7 @@ class CommandTest_with_info_flag(CommandTest_with_list_flag):
     #Public
     
     def setUp(self):
-        self.command = Command(['run', 'attribute', '-i'])
+        self.argv = ['run', 'attribute', '-i']
                 
     def test_attribute(self):
         self.assertEqual(self.command.attribute, 'info')  
@@ -67,7 +71,7 @@ class CommandTest_with_meta_flag(CommandTest_with_list_flag):
     #Public 
     
     def setUp(self):
-        self.command = Command(['run', 'attribute', '-m'])
+        self.argv = ['run', 'attribute', '-m']
                 
     def test_attribute(self):
         self.assertEqual(self.command.attribute, 'meta')

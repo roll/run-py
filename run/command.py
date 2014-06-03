@@ -8,7 +8,6 @@ class Command(Command):
     
     #Public
     
-    default_config = settings.argparse
     default_attribute = settings.default_attribute
     
     @property
