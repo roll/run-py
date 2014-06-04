@@ -27,7 +27,7 @@ class Settings(Settings):
     
     @property
     def argparse(self):
-        return self._merge_argparse(super().argparse, {
+        return self._inherit_argparse(Settings, {
             'prog': 'run',
             'add_help': False,
             'arguments': [
@@ -123,7 +123,7 @@ class Settings(Settings):
     
     @property
     def logging(self):
-        return self._merge_logging(super().logging, {
+        return self._inherit_logging(Settings, {
             'loggers': {
                 'initiated': {    
                     'handlers': ['initiated'],
