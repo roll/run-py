@@ -1,6 +1,4 @@
 import os
-import operator
-from box.collections import merge_dicts
 from box.logging import Settings
 from .version import version
 
@@ -29,7 +27,7 @@ class Settings(Settings):
     
     @property
     def argparse(self):
-        return merge_dicts(super().argparse, {
+        return self._merge_argparse(super().argparse, {
             'prog': 'run',
             'add_help': False,
             'arguments': [
@@ -119,13 +117,13 @@ class Settings(Settings):
                  'help': 'Display the program version.',                          
                 }, 
             ]
-        }, resolvers={list: operator.add})
+        })
     
     #Logging
     
     @property
     def logging(self):
-        return merge_dicts(super().logging, {
+        return self._merge_logging(super().logging, {
             'loggers': {
                 'initiated': {    
                     'handlers': ['initiated'],
@@ -174,7 +172,7 @@ class Settings(Settings):
     
     _extensions = [
         os.path.join(os.path.expanduser('~'), '.run', 'settings.py'),
-    ]
+    ]     
     
     
 settings = Settings()
