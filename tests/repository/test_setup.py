@@ -1,7 +1,7 @@
 from box.importlib import check_module
 
 if check_module('packgram'):
-    import box
+    import run
     from packgram.tests import SetupTest
     
     class SetupTest(SetupTest):
@@ -12,4 +12,4 @@ if check_module('packgram'):
             
         #Protected
         
-        _package = box
+        _package = run
