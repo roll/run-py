@@ -5,7 +5,7 @@ class Module(Module):
     #Tasks
     
     def ready(self):
-        print('We\'re ready to say', self.greeting, 'to person.')
+        print('We are ready to say', self.greeting, 'to person.')
     
     @require('ready')
     @trigger('done')
@@ -14,7 +14,7 @@ class Module(Module):
         print(self.greeting, person, str(times), 'times!')
         
     def done(self):
-        print('We\'re done.')
+        print('We are done.')
         
     #Vars
     

@@ -19,7 +19,7 @@ The real simple example introduces some functionality.
         #Tasks
         
         def ready(self):
-            print('We\'re ready to say', self.greeting, 'to person.')
+            print('We are ready to say', self.greeting, 'to person.')
         
         @require('ready')
         @trigger('done')
@@ -28,7 +28,7 @@ The real simple example introduces some functionality.
             print(self.greeting, person, str(times), 'times!')
             
         def done(self):
-            print('We\'re done.')
+            print('We are done.')
             
         #Vars
         
@@ -78,9 +78,9 @@ The real simple example introduces some functionality.
 
     $ run greet Rachel, times=5
     Type your greeting (Hello): <Hi>
-    We're ready to say Hi to person.
+    We are ready to say Hi to person.
     Hi Rachel 5 times!
-    We're done.
+    We are done.
 	
 More usefull example you can find here:
 
