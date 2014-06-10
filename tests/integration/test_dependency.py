@@ -15,7 +15,7 @@ class DependencyTest(unittest.TestCase):
         self.patcher = patch('sys.stdout', new_callable=StringIO)
         self.stdout = self.patcher.start()
         self.addCleanup(patch.stopall)         
-        self.module = MockMainModule(meta_module=None)
+        self.module = MockModule(meta_module=None)
         
     def test_list(self):
         self.module.list()
@@ -58,7 +58,7 @@ class DependencyTest(unittest.TestCase):
 
 #Fixtures
 
-class MockMainModule(Module):
+class MockModule(Module):
     
     #Tasks
     

@@ -1,7 +1,7 @@
 from run import FindModule
 from packgram import ManageModule
     
-class MainModule(ManageModule):
+class Module(ManageModule):
     
     #Modules
         

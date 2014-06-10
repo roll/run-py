@@ -3,7 +3,7 @@ from run import (Module, DerivedTask, DescriptorTask, FindTask,
                  FunctionTask, InputTask, MethodTask, NullTask,
                  RenderTask, SubprocessTask, ValueTask)
 
-class MainModule(Module):
+class Module(Module):
     
     #Tasks
     

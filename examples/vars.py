@@ -3,7 +3,7 @@ from run import (Module, SubprocessTask, DerivedVar, DescriptorVar, FindVar,
                  FunctionVar, InputVar, MethodVar, NullVar,
                  RenderVar, SubprocessVar, ValueVar)
 
-class MainModule(Module):
+class Module(Module):
     
     #Tasks
     

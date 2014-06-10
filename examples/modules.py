@@ -2,7 +2,7 @@ import os
 import fractions
 from run import Module, AutoModule, FindModule, SubprocessModule
 
-class MainModule(Module):
+class Module(Module):
     
     #Modules
     

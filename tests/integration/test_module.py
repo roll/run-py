@@ -13,7 +13,7 @@ class ModuleTest(unittest.TestCase):
         self.patcher = patch('sys.stdout', new_callable=StringIO)
         self.stdout = self.patcher.start()
         self.addCleanup(patch.stopall)        
-        self.module = MockMainModule(meta_module=None)
+        self.module = MockModule(meta_module=None)
         
     def test_list(self):
         self.module.list()
@@ -33,7 +33,7 @@ class ModuleTest(unittest.TestCase):
         
 #Fixtures
 
-class MockModule(Module):
+class MockSubmodule(Module):
     
     #Vars
     
@@ -56,7 +56,7 @@ class MockVar(Var):
         pass    
 
 
-class MockMainModule(Module):
+class MockModule(Module):
 
     #Classes
     
@@ -65,7 +65,7 @@ class MockMainModule(Module):
     
     #Modules
     
-    module = MockModule()
+    module = MockSubmodule()
 
     #Tasks
     

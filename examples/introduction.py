@@ -1,6 +1,6 @@
 from run import Module, InputVar, require, trigger
 
-class MainModule(Module):
+class Module(Module):
     
     #Tasks
     
