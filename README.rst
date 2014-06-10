@@ -83,8 +83,8 @@ The real simple example introduces some functionality.
 
   .. code-block:: bash
 
-    $ run li<TAB>
-    $ run list
+    $ run g<TAB>
+    $ run greet
     
 - get attribute infomation from command line:
 
