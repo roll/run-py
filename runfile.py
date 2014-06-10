@@ -33,4 +33,4 @@ class Module(ManageModule):
     pypi_name = 'runpack'
     pypi_password_secure = 'JaTeiyjnimmtwhbdfPMZZdtp+5S920vb0HobJWL1QQjHVAo5Hwt0kTWYG+zjDrpWUL+NanVNqhQA8xnvWKbI5cZ+n3PvS7KFbgn6XcTYfeEGyEdYUFi0sXaUsgcfke+9nyMBDLoRH2M7TGqpLY2dmXk5C0h0RMkkAPjxgZCan94='
     tests_require = ['nose']
-    test_suite = 'nose.collector'    
+    test_suite = 'nose.collector'
