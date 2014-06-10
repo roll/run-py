@@ -42,7 +42,7 @@ The real simple example introduces some functionality.
 
     from run import Module, InputVar, require, trigger
     
-    class MainModule(Module):
+    class Module(Module):
         
         #Tasks
         
