@@ -47,21 +47,16 @@ The real simple example introduces some functionality.
         #Tasks
         
         def ready(self):
-            print('Your choice is "{greeting}".\n'
-                  'We\'re ready.'.format(
-                greeting=self.greeting,))    
+            print('We\'re ready to say', self.greeting, 'to person.')
         
         @require('ready')
         @trigger('done')
-        def greet(self, person='World', times=1):
+        def greet(self, person, times=3):
             """Greet the given person."""
-            for _ in range(times):
-                print('{greeting} {person}!'.format(
-                    greeting=self.greeting, 
-                    person=person))
+            print(self.greeting, person, str(times), 'times!')
             
         def done(self):
-            print('OK. We\'re done.')
+            print('We\'re done.')
             
         #Vars
         
@@ -96,28 +91,24 @@ The real simple example introduces some functionality.
   .. code-block:: bash
 
     $ run greet -i
-    greet(person='World', times=1)
+    greet(person='World', times=3)
     ---
     Type: MethodTask
     Dependencies: [trigger <MethodTask "done">, require <MethodTask "ready">]
     Default arguments: ()
     Default keyword arguments: {}
     ---
-    Greet the given person
-
+    Greet the given person.
 
 - run task from command line:
 
   .. code-block:: bash
 
-    $ run greet Rachel, times=3
-    Type your greeting [Hello]: <Hi>
-    Your choice is "Hi".
-    We're ready.
-    Hi Rachel!
-    Hi Rachel!
-    Hi Rachel!
-    OK. We're done.
+    $ run greet Rachel, times=5
+    Type your greeting (Hello): <Hi>
+    We're ready to say Hi to person.
+    Hi Rachel 5 times!
+    We're done.
 	
 More usefull example you can find here:
 
