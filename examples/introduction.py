@@ -5,21 +5,16 @@ class Module(Module):
     #Tasks
     
     def ready(self):
-        print('Your choice is "{greeting}".\n'
-              'We\'re ready.'.format(
-            greeting=self.greeting,))    
+        print('We\'re ready to say', self.greeting, 'to person.')
     
     @require('ready')
     @trigger('done')
-    def greet(self, person='World', times=1):
+    def greet(self, person='World', times=3):
         """Greet the given person."""
-        for _ in range(times):
-            print('{greeting} {person}!'.format(
-                greeting=self.greeting, 
-                person=person))
+        print(self.greeting, person, str(times), 'times!')
         
     def done(self):
-        print('OK. We\'re done.')
+        print('We\'re done.')
         
     #Vars
     
