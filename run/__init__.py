@@ -15,8 +15,7 @@ from .task import (Task, task, module,
                    InputTask, MethodTask, NullTask, RenderTask, 
                    SubprocessTask, ValueTask)
 from .var import (Var, var,
-                  DerivedVar, DescriptorVar, FindVar, 
-                  FunctionVar, InputVar, MethodVar, 
-                  NullVar, RenderVar, SubprocessVar, ValueVar, 
-                  InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal)
+                  DerivedVar, DescriptorVar, FindVar, FunctionVar, 
+                  InputVar, MethodVar, NullVar, RenderVar, 
+                  SubprocessVar, ValueVar)
 from .version import Version, version

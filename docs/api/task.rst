@@ -26,6 +26,7 @@ Concrete tasks
 .. autoclass:: run.task.DerivedTask
 .. autoclass:: run.task.DescriptorTask
 .. autoclass:: run.task.FindTask
+.. autoclass:: run.task.FunctionTask
 .. autoclass:: run.task.InputTask
 .. autoclass:: run.task.MethodTask
 .. autoclass:: run.task.NullTask
