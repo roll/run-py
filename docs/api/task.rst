@@ -1,6 +1,8 @@
 run.task
 ========
 
+Module provides task related functionality.
+
 Public
 ------
 

@@ -1,6 +1,8 @@
 run.dependency
 ==============
 
+Module provides dependency related functionality.
+
 Public
 ------
 

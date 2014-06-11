@@ -1,6 +1,8 @@
 run.attribute
 =============
 
+Module provides attribute related functionality.
+
 Public
 ------
 

@@ -1,6 +1,8 @@
 run.var
 =======
 
+Module provides var related functionality.
+
 Public
 ------
 

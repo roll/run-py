@@ -1,6 +1,8 @@
 run
 ===
 
+End-user interface.
+
 Public
 ------
 

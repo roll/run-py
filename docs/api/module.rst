@@ -1,6 +1,8 @@
 run.module
 ==========
 
+Module provides module related functionality.
+
 Public
 ------
 

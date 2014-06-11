@@ -1,6 +1,8 @@
 run.dispatcher
 ==============
 
+Module provides dispatcher related functionality.
+
 Public
 ------
 
