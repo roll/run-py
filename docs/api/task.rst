@@ -9,6 +9,9 @@ Public
 
 Module’s public interface.
 
+Base class
+----------
+
 .. autoclass:: run.task.Task
 
 Helper functions
@@ -17,7 +20,8 @@ Helper functions
 .. autofunction:: run.task.task
 .. autofunction:: run.task.module
 
-Builtin concrete tasks:
+Concrete tasks
+--------------
 
 .. autoclass:: run.task.DerivedTask
 .. autoclass:: run.task.DescriptorTask
@@ -29,7 +33,8 @@ Builtin concrete tasks:
 .. autoclass:: run.task.SubprocessTask
 .. autoclass:: run.task.ValueTask
 
-Builtin task signals:
+Task signals
+------------
 
 .. autoclass:: run.task.InitiatedTaskSignal
 .. autoclass:: run.task.SuccessedTaskSignal
