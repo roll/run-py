@@ -1,5 +1,4 @@
-from .attribute import (AttributePrototype, AttributeMetaclass, Attribute, 
-                        AttributeSignal, fork)
+from .attribute import Attribute, fork
 from .command import Command
 from .dependency import (Dependency, require, trigger,
                          DependencyDecorator, depend,
