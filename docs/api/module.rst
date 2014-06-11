@@ -9,7 +9,11 @@ Public
 Module’s public interface.
 
 .. autoclass:: run.module.Module
-   
-.. automodule:: run.module
-     :imported-members:
-     :exclude-members: Module
+.. autofunction:: run.module.skip
+.. autoclass:: run.module.AutoModule
+.. autoclass:: run.module.FindModule
+.. autoclass:: run.module.NullModule
+.. autoclass:: run.module.SubprocessModule
+.. autoclass:: run.module.ModuleAttributes
+.. autoclass:: run.module.ModuleMetaclass
+.. autoclass:: run.module.ModulePrototype   

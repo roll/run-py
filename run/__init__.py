@@ -5,9 +5,8 @@ from .dependency import (Dependency, require, trigger,
                          Resolver, CommonResolver, NestedResolver)
 from .dispatcher import (Dispatcher, NullDispatcher, Handler, 
                          CallbackHandler, Signal)
-from .module import (ModulePrototype, ModuleMetaclass, 
-                     Module, ModuleAttributes, AutoModule, 
-                     FindModule, NullModule, skip, SubprocessModule)
+from .module import (Module, skip, 
+                     AutoModule, FindModule, NullModule, SubprocessModule)
 from .program import Program, program
 from .run import Run, Cluster, Controller, Stack, find
 from .settings import Settings, settings
