@@ -1,7 +1,7 @@
 run
 ===
 
-Module provides program related functionality.
+Module provides program end-user functionality.
 
 Public
 ------
