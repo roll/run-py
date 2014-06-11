@@ -1,7 +1,7 @@
 run
 ===
 
-End-user interface.
+Module provides program related functionality.
 
 Public
 ------
