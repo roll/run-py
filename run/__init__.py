@@ -10,11 +10,10 @@ from .module import (Module, skip,
 from .program import Program, program
 from .run import Run, Cluster, Controller, Stack, find
 from .settings import Settings, settings
-from .task import (Task, module,
-                   DerivedTask, DescriptorTask, FindTask, 
-                   FunctionTask, InputTask, MethodTask, task, 
-                   NullTask, RenderTask, SubprocessTask, ValueTask,
-                   InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal)
+from .task import (Task, task, module,
+                   DerivedTask, DescriptorTask, FindTask, FunctionTask, 
+                   InputTask, MethodTask, NullTask, RenderTask, 
+                   SubprocessTask, ValueTask)
 from .var import (Var, var,
                   DerivedVar, DescriptorVar, FindVar, 
                   FunctionVar, InputVar, MethodVar, 
