@@ -3,7 +3,6 @@ from .dependency import require, trigger, depend
 from .module import (Module, skip, 
                      AutoModule, FindModule, NullModule, SubprocessModule)
 from .program import Program, program
-from .run import Run, Cluster, Controller, Stack, find
 from .settings import Settings, settings
 from .task import (Task, task, module,
                    DerivedTask, DescriptorTask, FindTask, FunctionTask, 
