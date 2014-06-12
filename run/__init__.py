@@ -12,4 +12,4 @@ from .var import (Var, var,
                   DerivedVar, DescriptorVar, FindVar, FunctionVar, 
                   InputVar, MethodVar, NullVar, RenderVar, 
                   SubprocessVar, ValueVar)
-from .version import Version, version
+from .version import version
