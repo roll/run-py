@@ -1,7 +1,6 @@
 from .attribute import Attribute, fork
 from .dependency import (Dependency, require, trigger,
-                         DependencyDecorator, depend,
-                         Resolver, CommonResolver, NestedResolver)
+                         DependencyDecorator, depend)
 from .module import (Module, skip, 
                      AutoModule, FindModule, NullModule, SubprocessModule)
 from .program import Program, program
