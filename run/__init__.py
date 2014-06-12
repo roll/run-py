@@ -2,7 +2,7 @@ from .attribute import Attribute, fork
 from .dependency import require, trigger, depend
 from .module import (Module, skip, 
                      AutoModule, FindModule, NullModule, SubprocessModule)
-from .program import Program, program
+from .program import program
 from .settings import settings
 from .task import (Task, task, module,
                    DerivedTask, DescriptorTask, FindTask, FunctionTask, 
