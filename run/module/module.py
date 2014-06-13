@@ -26,6 +26,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @property
     def meta_attributes(self):
         """Module's attributes dict-like object.
+        
+        .. seealso:: :class:`run.module.ModuleAttributes`
         """
         return ModuleAttributes(self)
     

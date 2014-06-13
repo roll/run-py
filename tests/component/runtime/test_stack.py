@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.system.stack import Stack
+from run.runtime.stack import Stack
 
 class StackTest(unittest.TestCase):
 

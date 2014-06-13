@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call, patch
-from run.system.controller import Controller
+from run.runtime.controller import Controller
 
 class ControllerTest(unittest.TestCase):
 
@@ -31,7 +31,7 @@ class ControllerTest(unittest.TestCase):
         controller._on_initiated_task(self.signal)
         self.stack.push.assert_called_with(self.signal.attribute)
      
-    @patch('run.system.controller.logging')
+    @patch('run.runtime.controller.logging')
     def test__on_successed_task(self, logging):
         controller = self.pcontroller()
         controller._on_successed_task(self.signal)
@@ -39,7 +39,7 @@ class ControllerTest(unittest.TestCase):
         self.stack.pop.assert_called_with()
         logging.getLogger.return_value.info.assert_called_with('stack')
     
-    @patch('run.system.controller.logging')    
+    @patch('run.runtime.controller.logging')    
     def test__on_successed_task_with_stack_is_none(self, logging):
         controller = self.pcontroller(stack=None)
         controller._on_successed_task(self.signal)

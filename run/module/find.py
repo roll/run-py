@@ -22,5 +22,5 @@ class FindModule:
     
     @staticmethod
     def _get_find():
-        from ..system import find
+        from ..runtime import find
         return find

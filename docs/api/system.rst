@@ -1,8 +1,8 @@
-==========
-run.system
-==========
+===========
+run.runtime
+===========
 
-Module provides system related functionality.
+Module provides runtime related functionality.
 
 Public
 ======
@@ -12,18 +12,18 @@ Module’s public interface.
 Main class
 ----------
 
-.. autoclass:: run.system.Run
+.. autoclass:: run.runtime.Run
 
 Helper functions
 ----------------
 
-.. autoclass:: run.system.find
+.. autoclass:: run.runtime.find
 
 Internal
 ========
 
 Module’s internal implementation.
 
-.. autoclass:: run.system.cluster.Cluster
-.. autoclass:: run.system.controller.Controller
-.. autoclass:: run.system.stack.Stack
+.. autoclass:: run.runtime.cluster.Cluster
+.. autoclass:: run.runtime.controller.Controller
+.. autoclass:: run.runtime.stack.Stack

@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from run.system.run import Run
+from run.runtime.run import Run
 
 class RunTest(unittest.TestCase):
 
