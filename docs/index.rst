@@ -13,6 +13,7 @@ Table of Contents
      dependencies
      signals
      program
+     settings
      console
      api
 
