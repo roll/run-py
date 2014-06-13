@@ -1,6 +1,17 @@
 from .decorator import DependencyDecorator
 
 class depend(DependencyDecorator):
+    """Decorator to add custom dependency to method.
+    
+    Dependency has to be instance of :class:`run.dependency.Dependency`::
+    
+      class Module(Module):
+    
+          @depend(require('other_method'))
+          @depend(custom_dependency)
+          def method(self):
+              pass
+    """
     
     #Public
     
