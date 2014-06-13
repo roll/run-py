@@ -1,5 +1,0 @@
-=============
-CLI Reference
-=============
-
-*under development*

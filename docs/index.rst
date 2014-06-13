@@ -13,8 +13,8 @@ Table of Contents
      dependencies
      signals
      runtime
+     command
      api
-     cli
 
 Indices and Tables
 ==================
