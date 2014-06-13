@@ -1,5 +1,5 @@
 from .attribute import Attribute, fork
-from .dependency import require, trigger, depend
+from .dependency import depend, require, trigger 
 from .module import (Module, skip, 
                      AutoModule, FindModule, NullModule, SubprocessModule)
 from .program import program
