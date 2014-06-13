@@ -1,6 +1,6 @@
 import os
 from box.functools import cachedproperty
-from ..dispatcher import NullDispatcher
+from ..signal import NullDispatcher
 from ..settings import settings
 
 class NullModule:

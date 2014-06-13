@@ -11,6 +11,7 @@ Table of Contents
      tasks
      vars
      dependencies
+     signals
      runtime
      api
 

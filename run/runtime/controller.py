@@ -1,5 +1,5 @@
 import logging
-from ..dispatcher import CallbackHandler
+from ..signal import CallbackHandler
 from ..task import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
 class Controller:

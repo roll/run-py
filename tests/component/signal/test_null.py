@@ -1,5 +1,5 @@
 import unittest
-from run.dispatcher.null import NullDispatcher
+from run.signal.null import NullDispatcher
 
 class NullDispatcherTest(unittest.TestCase):
 

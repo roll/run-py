@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.dispatcher.handler import CallbackHandler
+from run.signal.handler import CallbackHandler
 
 class CallbackHandlerTest(unittest.TestCase):
 

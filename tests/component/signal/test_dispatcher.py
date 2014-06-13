@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.dispatcher.dispatcher import Dispatcher
+from run.signal.dispatcher import Dispatcher
 
 class DispatcherTest(unittest.TestCase):
 

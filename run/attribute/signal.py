@@ -1,4 +1,4 @@
-from ..dispatcher import Signal
+from ..signal import Signal
 
 class AttributeSignal(Signal):
 
