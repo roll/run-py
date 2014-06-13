@@ -14,6 +14,7 @@ Table of Contents
      signals
      runtime
      api
+     cli
 
 Indices and Tables
 ==================
