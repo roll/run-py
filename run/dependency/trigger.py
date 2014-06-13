@@ -2,6 +2,18 @@ from .decorator import DependencyDecorator
 from .dependency import Dependency
 
 class trigger(DependencyDecorator, Dependency):
+    """Decorate method to add trigger dependency.
+    
+    Usage example::
+    
+      class Module(Module):
+    
+          @trigger('other_method')
+          def method(self):
+              pass
+    
+    It's shortcut for :class:`run.dependency.depend` decorator.
+    """      
     
     #Public
     

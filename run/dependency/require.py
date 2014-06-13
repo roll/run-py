@@ -2,6 +2,18 @@ from .decorator import DependencyDecorator
 from .dependency import Dependency
 
 class require(DependencyDecorator, Dependency):
+    """Decorate method to add require dependency.
+    
+    Usage example::
+    
+      class Module(Module):
+    
+          @require('other_method')
+          def method(self):
+              pass
+    
+    It's shortcut for :class:`run.dependency.depend` decorator.
+    """    
     
     #Public
     
