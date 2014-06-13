@@ -12,8 +12,8 @@ Table of Contents
      vars
      dependencies
      signals
-     runtime
-     command
+     program
+     console
      api
 
 Indices and Tables

@@ -2,7 +2,7 @@ import csv
 import ast
 from box.argparse import Command
 from box.functools import cachedproperty
-from .settings import settings
+from ..settings import settings
 
 class Command(Command):
     

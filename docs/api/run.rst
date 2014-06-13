@@ -74,15 +74,4 @@ Others
 
 .. autodata:: run.program
 .. autodata:: run.settings
-.. autodata:: run.version
-     
---------
-Internal
---------
-
-Module’s internal implementation.
-
-.. autoclass:: run.command.Command
-.. autoclass:: run.program.Program
-.. autoclass:: run.settings.Settings
-.. autoclass:: run.version.Version  
+.. autodata:: run.version  

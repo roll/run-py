@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock
-from run.runtime.cluster import Cluster
+from run.program.cluster import Cluster
 
 class ClusterTest(unittest.TestCase):
 

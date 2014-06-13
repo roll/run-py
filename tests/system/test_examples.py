@@ -12,7 +12,7 @@ class ExamplesTest(unittest.TestCase):
     
     def _execute(self, command='', messages=[None], **kwargs):
         result = ''
-        ecommand = 'python3 -c "from run import program; program()" '
+        ecommand = 'python3 -c "from run.program import program; program()" '
         ecommand += '-b {basedir} '.format(basedir=self._basedir) 
         ecommand += '-f {file} '.format(file=self._file)
         ecommand += command
