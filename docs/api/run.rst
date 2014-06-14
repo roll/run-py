@@ -72,6 +72,14 @@ Vars
 Others
 ======
 
-.. autodata:: run.program
 .. autodata:: run.settings
-.. autodata:: run.version  
+.. autodata:: run.version 
+
+--------
+Internal
+--------
+
+Module’s internal implementation.
+
+.. autoclass:: run.settings.Settings
+.. autoclass:: run.version.Version
