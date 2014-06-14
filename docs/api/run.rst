@@ -10,4 +10,21 @@ Public
 
 Module’s public interface.
 
+Imported
+========
+
 .. literalinclude:: ../../run/__init__.py
+     :end-before: from .version
+
+Version
+=======
+
+.. autodata:: box.version
+
+--------
+Internal
+--------
+
+Module’s internal implementation.
+
+.. autoclass:: run.version.Version
