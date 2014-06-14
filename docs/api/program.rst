@@ -9,10 +9,17 @@ Public
 
 Module’s public interface.
 
-Main class
-----------
+Program class
+-------------
+
+.. autoclass:: run.program.Program
+
+
+Intermediate classes
+--------------------
 
 .. autoclass:: run.program.Run
+.. autoclass:: run.program.Cluster
 
 Helper functions
 ----------------
@@ -24,6 +31,6 @@ Internal
 
 Module’s internal implementation.
 
-.. autoclass:: run.program.cluster.Cluster
+.. autoclass:: run.program.command.Command
 .. autoclass:: run.program.controller.Controller
 .. autoclass:: run.program.stack.Stack
