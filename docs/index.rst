@@ -1,3 +1,4 @@
+=================
 Table of Contents
 =================
 
@@ -6,17 +7,10 @@ Table of Contents
      Introduction <intro>
      start
      design
-     attributes
-     modules
-     tasks
-     vars
-     dependencies
-     signals
-     program
-     settings
-     console
      api
+     cli
 
+==================
 Indices and Tables
 ==================
 
