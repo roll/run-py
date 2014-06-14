@@ -4,6 +4,7 @@ Design Explained
 
 .. toctree::
    
+     design/settings   
      design/attributes
      design/modules
      design/tasks
@@ -11,4 +12,3 @@ Design Explained
      design/dependencies
      design/signals
      design/program
-     design/settings
