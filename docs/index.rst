@@ -6,6 +6,7 @@ Table of Contents
      
      Introduction <intro>
      start
+     tutor
      design
      api
      cli
