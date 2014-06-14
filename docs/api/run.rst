@@ -78,12 +78,3 @@ Version
 =======
 
 .. autodata:: run.version 
-
---------
-Internal
---------
-
-Module’s internal implementation.
-
-.. autoclass:: run.settings.Settings
-.. autoclass:: run.version.Version
