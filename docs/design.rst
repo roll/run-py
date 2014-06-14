@@ -12,4 +12,3 @@ Design Explained
      design/signals
      design/program
      design/settings
-     design/version     

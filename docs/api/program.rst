@@ -14,6 +14,11 @@ Program class
 
 .. autoclass:: run.program.Program
 
+Program instance
+----------------
+
+.. autoclass:: run.program.program
+
 
 Intermediate classes
 --------------------

@@ -1,5 +1,0 @@
-=======
-Version
-=======
-
-*under development*
