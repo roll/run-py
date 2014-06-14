@@ -11,4 +11,5 @@ Design Explained
      design/dependencies
      design/signals
      design/program
-     design/settings     
+     design/settings
+     design/version     
