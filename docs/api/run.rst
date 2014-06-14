@@ -69,10 +69,14 @@ Vars
 .. autoclass:: run.SubprocessVar
 .. autoclass:: run.ValueVar
 
-Others
-======
+Settings
+========
 
 .. autodata:: run.settings
+
+Version
+=======
+
 .. autodata:: run.version 
 
 --------
