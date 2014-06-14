@@ -10,13 +10,10 @@ Public
 
 Module’s public interface.
 
-Hierarhy of attributes
-======================
+Module class
+============
 
-.. autoclass:: run.Attribute
 .. autoclass:: run.Module
-.. autoclass:: run.Task
-.. autoclass:: run.Var
 
 Helper functions
 ================
