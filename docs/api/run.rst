@@ -19,7 +19,7 @@ Imported
 Version
 =======
 
-.. autodata:: box.version
+.. autodata:: run.version
 
 --------
 Internal
