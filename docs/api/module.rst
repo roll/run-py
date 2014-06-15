@@ -23,8 +23,10 @@ Concrete modules
 ----------------
 
 .. autoclass:: run.module.AutoModule
+     :no-members:
+
 .. autoclass:: run.module.FindModule
-.. autoclass:: run.module.NullModule :no-members:
+.. autoclass:: run.module.NullModule
 .. autoclass:: run.module.SubprocessModule
 
 Others

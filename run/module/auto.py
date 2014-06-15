@@ -3,6 +3,22 @@ from ..task import FunctionTask
 from .module import Module
 
 class AutoModule(Module):
+    """Module with auto generated tasks from sources.
+    
+    :param list sources: python objects with attributes include functions
+    
+    For every function (callable or box.functools.Function) in every source
+    module creates :class:`run.task.FunctionTask` object. It may to be
+    used as regular run's tasks::
+
+      >>> module = AutoModule([os.path], meta_module=None)
+      >>> module.list()
+      abspath
+      ...
+      splitext
+      >>> module.basename('dir/file.py')
+      'file.py'
+    """
 
     #Public
 
