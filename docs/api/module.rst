@@ -9,8 +9,8 @@ Public
 
 Module’s public interface.
 
-Base class
-----------
+Module class
+------------
 
 .. autoclass:: run.module.Module
 
@@ -27,7 +27,10 @@ Concrete modules
 
 .. autoclass:: run.module.FindModule
 .. autoclass:: run.module.NullModule
+     :no-members:
+
 .. autoclass:: run.module.SubprocessModule
+     :no-members:
 
 Others
 ------
