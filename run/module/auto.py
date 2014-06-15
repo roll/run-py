@@ -16,6 +16,10 @@ class AutoModule(Module):
       abspath
       ...
       splitext
+      >>> module.info('basename')
+      basename(p)
+      ...
+      Returns the final component of a pathname
       >>> module.basename('dir/file.py')
       'file.py'
     """
