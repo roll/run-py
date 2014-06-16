@@ -17,7 +17,8 @@ class Settings(Settings):
     #Autodoc
     
     autodoc_member_order = 'bysource'
-    autodoc_default_flags = ['members']
+    autodoc_default_flags = ['members', 'special-members']
+    autodoc_skip_members = ['__weakref__']
     
     
 locals().update(Settings())
