@@ -1,6 +1,6 @@
 from .module import Module
 
-from .attribute import attribute
+from .fetch import fetch
 from .skip import skip
 
 from .auto import AutoModule

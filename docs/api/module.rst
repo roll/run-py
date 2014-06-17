@@ -17,6 +17,7 @@ Module class
 Helper functions
 ----------------
 
+.. autofunction:: run.module.fetch
 .. autofunction:: run.module.skip
 
 Concrete modules
