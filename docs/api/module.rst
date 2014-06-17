@@ -17,7 +17,6 @@ Module class
 Helper functions
 ----------------
 
-.. autofunction:: run.module.attribute
 .. autofunction:: run.module.skip
 
 Concrete modules
