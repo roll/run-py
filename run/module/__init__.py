@@ -1,5 +1,6 @@
 from .module import Module
 
+from .attribute import attribute
 from .skip import skip
 
 from .auto import AutoModule
