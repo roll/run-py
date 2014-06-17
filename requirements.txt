@@ -1,6 +1,6 @@
 #DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
-packgram>=0.10.3
+packgram>=0.10.4
 sphinx
 sphinx_rtd_theme
 box>=0.25
