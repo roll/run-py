@@ -1,3 +1,5 @@
+#TODO: If "from ..module import fetch" python imports module!? 
+from ..module.fetch import fetch
 from .task import Task
 
 class DerivedTask(Task):
@@ -27,5 +29,5 @@ class DerivedTask(Task):
     
     @property
     def _task(self):
-        return self.meta_module.meta_attributes.get_attribute(
-            self._task_name, category=Task, resolve=True)
+        return fetch(self.meta_module, self._task_name, 
+            category=Task, resolve=True)

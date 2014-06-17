@@ -31,6 +31,5 @@ Concrete modules
 Others
 ------
 
-.. autoclass:: run.module.ModuleAttributes
 .. autoclass:: run.module.ModuleMetaclass
 .. autoclass:: run.module.ModulePrototype   

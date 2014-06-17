@@ -71,8 +71,9 @@ class CommonResolver(Resolver):
             from ..task import Task
             module = self._attribute.meta_module
             try:
-                return module.meta_attributes.get_attribute(
-                    self._task_name, category=Task, resolve=True)
+                from ..module import fetch
+                return fetch(module, self._task_name, 
+                    category=Task, resolve=True)
             except AttributeError as exception:
                 if self._attribute.meta_strict:
                     raise

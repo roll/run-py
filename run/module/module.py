@@ -4,7 +4,7 @@ from pprint import pprint
 from collections import OrderedDict
 from ..attribute import Attribute
 from ..task import Task, NullTask
-from .attributes import ModuleAttributes
+from .fetch import fetch
 from .metaclass import ModuleMetaclass
 
 class Module(Attribute, metaclass=ModuleMetaclass):
@@ -20,16 +20,23 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             'and can\'t be set to any value'.
             format(module=self))
     
-    def __getattr__(self, name):
-        return self.meta_attributes.get_attribute(name, resolve=True)
+    def __getattribute__(self, name):
+        try:
+            return super().__getattribute__(name)
+        except AttributeError:
+            return fetch(self, name, resolve=True)
      
     @property
     def meta_attributes(self):
         """Module's attributes dict-like object.
         
-        .. seealso:: :class:`run.module.ModuleAttributes`
+        Dict contains not resolved attribute instances.
         """
-        return ModuleAttributes(self)
+        attributes = {}
+        for name, attr in vars(type(self)).items():
+            if isinstance(attr, Attribute):
+                attributes[name] = attr
+        return attributes
     
     @property
     def meta_basedir(self):
@@ -157,7 +164,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print attributes.
         """
         if attribute:
-            attribute = self.meta_attributes.get_attribute(attribute)
+            attribute = fetch(self, attribute)
         else:
             attribute = self
         names = []
@@ -175,7 +182,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print information.
         """
         if attribute:
-            attribute = self.meta_attributes.get_attribute(attribute)
+            attribute = fetch(self, attribute)
         else:
             attribute = self
         info = attribute.meta_qualname
@@ -198,7 +205,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print metadata.
         """
         if attribute:
-            attribute = self.meta_attributes.get_attribute(attribute)
+            attribute = fetch(self, attribute)
         else:
             attribute = self
         meta = OrderedDict()
