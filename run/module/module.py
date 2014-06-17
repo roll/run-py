@@ -22,6 +22,11 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     
     def __getattr__(self, name):
         return self.meta_attributes.get_attribute(name, resolve=True)
+    
+    def __getattribute__(self, name, *, category=Attribute, resolve=True):
+        """Return attribute by given name.
+        """
+        return super().__getattribute__(name)
      
     @property
     def meta_attributes(self):
