@@ -4,6 +4,7 @@ from ..attribute import Attribute; Attribute #PyDev warning bug
 def fetch(module, name, *, category=Attribute, resolve=False):
     """Return attribute by given name.
      
+    :param object module: module instance
     :param str name: attribute name, supports nested like "module.attribute"
     :param None/type/str category: returns attribute only of given class
     :param bool resolve: if True resolves attribute and returns value
