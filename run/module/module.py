@@ -21,10 +21,14 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             format(module=self))
     
     def __getattribute__(self, name):
+        #Realy tricky way to get right attribute error message
         try:
             return super().__getattribute__(name)
-        except AttributeError:
-            return fetch(self, name, resolve=True)
+        except AttributeError as exception:
+            try:
+                return fetch(self, name, resolve=True)
+            except AttributeError:
+                raise exception
      
     @property
     def meta_attributes(self):
