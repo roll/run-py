@@ -2,9 +2,9 @@ import os
 import inspect
 from pprint import pprint
 from collections import OrderedDict
+from box.importlib import import_object
 from ..attribute import Attribute
 from ..task import Task, NullTask
-from .fetch import fetch
 from .metaclass import ModuleMetaclass
 
 class Module(Attribute, metaclass=ModuleMetaclass):
@@ -19,16 +19,48 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             'Attribute is module "{module}" '
             'and can\'t be set to any value'.
             format(module=self))
-    
-    def __getattribute__(self, name):
-        #Realy tricky way to get right attribute error message
-        try:
-            return super().__getattribute__(name)
-        except AttributeError as exception:
+            
+    def __getattribute__(self, name, *, category=None, resolve=True):
+        """Return attribute by given name.
+         
+        :param str name: attribute name, supports nested "module.attribute"
+        :param None/type/str category: returns attribute only of given class
+        :param bool resolve: if True resolves attribute and returns value
+        
+        :raises AttributeError: if module has not attribute for given name
+        :raises TypeError: if attribute is not instance of given category
+        
+        :returns: attribute instance/attribute value
+        :rtype: :class:`run.attribute.Attribute`/mixed   
+        """     
+        if '.' in name:
+            #Nested name - return recursively
+            module_name, attribute_name = name.split('.', 1)
+            module = self.__getattribute__(module_name, category=Module)
+            return module.__getattribute__(attribute_name, 
+                category=category, resolve=resolve)
+        if category == None and resolve:
+            #Default params - standard getattribute
             try:
-                return fetch(self, name, resolve=True)
+                return super().__getattribute__(name)
             except AttributeError:
-                raise exception
+                pass
+        elif name in self.meta_attributes:
+            #Custom params - get attribute instance
+            attribute = self.meta_attributes[name]
+            if category != None:
+                category = import_object(category)
+                if not isinstance(attribute, category):
+                    raise TypeError(
+                        'Attribute "{attribute}" is not a {category}.'.
+                        format(attribute=attribute, category=category))
+            if resolve:
+                return attribute.__get__(attribute.meta_module)
+            return attribute
+        raise AttributeError(
+            'Module "{module}" has no attribute "{name}".'.
+            format(module=self, name=name))
+                 
      
     @property
     def meta_attributes(self):
@@ -168,7 +200,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print attributes.
         """
         if attribute:
-            attribute = fetch(self, attribute)
+            attribute = getattr(self, attribute)
         else:
             attribute = self
         names = []
@@ -186,7 +218,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print information.
         """
         if attribute:
-            attribute = fetch(self, attribute)
+            attribute = getattr(self, attribute)
         else:
             attribute = self
         info = attribute.meta_qualname
@@ -209,7 +241,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """Print metadata.
         """
         if attribute:
-            attribute = fetch(self, attribute)
+            attribute = getattr(self, attribute)
         else:
             attribute = self
         meta = OrderedDict()
