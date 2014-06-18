@@ -55,7 +55,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
                         'Attribute "{attribute}" is not a {category}.'.
                         format(attribute=attribute, category=category))
             if resolve:
-                return attribute.__get__(attribute.meta_module)
+                return attribute.__get__(self)
             return attribute
         raise AttributeError(
             'Module "{module}" has no attribute "{name}".'.
