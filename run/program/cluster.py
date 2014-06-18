@@ -26,6 +26,7 @@ class Cluster:
         if self._basedir == None:
             self._basedir = self.default_basedir                    
     
+    #TODO: fix recursion when internal AttributeError's been raised
     def __getattr__(self, name):
         attributes = []
         for module in self._modules:
