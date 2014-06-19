@@ -1,7 +1,7 @@
 import unittest
 from box.functools import cachedproperty
-from run.settings import settings
 from run.program.command import Command
+from run.settings import settings
 
 class CommandTest(unittest.TestCase):
     

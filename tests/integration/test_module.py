@@ -1,7 +1,7 @@
 import unittest
 from io import StringIO
 from unittest.mock import patch
-from run import Module
+from run.module import Module
 from run.task import Task
 from run.var import Var
 
