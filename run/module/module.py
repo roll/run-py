@@ -3,7 +3,7 @@ import inspect
 from pprint import pprint
 from collections import OrderedDict
 from box.importlib import import_object
-from ..attribute import Attribute
+from ..attribute import Attribute, value
 from ..task import Task, NullTask
 from .metaclass import ModuleMetaclass
 
@@ -55,7 +55,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
                         'Attribute "{attribute}" is not a {category}.'.
                         format(attribute=attribute, category=category))
             if resolve:
-                return attribute.__get__(self)
+                return value(attribute)
             return attribute
         raise AttributeError(
             'Module "{module}" has no attribute "{name}".'.
