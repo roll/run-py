@@ -5,6 +5,7 @@ from collections import OrderedDict
 from box.importlib import import_object
 from ..attribute import Attribute, value
 from ..task import Task, NullTask
+from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
 
 class Module(Attribute, metaclass=ModuleMetaclass):
@@ -28,16 +29,17 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             module = self.__getattribute__(module_name, category=Module)
             return module.__getattribute__(attribute_name, 
                 category=category, getvalue=getvalue)
-        if category == None and getvalue:
+        if not category and getvalue:
             #Default params - standard getattribute
             try:
                 return super().__getattribute__(name)
-            except AttributeError:
-                pass
+            except AttributeError as exception:
+                if isinstance(exception, ModuleAttributeError):
+                    raise
         elif name in self.meta_attributes:
             #Custom params - get attribute instance
             attribute = self.meta_attributes[name]
-            if category != None:
+            if category:
                 category = import_object(category)
                 if not isinstance(attribute, category):
                     raise TypeError(
@@ -46,7 +48,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             if getvalue:
                 return value(attribute)
             return attribute
-        raise AttributeError(
+        raise ModuleAttributeError(
             'Module "{module}" has no attribute "{name}".'.
             format(module=self, name=name))
      

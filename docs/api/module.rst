@@ -37,3 +37,10 @@ Helper functions
 
 .. autofunction:: run.module.attribute
 .. autofunction:: run.module.skip
+
+Public
+======
+
+Module’s internal implementation.
+
+.. autofunction:: run.module.error.ModuleAttributeError
