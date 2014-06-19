@@ -1,5 +1,5 @@
 from copy import copy
-from ..attribute import AttributePrototype
+from ..attribute import AttributePrototype, build
 
 class ModulePrototype(AttributePrototype):
     
@@ -18,5 +18,5 @@ class ModulePrototype(AttributePrototype):
         for name in dir(self._class):
             attr = getattr(self._class, name)
             if isinstance(attr, self._attribute_prototype_class):
-                setattr(self._class, name, attr.__build__(module))
+                setattr(self._class, name, build(attr, module))
         return module    

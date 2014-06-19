@@ -1,5 +1,6 @@
 from abc import ABCMeta
 from box.functools import DEFAULT
+from .build import build
 from .prototype import AttributePrototype
 
 class AttributeMetaclass(ABCMeta):
@@ -13,7 +14,7 @@ class AttributeMetaclass(ABCMeta):
             if module == None:
                 from ..module import NullModule
                 module = NullModule()
-            return prototype.__build__(module)
+            return build(prototype, module)
         else:
             return prototype
         
