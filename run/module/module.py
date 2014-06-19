@@ -34,6 +34,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             try:
                 return super().__getattribute__(name)
             except AttributeError as exception:
+                #We use __getattribute__ and ModuleAttributeError
+                #instead of __getattr__ and helper function
+                #to get correct attribute error message
                 if isinstance(exception, ModuleAttributeError):
                     raise
         elif name in self.meta_attributes:
