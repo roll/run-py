@@ -12,7 +12,7 @@ class trigger(DependencyDecorator, Dependency):
           def method(self):
               pass
     
-    It's shortcut for :class:`run.dependency.depend` decorator.
+    It's a shortcut for :class:`run.dependency.depend` decorator.
     """      
     
     #Public
