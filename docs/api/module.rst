@@ -14,11 +14,15 @@ Module class
 
 .. autoclass:: run.module.Module
 
-Helper functions
-----------------
+Metaclass
+---------
 
-.. autofunction:: run.module.attribute
-.. autofunction:: run.module.skip
+.. autoclass:: run.module.ModuleMetaclass
+
+Prototype
+---------
+
+.. autoclass:: run.module.ModulePrototype 
 
 Concrete modules
 ----------------
@@ -28,8 +32,8 @@ Concrete modules
 .. autoclass:: run.module.NullModule
 .. autoclass:: run.module.SubprocessModule
 
-Others
-------
+Helper functions
+----------------
 
-.. autoclass:: run.module.ModuleMetaclass
-.. autoclass:: run.module.ModulePrototype   
+.. autofunction:: run.module.attribute
+.. autofunction:: run.module.skip

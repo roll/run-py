@@ -14,12 +14,6 @@ Base class
 
 .. autoclass:: run.task.Task
 
-Helper functions
-----------------
-
-.. autofunction:: run.task.task
-.. autofunction:: run.task.module
-
 Concrete tasks
 --------------
 
@@ -34,9 +28,15 @@ Concrete tasks
 .. autoclass:: run.task.SubprocessTask
 .. autoclass:: run.task.ValueTask
 
-Task signals
-------------
+Signal classes
+--------------
 
 .. autoclass:: run.task.InitiatedTaskSignal
 .. autoclass:: run.task.SuccessedTaskSignal
 .. autoclass:: run.task.FailedTaskSignal
+
+Helper functions
+----------------
+
+.. autofunction:: run.task.task
+.. autofunction:: run.task.module

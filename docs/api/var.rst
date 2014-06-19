@@ -14,11 +14,6 @@ Base class
 
 .. autoclass:: run.var.Var
 
-Helper functions
-----------------
-
-.. autofunction:: run.var.var
-
 Concrete vars
 -------------
 
@@ -33,9 +28,14 @@ Concrete vars
 .. autoclass:: run.var.SubprocessVar
 .. autoclass:: run.var.ValueVar
 
-Var signals
------------
+Signal classes
+--------------
 
 .. autoclass:: run.var.InitiatedVarSignal
 .. autoclass:: run.var.SuccessedVarSignal
 .. autoclass:: run.var.FailedVarSignal
+
+Helper functions
+----------------
+
+.. autofunction:: run.var.var

@@ -14,17 +14,25 @@ Base class
 
 .. autoclass:: run.attribute.Attribute
 
+Metaclass
+---------
+
+.. autoclass:: run.attribute.AttributeMetaclass
+
+Prototype
+---------
+
+.. autoclass:: run.attribute.AttributePrototype
+
+Signal class
+------------
+
+.. autoclass:: run.attribute.AttributeSignal
+
 Helper functions
 ----------------
 
 .. autofunction:: run.attribute.fork
-
-Others
-------
-
-.. autoclass:: run.attribute.AttributeMetaclass
-.. autoclass:: run.attribute.AttributePrototype
-.. autoclass:: run.attribute.AttributeSignal
    
 Internal
 ========
