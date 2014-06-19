@@ -21,18 +21,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             format(module=self))
             
     def __getattribute__(self, name, *, category=None, getvalue=True):
-        """Return attribute by given name.
-         
-        :param str name: attribute name, supports nested "module.attribute"
-        :param None/type/str category: returns attribute only of given class
-        :param bool getvalue: if True returns attribute's value
-        
-        :raises AttributeError: if module has not attribute for given name
-        :raises TypeError: if attribute is not instance of given category
-        
-        :returns: attribute instance/attribute value
-        :rtype: :class:`run.attribute.Attribute`/mixed   
-        """     
+        #Public wrapper with documentation - :func:`run.module.attribute`    
         if '.' in name:
             #Nested name - return recursively
             module_name, attribute_name = name.split('.', 1)
@@ -60,7 +49,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         raise AttributeError(
             'Module "{module}" has no attribute "{name}".'.
             format(module=self, name=name))
-                 
      
     @property
     def meta_attributes(self):
