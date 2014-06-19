@@ -37,8 +37,7 @@ class AttributePrototype:
         return self
         
     def __copy__(self, *args, **kwargs):
-        """Copy prototype.
-        """
+        #Documented public wrapper - :func:`run.attribute.fork`
         eupdates = copy(self._updates)
         eargs = self._args+args
         ekwargs = self._kwargs

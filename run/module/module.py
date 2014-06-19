@@ -21,7 +21,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             format(module=self))
             
     def __getattribute__(self, name, *, category=None, getvalue=True):
-        #Public wrapper with documentation - :func:`run.module.attribute`    
+        #Documented public wrapper - :func:`run.module.attribute`    
         if '.' in name:
             #Nested name - return recursively
             module_name, attribute_name = name.split('.', 1)
