@@ -1,6 +1,6 @@
 import os
 from box.logging import Settings
-from .version import version
+from ..version import version
 
 class Settings(Settings):
     

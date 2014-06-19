@@ -2,7 +2,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 from run import Module, FunctionTask, require, trigger
-#TODO: Nose in shell imports module instead of object
+#TODO: Nose in shell imports module instead of an object
 from run.task import task
 
 #Tests

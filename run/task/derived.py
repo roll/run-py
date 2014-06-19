@@ -1,5 +1,4 @@
-#TODO: If "from ..module import attribute" python imports module!? 
-from ..module.attribute import attribute
+from ..module import attribute
 from .task import Task
 
 class DerivedTask(Task):
