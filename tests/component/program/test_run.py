@@ -85,7 +85,7 @@ class RunTest(unittest.TestCase):
             default_basedir = 'default_basedir'
             #Protected
             _print = Mock()
-            _task_class = Mock
+            _attribute_class = Mock
             _controller_class = Mock()
             _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
             _cluster_class = Mock(return_value=Mock(attribute = [

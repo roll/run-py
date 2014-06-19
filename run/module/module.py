@@ -20,6 +20,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             'Attribute is module "{module}" '
             'and can\'t be set to any value'.
             format(module=self))
+        
+    def __call__(self, *args, **kwargs):
+        return self.default(*args, **kwargs)
             
     def __getattribute__(self, name, *, category=None, getvalue=True):
         #Documented public wrapper is :func:`run.module.attribute`    
