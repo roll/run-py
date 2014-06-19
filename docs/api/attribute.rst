@@ -32,7 +32,9 @@ Signal class
 Helper functions
 ----------------
 
+.. autofunction:: run.attribute.build
 .. autofunction:: run.attribute.fork
+.. autofunction:: run.attribute.value
    
 Internal
 ========

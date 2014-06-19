@@ -45,8 +45,7 @@ class AttributePrototype:
         return type(self)(self._class, eupdates, *eargs, **ekwargs)
     
     def __build__(self, module):
-        """Build attribute.
-        """
+        #Documented public wrapper - :func:`run.attribute.build`
         attribute = self._create_attribute()
         self._init_attribute(attribute, module)
         self._update_attribute(attribute)
