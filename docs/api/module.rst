@@ -43,4 +43,4 @@ Public
 
 Module’s internal implementation.
 
-.. autofunction:: run.module.error.ModuleAttributeError
+.. autoclass:: run.module.error.ModuleAttributeError

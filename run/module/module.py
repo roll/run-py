@@ -22,7 +22,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             format(module=self))
             
     def __getattribute__(self, name, *, category=None, getvalue=True):
-        #Documented public wrapper - :func:`run.module.attribute`    
+        #Documented public wrapper is :func:`run.module.attribute`    
         if '.' in name:
             #Nested name - return recursively
             module_name, attribute_name = name.split('.', 1)
@@ -36,7 +36,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             except AttributeError as exception:
                 #We use __getattribute__ and ModuleAttributeError
                 #instead of __getattr__ and helper function
-                #to get correct attribute error message
+                #to get correct attribute error message here
                 if isinstance(exception, ModuleAttributeError):
                     raise
         elif name in self.meta_attributes:
