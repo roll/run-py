@@ -1,6 +1,4 @@
 from .dispatcher import Dispatcher
-from .null import NullDispatcher
-
 from .handler import Handler, CallbackHandler
-
+from .null import NullDispatcher
 from .signal import Signal
