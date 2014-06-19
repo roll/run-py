@@ -20,12 +20,12 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             'and can\'t be set to any value'.
             format(module=self))
             
-    def __getattribute__(self, name, *, category=None, resolve=True):
+    def __getattribute__(self, name, *, category=None, getvalue=True):
         """Return attribute by given name.
          
         :param str name: attribute name, supports nested "module.attribute"
         :param None/type/str category: returns attribute only of given class
-        :param bool resolve: if True resolves attribute and returns value
+        :param bool getvalue: if True returns attribute's value
         
         :raises AttributeError: if module has not attribute for given name
         :raises TypeError: if attribute is not instance of given category
@@ -38,8 +38,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             module_name, attribute_name = name.split('.', 1)
             module = self.__getattribute__(module_name, category=Module)
             return module.__getattribute__(attribute_name, 
-                category=category, resolve=resolve)
-        if category == None and resolve:
+                category=category, getvalue=getvalue)
+        if category == None and getvalue:
             #Default params - standard getattribute
             try:
                 return super().__getattribute__(name)
@@ -54,7 +54,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
                     raise TypeError(
                         'Attribute "{attribute}" is not a {category}.'.
                         format(attribute=attribute, category=category))
-            if resolve:
+            if getvalue:
                 return value(attribute)
             return attribute
         raise AttributeError(
@@ -66,7 +66,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def meta_attributes(self):
         """Module's attributes dict-like object.
         
-        Dict contains not resolved attribute instances.
+        Dict contains attribute instances, not values.
         """
         attributes = {}
         for name, attr in vars(type(self)).items():

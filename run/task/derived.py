@@ -30,4 +30,4 @@ class DerivedTask(Task):
     @property
     def _task(self):
         return attribute(self.meta_module, self._task_name, 
-            category=Task, resolve=True)
+            category=Task, getvalue=True)

@@ -73,7 +73,7 @@ class CommonResolver(Resolver):
             try:
                 from ..module import attribute
                 return attribute(module, self._task_name, 
-                    category=Task, resolve=True)
+                    category=Task, getvalue=True)
             except AttributeError as exception:
                 if self._attribute.meta_strict:
                     raise
