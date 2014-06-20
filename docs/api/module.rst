@@ -38,8 +38,8 @@ Helper functions
 .. autofunction:: run.module.attribute
 .. autofunction:: run.module.skip
 
-Public
-======
+Internal
+========
 
 Module’s internal implementation.
 
