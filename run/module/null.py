@@ -23,11 +23,11 @@ class NullModule:
     
     @property
     def meta_cache(self):
-        return settings.default_meta_cache
+        return self._default_meta_cache
     
     @property
     def meta_chdir(self):
-        return settings.default_meta_chdir     
+        return self._default_meta_chdir     
     
     @cachedproperty
     def meta_dispatcher(self):
@@ -39,7 +39,7 @@ class NullModule:
     
     @property
     def meta_fallback(self):
-        return settings.default_meta_fallback
+        return self._default_meta_fallback
     
     @property
     def meta_is_main_module(self):
@@ -55,7 +55,7 @@ class NullModule:
     
     @property
     def meta_name(self):
-        return settings.default_meta_main_module_name
+        return self._default_meta_main_module_name
     
     @property
     def meta_qualname(self):
@@ -63,7 +63,7 @@ class NullModule:
     
     @property
     def meta_strict(self):
-        return settings.default_meta_strict    
+        return self._default_meta_strict    
     
     @property
     def meta_tags(self):
@@ -76,3 +76,7 @@ class NullModule:
     #Protected
     
     _dispatcher_class = NullDispatcher
+    _default_meta_cache = settings.default_meta_cache
+    _default_meta_chdir = settings.default_meta_chdir
+    _default_meta_fallback = settings.default_meta_fallback
+    _default_meta_main_module_name = settings.default_meta_main_module_name

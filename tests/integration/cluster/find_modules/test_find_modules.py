@@ -3,7 +3,7 @@ import unittest
 from io import StringIO
 from functools import partial
 from unittest.mock import patch
-from run.program import find
+from run.cluster import find_files, find_modules
 
 class find_Test(unittest.TestCase):
 
@@ -12,11 +12,12 @@ class find_Test(unittest.TestCase):
     def setUp(self):
         self.stdout = patch('sys.stdout', new_callable=StringIO).start()
         self.addCleanup(patch.stopall)
-        self.pfind = partial(find, basedir=self._basedir) 
+        self.pfind_files = partial(find_files, basedir=self._basedir)
+        self.pfind_modules = partial(find_modules, basedir=self._basedir)
     
     def test_find(self):
-        modules = list(self.pfind(
-            file='runfile.py'))
+        files = list(self.pfind_files(file='runfile.py'))
+        modules = list(self.pfind_modules(files=files))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
         self.assertEqual(
@@ -24,8 +25,8 @@ class find_Test(unittest.TestCase):
             'Hits runfile.py\n')
            
     def test_find_recursively(self):
-        modules = list(self.pfind(
-            file='runfile.py', recursively=True))
+        files = list(self.pfind_files(file='runfile.py', recursively=True))
+        modules = list(self.pfind_modules(files=files))
         self.assertEqual(len(modules), 3)
         self.assertEqual(modules[0].__name__, 'Module1')
         self.assertEqual(modules[1].__name__, 'Module2')
@@ -37,14 +38,14 @@ class find_Test(unittest.TestCase):
             'Hits dir/subdir/runfile.py\n')
     
     def test_find_with_names(self):
-        modules = list(self.pfind(
-            names=['name1'], file='runfile.py', recursively=True))
+        files = list(self.pfind_files(file='runfile.py', recursively=True))
+        modules = list(self.pfind_modules(names=['name1'], files=files))        
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
 
     def test_find_with_tags(self):
-        modules = list(self.pfind(
-            tags=['tag2'], file='runfile.py', recursively=True))
+        files = list(self.pfind_files(file='runfile.py', recursively=True))
+        modules = list(self.pfind_modules(tags=['tag2'], files=files))        
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module2')
         

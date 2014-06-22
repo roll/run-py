@@ -11,4 +11,5 @@ Design Explained
      design/vars
      design/dependencies
      design/signals
+     design/cluster
      design/program

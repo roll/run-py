@@ -20,16 +20,10 @@ Program instance
 .. autoclass:: run.program.program
 
 
-Intermediate classes
---------------------
+Intermediate class
+------------------
 
 .. autoclass:: run.program.Run
-.. autoclass:: run.program.Cluster
-
-Helper functions
-----------------
-
-.. autoclass:: run.program.find
 
 Internal
 ========

@@ -1,18 +1,17 @@
 import logging
 from box.functools import cachedproperty
-from ..settings import settings
-from .find import find
+from .find_files import find_files
+from .find_modules import find_modules
 
 class Cluster:
+    """Modules cluster representation.
+    """
 
     #Public
 
-    default_file = settings.default_file
-    default_basedir = settings.default_basedir
-
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 existent=False, dispatcher=None, **find_params):
+                 existent=False, dispatcher=None):
         self._names = names
         self._tags = tags
         self._file = file
@@ -20,11 +19,6 @@ class Cluster:
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
-        self._find_params = find_params        
-        if self._file == None:
-            self._file = self.default_file
-        if self._basedir == None:
-            self._basedir = self.default_basedir                    
     
     def __getattr__(self, name):
         attributes = []
@@ -42,21 +36,32 @@ class Cluster:
         
     #Protected
     
-    _find = staticmethod(find)
+    _find_files = staticmethod(find_files)
+    _find_modules = staticmethod(find_modules)
         
     @cachedproperty
     def _modules(self):
         modules = []
-        module_classes = self._find(
-            names=self._names, 
-            tags=self._tags,
-            file=self._file, 
-            basedir=self._basedir, 
-            recursively=self._recursively,
-            **self._find_params)
-        for module_class in module_classes:
+        for module_class in self._module_classes:
             module = module_class(
                 meta_dispatcher=self._dispatcher,
                 meta_module=None)
             modules.append(module)
-        return modules    
+        return modules
+    
+    @cachedproperty
+    def _module_classes(self):
+        module_classes = self._find_modules(
+            names=self._names, 
+            tags=self._tags,
+            files=self._files)
+        return module_classes
+    
+    @cachedproperty    
+    def _files(self):
+        files = self._find_files(
+            file=self._file, 
+            basedir=self._basedir, 
+            recursively=self._recursively,
+            join=True)
+        return files

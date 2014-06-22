@@ -1,4 +1,5 @@
 import logging
+from box.dependency import inject
 from box.functools import cachedproperty
 from abc import ABCMeta, abstractmethod
 
@@ -65,15 +66,16 @@ class CommonResolver(Resolver):
         
     #Protected
     
+    _getattribute = inject('attribute', module='run.module')
+    _task_class = inject('Task', module='run.task')
+    
     @cachedproperty
     def _task(self):
         if self._attribute:
-            from ..task import Task
             module = self._attribute.meta_module
             try:
-                from ..module import attribute
-                return attribute(module, self._task_name, 
-                    category=Task, getvalue=True)
+                return self._getattribute(module, self._task_name, 
+                    category=self._task_class, getvalue=True)
             except AttributeError as exception:
                 if self._attribute.meta_strict:
                     raise

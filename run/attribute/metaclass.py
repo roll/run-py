@@ -1,4 +1,5 @@
 from abc import ABCMeta
+from box.dependency import inject
 from box.functools import DEFAULT
 from .build import build
 from .prototype import AttributePrototype
@@ -12,8 +13,7 @@ class AttributeMetaclass(ABCMeta):
         prototype = self._prototype_class(self, None, *args, **kwargs)
         if module != DEFAULT:
             if module == None:
-                from ..module import NullModule
-                module = NullModule()
+                module = self._null_module_class()
             return build(prototype, module)
         else:
             return prototype
@@ -21,3 +21,4 @@ class AttributeMetaclass(ABCMeta):
     #Protected
     
     _prototype_class = AttributePrototype
+    _null_module_class = inject('NullModule', module='run.module')

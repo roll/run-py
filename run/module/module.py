@@ -5,6 +5,7 @@ from collections import OrderedDict
 from box.importlib import import_object
 from ..attribute import Attribute, value
 from ..task import Task, NullTask
+from ..settings import settings
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
 

@@ -4,7 +4,7 @@ from unittest.mock import patch
 from run.module.null import NullModule
 
 class NullModuleTest(unittest.TestCase):
-
+    
     #Public
     
     def setUp(self):
@@ -22,11 +22,11 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, os.getcwd())
     
-    @patch('run.settings.settings.default_meta_cache')
+    @patch.object(NullModule, '_default_meta_cache')
     def test_meta_cache(self, cache):
         self.assertEqual(self.module.meta_cache, cache)
         
-    @patch('run.settings.settings.default_meta_chdir')
+    @patch.object(NullModule, '_default_meta_chdir')
     def test_meta_chdir(self, chdir):
         self.assertEqual(self.module.meta_chdir, chdir)        
         
@@ -38,7 +38,7 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_docstring(self):
         self.assertEqual(self.module.meta_docstring, 'NullModule') 
         
-    @patch('run.settings.settings.default_meta_fallback')
+    @patch.object(NullModule, '_default_meta_fallback')
     def test_meta_fallback(self, fallback):
         self.assertEqual(self.module.meta_fallback, fallback)               
            
@@ -51,7 +51,7 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_module(self):
         self.assertEqual(self.module.meta_module, self.module)
     
-    @patch('run.settings.settings.default_meta_main_module_name')
+    @patch.object(NullModule, '_default_meta_main_module_name')
     def test_meta_name(self, name):
         self.assertEqual(self.module.meta_name, name) 
               

@@ -132,4 +132,4 @@ class Attribute(metaclass=AttributeMetaclass):
     
     #Protected
     
-    _default_meta_main_module_name = settings.default_meta_main_module_name
+    _default_meta_main_module_name = settings.default_meta_main_module_name    

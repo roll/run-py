@@ -52,9 +52,9 @@ class ModuleMetaclass(AttributeMetaclass):
     
     #Protected
     
-    _prototype_class = ModulePrototype
     _attribute_class = Attribute
     _attribute_prototype_class = AttributePrototype
+    _descriptor_var_class = DescriptorVar    
     _method_task_class = MethodTask
-    _descriptor_var_class = DescriptorVar
+    _prototype_class = ModulePrototype    
     _value_var_class = ValueVar

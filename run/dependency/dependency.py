@@ -1,7 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
-from .resolver import (Resolver, CommonResolver, 
-                       NestedResolver)
+from .resolver import Resolver, CommonResolver, NestedResolver
 
 class Dependency(Resolver, metaclass=ABCMeta):
     
@@ -37,10 +36,13 @@ class Dependency(Resolver, metaclass=ABCMeta):
     
     #Protected
     
+    _common_resolver_class = CommonResolver
+    _nested_resolver_class = NestedResolver
+    
     @cachedproperty
     def _resolver(self):
         if not isinstance(self._task, list):
-            resolver = CommonResolver(
+            resolver = self._common_resolver_class(
                 self._task, *self._args, **self._kwargs)
         else:
             dependencies = []
@@ -49,5 +51,5 @@ class Dependency(Resolver, metaclass=ABCMeta):
                     dependency = type(self)(
                         dependency, *self._args, **self._kwargs)
                 dependencies.append(dependency)
-            resolver = NestedResolver(dependencies)
+            resolver = self._nested_resolver_class(dependencies)
         return resolver

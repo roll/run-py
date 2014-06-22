@@ -47,19 +47,7 @@ class RunTest(unittest.TestCase):
             basedir='basedir',
             recursively='recursively',
             existent='existent', 
-            dispatcher=run._dispatcher_class.return_value)
-        
-    def test__cluster_with_default_file_and_basedir(self):
-        run = self.prun(file=None, basedir=None)
-        run._cluster
-        run._cluster_class.assert_called_with(
-            names='names', 
-            tags='tags', 
-            file='default_file', 
-            basedir='default_basedir',
-            recursively='recursively',
-            existent='existent', 
-            dispatcher=run._dispatcher_class.return_value)        
+            dispatcher=run._dispatcher_class.return_value)     
         
     def test__dispatcher(self):
         run = self.prun()
@@ -80,11 +68,7 @@ class RunTest(unittest.TestCase):
     
     def _make_mock_run_class(self):
         class MockRun(Run):
-            #Public
-            default_file = 'default_file'
-            default_basedir = 'default_basedir'
             #Protected
-            _print = Mock()
             _attribute_class = Mock
             _controller_class = Mock()
             _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
@@ -93,4 +77,5 @@ class RunTest(unittest.TestCase):
                 Mock(return_value='result2'),
                 'attr3']))
             _stack_class = Mock(return_value='stack')
+            _print = Mock()            
         return MockRun

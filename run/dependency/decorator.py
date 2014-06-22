@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from box.dependency import inject
 from ..attribute import AttributePrototype
 
 class DependencyDecorator(metaclass=ABCMeta):
@@ -12,13 +13,10 @@ class DependencyDecorator(metaclass=ABCMeta):
         self._add_dependency(prototype)
         return prototype
     
-    #Protected    
+    #Protected
     
-    @property
-    def _method_task_class(self):
-        from ..task import MethodTask
-        return MethodTask
-    
+    _method_task_class = inject('MethodTask', module='run.task')
+
     @abstractmethod
     def _add_dependency(self, prototype):
         pass #pragma: no cover

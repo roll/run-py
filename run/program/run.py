@@ -1,8 +1,7 @@
 from box.functools import cachedproperty
 from ..attribute import Attribute
+from ..cluster import Cluster
 from ..signal import Dispatcher
-from ..settings import settings
-from .cluster import Cluster
 from .controller import Controller
 from .stack import Stack
 
@@ -10,12 +9,9 @@ class Run:
     
     #Public
     
-    default_file = settings.default_file  
-    default_basedir = settings.default_basedir
-    
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 existent=False, plain=False, **find_params):
+                 existent=False, plain=False):
         self._names = names
         self._tags = tags
         self._file = file
@@ -23,11 +19,6 @@ class Run:
         self._recursively = recursively
         self._existent = existent 
         self._plain = plain        
-        self._find_params = find_params
-        if self._file == None:
-            self._file = self.default_file
-        if self._basedir == None:
-            self._basedir = self.default_basedir         
                 
     def run(self, attribute, *args, **kwargs):
         self._controller.listen()
@@ -43,11 +34,11 @@ class Run:
          
     #Protected
     
-    _print = staticmethod(print)
     _attribute_class = Attribute
     _controller_class = Controller
     _dispatcher_class = Dispatcher
     _cluster_class = Cluster
+    _print = staticmethod(print)
     _stack_class = Stack
     
     @cachedproperty
@@ -64,8 +55,7 @@ class Run:
             basedir=self._basedir, 
             recursively=self._recursively,
             existent=self._existent,
-            dispatcher=self._dispatcher,
-            **self._find_params)
+            dispatcher=self._dispatcher)
     
     @cachedproperty
     def _dispatcher(self):

@@ -9,19 +9,20 @@ class Program(Program):
          
     #Protected
     
-    _command_class = Command    
     _settings = settings
-    _run_class = Run    
+    _command_class = Command    
+    _run_class = Run
     
     def _execute(self):
-        self._run.run(
+        result = self._run.run(
             self._command.attribute,
             *self._command.args, 
             **self._command.kwargs)
+        return result
             
     @cachedproperty   
     def _run(self):
-        return self._run_class(
+        run = self._run_class(
             names=self._command.names,
             tags=self._command.tags,
             file=self._command.file,            
@@ -29,6 +30,7 @@ class Program(Program):
             recursively=self._command.recursively,
             existent=self._command.existent,
             plain=self._command.plain)
+        return run
     
         
 program = Program(sys.argv)
