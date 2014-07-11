@@ -1,15 +1,15 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from run.program.run import Run
+from run.machine.machine import Machine
 
-class RunTest(unittest.TestCase):
+class MachineTest(unittest.TestCase):
 
     #Public
     
     def setUp(self):
-        MockRun = self._make_mock_run_class()
-        self.prun = partial(MockRun,
+        MockMachine = self._make_mock_run_class()
+        self.prun = partial(MockMachine,
             names='names', 
             tags='tags', 
             file='file', 
@@ -67,7 +67,7 @@ class RunTest(unittest.TestCase):
     #Protected
     
     def _make_mock_run_class(self):
-        class MockRun(Run):
+        class MockMachine(Machine):
             #Protected
             _attribute_class = Mock
             _controller_class = Mock()
@@ -78,4 +78,4 @@ class RunTest(unittest.TestCase):
                 'attr3']))
             _stack_class = Mock(return_value='stack')
             _print = Mock()            
-        return MockRun
+        return MockMachine
