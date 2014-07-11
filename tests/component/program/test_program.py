@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.program import Program
+from run.program.program import Program
 
 class ProgramTest(unittest.TestCase):
 
@@ -12,7 +12,7 @@ class ProgramTest(unittest.TestCase):
         
     def test___call__(self):
         self.program()
-        self.program._run_class.assert_called_with(
+        self.program._machine_class.assert_called_with(
             names='names',
             tags='tags',
             file='file',            
@@ -20,7 +20,7 @@ class ProgramTest(unittest.TestCase):
             recursively='recursively',
             existent='existent',
             plain='plain')          
-        self.program._run_class.return_value.run.assert_called_with(
+        self.program._machine_class.return_value.process.assert_called_with(
             self.program._command.attribute,
             *self.program._command.args,
             **self.program._command.kwargs)
@@ -44,5 +44,5 @@ class ProgramTest(unittest.TestCase):
                 recursively='recursively',
                 existent='existent',
                 plain='plain'))
-            _run_class = Mock()
+            _machine_class = Mock()
         return MockProgram
