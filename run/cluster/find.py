@@ -73,7 +73,6 @@ class find(find_objects):
             
     @property
     def _maxdepth(self):
-        if os.path.sep not in self._file:
-            if not self._recursively:
-                return 1
-        return None          
+        if not self._recursively:
+            return 1
+        return None         
