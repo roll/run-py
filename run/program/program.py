@@ -14,11 +14,10 @@ class Program(Program):
     _run_class = Run
     
     def _execute(self):
-        result = self._run.run(
+        self._run.run(
             self._command.attribute,
             *self._command.args, 
             **self._command.kwargs)
-        return result
             
     @cachedproperty   
     def _run(self):
