@@ -35,9 +35,9 @@ class Machine:
     #Protected
     
     _attribute_class = Attribute
+    _cluster_class = Cluster
     _controller_class = Controller
     _dispatcher_class = Dispatcher
-    _cluster_class = Cluster
     _print = staticmethod(print)
     _stack_class = Stack
     

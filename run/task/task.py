@@ -209,9 +209,9 @@ class Task(Attribute, metaclass=ABCMeta):
     
     #Protected
     
+    _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
     _successed_signal_class = SuccessedTaskSignal
-    _failed_signal_class = FailedTaskSignal 
     
     def _add_dependencies(self, container, category=None):
         for dependency in container:

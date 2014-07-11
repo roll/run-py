@@ -28,9 +28,9 @@ class Controller:
     #Protected
     
     _callback_handler_class = CallbackHandler
+    _failed_task_signal_class = FailedTaskSignal
     _initiated_task_signal_class = InitiatedTaskSignal
     _successed_task_signal_class = SuccessedTaskSignal
-    _failed_task_signal_class = FailedTaskSignal
     
     def _on_initiated_task(self, signal):
         if self._stack != None:

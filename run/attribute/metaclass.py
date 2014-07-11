@@ -20,5 +20,5 @@ class AttributeMetaclass(ABCMeta):
         
     #Protected
     
-    _prototype_class = AttributePrototype
     _null_module_class = inject('NullModule', module='run.module')
+    _prototype_class = AttributePrototype

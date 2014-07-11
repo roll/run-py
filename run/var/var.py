@@ -47,6 +47,6 @@ class Var(Task, metaclass=ABCMeta):
         
     #Protected
     
+    _failed_signal_class = FailedVarSignal     
     _initiated_signal_class = InitiatedVarSignal
     _successed_signal_class = SuccessedVarSignal
-    _failed_signal_class = FailedVarSignal 

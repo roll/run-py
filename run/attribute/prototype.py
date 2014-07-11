@@ -52,9 +52,9 @@ class AttributePrototype:
         return attribute        
      
     #Protected
-    
+
+    _call_class = AttributeCall    
     _set_class = AttributeSet
-    _call_class = AttributeCall
           
     def _create_attribute(self):
         return object.__new__(self._class)
