@@ -1,5 +1,4 @@
 import unittest
-from functools import partial
 from unittest.mock import Mock, call
 from run.machine.machine import Machine
 
@@ -8,61 +7,52 @@ class MachineTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        MockMachine = self._make_mock_run_class()
-        self.prun = partial(MockMachine,
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1',}
+        self.Machine = self._make_mock_run_class()
+        
+    def test_process(self):
+        machine = self.Machine(
             names='names', 
             tags='tags', 
             file='file', 
             basedir='basedir',
             recursively='recursively',
-            existent='existent',)
-        
-    def test_run(self):
-        run = self.prun()
-        args = ('arg1',)
-        kwargs = {'kwarg1': 'kwarg1',}
-        run.run('attribute', *args, **kwargs)
-        for attr in run._cluster_class.return_value.attribute:
-            if hasattr(attr, 'assert_called_with'):
-                attr.assert_called_with(*args, **kwargs)
-        run._print.assert_has_calls([
+            existent='existent')
+        machine.process('attribute', *self.args, **self.kwargs)
+        #Print
+        machine._print.assert_has_calls([
             call('result1'), 
             call('result2'),
-            call('attr3')])
-    
-    def test__controller(self):
-        run = self.prun()
-        run._controller
-        run._controller_class.assert_called_with(
-            run._dispatcher_class.return_value, 
-            run._stack_class.return_value)
-        
-    def test__cluster(self):
-        run = self.prun()
-        run._cluster
-        run._cluster_class.assert_called_with(
-            names='names', 
+            call('attr3')])        
+        #Controller
+        machine._controller_class.assert_called_with(
+            machine._dispatcher_class.return_value, 
+            machine._stack_class.return_value)
+        #Cluster
+        machine._cluster_class.assert_called_with(
+            names='names',
             tags='tags', 
             file='file', 
             basedir='basedir',
             recursively='recursively',
             existent='existent', 
-            dispatcher=run._dispatcher_class.return_value)     
+            dispatcher=machine._dispatcher_class.return_value) 
+        #Cluster's return values
+        for attr in machine._cluster_class.return_value.attribute:
+            if hasattr(attr, 'assert_called_with'):
+                attr.assert_called_with(*self.args, **self.kwargs)
+        #Dispatcher
+        machine._dispatcher_class.assert_called_with()
+        #Stack
+        self.assertEqual(machine._stack, machine._stack_class.return_value)
+        self.assertTrue(machine._stack_class.called)        
         
-    def test__dispatcher(self):
-        run = self.prun()
-        run._dispatcher
-        run._dispatcher_class.assert_called_with()
-        
-    def test__stack(self):
-        run = self.prun()
-        self.assertEqual(run._stack, 'stack')
-        run._stack_class.assert_called_with()
-        
-    def test__stack_with_plain_is_true(self):
-        run = self.prun(plain=True)
-        self.assertEqual(run._stack, None)
-        self.assertFalse(run._stack_class.called)                             
+    def test_process_with_plain_is_true(self):
+        machine = self.Machine(plain=True)
+        #Stack
+        self.assertEqual(machine._stack, None)
+        self.assertFalse(machine._stack_class.called)                           
     
     #Protected
     
@@ -72,10 +62,10 @@ class MachineTest(unittest.TestCase):
             _attribute_class = Mock
             _controller_class = Mock()
             _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
-            _cluster_class = Mock(return_value=Mock(attribute = [
+            _cluster_class = Mock(return_value=Mock(attribute=[
                 Mock(return_value='result1'), 
                 Mock(return_value='result2'),
                 'attr3']))
-            _stack_class = Mock(return_value='stack')
-            _print = Mock()            
+            _print = Mock()
+            _stack_class = Mock()
         return MockMachine

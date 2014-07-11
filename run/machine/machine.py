@@ -20,7 +20,7 @@ class Machine:
         self._existent = existent 
         self._plain = plain        
                 
-    def run(self, attribute, *args, **kwargs):
+    def process(self, attribute, *args, **kwargs):
         self._controller.listen()
         attributes = getattr(self._cluster, attribute)
         for attribute in attributes:
