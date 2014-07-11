@@ -5,7 +5,7 @@ from ..signal import Dispatcher
 from .controller import Controller
 from .stack import Stack
 
-class Run:
+class Machine:
     
     #Public
     
