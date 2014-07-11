@@ -7,8 +7,10 @@ class Settings(Settings):
     #Main
     
     default_basedir = None
+    default_exclude = None
     default_file = 'runfile.py'
     default_names = None
+    default_recursively = False
     default_tags = None    
     
     #Meta    
