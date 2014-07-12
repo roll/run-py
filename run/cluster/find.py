@@ -1,5 +1,6 @@
 import os
 from box.findtools import find_objects
+from box.functools import cachedproperty
 from ..module import Module
 from ..settings import settings
 from .common import CommonConstraint
@@ -48,7 +49,7 @@ class find(find_objects):
     _getfirst_exception = NotFound
     _module_class = Module  
                 
-    @property
+    @cachedproperty
     def _system_mappers(self):
         mappers = super()._system_mappers
         common = CommonConstraint(self._module_class)
