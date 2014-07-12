@@ -1,4 +1,3 @@
-import os
 from box.findtools import find_objects
 from box.functools import cachedproperty
 from ..module import Module
@@ -41,7 +40,15 @@ class find(find_objects):
         if self._basedir == None:
             self._basedir = self.default_basedir 
         if self._recursively == None:
-            self._recursively = self.default_recursively            
+            self._recursively = self.default_recursively  
+#         if os.path.sep not in file:
+#             maxdepth = 1
+#             if recursively:
+#                 maxdepth = None
+#             kwargs.setdefault('filename', file)
+#             kwargs.setdefault('maxdepth', maxdepth)
+#         else:
+#             kwargs.setdefault('filepath', file)          
         super().__init__(**kwargs)
     
     #Protected
@@ -58,22 +65,4 @@ class find(find_objects):
         meta = MetaConstraint(self._names, self._tags)
         if meta:
             mappers.appent(meta)
-        return mappers
-
-    @property
-    def _filename(self):
-        if os.path.sep not in self._file:
-            return self._file
-        return None
-        
-    @property
-    def _filepath(self):
-        if os.path.sep in self._file:
-            return self._file
-        return None      
-            
-    @property
-    def _maxdepth(self):
-        if not self._recursively:
-            return 1
-        return None         
+        return mappers      
