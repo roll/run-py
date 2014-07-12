@@ -1,3 +1,4 @@
+import os
 from box.findtools import find_objects
 from box.functools import cachedproperty
 from ..module import Module
@@ -23,32 +24,28 @@ class find(find_objects):
     def __init__(self, names=None, tags=None, *,
                  file=None, exclude=None, basedir=None, recursively=None, 
                  **kwargs):
+        if names == None:
+            names = self.default_names
+        if tags == None:
+            tags = self.default_tags                    
+        if file == None:
+            file = self.default_file
+        if exclude == None:
+            exclude = self.default_exclude  
+        if basedir == None:
+            basedir = self.default_basedir 
+        if recursively == None:
+            recursively = self.default_recursively 
         self._names = names
-        self._tags = tags
-        self._file = file
-        self._exclude = exclude
-        self._basedir = basedir
-        self._recursively = recursively
-        if self._names == None:
-            self._names = self.default_names
-        if self._tags == None:
-            self._tags = self.default_tags                    
-        if self._file == None:
-            self._file = self.default_file
-        if self._exclude == None:
-            self._exclude = self.default_exclude  
-        if self._basedir == None:
-            self._basedir = self.default_basedir 
-        if self._recursively == None:
-            self._recursively = self.default_recursively  
-#         if os.path.sep not in file:
-#             maxdepth = 1
-#             if recursively:
-#                 maxdepth = None
-#             kwargs.setdefault('filename', file)
-#             kwargs.setdefault('maxdepth', maxdepth)
-#         else:
-#             kwargs.setdefault('filepath', file)          
+        self._tags = tags 
+        if os.path.sep not in file:
+            maxdepth = 1
+            if recursively:
+                maxdepth = None
+            kwargs.setdefault('filename', file)
+            kwargs.setdefault('maxdepth', maxdepth)
+        else:
+            kwargs.setdefault('filepath', file)          
         super().__init__(**kwargs)
     
     #Protected

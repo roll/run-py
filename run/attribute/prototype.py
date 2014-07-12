@@ -7,13 +7,13 @@ class AttributePrototype:
     #Public
     
     def __init__(self, cls, updates, *args, **kwargs):
+        if updates == None:
+            updates = []
         super().__setattr__('_class', cls)
         super().__setattr__('_updates', updates)        
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
         super().__setattr__('_getattr', None) 
-        if self._updates == None:
-            super().__setattr__('_updates', [])
             
     #TODO: add _getattr state check            
     def __getattr__(self, name):
