@@ -1,7 +1,6 @@
 import logging
 from box.functools import cachedproperty
-from .find_files import find_files
-from .find_modules import find_modules
+from .find import find
 
 class Cluster:
     """Modules cluster representation.
@@ -11,7 +10,8 @@ class Cluster:
 
     def __init__(self, names=None, tags=None, *, 
                  file=None, basedir=None, recursively=False, 
-                 existent=False, dispatcher=None):
+                 existent=False, dispatcher=None,
+                 **find_params):
         self._names = names
         self._tags = tags
         self._file = file
@@ -19,6 +19,7 @@ class Cluster:
         self._recursively = recursively
         self._existent = existent
         self._dispatcher = dispatcher
+        self._find_params = find_params
     
     def __getattr__(self, name):
         attributes = []
@@ -36,8 +37,7 @@ class Cluster:
         
     #Protected
     
-    _find_files = staticmethod(find_files)
-    _find_modules = staticmethod(find_modules)
+    _find = staticmethod(find)
         
     @cachedproperty
     def _modules(self):
@@ -51,17 +51,11 @@ class Cluster:
     
     @cachedproperty
     def _module_classes(self):
-        module_classes = self._find_modules(
+        module_classes = self._find(
             names=self._names, 
             tags=self._tags,
-            files=self._files)
-        return module_classes
-    
-    @cachedproperty    
-    def _files(self):
-        files = self._find_files(
             file=self._file, 
             basedir=self._basedir, 
             recursively=self._recursively,
-            join=True)
-        return files
+            **self._find_params)
+        return module_classes
