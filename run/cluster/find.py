@@ -37,15 +37,18 @@ class find(find_objects):
         if recursively == None:
             recursively = self.default_recursively 
         self._names = names
-        self._tags = tags 
-        if os.path.sep not in file:
-            maxdepth = 1
-            if recursively:
-                maxdepth = None
-            kwargs.setdefault('filename', file)
-            kwargs.setdefault('maxdepth', maxdepth)
+        self._tags = tags
+        if file and os.path.sep in file:
+            kwargs['filepath'] = file
         else:
-            kwargs.setdefault('filepath', file)          
+            kwargs['filename'] = file
+        if exclude and os.path.sep in exclude:
+            kwargs['notfilepath'] = exclude
+        else:   
+            kwargs['notfilename'] = exclude
+        kwargs['basedir'] = basedir
+        if not recursively:
+            kwargs['maxdepth'] = 1
         super().__init__(**kwargs)
     
     #Protected
@@ -61,5 +64,5 @@ class find(find_objects):
             mappers.append(common)
         meta = MetaConstraint(self._names, self._tags)
         if meta:
-            mappers.appent(meta)
+            mappers.append(meta)
         return mappers      
