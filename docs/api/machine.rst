@@ -1,35 +1,23 @@
 ===========
-run.program
+run.machine
 ===========
 
-Module provides program related functionality.
+Module provides machine related functionality.
 
 Public
 ======
 
 Module’s public interface.
 
-Program class
+Machine class
 -------------
 
-.. autoclass:: run.program.Program
-
-Program instance
-----------------
-
-.. autoclass:: run.program.program
-
-
-Intermediate class
-------------------
-
-.. autoclass:: run.program.Run
+.. autoclass:: run.machine.Machine
 
 Internal
 ========
 
 Module’s internal implementation.
 
-.. autoclass:: run.program.command.Command
-.. autoclass:: run.program.controller.Controller
-.. autoclass:: run.program.stack.Stack
+.. autoclass:: run.machine.controller.Controller
+.. autoclass:: run.machine.stack.Stack

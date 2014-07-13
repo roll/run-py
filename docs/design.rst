@@ -12,4 +12,5 @@ Design Explained
      design/dependencies
      design/signals
      design/cluster
+     design/machine
      design/program
