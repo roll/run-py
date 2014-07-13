@@ -5,7 +5,6 @@ from ..module import Module
 from ..settings import settings
 from .common import CommonConstraint
 from .meta import MetaConstraint
-
 from .not_found import NotFound
 
 class find(find_objects):
