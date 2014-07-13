@@ -14,17 +14,20 @@ Cluster class
 
 .. autoclass:: run.cluster.Cluster
 
-
 Helper functions
 ----------------
 
-.. autoclass:: run.cluster.find_files
-.. autoclass:: run.cluster.find_modules
+.. autoclass:: run.cluster.find
+
+Exceptions
+----------
+
+.. autoclass:: run.cluster.NotFound
 
 Internal
 ========
 
 Module’s internal implementation.
 
-.. autoclass:: run.cluster.find_modules.FindModulesMetaMapper
-.. autoclass:: run.cluster.find_modules.FindModulesTypeMapper
+.. autoclass:: run.cluster.common.CommonConstraint
+.. autoclass:: run.cluster.meta.MetaConstraint
