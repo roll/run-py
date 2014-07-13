@@ -80,3 +80,4 @@ class NullModule:
     _default_meta_chdir = settings.default_meta_chdir
     _default_meta_fallback = settings.default_meta_fallback
     _default_meta_main_module_name = settings.default_meta_main_module_name
+    _default_meta_strict = settings.default_meta_strict
