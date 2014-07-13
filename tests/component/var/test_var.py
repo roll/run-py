@@ -9,7 +9,7 @@ class VarTest(unittest.TestCase):
     def setUp(self):
         self.Var = self._make_mock_var_class()
         self.var = self.Var(meta_module=None)
-        patch('run.settings.default_meta_cache', True).start()
+        patch('run.NullModule.meta_cache', True).start()
         self.addCleanup(patch.stopall)
         
     def test___get__(self):
