@@ -16,7 +16,7 @@ class ClusterTest(unittest.TestCase):
             file='file',             
             basedir='basedir', 
             recursively='recursively',
-            existent='existent', 
+            skip='skip', 
             dispatcher='dispatcher')
         self.assertEqual(cluster.attr1, [1, 2, 3])
         self.assertEqual(cluster.attr2, [1])
@@ -33,8 +33,8 @@ class ClusterTest(unittest.TestCase):
                 meta_dispatcher='dispatcher', 
                 meta_module=None)
             
-    def test___getattr___with_existent_is_false(self):
-        cluster = self.Cluster(existent=False)
+    def test___getattr___with_skip_is_false(self):
+        cluster = self.Cluster(skip=False)
         self.assertRaises(AttributeError, getattr, cluster, 'attr2')
         
     #Protected

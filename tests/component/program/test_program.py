@@ -18,7 +18,7 @@ class ProgramTest(unittest.TestCase):
             file='file',            
             basedir='basedir', 
             recursively='recursively',
-            existent='existent',
+            skip='skip',
             plain='plain')          
         self.program._machine_class.return_value.process.assert_called_with(
             self.program._command.attribute,
@@ -42,7 +42,7 @@ class ProgramTest(unittest.TestCase):
                 basedir='basedir', 
                 file='file',
                 recursively='recursively',
-                existent='existent',
+                skip='skip',
                 plain='plain'))
             _machine_class = Mock()
         return MockProgram

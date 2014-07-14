@@ -18,7 +18,7 @@ class MachineTest(unittest.TestCase):
             file='file', 
             basedir='basedir',
             recursively='recursively',
-            existent='existent')
+            skip='skip')
         machine.process('attribute', *self.args, **self.kwargs)
         #Print
         machine._print.assert_has_calls([
@@ -36,7 +36,7 @@ class MachineTest(unittest.TestCase):
             file='file', 
             basedir='basedir',
             recursively='recursively',
-            existent='existent', 
+            skip='skip', 
             dispatcher=machine._dispatcher_class.return_value) 
         #Cluster's return values
         for attr in machine._cluster_class.return_value.attribute:

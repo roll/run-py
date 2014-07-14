@@ -27,7 +27,7 @@ class Program(Program):
             file=self._command.file,            
             basedir=self._command.basedir, 
             recursively=self._command.recursively,
-            existent=self._command.existent,
+            skip=self._command.skip,
             plain=self._command.plain)
         return machine
     

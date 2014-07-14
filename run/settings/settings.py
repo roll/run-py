@@ -52,12 +52,6 @@ class Settings(Settings):
                  'help': 'Base directory path.',
                 },                             
                 {
-                 'dest': 'existent',
-                 'action': 'store_true',
-                 'flags': ['-e', '--existent'],
-                 'help': 'Process only existen attributes.',
-                },                          
-                {
                  'action': 'help',
                  'flags': ['-h', '--help'],
                  'help': 'Display this help message.',                         
@@ -105,6 +99,12 @@ class Settings(Settings):
                  'flags': ['-r', '--recursively'],
                  'help': 'Enable finding runfiles recursively.',
                 },
+                {
+                 'dest': 'skip',
+                 'action': 'store_true',
+                 'flags': ['-s', '--skip'],
+                 'help': 'Skip not existen attributes.',
+                },                           
                 {
                  'dest': 'tags',
                  'nargs':'*',
