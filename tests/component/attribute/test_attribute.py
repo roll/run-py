@@ -14,7 +14,7 @@ class AttributeTest(unittest.TestCase):
         self.assertIsInstance(self.attribute, Attribute)
    
     def test___repr__(self):
-        self.assertTrue(repr( self.attribute))  
+        self.assertTrue(repr(self.attribute))  
     
     def test_meta_dispatcher(self):
         self.assertEqual(self.attribute.meta_dispatcher,
@@ -30,6 +30,11 @@ class AttributeTest(unittest.TestCase):
     def test_meta_docstring_setter(self):        
         self.attribute.meta_docstring = 'docstring'
         self.assertEqual(self.attribute.meta_docstring, 'docstring')            
+           
+    def test_meta_main_module(self):
+        #NullModule
+        self.assertNotEqual(self.attribute.meta_main_module, None)
+        self.assertFalse(self.attribute.meta_main_module)
            
     def test_meta_module(self):
         #Null module
@@ -84,7 +89,9 @@ class AttributeTest_with_module(AttributeTest):
             meta_attributes = {}
             meta_basedir = 'basedir'
             meta_dispatcher = 'dispatcher'
-            meta_is_main_module = False    
+            meta_is_main_module = False
+            #Instead of NullModule
+            meta_main_module = False 
             meta_name = 'module'
             meta_qualname = 'module'
         return MockModule
