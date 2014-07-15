@@ -7,8 +7,8 @@ class AttributeTest(unittest.TestCase):
     #Public
     
     def setUp(self):
-        MockAttribute = self._make_mock_attribute_class()
-        self.attribute = MockAttribute(meta_module=None)
+        self.Attribute = self._make_mock_attribute_class()
+        self.attribute = self.Attribute(meta_module=None)
 
     def test(self):
         self.assertIsInstance(self.attribute, Attribute)
@@ -66,10 +66,10 @@ class AttributeTest_with_module(AttributeTest):
     #Public
     
     def setUp(self):
-        MockAttribute = self._make_mock_attribute_class()
-        MockModule = self._make_mock_module_class()
-        self.module = MockModule()
-        self.attribute = MockAttribute(meta_module=self.module)
+        self.Attribute = self._make_mock_attribute_class()
+        self.Module = self._make_mock_module_class()
+        self.module = self.Module()
+        self.attribute = self.Attribute(meta_module=self.module)
         self.module.meta_attributes = {'attribute': self.attribute}
         
     def test_meta_module(self):
@@ -83,13 +83,13 @@ class AttributeTest_with_module(AttributeTest):
         
     #Protected
     
-    def _make_mock_module_class(self):
+    def _make_mock_module_class(self, is_main=False):
         class MockModule:
             #Public
             meta_attributes = {}
             meta_basedir = 'basedir'
             meta_dispatcher = 'dispatcher'
-            meta_is_main_module = False
+            meta_is_main_module = is_main
             #Instead of NullModule
             meta_main_module = False 
             meta_name = 'module'
@@ -102,23 +102,14 @@ class AttributeTest_with_module_is_main(AttributeTest_with_module):
     #Public
     
     def setUp(self):
-        MockAttribute = self._make_mock_attribute_class()
-        MockModule = self._make_mock_module_class()
-        MockMainModule = self._make_mock_main_module_class(MockModule)
-        self.module = MockMainModule()
-        self.attribute = MockAttribute(meta_module=self.module)
+        self.Attribute = self._make_mock_attribute_class()
+        self.MainModule = self._make_mock_module_class(is_main=True)
+        self.module = self.MainModule()
+        self.attribute = self.Attribute(meta_module=self.module)
         self.module.meta_attributes = {'attribute': self.attribute}
         
     def test_meta_qualname(self):
         self.assertEqual(self.attribute.meta_qualname, '[module] attribute')
-        
-    #Protected
-    
-    def _make_mock_main_module_class(self, mock_module_class):
-        class MockMainModule(mock_module_class):
-            #Public
-            meta_is_main_module = True
-        return MockMainModule        
 
 
 class AttributeTest_with_docstring(AttributeTest):
@@ -126,9 +117,9 @@ class AttributeTest_with_docstring(AttributeTest):
     #Public
     
     def setUp(self):
-        MockAttribute = self._make_mock_attribute_class()
+        self.Attribute = self._make_mock_attribute_class()
         self.docstring = 'new_docstring'
-        self.attribute = MockAttribute(
+        self.attribute = self.Attribute(
             meta_docstring=self.docstring,
             meta_module=None)
     
