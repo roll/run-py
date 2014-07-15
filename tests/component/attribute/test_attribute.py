@@ -15,6 +15,10 @@ class AttributeTest(unittest.TestCase):
    
     def test___repr__(self):
         self.assertTrue(repr(self.attribute))  
+        
+    def test___repr___if_meta_builded_is_false(self):
+        self.attribute._meta_builded = False
+        self.assertTrue(repr(self.attribute))          
     
     def test_meta_dispatcher(self):
         self.assertEqual(self.attribute.meta_dispatcher,
