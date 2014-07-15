@@ -26,6 +26,10 @@ class AttributeTest(unittest.TestCase):
     
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, 'docstring') 
+        
+    def test_meta_docstring_setter(self):        
+        self.attribute.meta_docstring = 'docstring'
+        self.assertEqual(self.attribute.meta_docstring, 'docstring')            
            
     def test_meta_module(self):
         #Null module
