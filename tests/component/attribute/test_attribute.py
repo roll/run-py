@@ -18,7 +18,11 @@ class AttributeTest(unittest.TestCase):
     
     def test_meta_dispatcher(self):
         self.assertEqual(self.attribute.meta_dispatcher,
-                         self.attribute.meta_module.meta_dispatcher)     
+                         self.attribute.meta_module.meta_dispatcher)
+    
+    def test_meta_dispatcher_setter(self):        
+        self.attribute.meta_dispatcher = 'dispatcher'
+        self.assertEqual(self.attribute.meta_dispatcher, 'dispatcher')   
     
     def test_meta_docstring(self):
         self.assertEqual(self.attribute.meta_docstring, 'docstring') 
