@@ -6,10 +6,10 @@ class Cluster:
     """Modules cluster representation.
     """
 
-    #Public
+    # Public
 
-    def __init__(self, names=None, tags=None, *, 
-                 file=None, basedir=None, recursively=False, 
+    def __init__(self, names=None, tags=None, *,
+                 file=None, basedir=None, recursively=False,
                  skip=False, dispatcher=None,
                  **find_params):
         self._names = names
@@ -20,7 +20,7 @@ class Cluster:
         self._skip = skip
         self._dispatcher = dispatcher
         self._find_params = find_params
-    
+
     def __getattr__(self, name):
         attributes = []
         for module in self._modules:
@@ -34,11 +34,11 @@ class Cluster:
                 else:
                     raise
         return attributes
-        
-    #Protected
-    
+
+    # Protected
+
     _find = staticmethod(find)
-        
+
     @cachedproperty
     def _modules(self):
         modules = []
@@ -48,14 +48,14 @@ class Cluster:
                 meta_module=None)
             modules.append(module)
         return modules
-    
+
     @cachedproperty
     def _module_classes(self):
         module_classes = self._find(
-            names=self._names, 
+            names=self._names,
             tags=self._tags,
-            file=self._file, 
-            basedir=self._basedir, 
+            file=self._file,
+            basedir=self._basedir,
             recursively=self._recursively,
             **self._find_params)
         return module_classes
