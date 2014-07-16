@@ -1,51 +1,51 @@
-import os 
-from run import (Module, DerivedTask, DescriptorTask, FindTask, 
+import os
+from run import (Module, DerivedTask, DescriptorTask, FindTask,
                  FunctionTask, InputTask, MethodTask, NullTask,
                  RenderTask, SubprocessTask, ValueTask)
 
 class Module(Module):
-    
-    #Tasks
-    
+
+    # Tasks
+
     derived = DerivedTask(
         task='subprocess',
     )
-    
+
     descriptor = DescriptorTask(
         descriptor=property(lambda self: True),
-        meta_docstring='Return True.',                            
+        meta_docstring='Return True.',
     )
-        
+
     find = FindTask(
         string='find',
-        getfirst=True,   
+        getfirst=True,
     )
-    
+
     function = FunctionTask(
         function=os.path.abspath,
     )
-    
+
     input = InputTask(
-        prompt='Type here',                  
+        prompt='Type here',
     )
-    
+
     method = MethodTask(
         method=lambda self: 'Hello World!',
         meta_docstring='Return "Hello World!".',
     )
-        
+
     null = NullTask(
-        require=['subprocess'],                
+        require=['subprocess'],
     )
-    
+
     render = RenderTask(
         source=os.path.abspath((__file__)),
     )
-    
+
     subprocess = SubprocessTask(
         prefix='echo "Hello World!"',
     )
-    
+
     value = ValueTask(
         value='value',
     )
