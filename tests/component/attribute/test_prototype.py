@@ -1,5 +1,4 @@
 import unittest
-from copy import copy
 from unittest.mock import Mock
 from run.attribute.prototype import AttributePrototype
 
@@ -36,10 +35,16 @@ class AttributePrototypeTest(unittest.TestCase):
             'attr4', *self.args, **self.kwargs)
         self.assertEqual(self.updates, [self.call])  
         
-#     def test___copy__(self):
-#         args = ('arg2',)
-#         kwargs = {'kwarg2': 'kwarg2'}
-#         copied_prototype = copy(self.prototype, *args, **kwargs)
+    def test___copy__(self):
+        self.prototype.attr3 = 'value3'
+        self.prototype.attr4(*self.args, **self.kwargs)
+        copied_prototype = self.prototype.__copy__('arg2', kwarg2='kwarg2')
+        self.assertIsInstance(copied_prototype, self.Prototype)
+        self.assertEqual(copied_prototype._class, self.Attribute)
+        self.assertEqual(copied_prototype._updates, [self.set, self.call])
+        self.assertEqual(copied_prototype._args, ('arg1', 'arg2'))
+        self.assertEqual(copied_prototype._kwargs, 
+            {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'})
 
     def test___build__(self):
         self.prototype.attr3 = 'value3'
