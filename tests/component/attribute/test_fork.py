@@ -3,9 +3,9 @@ from unittest.mock import Mock
 from run.attribute.fork import fork
 
 class fork_Test(unittest.TestCase):
-    
-    #Public
-    
+
+    # Public
+
     def test(self):
         args = ('arg1',)
         kwargs = {'kwarg1': 'kwarg1'}

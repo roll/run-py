@@ -4,8 +4,8 @@ from run.module.skip import skip
 
 class skip_Test(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def test(self):
         attribute = Mock()
         self.assertEqual(skip(attribute), attribute)

@@ -3,9 +3,8 @@ from run.attribute.signal import AttributeSignal
 
 class AttributeSignalTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def test_attribute(self):
         signal = AttributeSignal('attribute')
-        self.assertEqual(signal.attribute, 'attribute') 
-        
+        self.assertEqual(signal.attribute, 'attribute')

@@ -4,21 +4,21 @@ from run.task.derived import DerivedTask
 
 class DerivedTaskTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def setUp(self):
         self.MockTask = self._make_mock_task_class()
         self.task = self.MockTask('task', meta_module=None)
-        
+
     def test___call__(self):
         self.args = ('arg1',)
-        self.kwargs = {'kwarg1': 'kwarg1'}        
+        self.kwargs = {'kwarg1': 'kwarg1'}
         self.assertEqual(self.task(*self.args, **self.kwargs), 'value')
-        
-    #Protected
-    
+
+    # Protected
+
     def _make_mock_task_class(self):
         class MockTask(DerivedTask):
-            #Protected
+            # Protected
             _task = Mock(return_value='value')
         return MockTask

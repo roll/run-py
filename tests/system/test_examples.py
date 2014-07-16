@@ -4,19 +4,19 @@ from subprocess import Popen, PIPE
 
 class ExamplesTest(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     __test__ = False
-    
-    #Protected
-    
+
+    # Protected
+
     def _execute(self, command='', messages=[None], **kwargs):
         result = ''
         ecommand = 'python3 -c "from run.program import program; program()" '
-        ecommand += '-b {basedir} '.format(basedir=self._basedir) 
+        ecommand += '-b {basedir} '.format(basedir=self._basedir)
         ecommand += '-f {file} '.format(file=self._file)
         ecommand += command
-        process = Popen(ecommand, 
+        process = Popen(ecommand,
             shell=True, universal_newlines=True,
             stdin=PIPE, stdout=PIPE, stderr=PIPE, **kwargs)
         for message in messages:
@@ -25,13 +25,13 @@ class ExamplesTest(unittest.TestCase):
                 raise RuntimeError(stderr)
             result += stdout
         return stdout
-    
+
     @property
     def _basedir(self):
         filedir = os.path.dirname(__file__)
         basedir = os.path.abspath(os.path.join(filedir, '..', '..', 'examples'))
         return basedir
-    
+
     @property
     def _file(self):
         return 'runfile.py'

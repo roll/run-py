@@ -3,8 +3,8 @@ from run.task.null import NullTask
 
 class NullTaskTest(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.task = NullTask(meta_module=None)
 

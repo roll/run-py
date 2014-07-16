@@ -3,8 +3,8 @@ from run.task.value import ValueTask
 
 class ValueTaskTest(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.task = ValueTask('value', meta_module=None)
 

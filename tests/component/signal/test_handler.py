@@ -4,7 +4,7 @@ from run.signal.handler import CallbackHandler
 
 class CallbackHandlerTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def test_handle(self):
         callback = Mock()

@@ -1,22 +1,22 @@
 from tests.system.test_examples import ExamplesTest
 
 class IntroductionTest(ExamplesTest):
-    
-    #Public        
-    
+
+    # Public
+
     __test__ = True
-    
+
     def test_greet(self):
         result = self._execute('greet', messages=['Hi'])
         self.assertEqual(
-            result, 
+            result,
             'Type your greeting (Hello): '
             'We are ready to say Hi to person.\n'
             'Hi World 3 times!\n'
             'We are done.\n')
-        
-    #Protected 
-        
+
+    # Protected
+
     @property
     def _file(self):
         return 'introduction.py'

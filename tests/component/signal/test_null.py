@@ -3,8 +3,8 @@ from run.signal.null import NullDispatcher
 
 class NullDispatcherTest(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.dispatcher = NullDispatcher()
 

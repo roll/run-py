@@ -7,21 +7,21 @@ from run.cluster.find import find
 
 class find_Test(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.stdout = patch('sys.stdout', new_callable=StringIO).start()
         self.addCleanup(patch.stopall)
         self.pfind = partial(find, basedir=self._basedir)
-    
+
     def test_find(self):
         modules = list(self.pfind(file='runfile.py'))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
         self.assertEqual(
-            self.stdout.getvalue(), 
+            self.stdout.getvalue(),
             'Hits runfile.py\n')
-           
+
     def test_find_recursively(self):
         modules = list(self.pfind(file='runfile.py', recursively=True))
         self.assertEqual(len(modules), 3)
@@ -33,21 +33,21 @@ class find_Test(unittest.TestCase):
             'Hits runfile.py\n'
             'Hits dir/runfile.py\n'
             'Hits dir/subdir/runfile.py\n')
-    
+
     def test_find_with_names(self):
         modules = list(self.pfind(
-            names=['name1'], file='runfile.py', recursively=True))        
+            names=['name1'], file='runfile.py', recursively=True))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
 
     def test_find_with_tags(self):
         modules = list(self.pfind(
-            tags=['tag2'], file='runfile.py', recursively=True))        
+            tags=['tag2'], file='runfile.py', recursively=True))
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module2')
-        
-    #Protected
-    
+
+    # Protected
+
     @property
     def _basedir(self):
-        return os.path.join(os.path.dirname(__file__), 'fixtures')  
+        return os.path.join(os.path.dirname(__file__), 'fixtures')

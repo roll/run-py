@@ -4,18 +4,18 @@ from run.attribute.update import AttributeSet, AttributeCall
 
 class AttributeSetTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def test_apply(self):
         update = AttributeSet('name', 'value')
         obj = Mock()
         update.apply(obj)
         self.assertEqual(obj.name, 'value')
-      
+
 
 class AttributeCallTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def test_apply(self):
         update = AttributeCall('method', 'value')

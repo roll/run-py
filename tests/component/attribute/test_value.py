@@ -3,9 +3,9 @@ from unittest.mock import Mock
 from run.attribute.value import value
 
 class value_Test(unittest.TestCase):
-    
-    #Public
-    
+
+    # Public
+
     def test(self):
         attribute = Mock(__get__=Mock(return_value='attribute_value'))
         attribute_value = value(attribute)

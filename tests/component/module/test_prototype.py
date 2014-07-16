@@ -4,28 +4,28 @@ from run.module.prototype import ModulePrototype
 
 class ModulePrototypeTest(unittest.TestCase):
 
-    #Public
-    
+    # Public
+
     def setUp(self):
         self.MockModule = self._make_mock_module_class()
         self.MockPrototype = self._make_mock_prototype_class()
         self.prototype = self.MockPrototype(self.MockModule, None)
-    
+
     def test__create_attribute(self):
         module = self.prototype._create_attribute()
         self.assertIsInstance(module, self.MockModule)
         self.assertEqual(module.attr, 'value')
-    
-    #Protected
-    
+
+    # Protected
+
     def _make_mock_module_class(self):
         class MockModule:
-            #Public
+            # Public
             attr = Mock(__build__=Mock(return_value='value'))
         return MockModule
-    
-    def _make_mock_prototype_class(self):    
+
+    def _make_mock_prototype_class(self):
         class MockPrototype(ModulePrototype):
-            #Protected
+            # Protected
             _attribute_prototype_class = Mock
         return MockPrototype

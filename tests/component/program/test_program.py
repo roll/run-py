@@ -4,32 +4,32 @@ from run.program.program import Program
 
 class ProgramTest(unittest.TestCase):
 
-    #Public
+    # Public
 
     def setUp(self):
         self.MockProgram = self._make_mock_program_class()
         self.program = self.MockProgram('argv')
-        
+
     def test___call__(self):
         self.program()
         self.program._machine_class.assert_called_with(
             names='names',
             tags='tags',
-            file='file',            
-            basedir='basedir', 
+            file='file',
+            basedir='basedir',
             recursively='recursively',
             skip='skip',
-            plain='plain')          
+            plain='plain')
         self.program._machine_class.return_value.process.assert_called_with(
             self.program._command.attribute,
             *self.program._command.args,
             **self.program._command.kwargs)
-    
-    #Protected
-    
+
+    # Protected
+
     def _make_mock_program_class(self):
         class MockProgram(Program):
-            #Protected
+            # Protected
             _command_class = Mock(return_value=Mock(
                 attribute='attribute',
                 args=('arg1',),
@@ -39,7 +39,7 @@ class ProgramTest(unittest.TestCase):
                 quiet='quiet',
                 names='names',
                 tags='tags',
-                basedir='basedir', 
+                basedir='basedir',
                 file='file',
                 recursively='recursively',
                 skip='skip',
