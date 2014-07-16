@@ -5,34 +5,34 @@ from abc import ABCMeta, abstractmethod
 
 class Resolver(metaclass=ABCMeta):
 
-    #Public
-    
+    # Public
+
     def bind(self, attribute):
-        self._attribute = attribute 
-        
+        self._attribute = attribute
+
     @abstractmethod
     def enable(self, task):
-        pass #pragma: no cover
-    
+        pass  # pragma: no cover
+
     @abstractmethod
     def disable(self, task):
-        pass #pragma: no cover
-    
-    @abstractmethod    
+        pass  # pragma: no cover
+
+    @abstractmethod
     def resolve(self, attribute):
-        pass #pragma: no cover
-        
-        
+        pass  # pragma: no cover
+
+
 class CommonResolver(Resolver):
 
-    #Public
-    
+    # Public
+
     def __init__(self, task, *args, **kwargs):
         self._task_name = task
         self._args = args
         self._kwargs = kwargs
         self._enabled = True
-        
+
     def __repr__(self):
         if self._task:
             result = repr(self._task)
@@ -55,26 +55,26 @@ class CommonResolver(Resolver):
     def enable(self, task):
         if task == self._task:
             self._enabled = True
-    
+
     def disable(self, task):
         if task == self._task:
             self._enabled = False
-    
+
     def resolve(self):
         if self._task:
             self._task(*self._args, **self._kwargs)
-        
-    #Protected
-    
+
+    # Protected
+
     _getattribute = inject('attribute', module='run.module')
     _task_class = inject('Task', module='run.task')
-    
+
     @cachedproperty
     def _task(self):
         if self._attribute:
             module = self._attribute.meta_module
             try:
-                return self._getattribute(module, self._task_name, 
+                return self._getattribute(module, self._task_name,
                     category=self._task_class, getvalue=True)
             except AttributeError as exception:
                 if self._attribute.meta_strict:
@@ -88,33 +88,33 @@ class CommonResolver(Resolver):
                 'Dependency resolver "{resolver}" '
                 'is not bound to any attribute'.
                 format(resolver=self))
-        
-        
+
+
 class NestedResolver(Resolver):
 
-    #Public
-    
+    # Public
+
     def __init__(self, resolvers):
         self._resolvers = resolvers
-        
+
     def __repr__(self):
         elements = []
         for resolver in self._resolvers:
-            elements.append(repr(resolver))        
-        return repr(elements)        
-        
+            elements.append(repr(resolver))
+        return repr(elements)
+
     def bind(self, attribute):
         for resolver in self._resolvers:
-            resolver.bind(attribute)       
+            resolver.bind(attribute)
 
     def enable(self, task):
         for resolver in self._resolvers:
             resolver.enable(task)
-    
+
     def disable(self, task):
         for resolver in self._resolvers:
             resolver.disable(task)
-    
+
     def resolve(self):
         for resolver in self._resolvers:
             resolver.resolve()
