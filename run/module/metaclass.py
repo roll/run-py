@@ -6,9 +6,9 @@ from ..var import ValueVar, DescriptorVar
 from .prototype import ModulePrototype
 
 class ModuleMetaclass(AttributeMetaclass):
-     
-    #Public
-     
+
+    # Public
+
     def __new__(cls, name, bases, attrs):
         for key, attr in attrs.items():
             if key.isupper():
@@ -30,7 +30,7 @@ class ModuleMetaclass(AttributeMetaclass):
             if getattr(attr, '__isabstractmethod__', False):
                 continue
             if getattr(attr, '__isskippedattribute__', False):
-                continue               
+                continue
             if callable(attr):
                 attrs[key] = cls._method_task_class(attr)
             elif inspect.isdatadescriptor(attr):
@@ -38,7 +38,7 @@ class ModuleMetaclass(AttributeMetaclass):
             else:
                 attrs[key] = cls._value_var_class(attr)
         return super().__new__(cls, name, bases, attrs)
-    
+
     def __copy__(self):
         attrs = {}
         for cls in self.mro():
@@ -49,12 +49,12 @@ class ModuleMetaclass(AttributeMetaclass):
         attrs['__doc__'] = self.__doc__
         attrs['__module__'] = self.__module__
         return type(self)(self.__name__, (self,), attrs)
-    
-    #Protected
-    
+
+    # Protected
+
     _attribute_class = Attribute
     _attribute_prototype_class = AttributePrototype
-    _descriptor_var_class = DescriptorVar    
+    _descriptor_var_class = DescriptorVar
     _method_task_class = MethodTask
-    _prototype_class = ModulePrototype    
+    _prototype_class = ModulePrototype
     _value_var_class = ValueVar

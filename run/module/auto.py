@@ -4,9 +4,9 @@ from .module import Module
 
 class AutoModule(Module):
     """Module with auto generated tasks from sources.
-    
+
     :param list sources: python objects with attributes include functions
-    
+
     For every function (callable or box.functools.Function) in every source
     module creates :class:`run.task.FunctionTask` object. It may to be
     used as regular run's tasks::
@@ -24,25 +24,25 @@ class AutoModule(Module):
       'file.py'
     """
 
-    #Public
+    # Public
 
     def __init__(self, sources=[]):
-        self._sources = sources+self._default_sources
+        self._sources = sources + self._default_sources
         for task_name, task_function in self._functions.items():
             if not hasattr(type(self), task_name):
                 task = FunctionTask(task_function, meta_module=self)
                 setattr(type(self), task_name, task)
-   
-    @property             
+
+    @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring', 
+        return self._meta_params.get('docstring',
             ('AutoModule with following sources: {sources}'.
-             format(sources=self._sources)))         
-                
-    #Protected
-    
+             format(sources=self._sources)))
+
+    # Protected
+
     _default_sources = []
-    
+
     @property
     def _functions(self):
         functions = {}
@@ -57,4 +57,4 @@ class AutoModule(Module):
                     if not isinstance(attr, Function):
                         continue
                 functions[name] = attr
-        return functions                   
+        return functions

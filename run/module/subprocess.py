@@ -3,7 +3,7 @@ from ..task import SubprocessTask
 
 class SubprocessModule(Module):
 
-    #Public
+    # Public
 
     def __init__(self, mapping={}, prefix='', separator=' '):
         emapping = self._default_mapping
@@ -14,12 +14,12 @@ class SubprocessModule(Module):
                 task = SubprocessTask(
                     prefix=eprefix, separator=separator, meta_module=self)
                 setattr(type(self), task_name, task)
-                
-    @property             
+
+    @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring', 
+        return self._meta_params.get('docstring',
             'SubprocessModule')
-        
-    #Protected
-    
-    _default_mapping = {} 
+
+    # Protected
+
+    _default_mapping = {}
