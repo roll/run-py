@@ -5,7 +5,6 @@ from collections import OrderedDict
 from box.importlib import import_object
 from ..attribute import Attribute, value
 from ..task import Task, NullTask
-from ..settings import settings
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
 
@@ -26,7 +25,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         return self.default(*args, **kwargs)
             
     def __getattribute__(self, name, *, category=None, getvalue=True):
-        #Documented public wrapper is :func:`run.module.attribute`    
+        #Documented public wrapper in :func:`run.module.attribute`    
         if '.' in name:
             #Nested name - return recursively
             module_name, attribute_name = name.split('.', 1)
