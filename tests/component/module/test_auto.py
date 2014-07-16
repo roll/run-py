@@ -10,7 +10,7 @@ class AutoModuleTest(unittest.TestCase):
         self.module = AutoModule([fractions], meta_module=None)
     
     def test_meta_attributes(self):
-        self.assertEqual(sorted(list(self.module.meta_attributes)), 
+        self.assertEqual(sorted(self.module.meta_attributes), 
             ['default', 'gcd', 'info', 'list', 'meta'])
         
     def test_meta_docstring(self):

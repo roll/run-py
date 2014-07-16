@@ -24,7 +24,8 @@ class ModuleTest(unittest.TestCase):
         self.assertRaises(AttributeError, getattr, self.module, 'no_attr.req')      
         
     def test_meta_attributes(self):
-        self.assertEqual(len(self.module.meta_attributes), 5)  
+        self.assertEqual(sorted(self.module.meta_attributes),
+            ['attr1', 'default', 'info', 'list', 'meta'])  
     
     def test_meta_basedir(self):
         self.assertRegex(self.module.meta_basedir, 
