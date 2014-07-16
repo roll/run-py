@@ -5,9 +5,9 @@ from .build import build
 from .prototype import AttributePrototype
 
 class AttributeMetaclass(ABCMeta):
-    
-    #Public
-    
+
+    # Public
+
     def __call__(self, *args, **kwargs):
         module = kwargs.pop('meta_module', DEFAULT)
         prototype = self._prototype_class(self, None, *args, **kwargs)
@@ -17,8 +17,8 @@ class AttributeMetaclass(ABCMeta):
             return build(prototype, module)
         else:
             return prototype
-        
-    #Protected
-    
+
+    # Protected
+
     _null_module_class = inject('NullModule', module='run.module')
     _prototype_class = AttributePrototype

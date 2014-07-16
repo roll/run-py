@@ -2,11 +2,11 @@ from ..signal import Signal
 
 class AttributeSignal(Signal):
 
-    #Public
+    # Public
 
     def __init__(self, attribute):
         self._attribute = attribute
-    
-    @property    
+
+    @property
     def attribute(self):
         return self._attribute
