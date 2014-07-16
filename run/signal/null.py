@@ -1,11 +1,11 @@
-from .dispatcher import Dispatcher         
-            
+from .dispatcher import Dispatcher
+
 class NullDispatcher(Dispatcher):
-    
-    #Public
-    
+
+    # Public
+
     def __bool__(self):
-        return False    
-    
+        return False
+
     def add_handler(self, handler): pass
-    def add_signal(self, signal): pass 
+    def add_signal(self, signal): pass
