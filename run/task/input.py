@@ -3,7 +3,7 @@ from .function import FunctionTask
 
 class InputTask(FunctionTask):
 
-    #Public
-    
+    # Public
+
     def __init__(self, *args, **kwargs):
-        super().__init__(io.rich_input, *args, **kwargs)    
+        super().__init__(io.rich_input, *args, **kwargs)

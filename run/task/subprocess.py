@@ -3,13 +3,13 @@ from .task import Task
 
 class SubprocessTask(Task):
 
-    #Public
-    
-    @property    
+    # Public
+
+    @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring', 
+        return self._meta_params.get('docstring',
             'Execute shell command.')
-        
+
     def invoke(self, command='', *, prefix='', separator=' '):
         ecommand = separator.join(filter(None, [prefix, command]))
         process = subprocess.Popen(ecommand, shell=True)

@@ -1,13 +1,13 @@
 from .task import Task
 
 class ValueTask(Task):
-    
-    #Public
- 
-    @property    
+
+    # Public
+
+    @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring', 
-            'Return given value.') 
- 
+        return self._meta_params.get('docstring',
+            'Return given value.')
+
     def invoke(self, value):
         return value
