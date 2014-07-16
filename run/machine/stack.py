@@ -1,6 +1,6 @@
 class Stack(list):
 
-    #Public
+    # Public
 
     def __repr__(self):
         names = []
@@ -12,9 +12,9 @@ class Stack(list):
                 if current.meta_module == previous.meta_module:
                     names.append(current.meta_name)
                 else:
-                    names.append(current.meta_qualname) 
+                    names.append(current.meta_qualname)
                 previous = current
         return '/'.join(names)
-    
+
     def push(self, attribute):
-        self.append(attribute)     
+        self.append(attribute)
