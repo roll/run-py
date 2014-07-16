@@ -7,7 +7,7 @@ class build_Test(unittest.TestCase):
     #Public
     
     def test(self):
-        prototype = Mock(__build__=Mock(return_value='attribute'))
-        attribute = build(prototype, 'module')
-        self.assertEqual(attribute, 'attribute')
+        prototype = Mock(__build__=Mock(return_value='builded_prototype'))
+        builded_prototype = build(prototype, 'module')
+        self.assertEqual(builded_prototype, 'builded_prototype')
         prototype.__build__.assert_called_with('module')
