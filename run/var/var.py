@@ -4,9 +4,9 @@ from ..task import Task
 from .signal import InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal
 
 class Var(Task, metaclass=ABCMeta):
-    
-    #Public
-        
+
+    # Public
+
     def __build__(self, module, *args, **kwargs):
         self._cached_value = DEFAULT
         super().__build__(module, *args, **kwargs)
@@ -18,35 +18,35 @@ class Var(Task, metaclass=ABCMeta):
             return self._cached_value
         else:
             return self()
- 
+
     def __set__(self, module, value):
         self.invoke = lambda: value
-        
+
     @property
     def meta_cache(self):
         """Var's caching status (enabled or disabled).
-        
-        If meta_cache is True var caches 
-        results after first invocation.        
-           
+
+        If meta_cache is True var caches
+        results after first invocation.
+
         This property is:
-        
+
         - initable/writable
         - inherited from module
-        """ 
-        return self._meta_params.get('cache', 
+        """
+        return self._meta_params.get('cache',
             self.meta_module.meta_cache)
-    
+
     @meta_cache.setter
     def meta_cache(self, value):
-        self._meta_params['cache'] = value        
-    
+        self._meta_params['cache'] = value
+
     @property
     def meta_signature(self):
         return ''
-        
-    #Protected
-    
-    _failed_signal_class = FailedVarSignal     
+
+    # Protected
+
+    _failed_signal_class = FailedVarSignal
     _initiated_signal_class = InitiatedVarSignal
     _successed_signal_class = SuccessedVarSignal
