@@ -57,7 +57,10 @@ class ModuleMetaclassTest(unittest.TestCase):
         method, descriptor, abstract_method, abstract_descriptor):
         class MockClass(metaclass=mock_module_metaclass):
             # Public
+            UPPER_ATTR = 'upper_attr'
             meta_attr = 'meta_value'
+            staticmethod_attr = staticmethod(print)
+            classmethod_attr = classmethod(print)
             type_attr = Mock
             attribute_attr = Mock()
             attribute_builder_attr = MagicMock()
