@@ -13,33 +13,33 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.descriptor = property(lambda self: None)
         self.abstract_method = abstractmethod(lambda self: None)
         self.abstract_descriptor = property(abstractmethod(lambda self: None))
-        self.MockMetaclass = self._make_mock_metaclass()
-        self.MockClass = self._make_mock_class(
-            self.MockMetaclass,
+        self.Metaclass = self._make_mock_metaclass()
+        self.Class = self._make_mock_class(
+            self.Metaclass,
             method=self.method,
             descriptor=self.descriptor,
             abstract_method=self.abstract_method,
             abstract_descriptor=self.abstract_descriptor)
 
     def test___new__(self):
-        self.assertEqual(self.MockClass.__name__, 'MockClass')
-        self.assertEqual(self.MockClass.__bases__, (object,))
-        self.assertEqual(self.MockClass._underscore_attr, 'underscore_value')
-        self.assertEqual(self.MockClass.meta_attr, 'meta_value')
-        self.assertEqual(self.MockClass.type_attr, Mock)
-        self.assertIsInstance(self.MockClass.attribute_attr, Mock)
-        self.assertIsInstance(self.MockClass.attribute_builder_attr, MagicMock)
-        self.assertEqual(self.MockClass.abstract_method_attr, self.abstract_method)
-        self.assertEqual(self.MockClass.abstract_descriptor_attr, self.abstract_descriptor)
-        self.assertEqual(self.MockClass.method_attr, 'method_task_attr')
-        self.assertEqual(self.MockClass.descriptor_attr, 'descriptor_var_attr')
-        self.assertEqual(self.MockClass.value_attr, 'value_var_attr')
-        self.MockMetaclass._method_task_class.assert_called_with(self.method)
-        self.MockMetaclass._descriptor_var_class.assert_called_with(self.descriptor)
-        self.MockMetaclass._value_var_class.assert_called_with('value_attr')
+        self.assertEqual(self.Class.__name__, 'MockClass')
+        self.assertEqual(self.Class.__bases__, (object,))
+        self.assertEqual(self.Class._underscore_attr, 'underscore_value')
+        self.assertEqual(self.Class.meta_attr, 'meta_value')
+        self.assertEqual(self.Class.type_attr, Mock)
+        self.assertIsInstance(self.Class.attribute_attr, Mock)
+        self.assertIsInstance(self.Class.attribute_builder_attr, MagicMock)
+        self.assertEqual(self.Class.abstract_method_attr, self.abstract_method)
+        self.assertEqual(self.Class.abstract_descriptor_attr, self.abstract_descriptor)
+        self.assertEqual(self.Class.method_attr, 'method_task_attr')
+        self.assertEqual(self.Class.descriptor_attr, 'descriptor_var_attr')
+        self.assertEqual(self.Class.value_attr, 'value_var_attr')
+        self.Metaclass._method_task_class.assert_called_with(self.method)
+        self.Metaclass._descriptor_var_class.assert_called_with(self.descriptor)
+        self.Metaclass._value_var_class.assert_called_with('value_attr')
 
     def test___copy__(self):
-        self.assertTrue(issubclass(copy(self.MockClass), self.MockClass))
+        self.assertTrue(issubclass(copy(self.Class), self.Class))
 
     # Protected
 
