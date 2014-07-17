@@ -5,7 +5,7 @@ class SubprocessModule(Module):
 
     # Public
 
-    def __init__(self, mapping={}, prefix='', separator=' '):
+    def __init__(self, mapping={}, *, prefix='', separator=' '):
         emapping = self._default_mapping
         emapping.update(mapping)
         for task_name, task_prefix in emapping.items():
