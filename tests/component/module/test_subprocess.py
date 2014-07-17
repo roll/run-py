@@ -32,5 +32,6 @@ class SubprocessModuleTest(unittest.TestCase):
 
     def _make_mock_module_class(self):
         class MockModule(subprocess.SubprocessModule):
+            # Protected
             _default_mapping = {'command0': 'command0'}
         return MockModule
