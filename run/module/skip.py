@@ -1,4 +1,6 @@
-def skip(attribute):
+from box.functools import Decorator
+
+class skip(Decorator):
     """Make attribute to be skipped.
 
     Usage example::
@@ -12,5 +14,9 @@ def skip(attribute):
     In this case method will not be converted to run's attribute and
     will stay as regular python method.
     """
-    setattr(attribute, '__isskippedattribute__', True)
-    return attribute
+
+    attribute_name = '_run_module_skip'
+
+    def __call__(self, attribute):
+        setattr(attribute, self.attribute_name, True)
+        return attribute

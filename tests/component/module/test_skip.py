@@ -9,4 +9,4 @@ class skip_Test(unittest.TestCase):
     def test(self):
         attribute = Mock()
         self.assertEqual(skip(attribute), attribute)
-        self.assertEqual(attribute.__isskippedattribute__, True)
+        self.assertEqual(getattr(attribute, skip.attribute_name), True)

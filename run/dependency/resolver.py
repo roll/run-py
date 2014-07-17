@@ -1,6 +1,6 @@
 import logging
-from box.dependency import inject
 from box.functools import cachedproperty
+from box.importlib import inject
 from abc import ABCMeta, abstractmethod
 
 class Resolver(metaclass=ABCMeta):

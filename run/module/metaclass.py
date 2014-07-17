@@ -4,6 +4,7 @@ from ..attribute import AttributePrototype, AttributeMetaclass, Attribute
 from ..task import MethodTask
 from ..var import ValueVar, DescriptorVar
 from .prototype import ModulePrototype
+from .skip import skip
 
 class ModuleMetaclass(AttributeMetaclass):
 
@@ -29,7 +30,7 @@ class ModuleMetaclass(AttributeMetaclass):
                 continue
             if getattr(attr, '__isabstractmethod__', False):
                 continue
-            if getattr(attr, '__isskippedattribute__', False):
+            if getattr(attr, skip.attribute_name, False):
                 continue
             if callable(attr):
                 attrs[key] = cls._method_task_class(attr)

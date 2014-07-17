@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from box.dependency import inject
+from box.importlib import inject
 from ..attribute import AttributePrototype
 
 class DependencyDecorator(metaclass=ABCMeta):
