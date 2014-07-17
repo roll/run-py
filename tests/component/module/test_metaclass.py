@@ -2,7 +2,7 @@ import unittest
 from copy import copy
 from abc import abstractmethod
 from unittest.mock import Mock, MagicMock
-from run.module.metaclass import ModuleMetaclass
+from run.module.metaclass import ModuleMetaclass, skip
 
 class ModuleMetaclassTest(unittest.TestCase):
 
@@ -48,8 +48,8 @@ class ModuleMetaclassTest(unittest.TestCase):
             # Protected
             _attribute_class = Mock
             _attribute_prototype_class = MagicMock
-            _method_task_class = Mock(return_value='method_task_attr')
             _descriptor_var_class = Mock(return_value='descriptor_var_attr')
+            _method_task_class = Mock(return_value='method_task_attr')
             _value_var_class = Mock(return_value='value_var_attr')
         return MockMetaclass
 
@@ -57,18 +57,19 @@ class ModuleMetaclassTest(unittest.TestCase):
         method, descriptor, abstract_method, abstract_descriptor):
         class MockClass(metaclass=mock_module_metaclass):
             # Public
-            UPPER_ATTR = 'upper_attr'
-            meta_attr = 'meta_value'
-            staticmethod_attr = staticmethod(print)
-            classmethod_attr = classmethod(print)
-            type_attr = Mock
             attribute_attr = Mock()
             attribute_builder_attr = MagicMock()
             abstract_method_attr = abstract_method
             abstract_descriptor_attr = abstract_descriptor
-            method_attr = method
+            classmethod_attr = classmethod(print)
             descriptor_attr = descriptor
+            meta_attr = 'meta_value'
+            method_attr = method
+            skipped_attr = skip(unittest.TestCase())
+            staticmethod_attr = staticmethod(print)
+            type_attr = Mock
             value_attr = 'value_attr'
+            UPPER_ATTR = 'upper_attr'
             # Protected
             _underscore_attr = 'underscore_value'
         return MockClass
