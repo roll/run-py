@@ -3,7 +3,7 @@ from run.var.signal import (InitiatedVarSignal, InitiatedTaskSignal,
                             SuccessedVarSignal, SuccessedTaskSignal,
                             FailedVarSignal, FailedTaskSignal)
 
-class DerivedVarTest(unittest.TestCase):
+class VarSignalTest(unittest.TestCase):
 
     # Public
 
