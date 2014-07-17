@@ -1,5 +1,4 @@
 import unittest
-from copy import copy
 from abc import abstractmethod
 from unittest.mock import Mock, MagicMock
 from run.module.metaclass import ModuleMetaclass, skip
@@ -39,7 +38,8 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.Metaclass._value_var_class.assert_called_with('value_attr')
 
     def test___copy__(self):
-        self.assertTrue(issubclass(copy(self.Class), self.Class))
+        # TODO: add more assertions
+        self.assertTrue(issubclass(self.Class.__copy__(), self.Class))
 
     # Protected
 
