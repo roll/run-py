@@ -15,6 +15,12 @@ class DerivedTaskTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.assertEqual(self.task(*self.args, **self.kwargs), 'value')
 
+    def test_meta_docstring(self):
+        self.assertTrue(self.task.meta_docstring)
+
+    def test_meta_signature(self):
+        self.assertTrue(self.task.meta_signature)
+
     # Protected
 
     def _make_mock_task_class(self):
