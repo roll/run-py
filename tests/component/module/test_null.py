@@ -58,6 +58,10 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_qualname(self):
         self.assertEqual(self.module.meta_qualname, '__main__')
 
+    @patch.object(NullModule, '_default_meta_strict')
+    def test_meta_strict(self, strict):
+        self.assertEqual(self.module.meta_strict, strict)
+
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
 
