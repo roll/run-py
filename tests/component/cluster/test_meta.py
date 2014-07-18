@@ -7,7 +7,7 @@ class MetaConstraintTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.constraint = MetaConstraint(Mock)
+        pass
 
     def test___call__(self):
         pass
