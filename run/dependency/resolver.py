@@ -18,18 +18,18 @@ class Resolver(metaclass=ABCMeta):
         pass  # pragma: no cover
 
     @abstractmethod
-    def enable(self, task):
-        """Enable resolving for task.
+    def enable(self, task_name):
+        """Enable resolving for the task.
 
-        :param str task: task name
+        :param str task_name: task name
         """
         pass  # pragma: no cover
 
     @abstractmethod
-    def disable(self, task):
+    def disable(self, task_name):
         """Disable resolving for task.
 
-        :param str task: task name
+        :param str task_name: task name
         """
         pass  # pragma: no cover
 
@@ -41,17 +41,17 @@ class Resolver(metaclass=ABCMeta):
 
 
 class CommonResolver(Resolver):
-    """Resolver for concrete task.
+    """Resolver for the task.
 
-    :param str task: task name
+    :param str task_name: task name
     :param tuple args: args to be used in task call
     :param dict kwargs: kwargs to be used in task call
     """
 
     # Public
 
-    def __init__(self, task, *args, **kwargs):
-        self._task_name = task
+    def __init__(self, task_name, *args, **kwargs):
+        self._task_name = task_name
         self._args = args
         self._kwargs = kwargs
         self._attribute = None
@@ -79,12 +79,12 @@ class CommonResolver(Resolver):
     def bind(self, attribute):
         self._attribute = attribute
 
-    def enable(self, task):
-        if task == self._task:
+    def enable(self, task_name):
+        if self._task_name == task_name:
             self._enabled = True
 
-    def disable(self, task):
-        if task == self._task:
+    def disable(self, task_name):
+        if self._task_name == task_name:
             self._enabled = False
 
     def resolve(self):
@@ -138,13 +138,13 @@ class NestedResolver(Resolver):
         for resolver in self._resolvers:
             resolver.bind(attribute)
 
-    def enable(self, task):
+    def enable(self, task_name):
         for resolver in self._resolvers:
-            resolver.enable(task)
+            resolver.enable(task_name)
 
-    def disable(self, task):
+    def disable(self, task_name):
         for resolver in self._resolvers:
-            resolver.disable(task)
+            resolver.disable(task_name)
 
     def resolve(self):
         for resolver in self._resolvers:

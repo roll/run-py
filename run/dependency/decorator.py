@@ -3,6 +3,8 @@ from box.importlib import inject
 from ..attribute import AttributePrototype
 
 class DependencyDecorator(metaclass=ABCMeta):
+    """Abstract base class for dependency decorators.
+    """
 
     # Public
 
