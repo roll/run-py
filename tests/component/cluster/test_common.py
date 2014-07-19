@@ -13,7 +13,7 @@ class CommonConstraintTest(unittest.TestCase):
         self.emitter.object = Mock
         self.emitter.module = inspect.getmodule(self.emitter.object)
 
-    def test___call__(self):
+    def test___call__not_skip(self):
         self.constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 

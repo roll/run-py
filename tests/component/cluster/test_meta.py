@@ -7,7 +7,8 @@ class MetaConstraintTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        pass
+        self.constraint = MetaConstraint(['name1, name2'], ['tag1', 'tag2'])
+        self.emitter = Mock()
 
-    def test___call__(self):
+    def test___call___not_skip(self):
         pass
