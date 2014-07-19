@@ -59,15 +59,15 @@ class CommonResolver(Resolver):
 
     def __repr__(self):
         if self._task:
-            result = repr(self._task)
+            result = str(self._task)
             if self._args or self._kwargs:
                 result += '('
                 elements = []
-                for arg in self._args:
-                    element = repr(arg)
+                for value in self._args:
+                    element = repr(value)
                     elements.append(element)
-                for kwarg in self._kwargs.items():
-                    element = '{0}={1}'.format(*kwarg)
+                for key, value in self._kwargs.items():
+                    element = '{0}={1}'.format(str(key), repr(value))
                     elements.append(element)
                 result += ', '.join(elements)
                 result += ')'
