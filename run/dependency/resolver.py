@@ -4,22 +4,41 @@ from box.importlib import inject
 from abc import ABCMeta, abstractmethod
 
 class Resolver(metaclass=ABCMeta):
+    """Resolver representation abstract base class.
+    """
 
     # Public
 
+    def __init__(self):
+        self._attribute = None
+
     def bind(self, attribute):
+        """Bind resolver to attribute.
+
+        :param object attribute: attribute object
+        """
         self._attribute = attribute
 
     @abstractmethod
     def enable(self, task):
+        """Enable resolving for task.
+
+        :param str task: task name
+        """
         pass  # pragma: no cover
 
     @abstractmethod
     def disable(self, task):
+        """Disable resolving for task.
+
+        :param str task: task name
+        """
         pass  # pragma: no cover
 
     @abstractmethod
-    def resolve(self, attribute):
+    def resolve(self):
+        """Resolve itself for bound attribute.
+        """
         pass  # pragma: no cover
 
 
@@ -32,6 +51,7 @@ class CommonResolver(Resolver):
         self._args = args
         self._kwargs = kwargs
         self._enabled = True
+        super().__init__()
 
     def __repr__(self):
         if self._task:
@@ -85,9 +105,9 @@ class CommonResolver(Resolver):
                     return None
         else:
             raise RuntimeError(
-                'Dependency resolver "{resolver}" '
+                'Dependency resolver for "{task_name}" '
                 'is not bound to any attribute'.
-                format(resolver=self))
+                format(task_name=self._task_name))
 
 
 class NestedResolver(Resolver):
@@ -96,6 +116,7 @@ class NestedResolver(Resolver):
 
     def __init__(self, resolvers):
         self._resolvers = resolvers
+        super().__init__()
 
     def __repr__(self):
         elements = []

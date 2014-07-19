@@ -1,12 +1,28 @@
 import unittest
-from run.dependency.resolver import Resolver
+from unittest.mock import Mock
+from run.dependency.resolver import CommonResolver
 
-class ResolverTest(unittest.TestCase):
+class CommonResolverTest(unittest.TestCase):
 
     # Public
 
     def setUp(self):
-        pass
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
+        self.Resolver = self._make_mock_resolver()
+        self.resolver = self.Resolver('task', *self.args, **self.kwargs)
+        self.resolver.bind('attribute')
 
-    def test(self):
-        pass
+    def test___repr__not_bound(self):
+        self.resolver.bind(None)
+        self.assertRaises(RuntimeError, repr, self.resolver)
+
+    # Protected
+
+    def _make_mock_resolver(self):
+        class MockResolver(CommonResolver):
+            # Protected
+            _getattribute = Mock()
+            _task_class = Mock()
+        return MockResolver
+
