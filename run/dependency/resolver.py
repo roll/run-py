@@ -9,15 +9,13 @@ class Resolver(metaclass=ABCMeta):
 
     # Public
 
-    def __init__(self):
-        self._attribute = None
-
+    @abstractmethod
     def bind(self, attribute):
-        """Bind resolver to attribute.
+        """Bind resolver to the attribute.
 
         :param object attribute: attribute object
         """
-        self._attribute = attribute
+        pass  # pragma: no cover
 
     @abstractmethod
     def enable(self, task):
@@ -56,8 +54,8 @@ class CommonResolver(Resolver):
         self._task_name = task
         self._args = args
         self._kwargs = kwargs
+        self._attribute = None
         self._enabled = True
-        super().__init__()
 
     def __repr__(self):
         if self._task:
@@ -78,6 +76,9 @@ class CommonResolver(Resolver):
             return ('<NotExistent "{task_name}">'.
                 format(task_name=self._task_name))
 
+    def bind(self, attribute):
+        self._attribute = attribute
+
     def enable(self, task):
         if task == self._task:
             self._enabled = True
@@ -97,7 +98,7 @@ class CommonResolver(Resolver):
 
     @cachedproperty
     def _task(self):
-        if self._attribute:
+        if self._attribute != None:
             module = self._attribute.meta_module
             try:
                 return self._getattribute(module, self._task_name,
@@ -126,7 +127,6 @@ class NestedResolver(Resolver):
 
     def __init__(self, resolvers):
         self._resolvers = resolvers
-        super().__init__()
 
     def __repr__(self):
         elements = []
