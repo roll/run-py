@@ -21,6 +21,22 @@ class CommonResolverTest(unittest.TestCase):
         self.resolver.bind(None)
         self.assertRaises(RuntimeError, repr, self.resolver)
 
+    def test_enable(self):
+        self.Resolver._task = Mock()
+        self.resolver.disable('task')
+        self.resolver.enable('task')
+        self.resolver.resolve()
+        # Check task call
+        self.assertTrue(self.Resolver._task.called)
+
+    def test_disable(self):
+        self.Resolver._task = Mock()
+        self.resolver.enable('task')
+        self.resolver.disable('task')
+        self.resolver.resolve()
+        # Check task call
+        self.assertFalse(self.Resolver._task.called)
+
     # Protected
 
     def _make_mock_resolver(self):

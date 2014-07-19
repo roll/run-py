@@ -59,6 +59,7 @@ class CommonResolver(Resolver):
 
     def __repr__(self):
         if self._task:
+            # TODO: added label if disabled?
             result = str(self._task)
             if self._args or self._kwargs:
                 result += '('
@@ -88,8 +89,9 @@ class CommonResolver(Resolver):
             self._enabled = False
 
     def resolve(self):
-        if self._task:
-            self._task(*self._args, **self._kwargs)
+        if self._enabled:
+            if self._task:
+                self._task(*self._args, **self._kwargs)
 
     # Protected
 
