@@ -3,6 +3,12 @@ from box.functools import cachedproperty
 from .resolver import Resolver, CommonResolver, NestedResolver
 
 class Dependency(Resolver, metaclass=ABCMeta):
+    """Dependency representation abstract base class.
+
+    :param str/list task: task name/list of task names/list of dependencies
+    :param tuple args: args to be used in task call
+    :param dict kwargs: kwargs to be used in task call
+    """
 
     # Public
 
@@ -18,20 +24,36 @@ class Dependency(Resolver, metaclass=ABCMeta):
             resolver=repr(self._resolver))
 
     def bind(self, attribute):
+        """Bind resolver to attribute.
+
+        :param object attribute: attribute object
+        """
         self._resolver.bind(attribute)
 
     def enable(self, task):
+        """Enable resolving for task.
+
+        :param str task: task name
+        """
         self._resolver.enable(task)
 
     def disable(self, task):
+        """Disable resolving for task.
+
+        :param str task: task name
+        """
         self._resolver.disable(task)
 
     @abstractmethod
     def resolve(self, failed=None):
+        """Resolve itself for bound attribute.
+        """
         pass  # pragma: no cover
 
     @property
     def is_resolved(self):
+        """Resolved or not flag.
+        """
         return self._is_resolved
 
     # Protected

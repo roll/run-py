@@ -43,6 +43,12 @@ class Resolver(metaclass=ABCMeta):
 
 
 class CommonResolver(Resolver):
+    """Resolver for concrete task.
+
+    :param str task: task name
+    :param tuple args: args to be used in task call
+    :param dict kwargs: kwargs to be used in task call
+    """
 
     # Public
 
@@ -111,6 +117,10 @@ class CommonResolver(Resolver):
 
 
 class NestedResolver(Resolver):
+    """Resolver for group of nested resolvers.
+
+    :param list resolvers: nested resolvers
+    """
 
     # Public
 
