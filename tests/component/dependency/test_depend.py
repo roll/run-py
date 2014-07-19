@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from run.dependency.depend import depend
 
 class depend_Test(unittest.TestCase):
