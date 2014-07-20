@@ -24,7 +24,7 @@ class DependencyTest(unittest.TestCase):
 
     def test_bind(self):
         self.dependency.bind('attribute')
-        self.assertEqual(self.dependency._attribute, 'attribute')
+        self.assertEqual(self.dependency.attribute, 'attribute')
 
     def test_enable(self):
         self.dependency.enable()
@@ -44,11 +44,14 @@ class DependencyTest(unittest.TestCase):
         self.dependency._getattribute.return_value.assert_called_with(
             *self.args, **self.kwargs)
 
-    def test_task(self):
-        self.assertEqual(self.dependency.task, 'task')
+    def test_attribute(self):
+        self.assertEqual(self.dependency.attribute, self.attribute)
 
     def test_enabled(self):
         self.assertTrue(self.dependency.enabled)
+
+    def test_task(self):
+        self.assertEqual(self.dependency.task, 'task')
 
     # Protected
 

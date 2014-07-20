@@ -82,16 +82,22 @@ class Dependency(metaclass=ABCMeta):
             self._task_instance(*self._args, **self._kwargs)
 
     @property
-    def task(self):
-        """Dependency's task name.
+    def attribute(self):
+        """Dependency's attribute (if bound or None).
         """
-        return self._task
+        return self._attribute
 
     @property
     def enabled(self):
         """Resolving status (enabled or disabled).
         """
         return self._enabled
+
+    @property
+    def task(self):
+        """Dependency's task name.
+        """
+        return self._task
 
     # Protected
 
