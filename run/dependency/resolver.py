@@ -27,7 +27,7 @@ class Resolver(metaclass=ABCMeta):
 
     @abstractmethod
     def disable(self, task_name):
-        """Disable resolving for task.
+        """Disable resolving for the task.
 
         :param str task_name: task name
         """
@@ -35,7 +35,7 @@ class Resolver(metaclass=ABCMeta):
 
     @abstractmethod
     def resolve(self):
-        """Resolve itself for bound attribute.
+        """Resolve itself based on bound attribute.
         """
         pass  # pragma: no cover
 

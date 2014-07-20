@@ -45,4 +45,3 @@ class CommonResolverTest(unittest.TestCase):
             _getattribute = Mock(return_value='task')
             _task_class = Mock()
         return MockResolver
-
