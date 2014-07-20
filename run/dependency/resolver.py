@@ -103,8 +103,9 @@ class CommonResolver(Resolver):
         if self._attribute != None:
             module = self._attribute.meta_module
             try:
-                return self._getattribute(module, self._task_name,
+                task = self._getattribute(module, self._task_name,
                     category=self._task_class, getvalue=True)
+                return task
             except AttributeError as exception:
                 if self._attribute.meta_strict:
                     raise
