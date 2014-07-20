@@ -37,11 +37,22 @@ class CommonResolverTest(unittest.TestCase):
         # Check task call
         self.assertFalse(self.Resolver._task.called)
 
+    def test_resolve(self):
+        self.resolver.resolve()
+        # Check getattribute call
+        self.resolver._getattribute.assert_called_with(
+            self.attribute.meta_module, 'task',
+            category=self.resolver._task_class, getvalue=True)
+        # Check getattribute return value (task) call
+        self.resolver._getattribute.return_value.assert_called_with(
+            *self.args, **self.kwargs)
+
     # Protected
 
     def _make_mock_resolver(self):
         class MockResolver(CommonResolver):
             # Protected
-            _getattribute = Mock(return_value='task')
+            _getattribute = Mock(return_value=
+                Mock(__repr__=lambda self: 'task'))
             _task_class = Mock()
         return MockResolver
