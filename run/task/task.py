@@ -180,14 +180,14 @@ class Task(Attribute, metaclass=ABCMeta):
         self.depend(dependency)
 
     def enable_dependency(self, task, category=None):
-        """Enable all dependencies for task.
+        """Enable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
             if not category or isinstance(dependency, category):
                 dependency.enable(task)
 
     def disable_dependency(self, task, category=None):
-        """Disable all dependencies for task.
+        """Disable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
             if not category or isinstance(dependency, category):
