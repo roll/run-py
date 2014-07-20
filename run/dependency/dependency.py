@@ -116,6 +116,6 @@ class Dependency(metaclass=ABCMeta):
                     return None
         else:
             raise RuntimeError(
-                'Dependency for "{self.task_name}" '
+                'Dependency for "{self.task}" '
                 'is not bound to any attribute'.
                 format(self=self))
