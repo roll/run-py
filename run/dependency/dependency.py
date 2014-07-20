@@ -69,7 +69,7 @@ class Dependency(Resolver, metaclass=ABCMeta):
         else:
             dependencies = []
             for dependency in self._task:
-                if not isinstance(self._task, type(self)):
+                if not isinstance(dependency, type(self)):
                     dependency = type(self)(
                         dependency, *self._args, **self._kwargs)
                 dependencies.append(dependency)
