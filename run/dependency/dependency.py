@@ -1,5 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
+from box.importlib import inject
+from ..attribute import AttributePrototype
 from .resolver import Resolver, CommonResolver, NestedResolver
 
 class Dependency(Resolver, metaclass=ABCMeta):
@@ -22,6 +24,13 @@ class Dependency(Resolver, metaclass=ABCMeta):
         return '{category} {resolver}'.format(
             category=type(self).__name__,
             resolver=repr(self._resolver))
+
+    def __call__(self, method):
+        prototype = method
+        if not isinstance(method, AttributePrototype):
+            prototype = self._method_task_class(method)
+        prototype.depend(self)
+        return prototype
 
     def bind(self, attribute):
         """Bind dependency to the attribute.
@@ -59,6 +68,7 @@ class Dependency(Resolver, metaclass=ABCMeta):
     # Protected
 
     _common_resolver_class = CommonResolver
+    _method_task_class = inject('MethodTask', module='run.task')
     _nested_resolver_class = NestedResolver
 
     @cachedproperty

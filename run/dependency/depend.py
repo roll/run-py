@@ -1,6 +1,6 @@
-from .decorator import DependencyDecorator
+from box.functools import Decorator
 
-class depend(DependencyDecorator):
+class depend(Decorator):
     """Decorate method to add custom dependency.
 
     Dependency has to be instance of :class:`run.dependency.Dependency`::
@@ -16,9 +16,7 @@ class depend(DependencyDecorator):
     # Public
 
     def __init__(self, dependency):
-        self._dep = dependency
+        self._dependency = dependency
 
-    # Protected
-
-    def _add_dependency(self, prototype):
-        prototype.depend(self._dep)
+    def __call__(self, method):
+        return self._dependency(method)

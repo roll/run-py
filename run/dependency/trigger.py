@@ -1,7 +1,6 @@
-from .decorator import DependencyDecorator
 from .dependency import Dependency
 
-class trigger(DependencyDecorator, Dependency):
+class trigger(Dependency):
     """Decorate method to add trigger dependency.
 
     Usage example::
@@ -28,8 +27,3 @@ class trigger(DependencyDecorator, Dependency):
             if (self._on_success and not failed or
                 self._on_fail and failed):
                 self._resolver.resolve()
-
-    # Protected
-
-    def _add_dependency(self, prototype):
-        prototype.depend(self)

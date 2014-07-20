@@ -14,11 +14,6 @@ Base class
 
 .. autoclass:: run.dependency.Dependency
 
-Base decorator class
---------------------
-
-.. autoclass:: run.dependency.DependencyDecorator
-
 Helper decorators
 -----------------
 
