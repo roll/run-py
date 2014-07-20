@@ -183,15 +183,17 @@ class Task(Attribute, metaclass=ABCMeta):
         """Enable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
-            if not category or isinstance(dependency, category):
-                dependency.enable(task)
+            if category == None or isinstance(dependency, category):
+                if dependency.task == task:
+                    dependency.enable()
 
     def disable_dependency(self, task, category=None):
         """Disable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
-            if not category or isinstance(dependency, category):
-                dependency.disable(task)
+            if category == None or isinstance(dependency, category):
+                if dependency.task == task:
+                    dependency.disable()
 
     def effective_invoke(self, *args, **kwargs):
         """Invoke task with effective dir, args and kwargs.

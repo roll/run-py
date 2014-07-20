@@ -7,7 +7,7 @@ from ..attribute import AttributePrototype
 class Dependency(metaclass=ABCMeta):
     """Dependency representation abstract base class.
 
-    :param str/list task: task name/list of task names/list of dependencies
+    :param task: task name
     :param tuple args: args to be used in task call
     :param dict kwargs: kwargs to be used in task call
     """
@@ -15,7 +15,7 @@ class Dependency(metaclass=ABCMeta):
     # Public
 
     def __init__(self, task, *args, **kwargs):
-        self._task_name = task
+        self._task = task
         self._args = args
         self._kwargs = kwargs
         self._attribute = None
@@ -24,9 +24,9 @@ class Dependency(metaclass=ABCMeta):
     def __repr__(self, action=None):
         if action == None:
             action = type(self).__name__
-        if self._task:
+        if self._task_instance:
             # TODO: added label if not enabled?
-            task = str(self._task)
+            task = str(self._task_instance)
             if self._args or self._kwargs:
                 task += '('
                 elements = []
@@ -57,21 +57,15 @@ class Dependency(metaclass=ABCMeta):
         """
         self._attribute = attribute
 
-    def enable(self, task):
-        """Enable resolving for the task.
-
-        :param str task: task name
+    def enable(self):
+        """Enable resolving.
         """
-        if self._task_name == task:
-            self._enabled = True
+        self._enabled = True
 
-    def disable(self, task):
-        """Disable resolving for the task.
-
-        :param str task: task name
+    def disable(self):
+        """Disable resolving.
         """
-        if self._task_name == task:
-            self._enabled = False
+        self._enabled = False
 
     @abstractmethod
     def resolve(self, failed=None):
@@ -84,12 +78,18 @@ class Dependency(metaclass=ABCMeta):
     def invoke(self):
         """Invoke task if it exists.
         """
-        if self._task:
-            self._task(*self._args, **self._kwargs)
+        if self._task_instance:
+            self._task_instance(*self._args, **self._kwargs)
+
+    @property
+    def task(self):
+        """Dependency's task name.
+        """
+        return self._task
 
     @property
     def enabled(self):
-        """Dependency status flag (enabled or disabled).
+        """Resolving status (enabled or disabled).
         """
         return self._enabled
 
@@ -100,11 +100,11 @@ class Dependency(metaclass=ABCMeta):
     _task_class = inject('Task', module='run.task')
 
     @cachedproperty
-    def _task(self):
+    def _task_instance(self):
         if self._attribute != None:
             module = self._attribute.meta_module
             try:
-                task = self._getattribute(module, self._task_name,
+                task = self._getattribute(module, self._task,
                     category=self._task_class, getvalue=True)
                 return task
             except AttributeError as exception:
