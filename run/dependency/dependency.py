@@ -71,7 +71,7 @@ class Dependency(metaclass=ABCMeta):
     def resolve(self, failed=None):
         """Resolve dependency.
 
-        :param bool failed: triggering task is failed or not
+        :param bool failed: resolve status
         """
         pass  # pragma: no cover
 
