@@ -22,6 +22,10 @@ class DependencyTest(unittest.TestCase):
         self.dependency.bind(None)
         self.assertRaises(RuntimeError, repr, self.dependency)
 
+    def test_bind(self):
+        self.dependency.bind('attribute')
+        self.assertEqual(self.dependency._attribute, 'attribute')
+
     def test_enable(self):
         self.dependency.enable()
         self.assertTrue(self.dependency.enabled)
