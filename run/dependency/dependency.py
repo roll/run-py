@@ -1,8 +1,8 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
-from .resolver import CommonResolver, NestedResolver
+from .resolver import Resolver, CommonResolver, NestedResolver
 
-class Dependency(metaclass=ABCMeta):
+class Dependency(Resolver, metaclass=ABCMeta):
     """Dependency representation abstract base class.
 
     :param str/list task: task name/list of task names/list of dependencies
@@ -31,14 +31,14 @@ class Dependency(metaclass=ABCMeta):
         self._resolver.bind(attribute)
 
     def enable(self, task):
-        """Enable resolving for task.
+        """Enable resolving for the task.
 
         :param str task: task name
         """
         self._resolver.enable(task)
 
     def disable(self, task):
-        """Disable resolving for task.
+        """Disable resolving for the task.
 
         :param str task: task name
         """

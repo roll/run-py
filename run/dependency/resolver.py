@@ -4,7 +4,7 @@ from box.importlib import inject
 from abc import ABCMeta, abstractmethod
 
 class Resolver(metaclass=ABCMeta):
-    """Resolver representation abstract base class.
+    """Resolver interface.
     """
 
     # Public
