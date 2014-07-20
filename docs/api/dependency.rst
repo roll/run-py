@@ -20,12 +20,3 @@ Helper decorators
 .. autoclass:: run.dependency.depend
 .. autoclass:: run.dependency.require
 .. autoclass:: run.dependency.trigger
-     
-Internal
-========
-
-Module’s internal implementation.
-
-.. autoclass:: run.dependency.resolver.Resolver
-.. autoclass:: run.dependency.resolver.CommonResolver
-.. autoclass:: run.dependency.resolver.NestedResolver

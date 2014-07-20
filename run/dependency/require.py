@@ -16,8 +16,13 @@ class require(Dependency):
 
     # Public
 
+    def __init__(self, task, *args, **kwargs):
+        self._is_resolved = False
+        super().__init__(task, *args, **kwargs)
+
     def resolve(self, failed=None):
-        if failed == None:
-            if not self._is_resolved:
-                self._resolver.resolve()
-                self._is_resolved = True
+        if self.enabled:
+            if failed == None:
+                if not self._is_resolved:
+                    self.invoke()
+                    self._is_resolved = True

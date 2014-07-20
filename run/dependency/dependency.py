@@ -1,10 +1,10 @@
+import logging
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
 from box.importlib import inject
 from ..attribute import AttributePrototype
-from .resolver import Resolver, CommonResolver, NestedResolver
 
-class Dependency(Resolver, metaclass=ABCMeta):
+class Dependency(metaclass=ABCMeta):
     """Dependency representation abstract base class.
 
     :param str/list task: task name/list of task names/list of dependencies
@@ -15,15 +15,33 @@ class Dependency(Resolver, metaclass=ABCMeta):
     # Public
 
     def __init__(self, task, *args, **kwargs):
-        self._task = task
+        self._task_name = task
         self._args = args
         self._kwargs = kwargs
-        self._is_resolved = False
+        self._attribute = None
+        self._enabled = True
 
-    def __repr__(self):
-        return '{category} {resolver}'.format(
-            category=type(self).__name__,
-            resolver=repr(self._resolver))
+    def __repr__(self, action=None):
+        if action == None:
+            action = type(self).__name__
+        if self._task:
+            # TODO: added label if not enabled?
+            task = str(self._task)
+            if self._args or self._kwargs:
+                task += '('
+                elements = []
+                for value in self._args:
+                    element = repr(value)
+                    elements.append(element)
+                for key, value in self._kwargs.items():
+                    element = '{0}={1}'.format(str(key), repr(value))
+                    elements.append(element)
+                task += ', '.join(elements)
+                task += ')'
+        else:
+            task = '<NotExistent "{self.task_name}">'.format(self=self)
+        result = '{action} {task}'.format(action=action, task=task)
+        return result
 
     def __call__(self, method):
         prototype = method
@@ -37,51 +55,67 @@ class Dependency(Resolver, metaclass=ABCMeta):
 
         :param object attribute: attribute object
         """
-        self._resolver.bind(attribute)
+        self._attribute = attribute
 
     def enable(self, task):
         """Enable resolving for the task.
 
         :param str task: task name
         """
-        self._resolver.enable(task)
+        if self._task_name == task:
+            self._enabled = True
 
     def disable(self, task):
         """Disable resolving for the task.
 
         :param str task: task name
         """
-        self._resolver.disable(task)
+        if self._task_name == task:
+            self._enabled = False
 
     @abstractmethod
     def resolve(self, failed=None):
-        """Resolve itself for bound attribute.
+        """Resolve dependency.
+
+        :param bool failed: triggering task is failed or not
         """
         pass  # pragma: no cover
 
-    @property
-    def is_resolved(self):
-        """Resolved or not flag.
+    def invoke(self):
+        """Invoke task if it exists.
         """
-        return self._is_resolved
+        if self._task:
+            self._task(*self._args, **self._kwargs)
+
+    @property
+    def enabled(self):
+        """Dependency status flag (enabled or disabled).
+        """
+        return self._enabled
 
     # Protected
 
-    _common_resolver_class = CommonResolver
+    _getattribute = inject('attribute', module='run.module')
     _method_task_class = inject('MethodTask', module='run.task')
-    _nested_resolver_class = NestedResolver
+    _task_class = inject('Task', module='run.task')
 
     @cachedproperty
-    def _resolver(self):
-        if not isinstance(self._task, list):
-            resolver = self._common_resolver_class(
-                self._task, *self._args, **self._kwargs)
+    def _task(self):
+        if self._attribute != None:
+            module = self._attribute.meta_module
+            try:
+                task = self._getattribute(module, self._task_name,
+                    category=self._task_class, getvalue=True)
+                return task
+            except AttributeError as exception:
+                if self._attribute.meta_strict:
+                    raise
+                else:
+                    logger = logging.getLogger(__name__)
+                    logger.warning(str(exception))
+                    return None
         else:
-            dependencies = []
-            for dependency in self._task:
-                if not isinstance(dependency, type(self)):
-                    dependency = type(self)(
-                        dependency, *self._args, **self._kwargs)
-                dependencies.append(dependency)
-            resolver = self._nested_resolver_class(dependencies)
-        return resolver
+            raise RuntimeError(
+                'Dependency for "{self.task_name}" '
+                'is not bound to any attribute'.
+                format(self=self))

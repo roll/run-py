@@ -22,7 +22,8 @@ class trigger(Dependency):
         super().__init__(task, *args, **kwargs)
 
     def resolve(self, failed=None):
-        if failed != None:
-            if (self._on_success and not failed or
-                self._on_fail and failed):
-                self._resolver.resolve()
+        if self.enabled:
+            if failed != None:
+                if (self._on_success and not failed or
+                    self._on_fail and failed):
+                    self.invoke()
