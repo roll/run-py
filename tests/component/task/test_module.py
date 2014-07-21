@@ -18,5 +18,5 @@ class module_Test(unittest.TestCase):
         self.assertEqual(
             self.module.expand(mock_module),
             mock_attr2.return_value)
-        # Check call
+        # Check attribute call
         mock_attr2.assert_called_with(*self.args, **self.kwargs)

@@ -20,10 +20,10 @@ class require_Test(unittest.TestCase):
     def test_resolve_not_enabled(self):
         self.require.disable()
         self.require.resolve()
-        # Check invoke call (NOT)
+        # Check invoke call
         self.assertEqual(self.invoke.call_count, 0)
 
     def test_resolve_failed_not_none(self):
         self.require.resolve(failed='failed')
-        # Check invoke call (NOT)
+        # Check invoke call
         self.assertEqual(self.invoke.call_count, 0)

@@ -75,7 +75,7 @@ class DependencyTest(unittest.TestCase):
         self.assertTrue(getLogger.called)
         # Check getLogger's return value (logger) warning call
         self.assertTrue(getLogger.return_value.warning.called)
-        # Check getattribute's return value (task) NO call
+        # Check getattribute's return value (task) call
         self.assertFalse(self.dependency._getattribute.return_value.called)
 
     def test_invoke_not_bound(self):
