@@ -1,12 +1,9 @@
 import unittest
-from run.settings.settings import Settings
+from run.settings.settings import settings
 
 class SettingsTest(unittest.TestCase):
 
     # Public
 
-    def setUp(self):
-        pass
-
     def test(self):
-        pass
+        self.assertTrue(settings)
