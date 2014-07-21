@@ -24,6 +24,14 @@ class Command(Command):
         return attribute
 
     @property
+    def arguments(self):
+        attribute = self._namespace.attribute
+        arguments = self._namespace.arguments
+        if (self.list or self.info or self.meta) and attribute:
+            arguments = [attribute] + arguments
+        return arguments
+
+    @property
     def args(self):
         return self._parsed_arguments[0]
 
@@ -37,7 +45,7 @@ class Command(Command):
     def _parsed_arguments(self):
         args = []
         kwargs = {}
-        for element in next(csv.reader([''.join(self._arguments)])):
+        for element in next(csv.reader([''.join(self.arguments)])):
             parts = [self._parse_literal(item.strip()) for item in
                      next(csv.reader([element], delimiter='='))]
             if len(parts) == 1:
@@ -45,14 +53,6 @@ class Command(Command):
             elif len(parts) == 2:
                 kwargs[parts[0]] = parts[1]
         return (args, kwargs)
-
-    @property
-    def _arguments(self):
-        attribute = self._namespace.attribute
-        arguments = self._namespace.arguments
-        if (self.list or self.info or self.meta) and attribute:
-            arguments = [attribute] + arguments
-        return arguments
 
     def _parse_literal(self, literal):
         try:
