@@ -24,7 +24,7 @@ class Dependency(metaclass=ABCMeta):
     def __repr__(self, action=None):
         if action == None:
             action = type(self).__name__
-        if self._task_instance:
+        if self._task_instance != None:
             # TODO: added label if not enabled?
             task = str(self._task_instance)
             if self._args or self._kwargs:
@@ -78,7 +78,7 @@ class Dependency(metaclass=ABCMeta):
     def invoke(self):
         """Invoke task if it exists.
         """
-        if self._task_instance:
+        if self._task_instance != None:
             self._task_instance(*self._args, **self._kwargs)
 
     @property

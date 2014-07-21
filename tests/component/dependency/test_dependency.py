@@ -18,10 +18,6 @@ class DependencyTest(unittest.TestCase):
         self.assertEqual(repr(self.dependency),
             "MockDependency task('arg1', kwarg1='kwarg1')")
 
-    def test___repr__not_bound(self):
-        self.dependency.bind(None)
-        self.assertRaises(RuntimeError, repr, self.dependency)
-
     def test_bind(self):
         self.dependency.bind('attribute')
         self.assertEqual(self.dependency.attribute, 'attribute')
@@ -43,6 +39,10 @@ class DependencyTest(unittest.TestCase):
         # Check getattribute return value (task) call
         self.dependency._getattribute.return_value.assert_called_with(
             *self.args, **self.kwargs)
+
+    def test_invoke_not_bound(self):
+        self.dependency.bind(None)
+        self.assertRaises(RuntimeError, self.dependency.invoke)
 
     def test_attribute(self):
         self.assertEqual(self.dependency.attribute, self.attribute)
