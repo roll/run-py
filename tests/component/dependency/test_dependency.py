@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from run.dependency.dependency import Dependency
 
 class DependencyTest(unittest.TestCase):
@@ -48,6 +48,18 @@ class DependencyTest(unittest.TestCase):
     def test_invoke_task_not_existent(self):
         self.dependency._getattribute.side_effect = AttributeError()
         self.assertRaises(AttributeError, self.dependency.invoke)
+
+    @patch('logging.getLogger')
+    def test_invoke_task_not_existent_and_strict_is_false(self, getLogger):
+        self.attribute.meta_strict = False
+        self.dependency._getattribute.side_effect = AttributeError()
+        self.dependency.invoke()
+        # Check getLogger call
+        self.assertTrue(getLogger.called)
+        # Check getLogger's return value (logger) warning call
+        self.assertTrue(getLogger.return_value.warning.called)
+        # Check getattribute's return value (task) NO call
+        self.assertFalse(self.dependency._getattribute.return_value.called)
 
     def test_invoke_not_bound(self):
         self.dependency.bind(None)
