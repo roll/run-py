@@ -45,7 +45,7 @@ class Dependency(metaclass=ABCMeta):
 
     def __call__(self, method):
         prototype = method
-        if not isinstance(method, AttributePrototype):
+        if not isinstance(method, self._attribute_prototype_class):
             prototype = self._method_task_class(method)
         prototype.depend(self)
         return prototype
@@ -101,6 +101,7 @@ class Dependency(metaclass=ABCMeta):
 
     # Protected
 
+    _attribute_prototype_class = AttributePrototype
     _getattribute = inject('attribute', module='run.module')
     _method_task_class = inject('MethodTask', module='run.task')
     _task_class = inject('Task', module='run.task')

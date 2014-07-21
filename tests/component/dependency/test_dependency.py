@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import MagicMock, Mock, patch
 from run.dependency.dependency import Dependency
 
 class DependencyTest(unittest.TestCase):
@@ -22,6 +22,23 @@ class DependencyTest(unittest.TestCase):
         self.dependency._getattribute.return_value = None
         self.assertEqual(repr(self.dependency),
             'MockDependency <NotExistent "task">')
+
+    def test___call__(self):
+        method = Mock()
+        self.assertEqual(
+            self.dependency(method),
+            self.dependency._method_task_class.return_value)
+        # Check MethodTask call
+        self.dependency._method_task_class.assert_called_with(method)
+        # Check MethodTask's return_value (prototype) depend call
+        prototype = self.dependency._method_task_class.return_value
+        prototype.depend.assert_called_with(self.dependency)
+
+    def test___call___method_is_prototype(self):
+        prototype = MagicMock()
+        self.assertEqual(self.dependency(prototype), prototype)
+        # Check prototype call
+        prototype.depend.assert_called_with(self.dependency)
 
     def test_bind(self):
         self.dependency.bind('attribute')
@@ -81,8 +98,9 @@ class DependencyTest(unittest.TestCase):
             # Public
             resolve = Mock()
             # Protected
+            _attribute_prototype_class = MagicMock
             _getattribute = Mock(return_value=
                 Mock(__repr__=lambda self: 'task'))
-            _method_task_class = Mock
-            _task_class = Mock
+            _method_task_class = Mock()
+            _task_class = Mock()
         return MockDependency
