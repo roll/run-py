@@ -18,6 +18,11 @@ class DependencyTest(unittest.TestCase):
         self.assertEqual(repr(self.dependency),
             "MockDependency task('arg1', kwarg1='kwarg1')")
 
+    def test___repr___task_not_existent(self):
+        self.dependency._getattribute.return_value = None
+        self.assertEqual(repr(self.dependency),
+            'MockDependency <NotExistent "task">')
+
     def test_bind(self):
         self.dependency.bind('attribute')
         self.assertEqual(self.dependency.attribute, 'attribute')

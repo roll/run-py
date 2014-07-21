@@ -39,7 +39,7 @@ class Dependency(metaclass=ABCMeta):
                 task += ', '.join(elements)
                 task += ')'
         else:
-            task = '<NotExistent "{self.task_name}">'.format(self=self)
+            task = '<NotExistent "{self.task}">'.format(self=self)
         result = '{action} {task}'.format(action=action, task=task)
         return result
 
