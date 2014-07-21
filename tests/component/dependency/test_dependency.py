@@ -45,6 +45,10 @@ class DependencyTest(unittest.TestCase):
         self.dependency._getattribute.return_value.assert_called_with(
             *self.args, **self.kwargs)
 
+    def test_invoke_task_not_existent(self):
+        self.dependency._getattribute.side_effect = AttributeError()
+        self.assertRaises(AttributeError, self.dependency.invoke)
+
     def test_invoke_not_bound(self):
         self.dependency.bind(None)
         self.assertRaises(RuntimeError, self.dependency.invoke)
