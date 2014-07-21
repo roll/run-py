@@ -1,10 +1,10 @@
 import os
 import inspect
 from copy import copy
+from box.importlib import inject
 from contextlib import contextmanager
 from abc import ABCMeta, abstractmethod
 from ..attribute import Attribute
-from ..dependency import require, trigger
 from .module import module
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
@@ -17,8 +17,8 @@ class Task(Attribute, metaclass=ABCMeta):
         self._meta_kwargs = {}
         self._meta_dependencies = []
         self._add_dependencies(kwargs.pop('depend', []))
-        self._add_dependencies(kwargs.pop('require', []), require)
-        self._add_dependencies(kwargs.pop('trigger', []), trigger)
+        self._add_dependencies(kwargs.pop('require', []), self._require)
+        self._add_dependencies(kwargs.pop('trigger', []), self._trigger)
         self._initial_dir = os.path.abspath(os.getcwd())
         super().__build__(module, *args, **kwargs)
 
@@ -170,13 +170,13 @@ class Task(Attribute, metaclass=ABCMeta):
     def require(self, task, *args, **kwargs):
         """Add require dependency.
         """
-        dependency = require(task, *args, **kwargs)
+        dependency = self._require(task, *args, **kwargs)
         self.depend(dependency)
 
     def trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
         """
-        dependency = trigger(task, *args, **kwargs)
+        dependency = self._trigger(task, *args, **kwargs)
         self.depend(dependency)
 
     def enable_dependency(self, task, category=None):
@@ -214,6 +214,8 @@ class Task(Attribute, metaclass=ABCMeta):
     _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
     _successed_signal_class = SuccessedTaskSignal
+    _require = inject('require', module='run.dependency')
+    _trigger = inject('trigger', module='run.dependency')
 
     def _add_dependencies(self, container, category=None):
         for dependency in container:
