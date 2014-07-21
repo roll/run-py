@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from run.dependency.require import require
 
 class require_Test(unittest.TestCase):
@@ -7,11 +7,22 @@ class require_Test(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.addCleanup(patch.stopall)
-        self.MethodTask = patch.object(require, '_method_task_class').start()
-
-    def test___call__(self):
-        pass
+        self.require = require('task')
+        self.require.invoke = Mock()
 
     def test_resolve(self):
-        pass
+        self.require.resolve()
+        self.require.resolve()
+        # Check invoke call
+        self.assertEqual(self.require.invoke.call_count, 1)
+
+    def test_resolve_not_enabled(self):
+        self.require.disable()
+        self.require.resolve()
+        # Check invoke call
+        self.assertEqual(self.require.invoke.call_count, 0)
+
+    def test_resolve_failed(self):
+        self.require.resolve(failed=True)
+        # Check invoke call
+        self.assertEqual(self.require.invoke.call_count, 0)
