@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, ANY
 from run.cluster.find import find
 
 class find_Test(unittest.TestCase):
@@ -10,20 +10,49 @@ class find_Test(unittest.TestCase):
         self.find = self._make_mock_find()
 
     def test(self):
-        list(self.find(
-            names='names',
-            tags='tags',
-            file='file',
-            exclude='exclude',
-            basedir='basedir',
-            recursively='recursively'))
-        self.find._find_files.assert_called_with(
+        result = self.find()
+        self.assertEqual(result, self.find._find_objects.return_value)
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
+            filename='default_file',
+            notfilename='default_exclude',
             filepath=None,
             notfilepath=None,
+            maxdepth=None,
+            mappers=ANY,
+            getfirst_exception=self.find._getfirst_exception)
+
+    def test_with_filenames(self):
+        self.find(
+            file='file',
+            exclude='exclude')
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
             filename='file',
             notfilename='exclude',
-            basedir='basedir',
-            maxdepth=None)
+            filepath=None,
+            notfilepath=None,
+            maxdepth=None,
+            mappers=ANY,
+            getfirst_exception=self.find._getfirst_exception)
+
+    def test_with_filepathes_not_recursively(self):
+        self.find(
+            file='dir/file',
+            exclude='dir/exclude',
+            recursively=False)
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
+            filename=None,
+            notfilename=None,
+            filepath='dir/file',
+            notfilepath='dir/exclude',
+            maxdepth=1,
+            mappers=ANY,
+            getfirst_exception=self.find._getfirst_exception)
 
     # Protected
 
@@ -37,7 +66,5 @@ class find_Test(unittest.TestCase):
             default_recursively = 'default_recursively'
             default_tags = 'default_tags'
             # Protected
-            _find_files = Mock(return_value=['file1', 'file2'])
-            _loader_class = Mock(return_value=Mock(
-                load_module=Mock(return_value=unittest.mock)))
+            _find_objects = Mock()
         return mock_find
