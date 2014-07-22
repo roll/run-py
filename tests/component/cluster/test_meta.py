@@ -27,7 +27,6 @@ class MetaConstraintTest(unittest.TestCase):
         self.emitter.object.meta_tags = ['tag1', 'tag3']
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
-        self.assertTrue(self.emitter.skip.called)
 
     def test___call___skip_tags_is_descriptor(self):
         self.emitter.object.meta_name = 'name1'

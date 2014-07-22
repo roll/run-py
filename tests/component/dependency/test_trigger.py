@@ -13,33 +13,27 @@ class trigger_Test(unittest.TestCase):
 
     def test_resolve(self):
         self.trigger.resolve()
-        # Check invoke call
         self.assertEqual(self.invoke.call_count, 0)
 
     def test_resolve_not_enabled(self):
         self.trigger.disable()
         self.trigger.resolve()
-        # Check invoke call
         self.assertEqual(self.invoke.call_count, 0)
 
     def test_resolve_failed_is_false(self):
         self.trigger.resolve(failed=False)
-        # Check invoke call
         self.assertEqual(self.invoke.call_count, 1)
 
     def test_resolve_failed_is_false_and_on_success_is_false(self):
         self.trigger = trigger('task', on_success=False)
         self.trigger.resolve(failed=False)
-        # Check invoke call
         self.assertEqual(self.invoke.call_count, 0)
 
     def test_resolve_failed_is_true(self):
         self.trigger.resolve(failed=True)
-        # Check invoke call
         self.assertEqual(self.invoke.call_count, 0)
 
     def test_resolve_failed_is_true_and_on_fail_is_true(self):
         self.trigger = trigger('task', on_fail=True)
         self.trigger.resolve(failed=True)
-        # Check invoke call
         self.assertEqual(self.invoke.call_count, 1)
