@@ -164,7 +164,25 @@ class ModuleTest(unittest.TestCase):
     def test_info(self):
         self.module.info()
         # Check print call
-        self.assertTrue(self.module._print.called)
+        self.module._print.assert_called_once_with(
+            '__main__\n'
+            '---\n'
+            'Type: MockModule\n'
+            '---\n'
+            'docstring')
+
+    def test_info_with_attribute_is_task(self):
+        self.module.info('info')
+        # Check print call
+        self.module._print.assert_called_once_with(
+            'info(attribute=None)\n'
+            '---\n'
+            'Type: MethodTask\n'
+            'Dependencies: []\n'
+            'Default arguments: ()\n'
+            'Default keyword arguments: {}\n'
+            '---\n'
+            'Print information.')
 
     def test_meta(self):
         self.module.meta()
