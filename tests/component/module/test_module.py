@@ -23,6 +23,16 @@ class ModuleTest(unittest.TestCase):
         self.assertRaises(AttributeError, getattr, self.module, 'no_attr')
         self.assertRaises(AttributeError, getattr, self.module, 'no_attr.req')
 
+    def test___call__(self):
+        args = ('arg1',)
+        kwargs = {'kwarg1': 'kwarg1'}
+        self.Module.default = Mock()
+        self.assertEqual(
+            self.module(*args, **kwargs),
+            self.module.default.return_value)
+        # Check default call
+        self.module.default.assert_called_with(*args, **kwargs)
+
     def test_meta_attributes(self):
         self.assertEqual(sorted(self.module.meta_attributes),
             ['attr1', 'default', 'info', 'list', 'meta'])
