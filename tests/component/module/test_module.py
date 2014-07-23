@@ -7,6 +7,8 @@ class ModuleTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.ParentModule = self._make_mock_parent_module_class()
+        self.parent_module = self.ParentModule()
         self.Module = self._make_mock_module_class()
         self.module = self.Module(meta_module=None)
 
@@ -41,6 +43,10 @@ class ModuleTest(unittest.TestCase):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
+    def test_meta_basedir_with_parent_module(self):
+        self.module = self.Module(meta_module=self.parent_module)
+        self.assertEqual(self.module.meta_basedir, 'basedir')
+
     def test_meta_dispatcher(self):
         self.assertEqual(self.module.meta_dispatcher,
                          self.module.meta_module.meta_dispatcher)
@@ -51,8 +57,16 @@ class ModuleTest(unittest.TestCase):
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
 
+    def test_meta_is_main_module_with_parent_module(self):
+        self.module = self.Module(meta_module=self.parent_module)
+        self.assertFalse(self.module.meta_is_main_module)
+
     def test_meta_main_module(self):
         self.assertIs(self.module.meta_main_module, self.module)
+
+    def test_meta_main_module_with_parent_module(self):
+        self.module = self.Module(meta_module=self.parent_module)
+        self.assertIs(self.module.meta_main_module, self.parent_module)
 
     def test_meta_module(self):
         # NullModule
@@ -62,8 +76,18 @@ class ModuleTest(unittest.TestCase):
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, '__main__')
 
+    def test_meta_name_with_parent_module(self):
+        self.module = self.Module(meta_module=self.parent_module)
+        self.parent_module.meta_attributes = {'module': self.module}
+        self.assertEqual(self.module.meta_name, 'module')
+
     def test_meta_qualname(self):
         self.assertEqual(self.module.meta_qualname, '__main__')
+
+    def test_meta_qualname_with_parent_module(self):
+        self.module = self.Module(meta_module=self.parent_module)
+        self.parent_module.meta_attributes = {'module': self.module}
+        self.assertEqual(self.module.meta_qualname, '[parent_module] module')
 
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
@@ -73,6 +97,7 @@ class ModuleTest(unittest.TestCase):
 
     def test_list(self):
         self.module.list()
+        # Check print call
         self.module._print.assert_has_calls([
             call('attr1'),
             call('default'),
@@ -80,15 +105,52 @@ class ModuleTest(unittest.TestCase):
             call('list'),
             call('meta')])
 
+    def test_list_with_parent_module(self):
+        # We have to recreate class for builtin tasks
+        self.Module = self._make_mock_module_class()
+        self.module = self.Module(
+            meta_module=self.parent_module,
+            meta_chdir=False,
+            meta_fallback=None)
+        self.parent_module.meta_attributes = {'module': self.module}
+        self.module.list()
+        # Check print call
+        self.module._print.assert_has_calls([
+            call('[parent_module] module.attr1'),
+            call('[parent_module] module.default'),
+            call('[parent_module] module.info'),
+            call('[parent_module] module.list'),
+            call('[parent_module] module.meta')])
+
     def test_info(self):
         self.module.info()
+        # Check print call
         self.assertTrue(self.module._print.called)
 
     def test_meta(self):
         self.module.meta()
+        # Check print call
         self.assertTrue(self.module._pprint.called)
 
     # Protected
+
+    def _make_mock_parent_module_class(self):
+        class MockParentModule:
+            # Public
+            meta_attributes = {}
+            meta_basedir = 'basedir'
+            meta_cache = 'cache'
+            meta_chdir = 'chdir'
+            meta_fallback = 'fallback'
+            meta_dispatcher = Mock(add_signal=Mock())
+            meta_is_main_module = True
+            meta_name = 'parent_module'
+            meta_qualname = 'parent_module'
+            meta_strict = 'strict'
+            @property
+            def meta_main_module(self):
+                return self
+        return MockParentModule
 
     def _make_mock_module_class(self):
         class MockModule(Module):
@@ -100,62 +162,3 @@ class ModuleTest(unittest.TestCase):
             _print = Mock()
             _pprint = Mock()
         return MockModule
-
-
-class ModuleTest_with_module_is_main(ModuleTest):
-
-    # Public
-
-    def setUp(self):
-        self.Module = self._make_mock_module_class()
-        self.MainModule = self._make_mock_main_module_class()
-        self.main_module = self.MainModule()
-        self.module = self.Module(meta_module=self.main_module)
-        self.main_module.meta_attributes = {'module': self.module}
-
-    def test_meta_basedir(self):
-        self.assertRegex(self.module.meta_basedir, '.')
-
-    def test_meta_is_main_module(self):
-        self.assertFalse(self.module.meta_is_main_module)
-
-    def test_meta_main_module(self):
-        self.assertIs(self.module.meta_main_module, self.main_module)
-
-    def test_meta_module(self):
-        self.assertEqual(self.module.meta_module, self.main_module)
-
-    def test_meta_name(self):
-        self.assertEqual(self.module.meta_name, 'module')
-
-    def test_meta_qualname(self):
-        self.assertEqual(self.module.meta_qualname, '[main_module] module')
-
-    def test_list(self):
-        self.module.list()
-        self.module._print.assert_has_calls([
-            call('[main_module] module.attr1'),
-            call('[main_module] module.default'),
-            call('[main_module] module.info'),
-            call('[main_module] module.list'),
-            call('[main_module] module.meta')])
-
-    # Protected
-
-    def _make_mock_main_module_class(self):
-        class MockMainModule:
-            # Public
-            meta_attributes = {}
-            meta_basedir = '.'
-            meta_cache = None
-            meta_chdir = None
-            meta_fallback = None
-            meta_dispatcher = Mock(add_signal=Mock())
-            meta_is_main_module = True
-            meta_name = 'main_module'
-            meta_qualname = 'main_module'
-            meta_strict = None
-            @property
-            def meta_main_module(self):
-                return self
-        return MockMainModule
