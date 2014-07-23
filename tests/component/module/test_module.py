@@ -171,6 +171,11 @@ class ModuleTest(unittest.TestCase):
         # Check print call
         self.assertTrue(self.module._pprint.called)
 
+    def test_meta_with_attribute(self):
+        self.module.meta('meta')
+        # Check print call
+        self.assertTrue(self.module._pprint.called)
+
     # Protected
 
     def _make_mock_parent_module_class(self):
