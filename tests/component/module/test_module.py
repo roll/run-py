@@ -43,6 +43,10 @@ class ModuleTest(unittest.TestCase):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
+    def test_meta_basedir_setter(self):
+        self.module.meta_basedir = 'basedir'
+        self.assertEqual(self.module.meta_basedir, 'basedir')
+
     def test_meta_basedir_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
         self.assertEqual(self.module.meta_basedir, 'basedir')
