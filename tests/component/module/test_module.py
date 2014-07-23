@@ -55,7 +55,7 @@ class ModuleTest(unittest.TestCase):
         self.assertIs(self.module.meta_main_module, self.module)
 
     def test_meta_module(self):
-        # Null module
+        # NullModule
         self.assertNotEqual(self.module.meta_module, None)
         self.assertFalse(self.module.meta_module)
 
