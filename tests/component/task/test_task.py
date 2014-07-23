@@ -77,6 +77,14 @@ class TaskTest(unittest.TestCase):
         self.task.meta_signature = 'signature'
         self.assertEqual(self.task.meta_signature, 'signature')
 
+    def test_meta_strict(self):
+        self.assertEqual(self.task.meta_strict,
+                         self.task.meta_module.meta_strict)
+
+    def test_meta_strict_setter(self):
+        self.task.meta_strict = 'strict'
+        self.assertEqual(self.task.meta_strict, 'strict')
+
     # Protected
 
     def _make_mock_task_class(self):
