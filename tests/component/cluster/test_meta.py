@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch, ANY
 from run.cluster.meta import MetaConstraint
 
 class MetaConstraintTest(unittest.TestCase):
@@ -16,11 +16,14 @@ class MetaConstraintTest(unittest.TestCase):
         self.constraint(self.emitter)
         self.assertFalse(self.emitter.skip.called)
 
-    def test___call___skip_name_is_descriptor(self):
+    @patch('logging.getLogger')
+    def test___call___skip_name_is_descriptor(self, getLogger):
         self.emitter.object.meta_name = property(lambda self: self)
         self.emitter.object.meta_tags = ['tag1', 'tag3']
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
+        # Check logger warning call
+        getLogger.return_value.warning.assert_called_with(ANY)
 
     def test___call___skip_name_does_not_match(self):
         self.emitter.object.meta_name = 'name3'

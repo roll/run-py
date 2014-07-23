@@ -27,7 +27,7 @@ class MetaConstraint:
         is_descriptor = False
         if inspect.isdatadescriptor(getattr(obj, name)):
             is_descriptor = True
-            if name in vars(object):
+            if name in vars(obj):
                 logging.getLogger(__name__).warning(
                     'Module class {obj} skipped because "{name}" '
                     'is not a static attribute (required for filter)'.
