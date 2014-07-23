@@ -74,6 +74,14 @@ class ModuleTest(unittest.TestCase):
     def test_meta_docstring(self):
         self.assertEqual(self.module.meta_docstring, 'docstring')
 
+    def test_meta_fallback(self):
+        self.assertEqual(self.module.meta_fallback,
+                         self.module.meta_module.meta_fallback)
+
+    def test_meta_fallback_setter(self):
+        self.module.meta_fallback = 'fallback'
+        self.assertEqual(self.module.meta_fallback, 'fallback')
+
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
 
