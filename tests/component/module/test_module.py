@@ -59,6 +59,14 @@ class ModuleTest(unittest.TestCase):
         self.module.meta_cache = 'cache'
         self.assertEqual(self.module.meta_cache, 'cache')
 
+    def test_meta_chdir(self):
+        self.assertEqual(self.module.meta_chdir,
+                         self.module.meta_module.meta_chdir)
+
+    def test_meta_chdir_setter(self):
+        self.module.meta_chdir = 'chdir'
+        self.assertEqual(self.module.meta_chdir, 'chdir')
+
     def test_meta_dispatcher(self):
         self.assertEqual(self.module.meta_dispatcher,
                          self.module.meta_module.meta_dispatcher)
