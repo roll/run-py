@@ -128,6 +128,22 @@ class TaskTest(unittest.TestCase):
         # Check dependency enable call
         self.assertFalse(dependency.enable.called)
 
+    def test_disable_dependency(self):
+        dependency = Mock()
+        dependency.task = 'task'
+        self.task.depend(dependency)
+        self.task.disable_dependency('task', category=Mock)
+        # Check dependency disable call
+        self.assertTrue(dependency.disable.called)
+
+    def test_disable_dependency_with_different_task(self):
+        dependency = Mock()
+        dependency.task = 'task'
+        self.task.depend(dependency)
+        self.task.disable_dependency('different_task', category=Mock)
+        # Check dependency disable call
+        self.assertFalse(dependency.disable.called)
+
     # Protected
 
     def _make_mock_task_class(self):
