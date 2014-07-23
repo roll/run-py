@@ -73,6 +73,10 @@ class TaskTest(unittest.TestCase):
     def test_meta_signature(self):
         self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
 
+    def test_meta_signature_setter(self):
+        self.task.meta_signature = 'signature'
+        self.assertEqual(self.task.meta_signature, 'signature')
+
     # Protected
 
     def _make_mock_task_class(self):
