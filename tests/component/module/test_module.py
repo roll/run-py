@@ -43,13 +43,21 @@ class ModuleTest(unittest.TestCase):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
+    def test_meta_basedir_with_parent_module(self):
+        self.module = self.Module(meta_module=self.parent_module)
+        self.assertEqual(self.module.meta_basedir, 'basedir')
+
     def test_meta_basedir_setter(self):
         self.module.meta_basedir = 'basedir'
         self.assertEqual(self.module.meta_basedir, 'basedir')
 
-    def test_meta_basedir_with_parent_module(self):
-        self.module = self.Module(meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_basedir, 'basedir')
+    def test_meta_cache(self):
+        self.assertEqual(self.module.meta_cache,
+                         self.module.meta_module.meta_cache)
+
+    def test_meta_cache_setter(self):
+        self.module.meta_cache = 'cache'
+        self.assertEqual(self.module.meta_cache, 'cache')
 
     def test_meta_dispatcher(self):
         self.assertEqual(self.module.meta_dispatcher,
