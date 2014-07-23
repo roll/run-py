@@ -92,6 +92,16 @@ class TaskTest(unittest.TestCase):
         # Check dependency's bind call
         dependency.bind.assert_called_with(self.task)
 
+    def test_require(self):
+        self.task.require('task', *self.args, **self.kwargs)
+        self.assertEqual(
+            self.task.meta_dependencies, [self.task._require.return_value])
+        # Check require call
+        self.task._require.assert_called_with(
+            'task', *self.args, **self.kwargs)
+        # Check require's return_value bind call
+        self.task._require.return_value.bind.assert_called_with(self.task)
+
     # Protected
 
     def _make_mock_task_class(self):
@@ -102,4 +112,6 @@ class TaskTest(unittest.TestCase):
             # Protected
             _initiated_signal_class = Mock(return_value='initiated_signal')
             _successed_signal_class = Mock(return_value='successed_signal')
+            _require = Mock()
+            _trigger = Mock()
         return MockTask
