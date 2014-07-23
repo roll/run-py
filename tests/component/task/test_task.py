@@ -52,6 +52,13 @@ class TaskTest(unittest.TestCase):
         self.task.meta_chdir = 'chdir'
         self.assertEqual(self.task.meta_chdir, 'chdir')
 
+    def test_meta_dependencies(self):
+        dependency = Mock()
+        task = self.pTask(depend=[dependency])
+        self.assertEqual(task.meta_dependencies, [dependency])
+        # Check dependency's bind call
+        dependency.bind.assert_called_with(task)
+
     def test_meta_kwargs(self):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)
 
