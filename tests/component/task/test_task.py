@@ -85,6 +85,13 @@ class TaskTest(unittest.TestCase):
         self.task.meta_strict = 'strict'
         self.assertEqual(self.task.meta_strict, 'strict')
 
+    def test_depend(self):
+        dependency = Mock()
+        self.task.depend(dependency)
+        self.assertEqual(self.task.meta_dependencies, [dependency])
+        # Check dependency's bind call
+        dependency.bind.assert_called_with(self.task)
+
     # Protected
 
     def _make_mock_task_class(self):
