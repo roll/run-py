@@ -117,6 +117,14 @@ class ModuleTest(unittest.TestCase):
         self.parent_module.meta_attributes = {'module': self.module}
         self.assertEqual(self.module.meta_qualname, '[parent_module] module')
 
+    def test_meta_strict(self):
+        self.assertEqual(self.module.meta_strict,
+                         self.module.meta_module.meta_strict)
+
+    def test_meta_strict_setter(self):
+        self.module.meta_strict = 'strict'
+        self.assertEqual(self.module.meta_strict, 'strict')
+
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
 
