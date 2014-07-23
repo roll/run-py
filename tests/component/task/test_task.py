@@ -59,6 +59,14 @@ class TaskTest(unittest.TestCase):
         # Check dependency's bind call
         dependency.bind.assert_called_with(task)
 
+    def test_meta_fallback(self):
+        self.assertEqual(self.task.meta_fallback,
+                         self.task.meta_module.meta_fallback)
+
+    def test_meta_fallback_setter(self):
+        self.task.meta_fallback = 'fallback'
+        self.assertEqual(self.task.meta_fallback, 'fallback')
+
     def test_meta_kwargs(self):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)
 
