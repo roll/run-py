@@ -102,6 +102,16 @@ class TaskTest(unittest.TestCase):
         # Check require's return_value bind call
         self.task._require.return_value.bind.assert_called_with(self.task)
 
+    def test_trigger(self):
+        self.task.trigger('task', *self.args, **self.kwargs)
+        self.assertEqual(
+            self.task.meta_dependencies, [self.task._trigger.return_value])
+        # Check trigger call
+        self.task._trigger.assert_called_with(
+            'task', *self.args, **self.kwargs)
+        # Check trigger's return_value bind call
+        self.task._trigger.return_value.bind.assert_called_with(self.task)
+
     # Protected
 
     def _make_mock_task_class(self):
