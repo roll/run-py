@@ -195,7 +195,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def list(self, attribute=None):
         """Print attributes.
         """
-        if attribute:
+        if attribute != None:
             attribute = getattr(self, attribute)
         else:
             attribute = self
@@ -213,7 +213,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def info(self, attribute=None):
         """Print information.
         """
-        if attribute:
+        if attribute != None:
             attribute = getattr(self, attribute)
         else:
             attribute = self
@@ -236,7 +236,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def meta(self, attribute=None):
         """Print metadata.
         """
-        if attribute:
+        if attribute != None:
             attribute = getattr(self, attribute)
         else:
             attribute = self
