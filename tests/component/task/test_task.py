@@ -8,9 +8,11 @@ class TaskTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
         self.MockTask = self._make_mock_task_class()
-        self.ptask = partial(self.MockTask, meta_module=None)
-        self.task = self.ptask()
+        self.pTask = partial(self.MockTask, meta_module=None)
+        self.task = self.pTask(*self.args, **self.kwargs)
 
     def test___get__(self):
         self.assertEqual(self.task.__get__('module'), self.task)
@@ -25,11 +27,14 @@ class TaskTest(unittest.TestCase):
 
     def test___call__(self):
         self.assertEqual(self.task.__call__(), 'value')
-        self.task.invoke.assert_called_with()
+        self.task.invoke.assert_called_with(*self.args, **self.kwargs)
         self.task._initiated_signal_class.assert_called_with(self.task)
         self.task._successed_signal_class.assert_called_with(self.task)
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('successed_signal')])
+
+    def test_meta_args(self):
+        self.assertEqual(self.task.meta_args, self.args)
 
     def test_meta_basedir(self):
         self.assertEqual(self.task.meta_basedir,
@@ -46,6 +51,9 @@ class TaskTest(unittest.TestCase):
     def test_meta_chdir_setter(self):
         self.task.meta_chdir = 'chdir'
         self.assertEqual(self.task.meta_chdir, 'chdir')
+
+    def test_meta_kwargs(self):
+        self.assertEqual(self.task.meta_kwargs, self.kwargs)
 
     def test_meta_signature(self):
         self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
