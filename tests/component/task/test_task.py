@@ -45,10 +45,14 @@ class TaskTest(unittest.TestCase):
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('failed_signal')])
 
-    def test___call___with_invoke_exception_and_fallback(self):
+    def test___call___with_invoke_exception_and_meta_fallback(self):
         self.task.invoke.side_effect = Exception()
         self.task.meta_fallback = 'fallback'
         self.assertEqual(self.task(), 'fallback')
+
+    def test___call___with_meta_chdir_is_false(self):
+        self.task.meta_chdir = False
+        self.assertEqual(self.task(), self.task.invoke.return_value)
 
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
