@@ -26,12 +26,24 @@ class TaskTest(unittest.TestCase):
         self.assertRaises(TypeError, self.task.__set__, 'module', 'value')
 
     def test___call__(self):
-        self.assertEqual(self.task.__call__(), self.task.invoke.return_value)
+        self.assertEqual(self.task(), self.task.invoke.return_value)
         self.task.invoke.assert_called_with(*self.args, **self.kwargs)
+        # Check signal call
         self.task._initiated_signal_class.assert_called_with(self.task)
         self.task._successed_signal_class.assert_called_with(self.task)
+        # Check dispatcher call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('successed_signal')])
+
+    def test___call___with_invoke_exception(self):
+        self.task.invoke.side_effect = Exception()
+        self.assertRaises(Exception, self.task)
+        # Check signal call
+        self.task._initiated_signal_class.assert_called_with(self.task)
+        self.task._failed_signal_class.assert_called_with(self.task)
+        # Check dispatcher call
+        self.task.meta_dispatcher.add_signal.assert_has_calls(
+            [call('initiated_signal'), call('failed_signal')])
 
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
@@ -154,6 +166,7 @@ class TaskTest(unittest.TestCase):
             # Protected
             _initiated_signal_class = Mock(return_value='initiated_signal')
             _successed_signal_class = Mock(return_value='successed_signal')
+            _failed_signal_class = Mock(return_value='failed_signal')
             _require = Mock()
             _trigger = Mock()
         return MockTask
