@@ -38,6 +38,10 @@ class ModuleTest(unittest.TestCase):
     def test___getattribute__(self):
         self.assertEqual(self.module.attr1, 'value1')
 
+    def test___getattribute___not_existent_attribute(self):
+        self.assertRaises(AttributeError,
+            getattr, self.module, 'not_existent')
+
     def test_meta_attributes(self):
         self.assertEqual(sorted(self.module.meta_attributes),
             ['attr1', 'default', 'info', 'list', 'meta'])
