@@ -9,7 +9,4 @@ if check_module('packgram'):
         # Public
 
         __test__ = True
-
-        # Protected
-
-        _package = run
+        package = run
