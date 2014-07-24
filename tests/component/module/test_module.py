@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, call
-from run.module.module import Module
+from run.module.module import Module, Task
 
 class ModuleTest(unittest.TestCase):
 
@@ -38,9 +38,26 @@ class ModuleTest(unittest.TestCase):
     def test___getattribute__(self):
         self.assertEqual(self.module.attr1, 'value1')
 
-    def test___getattribute___not_existent_attribute(self):
+    def test___getattribute___nested(self):
+        self.Module.module1 = self.module
+        result = self.module.__getattribute__('module1.attr1')
+        self.assertEqual(result, 'value1')
+
+    def test___getattribute___not_existent(self):
         self.assertRaises(AttributeError,
-            getattr, self.module, 'not_existent')
+            self.module.__getattribute__, 'not_existent')
+
+    def test___getattribute___with_category(self):
+        result = self.module.__getattribute__('list', category=Task)
+        self.assertEqual(result, self.module.list)
+
+    def test___getattribute___with_category_does_not_match(self):
+        self.assertRaises(TypeError,
+            self.module.__getattribute__, 'list', category=Module)
+
+    def test___getattribute___with_getvalue_is_false(self):
+        result = self.module.__getattribute__('list', getvalue=False)
+        self.assertEqual(result, self.module.list)
 
     def test_meta_attributes(self):
         self.assertEqual(sorted(self.module.meta_attributes),
