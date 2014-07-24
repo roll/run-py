@@ -216,6 +216,7 @@ class Task(Attribute, metaclass=ABCMeta):
     _successed_signal_class = SuccessedTaskSignal
     _require = inject('require', module='run.dependency')
     _trigger = inject('trigger', module='run.dependency')
+    _module = module
 
     def _add_dependencies(self, container, category=None):
         for dependency in container:
@@ -259,6 +260,6 @@ class Task(Attribute, metaclass=ABCMeta):
 
     def _expand_arg(self, value):
         result = value
-        if isinstance(value, module):
+        if isinstance(value, self._module):
             result = value.expand(self.meta_module)
         return result

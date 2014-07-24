@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from run.task.task import Task
+from run.task.task import Task, module
 
 class TaskTest(unittest.TestCase):
 
@@ -27,6 +27,7 @@ class TaskTest(unittest.TestCase):
 
     def test___call__(self):
         self.assertEqual(self.task(), self.task.invoke.return_value)
+        # Check invoke call
         self.task.invoke.assert_called_with(*self.args, **self.kwargs)
         # Check signal call
         self.task._initiated_signal_class.assert_called_with(self.task)
@@ -53,6 +54,15 @@ class TaskTest(unittest.TestCase):
     def test___call___with_meta_chdir_is_false(self):
         self.task.meta_chdir = False
         self.assertEqual(self.task(), self.task.invoke.return_value)
+
+    def test___call___with_module_in_args(self):
+        module = Mock()
+        self.task = self.pTask(module)
+        self.assertEqual(self.task(), self.task.invoke.return_value)
+        # Check invoke call
+        self.task.invoke.assert_called_with(module.expand.return_value)
+        # Check module expand call
+        module.expand.assert_called_with(self.task.meta_module)
 
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
@@ -178,4 +188,5 @@ class TaskTest(unittest.TestCase):
             _failed_signal_class = Mock(return_value='failed_signal')
             _require = Mock()
             _trigger = Mock()
+            _module = Mock
         return MockTask
