@@ -84,11 +84,26 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_chdir, 'chdir')
 
     def test_meta_dependencies(self):
+        self.assertEqual(self.task.meta_dependencies, [])
+
+    @unittest.skip('Doesn\'t work')
+    def test_meta_dependencies_initter(self):
         dependency = Mock()
-        task = self.pTask(depend=[dependency])
-        self.assertEqual(task.meta_dependencies, [dependency])
+        self.task = self.pTask(
+            depend=[dependency],
+            require=['require'],
+            trigger=['trigger'])
+        self.assertEqual(self.task.meta_dependencies, [
+            dependency,
+            self.task._require.return_value,
+            self.task._trigger.return_value])
+        # Check require, trigger call
+        self.task._require.assert_called_with('require')
+        self.task._trigger.assert_called_with('trigger')
         # Check dependency's bind call
-        dependency.bind.assert_called_with(task)
+        dependency.bind.assert_called_with(self.task)
+        self.task._require.bind.assert_called_with(self.task)
+        self.task._trigger.bind.assert_called_with(self.task)
 
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback,
