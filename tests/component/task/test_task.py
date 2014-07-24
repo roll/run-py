@@ -10,8 +10,8 @@ class TaskTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.MockTask = self._make_mock_task_class()
-        self.pTask = partial(self.MockTask, meta_module=None)
+        self.Task = self._make_mock_task_class()
+        self.pTask = partial(self.Task, meta_module=None)
         self.task = self.pTask(*self.args, **self.kwargs)
 
     def test___get__(self):
@@ -86,9 +86,9 @@ class TaskTest(unittest.TestCase):
     def test_meta_dependencies(self):
         self.assertEqual(self.task.meta_dependencies, [])
 
-    @unittest.skip('Doesn\'t work')
     def test_meta_dependencies_initter(self):
         dependency = Mock()
+        self.Task._isinstance = Mock(return_value=False)
         self.task = self.pTask(
             depend=[dependency],
             require=['require'],
@@ -102,8 +102,8 @@ class TaskTest(unittest.TestCase):
         self.task._trigger.assert_called_with('trigger')
         # Check dependency's bind call
         dependency.bind.assert_called_with(self.task)
-        self.task._require.bind.assert_called_with(self.task)
-        self.task._trigger.bind.assert_called_with(self.task)
+        self.task._require.return_value.bind.assert_called_with(self.task)
+        self.task._trigger.return_value.bind.assert_called_with(self.task)
 
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback,
@@ -198,10 +198,10 @@ class TaskTest(unittest.TestCase):
             invoke = Mock()
             meta_dispatcher = Mock(add_signal=Mock())
             # Protected
-            _initiated_signal_class = Mock(return_value='initiated_signal')
-            _successed_signal_class = Mock(return_value='successed_signal')
             _failed_signal_class = Mock(return_value='failed_signal')
-            _require = Mock()
-            _trigger = Mock()
+            _initiated_signal_class = Mock(return_value='initiated_signal')
             _module = Mock
+            _require = Mock()
+            _successed_signal_class = Mock(return_value='successed_signal')
+            _trigger = Mock()
         return MockTask

@@ -183,7 +183,7 @@ class Task(Attribute, metaclass=ABCMeta):
         """Enable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
-            if category == None or isinstance(dependency, category):
+            if category == None or self._isinstance(dependency, category):
                 if dependency.task == task:
                     dependency.enable()
 
@@ -191,7 +191,7 @@ class Task(Attribute, metaclass=ABCMeta):
         """Disable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
-            if category == None or isinstance(dependency, category):
+            if category == None or self._isinstance(dependency, category):
                 if dependency.task == task:
                     dependency.disable()
 
@@ -213,14 +213,16 @@ class Task(Attribute, metaclass=ABCMeta):
 
     _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
-    _successed_signal_class = SuccessedTaskSignal
-    _require = inject('require', module='run.dependency')
-    _trigger = inject('trigger', module='run.dependency')
+    _isinstance = staticmethod(isinstance)
     _module = module
+    _require = inject('require', module='run.dependency')
+    _successed_signal_class = SuccessedTaskSignal
+    _trigger = inject('trigger', module='run.dependency')
+
 
     def _add_dependencies(self, container, category=None):
         for dependency in container:
-            if category and not isinstance(dependency, category):
+            if category and not self._isinstance(dependency, category):
                 dependency = category(dependency)
             self.depend(dependency)
 
@@ -260,6 +262,6 @@ class Task(Attribute, metaclass=ABCMeta):
 
     def _expand_arg(self, value):
         result = value
-        if isinstance(value, self._module):
+        if self._isinstance(value, self._module):
             result = value.expand(self.meta_module)
         return result
