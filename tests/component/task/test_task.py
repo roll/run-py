@@ -46,6 +46,14 @@ class TaskTest(unittest.TestCase):
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('failed_signal')])
 
+    def test___call___with_dependencies(self):
+        dependency = Mock()
+        self.task.depend(dependency)
+        self.assertEqual(self.task(), self.task.invoke.return_value)
+        # Check dependnecy call
+        dependency.resolve.assert_has_calls([
+            call(failed=None), call(failed=False)])
+
     def test___call___with_invoke_exception_and_meta_fallback(self):
         self.task.invoke.side_effect = Exception()
         self.task.meta_fallback = 'fallback'
