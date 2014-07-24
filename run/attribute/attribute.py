@@ -12,7 +12,7 @@ class Attribute(metaclass=AttributeMetaclass):
 
     # Public
 
-    # TODO: we can't use module in kwargs (also cls, updated?)
+    # TODO: we can't use module keyword in kwargs (also cls, updated?)
     def __build__(self, module, *args, **kwargs):
         self._meta_module = module
         self._meta_params = {}
