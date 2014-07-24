@@ -35,6 +35,9 @@ class ModuleTest(unittest.TestCase):
         # Check default call
         self.module.default.assert_called_with(*args, **kwargs)
 
+    def test___getattribute__(self):
+        self.assertEqual(self.module.attr1, 'value1')
+
     def test_meta_attributes(self):
         self.assertEqual(sorted(self.module.meta_attributes),
             ['attr1', 'default', 'info', 'list', 'meta'])
