@@ -26,7 +26,7 @@ class Module(ManageModule):
     development_requires = ['packgram>=0.10.4', 'sphinx', 'sphinx_rtd_theme']
     entry_points = {'console_scripts': ['run = run.program:program']}
     github_user = 'respect31'
-    install_requires = ['box>=0.29', 'jinja2']
+    install_requires = ['box>=0.30', 'jinja2']
     license = 'MIT License'
     name = 'run'
     platforms = ['Unix']
