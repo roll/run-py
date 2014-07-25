@@ -3,6 +3,6 @@
 packgram>=0.10.4
 sphinx
 sphinx_rtd_theme
-box>=0.28
+box>=0.29
 jinja2
 nose
