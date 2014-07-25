@@ -17,7 +17,6 @@ class Settings(Settings):
 
     default_meta_cache = True
     default_meta_chdir = True
-    # TODO: we can't use fallback is None value now
     default_meta_fallback = None
     default_meta_main_module_name = '__main__'
     default_meta_strict = True
