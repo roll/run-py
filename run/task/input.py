@@ -6,4 +6,4 @@ class InputTask(FunctionTask):
     # Public
 
     def __init__(self, *args, **kwargs):
-        super().__init__(io.rich_input, *args, **kwargs)
+        super().__init__(io.enhanced_input, *args, **kwargs)

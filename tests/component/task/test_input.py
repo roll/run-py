@@ -12,9 +12,9 @@ class InputTaskTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.ptask = partial(InputTask, meta_module=None)
 
-    @patch('box.io.rich_input')
-    def test___call__(self, rich_input):
+    @patch('box.io.enhanced_input')
+    def test___call__(self, enhanced_input):
         task = self.ptask()
         result = task(*self.args, **self.kwargs)
-        self.assertEqual(result, rich_input.return_value)
-        rich_input.assert_called_with(*self.args, **self.kwargs)
+        self.assertEqual(result, enhanced_input.return_value)
+        enhanced_input.assert_called_with(*self.args, **self.kwargs)
