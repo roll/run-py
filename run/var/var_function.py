@@ -26,10 +26,12 @@ class var(task):
                 pass
     """
 
+    # Public
+
+    def __call__(self, method):
+        prototype = self._task_class(property(method), **self._kwargs)
+        return prototype
+
     # Protected
 
     _task_class = DescriptorVar
-
-    @classmethod
-    def _make_task(cls, method, **kwargs):
-        return cls._task_class(property(method), **kwargs)
