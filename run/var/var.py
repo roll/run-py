@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from box.functools import DEFAULT
+from box.functools import Null
 from ..task import Task
 from .signal import InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal
 
@@ -8,12 +8,12 @@ class Var(Task, metaclass=ABCMeta):
     # Public
 
     def __build__(self, module, *args, **kwargs):
-        self._cached_value = DEFAULT
+        self._cached_value = Null
         super().__build__(module, *args, **kwargs)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:
-            if self._cached_value == DEFAULT:
+            if self._cached_value == Null:
                 self._cached_value = self()
             return self._cached_value
         else:
