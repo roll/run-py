@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from run.var.var_function import var
 
 class var_Test(unittest.TestCase):
@@ -7,20 +7,24 @@ class var_Test(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.method = 'method'
-        self.kwargs = {'kwarg1': 'kwarg1'}
-        self.property = Mock(return_value='property')
-        self.task_class = Mock(return_value='var')
-        patch('builtins.property', new=self.property).start()
-        patch.object(var, '_task_class', new=self.task_class).start()
         self.addCleanup(patch.stopall)
+        self.property = patch('builtins.property').start()
+        self.task_class = patch.object(var, '_task_class').start()
+        self.kwargs = {'kwarg1': 'kwarg1'}
 
-    def test_as_function(self):
-        self.assertEqual(var(self.method, **self.kwargs), 'var')
-        self.property.assert_called_with(self.method)
-        self.task_class.assert_called_with('property', **self.kwargs)
+    def test(self):
+        result = var('method')
+        self.assertEqual(result, self.task_class.return_value)
+        # Check property call
+        self.property.assert_called_with('method')
+        # Check task_class call
+        self.task_class.assert_called_with(self.property.return_value)
 
-    def test_as_decorator(self):
-        self.assertEqual(var(**self.kwargs)('method'), 'var')
-        self.property.assert_called_with(self.method)
-        self.task_class.assert_called_with('property', **self.kwargs)
+    def test_with_kwargs(self):
+        result = var(**self.kwargs)('method')
+        self.assertEqual(result, self.task_class.return_value)
+        # Check property call
+        self.property.assert_called_with('method')
+        # Check task_class call
+        self.task_class.assert_called_with(
+            self.property.return_value, **self.kwargs)

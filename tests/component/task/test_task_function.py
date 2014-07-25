@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from run.task.task_function import task
 
 class task_Test(unittest.TestCase):
@@ -7,16 +7,18 @@ class task_Test(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.method = 'method'
-        self.kwargs = {'kwarg1': 'kwarg1'}
-        self.task_class = Mock(return_value='task')
-        patch.object(task, '_task_class', new=self.task_class).start()
         self.addCleanup(patch.stopall)
+        self.task_class = patch.object(task, '_task_class').start()
+        self.kwargs = {'kwarg1': 'kwarg1'}
 
-    def test_as_function(self):
-        self.assertEqual(task(self.method, **self.kwargs), 'task')
-        self.task_class.assert_called_with(self.method, **self.kwargs)
+    def test(self):
+        result = task('method')
+        self.assertEqual(result, self.task_class.return_value)
+        # Check task_class call
+        self.task_class.assert_called_with('method')
 
-    def test_as_decorator(self):
-        self.assertEqual(task(**self.kwargs)('method'), 'task')
-        self.task_class.assert_called_with(self.method, **self.kwargs)
+    def test_with_kwargs(self):
+        result = task(**self.kwargs)('method')
+        self.assertEqual(result, self.task_class.return_value)
+        # Check task_class call
+        self.task_class.assert_called_with('method', **self.kwargs)

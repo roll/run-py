@@ -2,17 +2,28 @@ from ..task import task
 from .descriptor import DescriptorVar
 
 class var(task):
-    """Make var from method with default kwargs to invoke.
+    """Decorate method to make var with default kwargs to invoke.
 
-    - as function::
+    There are two ways to use decorator:
 
-       var = var(method, **kwargs)
+    - Form without kwargs is designed for case when you have to convert method
+      to var prototype immidiatly in class body to use some of it methods::
 
-    - as decorator::
+        class Module(Module):
 
-        @var(**kwargs)
-        def method(self):
-            pass
+            @var
+            def method(self):
+                pass
+
+            method.require('other_method')
+
+    - Form with kwargs makes the same and adds default kwargs to invoke::
+
+        class Module(Module):
+
+            @var(**kwargs)
+            def method(self, **kwargs):
+                pass
     """
 
     # Protected
