@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from box.functools import Null
+from box.types import Null
 from ..task import Task
 from .signal import InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal
 

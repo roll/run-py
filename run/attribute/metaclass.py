@@ -1,6 +1,6 @@
 from abc import ABCMeta
-from box.functools import Null
 from box.importlib import inject
+from box.types import Null
 from .build import build
 from .prototype import AttributePrototype
 
