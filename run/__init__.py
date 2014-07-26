@@ -1,4 +1,4 @@
-from .attribute import build, fork, value
+from .attribute import build, fork
 from .dependency import depend, require, trigger
 from .module import (Module, attribute, skip,
                      AutoModule, FindModule, NullModule, SubprocessModule)
