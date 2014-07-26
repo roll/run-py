@@ -5,9 +5,9 @@ def fork(prototype, *args, **kwargs):
     ----------
     prototype: :class:`.AttributePrototype`
         Attribute prototype to fork.
-    *args: tuple
+    args: tuple
         Positional arguments to add to prototype's default.
-    **kwargs: dict
+    kwargs: dict
         Keyword arguments to add to prototype's default.
 
     Examples
