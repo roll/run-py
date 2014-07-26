@@ -1,10 +1,10 @@
 from .attribute import build, fork
 from .dependency import depend, require, trigger
 from .module import (Module,
-                     skip,
+                     module, skip,
                      AutoModule, FindModule, NullModule, SubprocessModule)
 from .settings import settings
-from .task import (task, module,
+from .task import (task,
                    DerivedTask, DescriptorTask, FindTask, FunctionTask,
                    InputTask, MethodTask, NullTask, RenderTask,
                    SubprocessTask, ValueTask)

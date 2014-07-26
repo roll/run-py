@@ -4,7 +4,6 @@ from .find import FindTask
 from .function import FunctionTask
 from .input import InputTask
 from .method import MethodTask
-from .module import module
 from .null import NullTask
 from .render import RenderTask
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal

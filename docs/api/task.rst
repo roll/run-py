@@ -39,4 +39,3 @@ Helper functions
 ----------------
 
 .. autofunction:: run.task.task
-.. autofunction:: run.task.module

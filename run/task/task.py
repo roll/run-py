@@ -5,7 +5,6 @@ from box.importlib import inject
 from contextlib import contextmanager
 from abc import ABCMeta, abstractmethod
 from ..attribute import Attribute
-from .module import module
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
 class Task(Attribute, metaclass=ABCMeta):
@@ -214,7 +213,7 @@ class Task(Attribute, metaclass=ABCMeta):
     _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
     _isinstance = staticmethod(isinstance)
-    _module = module
+    _module = inject('module', module='run.module')
     _require = inject('require', module='run.dependency')
     _successed_signal_class = SuccessedTaskSignal
     _trigger = inject('trigger', module='run.dependency')

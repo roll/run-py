@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.task.module import module
+from run.module.module_function import module
 
 class module_Test(unittest.TestCase):
 
