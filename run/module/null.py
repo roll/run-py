@@ -3,7 +3,6 @@ from box.functools import cachedproperty
 from ..signal import NullDispatcher
 from ..settings import settings
 
-# TODO: add meta_getattr
 class NullModule:
 
     # Public
