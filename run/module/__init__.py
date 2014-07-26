@@ -1,4 +1,3 @@
-from .attribute import attribute
 from .auto import AutoModule
 from .find import FindModule
 from .metaclass import ModuleMetaclass

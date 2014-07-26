@@ -1,4 +1,3 @@
-from ..module import attribute
 from .task import Task
 
 class DerivedTask(Task):
@@ -28,5 +27,5 @@ class DerivedTask(Task):
 
     @property
     def _task_instance(self):
-        return attribute(self.meta_module, self._task,
-            category=Task, getvalue=True)
+        return self.meta_module.meta_getattr(
+            self._task, category=Task, getvalue=True)

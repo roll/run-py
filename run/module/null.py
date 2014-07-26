@@ -3,6 +3,7 @@ from box.functools import cachedproperty
 from ..signal import NullDispatcher
 from ..settings import settings
 
+# TODO: add meta_getattr
 class NullModule:
 
     # Public
@@ -40,6 +41,10 @@ class NullModule:
     @property
     def meta_fallback(self):
         return self._default_meta_fallback
+
+    # TODO: is it right stub?
+    def meta_getattr(self, name, *args, **kwargs):
+        return getattr(self, name)
 
     @property
     def meta_is_main_module(self):

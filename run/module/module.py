@@ -25,7 +25,18 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         return self.default(*args, **kwargs)
 
     def __getattribute__(self, name, *, category=None, getvalue=True):
-        # Documented public wrapper in :func:`run.module.attribute`
+        """Return module's attribute by given name.
+
+        :param str name: attribute name, supports nested "module.attribute"
+        :param None/type/str category: returns attribute only of given class
+        :param bool getvalue: if True returns attribute's value
+
+        :raises AttributeError: if module has not attribute for given name
+        :raises TypeError: if attribute is not instance of given category
+
+        :returns: attribute instance/attribute value
+        :rtype: :class:`run.attribute.Attribute`/mixed
+        """
         if '.' in name:
             # Nested name - return recursively
             module_name, attribute_name = name.split('.', 1)
@@ -144,6 +155,10 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     @meta_fallback.setter
     def meta_fallback(self, value):
         self._meta_params['fallback'] = value
+
+    def meta_getattr(self, name, *, category=None, getvalue=True):
+        return self.__getattribute__(
+            name, category=category, getvalue=getvalue)
 
     @property
     def meta_is_main_module(self):

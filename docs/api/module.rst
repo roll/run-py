@@ -35,7 +35,6 @@ Concrete modules
 Helper functions
 ----------------
 
-.. autofunction:: run.module.attribute
 .. autofunction:: run.module.skip
 
 Internal

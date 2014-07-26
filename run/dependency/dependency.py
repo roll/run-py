@@ -2,7 +2,6 @@ import logging
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
 from ..attribute import AttributePrototype
-from ..module import attribute as getattribute
 from ..task import Task, MethodTask
 
 class Dependency(metaclass=ABCMeta):
@@ -103,7 +102,6 @@ class Dependency(metaclass=ABCMeta):
     # Protected
 
     _attribute_prototype_class = AttributePrototype
-    _getattribute = staticmethod(getattribute)
     _method_task_class = MethodTask
     _task_class = Task
 
@@ -112,8 +110,8 @@ class Dependency(metaclass=ABCMeta):
         if self._attribute != None:
             module = self._attribute.meta_module
             try:
-                task = self._getattribute(module, self._task,
-                    category=self._task_class, getvalue=True)
+                task = module.meta_getattr(
+                    self._task, category=self._task_class, getvalue=True)
                 return task
             except AttributeError as exception:
                 if self._attribute.meta_strict:
