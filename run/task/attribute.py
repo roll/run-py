@@ -10,4 +10,4 @@ class AttributeTask(Task):
             'Return "{self.attribute}" attribute.'.format(self=self))
 
     def invoke(self, attribute):
-        return attribute
+        return getattr(self.meta_module, attribute)
