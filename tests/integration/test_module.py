@@ -45,7 +45,7 @@ class MockTask(Task):
 
     # Public
 
-    def invoke(self, *args, **kwargs):
+    def meta_invoke(self, *args, **kwargs):
         pass
 
 
@@ -53,7 +53,7 @@ class MockVar(Var):
 
     # Public
 
-    def invoke(self, *args, **kwargs):
+    def meta_invoke(self, *args, **kwargs):
         pass
 
 

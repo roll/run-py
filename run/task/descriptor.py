@@ -13,6 +13,6 @@ class DescriptorTask(Task):
         return self._meta_params.get('docstring',
             str(inspect.getdoc(self._descriptor)).strip())
 
-    def invoke(self):
+    def meta_invoke(self):
         return self._descriptor.__get__(
             self.meta_module, type(self.meta_module))

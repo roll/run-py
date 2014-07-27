@@ -20,7 +20,7 @@ class Var(Task, metaclass=ABCMeta):
             return self()
 
     def __set__(self, module, value):
-        self.invoke = lambda: value
+        self.meta_invoke = lambda: value
 
     @property
     def meta_cache(self):

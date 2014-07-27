@@ -10,7 +10,7 @@ class SubprocessTask(Task):
         return self._meta_params.get('docstring',
             'Execute shell command.')
 
-    def invoke(self, command='', *, prefix='', separator=' '):
+    def meta_invoke(self, command='', *, prefix='', separator=' '):
         ecommand = separator.join(filter(None, [prefix, command]))
         process = subprocess.Popen(ecommand, shell=True)
         returncode = process.wait()

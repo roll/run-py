@@ -30,7 +30,7 @@ class Task(Attribute, metaclass=ABCMeta):
 
     def __set__(self, module, value):
         if callable(value):
-            self.invoke = value
+            self.meta_invoke = value
         else:
             raise TypeError(
             'Attribute is task "{task}" and '
@@ -138,7 +138,7 @@ class Task(Attribute, metaclass=ABCMeta):
         - initable/writable
         """
         return self._meta_params.get('signature',
-            str(inspect.signature(self.invoke)))
+            str(inspect.signature(self.meta_invoke)))
 
     @meta_signature.setter
     def meta_signature(self, value):
@@ -201,7 +201,7 @@ class Task(Attribute, metaclass=ABCMeta):
         ekwargs = copy(self.meta_kwargs)
         ekwargs.update(kwargs)
         with self.meta_effective_dir():
-            return self.invoke(*eargs, **ekwargs)
+            return self.meta_invoke(*eargs, **ekwargs)
 
     @contextmanager
     def meta_effective_dir(self):
@@ -216,7 +216,7 @@ class Task(Attribute, metaclass=ABCMeta):
             yield
 
     @abstractmethod
-    def invoke(self, *args, **kwargs):
+    def meta_invoke(self, *args, **kwargs):
         """Invoke task.
         """
         pass  # pragma: no cover

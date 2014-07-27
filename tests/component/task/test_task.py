@@ -20,15 +20,15 @@ class TaskTest(unittest.TestCase):
     def test___set__(self):
         value = lambda: 'value'
         self.task.__set__('module', value)
-        self.assertEqual(self.task.invoke, value)
+        self.assertEqual(self.task.meta_invoke, value)
 
     def test___set___not_callable(self):
         self.assertRaises(TypeError, self.task.__set__, 'module', 'value')
 
     def test___call__(self):
-        self.assertEqual(self.task(), self.task.invoke.return_value)
-        # Check invoke call
-        self.task.invoke.assert_called_with(*self.args, **self.kwargs)
+        self.assertEqual(self.task(), self.task.meta_invoke.return_value)
+        # Check meta_invoke call
+        self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check signal call
         self.task._initiated_signal_class.assert_called_with(self.task)
         self.task._successed_signal_class.assert_called_with(self.task)
@@ -36,8 +36,8 @@ class TaskTest(unittest.TestCase):
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('successed_signal')])
 
-    def test___call___with_invoke_exception(self):
-        self.task.invoke.side_effect = Exception()
+    def test___call___with_meta_invoke_exception(self):
+        self.task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check signal call
         self.task._initiated_signal_class.assert_called_with(self.task)
@@ -46,24 +46,24 @@ class TaskTest(unittest.TestCase):
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('failed_signal')])
 
-    def test___call___with_invoke_exception_and_meta_fallback(self):
-        self.task.invoke.side_effect = Exception()
+    def test___call___with_meta_invoke_exception_and_meta_fallback(self):
+        self.task.meta_invoke.side_effect = Exception()
         self.task.meta_fallback = 'fallback'
         self.assertEqual(self.task(), 'fallback')
 
     def test___call___with_dependencies(self):
         dependency = Mock()
         self.task.meta_depend(dependency)
-        self.assertEqual(self.task(), self.task.invoke.return_value)
+        self.assertEqual(self.task(), self.task.meta_invoke.return_value)
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
             call(failed=None),
             call(failed=False)])
 
-    def test___call___with_dependencies_and_invoke_exception(self):
+    def test___call___with_dependencies_and_meta_invoke_exception(self):
         dependency = Mock()
         self.task.meta_depend(dependency)
-        self.task.invoke.side_effect = Exception()
+        self.task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
@@ -72,7 +72,7 @@ class TaskTest(unittest.TestCase):
 
     def test___call___with_meta_chdir_is_false(self):
         self.task.meta_chdir = False
-        self.assertEqual(self.task(), self.task.invoke.return_value)
+        self.assertEqual(self.task(), self.task.meta_invoke.return_value)
 
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
@@ -205,7 +205,7 @@ class TaskTest(unittest.TestCase):
     def _make_mock_task_class(self):
         class MockTask(Task):
             # Public
-            invoke = Mock()
+            meta_invoke = Mock()
             meta_dispatcher = Mock(add_signal=Mock())
             # Protected
             _failed_signal_class = Mock(return_value='failed_signal')

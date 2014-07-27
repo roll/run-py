@@ -16,8 +16,8 @@ class VarTest(unittest.TestCase):
         self.assertEqual(self.var.__get__('module'), 'value')
         self.assertEqual(self.var.__get__('module'), 'value')
         # Only one call because of caching
-        self.assertEqual(self.var.invoke.call_count, 1)
-        self.var.invoke.assert_called_with()
+        self.assertEqual(self.var.meta_invoke.call_count, 1)
+        self.var.meta_invoke.assert_called_with()
         self.var._initiated_signal_class.assert_called_with(self.var)
         self.var._successed_signal_class.assert_called_with(self.var)
         self.var.meta_dispatcher.add_signal.assert_has_calls(
@@ -29,7 +29,7 @@ class VarTest(unittest.TestCase):
         self.assertEqual(self.var.__get__('module'), 'value')
         self.assertEqual(self.var.__get__('module'), 'value')
         # Two calls because of caching is off
-        self.assertEqual(self.var.invoke.call_count, 2)
+        self.assertEqual(self.var.meta_invoke.call_count, 2)
 
     def test___set__(self):
         self.var.__set__('module', 'new_value')
@@ -48,7 +48,7 @@ class VarTest(unittest.TestCase):
     def _make_mock_var_class(self):
         class MockVar(Var):
             # Public
-            invoke = Mock(return_value='value')
+            meta_invoke = Mock(return_value='value')
             meta_dispatcher = Mock()
             # Protected
             _initiated_signal_class = Mock(return_value='initiated_signal')

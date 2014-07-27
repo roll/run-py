@@ -20,7 +20,7 @@ class DerivedTask(Task):
         return self._meta_params.get('signature',
             self._task_instance.meta_signature)
 
-    def invoke(self, *args, **kwargs):
+    def meta_invoke(self, *args, **kwargs):
         return self._task_instance(*args, **kwargs)
 
     # Protected
