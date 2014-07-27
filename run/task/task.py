@@ -42,7 +42,7 @@ class Task(Attribute, metaclass=ABCMeta):
         try:
             self._resolve_dependencies()
             try:
-                result = self.effective_invoke(*args, **kwargs)
+                result = self.meta_effective_invoke(*args, **kwargs)
             except Exception:
                 if self.meta_fallback != None:
                     result = self.meta_fallback
@@ -194,7 +194,7 @@ class Task(Attribute, metaclass=ABCMeta):
                 if dependency.task == task:
                     dependency.disable()
 
-    def effective_invoke(self, *args, **kwargs):
+    def meta_effective_invoke(self, *args, **kwargs):
         """Invoke task with effective dir, args and kwargs.
         """
         eargs = self.meta_args + args
