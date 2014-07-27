@@ -2,7 +2,6 @@ import os
 import inspect
 from pprint import pprint
 from collections import OrderedDict
-from box.importlib import import_object
 from ..attribute import Attribute
 from ..task import Task, NullTask
 from .error import ModuleAttributeError
