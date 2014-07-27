@@ -1,7 +1,7 @@
 import os
 from run import (Module, DerivedTask, DescriptorTask, FindTask,
                  FunctionTask, InputTask, MethodTask, NullTask,
-                 RenderTask, SubprocessTask, ValueTask)
+                 RenderTask, SubprocessTask)
 
 class Module(Module):
 
@@ -44,8 +44,4 @@ class Module(Module):
 
     subprocess = SubprocessTask(
         prefix='echo "Hello World!"',
-    )
-
-    value = ValueTask(
-        value='value',
     )

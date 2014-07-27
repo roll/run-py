@@ -22,8 +22,7 @@ class TasksTest(ExamplesTest):
             'method\n'
             'null\n'
             'render\n'
-            'subprocess\n'
-            'value\n')
+            'subprocess\n')
 
     def test_derived(self):
         result = self._execute('derived')
@@ -51,7 +50,7 @@ class TasksTest(ExamplesTest):
 
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 14)
+        self.assertEqual(len(result.splitlines()), 13)
 
     def test_meta(self):
         result = self._execute('meta default')
@@ -72,10 +71,6 @@ class TasksTest(ExamplesTest):
     def test_subprocess(self):
         result = self._execute('subprocess')
         self.assertEqual(result, 'Hello World!\n')
-
-    def test_value(self):
-        result = self._execute('value')
-        self.assertEqual(result, 'value\n')
 
     # Protected
 

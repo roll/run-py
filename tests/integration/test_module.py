@@ -29,7 +29,6 @@ class ModuleTest(unittest.TestCase):
             'module\n'
             'property_var\n'
             'task\n'
-            'value_var\n'
             'var\n')
 
 
@@ -60,6 +59,10 @@ class MockVar(Var):
 
 class MockModule(Module):
 
+    # Attributes
+
+    attribute = True
+
     # Classes
 
     class class_var:
@@ -79,7 +82,6 @@ class MockModule(Module):
     # Vars
 
     var = MockVar()
-    value_var = True
 
     @property
     def property_var(self):

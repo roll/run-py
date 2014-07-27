@@ -1,16 +1,16 @@
 import unittest
 from unittest.mock import Mock, call
-from run.module.module import Module, Task
+from run.module.module import Module
 
 class ModuleTest(unittest.TestCase):
 
     # Public
 
     def setUp(self):
-        self.ParentModule = self._make_mock_parent_module_class()
-        self.parent_module = self.ParentModule()
         self.Module = self._make_mock_module_class()
         self.module = self.Module(meta_module=None)
+        self.ParentModule = self._make_mock_parent_module_class()
+        self.parent_module = self.ParentModule()
 
     def test(self):
         self.assertIsInstance(self.module, self.Module)
@@ -31,21 +31,18 @@ class ModuleTest(unittest.TestCase):
         # Check default call
         self.module.default.assert_called_with(*args, **kwargs)
 
-    def test___getattribute__(self):
-        self.assertEqual(self.module.attr1, 'value1')
-
-    def test___getattribute___nested(self):
-        self.Module.module1 = self.module
-        result = self.module.__getattribute__('module1.attr1')
-        self.assertEqual(result, 'value1')
-
     def test___getattribute___not_existent(self):
         self.assertRaises(AttributeError,
             self.module.__getattribute__, 'not_existent')
 
+    def test___getattribute___nested(self):
+        self.Module.module1 = self.module
+        result = self.module.__getattribute__('module1.task')
+        self.assertEqual(result, self.module.task)
+
     def test_meta_attributes(self):
         self.assertEqual(sorted(self.module.meta_attributes),
-            ['attr1', 'default', 'info', 'list', 'meta'])
+            ['default', 'info', 'list', 'meta', 'task'])
 
     def test_meta_basedir(self):
         self.assertRegex(self.module.meta_basedir,
@@ -143,11 +140,11 @@ class ModuleTest(unittest.TestCase):
         self.module.list()
         # Check print call
         self.module._print.assert_has_calls([
-            call('attr1'),
             call('default'),
             call('info'),
             call('list'),
-            call('meta')])
+            call('meta'),
+            call('task')])
 
     def test_list_with_parent_module(self):
         # We have to recreate class for builtin tasks
@@ -160,11 +157,11 @@ class ModuleTest(unittest.TestCase):
         self.module.list()
         # Check print call
         self.module._print.assert_has_calls([
-            call('[parent_module] module.attr1'),
             call('[parent_module] module.default'),
             call('[parent_module] module.info'),
             call('[parent_module] module.list'),
-            call('[parent_module] module.meta')])
+            call('[parent_module] module.meta'),
+            call('[parent_module] module.task')])
 
     @unittest.skip('Breaks system tests. Why??')
     def test_list_with_attribute_is_not_module(self):
@@ -205,6 +202,18 @@ class ModuleTest(unittest.TestCase):
 
     # Protected
 
+    def _make_mock_module_class(self):
+        class MockModule(Module):
+            """docstring"""
+            # Public
+            def task(self):
+                pass
+            # Protected
+            _default_meta_main_module_name = '__main__'
+            _print = Mock()
+            _pprint = Mock()
+        return MockModule
+
     def _make_mock_parent_module_class(self):
         class MockParentModule:
             # Public
@@ -222,14 +231,3 @@ class ModuleTest(unittest.TestCase):
             def meta_main_module(self):
                 return self
         return MockParentModule
-
-    def _make_mock_module_class(self):
-        class MockModule(Module):
-            """docstring"""
-            # Public
-            attr1 = 'value1'
-            # Protected
-            _default_meta_main_module_name = '__main__'
-            _print = Mock()
-            _pprint = Mock()
-        return MockModule

@@ -30,12 +30,11 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.assertIsInstance(self.Class.attribute_builder_attr, MagicMock)
         self.assertEqual(self.Class.abstract_method_attr, self.abstract_method)
         self.assertEqual(self.Class.abstract_descriptor_attr, self.abstract_descriptor)
-        self.assertEqual(self.Class.method_attr, 'method_task_attr')
-        self.assertEqual(self.Class.descriptor_attr, 'descriptor_var_attr')
-        self.assertEqual(self.Class.value_attr, 'value_var_attr')
-        self.Metaclass._method_task_class.assert_called_with(self.method)
-        self.Metaclass._descriptor_var_class.assert_called_with(self.descriptor)
-        self.Metaclass._value_var_class.assert_called_with('value_attr')
+        self.assertEqual(self.Class.method_attr, 'task')
+        self.assertEqual(self.Class.descriptor_attr, 'var')
+        self.assertEqual(self.Class.value_attr, 'value_attr')
+        self.Metaclass._task.assert_called_with(self.method)
+        self.Metaclass._var.assert_called_with(self.descriptor)
 
     def test___copy__(self):
         # TODO: add more assertions
@@ -48,9 +47,8 @@ class ModuleMetaclassTest(unittest.TestCase):
             # Protected
             _attribute_class = Mock
             _attribute_prototype_class = MagicMock
-            _descriptor_var_class = Mock(return_value='descriptor_var_attr')
-            _method_task_class = Mock(return_value='method_task_attr')
-            _value_var_class = Mock(return_value='value_var_attr')
+            _task = Mock(return_value='task')
+            _var = Mock(return_value='var')
         return MockMetaclass
 
     def _make_mock_class(self, mock_module_metaclass,
@@ -68,8 +66,8 @@ class ModuleMetaclassTest(unittest.TestCase):
             skipped_attr = skip(unittest.TestCase())
             staticmethod_attr = staticmethod(print)
             type_attr = Mock
-            value_attr = 'value_attr'
             UPPER_ATTR = 'upper_attr'
+            value_attr = 'value_attr'
             # Protected
             _underscore_attr = 'underscore_value'
         return MockClass

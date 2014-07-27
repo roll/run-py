@@ -1,8 +1,8 @@
 import inspect
 from copy import copy
 from ..attribute import AttributePrototype, AttributeMetaclass, Attribute
-from ..task import MethodTask
-from ..var import ValueVar, DescriptorVar
+from ..task import task
+from ..var import var
 from .prototype import ModulePrototype
 from .skip import skip
 
@@ -33,11 +33,11 @@ class ModuleMetaclass(AttributeMetaclass):
             if getattr(attr, skip.attribute_name, False):
                 continue
             if callable(attr):
-                attrs[key] = cls._method_task_class(attr)
+                # Task
+                attrs[key] = cls._task(attr)
             elif inspect.isdatadescriptor(attr):
-                attrs[key] = cls._descriptor_var_class(attr)
-            else:
-                attrs[key] = cls._value_var_class(attr)
+                # Var
+                attrs[key] = cls._var(attr)
         return super().__new__(cls, name, bases, attrs)
 
     def __copy__(self):
@@ -55,7 +55,6 @@ class ModuleMetaclass(AttributeMetaclass):
 
     _attribute_class = Attribute
     _attribute_prototype_class = AttributePrototype
-    _descriptor_var_class = DescriptorVar
-    _method_task_class = MethodTask
     _prototype_class = ModulePrototype
-    _value_var_class = ValueVar
+    _task = task
+    _var = var

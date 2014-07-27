@@ -23,8 +23,7 @@ class VarsTest(ExamplesTest):
             'null\n'
             'render\n'
             'subprocess\n'
-            'subprocess_task\n'
-            'value\n')
+            'subprocess_task\n')
 
     def test_derived(self):
         result = self._execute('derived')
@@ -61,10 +60,6 @@ class VarsTest(ExamplesTest):
     def test_subprocess(self):
         result = self._execute('subprocess')
         self.assertEqual(result, 'Hello World!\nNone\n')
-
-    def test_value(self):
-        result = self._execute('value')
-        self.assertEqual(result, 'value\n')
 
     # Protected
 

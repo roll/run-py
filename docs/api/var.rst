@@ -26,7 +26,6 @@ Concrete vars
 .. autoclass:: run.var.NullVar
 .. autoclass:: run.var.RenderVar
 .. autoclass:: run.var.SubprocessVar
-.. autoclass:: run.var.ValueVar
 
 Signal classes
 --------------

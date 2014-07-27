@@ -7,9 +7,9 @@ from .settings import settings
 from .task import (task,
                    AttributeTask, DerivedTask, DescriptorTask, FindTask,
                    FunctionTask, InputTask, MethodTask, NullTask,
-                   RenderTask, SubprocessTask, ValueTask)
+                   RenderTask, SubprocessTask)
 from .var import (var,
                   AttributeVar, DerivedVar, DescriptorVar, FindVar,
                   FunctionVar, InputVar, MethodVar, NullVar,
-                  RenderVar, SubprocessVar, ValueVar)
+                  RenderVar, SubprocessVar)
 from .version import version

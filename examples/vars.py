@@ -1,7 +1,7 @@
 import os
 from run import (Module, SubprocessTask, DerivedVar, DescriptorVar, FindVar,
                  FunctionVar, InputVar, MethodVar, NullVar,
-                 RenderVar, SubprocessVar, ValueVar)
+                 RenderVar, SubprocessVar)
 
 class Module(Module):
 
@@ -51,8 +51,4 @@ class Module(Module):
 
     subprocess = SubprocessVar(
         prefix='echo "Hello World!"',
-    )
-
-    value = ValueVar(
-        value='value',
     )

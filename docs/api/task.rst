@@ -26,7 +26,6 @@ Concrete tasks
 .. autoclass:: run.task.NullTask
 .. autoclass:: run.task.RenderTask
 .. autoclass:: run.task.SubprocessTask
-.. autoclass:: run.task.ValueTask
 
 Signal classes
 --------------

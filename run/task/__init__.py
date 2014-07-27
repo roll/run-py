@@ -11,4 +11,3 @@ from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 from .subprocess import SubprocessTask
 from .task_function import task
 from .task import Task
-from .value import ValueTask

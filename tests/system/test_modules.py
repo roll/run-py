@@ -36,12 +36,7 @@ class ModulesTest(ExamplesTest):
             'find.method\n'
             'find.null\n'
             'find.render\n'
-            'find.subprocess\n'
-            'find.value\n')
-
-    def test_find_value(self):
-        result = self._execute('find.value')
-        self.assertEqual(result, 'value\n')
+            'find.subprocess\n')
 
     def test_subprocess_list(self):
         result = self._execute('subprocess.list')
