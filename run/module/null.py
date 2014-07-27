@@ -41,10 +41,6 @@ class NullModule:
     def meta_fallback(self):
         return self._default_meta_fallback
 
-    # TODO: update to Module.meta_getattr forwarding?
-    def meta_getattr(self, name, *args, **kwargs):
-        return getattr(self, name)
-
     @property
     def meta_is_main_module(self):
         return True

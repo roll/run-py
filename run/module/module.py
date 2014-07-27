@@ -156,10 +156,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def meta_fallback(self, value):
         self._meta_params['fallback'] = value
 
-    def meta_getattr(self, name, *, category=None, getvalue=True):
-        return self.__getattribute__(
-            name, category=category, getvalue=getvalue)
-
     @property
     def meta_is_main_module(self):
         """Module's main module status (is main module or not).
