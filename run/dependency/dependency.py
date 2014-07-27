@@ -1,8 +1,8 @@
 import logging
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
+from box.importlib import inject
 from ..attribute import AttributePrototype
-from ..task import task as task_function
 
 class Dependency(metaclass=ABCMeta):
     """Dependency representation abstract base class.
@@ -102,7 +102,7 @@ class Dependency(metaclass=ABCMeta):
     # Protected
 
     _attribute_prototype_class = AttributePrototype
-    _task_function = task_function
+    _task_function = inject('task', module='run.task')
 
     @cachedproperty
     def _task_instance(self):
