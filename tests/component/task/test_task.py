@@ -184,19 +184,19 @@ class TaskTest(unittest.TestCase):
         # Check dependency enable call
         self.assertFalse(dependency.enable.called)
 
-    def test_disable_dependency(self):
+    def test_meta_disable_dependency(self):
         dependency = Mock()
         dependency.task = 'task'
         self.task.meta_depend(dependency)
-        self.task.disable_dependency('task', category=Mock)
+        self.task.meta_disable_dependency('task', category=Mock)
         # Check dependency disable call
         self.assertTrue(dependency.disable.called)
 
-    def test_disable_dependency_with_different_task(self):
+    def test_meta_disable_dependency_with_different_task(self):
         dependency = Mock()
         dependency.task = 'task'
         self.task.meta_depend(dependency)
-        self.task.disable_dependency('different_task', category=Mock)
+        self.task.meta_disable_dependency('different_task', category=Mock)
         # Check dependency disable call
         self.assertFalse(dependency.disable.called)
 

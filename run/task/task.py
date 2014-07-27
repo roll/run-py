@@ -186,7 +186,7 @@ class Task(Attribute, metaclass=ABCMeta):
                 if dependency.task == task:
                     dependency.enable()
 
-    def disable_dependency(self, task, category=None):
+    def meta_disable_dependency(self, task, category=None):
         """Disable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
