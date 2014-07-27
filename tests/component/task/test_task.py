@@ -168,19 +168,19 @@ class TaskTest(unittest.TestCase):
         # Check trigger's return_value bind call
         self.task._trigger.return_value.bind.assert_called_with(self.task)
 
-    def test_enable_dependency(self):
+    def test_meta_enable_dependency(self):
         dependency = Mock()
         dependency.task = 'task'
         self.task.meta_depend(dependency)
-        self.task.enable_dependency('task', category=Mock)
+        self.task.meta_enable_dependency('task', category=Mock)
         # Check dependency enable call
         self.assertTrue(dependency.enable.called)
 
-    def test_enable_dependency_with_different_task(self):
+    def test_meta_enable_dependency_with_different_task(self):
         dependency = Mock()
         dependency.task = 'task'
         self.task.meta_depend(dependency)
-        self.task.enable_dependency('different_task', category=Mock)
+        self.task.meta_enable_dependency('different_task', category=Mock)
         # Check dependency enable call
         self.assertFalse(dependency.enable.called)
 

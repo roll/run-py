@@ -178,7 +178,7 @@ class Task(Attribute, metaclass=ABCMeta):
         dependency = self._trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
 
-    def enable_dependency(self, task, category=None):
+    def meta_enable_dependency(self, task, category=None):
         """Enable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
