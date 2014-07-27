@@ -28,11 +28,11 @@ class DependencyTest(unittest.TestCase):
         method = Mock()
         self.assertEqual(
             self.dependency(method),
-            self.dependency._method_task_class.return_value)
-        # Check MethodTask call
-        self.dependency._method_task_class.assert_called_with(method)
-        # Check MethodTask's return_value (prototype) depend call
-        prototype = self.dependency._method_task_class.return_value
+            self.dependency._task_function.return_value)
+        # Check task_function call
+        self.dependency._task_function.assert_called_with(method)
+        # Check task_function's return_value (prototype) depend call
+        prototype = self.dependency._task_function.return_value
         prototype.depend.assert_called_with(self.dependency)
 
     def test___call___method_is_prototype(self):
@@ -94,5 +94,5 @@ class DependencyTest(unittest.TestCase):
             resolve = Mock()
             # Protected
             _attribute_prototype_class = MagicMock
-            _method_task_class = Mock()
+            _task_function = Mock()
         return MockDependency

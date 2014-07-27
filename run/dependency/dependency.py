@@ -2,7 +2,7 @@ import logging
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
 from ..attribute import AttributePrototype
-from ..task import Task, MethodTask
+from ..task import task as task_function
 
 class Dependency(metaclass=ABCMeta):
     """Dependency representation abstract base class.
@@ -46,7 +46,7 @@ class Dependency(metaclass=ABCMeta):
     def __call__(self, method):
         prototype = method
         if not isinstance(method, self._attribute_prototype_class):
-            prototype = self._method_task_class(method)
+            prototype = self._task_function(method)
         prototype.depend(self)
         return prototype
 
@@ -102,7 +102,7 @@ class Dependency(metaclass=ABCMeta):
     # Protected
 
     _attribute_prototype_class = AttributePrototype
-    _method_task_class = MethodTask
+    _task_function = task_function
 
     @cachedproperty
     def _task_instance(self):
