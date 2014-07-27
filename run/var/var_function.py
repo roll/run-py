@@ -15,7 +15,7 @@ class var(task):
             def method(self):
                 pass
 
-            method.require('other_method')
+            method.meta_require('other_method')
 
     - Form with kwargs makes the same and adds default kwargs to invoke::
 

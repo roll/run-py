@@ -101,7 +101,7 @@ class TaskTest(unittest.TestCase):
         self.Task._isinstance = Mock(return_value=False)
         self.task = self.pTask(
             meta_depend=[dependency],
-            require=['require'],
+            meta_require=['require'],
             trigger=['trigger'])
         self.assertEqual(self.task.meta_dependencies, [
             dependency,
@@ -149,7 +149,7 @@ class TaskTest(unittest.TestCase):
         dependency.bind.assert_called_with(self.task)
 
     def test_require(self):
-        self.task.require('task', *self.args, **self.kwargs)
+        self.task.meta_require('task', *self.args, **self.kwargs)
         self.assertEqual(
             self.task.meta_dependencies, [self.task._require.return_value])
         # Check require call

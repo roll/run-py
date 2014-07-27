@@ -70,7 +70,7 @@ class MockModule(Module):
 
     task3 = FunctionTask(
         function=lambda: print('task3 is done'),
-        require=['task1'],
+        meta_require=['task1'],
         trigger=['task2'],
     )
 
@@ -83,5 +83,5 @@ class MockModule(Module):
     def task5(self):
         print('task5 is done')
 
-    task5.require('task1')
+    task5.meta_require('task1')
     task5.trigger('task2')

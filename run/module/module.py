@@ -230,7 +230,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         self._pprint(meta)
 
     default = NullTask(
-        require=['list'],
+        meta_require=['list'],
     )
 
     # Protected

@@ -17,7 +17,7 @@ class Task(Attribute, metaclass=ABCMeta):
         self._meta_kwargs = {}
         self._meta_dependencies = []
         self._add_dependencies(kwargs.pop('meta_depend', []))
-        self._add_dependencies(kwargs.pop('require', []), self._require)
+        self._add_dependencies(kwargs.pop('meta_require', []), self._require)
         self._add_dependencies(kwargs.pop('trigger', []), self._trigger)
         self._initial_dir = os.path.abspath(os.getcwd())
         super().__build__(module, *args, **kwargs)
@@ -167,7 +167,7 @@ class Task(Attribute, metaclass=ABCMeta):
         dependency.bind(self)
         self.meta_dependencies.append(dependency)
 
-    def require(self, task, *args, **kwargs):
+    def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
         """
         dependency = self._require(task, *args, **kwargs)
