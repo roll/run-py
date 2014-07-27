@@ -16,7 +16,7 @@ class Task(Attribute, metaclass=ABCMeta):
         self._meta_args = ()
         self._meta_kwargs = {}
         self._meta_dependencies = []
-        self._add_dependencies(kwargs.pop('depend', []))
+        self._add_dependencies(kwargs.pop('meta_depend', []))
         self._add_dependencies(kwargs.pop('require', []), self._require)
         self._add_dependencies(kwargs.pop('trigger', []), self._trigger)
         self._initial_dir = os.path.abspath(os.getcwd())
@@ -161,7 +161,7 @@ class Task(Attribute, metaclass=ABCMeta):
     def meta_strict(self, value):
         self._meta_params['strict'] = value
 
-    def depend(self, dependency):
+    def meta_depend(self, dependency):
         """Add custom dependency.
         """
         dependency.bind(self)
@@ -171,13 +171,13 @@ class Task(Attribute, metaclass=ABCMeta):
         """Add require dependency.
         """
         dependency = self._require(task, *args, **kwargs)
-        self.depend(dependency)
+        self.meta_depend(dependency)
 
     def trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
         """
         dependency = self._trigger(task, *args, **kwargs)
-        self.depend(dependency)
+        self.meta_depend(dependency)
 
     def enable_dependency(self, task, category=None):
         """Enable all dependencies for the task.
@@ -235,7 +235,7 @@ class Task(Attribute, metaclass=ABCMeta):
         for dependency in container:
             if category and not self._isinstance(dependency, category):
                 dependency = category(dependency)
-            self.depend(dependency)
+            self.meta_depend(dependency)
 
     def _resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:

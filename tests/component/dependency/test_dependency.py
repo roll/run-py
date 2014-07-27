@@ -33,13 +33,13 @@ class DependencyTest(unittest.TestCase):
         self.dependency._task_function.assert_called_with(method)
         # Check task_function's return_value (prototype) depend call
         prototype = self.dependency._task_function.return_value
-        prototype.depend.assert_called_with(self.dependency)
+        prototype.meta_depend.assert_called_with(self.dependency)
 
     def test___call___method_is_prototype(self):
         prototype = MagicMock()
         self.assertEqual(self.dependency(prototype), prototype)
         # Check prototype call
-        prototype.depend.assert_called_with(self.dependency)
+        prototype.meta_depend.assert_called_with(self.dependency)
 
     def test_bind(self):
         self.dependency.bind('attribute')

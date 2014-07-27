@@ -53,7 +53,7 @@ class TaskTest(unittest.TestCase):
 
     def test___call___with_dependencies(self):
         dependency = Mock()
-        self.task.depend(dependency)
+        self.task.meta_depend(dependency)
         self.assertEqual(self.task(), self.task.invoke.return_value)
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
@@ -62,7 +62,7 @@ class TaskTest(unittest.TestCase):
 
     def test___call___with_dependencies_and_invoke_exception(self):
         dependency = Mock()
-        self.task.depend(dependency)
+        self.task.meta_depend(dependency)
         self.task.invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check dependnecy resolve call
@@ -100,7 +100,7 @@ class TaskTest(unittest.TestCase):
         dependency = Mock()
         self.Task._isinstance = Mock(return_value=False)
         self.task = self.pTask(
-            depend=[dependency],
+            meta_depend=[dependency],
             require=['require'],
             trigger=['trigger'])
         self.assertEqual(self.task.meta_dependencies, [
@@ -143,7 +143,7 @@ class TaskTest(unittest.TestCase):
 
     def test_depend(self):
         dependency = Mock()
-        self.task.depend(dependency)
+        self.task.meta_depend(dependency)
         self.assertEqual(self.task.meta_dependencies, [dependency])
         # Check dependency's bind call
         dependency.bind.assert_called_with(self.task)
@@ -171,7 +171,7 @@ class TaskTest(unittest.TestCase):
     def test_enable_dependency(self):
         dependency = Mock()
         dependency.task = 'task'
-        self.task.depend(dependency)
+        self.task.meta_depend(dependency)
         self.task.enable_dependency('task', category=Mock)
         # Check dependency enable call
         self.assertTrue(dependency.enable.called)
@@ -179,7 +179,7 @@ class TaskTest(unittest.TestCase):
     def test_enable_dependency_with_different_task(self):
         dependency = Mock()
         dependency.task = 'task'
-        self.task.depend(dependency)
+        self.task.meta_depend(dependency)
         self.task.enable_dependency('different_task', category=Mock)
         # Check dependency enable call
         self.assertFalse(dependency.enable.called)
@@ -187,7 +187,7 @@ class TaskTest(unittest.TestCase):
     def test_disable_dependency(self):
         dependency = Mock()
         dependency.task = 'task'
-        self.task.depend(dependency)
+        self.task.meta_depend(dependency)
         self.task.disable_dependency('task', category=Mock)
         # Check dependency disable call
         self.assertTrue(dependency.disable.called)
@@ -195,7 +195,7 @@ class TaskTest(unittest.TestCase):
     def test_disable_dependency_with_different_task(self):
         dependency = Mock()
         dependency.task = 'task'
-        self.task.depend(dependency)
+        self.task.meta_depend(dependency)
         self.task.disable_dependency('different_task', category=Mock)
         # Check dependency disable call
         self.assertFalse(dependency.disable.called)

@@ -47,7 +47,7 @@ class Dependency(metaclass=ABCMeta):
         prototype = method
         if not isinstance(method, self._attribute_prototype_class):
             prototype = self._task_function(method)
-        prototype.depend(self)
+        prototype.meta_depend(self)
         return prototype
 
     def bind(self, attribute):
