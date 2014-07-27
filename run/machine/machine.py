@@ -26,8 +26,7 @@ class Machine:
         self._controller.listen()
         attributes = getattr(self._cluster, attribute)
         for attribute in attributes:
-            if (isinstance(attribute, self._attribute_class) and
-                callable(attribute)):
+            if isinstance(attribute, self._attribute_class):
                 result = attribute(*args, **kwargs)
                 if result:
                     self._print(result)
