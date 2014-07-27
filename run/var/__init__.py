@@ -1,3 +1,4 @@
+from .attribute import AttributeVar
 from .derived import DerivedVar
 from .descriptor import DescriptorVar
 from .find import FindVar

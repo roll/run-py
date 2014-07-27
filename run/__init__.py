@@ -5,11 +5,11 @@ from .module import (Module,
                      AutoModule, FindModule, NullModule, SubprocessModule)
 from .settings import settings
 from .task import (task,
-                   DerivedTask, DescriptorTask, FindTask, FunctionTask,
-                   InputTask, MethodTask, NullTask, RenderTask,
-                   SubprocessTask, ValueTask)
+                   AttributeTask, DerivedTask, DescriptorTask, FindTask,
+                   FunctionTask, InputTask, MethodTask, NullTask,
+                   RenderTask, SubprocessTask, ValueTask)
 from .var import (var,
-                  DerivedVar, DescriptorVar, FindVar, FunctionVar,
-                  InputVar, MethodVar, NullVar, RenderVar,
-                  SubprocessVar, ValueVar)
+                  AttributeVar, DerivedVar, DescriptorVar, FindVar,
+                  FunctionVar, InputVar, MethodVar, NullVar,
+                  RenderVar, SubprocessVar, ValueVar)
 from .version import version
