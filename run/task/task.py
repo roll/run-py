@@ -99,11 +99,54 @@ class Task(Attribute, metaclass=ABCMeta):
     def meta_chdir(self, value):
         self._meta_params['chdir'] = value
 
+    def meta_depend(self, dependency):
+        """Add custom dependency.
+        """
+        dependency.bind(self)
+        self.meta_dependencies.append(dependency)
+
     @property
     def meta_dependencies(self):
         """Task's list of dependencies.
         """
         return self._meta_dependencies
+
+    def meta_disable_dependency(self, task, category=None):
+        """Disable all dependencies for the task.
+        """
+        for dependency in self.meta_dependencies:
+            if category == None or self._isinstance(dependency, category):
+                if dependency.task == task:
+                    dependency.disable()
+
+    @contextmanager
+    def meta_effective_dir(self):
+        if self.meta_chdir:
+            previous_dir = os.path.abspath(os.getcwd())
+            following_dir = os.path.join(
+                self._initial_dir, self.meta_basedir)
+            os.chdir(following_dir)
+            yield
+            os.chdir(previous_dir)
+        else:
+            yield
+
+    def meta_effective_invoke(self, *args, **kwargs):
+        """Invoke task with effective dir, args and kwargs.
+        """
+        eargs = self.meta_args + args
+        ekwargs = copy(self.meta_kwargs)
+        ekwargs.update(kwargs)
+        with self.meta_effective_dir():
+            return self.meta_invoke(*eargs, **ekwargs)
+
+    def meta_enable_dependency(self, task, category=None):
+        """Enable all dependencies for the task.
+        """
+        for dependency in self.meta_dependencies:
+            if category == None or self._isinstance(dependency, category):
+                if dependency.task == task:
+                    dependency.enable()
 
     @property
     def meta_fallback(self):
@@ -123,11 +166,23 @@ class Task(Attribute, metaclass=ABCMeta):
     def meta_fallback(self, value):
         self._meta_params['fallback'] = value
 
+    @abstractmethod
+    def meta_invoke(self, *args, **kwargs):
+        """Invoke task.
+        """
+        pass  # pragma: no cover
+
     @property
     def meta_kwargs(self):
         """Tasks's default keyword arguments
         """
         return self._meta_kwargs
+
+    def meta_require(self, task, *args, **kwargs):
+        """Add require dependency.
+        """
+        dependency = self._require(task, *args, **kwargs)
+        self.meta_depend(dependency)
 
     @property
     def meta_signature(self):
@@ -160,66 +215,11 @@ class Task(Attribute, metaclass=ABCMeta):
     def meta_strict(self, value):
         self._meta_params['strict'] = value
 
-    def meta_depend(self, dependency):
-        """Add custom dependency.
-        """
-        dependency.bind(self)
-        self.meta_dependencies.append(dependency)
-
-    def meta_require(self, task, *args, **kwargs):
-        """Add require dependency.
-        """
-        dependency = self._require(task, *args, **kwargs)
-        self.meta_depend(dependency)
-
     def meta_trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
         """
         dependency = self._trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
-
-    def meta_enable_dependency(self, task, category=None):
-        """Enable all dependencies for the task.
-        """
-        for dependency in self.meta_dependencies:
-            if category == None or self._isinstance(dependency, category):
-                if dependency.task == task:
-                    dependency.enable()
-
-    def meta_disable_dependency(self, task, category=None):
-        """Disable all dependencies for the task.
-        """
-        for dependency in self.meta_dependencies:
-            if category == None or self._isinstance(dependency, category):
-                if dependency.task == task:
-                    dependency.disable()
-
-    def meta_effective_invoke(self, *args, **kwargs):
-        """Invoke task with effective dir, args and kwargs.
-        """
-        eargs = self.meta_args + args
-        ekwargs = copy(self.meta_kwargs)
-        ekwargs.update(kwargs)
-        with self.meta_effective_dir():
-            return self.meta_invoke(*eargs, **ekwargs)
-
-    @contextmanager
-    def meta_effective_dir(self):
-        if self.meta_chdir:
-            previous_dir = os.path.abspath(os.getcwd())
-            following_dir = os.path.join(
-                self._initial_dir, self.meta_basedir)
-            os.chdir(following_dir)
-            yield
-            os.chdir(previous_dir)
-        else:
-            yield
-
-    @abstractmethod
-    def meta_invoke(self, *args, **kwargs):
-        """Invoke task.
-        """
-        pass  # pragma: no cover
 
     # Protected
 

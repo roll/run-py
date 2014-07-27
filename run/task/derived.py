@@ -15,13 +15,13 @@ class DerivedTask(Task):
             format(task_qualname=self._task_instance.meta_qualname,
                    task_docstring=self._task_instance.meta_docstring))
 
+    def meta_invoke(self, *args, **kwargs):
+        return self._task_instance(*args, **kwargs)
+
     @property
     def meta_signature(self):
         return self._meta_params.get('signature',
             self._task_instance.meta_signature)
-
-    def meta_invoke(self, *args, **kwargs):
-        return self._task_instance(*args, **kwargs)
 
     # Protected
 
