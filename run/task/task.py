@@ -4,8 +4,7 @@ from copy import copy
 from contextlib import contextmanager
 from abc import ABCMeta, abstractmethod
 from ..attribute import Attribute
-from ..dependency import (require as require_function,
-                          trigger as trigger_function)
+from ..dependency import require, trigger
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
 class Task(Attribute, metaclass=ABCMeta):
@@ -227,9 +226,9 @@ class Task(Attribute, metaclass=ABCMeta):
     _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
     _isinstance = staticmethod(isinstance)
-    _require = require_function
+    _require = require
     _successed_signal_class = SuccessedTaskSignal
-    _trigger = trigger_function
+    _trigger = trigger
 
     def _add_dependencies(self, container, category=None):
         for dependency in container:
