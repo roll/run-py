@@ -110,8 +110,7 @@ class Dependency(metaclass=ABCMeta):
         if self._attribute != None:
             module = self._attribute.meta_module
             try:
-                task = module.meta_getattr(
-                    self._task, category=self._task_class, getvalue=True)
+                task = getattr(module, self._task)
                 return task
             except AttributeError as exception:
                 if self._attribute.meta_strict:
