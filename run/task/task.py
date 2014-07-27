@@ -200,11 +200,11 @@ class Task(Attribute, metaclass=ABCMeta):
         eargs = self.meta_args + args
         ekwargs = copy(self.meta_kwargs)
         ekwargs.update(kwargs)
-        with self.effective_dir():
+        with self.meta_effective_dir():
             return self.invoke(*eargs, **ekwargs)
 
     @contextmanager
-    def effective_dir(self):
+    def meta_effective_dir(self):
         if self.meta_chdir:
             previous_dir = os.path.abspath(os.getcwd())
             following_dir = os.path.join(
