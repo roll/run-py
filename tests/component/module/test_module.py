@@ -21,10 +21,6 @@ class ModuleTest(unittest.TestCase):
     def test___set__(self):
         self.assertRaises(AttributeError, self.module.__set__, None, 'value')
 
-    def test___getattr___no_attribute(self):
-        self.assertRaises(AttributeError, getattr, self.module, 'no_attr')
-        self.assertRaises(AttributeError, getattr, self.module, 'no_attr.req')
-
     def test___call__(self):
         args = ('arg1',)
         kwargs = {'kwarg1': 'kwarg1'}
@@ -46,18 +42,6 @@ class ModuleTest(unittest.TestCase):
     def test___getattribute___not_existent(self):
         self.assertRaises(AttributeError,
             self.module.__getattribute__, 'not_existent')
-
-    def test___getattribute___with_category(self):
-        result = self.module.__getattribute__('list', category=Task)
-        self.assertEqual(result, self.module.list)
-
-    def test___getattribute___with_category_does_not_match(self):
-        self.assertRaises(TypeError,
-            self.module.__getattribute__, 'list', category=Module)
-
-    def test___getattribute___with_getvalue_is_false(self):
-        result = self.module.__getattribute__('list', getvalue=False)
-        self.assertEqual(result, self.module.list)
 
     def test_meta_attributes(self):
         self.assertEqual(sorted(self.module.meta_attributes),

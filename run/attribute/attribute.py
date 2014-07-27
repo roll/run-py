@@ -4,10 +4,7 @@ from ..settings import settings
 from .metaclass import AttributeMetaclass
 
 class Attribute(metaclass=AttributeMetaclass):
-    """Main base class for attributes.
-
-    This class is abstract base class for every attribute
-    used in run. Abstract methods: __get__, __set__.
+    """Abstract base class for run's attributes.
     """
 
     # Public
@@ -24,10 +21,20 @@ class Attribute(metaclass=AttributeMetaclass):
 
     @abstractmethod
     def __get__(self, module, module_class=None):
+        """Abstract method to implement.
+        """
         pass  # pragma: no cover
 
     @abstractmethod
     def __set__(self, module, value):
+        """Abstract method to implement.
+        """
+        pass  # pragma: no cover
+
+    @abstractmethod
+    def __call__(self, *args, **kwargs):
+        """Abstract method to implement.
+        """
         pass  # pragma: no cover
 
     def __repr__(self):

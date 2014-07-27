@@ -24,50 +24,22 @@ class Module(Attribute, metaclass=ModuleMetaclass):
     def __call__(self, *args, **kwargs):
         return self.default(*args, **kwargs)
 
-    def __getattribute__(self, name, *, category=None, getvalue=True):
-        """Return module's attribute by given name.
-
-        :param str name: attribute name, supports nested "module.attribute"
-        :param None/type/str category: returns attribute only of given class
-        :param bool getvalue: if True returns attribute's value
-
-        :raises AttributeError: if module has not attribute for given name
-        :raises TypeError: if attribute is not instance of given category
-
-        :returns: attribute instance/attribute value
-        :rtype: :class:`run.attribute.Attribute`/mixed
-        """
+    def __getattribute__(self, name):
+        nested_name = None
         if '.' in name:
-            # Nested name - return recursively
-            module_name, attribute_name = name.split('.', 1)
-            module = self.__getattribute__(module_name, category=Module)
-            return module.__getattribute__(attribute_name,
-                category=category, getvalue=getvalue)
-        if not category and getvalue:
-            # Default params - standard getattribute
-            try:
-                return super().__getattribute__(name)
-            except AttributeError as exception:
-                # We use __getattribute__ and ModuleAttributeError
-                # instead of __getattr__ and helper function
-                # to get correct attribute error message here
-                if isinstance(exception, ModuleAttributeError):
-                    raise
-        elif name in self.meta_attributes:
-            # Custom params - get attribute instance
-            attribute = self.meta_attributes[name]
-            if category:
-                category = import_object(category)
-                if not isinstance(attribute, category):
-                    raise TypeError(
-                        'Attribute "{attribute}" is not a {category}.'.
-                        format(attribute=attribute, category=category))
-            if getvalue:
-                return attribute.__get__(attribute.meta_module)
-            return attribute
-        raise ModuleAttributeError(
-            'Module "{module}" has no attribute "{name}".'.
-            format(module=self, name=name))
+            name, nested_name = name.split('.', 1)
+        try:
+            attribute = super().__getattribute__(name)
+        except AttributeError as exception:
+            # To get correct attribute error message here
+            if isinstance(exception, ModuleAttributeError):
+                raise
+            raise ModuleAttributeError(
+                'Module "{module}" has no attribute "{name}".'.
+                format(module=self, name=name))
+        if nested_name is not None:
+            attribute = getattr(attribute, nested_name)
+        return attribute
 
     @property
     def meta_attributes(self):

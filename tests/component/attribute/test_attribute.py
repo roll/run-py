@@ -103,4 +103,5 @@ class AttributeTest(unittest.TestCase):
             # Public
             __get__ = Mock()
             __set__ = Mock()
+            __call__ = Mock()
         return MockAttribute
