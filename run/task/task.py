@@ -197,10 +197,23 @@ class Task(Attribute, metaclass=ABCMeta):
     def effective_invoke(self, *args, **kwargs):
         """Invoke task with effective dir, args and kwargs.
         """
-        with self._effective_dir():
-            return self.invoke(
-                *self._effective_args(*args),
-                **self._effective_kwargs(**kwargs))
+        eargs = self.meta_args + args
+        ekwargs = copy(self.meta_kwargs)
+        ekwargs.update(kwargs)
+        with self.effective_dir():
+            return self.invoke(*eargs, **ekwargs)
+
+    @contextmanager
+    def effective_dir(self):
+        if self.meta_chdir:
+            previous_dir = os.path.abspath(os.getcwd())
+            following_dir = os.path.join(
+                self._initial_dir, self.meta_basedir)
+            os.chdir(following_dir)
+            yield
+            os.chdir(previous_dir)
+        else:
+            yield
 
     @abstractmethod
     def invoke(self, *args, **kwargs):
@@ -213,11 +226,9 @@ class Task(Attribute, metaclass=ABCMeta):
     _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
     _isinstance = staticmethod(isinstance)
-    _module = inject('module', module='run.module')
     _require = inject('require', module='run.dependency')
     _successed_signal_class = SuccessedTaskSignal
     _trigger = inject('trigger', module='run.dependency')
-
 
     def _add_dependencies(self, container, category=None):
         for dependency in container:
@@ -234,33 +245,3 @@ class Task(Attribute, metaclass=ABCMeta):
         signal_class = getattr(self, signal_class_attr)
         signal = signal_class(self)
         self.meta_dispatcher.add_signal(signal)
-
-    @contextmanager
-    def _effective_dir(self):
-        if self.meta_chdir:
-            previous_dir = os.path.abspath(os.getcwd())
-            following_dir = os.path.join(
-                self._initial_dir, self.meta_basedir)
-            os.chdir(following_dir)
-            yield
-            os.chdir(previous_dir)
-        else:
-            yield
-
-    def _effective_args(self, *args):
-        eargs = self.meta_args + args
-        eargs = tuple(map(self._expand_arg, eargs))
-        return eargs
-
-    def _effective_kwargs(self, **kwargs):
-        ekwargs = copy(self.meta_kwargs)
-        ekwargs.update(kwargs)
-        for key, value in ekwargs.items():
-            ekwargs[key] = self._expand_arg(value)
-        return ekwargs
-
-    def _expand_arg(self, value):
-        result = value
-        if self._isinstance(value, self._module):
-            result = value.expand(self.meta_module)
-        return result

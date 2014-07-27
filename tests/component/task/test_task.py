@@ -74,15 +74,6 @@ class TaskTest(unittest.TestCase):
         self.task.meta_chdir = False
         self.assertEqual(self.task(), self.task.invoke.return_value)
 
-    def test___call___with_module_in_args(self):
-        module = Mock()
-        self.task = self.pTask(module)
-        self.assertEqual(self.task(), self.task.invoke.return_value)
-        # Check invoke call
-        self.task.invoke.assert_called_with(module.expand.return_value)
-        # Check module expand call
-        module.expand.assert_called_with(self.task.meta_module)
-
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
 
@@ -219,7 +210,6 @@ class TaskTest(unittest.TestCase):
             # Protected
             _failed_signal_class = Mock(return_value='failed_signal')
             _initiated_signal_class = Mock(return_value='initiated_signal')
-            _module = Mock
             _require = Mock()
             _successed_signal_class = Mock(return_value='successed_signal')
             _trigger = Mock()
