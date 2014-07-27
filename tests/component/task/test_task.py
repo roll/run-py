@@ -141,14 +141,14 @@ class TaskTest(unittest.TestCase):
         self.task.meta_strict = 'strict'
         self.assertEqual(self.task.meta_strict, 'strict')
 
-    def test_depend(self):
+    def test_meta_depend(self):
         dependency = Mock()
         self.task.meta_depend(dependency)
         self.assertEqual(self.task.meta_dependencies, [dependency])
         # Check dependency's bind call
         dependency.bind.assert_called_with(self.task)
 
-    def test_require(self):
+    def test_meta_require(self):
         self.task.meta_require('task', *self.args, **self.kwargs)
         self.assertEqual(
             self.task.meta_dependencies, [self.task._require.return_value])
@@ -158,7 +158,7 @@ class TaskTest(unittest.TestCase):
         # Check require's return_value bind call
         self.task._require.return_value.bind.assert_called_with(self.task)
 
-    def test_trigger(self):
+    def test_meta_trigger(self):
         self.task.meta_trigger('task', *self.args, **self.kwargs)
         self.assertEqual(
             self.task.meta_dependencies, [self.task._trigger.return_value])
