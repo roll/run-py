@@ -27,5 +27,4 @@ class DerivedTask(Task):
 
     @property
     def _task_instance(self):
-        return self.meta_module.meta_getattr(
-            self._task, category=Task, getvalue=True)
+        return getattr(self.meta_module, self._task)
