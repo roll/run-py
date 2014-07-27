@@ -102,7 +102,7 @@ class TaskTest(unittest.TestCase):
         self.task = self.pTask(
             meta_depend=[dependency],
             meta_require=['require'],
-            trigger=['trigger'])
+            meta_trigger=['trigger'])
         self.assertEqual(self.task.meta_dependencies, [
             dependency,
             self.task._require.return_value,
@@ -159,7 +159,7 @@ class TaskTest(unittest.TestCase):
         self.task._require.return_value.bind.assert_called_with(self.task)
 
     def test_trigger(self):
-        self.task.trigger('task', *self.args, **self.kwargs)
+        self.task.meta_trigger('task', *self.args, **self.kwargs)
         self.assertEqual(
             self.task.meta_dependencies, [self.task._trigger.return_value])
         # Check trigger call
