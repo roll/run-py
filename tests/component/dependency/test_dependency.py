@@ -95,5 +95,4 @@ class DependencyTest(unittest.TestCase):
             # Protected
             _attribute_prototype_class = MagicMock
             _method_task_class = Mock()
-            _task_class = Mock()
         return MockDependency

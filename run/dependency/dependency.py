@@ -103,7 +103,6 @@ class Dependency(metaclass=ABCMeta):
 
     _attribute_prototype_class = AttributePrototype
     _method_task_class = MethodTask
-    _task_class = Task
 
     @cachedproperty
     def _task_instance(self):
