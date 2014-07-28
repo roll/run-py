@@ -55,6 +55,6 @@ class ModuleMetaclass(AttributeMetaclass):
 
     _attribute_class = Attribute
     _attribute_prototype_class = AttributePrototype
-    _prototype_class = ModulePrototype
+    _prototype_class = ModulePrototype  # Overriding
     _task = task
     _var = var
