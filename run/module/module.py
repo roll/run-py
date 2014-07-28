@@ -17,17 +17,17 @@ class Module(Task, metaclass=ModuleMetaclass):
         if '.' in name:
             name, nested_name = name.split('.', 1)
         try:
-            attribute = super().__getattribute__(name)
+            task = super().__getattribute__(name)
         except AttributeError as exception:
-            # To get correct attribute error message here
+            # To get correct AttributeError message here
             if isinstance(exception, ModuleAttributeError):
                 raise
             raise ModuleAttributeError(
-                'Module "{module}" has no attribute "{name}".'.
+                'Module "{module}" has no task "{name}".'.
                 format(module=self, name=name))
         if nested_name is not None:
-            attribute = getattr(attribute, nested_name)
-        return attribute
+            task = getattr(task, nested_name)
+        return task
 
     @property
     def meta_basedir(self):
@@ -84,68 +84,68 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     @property
     def meta_tasks(self):
-        """Module's attributes dict-like object.
+        """Module's tasks dict-like object.
 
-        Dict contains attribute instances, not values.
+        Dict contains task instances, not values.
         """
-        attributes = {}
+        tasks = {}
         for name, attr in vars(type(self)).items():
             if isinstance(attr, Task):
-                attributes[name] = attr
-        return attributes
+                tasks[name] = attr
+        return tasks
 
-    def list(self, attribute=None):
-        """Print attributes.
+    def list(self, task=None):
+        """Print tasks.
         """
-        if attribute != None:
-            attribute = getattr(self, attribute)
+        if task != None:
+            task = getattr(self, task)
         else:
-            attribute = self
+            task = self
         names = []
-        if isinstance(attribute, Module):
-            for attribute in attribute.meta_tasks.values():
-                names.append(attribute.meta_qualname)
+        if isinstance(task, Module):
+            for task in task.meta_tasks.values():
+                names.append(task.meta_qualname)
             for name in sorted(names):
                 self._print(name)
         else:
             raise TypeError(
-                'Attribute "{attribute}" is not a module.'.
-                format(attribute=attribute))
+                'Task "{task}" is not a module.'.
+                format(task=task))
 
-    def info(self, attribute=None):
+    def info(self, task=None):
         """Print information.
         """
-        if attribute != None:
-            attribute = getattr(self, attribute)
+        if task != None:
+            task = getattr(self, task)
         else:
-            attribute = self
-        info = attribute.meta_qualname
-        if isinstance(attribute, Task):
-            info += attribute.meta_signature
+            task = self
+        info = task.meta_qualname
+        if isinstance(task, Task):
+            info += task.meta_signature
         info += '\n---\n'
-        info += 'Type: ' + attribute.meta_type
+        info += 'Type: ' + task.meta_type
         info += '\n'
-        info += 'Dependencies: ' + str(attribute.meta_dependencies)
+        info += 'Dependencies: ' + str(task.meta_dependencies)
         info += '\n'
-        info += 'Default arguments: ' + str(attribute.meta_args)
+        info += 'Default arguments: ' + str(task.meta_args)
         info += '\n'
-        info += 'Default keyword arguments: ' + str(attribute.meta_kwargs)
+        info += 'Default keyword arguments: ' + str(task.meta_kwargs)
         info += '\n---\n'
-        info += attribute.meta_docstring
+        info += task.meta_docstring
         self._print(info)
 
-    def meta(self, attribute=None):
+    def meta(self, task=None):
         """Print metadata.
         """
-        if attribute != None:
-            attribute = getattr(self, attribute)
+        if task != None:
+            task = getattr(self, task)
         else:
-            attribute = self
+            task = self
         meta = OrderedDict()
-        for name in sorted(dir(attribute)):
+        for name in sorted(dir(task)):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
-                meta[key] = getattr(attribute, name)
+                meta[key] = getattr(task, name)
         self._pprint(meta)
 
     default = NullTask(

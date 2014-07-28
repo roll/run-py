@@ -165,7 +165,7 @@ class ModuleTest(unittest.TestCase):
         self.module.info('info')
         # Check print call
         self.module._print.assert_called_once_with(
-            'info(attribute=None)\n'
+            'info(task=None)\n'
             '---\n'
             'Type: MethodTask\n'
             'Dependencies: []\n'
