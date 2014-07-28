@@ -8,39 +8,39 @@ class StackTest(unittest.TestCase):
 
     def setUp(self):
         self.stack = Stack()
-        self.attribute1 = Mock(
+        self.task1 = Mock(
             meta_module='module1',
-            meta_name='attribute1',
-            meta_qualname='module1.attribute1')
-        self.attribute2 = Mock(
+            meta_name='task1',
+            meta_qualname='module1.task1')
+        self.task2 = Mock(
             meta_module='module2',
-            meta_name='attribute2',
-            meta_qualname='module2.attribute2')
+            meta_name='task2',
+            meta_qualname='module2.task2')
 
     def test_push(self):
-        self.stack.push('attribute')
-        self.assertEqual(self.stack, ['attribute'])
+        self.stack.push('task')
+        self.assertEqual(self.stack, ['task'])
 
     def test_pop(self):
-        self.stack.push('attribute')
-        self.assertEqual(self.stack.pop(), 'attribute')
+        self.stack.push('task')
+        self.assertEqual(self.stack.pop(), 'task')
         self.assertFalse(self.stack)
 
-    def test___repr___0_attributes(self):
+    def test___repr___0_tasks(self):
         self.assertEqual(str(self.stack), '')
 
-    def test___repr___1_attributes(self):
-        self.stack.push(self.attribute1)
-        self.assertEqual(repr(self.stack), 'module1.attribute1')
+    def test___repr___1_tasks(self):
+        self.stack.push(self.task1)
+        self.assertEqual(repr(self.stack), 'module1.task1')
 
-    def test___repr___attributes_with_same_modules(self):
-        self.stack.push(self.attribute1)
-        self.stack.push(self.attribute1)
+    def test___repr___tasks_with_same_modules(self):
+        self.stack.push(self.task1)
+        self.stack.push(self.task1)
         self.assertEqual(repr(self.stack),
-                         'module1.attribute1/attribute1')
+                         'module1.task1/task1')
 
-    def test___repr___attributes_with_different_modules(self):
-        self.stack.push(self.attribute1)
-        self.stack.push(self.attribute2)
+    def test___repr___tasks_with_different_modules(self):
+        self.stack.push(self.task1)
+        self.stack.push(self.task2)
         self.assertEqual(repr(self.stack),
-                         'module1.attribute1/module2.attribute2')
+                         'module1.task1/module2.task2')

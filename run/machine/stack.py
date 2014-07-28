@@ -7,8 +7,8 @@ class Stack(list):
         if len(self) >= 1:
             previous = self[0]
             names.append(previous.meta_qualname)
-            for attribute in self[1:]:
-                current = attribute
+            for task in self[1:]:
+                current = task
                 if current.meta_module == previous.meta_module:
                     names.append(current.meta_name)
                 else:
@@ -16,5 +16,5 @@ class Stack(list):
                 previous = current
         return '/'.join(names)
 
-    def push(self, attribute):
-        self.append(attribute)
+    def push(self, task):
+        self.append(task)

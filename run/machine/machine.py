@@ -22,16 +22,16 @@ class Machine:
         self._plain = plain
         self._find_params = find_params
 
-    def process(self, attribute, *args, **kwargs):
+    def process(self, task, *args, **kwargs):
         self._controller.listen()
-        attributes = getattr(self._cluster, attribute)
-        for attribute in attributes:
-            if isinstance(attribute, self._task_class):
-                result = attribute(*args, **kwargs)
+        tasks = getattr(self._cluster, task)
+        for task in tasks:
+            if isinstance(task, self._task_class):
+                result = task(*args, **kwargs)
                 if result:
                     self._print(result)
             else:
-                self._print(attribute)
+                self._print(task)
 
     # Protected
 

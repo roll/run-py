@@ -4,12 +4,12 @@ class TaskSignal(Signal):
 
     # Public
 
-    def __init__(self, attribute):
-        self._attribute = attribute
+    def __init__(self, task):
+        self._task = task
 
     @property
-    def attribute(self):
-        return self._attribute
+    def task(self):
+        return self._task
 
 
 class InitiatedTaskSignal(TaskSignal): pass

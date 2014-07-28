@@ -14,7 +14,7 @@ class ControllerTest(unittest.TestCase):
             return_value='stack'), push=Mock(), pop=Mock())
         self.pcontroller = partial(MockController,
             self.dispatcher, stack=self.stack)
-        self.signal = Mock(attribute=Mock(meta_qualname='attr_qualname'))
+        self.signal = Mock(task=Mock(meta_qualname='attr_qualname'))
 
     def test_listen(self):
         controller = self.pcontroller()
@@ -31,7 +31,7 @@ class ControllerTest(unittest.TestCase):
     def test__on_initiated_task(self):
         controller = self.pcontroller()
         controller._on_initiated_task(self.signal)
-        self.stack.push.assert_called_with(self.signal.attribute)
+        self.stack.push.assert_called_with(self.signal.task)
 
     @patch('run.machine.controller.logging')
     def test__on_successed_task(self, logging):

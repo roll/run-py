@@ -19,7 +19,7 @@ class MachineTest(unittest.TestCase):
             basedir='basedir',
             recursively='recursively',
             skip='skip')
-        machine.process('attribute', *self.args, **self.kwargs)
+        machine.process('task', *self.args, **self.kwargs)
         # Print
         machine._print.assert_has_calls([
             call('result1'),
@@ -39,7 +39,7 @@ class MachineTest(unittest.TestCase):
             skip='skip',
             dispatcher=machine._dispatcher_class.return_value)
         # Cluster's return values
-        for attr in machine._cluster_class.return_value.attribute:
+        for attr in machine._cluster_class.return_value.task:
             if hasattr(attr, 'assert_called_with'):
                 attr.assert_called_with(*self.args, **self.kwargs)
         # Dispatcher
@@ -61,7 +61,7 @@ class MachineTest(unittest.TestCase):
             # Protected
             _controller_class = Mock()
             _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
-            _cluster_class = Mock(return_value=Mock(attribute=[
+            _cluster_class = Mock(return_value=Mock(task=[
                 Mock(return_value='result1'),
                 Mock(return_value='result2'),
                 'attr3']))
