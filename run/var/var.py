@@ -13,7 +13,7 @@ class Var(Task, metaclass=ABCMeta):
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:
-            if self._cached_value == Null:
+            if self._cached_value is Null:
                 self._cached_value = self()
             return self._cached_value
         else:
