@@ -1,12 +1,11 @@
 import inspect
 from copy import copy
-from ..attribute import AttributePrototype, AttributeMetaclass, Attribute
-from ..task import Task, TaskPrototype, task
+from ..task import Task, TaskMetaclass, TaskPrototype, task
 from ..var import var
 from .prototype import ModulePrototype
 from .skip import skip
 
-class ModuleMetaclass(AttributeMetaclass):
+class ModuleMetaclass(TaskMetaclass):
 
     # Public
 
@@ -19,12 +18,6 @@ class ModuleMetaclass(AttributeMetaclass):
             if key.startswith('meta_'):
                 continue
             if isinstance(attr, type):
-                continue
-            # TODO: remove
-            if isinstance(attr, cls._attribute_class):
-                continue
-            # TODO: remove
-            if isinstance(attr, cls._attribute_prototype_class):
                 continue
             if isinstance(attr, cls._task_prototype_class):
                 continue
@@ -51,9 +44,7 @@ class ModuleMetaclass(AttributeMetaclass):
         for cls in self.mro():
             for key, attr in vars(cls).items():
                 if (key not in attrs and
-                    # TODO: remove attribute
-                    (isinstance(attr, self._attribute_prototype_class) or
-                     isinstance(attr, self._task_prototype_class))):
+                    isinstance(attr, self._task_prototype_class)):
                     attrs[key] = copy(attr)
         attrs['__doc__'] = self.__doc__
         attrs['__module__'] = self.__module__
@@ -61,8 +52,6 @@ class ModuleMetaclass(AttributeMetaclass):
 
     # Protected
 
-    _attribute_class = Attribute
-    _attribute_prototype_class = AttributePrototype
     _prototype_class = ModulePrototype  # Overriding
     _task_prototype_class = TaskPrototype
     _task_class = Task

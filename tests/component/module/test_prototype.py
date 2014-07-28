@@ -27,5 +27,5 @@ class ModulePrototypeTest(unittest.TestCase):
     def _make_mock_prototype_class(self):
         class MockPrototype(ModulePrototype):
             # Protected
-            _attribute_prototype_class = Mock
+            _task_prototype_class = Mock
         return MockPrototype

@@ -15,12 +15,6 @@ class ModuleTest(unittest.TestCase):
     def test(self):
         self.assertIsInstance(self.module, self.Module)
 
-    def test___get__(self):
-        self.assertIs(self.module.__get__(None), self.module)
-
-    def test___set__(self):
-        self.assertRaises(AttributeError, self.module.__set__, None, 'value')
-
     def test___call__(self):
         args = ('arg1',)
         kwargs = {'kwarg1': 'kwarg1'}
@@ -168,16 +162,6 @@ class ModuleTest(unittest.TestCase):
         self.assertRaises(TypeError, self.module.list, 'list')
 
     def test_info(self):
-        self.module.info()
-        # Check print call
-        self.module._print.assert_called_once_with(
-            '__main__\n'
-            '---\n'
-            'Type: MockModule\n'
-            '---\n'
-            'docstring')
-
-    def test_info_with_attribute_is_task(self):
         self.module.info('info')
         # Check print call
         self.module._print.assert_called_once_with(

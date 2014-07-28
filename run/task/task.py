@@ -34,18 +34,6 @@ class Task(metaclass=TaskMetaclass):
         self._meta_args = args
         self._meta_kwargs = kwargs
 
-    def __get__(self, module, module_class=None):
-        return self
-
-    def __set__(self, module, value):
-        if callable(value):
-            self.meta_invoke = value
-        else:
-            raise TypeError(
-            'Attribute is task "{task}" and '
-            'can be set only to callable value'.
-            format(task=self))
-
     def __call__(self, *args, **kwargs):
         self._add_signal('initiated')
         try:

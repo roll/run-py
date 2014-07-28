@@ -14,17 +14,6 @@ class TaskTest(unittest.TestCase):
         self.pTask = partial(self.Task, meta_module=None)
         self.task = self.pTask(*self.args, **self.kwargs)
 
-    def test___get__(self):
-        self.assertEqual(self.task.__get__('module'), self.task)
-
-    def test___set__(self):
-        value = lambda: 'value'
-        self.task.__set__('module', value)
-        self.assertEqual(self.task.meta_invoke, value)
-
-    def test___set___not_callable(self):
-        self.assertRaises(TypeError, self.task.__set__, 'module', 'value')
-
     def test___call__(self):
         self.assertEqual(self.task(), self.task.meta_invoke.return_value)
         # Check meta_invoke call

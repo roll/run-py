@@ -1,4 +1,5 @@
 from .attribute import AttributeTask
+from .build import build
 from .derived import DerivedTask
 from .descriptor import DescriptorTask
 from .find import FindTask

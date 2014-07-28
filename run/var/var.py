@@ -19,9 +19,6 @@ class Var(Task, metaclass=ABCMeta):
         else:
             return self()
 
-    def __set__(self, module, value):
-        self.meta_invoke = lambda: value
-
     @property
     def meta_cache(self):
         """Var's caching status (enabled or disabled).
@@ -47,6 +44,6 @@ class Var(Task, metaclass=ABCMeta):
 
     # Protected
 
-    _failed_signal_class = FailedVarSignal
-    _initiated_signal_class = InitiatedVarSignal
-    _successed_signal_class = SuccessedVarSignal
+    _failed_signal_class = FailedVarSignal  # Overriding
+    _initiated_signal_class = InitiatedVarSignal  # Overriding
+    _successed_signal_class = SuccessedVarSignal  # Overriding

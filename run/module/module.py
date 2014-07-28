@@ -2,26 +2,15 @@ import os
 import inspect
 from pprint import pprint
 from collections import OrderedDict
-from ..attribute import Attribute
 from ..task import Task, NullTask
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
+from .signal import (InitiatedModuleSignal, SuccessedModuleSignal,
+                     FailedModuleSignal)
 
-class Module(Attribute, metaclass=ModuleMetaclass):
+class Module(Task, metaclass=ModuleMetaclass):
 
     # Public
-
-    def __get__(self, module=None, module_class=None):
-        return self
-
-    def __set__(self, module, value):
-        raise AttributeError(
-            'Attribute is module "{module}" '
-            'and can\'t be set to any value'.
-            format(module=self))
-
-    def __call__(self, *args, **kwargs):
-        return self.default(*args, **kwargs)
 
     def __getattribute__(self, name):
         nested_name = None
@@ -48,7 +37,7 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         """
         attributes = {}
         for name, attr in vars(type(self)).items():
-            if isinstance(attr, Attribute):
+            if isinstance(attr, Task):
                 attributes[name] = attr
         return attributes
 
@@ -92,42 +81,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
         self._meta_params['cache'] = value
 
     @property
-    def meta_chdir(self):
-        """Module's chdir status (enabled or disabled).
-
-        Define default meta_chdir for all attributes.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
-        """
-        return self._meta_params.get('chdir',
-            self.meta_module.meta_chdir)
-
-    @meta_chdir.setter
-    def meta_chdir(self, value):
-        self._meta_params['chdir'] = value
-
-    @property
-    def meta_fallback(self):
-        """Module's fallback.
-
-        Define default meta_fallback for all attributes.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
-        """
-        return self._meta_params.get('fallback',
-            self.meta_module.meta_fallback)
-
-    @meta_fallback.setter
-    def meta_fallback(self, value):
-        self._meta_params['fallback'] = value
-
-    @property
     def meta_is_main_module(self):
         """Module's main module status (is main module or not).
         """
@@ -135,6 +88,9 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             return False
         else:
             return True
+
+    def meta_invoke(self, *args, **kwargs):
+        return self.default(*args, **kwargs)
 
     @property
     def meta_main_module(self):
@@ -149,24 +105,6 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             return super().meta_name
         else:
             return self._default_meta_main_module_name
-
-    @property
-    def meta_strict(self):
-        """Module's strict mode status (enabled or disabled).
-
-        Define default meta_strict for all attributes.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
-        """
-        return self._meta_params.get('strict',
-            self.meta_module.meta_strict)
-
-    @meta_strict.setter
-    def meta_strict(self, value):
-        self._meta_params['strict'] = value
 
     @property
     def meta_tags(self):
@@ -204,13 +142,12 @@ class Module(Attribute, metaclass=ModuleMetaclass):
             info += attribute.meta_signature
         info += '\n---\n'
         info += 'Type: ' + attribute.meta_type
-        if isinstance(attribute, Task):
-            info += '\n'
-            info += 'Dependencies: ' + str(attribute.meta_dependencies)
-            info += '\n'
-            info += 'Default arguments: ' + str(attribute.meta_args)
-            info += '\n'
-            info += 'Default keyword arguments: ' + str(attribute.meta_kwargs)
+        info += '\n'
+        info += 'Dependencies: ' + str(attribute.meta_dependencies)
+        info += '\n'
+        info += 'Default arguments: ' + str(attribute.meta_args)
+        info += '\n'
+        info += 'Default keyword arguments: ' + str(attribute.meta_kwargs)
         info += '\n---\n'
         info += attribute.meta_docstring
         self._print(info)
@@ -235,5 +172,8 @@ class Module(Attribute, metaclass=ModuleMetaclass):
 
     # Protected
 
+    _failed_signal_class = FailedModuleSignal  # Overriding
+    _initiated_signal_class = InitiatedModuleSignal  # Overriding
     _print = staticmethod(print)
     _pprint = staticmethod(pprint)
+    _successed_signal_class = SuccessedModuleSignal  # Overriding

@@ -1,7 +1,7 @@
 from box.functools import cachedproperty
-from ..attribute import Attribute
 from ..cluster import Cluster
 from ..signal import Dispatcher
+from ..task import Task
 from .controller import Controller
 from .stack import Stack
 
@@ -26,7 +26,7 @@ class Machine:
         self._controller.listen()
         attributes = getattr(self._cluster, attribute)
         for attribute in attributes:
-            if isinstance(attribute, self._attribute_class):
+            if isinstance(attribute, self._task_class):
                 result = attribute(*args, **kwargs)
                 if result:
                     self._print(result)
@@ -35,12 +35,12 @@ class Machine:
 
     # Protected
 
-    _attribute_class = Attribute
     _cluster_class = Cluster
     _controller_class = Controller
     _dispatcher_class = Dispatcher
     _print = staticmethod(print)
     _stack_class = Stack
+    _task_class = Task
 
     @cachedproperty
     def _controller(self):

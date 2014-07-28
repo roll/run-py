@@ -59,7 +59,6 @@ class MachineTest(unittest.TestCase):
     def _make_mock_machine_class(self):
         class MockMachine(Machine):
             # Protected
-            _attribute_class = Mock
             _controller_class = Mock()
             _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
             _cluster_class = Mock(return_value=Mock(attribute=[
@@ -68,4 +67,5 @@ class MachineTest(unittest.TestCase):
                 'attr3']))
             _print = Mock()
             _stack_class = Mock()
+            _task_class = Mock
         return MockMachine

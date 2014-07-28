@@ -1,5 +1,17 @@
-from ..attribute import AttributeSignal
+from ..signal import Signal
 
-class InitiatedTaskSignal(AttributeSignal): pass
-class SuccessedTaskSignal(AttributeSignal): pass
-class FailedTaskSignal(AttributeSignal): pass
+class TaskSignal(Signal):
+
+    # Public
+
+    def __init__(self, attribute):
+        self._attribute = attribute
+
+    @property
+    def attribute(self):
+        return self._attribute
+
+
+class InitiatedTaskSignal(TaskSignal): pass
+class SuccessedTaskSignal(TaskSignal): pass
+class FailedTaskSignal(TaskSignal): pass

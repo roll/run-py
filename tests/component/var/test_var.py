@@ -31,10 +31,6 @@ class VarTest(unittest.TestCase):
         # Two calls because of caching is off
         self.assertEqual(self.var.meta_invoke.call_count, 2)
 
-    def test___set__(self):
-        self.var.__set__('module', 'new_value')
-        self.assertEqual(self.var.__get__('module'), 'new_value')
-
     def test_meta_cache(self):
         self.assertEqual(self.var.meta_cache, True)
         self.var.meta_cache = False
