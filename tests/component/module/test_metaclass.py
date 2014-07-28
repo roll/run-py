@@ -26,8 +26,8 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.assertEqual(self.Class._underscore_attr, 'underscore_value')
         self.assertEqual(self.Class.meta_attr, 'meta_value')
         self.assertEqual(self.Class.type_attr, Mock)
-        self.assertIsInstance(self.Class.attribute_attr, Mock)
-        self.assertIsInstance(self.Class.attribute_builder_attr, MagicMock)
+        self.assertIsInstance(self.Class.task_attr, Mock)
+        self.assertIsInstance(self.Class.task_builder_attr, MagicMock)
         self.assertEqual(self.Class.abstract_method_attr, self.abstract_method)
         self.assertEqual(self.Class.abstract_descriptor_attr, self.abstract_descriptor)
         self.assertEqual(self.Class.method_attr, 'task')
@@ -45,8 +45,8 @@ class ModuleMetaclassTest(unittest.TestCase):
     def _make_mock_metaclass(self):
         class MockMetaclass(ModuleMetaclass):
             # Protected
-            _attribute_class = Mock
-            _attribute_prototype_class = MagicMock
+            _task_prototype_class = MagicMock
+            _task_class = Mock
             _task = Mock(return_value='task')
             _var = Mock(return_value='var')
         return MockMetaclass
@@ -55,8 +55,6 @@ class ModuleMetaclassTest(unittest.TestCase):
         method, descriptor, abstract_method, abstract_descriptor):
         class MockClass(metaclass=mock_module_metaclass):
             # Public
-            attribute_attr = Mock()
-            attribute_builder_attr = MagicMock()
             abstract_method_attr = abstract_method
             abstract_descriptor_attr = abstract_descriptor
             classmethod_attr = classmethod(print)
@@ -65,6 +63,8 @@ class ModuleMetaclassTest(unittest.TestCase):
             method_attr = method
             skipped_attr = skip(unittest.TestCase())
             staticmethod_attr = staticmethod(print)
+            task_builder_attr = MagicMock()
+            task_attr = Mock()
             type_attr = Mock
             UPPER_ATTR = 'upper_attr'
             value_attr = 'value_attr'
