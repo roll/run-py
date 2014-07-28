@@ -43,15 +43,6 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     @property
     def meta_basedir(self):
-        """Module's basedir.
-
-        Define default meta_basedir for all attributes.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
-        """
         if self.meta_is_main_module:
             basedir = os.path.dirname(inspect.getfile(type(self)))
         else:
