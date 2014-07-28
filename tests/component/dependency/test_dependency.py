@@ -9,18 +9,18 @@ class DependencyTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.attribute = Mock()
+        self.successor = Mock()
         self.Dependency = self._make_mock_dependency()
         self.dependency = self.Dependency('task', *self.args, **self.kwargs)
-        self.dependency.bind(self.attribute)
+        self.dependency.bind(self.successor)
 
     def test___repr__(self):
-        self.attribute.meta_module.task.__repr__ = lambda self: 'task'
+        self.successor.meta_module.task.__repr__ = lambda self: 'task'
         self.assertEqual(repr(self.dependency),
             "MockDependency task('arg1', kwarg1='kwarg1')")
 
     def test___repr___task_not_existent(self):
-        self.attribute.meta_module.task = None
+        self.successor.meta_module.task = None
         self.assertEqual(repr(self.dependency),
             'MockDependency <NotExistent "task">')
 
@@ -42,8 +42,8 @@ class DependencyTest(unittest.TestCase):
         prototype.meta_depend.assert_called_with(self.dependency)
 
     def test_bind(self):
-        self.dependency.bind('attribute')
-        self.assertEqual(self.dependency.attribute, 'attribute')
+        self.dependency.bind('task')
+        self.assertEqual(self.dependency.successor, 'task')
 
     def test_enable(self):
         self.dependency.enable()
@@ -56,17 +56,17 @@ class DependencyTest(unittest.TestCase):
     def test_invoke(self):
         self.dependency.invoke()
         # Check task call
-        self.attribute.meta_module.task.assert_called_with(
+        self.successor.meta_module.task.assert_called_with(
             *self.args, **self.kwargs)
 
     def test_invoke_task_not_existent(self):
-        self.attribute.meta_module = Mock(spec=[])
+        self.successor.meta_module = Mock(spec=[])
         self.assertRaises(AttributeError, self.dependency.invoke)
 
     @patch('logging.getLogger')
     def test_invoke_task_not_existent_and_strict_is_false(self, getLogger):
-        self.attribute.meta_strict = False
-        self.attribute.meta_module = Mock(spec=[])
+        self.successor.meta_strict = False
+        self.successor.meta_module = Mock(spec=[])
         self.dependency.invoke()
         # Check getLogger call
         self.assertTrue(getLogger.called)
@@ -77,14 +77,21 @@ class DependencyTest(unittest.TestCase):
         self.dependency.bind(None)
         self.assertRaises(RuntimeError, self.dependency.invoke)
 
-    def test_attribute(self):
-        self.assertEqual(self.dependency.attribute, self.attribute)
+    def test_task(self):
+        self.assertEqual(self.dependency.task, 'task')
 
     def test_enabled(self):
         self.assertTrue(self.dependency.enabled)
 
-    def test_task(self):
-        self.assertEqual(self.dependency.task, 'task')
+    def test_predecessor(self):
+        self.assertEqual(
+            self.dependency.predecessor,
+            self.successor.meta_module.task)
+
+    def test_successor(self):
+        self.assertEqual(
+            self.dependency.successor,
+            self.successor)
 
     # Protected
 

@@ -17,15 +17,15 @@ class Dependency(metaclass=ABCMeta):
         self._task = task
         self._args = args
         self._kwargs = kwargs
-        self._attribute = None
         self._enabled = True
+        self._successor = None
 
     def __repr__(self, action=None):
         if action == None:
             action = type(self).__name__
-        if self._task_instance != None:
+        if self.predecessor != None:
             # TODO: added label if not enabled?
-            task = str(self._task_instance)
+            task = str(self.predecessor)
             if self._args or self._kwargs:
                 task += '('
                 elements = []
@@ -50,12 +50,12 @@ class Dependency(metaclass=ABCMeta):
         prototype.meta_depend(self)
         return prototype
 
-    def bind(self, attribute):
-        """Bind dependency to the attribute.
+    def bind(self, task):
+        """Bind dependency to the task.
 
-        :param object attribute: attribute object
+        :param object task: task object
         """
-        self._attribute = attribute
+        self._successor = task
 
     def enable(self):
         """Enable resolving.
@@ -78,20 +78,8 @@ class Dependency(metaclass=ABCMeta):
     def invoke(self):
         """Invoke task if it exists.
         """
-        if self._task_instance != None:
-            self._task_instance(*self._args, **self._kwargs)
-
-    @property
-    def attribute(self):
-        """Dependency's attribute (if bound or None).
-        """
-        return self._attribute
-
-    @property
-    def enabled(self):
-        """Resolving status (enabled or disabled).
-        """
-        return self._enabled
+        if self.predecessor != None:
+            self.predecessor(*self._args, **self._kwargs)
 
     @property
     def task(self):
@@ -99,20 +87,21 @@ class Dependency(metaclass=ABCMeta):
         """
         return self._task
 
-    # Protected
-
-    _task_function = inject('task', module='run.task')
-    _task_prototype_class = inject('TaskPrototype', module='run.task')
+    @property
+    def enabled(self):
+        """Resolving status (enabled or disabled).
+        """
+        return self._enabled
 
     @cachedproperty
-    def _task_instance(self):
-        if self._attribute != None:
-            module = self._attribute.meta_module
+    def predecessor(self):
+        if self._successor != None:
+            module = self._successor.meta_module
             try:
                 task = getattr(module, self._task)
                 return task
             except AttributeError as exception:
-                if self._attribute.meta_strict:
+                if self._successor.meta_strict:
                     raise
                 else:
                     logger = logging.getLogger(__name__)
@@ -121,5 +110,14 @@ class Dependency(metaclass=ABCMeta):
         else:
             raise RuntimeError(
                 'Dependency for "{self.task}" '
-                'is not bound to any attribute'.
+                'is not bound to any task'.
                 format(self=self))
+
+    @property
+    def successor(self):
+        return self._successor
+
+    # Protected
+
+    _task_function = inject('task', module='run.task')
+    _task_prototype_class = inject('TaskPrototype', module='run.task')
