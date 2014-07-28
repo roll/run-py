@@ -4,7 +4,6 @@ Design Explained
 
 .. toctree::
    
-     design/attributes
      design/modules
      design/tasks
      design/vars

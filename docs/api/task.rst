@@ -14,6 +14,16 @@ Base class
 
 .. autoclass:: run.task.Task
 
+Metaclass
+---------
+
+.. autoclass:: run.task.TaskMetaclass
+
+Prototype
+---------
+
+.. autoclass:: run.task.TaskPrototype
+
 Concrete tasks
 --------------
 
@@ -37,4 +47,14 @@ Signal classes
 Helper functions
 ----------------
 
+.. autofunction:: run.task.build
+.. autofunction:: run.task.fork
 .. autofunction:: run.task.task
+   
+Internal
+========
+
+Module’s internal implementation.
+
+.. autoclass:: run.task.signal.TaskSignal
+.. autoclass:: run.task.update.TaskUpdate
