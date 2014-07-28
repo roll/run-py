@@ -40,7 +40,7 @@ class Settings(Settings):
                 },
                 {
                  'name': 'arguments',
-                 'nargs':'*',
+                 'nargs': '*',
                  'default': self.default_arguments,
                  'help': 'Arguments for task.',
                 },
@@ -81,7 +81,7 @@ class Settings(Settings):
                 },
                 {
                  'dest': 'names',
-                 'nargs':'*',
+                 'nargs': '*',
                  'flags': ['-n', '--names'],
                  'default': self.default_names,
                  'help': 'Main modules names to match.',
@@ -106,7 +106,7 @@ class Settings(Settings):
                 },
                 {
                  'dest': 'tags',
-                 'nargs':'*',
+                 'nargs': '*',
                  'flags': ['-t', '--tags'],
                  'default': self.default_tags,
                  'help': 'Main module tags to match.',
@@ -141,18 +141,18 @@ class Settings(Settings):
             },
             'handlers': {
                 'initiated': {
-                    'level':'DEBUG',
-                    'class':'logging.StreamHandler',
+                    'level': 'DEBUG',
+                    'class': 'logging.StreamHandler',
                     'formatter': 'initiated',
                 },
                 'successed': {
-                    'level':'DEBUG',
-                    'class':'logging.StreamHandler',
+                    'level': 'DEBUG',
+                    'class': 'logging.StreamHandler',
                     'formatter': 'successed',
                 },
                 'failed': {
-                    'level':'DEBUG',
-                    'class':'logging.StreamHandler',
+                    'level': 'DEBUG',
+                    'class': 'logging.StreamHandler',
                     'formatter': 'failed',
                 },
             },
