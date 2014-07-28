@@ -243,9 +243,9 @@ class Task(metaclass=TaskMetaclass):
         If module is None name will be empty string.
         """
         name = ''
-        attributes = self.meta_module.meta_attributes
-        for key, attribute in attributes.items():
-            if attribute is self:
+        tasks = self.meta_module.meta_tasks
+        for key, task in tasks.items():
+            if task is self:
                 name = key
         return name
 

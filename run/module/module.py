@@ -30,18 +30,6 @@ class Module(Task, metaclass=ModuleMetaclass):
         return attribute
 
     @property
-    def meta_attributes(self):
-        """Module's attributes dict-like object.
-
-        Dict contains attribute instances, not values.
-        """
-        attributes = {}
-        for name, attr in vars(type(self)).items():
-            if isinstance(attr, Task):
-                attributes[name] = attr
-        return attributes
-
-    @property
     def meta_basedir(self):
         if self.meta_is_main_module:
             basedir = os.path.dirname(inspect.getfile(type(self)))
@@ -94,6 +82,18 @@ class Module(Task, metaclass=ModuleMetaclass):
         """
         return []
 
+    @property
+    def meta_tasks(self):
+        """Module's attributes dict-like object.
+
+        Dict contains attribute instances, not values.
+        """
+        attributes = {}
+        for name, attr in vars(type(self)).items():
+            if isinstance(attr, Task):
+                attributes[name] = attr
+        return attributes
+
     def list(self, attribute=None):
         """Print attributes.
         """
@@ -103,7 +103,7 @@ class Module(Task, metaclass=ModuleMetaclass):
             attribute = self
         names = []
         if isinstance(attribute, Module):
-            for attribute in attribute.meta_attributes.values():
+            for attribute in attribute.meta_tasks.values():
                 names.append(attribute.meta_qualname)
             for name in sorted(names):
                 self._print(name)

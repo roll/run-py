@@ -34,10 +34,6 @@ class ModuleTest(unittest.TestCase):
         result = self.module.__getattribute__('module1.task')
         self.assertEqual(result, self.module.task)
 
-    def test_meta_attributes(self):
-        self.assertEqual(sorted(self.module.meta_attributes),
-            ['default', 'info', 'list', 'meta', 'task'])
-
     def test_meta_basedir(self):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
@@ -105,7 +101,7 @@ class ModuleTest(unittest.TestCase):
 
     def test_meta_name_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
-        self.parent_module.meta_attributes = {'module': self.module}
+        self.parent_module.meta_tasks = {'module': self.module}
         self.assertEqual(self.module.meta_name, 'module')
 
     def test_meta_qualname(self):
@@ -113,7 +109,7 @@ class ModuleTest(unittest.TestCase):
 
     def test_meta_qualname_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
-        self.parent_module.meta_attributes = {'module': self.module}
+        self.parent_module.meta_tasks = {'module': self.module}
         self.assertEqual(self.module.meta_qualname, '[parent_module] module')
 
     def test_meta_strict(self):
@@ -129,6 +125,10 @@ class ModuleTest(unittest.TestCase):
 
     def test_meta_type(self):
         self.assertEqual(self.module.meta_type, 'MockModule')
+
+    def test_meta_tasks(self):
+        self.assertEqual(sorted(self.module.meta_tasks),
+            ['default', 'info', 'list', 'meta', 'task'])
 
     def test_list(self):
         self.module.list()
@@ -147,7 +147,7 @@ class ModuleTest(unittest.TestCase):
             meta_module=self.parent_module,
             meta_chdir=False,
             meta_fallback=None)
-        self.parent_module.meta_attributes = {'module': self.module}
+        self.parent_module.meta_tasks = {'module': self.module}
         self.module.list()
         # Check print call
         self.module._print.assert_has_calls([
@@ -201,7 +201,6 @@ class ModuleTest(unittest.TestCase):
     def _make_mock_parent_module_class(self):
         class MockParentModule:
             # Public
-            meta_attributes = {}
             meta_basedir = 'basedir'
             meta_cache = 'cache'
             meta_chdir = 'chdir'
@@ -211,6 +210,7 @@ class ModuleTest(unittest.TestCase):
             meta_name = 'parent_module'
             meta_qualname = 'parent_module'
             meta_strict = 'strict'
+            meta_tasks = {}
             @property
             def meta_main_module(self):
                 return self

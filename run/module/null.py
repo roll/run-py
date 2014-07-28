@@ -14,10 +14,6 @@ class NullModule:
         return '<NullModule>'
 
     @property
-    def meta_attributes(self):
-        return {}
-
-    @property
     def meta_basedir(self):
         return os.getcwd()
 
@@ -72,6 +68,10 @@ class NullModule:
     @property
     def meta_type(self):
         return type(self).__name__
+
+    @property
+    def meta_tasks(self):
+        return {}
 
     # Protected
 

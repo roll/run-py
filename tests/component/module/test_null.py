@@ -16,8 +16,8 @@ class NullModuleTest(unittest.TestCase):
     def test___repr__(self):
         self.assertTrue(repr(self.module))
 
-    def test_meta_attributes(self):
-        self.assertEqual(self.module.meta_attributes, {})
+    def test_meta_tasks(self):
+        self.assertEqual(self.module.meta_tasks, {})
 
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, os.getcwd())
