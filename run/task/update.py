@@ -1,4 +1,4 @@
-class Update:
+class TaskUpdate:
 
     # Public
 
