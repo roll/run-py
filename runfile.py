@@ -3,14 +3,7 @@ from packgram import ManageModule
 
 class Module(ManageModule):
 
-    # Modules
-
-    # TODO: move to ManageModule when deferred load will be added to run
-    # TODO: use names instead basedir after run fix
-    docs = FindModule(basedir='docs')
-    tests = FindModule(basedir='tests')
-
-    # Vars
+    # Attributes
 
     author = 'roll'
     author_email = 'roll@respect31.com'
@@ -34,3 +27,10 @@ class Module(ManageModule):
     pypi_password_secure = 'JaTeiyjnimmtwhbdfPMZZdtp+5S920vb0HobJWL1QQjHVAo5Hwt0kTWYG+zjDrpWUL+NanVNqhQA8xnvWKbI5cZ+n3PvS7KFbgn6XcTYfeEGyEdYUFi0sXaUsgcfke+9nyMBDLoRH2M7TGqpLY2dmXk5C0h0RMkkAPjxgZCan94='
     tests_require = ['nose']
     test_suite = 'nose.collector'
+
+    # Modules
+
+    # TODO: move to ManageModule when deferred load will be added to run
+    # TODO: use names instead basedir after run fix
+    docs = FindModule(basedir='docs')
+    tests = FindModule(basedir='tests')
