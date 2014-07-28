@@ -13,8 +13,8 @@ class ModulePrototype(TaskPrototype):
 
     _task_prototype_class = TaskPrototype
 
-    def _create_attribute(self):
-        module = super()._create_attribute()
+    def _create_task(self):
+        module = super()._create_task()
         for name in dir(self._class):
             attr = getattr(self._class, name)
             if isinstance(attr, self._task_prototype_class):

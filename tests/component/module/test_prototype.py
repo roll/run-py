@@ -11,8 +11,8 @@ class ModulePrototypeTest(unittest.TestCase):
         self.MockPrototype = self._make_mock_prototype_class()
         self.prototype = self.MockPrototype(self.MockModule, None)
 
-    def test__create_attribute(self):
-        module = self.prototype._create_attribute()
+    def test__create_task(self):
+        module = self.prototype._create_task()
         self.assertIsInstance(module, self.MockModule)
         self.assertEqual(module.attr, 'value')
 

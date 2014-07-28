@@ -7,6 +7,6 @@ class TaskUpdate:
         self._args = args
         self._kwargs = kwargs
 
-    def apply(self, attribute):
-        method = getattr(attribute, self._name)
+    def apply(self, task):
+        method = getattr(task, self._name)
         method(*self._args, **self._kwargs)

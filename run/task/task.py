@@ -86,9 +86,9 @@ class Task(metaclass=TaskMetaclass):
 
     @property
     def meta_builded(self):
-        """Build status of attribute (builded or not).
+        """Build status of task (builded or not).
 
-        Attribute is builded after succefull __build__ call.
+        Task is builded after succefull __build__ call.
         It includes some internal building and __init__ call.
         """
         return vars(self).get('_meta_builded', False)
@@ -133,7 +133,7 @@ class Task(metaclass=TaskMetaclass):
 
     @property
     def meta_dispatcher(self):
-        """Attribute's dispatcher.
+        """Task's dispatcher.
 
         Dispatcher used to operate signals.
 
@@ -151,7 +151,7 @@ class Task(metaclass=TaskMetaclass):
 
     @property
     def meta_docstring(self):
-        """Attribute's docstring.
+        """Task's docstring.
 
         This property is:
 
@@ -197,7 +197,7 @@ class Task(metaclass=TaskMetaclass):
     def meta_fallback(self):
         """Task's fallback.
 
-        Fallback used when attribute invocation fails.
+        Fallback used when task invocation fails.
 
         This property is:
 
@@ -225,21 +225,21 @@ class Task(metaclass=TaskMetaclass):
 
     @property
     def meta_main_module(self):
-        """Attribute's main module of module hierarchy.
+        """Task's main module of module hierarchy.
         """
         return self.meta_module.meta_main_module
 
     @property
     def meta_module(self):
-        """Attribute's module.
+        """Task's module.
         """
         return self._meta_module
 
     @property
     def meta_name(self):
-        """Attribute's name.
+        """Task's name.
 
-        Name is defined as attribute name in module.
+        Name is defined as task name in module.
         If module is None name will be empty string.
         """
         name = ''
@@ -251,9 +251,9 @@ class Task(metaclass=TaskMetaclass):
 
     @property
     def meta_qualname(self):
-        """Attribute's qualified name.
+        """Task's qualified name.
 
-        Qualname is full attribute name in hierarhy
+        Qualname is full task name in hierarhy
         starts from main module.
         """
         if self.meta_module.meta_is_main_module:
@@ -313,7 +313,7 @@ class Task(metaclass=TaskMetaclass):
 
     @property
     def meta_type(self):
-        """Attribute's type as a string.
+        """Task's type as a string.
         """
         return type(self).__name__
 

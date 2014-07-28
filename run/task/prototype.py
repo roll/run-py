@@ -23,10 +23,10 @@ class TaskPrototype:
 
     def __build__(self, module):
         # Documented public wrapper in :func:`.build`
-        attribute = self._create_attribute()
-        self._init_attribute(attribute, module)
-        self._update_attribute(attribute)
-        return attribute
+        task = self._create_task()
+        self._init_task(task, module)
+        self._update_task(task)
+        return task
 
     def __getattr__(self, name):
         try:
@@ -61,12 +61,12 @@ class TaskPrototype:
     def _add_update(self, name, *args, **kwargs):
         self._updates.append(self._update_class(name, *args, **kwargs))
 
-    def _create_attribute(self):
+    def _create_task(self):
         return object.__new__(self._class)
 
-    def _init_attribute(self, attribute, module):
-        attribute.__build__(module, *self._args, **self._kwargs)
+    def _init_task(self, task, module):
+        task.__build__(module, *self._args, **self._kwargs)
 
-    def _update_attribute(self, attribute):
+    def _update_task(self, task):
         for update in self._updates:
-            update.apply(attribute)
+            update.apply(task)
