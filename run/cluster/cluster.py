@@ -22,18 +22,18 @@ class Cluster:
         self._find_params = find_params
 
     def __getattr__(self, name):
-        attributes = []
+        tasks = []
         for module in self._modules:
             try:
-                attribute = getattr(module, name)
-                attributes.append(attribute)
+                task = getattr(module, name)
+                tasks.append(task)
             except AttributeError as exception:
                 if self._skip:
                     logger = logging.getLogger(__name__)
                     logger.warning(str(exception))
                 else:
                     raise
-        return attributes
+        return tasks
 
     # Protected
 
