@@ -23,7 +23,7 @@ class trigger(Dependency):
 
     def resolve(self, failed=None):
         if self.enabled:
-            if failed != None:
+            if failed is not None:
                 if (self._on_success and not failed or
                     self._on_fail and failed):
                     self.invoke()

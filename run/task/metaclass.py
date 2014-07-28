@@ -12,7 +12,7 @@ class TaskMetaclass(ABCMeta):
         module = kwargs.pop('meta_module', Null)
         prototype = self._prototype_class(self, None, *args, **kwargs)
         if module is not Null:
-            if module == None:
+            if module is None:
                 module = self._null_module_class()
             return build(prototype, module)
         else:

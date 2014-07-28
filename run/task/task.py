@@ -41,7 +41,7 @@ class Task(metaclass=TaskMetaclass):
             try:
                 result = self.meta_effective_invoke(*args, **kwargs)
             except Exception:
-                if self.meta_fallback != None:
+                if self.meta_fallback is not None:
                     result = self.meta_fallback
                 else:
                     self._resolve_dependencies(failed=True)
@@ -127,7 +127,7 @@ class Task(metaclass=TaskMetaclass):
         """Disable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
-            if category == None or self._isinstance(dependency, category):
+            if category is None or self._isinstance(dependency, category):
                 if dependency.task == task:
                     dependency.disable()
 
@@ -189,7 +189,7 @@ class Task(metaclass=TaskMetaclass):
         """Enable all dependencies for the task.
         """
         for dependency in self.meta_dependencies:
-            if category == None or self._isinstance(dependency, category):
+            if category is None or self._isinstance(dependency, category):
                 if dependency.task == task:
                     dependency.enable()
 

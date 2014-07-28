@@ -23,17 +23,17 @@ class find(Function):
     def __init__(self, names=None, tags=None, *,
                  file=None, exclude=None, basedir=None, recursively=None,
                  **find_params):
-        if names == None:
+        if names is None:
             names = self.default_names
-        if tags == None:
+        if tags is None:
             tags = self.default_tags
-        if file == None:
+        if file is None:
             file = self.default_file
-        if exclude == None:
+        if exclude is None:
             exclude = self.default_exclude
-        if basedir == None:
+        if basedir is None:
             basedir = self.default_basedir
-        if recursively == None:
+        if recursively is None:
             recursively = self.default_recursively
         self._names = names
         self._tags = tags

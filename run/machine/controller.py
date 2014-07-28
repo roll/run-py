@@ -33,11 +33,11 @@ class Controller:
     _successed_task_signal_class = SuccessedTaskSignal
 
     def _on_initiated_task(self, signal):
-        if self._stack != None:
+        if self._stack is not None:
             self._stack.push(signal.task)
 
     def _on_successed_task(self, signal):
-        if self._stack != None:
+        if self._stack is not None:
             message = repr(self._stack)
             self._stack.pop()
         else:
@@ -46,7 +46,7 @@ class Controller:
         logger.info(message)
 
     def _on_failed_task(self, signal):
-        if self._stack != None:
+        if self._stack is not None:
             message = repr(self._stack)
             self._stack.pop()
         else:

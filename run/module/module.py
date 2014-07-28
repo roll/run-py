@@ -97,7 +97,7 @@ class Module(Task, metaclass=ModuleMetaclass):
     def list(self, task=None):
         """Print tasks.
         """
-        if task != None:
+        if task is not None:
             task = getattr(self, task)
         else:
             task = self
@@ -115,7 +115,7 @@ class Module(Task, metaclass=ModuleMetaclass):
     def info(self, task=None):
         """Print information.
         """
-        if task != None:
+        if task is not None:
             task = getattr(self, task)
         else:
             task = self
@@ -137,7 +137,7 @@ class Module(Task, metaclass=ModuleMetaclass):
     def meta(self, task=None):
         """Print metadata.
         """
-        if task != None:
+        if task is not None:
             task = getattr(self, task)
         else:
             task = self

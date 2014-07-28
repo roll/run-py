@@ -6,7 +6,7 @@ class TaskPrototype:
     # Public
 
     def __init__(self, cls, updates, *args, **kwargs):
-        if updates == None:
+        if updates is None:
             updates = []
         super().__setattr__('_class', cls)
         super().__setattr__('_updates', updates)

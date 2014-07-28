@@ -22,7 +22,7 @@ class require(Dependency):
 
     def resolve(self, failed=None):
         if self.enabled:
-            if failed == None:
+            if failed is None:
                 if not self._is_resolved:
                     self.invoke()
                     self._is_resolved = True
