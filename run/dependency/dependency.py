@@ -45,7 +45,7 @@ class Dependency(metaclass=ABCMeta):
     def __call__(self, method):
         prototype = method
         # TODO: moved this logic to task.task()?
-        if not isinstance(method, self._attribute_prototype_class):
+        if not isinstance(method, self._task_prototype_class):
             prototype = self._task_function(method)
         prototype.meta_depend(self)
         return prototype
