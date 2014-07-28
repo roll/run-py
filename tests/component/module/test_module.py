@@ -158,10 +158,22 @@ class ModuleTest(unittest.TestCase):
             call('[parent_module] module.task')])
 
     @unittest.skip('Breaks system tests. Why??')
-    def test_list_with_attribute_is_not_module(self):
+    def test_list_with_task_is_not_module(self):
         self.assertRaises(TypeError, self.module.list, 'list')
 
     def test_info(self):
+        self.module.info()
+        # Check print call
+        self.module._print.assert_called_once_with(
+            '__main__(*args, **kwargs)\n'
+            '---\n'
+            'Type: MockModule\nDependencies: []\n'
+            'Default arguments: ()\n'
+            'Default keyword arguments: {}\n'
+            '---\n'
+            'docstring')
+
+    def test_info_with_task(self):
         self.module.info('info')
         # Check print call
         self.module._print.assert_called_once_with(
@@ -179,7 +191,7 @@ class ModuleTest(unittest.TestCase):
         # Check print call
         self.assertTrue(self.module._pprint.called)
 
-    def test_meta_with_attribute(self):
+    def test_meta_with_task(self):
         self.module.meta('meta')
         # Check print call
         self.assertTrue(self.module._pprint.called)

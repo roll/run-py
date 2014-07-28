@@ -11,10 +11,10 @@ class TaskPrototypeTest(unittest.TestCase):
         self.updates = []
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Attribute = self._make_mock_attribute_class()
+        self.Task = self._make_mock_task_class()
         self.Prototype = self._make_mock_prototype_class(self.update)
         self.prototype = self.Prototype(
-            self.Attribute, self.updates, *self.args, **self.kwargs)
+            self.Task, self.updates, *self.args, **self.kwargs)
 
     def test___getattr___no_attribute(self):
         self.assertRaises(AttributeError, getattr, self.prototype , 'attr2')
@@ -30,7 +30,7 @@ class TaskPrototypeTest(unittest.TestCase):
         self.prototype.attr2 = 'value2'
         copied_prototype = self.prototype.__copy__('arg2', kwarg2='kwarg2')
         self.assertIsInstance(copied_prototype, self.Prototype)
-        self.assertEqual(copied_prototype._class, self.Attribute)
+        self.assertEqual(copied_prototype._class, self.Task)
         self.assertEqual(copied_prototype._updates, [self.update])
         self.assertEqual(copied_prototype._args, ('arg1', 'arg2'))
         self.assertEqual(copied_prototype._kwargs,
@@ -38,22 +38,22 @@ class TaskPrototypeTest(unittest.TestCase):
 
     def test___build__(self):
         self.prototype.attr2 = 'value2'
-        attribute = self.prototype.__build__('module')
-        self.assertIsInstance(attribute, self.Attribute)
+        task = self.prototype.__build__('module')
+        self.assertIsInstance(task, self.Task)
         # Check __build__ call
-        attribute.__build__.assert_called_with(
+        task.__build__.assert_called_with(
             'module', *self.args, **self.kwargs)
         # Check update call
-        self.update.apply.assert_called_with(attribute)
+        self.update.apply.assert_called_with(task)
 
     # Protected
 
-    def _make_mock_attribute_class(self):
-        class MockAttribute:
+    def _make_mock_task_class(self):
+        class MockTask:
             # Public
             __build__ = Mock()
             attr1 = 'value1'
-        return MockAttribute
+        return MockTask
 
     def _make_mock_prototype_class(self, update):
         class MockPrototype(TaskPrototype):
