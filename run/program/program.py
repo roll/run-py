@@ -15,7 +15,7 @@ class Program(Program):
 
     def _execute(self):
         self._machine.process(
-            self._command.attribute,
+            self._command.task,
             *self._command.args,
             **self._command.kwargs)
 

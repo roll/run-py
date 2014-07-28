@@ -8,27 +8,27 @@ class Command(Command):
 
     # Public
 
-    default_attribute = settings.default_attribute
+    default_task = settings.default_task
 
     @property
-    def attribute(self):
-        attribute = self._namespace.attribute
+    def task(self):
+        task = self._namespace.task
         if self.list:
-            attribute = 'list'
+            task = 'list'
         elif self.info:
-            attribute = 'info'
+            task = 'info'
         elif self.meta:
-            attribute = 'meta'
-        elif not attribute:
-            attribute = self.default_attribute
-        return attribute
+            task = 'meta'
+        elif not task:
+            task = self.default_task
+        return task
 
     @property
     def arguments(self):
-        attribute = self._namespace.attribute
+        task = self._namespace.task
         arguments = self._namespace.arguments
-        if (self.list or self.info or self.meta) and attribute:
-            arguments = [attribute] + arguments
+        if (self.list or self.info or self.meta) and task:
+            arguments = [task] + arguments
         return arguments
 
     @property

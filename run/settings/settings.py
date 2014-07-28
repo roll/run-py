@@ -23,8 +23,8 @@ class Settings(Settings):
 
     # Argparse
 
-    default_attribute = 'default'
     default_arguments = []
+    default_task = 'default'
 
     @property
     def argparse(self):
@@ -33,16 +33,16 @@ class Settings(Settings):
             'add_help': False,
             'arguments': [
                 {
-                 'name': 'attribute',
+                 'name': 'task',
                  'nargs': '?',
                  'default': None,
-                 'help': 'Attribute to run.',
+                 'help': 'Task to run.',
                 },
                 {
                  'name': 'arguments',
                  'nargs':'*',
                  'default': self.default_arguments,
-                 'help': 'Arguments for attribute.',
+                 'help': 'Arguments for task.',
                 },
                 {
                  'dest': 'basedir',
@@ -59,7 +59,7 @@ class Settings(Settings):
                  'dest': 'info',
                  'action': 'store_true',
                  'flags': ['-i', '--info'],
-                 'help': 'Display attribute information.',
+                 'help': 'Display task information.',
                 },
                 {
                  'dest': 'file',
@@ -71,13 +71,13 @@ class Settings(Settings):
                  'dest': 'list',
                  'action': 'store_true',
                  'flags': ['-l', '--list'],
-                 'help': 'Display attribute attributes.',
+                 'help': 'Display module tasks.',
                 },
                 {
                  'dest': 'meta',
                  'action': 'store_true',
                  'flags': ['-m', '--meta'],
-                 'help': 'Display attribute meta.',
+                 'help': 'Display task meta.',
                 },
                 {
                  'dest': 'names',
@@ -102,7 +102,7 @@ class Settings(Settings):
                  'dest': 'skip',
                  'action': 'store_true',
                  'flags': ['-s', '--skip'],
-                 'help': 'Skip not existen attributes.',
+                 'help': 'Skip not existen tasks.',
                 },
                 {
                  'dest': 'tags',

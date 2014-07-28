@@ -21,7 +21,7 @@ class ProgramTest(unittest.TestCase):
             skip='skip',
             plain='plain')
         self.program._machine_class.return_value.process.assert_called_with(
-            self.program._command.attribute,
+            self.program._command.task,
             *self.program._command.args,
             **self.program._command.kwargs)
 
@@ -31,7 +31,7 @@ class ProgramTest(unittest.TestCase):
         class MockProgram(Program):
             # Protected
             _command_class = Mock(return_value=Mock(
-                attribute='attribute',
+                task='task',
                 args=('arg1',),
                 kwargs={'kwarg1': 'kwarg1'},
                 debug='debug',

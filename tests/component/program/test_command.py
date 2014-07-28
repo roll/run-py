@@ -10,32 +10,32 @@ class CommandTest(unittest.TestCase):
     def setUp(self):
         self.pCommand = partial(Command, config=settings.argparse)
 
-    @patch.object(Command, 'default_attribute')
-    def test(self, default_attribute):
+    @patch.object(Command, 'default_task')
+    def test(self, default_task):
         command = self.pCommand(['run'])
-        self.assertEqual(command.attribute, default_attribute)
+        self.assertEqual(command.task, default_task)
         self.assertEqual(command.arguments, [])
         self.assertEqual(command.args, [])
         self.assertEqual(command.kwargs, {})
 
-    def test_attribute_args_kwargs(self):
-        command = self.pCommand(['run', 'attribute', 'arg1,', 'kwarg1=kwarg1'])
-        self.assertEqual(command.attribute, 'attribute')
+    def test_task_args_kwargs(self):
+        command = self.pCommand(['run', 'task', 'arg1,', 'kwarg1=kwarg1'])
+        self.assertEqual(command.task, 'task')
         self.assertEqual(command.arguments, ['arg1,', 'kwarg1=kwarg1'])
         self.assertEqual(command.args, ['arg1'])
         self.assertEqual(command.kwargs, {'kwarg1': 'kwarg1'})
 
     def test_list(self):
-        command = self.pCommand(['run', 'attribute', '-l'])
-        self.assertEqual(command.attribute, 'list')
-        self.assertEqual(command.args, ['attribute'])
+        command = self.pCommand(['run', 'task', '-l'])
+        self.assertEqual(command.task, 'list')
+        self.assertEqual(command.args, ['task'])
 
     def test_meta(self):
-        command = self.pCommand(['run', 'attribute', '-m'])
-        self.assertEqual(command.attribute, 'meta')
-        self.assertEqual(command.args, ['attribute'])
+        command = self.pCommand(['run', 'task', '-m'])
+        self.assertEqual(command.task, 'meta')
+        self.assertEqual(command.args, ['task'])
 
     def test_info(self):
-        command = self.pCommand(['run', 'attribute', '-i'])
-        self.assertEqual(command.attribute, 'info')
-        self.assertEqual(command.args, ['attribute'])
+        command = self.pCommand(['run', 'task', '-i'])
+        self.assertEqual(command.task, 'info')
+        self.assertEqual(command.args, ['task'])
