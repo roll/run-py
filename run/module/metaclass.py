@@ -1,7 +1,7 @@
 import inspect
 from copy import copy
 from ..attribute import AttributePrototype, AttributeMetaclass, Attribute
-from ..task import task
+from ..task import Task, TaskPrototype, task
 from ..var import var
 from .prototype import ModulePrototype
 from .skip import skip
@@ -20,9 +20,15 @@ class ModuleMetaclass(AttributeMetaclass):
                 continue
             if isinstance(attr, type):
                 continue
+            # TODO: remove
             if isinstance(attr, cls._attribute_class):
                 continue
+            # TODO: remove
             if isinstance(attr, cls._attribute_prototype_class):
+                continue
+            if isinstance(attr, cls._task_prototype_class):
+                continue
+            if isinstance(attr, cls._task_class):
                 continue
             if isinstance(attr, staticmethod):
                 continue
@@ -45,7 +51,9 @@ class ModuleMetaclass(AttributeMetaclass):
         for cls in self.mro():
             for key, attr in vars(cls).items():
                 if (key not in attrs and
-                    isinstance(attr, self._attribute_prototype_class)):
+                    # TODO: remove attribute
+                    (isinstance(attr, self._attribute_prototype_class) or
+                     isinstance(attr, self._task_prototype_class))):
                     attrs[key] = copy(attr)
         attrs['__doc__'] = self.__doc__
         attrs['__module__'] = self.__module__
@@ -56,5 +64,7 @@ class ModuleMetaclass(AttributeMetaclass):
     _attribute_class = Attribute
     _attribute_prototype_class = AttributePrototype
     _prototype_class = ModulePrototype  # Overriding
+    _task_prototype_class = TaskPrototype
+    _task_class = Task
     _task = task
     _var = var

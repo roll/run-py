@@ -14,7 +14,7 @@ class TaskPrototype:
         super().__setattr__('_kwargs', kwargs)
 
     def __copy__(self, *args, **kwargs):
-        # Documented public wrapper in :func:`run.attribute.fork`
+        # Documented public wrapper in :func:`.fork`
         eupdates = copy(self._updates)
         eargs = self._args + args
         ekwargs = self._kwargs
@@ -22,7 +22,7 @@ class TaskPrototype:
         return type(self)(self._class, eupdates, *eargs, **ekwargs)
 
     def __build__(self, module):
-        # Documented public wrapper in :func:`run.attribute.build`
+        # Documented public wrapper in :func:`.build`
         attribute = self._create_attribute()
         self._init_attribute(attribute, module)
         self._update_attribute(attribute)
@@ -36,8 +36,8 @@ class TaskPrototype:
                 'Prototype {self} has no attribute {name}'.
                 format(self=self, name=name)) from None
 
-    def __setattr__(self, name, value):
-        self._add_update('__setattr__', name, value)
+    def __setattr__(self, *args, **kwargs):
+        self._add_update('__setattr__', *args, **kwargs)
 
     def meta_depend(self, *args, **kwargs):
         self._add_update('meta_depend', *args, **kwargs)
@@ -59,7 +59,7 @@ class TaskPrototype:
     _update_class = TaskUpdate
 
     def _add_update(self, name, *args, **kwargs):
-        self._updated.append(self._update_class(name, *args, **kwargs))
+        self._updates.append(self._update_class(name, *args, **kwargs))
 
     def _create_attribute(self):
         return object.__new__(self._class)

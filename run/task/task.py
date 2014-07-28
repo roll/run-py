@@ -1,25 +1,34 @@
 import os
 import inspect
 from copy import copy
+from abc import abstractmethod
 from contextlib import contextmanager
-from abc import ABCMeta, abstractmethod
-from ..attribute import Attribute
 from ..dependency import require, trigger
+from ..settings import settings
+from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
-class Task(Attribute, metaclass=ABCMeta):
+class Task(metaclass=TaskMetaclass):
 
     # Public
 
+    # TODO: we can't use module keyword in kwargs (also cls, updated?)
     def __build__(self, module, *args, **kwargs):
+        self._meta_module = module
         self._meta_args = ()
         self._meta_kwargs = {}
         self._meta_dependencies = []
-        self._add_dependencies(kwargs.pop('meta_depend', []))
-        self._add_dependencies(kwargs.pop('meta_require', []), self._require)
-        self._add_dependencies(kwargs.pop('meta_trigger', []), self._trigger)
         self._initial_dir = os.path.abspath(os.getcwd())
-        super().__build__(module, *args, **kwargs)
+        # Collect meta params
+        self._meta_params = {}
+        for key in list(kwargs):
+            if key.startswith('meta_'):
+                name = key.replace('meta_', '')
+                self._meta_params[name] = kwargs.pop(key)
+        # Complete building
+        self._init_dependencies()
+        self.__init__(*args, **kwargs)
+        self._meta_builded = True
 
     def __init__(self, *args, **kwargs):
         self._meta_args = args
@@ -56,6 +65,12 @@ class Task(Attribute, metaclass=ABCMeta):
         self._add_signal('successed')
         return result
 
+    def __repr__(self):
+        if self.meta_builded:
+            return ('<{self.meta_type} "{self.meta_qualname}">'.
+                    format(self=self))
+        return super().__repr__()
+
     @property
     def meta_args(self):
         """Tasks's default arguments
@@ -80,6 +95,15 @@ class Task(Attribute, metaclass=ABCMeta):
     @meta_basedir.setter
     def meta_basedir(self, value):
         self._meta_params['basedir'] = value
+
+    @property
+    def meta_builded(self):
+        """Build status of attribute (builded or not).
+
+        Attribute is builded after succefull __build__ call.
+        It includes some internal building and __init__ call.
+        """
+        return vars(self).get('_meta_builded', False)
 
     @property
     def meta_chdir(self):
@@ -118,6 +142,39 @@ class Task(Attribute, metaclass=ABCMeta):
             if category == None or self._isinstance(dependency, category):
                 if dependency.task == task:
                     dependency.disable()
+
+    @property
+    def meta_dispatcher(self):
+        """Attribute's dispatcher.
+
+        Dispatcher used to operate signals.
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_params.get('dispatcher',
+            self.meta_module.meta_dispatcher)
+
+    @meta_dispatcher.setter
+    def meta_dispatcher(self, value):
+        self._meta_params['dispatcher'] = value
+
+    @property
+    def meta_docstring(self):
+        """Attribute's docstring.
+
+        This property is:
+
+        - initable/writable
+        """
+        return self._meta_params.get('docstring',
+            str(inspect.getdoc(self)).strip())
+
+    @meta_docstring.setter
+    def meta_docstring(self, value):
+        self._meta_params['docstring'] = value
 
     @contextmanager
     def meta_effective_dir(self):
@@ -178,6 +235,51 @@ class Task(Attribute, metaclass=ABCMeta):
         """
         return self._meta_kwargs
 
+    @property
+    def meta_main_module(self):
+        """Attribute's main module of module hierarchy.
+        """
+        return self.meta_module.meta_main_module
+
+    @property
+    def meta_module(self):
+        """Attribute's module.
+        """
+        return self._meta_module
+
+    @property
+    def meta_name(self):
+        """Attribute's name.
+
+        Name is defined as attribute name in module.
+        If module is None name will be empty string.
+        """
+        name = ''
+        attributes = self.meta_module.meta_attributes
+        for key, attribute in attributes.items():
+            if attribute is self:
+                name = key
+        return name
+
+    @property
+    def meta_qualname(self):
+        """Attribute's qualified name.
+
+        Qualname is full attribute name in hierarhy
+        starts from main module.
+        """
+        if self.meta_module.meta_is_main_module:
+            if (self.meta_module.meta_name ==
+                self._default_meta_main_module_name):
+                pattern = '{name}'
+            else:
+                pattern = '[{module_qualname}] {name}'
+        else:
+            pattern = '{module_qualname}.{name}'
+        return pattern.format(
+            module_qualname=self.meta_module.meta_qualname,
+            name=self.meta_name)
+
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
         """
@@ -221,8 +323,15 @@ class Task(Attribute, metaclass=ABCMeta):
         dependency = self._trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
 
+    @property
+    def meta_type(self):
+        """Attribute's type as a string.
+        """
+        return type(self).__name__
+
     # Protected
 
+    _default_meta_main_module_name = settings.default_meta_main_module_name
     _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
     _isinstance = staticmethod(isinstance)
@@ -230,11 +339,13 @@ class Task(Attribute, metaclass=ABCMeta):
     _successed_signal_class = SuccessedTaskSignal
     _trigger = trigger
 
-    def _add_dependencies(self, container, category=None):
-        for dependency in container:
-            if category and not self._isinstance(dependency, category):
-                dependency = category(dependency)
+    def _init_dependencies(self):
+        for dependency in self._meta_params.get('depend', []):
             self.meta_depend(dependency)
+        for task in self._meta_params.get('require', []):
+            self.meta_require(task)
+        for task in self._meta_params.get('trigger', []):
+            self.meta_trigger(task)
 
     def _resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
