@@ -94,22 +94,23 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_dependencies_initter(self):
         dependency = Mock()
-        self.Task._isinstance = Mock(return_value=False)
         self.task = self.pTask(
             meta_depend=[dependency],
             meta_require=['require'],
             meta_trigger=['trigger'])
         self.assertEqual(self.task.meta_dependencies, [
             dependency,
-            self.task._require.return_value,
-            self.task._trigger.return_value])
+            self.task._meta_require.return_value,
+            self.task._meta_trigger.return_value])
         # Check require, trigger call
-        self.task._require.assert_called_with('require')
-        self.task._trigger.assert_called_with('trigger')
+        self.task._meta_require.assert_called_with('require')
+        self.task._meta_trigger.assert_called_with('trigger')
         # Check dependency's bind call
+        require = self.task._meta_require.return_value
+        trigger = self.task._meta_trigger.return_value
         dependency.bind.assert_called_with(self.task)
-        self.task._require.return_value.bind.assert_called_with(self.task)
-        self.task._trigger.return_value.bind.assert_called_with(self.task)
+        require.bind.assert_called_with(self.task)
+        trigger.bind.assert_called_with(self.task)
 
     def test_meta_disable_dependency(self):
         dependency = Mock()
@@ -172,34 +173,38 @@ class TaskTest(unittest.TestCase):
     def test_meta_require(self):
         self.task.meta_require('task', *self.args, **self.kwargs)
         self.assertEqual(
-            self.task.meta_dependencies, [self.task._require.return_value])
+            self.task.meta_dependencies,
+            [self.task._meta_require.return_value])
         # Check require call
-        self.task._require.assert_called_with(
+        self.task._meta_require.assert_called_with(
             'task', *self.args, **self.kwargs)
-        # Check require's return_value bind call
-        self.task._require.return_value.bind.assert_called_with(self.task)
+        # Check require's return_value (require dependency) bind call
+        require = self.task._meta_require.return_value
+        require.bind.assert_called_with(self.task)
 
     def test_meta_trigger(self):
         self.task.meta_trigger('task', *self.args, **self.kwargs)
         self.assertEqual(
-            self.task.meta_dependencies, [self.task._trigger.return_value])
+            self.task.meta_dependencies,
+            [self.task._meta_trigger.return_value])
         # Check trigger call
-        self.task._trigger.assert_called_with(
+        self.task._meta_trigger.assert_called_with(
             'task', *self.args, **self.kwargs)
-        # Check trigger's return_value bind call
-        self.task._trigger.return_value.bind.assert_called_with(self.task)
+        # Check trigger's return_value (trigger dependency) bind call
+        trigger = self.task._meta_trigger.return_value
+        trigger.bind.assert_called_with(self.task)
 
     # Protected
 
     def _make_mock_task_class(self):
         class MockTask(Task):
             # Public
-            meta_dispatcher = Mock(add_signal=Mock())
+            meta_dispatcher = Mock()
             meta_invoke = Mock()
             # Protected
             _failed_signal_class = Mock(return_value='failed_signal')
             _initiated_signal_class = Mock(return_value='initiated_signal')
-            _require = Mock()
+            _meta_require = Mock()
             _successed_signal_class = Mock(return_value='successed_signal')
-            _trigger = Mock()
+            _meta_trigger = Mock()
         return MockTask

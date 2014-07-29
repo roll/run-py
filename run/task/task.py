@@ -25,7 +25,7 @@ class Task(metaclass=TaskMetaclass):
                 name = key.replace('meta_', '')
                 self._meta_params[name] = kwargs.pop(key)
         # Complete building
-        self._init_dependencies()
+        self._meta_init_dependencies()
         self.__init__(*args, **kwargs)
         self._meta_builded = True
 
@@ -34,22 +34,22 @@ class Task(metaclass=TaskMetaclass):
         self._meta_kwargs = kwargs
 
     def __call__(self, *args, **kwargs):
-        self._add_signal('initiated')
+        self._meta_add_signal('initiated')
         try:
-            self._resolve_dependencies()
+            self._meta_resolve_dependencies()
             try:
                 result = self.meta_effective_invoke(*args, **kwargs)
             except Exception:
                 if self.meta_fallback is not None:
                     result = self.meta_fallback
                 else:
-                    self._resolve_dependencies(failed=True)
+                    self._meta_resolve_dependencies(failed=True)
                     raise
-            self._resolve_dependencies(failed=False)
+            self._meta_resolve_dependencies(failed=False)
         except Exception:
-            self._add_signal('failed')
+            self._meta_add_signal('failed')
             raise
-        self._add_signal('successed')
+        self._meta_add_signal('successed')
         return result
 
     def __repr__(self):
@@ -128,7 +128,7 @@ class Task(metaclass=TaskMetaclass):
         if types is None:
             types = []
         for dependency in self.meta_dependencies:
-            if self._isinstance(dependency, tuple(types)):
+            if isinstance(dependency, tuple(types)):
                 if dependency.task == task:
                     dependency.disable()
 
@@ -192,7 +192,7 @@ class Task(metaclass=TaskMetaclass):
         if types is None:
             types = []
         for dependency in self.meta_dependencies:
-            if self._isinstance(dependency, tuple(types)):
+            if isinstance(dependency, tuple(types)):
                 if dependency.task == task:
                     dependency.enable()
 
@@ -274,7 +274,7 @@ class Task(metaclass=TaskMetaclass):
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
         """
-        dependency = self._require(task, *args, **kwargs)
+        dependency = self._meta_require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
     @property
@@ -311,7 +311,7 @@ class Task(metaclass=TaskMetaclass):
     def meta_trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
         """
-        dependency = self._trigger(task, *args, **kwargs)
+        dependency = self._meta_trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
 
     @property
@@ -325,12 +325,11 @@ class Task(metaclass=TaskMetaclass):
     _default_meta_main_module_name = settings.default_meta_main_module_name
     _failed_signal_class = FailedTaskSignal
     _initiated_signal_class = InitiatedTaskSignal
-    _isinstance = staticmethod(isinstance)
-    _require = require
+    _meta_require = require
     _successed_signal_class = SuccessedTaskSignal
-    _trigger = trigger
+    _meta_trigger = trigger
 
-    def _init_dependencies(self):
+    def _meta_init_dependencies(self):
         for dependency in self._meta_params.get('depend', []):
             self.meta_depend(dependency)
         for task in self._meta_params.get('require', []):
@@ -338,11 +337,11 @@ class Task(metaclass=TaskMetaclass):
         for task in self._meta_params.get('trigger', []):
             self.meta_trigger(task)
 
-    def _resolve_dependencies(self, failed=None):
+    def _meta_resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
             dependency.resolve(failed=failed)
 
-    def _add_signal(self, name):
+    def _meta_add_signal(self, name):
         signal_class_attr = '_' + name + '_signal_class'
         signal_class = getattr(self, signal_class_attr)
         signal = signal_class(self)
