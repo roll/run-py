@@ -52,6 +52,17 @@ class ModuleTest(unittest.TestCase):
         self.module.meta_cache = 'cache'
         self.assertEqual(self.module.meta_cache, 'cache')
 
+    def test_meta_lookup(self):
+        self.assertEqual(
+            self.module.meta_lookup('task'),
+            self.module.task)
+
+    def test_meta_lookup_nested(self):
+        self.Module.module = self.module
+        self.assertEqual(
+            self.module.meta_lookup('module.task'),
+            self.module.task)
+
     def test_meta_invoke(self):
         self.Module.default = Mock()
         self.assertEqual(
