@@ -98,8 +98,7 @@ class Dependency(metaclass=ABCMeta):
         if self._successor is not None:
             module = self._successor.meta_module
             try:
-                task = getattr(module, self._task)
-                return task
+                return getattr(module, self._task)
             except AttributeError as exception:
                 if self._successor.meta_strict:
                     raise
