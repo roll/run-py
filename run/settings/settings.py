@@ -6,6 +6,7 @@ class Settings(Settings):
 
     # Main
 
+    default_arguments = []
     default_basedir = None
     default_cache = True
     default_chdir = True
@@ -17,11 +18,9 @@ class Settings(Settings):
     default_recursively = False
     default_strict = True
     default_tags = None
+    default_task = 'default'
 
     # Argparse
-
-    default_arguments = []
-    default_task = 'default'
 
     @property
     def argparse(self):
