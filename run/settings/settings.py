@@ -8,6 +8,7 @@ class Settings(Settings):
 
     default_basedir = None
     default_cache = True
+    default_chdir = True
     default_exclude = None
     default_file = 'runfile.py'
     default_names = None
@@ -17,7 +18,7 @@ class Settings(Settings):
     # Meta
 
 
-    default_meta_chdir = True
+
     default_meta_fallback = None
     default_meta_main_module_name = '__main__'
     default_meta_strict = True
