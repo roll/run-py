@@ -12,9 +12,6 @@ class ModuleTest(unittest.TestCase):
         self.ParentModule = self._make_mock_parent_module_class()
         self.parent_module = self.ParentModule()
 
-    def test(self):
-        self.assertIsInstance(self.module, self.Module)
-
     def test___call__(self):
         args = ('arg1',)
         kwargs = {'kwarg1': 'kwarg1'}
@@ -22,6 +19,7 @@ class ModuleTest(unittest.TestCase):
         self.assertEqual(
             self.module(*args, **kwargs),
             self.module.default.return_value)
+        self.assertIsInstance(self.module, self.Module)
         # Check default call
         self.module.default.assert_called_with(*args, **kwargs)
 
@@ -54,29 +52,6 @@ class ModuleTest(unittest.TestCase):
         self.module.meta_cache = 'cache'
         self.assertEqual(self.module.meta_cache, 'cache')
 
-    def test_meta_chdir(self):
-        self.assertEqual(self.module.meta_chdir,
-                         self.module.meta_module.meta_chdir)
-
-    def test_meta_chdir_setter(self):
-        self.module.meta_chdir = 'chdir'
-        self.assertEqual(self.module.meta_chdir, 'chdir')
-
-    def test_meta_dispatcher(self):
-        self.assertEqual(self.module.meta_dispatcher,
-                         self.module.meta_module.meta_dispatcher)
-
-    def test_meta_docstring(self):
-        self.assertEqual(self.module.meta_docstring, 'docstring')
-
-    def test_meta_fallback(self):
-        self.assertEqual(self.module.meta_fallback,
-                         self.module.meta_module.meta_fallback)
-
-    def test_meta_fallback_setter(self):
-        self.module.meta_fallback = 'fallback'
-        self.assertEqual(self.module.meta_fallback, 'fallback')
-
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
 
@@ -91,11 +66,6 @@ class ModuleTest(unittest.TestCase):
         self.module = self.Module(meta_module=self.parent_module)
         self.assertIs(self.module.meta_main_module, self.parent_module)
 
-    def test_meta_module(self):
-        # NullModule
-        self.assertNotEqual(self.module.meta_module, None)
-        self.assertFalse(self.module.meta_module)
-
     def test_meta_name(self):
         self.assertEqual(self.module.meta_name, '__main__')
 
@@ -104,27 +74,8 @@ class ModuleTest(unittest.TestCase):
         self.parent_module.meta_tasks = {'module': self.module}
         self.assertEqual(self.module.meta_name, 'module')
 
-    def test_meta_qualname(self):
-        self.assertEqual(self.module.meta_qualname, '__main__')
-
-    def test_meta_qualname_with_parent_module(self):
-        self.module = self.Module(meta_module=self.parent_module)
-        self.parent_module.meta_tasks = {'module': self.module}
-        self.assertEqual(self.module.meta_qualname, '[parent_module] module')
-
-    def test_meta_strict(self):
-        self.assertEqual(self.module.meta_strict,
-                         self.module.meta_module.meta_strict)
-
-    def test_meta_strict_setter(self):
-        self.module.meta_strict = 'strict'
-        self.assertEqual(self.module.meta_strict, 'strict')
-
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
-
-    def test_meta_type(self):
-        self.assertEqual(self.module.meta_type, 'MockModule')
 
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
