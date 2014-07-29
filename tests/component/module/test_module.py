@@ -7,21 +7,21 @@ class ModuleTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
         self.Module = self._make_mock_module_class()
         self.module = self.Module(meta_module=None)
         self.ParentModule = self._make_mock_parent_module_class()
         self.parent_module = self.ParentModule()
 
     def test___call__(self):
-        args = ('arg1',)
-        kwargs = {'kwarg1': 'kwarg1'}
         self.Module.default = Mock()
         self.assertEqual(
-            self.module(*args, **kwargs),
+            self.module(*self.args, **self.kwargs),
             self.module.default.return_value)
         self.assertIsInstance(self.module, self.Module)
         # Check default call
-        self.module.default.assert_called_with(*args, **kwargs)
+        self.module.default.assert_called_with(*self.args, **self.kwargs)
 
     def test___getattribute___not_existent(self):
         self.assertRaises(AttributeError,
@@ -51,6 +51,15 @@ class ModuleTest(unittest.TestCase):
     def test_meta_cache_setter(self):
         self.module.meta_cache = 'cache'
         self.assertEqual(self.module.meta_cache, 'cache')
+
+    def test_meta_invoke(self):
+        self.Module.default = Mock()
+        self.assertEqual(
+            self.module.meta_invoke(*self.args, **self.kwargs),
+            self.module.default.return_value)
+        self.assertIsInstance(self.module, self.Module)
+        # Check default call
+        self.module.default.assert_called_with(*self.args, **self.kwargs)
 
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
