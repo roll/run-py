@@ -23,14 +23,17 @@ class ModuleTest(unittest.TestCase):
         # Check default call
         self.module.default.assert_called_with(*self.args, **self.kwargs)
 
-    def test___getattribute___not_existent(self):
-        self.assertRaises(AttributeError,
-            self.module.__getattribute__, 'not_existent')
+    def test___getattribute__(self):
+        self.assertEqual(getattr(self.module, 'task'), self.module.task)
 
     def test___getattribute___nested(self):
-        self.Module.module1 = self.module
-        result = self.module.__getattribute__('module1.task')
-        self.assertEqual(result, self.module.task)
+        self.Module.module = self.module
+        self.assertEqual(
+            getattr(self.module, 'module.task'), self.module.task)
+
+    def test___getattribute___not_existent(self):
+        self.assertRaises(AttributeError,
+            getattr, self.module, 'not_existent')
 
     def test_meta_basedir(self):
         self.assertRegex(self.module.meta_basedir,
@@ -54,14 +57,12 @@ class ModuleTest(unittest.TestCase):
 
     def test_meta_lookup(self):
         self.assertEqual(
-            self.module.meta_lookup('task'),
-            self.module.task)
+            self.module.meta_lookup('task'), self.module.task)
 
     def test_meta_lookup_nested(self):
         self.Module.module = self.module
         self.assertEqual(
-            self.module.meta_lookup('module.task'),
-            self.module.task)
+            self.module.meta_lookup('module.task'), self.module.task)
 
     def test_meta_invoke(self):
         self.Module.default = Mock()
