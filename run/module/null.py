@@ -76,7 +76,7 @@ class NullModule:
     # Protected
 
     _meta_dispatcher_class = NullDispatcher
-    _meta_default_cache = settings.default_meta_cache
+    _meta_default_cache = settings.default_cache
     _meta_default_chdir = settings.default_meta_chdir
     _meta_default_fallback = settings.default_meta_fallback
     _meta_default_main_module_name = settings.default_meta_main_module_name
