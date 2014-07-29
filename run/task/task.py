@@ -12,9 +12,8 @@ class Task(metaclass=TaskMetaclass):
 
     # Public
 
-    # TODO: we can't use module keyword in kwargs (also cls, updated?)
-    def __build__(self, module, *args, **kwargs):
-        self._meta_module = module
+    def __build__(self, meta_module, *args, **kwargs):
+        self._meta_module = meta_module
         self._meta_args = ()
         self._meta_kwargs = {}
         self._meta_dependencies = []
