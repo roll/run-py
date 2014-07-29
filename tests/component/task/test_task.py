@@ -19,8 +19,8 @@ class TaskTest(unittest.TestCase):
         # Check meta_invoke call
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check signal call
-        self.task._initiated_signal_class.assert_called_with(self.task)
-        self.task._successed_signal_class.assert_called_with(self.task)
+        self.task._meta_initiated_signal_class.assert_called_with(self.task)
+        self.task._meta_successed_signal_class.assert_called_with(self.task)
         # Check dispatcher call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('successed_signal')])
@@ -29,8 +29,8 @@ class TaskTest(unittest.TestCase):
         self.task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check signal call
-        self.task._initiated_signal_class.assert_called_with(self.task)
-        self.task._failed_signal_class.assert_called_with(self.task)
+        self.task._meta_initiated_signal_class.assert_called_with(self.task)
+        self.task._meta_failed_signal_class.assert_called_with(self.task)
         # Check dispatcher call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'), call('failed_signal')])
@@ -202,9 +202,12 @@ class TaskTest(unittest.TestCase):
             meta_dispatcher = Mock()
             meta_invoke = Mock()
             # Protected
-            _failed_signal_class = Mock(return_value='failed_signal')
-            _initiated_signal_class = Mock(return_value='initiated_signal')
+            _meta_failed_signal_class = Mock(
+                return_value='failed_signal')
+            _meta_initiated_signal_class = Mock(
+                return_value='initiated_signal')
             _meta_require = Mock()
-            _successed_signal_class = Mock(return_value='successed_signal')
+            _meta_successed_signal_class = Mock(
+                return_value='successed_signal')
             _meta_trigger = Mock()
         return MockTask

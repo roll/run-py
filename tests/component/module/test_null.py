@@ -22,15 +22,15 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, os.getcwd())
 
-    @patch.object(NullModule, '_default_meta_cache')
+    @patch.object(NullModule, '_meta_default_cache')
     def test_meta_cache(self, cache):
         self.assertEqual(self.module.meta_cache, cache)
 
-    @patch.object(NullModule, '_default_meta_chdir')
+    @patch.object(NullModule, '_meta_default_chdir')
     def test_meta_chdir(self, chdir):
         self.assertEqual(self.module.meta_chdir, chdir)
 
-    @patch.object(NullModule, '_dispatcher_class')
+    @patch.object(NullModule, '_meta_dispatcher_class')
     def test_meta_dispatcher(self, dispatcher_class):
         self.assertEqual(self.module.meta_dispatcher,
                          dispatcher_class.return_value)
@@ -38,7 +38,7 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_docstring(self):
         self.assertEqual(self.module.meta_docstring, 'NullModule')
 
-    @patch.object(NullModule, '_default_meta_fallback')
+    @patch.object(NullModule, '_meta_default_fallback')
     def test_meta_fallback(self, fallback):
         self.assertEqual(self.module.meta_fallback, fallback)
 
@@ -51,14 +51,14 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_module(self):
         self.assertEqual(self.module.meta_module, self.module)
 
-    @patch.object(NullModule, '_default_meta_main_module_name')
+    @patch.object(NullModule, '_meta_default_main_module_name')
     def test_meta_name(self, name):
         self.assertEqual(self.module.meta_name, name)
 
     def test_meta_qualname(self):
         self.assertEqual(self.module.meta_qualname, '__main__')
 
-    @patch.object(NullModule, '_default_meta_strict')
+    @patch.object(NullModule, '_meta_default_strict')
     def test_meta_strict(self, strict):
         self.assertEqual(self.module.meta_strict, strict)
 

@@ -105,7 +105,7 @@ class ModuleTest(unittest.TestCase):
     def test_list(self):
         self.module.list()
         # Check print call
-        self.module._print.assert_has_calls([
+        self.module._meta_print.assert_has_calls([
             call('default'),
             call('info'),
             call('list'),
@@ -122,7 +122,7 @@ class ModuleTest(unittest.TestCase):
         self.parent_module.meta_tasks = {'module': self.module}
         self.module.list()
         # Check print call
-        self.module._print.assert_has_calls([
+        self.module._meta_print.assert_has_calls([
             call('[parent_module] module.default'),
             call('[parent_module] module.info'),
             call('[parent_module] module.list'),
@@ -136,7 +136,7 @@ class ModuleTest(unittest.TestCase):
     def test_info(self):
         self.module.info()
         # Check print call
-        self.module._print.assert_called_once_with(
+        self.module._meta_print.assert_called_once_with(
             '__main__(*args, **kwargs)\n'
             '---\n'
             'Type: MockModule\nDependencies: []\n'
@@ -148,7 +148,7 @@ class ModuleTest(unittest.TestCase):
     def test_info_with_task(self):
         self.module.info('info')
         # Check print call
-        self.module._print.assert_called_once_with(
+        self.module._meta_print.assert_called_once_with(
             'info(task=None)\n'
             '---\n'
             'Type: MethodTask\n'
@@ -161,12 +161,12 @@ class ModuleTest(unittest.TestCase):
     def test_meta(self):
         self.module.meta()
         # Check print call
-        self.assertTrue(self.module._pprint.called)
+        self.assertTrue(self.module._meta_pprint.called)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check print call
-        self.assertTrue(self.module._pprint.called)
+        self.assertTrue(self.module._meta_pprint.called)
 
     # Protected
 
@@ -177,9 +177,9 @@ class ModuleTest(unittest.TestCase):
             def task(self):
                 pass
             # Protected
-            _default_meta_main_module_name = '__main__'
-            _print = Mock()
-            _pprint = Mock()
+            _meta_default_main_module_name = '__main__'
+            _meta_print = Mock()
+            _meta_pprint = Mock()
         return MockModule
 
     def _make_mock_parent_module_class(self):

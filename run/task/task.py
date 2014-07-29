@@ -17,7 +17,7 @@ class Task(metaclass=TaskMetaclass):
         self._meta_args = ()
         self._meta_kwargs = {}
         self._meta_dependencies = []
-        self._initial_dir = os.path.abspath(os.getcwd())
+        self._meta_initial_dir = os.path.abspath(os.getcwd())
         # Collect meta params
         self._meta_params = {}
         for key in list(kwargs):
@@ -170,7 +170,7 @@ class Task(metaclass=TaskMetaclass):
         if self.meta_chdir:
             previous_dir = os.path.abspath(os.getcwd())
             following_dir = os.path.join(
-                self._initial_dir, self.meta_basedir)
+                self._meta_initial_dir, self.meta_basedir)
             os.chdir(following_dir)
             yield
             os.chdir(previous_dir)
@@ -261,7 +261,7 @@ class Task(metaclass=TaskMetaclass):
         """
         if self.meta_module.meta_is_main_module:
             if (self.meta_module.meta_name ==
-                self._default_meta_main_module_name):
+                self._meta_default_main_module_name):
                 pattern = '{name}'
             else:
                 pattern = '[{module_qualname}] {name}'
@@ -322,11 +322,11 @@ class Task(metaclass=TaskMetaclass):
 
     # Protected
 
-    _default_meta_main_module_name = settings.default_meta_main_module_name
-    _failed_signal_class = FailedTaskSignal
-    _initiated_signal_class = InitiatedTaskSignal
+    _meta_default_main_module_name = settings.default_meta_main_module_name
+    _meta_failed_signal_class = FailedTaskSignal
+    _meta_initiated_signal_class = InitiatedTaskSignal
     _meta_require = require
-    _successed_signal_class = SuccessedTaskSignal
+    _meta_successed_signal_class = SuccessedTaskSignal
     _meta_trigger = trigger
 
     def _meta_init_dependencies(self):
@@ -342,7 +342,7 @@ class Task(metaclass=TaskMetaclass):
             dependency.resolve(failed=failed)
 
     def _meta_add_signal(self, name):
-        signal_class_attr = '_' + name + '_signal_class'
+        signal_class_attr = '_meta_' + name + '_signal_class'
         signal_class = getattr(self, signal_class_attr)
         signal = signal_class(self)
         self.meta_dispatcher.add_signal(signal)

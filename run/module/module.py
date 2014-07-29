@@ -85,7 +85,7 @@ class Module(Task, metaclass=ModuleMetaclass):
         if super().meta_name:
             return super().meta_name
         else:
-            return self._default_meta_main_module_name
+            return self._meta_default_main_module_name
 
     @property
     def meta_tags(self):
@@ -117,7 +117,7 @@ class Module(Task, metaclass=ModuleMetaclass):
             for task in task.meta_tasks.values():
                 names.append(task.meta_qualname)
             for name in sorted(names):
-                self._print(name)
+                self._meta_print(name)
         else:
             raise TypeError(
                 'Task "{task}" is not a module.'.
@@ -143,7 +143,7 @@ class Module(Task, metaclass=ModuleMetaclass):
         info += 'Default keyword arguments: ' + str(task.meta_kwargs)
         info += '\n---\n'
         info += task.meta_docstring
-        self._print(info)
+        self._meta_print(info)
 
     def meta(self, task=None):
         """Print metadata.
@@ -157,7 +157,7 @@ class Module(Task, metaclass=ModuleMetaclass):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
                 meta[key] = getattr(task, name)
-        self._pprint(meta)
+        self._meta_pprint(meta)
 
     default = NullTask(
         meta_require=['list'],
@@ -165,8 +165,8 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     # Protected
 
-    _failed_signal_class = FailedModuleSignal  # Overriding
-    _initiated_signal_class = InitiatedModuleSignal  # Overriding
-    _print = staticmethod(print)
-    _pprint = staticmethod(pprint)
-    _successed_signal_class = SuccessedModuleSignal  # Overriding
+    _meta_failed_signal_class = FailedModuleSignal  # Overriding
+    _meta_initiated_signal_class = InitiatedModuleSignal  # Overriding
+    _meta_print = staticmethod(print)
+    _meta_pprint = staticmethod(pprint)
+    _meta_successed_signal_class = SuccessedModuleSignal  # Overriding

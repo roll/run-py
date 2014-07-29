@@ -8,14 +8,14 @@ class Var(Task, metaclass=ABCMeta):
     # Public
 
     def __build__(self, meta_module, *args, **kwargs):
-        self._cached_value = Null
+        self._meta_cached_value = Null
         super().__build__(meta_module, *args, **kwargs)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:
-            if self._cached_value is Null:
-                self._cached_value = self()
-            return self._cached_value
+            if self._meta_cached_value is Null:
+                self._meta_cached_value = self()
+            return self._meta_cached_value
         else:
             return self()
 
@@ -44,6 +44,6 @@ class Var(Task, metaclass=ABCMeta):
 
     # Protected
 
-    _failed_signal_class = FailedVarSignal  # Overriding
-    _initiated_signal_class = InitiatedVarSignal  # Overriding
-    _successed_signal_class = SuccessedVarSignal  # Overriding
+    _meta_failed_signal_class = FailedVarSignal  # Overriding
+    _meta_initiated_signal_class = InitiatedVarSignal  # Overriding
+    _meta_successed_signal_class = SuccessedVarSignal  # Overriding
