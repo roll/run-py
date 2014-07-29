@@ -42,11 +42,8 @@ class Dependency(metaclass=ABCMeta):
         result = '{action} {task}'.format(action=action, task=task)
         return result
 
-    def __call__(self, method):
-        prototype = method
-        # TODO: moved this logic to task.task()?
-        if not isinstance(method, self._task_prototype_class):
-            prototype = self._task_function(method)
+    def __call__(self, obj):
+        prototype = self._task_function(obj)
         prototype.meta_depend(self)
         return prototype
 
@@ -119,4 +116,3 @@ class Dependency(metaclass=ABCMeta):
     # Protected
 
     _task_function = inject('task', module='run.task')
-    _task_prototype_class = inject('TaskPrototype', module='run.task')
