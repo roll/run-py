@@ -15,14 +15,8 @@ class Settings(Settings):
     default_main_module_name = '__main__'
     default_names = None
     default_recursively = False
+    default_strict = True
     default_tags = None
-
-    # Meta
-
-
-
-
-    default_meta_strict = True
 
     # Argparse
 
