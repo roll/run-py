@@ -1,6 +1,7 @@
 from .auto import AutoModule
 from .find import FindModule
 from .metaclass import ModuleMetaclass
+from .module_function import module
 from .module import Module
 from .null import NullModule
 from .prototype import ModulePrototype

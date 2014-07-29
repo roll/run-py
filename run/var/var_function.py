@@ -28,10 +28,7 @@ class var(task):
 
     # Public
 
-    def __call__(self, method):
-        prototype = self._task_class(property(method), **self._kwargs)
+    def invoke(self, method):
+        descriptor = property(method)
+        prototype = DescriptorVar(descriptor, **self._kwargs)
         return prototype
-
-    # Protected
-
-    _task_class = DescriptorVar
