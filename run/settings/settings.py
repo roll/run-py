@@ -12,6 +12,7 @@ class Settings(Settings):
     default_exclude = None
     default_fallback = None
     default_file = 'runfile.py'
+    default_main_module_name = '__main__'
     default_names = None
     default_recursively = False
     default_tags = None
@@ -20,7 +21,7 @@ class Settings(Settings):
 
 
 
-    default_meta_main_module_name = '__main__'
+
     default_meta_strict = True
 
     # Argparse

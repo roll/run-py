@@ -322,7 +322,7 @@ class Task(metaclass=TaskMetaclass):
 
     # Protected
 
-    _meta_default_main_module_name = settings.default_meta_main_module_name
+    _meta_default_main_module_name = settings.default_main_module_name
     _meta_failed_signal_class = FailedTaskSignal
     _meta_initiated_signal_class = InitiatedTaskSignal
     _meta_require = require
