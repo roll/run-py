@@ -15,19 +15,20 @@ class Module(Task, metaclass=ModuleMetaclass):
     def __getattribute__(self, name):
         nested_name = None
         if '.' in name:
+            # Nested name - split
             name, nested_name = name.split('.', 1)
         try:
-            task = super().__getattribute__(name)
+            attribute = super().__getattribute__(name)
         except AttributeError as exception:
             # To get correct AttributeError message here
             if isinstance(exception, ModuleAttributeError):
                 raise
             raise ModuleAttributeError(
-                'Module "{module}" has no task "{name}".'.
+                'Module "{module}" has no attribute "{name}".'.
                 format(module=self, name=name))
         if nested_name is not None:
-            task = getattr(task, nested_name)
-        return task
+            attribute = getattr(attribute, nested_name)
+        return attribute
 
     @property
     def meta_basedir(self):
@@ -61,6 +62,16 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     def meta_invoke(self, *args, **kwargs):
         return self.default(*args, **kwargs)
+
+    def meta_lookup(self, name):
+        nested_name = None
+        if '.' in name:
+            # Nested name - split
+            name, nested_name = name.split('.', 1)
+        task = self.meta_tasks[name]
+        if nested_name is not None:
+            task = task.meta_lookup(nested_name)
+        return task
 
     @property
     def meta_main_module(self):
