@@ -122,11 +122,13 @@ class Task(metaclass=TaskMetaclass):
         """
         return self._meta_dependencies
 
-    def meta_disable_dependency(self, task, category=None):
+    def meta_disable_dependency(self, task, *, types=None):
         """Disable all dependencies for the task.
         """
+        if types is None:
+            types = []
         for dependency in self.meta_dependencies:
-            if category is None or self._isinstance(dependency, category):
+            if self._isinstance(dependency, tuple(types)):
                 if dependency.task == task:
                     dependency.disable()
 
@@ -184,11 +186,13 @@ class Task(metaclass=TaskMetaclass):
         with self.meta_effective_dir():
             return self.meta_invoke(*eargs, **ekwargs)
 
-    def meta_enable_dependency(self, task, category=None):
+    def meta_enable_dependency(self, task, types=None):
         """Enable all dependencies for the task.
         """
+        if types is None:
+            types = []
         for dependency in self.meta_dependencies:
-            if category is None or self._isinstance(dependency, category):
+            if self._isinstance(dependency, tuple(types)):
                 if dependency.task == task:
                     dependency.enable()
 
