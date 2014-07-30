@@ -9,7 +9,7 @@ class Settings(Settings):
     default_arguments = []
     basedir = None
     cache = True
-    default_chdir = True
+    chdir = True
     default_exclude = None
     default_fallback = None
     default_file = 'runfile.py'
