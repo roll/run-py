@@ -18,7 +18,7 @@ class find(Function):
     default_file = settings.file
     default_names = settings.names
     default_recursively = settings.recursively
-    default_tags = settings.default_tags
+    default_tags = settings.tags
 
     def __init__(self, names=None, tags=None, *,
                  file=None, exclude=None, basedir=None, recursively=None,

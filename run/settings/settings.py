@@ -17,7 +17,7 @@ class Settings(Settings):
     names = None
     recursively = False
     strict = True
-    default_tags = None
+    tags = None
     default_task = 'default'
 
     # Argparse
@@ -104,7 +104,7 @@ class Settings(Settings):
                  'dest': 'tags',
                  'nargs': '*',
                  'flags': ['-t', '--tags'],
-                 'default': self.default_tags,
+                 'default': self.tags,
                  'help': 'Main module tags to match.',
                 },
                 {
