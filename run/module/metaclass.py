@@ -2,9 +2,7 @@ import inspect
 from copy import copy
 from box.importlib import import_object
 from ..settings import settings
-from ..task import Task, TaskMetaclass, TaskPrototype, task
-from ..var import var
-from .module_function import module
+from ..task import Task, TaskMetaclass, TaskPrototype
 from .prototype import ModulePrototype
 from .skip import skip
 
