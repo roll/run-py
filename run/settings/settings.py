@@ -10,7 +10,7 @@ class Settings(Settings):
     basedir = None
     cache = True
     chdir = True
-    default_exclude = None
+    exclude = None
     default_fallback = None
     default_file = 'runfile.py'
     default_main_module_name = '__main__'

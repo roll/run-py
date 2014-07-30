@@ -14,7 +14,7 @@ class find(Function):
     # Public
 
     default_basedir = settings.basedir
-    default_exclude = settings.default_exclude
+    default_exclude = settings.exclude
     default_file = settings.default_file
     default_names = settings.default_names
     default_recursively = settings.default_recursively
