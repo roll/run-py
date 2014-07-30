@@ -9,6 +9,7 @@ class Settings(Settings):
     basedir = None
     cache = True
     chdir = True
+    convert = True
     exclude = None
     fallback = None
     file = 'runfile.py'

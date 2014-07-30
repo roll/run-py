@@ -13,38 +13,39 @@ class ModuleMetaclass(TaskMetaclass):
     # Public
 
     def __new__(cls, name, bases, attrs):
-        for key, attr in attrs.items():
-            if key.isupper():
-                continue
-            if key.startswith('_'):
-                continue
-            if key.startswith('meta_'):
-                continue
-            if isinstance(attr, cls._task_prototype_class):
-                continue
-            if isinstance(attr, cls._task_class):
-                continue
-            if isinstance(attr, staticmethod):
-                continue
-            if isinstance(attr, classmethod):
-                continue
-            if getattr(attr, '__isabstractmethod__', False):
-                continue
-            if getattr(attr, skip.attribute_name, False):
-                continue
-            if isinstance(attr, type):
-                if issubclass(type(attr), cls):
-                    # Module
-                    module = import_object(cls._module)
-                    attrs[key] = module(attr)
-            elif callable(attr):
-                # Task
-                task = import_object(cls._task)
-                attrs[key] = task(attr)
-            elif inspect.isdatadescriptor(attr):
-                # Var
-                var = import_object(cls._var)
-                attrs[key] = var(attr)
+        if cls._convert:
+            for key, attr in attrs.items():
+                if key.isupper():
+                    continue
+                if key.startswith('_'):
+                    continue
+                if key.startswith('meta_'):
+                    continue
+                if isinstance(attr, cls._task_prototype_class):
+                    continue
+                if isinstance(attr, cls._task_class):
+                    continue
+                if isinstance(attr, staticmethod):
+                    continue
+                if isinstance(attr, classmethod):
+                    continue
+                if getattr(attr, '__isabstractmethod__', False):
+                    continue
+                if getattr(attr, skip.attribute_name, False):
+                    continue
+                if isinstance(attr, type):
+                    if issubclass(type(attr), cls):
+                        # Module
+                        module = import_object(cls._module)
+                        attrs[key] = module(attr)
+                elif callable(attr):
+                    # Task
+                    task = import_object(cls._task)
+                    attrs[key] = task(attr)
+                elif inspect.isdatadescriptor(attr):
+                    # Var
+                    var = import_object(cls._var)
+                    attrs[key] = var(attr)
         return super().__new__(cls, name, bases, attrs)
 
     def __copy__(self):
@@ -60,6 +61,7 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Protected
 
+    _convert = settings.convert
     _module = settings.module
     _prototype_class = ModulePrototype  # Overriding
     _task_prototype_class = TaskPrototype
