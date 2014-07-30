@@ -32,10 +32,12 @@ class ModuleMetaclass(TaskMetaclass):
                 if getattr(attr, skip.attribute_name, False):
                     continue
                 if isinstance(attr, type):
-                    if issubclass(type(attr), cls):
-                        # Module
-                        module = import_object(cls._module)
+                    # Module
+                    module = import_object(cls._module)
+                    try:
                         attrs[key] = module(attr)
+                    except TypeError:
+                        pass
                 elif callable(attr):
                     # Task
                     task = import_object(cls._task)

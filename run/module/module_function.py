@@ -1,4 +1,5 @@
 from ..task import task
+from .module import Module
 
 class module(task):
     """Decorate class to make module with default kwargs to invoke.
@@ -28,4 +29,13 @@ class module(task):
     # Public
 
     def invoke(self, cls):
-        return cls(**self._kwargs)
+        if not self._issubclass(cls, Module):
+            raise TypeError(
+                'Given class {cls} is not a Module'.
+                format(cls=cls))
+        prototype = cls(**self._kwargs)
+        return prototype
+
+    # Protected
+
+    _issubclass = issubclass
