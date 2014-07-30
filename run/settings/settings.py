@@ -12,7 +12,7 @@ class Settings(Settings):
     chdir = True
     exclude = None
     fallback = None
-    default_file = 'runfile.py'
+    file = 'runfile.py'
     default_main_module_name = '__main__'
     default_names = None
     default_recursively = False
@@ -60,7 +60,7 @@ class Settings(Settings):
                 {
                  'dest': 'file',
                  'flags': ['-f', '--file'],
-                 'default': self.default_file,
+                 'default': self.file,
                  'help': 'Runfile name/path/pattern.',
                 },
                 {
