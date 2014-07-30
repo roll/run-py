@@ -7,7 +7,7 @@ class Settings(Settings):
     # Main
 
     default_arguments = []
-    default_basedir = None
+    basedir = None
     default_cache = True
     default_chdir = True
     default_exclude = None
@@ -43,7 +43,7 @@ class Settings(Settings):
                 {
                  'dest': 'basedir',
                  'flags': ['-b', '--basedir'],
-                 'default': self.default_basedir,
+                 'default': self.basedir,
                  'help': 'Base directory path.',
                 },
                 {

@@ -13,7 +13,7 @@ class find(Function):
 
     # Public
 
-    default_basedir = settings.default_basedir
+    default_basedir = settings.basedir
     default_exclude = settings.default_exclude
     default_file = settings.default_file
     default_names = settings.default_names
