@@ -14,7 +14,7 @@ class Settings(Settings):
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
-    default_names = None
+    names = None
     default_recursively = False
     default_strict = True
     default_tags = None
@@ -79,7 +79,7 @@ class Settings(Settings):
                  'dest': 'names',
                  'nargs': '*',
                  'flags': ['-n', '--names'],
-                 'default': self.default_names,
+                 'default': self.names,
                  'help': 'Main modules names to match.',
                 },
                 {
