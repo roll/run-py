@@ -2,6 +2,7 @@ import inspect
 from copy import copy
 from ..task import Task, TaskMetaclass, TaskPrototype, task
 from ..var import var
+from .module_function import module
 from .prototype import ModulePrototype
 from .skip import skip
 
@@ -17,8 +18,6 @@ class ModuleMetaclass(TaskMetaclass):
                 continue
             if key.startswith('meta_'):
                 continue
-            if isinstance(attr, type):
-                continue
             if isinstance(attr, cls._task_prototype_class):
                 continue
             if isinstance(attr, cls._task_class):
@@ -31,7 +30,11 @@ class ModuleMetaclass(TaskMetaclass):
                 continue
             if getattr(attr, skip.attribute_name, False):
                 continue
-            if callable(attr):
+            if isinstance(attr, type):
+                if issubclass(type(attr), cls):
+                    # Module
+                    attrs[key] = cls._module(attr)
+            elif callable(attr):
                 # Task
                 attrs[key] = cls._task(attr)
             elif inspect.isdatadescriptor(attr):
@@ -52,6 +55,7 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Protected
 
+    _module = module
     _prototype_class = ModulePrototype  # Overriding
     _task_prototype_class = TaskPrototype
     _task_class = Task
