@@ -13,10 +13,13 @@ class Settings(Settings):
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
+    module = 'run.module.module'
     names = None
     recursively = False
     strict = True
     tags = None
+    task = 'run.task.task'
+    var = 'run.var.var'
 
     # TODO: remove from Command-Machine-Cluster
     default_task = 'default'

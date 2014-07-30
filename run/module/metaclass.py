@@ -1,5 +1,7 @@
 import inspect
 from copy import copy
+from box.importlib import import_object
+from ..settings import settings
 from ..task import Task, TaskMetaclass, TaskPrototype, task
 from ..var import var
 from .module_function import module
@@ -33,13 +35,16 @@ class ModuleMetaclass(TaskMetaclass):
             if isinstance(attr, type):
                 if issubclass(type(attr), cls):
                     # Module
-                    attrs[key] = cls._module(attr)
+                    module = import_object(cls._module)
+                    attrs[key] = module(attr)
             elif callable(attr):
                 # Task
-                attrs[key] = cls._task(attr)
+                task = import_object(cls._task)
+                attrs[key] = task(attr)
             elif inspect.isdatadescriptor(attr):
                 # Var
-                attrs[key] = cls._var(attr)
+                var = import_object(cls._var)
+                attrs[key] = var(attr)
         return super().__new__(cls, name, bases, attrs)
 
     def __copy__(self):
@@ -55,9 +60,9 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Protected
 
-    _module = module
+    _module = settings.module
     _prototype_class = ModulePrototype  # Overriding
     _task_prototype_class = TaskPrototype
     _task_class = Task
-    _task = task
-    _var = var
+    _task = settings.task
+    _var = settings.var
