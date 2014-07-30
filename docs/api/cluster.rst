@@ -29,5 +29,4 @@ Internal
 
 Module’s internal implementation.
 
-.. autoclass:: run.cluster.common.CommonConstraint
-.. autoclass:: run.cluster.meta.MetaConstraint
+.. autoclass:: run.cluster.constraint.Constraint

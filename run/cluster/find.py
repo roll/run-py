@@ -3,8 +3,7 @@ from box.findtools import find_objects
 from box.functools import Function, cachedproperty
 from ..module import Module
 from ..settings import settings
-from .common import CommonConstraint
-from .meta import MetaConstraint
+from .constraint import Constraint
 from .not_found import NotFound
 
 class find(Function):
@@ -99,10 +98,7 @@ class find(Function):
     @cachedproperty
     def _mappers(self):
         mappers = []
-        common = CommonConstraint(self._module_class)
-        if common:
-            mappers.append(common)
-        meta = MetaConstraint(self._names, self._tags)
-        if meta:
-            mappers.append(meta)
+        constraint = Constraint(
+            self._module_class, names=self._names, tags=self._tags)
+        mappers.append(constraint)
         return mappers
