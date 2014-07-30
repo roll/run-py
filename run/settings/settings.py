@@ -11,7 +11,7 @@ class Settings(Settings):
     cache = True
     chdir = True
     exclude = None
-    default_fallback = None
+    fallback = None
     default_file = 'runfile.py'
     default_main_module_name = '__main__'
     default_names = None
