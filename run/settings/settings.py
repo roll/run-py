@@ -6,7 +6,9 @@ class Settings(Settings):
 
     # Main
 
-    default_arguments = []
+    # TODO: remove
+    default_task = 'default'
+
     basedir = None
     cache = True
     chdir = True
@@ -18,7 +20,6 @@ class Settings(Settings):
     recursively = False
     strict = True
     tags = None
-    default_task = 'default'
 
     # Argparse
 
@@ -31,13 +32,11 @@ class Settings(Settings):
                 {
                  'name': 'task',
                  'nargs': '?',
-                 'default': None,
                  'help': 'Task to run.',
                 },
                 {
                  'name': 'arguments',
                  'nargs': '*',
-                 'default': self.default_arguments,
                  'help': 'Arguments for task.',
                 },
                 {
