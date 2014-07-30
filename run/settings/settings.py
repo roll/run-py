@@ -16,7 +16,7 @@ class Settings(Settings):
     main_module_name = '__main__'
     names = None
     recursively = False
-    default_strict = True
+    strict = True
     default_tags = None
     default_task = 'default'
 
