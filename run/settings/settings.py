@@ -6,9 +6,6 @@ class Settings(Settings):
 
     # Main
 
-    # TODO: remove from Command-Machine-Cluster
-    default_task = 'default'
-
     basedir = None
     cache = True
     chdir = True
@@ -20,6 +17,9 @@ class Settings(Settings):
     recursively = False
     strict = True
     tags = None
+
+    # TODO: remove from Command-Machine-Cluster
+    default_task = 'default'
 
     # Argparse
 
