@@ -15,7 +15,7 @@ class Settings(Settings):
     file = 'runfile.py'
     main_module_name = '__main__'
     names = None
-    default_recursively = False
+    recursively = False
     default_strict = True
     default_tags = None
     default_task = 'default'
