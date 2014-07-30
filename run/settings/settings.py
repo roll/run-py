@@ -13,7 +13,7 @@ class Settings(Settings):
     exclude = None
     fallback = None
     file = 'runfile.py'
-    default_main_module_name = '__main__'
+    main_module_name = '__main__'
     default_names = None
     default_recursively = False
     default_strict = True

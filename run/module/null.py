@@ -79,5 +79,5 @@ class NullModule:
     _meta_default_cache = settings.cache
     _meta_default_chdir = settings.chdir
     _meta_default_fallback = settings.fallback
-    _meta_default_main_module_name = settings.default_main_module_name
+    _meta_default_main_module_name = settings.main_module_name
     _meta_default_strict = settings.default_strict
