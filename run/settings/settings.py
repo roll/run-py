@@ -8,7 +8,7 @@ class Settings(Settings):
 
     default_arguments = []
     basedir = None
-    default_cache = True
+    cache = True
     default_chdir = True
     default_exclude = None
     default_fallback = None
