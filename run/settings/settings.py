@@ -6,7 +6,7 @@ class Settings(Settings):
 
     # Main
 
-    # TODO: remove
+    # TODO: remove from Command-Machine-Cluster
     default_task = 'default'
 
     basedir = None
