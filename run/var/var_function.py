@@ -1,3 +1,4 @@
+import inspect
 from ..task import task
 from .descriptor import DescriptorVar
 
@@ -28,7 +29,9 @@ class var(task):
 
     # Public
 
-    def invoke(self, method):
-        descriptor = property(method)
+    def invoke(self, obj):
+        descriptor = obj
+        if not inspect.isdatadescriptor(obj):
+            descriptor = property(obj)
         prototype = DescriptorVar(descriptor, **self._kwargs)
         return prototype
