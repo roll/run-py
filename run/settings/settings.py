@@ -14,23 +14,17 @@ class Settings(Settings):
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
-    # TODO: fix to run.module
-    module = 'run.module.module'
     names = None
     recursively = False
     strict = True
     tags = None
-    # TODO: fix to run.task
-    task = 'run.task.task'
-    # TODO: fix to run.var
-    var = 'run.var.var'
 
     # TODO: remove from Command-Machine-Cluster
     default_task = 'default'
 
     # Converters
 
-    # TODO: fix to run.*
+    # TODO: reduce to run.*
     converters = [
         'run.module.converter.module',
         'run.task.converter.task',

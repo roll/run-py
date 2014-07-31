@@ -62,9 +62,9 @@ class ModuleMetaclass(TaskMetaclass):
     # Protected
 
     _convert = settings.convert
-    _module = settings.module
+    _module = settings.converters[0]
     _prototype_class = ModulePrototype  # Overriding
     _task_prototype_class = TaskPrototype
     _task_class = Task
-    _task = settings.task
-    _var = settings.var
+    _task = settings.converters[1]
+    _var = settings.converters[2]
