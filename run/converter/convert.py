@@ -3,7 +3,7 @@ from box.importlib import import_object
 from ..settings import settings
 
 class convert(Function):
-    """Convert object using converters in settings.
+    """Convert object using converters from settings.
     """
 
     # Public
@@ -22,7 +22,7 @@ class convert(Function):
         if result is None:
             raise RuntimeError(
                 'Object "{self._object}" has no corresponding converter'
-                'between converters in settings: {self._converters}'.
+                'between converters from settings: {self._converters}'.
                 format(self=self))
         return result
 
