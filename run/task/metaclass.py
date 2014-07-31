@@ -20,5 +20,6 @@ class TaskMetaclass(ABCMeta):
 
     # Protected
 
+    # TODO: remove module dependency, may be using settings IoC?
     _null_module_class = inject('NullModule', module='run.module')
     _prototype_class = TaskPrototype

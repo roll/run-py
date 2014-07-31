@@ -1,6 +1,6 @@
 import logging
 from ..signal import CallbackHandler
-# TODO: remove Task dependency, may be using settings IoC?
+# TODO: remove task dependency, may be using settings IoC?
 from ..task import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
 class Controller:
