@@ -20,7 +20,7 @@ class convert(Function):
             except TypeError:
                 pass
         if result is None:
-            raise RuntimeError(
+            raise TypeError(
                 'Object "{self._object}" has no corresponding converter'
                 'between converters from settings: {self._converters}'.
                 format(self=self))
