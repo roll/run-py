@@ -30,10 +30,11 @@ class Settings(Settings):
 
     # Converters
 
+    # TODO: fix to run.*
     converters = [
-        'run.module.module',
-        'run.task.task',
-        'run.var.var',
+        'run.module.converter.module',
+        'run.task.converter.task',
+        'run.var.converter.var',
         ]
 
     # Argparse
