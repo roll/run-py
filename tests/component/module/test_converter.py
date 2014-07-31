@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
-from run.module.module_function import module
+from run.module.converter import module
 
 class module_Test(unittest.TestCase):
 
@@ -10,7 +10,7 @@ class module_Test(unittest.TestCase):
         self.addCleanup(patch.stopall)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.issubclass = patch.object(module, '_issubclass').start()
-        self.module_class = Mock()
+        self.module_class = Mock(spec=[])
 
     def test(self):
         result = module(self.module_class)

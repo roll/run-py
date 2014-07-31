@@ -28,14 +28,16 @@ class module(task):
 
     # Public
 
-    def invoke(self, cls):
-        if not self._issubclass(cls, Module):
-            raise TypeError(
-                'Given class {cls} is not a Module'.
-                format(cls=cls))
-        prototype = cls(**self._kwargs)
+    def check_matched(self, obj):
+        if self._issubclass(obj, Module):
+            return True
+        return False
+
+    def make(self, obj):
+        prototype = obj(**self._kwargs)
         return prototype
 
     # Protected
 
     _issubclass = issubclass
+

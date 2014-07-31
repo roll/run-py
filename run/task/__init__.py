@@ -1,5 +1,6 @@
 from .attribute import AttributeTask
 from .build import build
+from .converter import task
 from .derived import DerivedTask
 from .descriptor import DescriptorTask
 from .find import FindTask
@@ -13,5 +14,4 @@ from .prototype import TaskPrototype
 from .render import RenderTask
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 from .subprocess import SubprocessTask
-from .task_function import task
 from .task import Task

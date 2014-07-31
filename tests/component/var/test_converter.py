@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import patch
-from run.var import var_function
+from run.var import converter
 
 class var_Test(unittest.TestCase):
 
@@ -10,11 +10,11 @@ class var_Test(unittest.TestCase):
         self.addCleanup(patch.stopall)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.property = patch('builtins.property').start()
-        self.DescriptorVar = patch.object(
-            var_function, 'DescriptorVar').start()
+        self.isfunction = patch('inspect.isfunction').start()
+        self.DescriptorVar = patch.object(converter, 'DescriptorVar').start()
 
     def test(self):
-        result = var_function.var('method')
+        result = converter.var('method')
         self.assertEqual(result, self.DescriptorVar.return_value)
         # Check property call
         self.property.assert_called_with('method')
@@ -22,7 +22,7 @@ class var_Test(unittest.TestCase):
         self.DescriptorVar.assert_called_with(self.property.return_value)
 
     def test_with_kwargs(self):
-        result = var_function.var(**self.kwargs)('method')
+        result = converter.var(**self.kwargs)('method')
         self.assertEqual(result, self.DescriptorVar.return_value)
         # Check property call
         self.property.assert_called_with('method')

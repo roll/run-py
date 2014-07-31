@@ -1,9 +1,10 @@
-from box.functools import Decorator
+import inspect
+from ..converter import Converter
 from .method import MethodTask
 from .prototype import TaskPrototype
 from .task import Task
 
-class task(Decorator):
+class task(Converter):
     """Decorate method to make task with default kwargs to invoke.
 
     There are two ways to use decorator:
@@ -30,27 +31,23 @@ class task(Decorator):
 
     # Public
 
-    def __init__(self, **kwargs):
-        self._kwargs = kwargs
+    def check_converted(self, obj):
+        if isinstance(obj, self._task_prototype_class):
+            return True
+        if isinstance(obj, self._task_class):
+            return True
+        return False
 
-    def __call__(self, obj):
-        result = obj
-        if (not isinstance(obj, self._task_prototype_class) and
-            not isinstance(obj, self._task_class)):
-            result = self.invoke(obj)
-        return result
+    def check_matched(self, obj):
+        if inspect.isfunction(obj):
+            return True
+        return False
 
-    def invoke(self, method):
-        prototype = MethodTask(method, **self._kwargs)
+    def make(self, obj):
+        prototype = MethodTask(obj, **self._kwargs)
         return prototype
-
-    # Overriding
-    def is_composite(self, *args, **kwargs):
-        # Composite only if kwargs passed
-        return not bool(args)
 
     # Protected
 
-    _kwargs = {}
     _task_class = Task
     _task_prototype_class = TaskPrototype
