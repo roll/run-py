@@ -30,9 +30,9 @@ class var(task):
     # Public
 
     def check_matched(self, obj):
-        if inspect.isfunction(obj):
-            return True
         if inspect.isdatadescriptor(obj):
+            return True
+        if inspect.isfunction(obj):
             return True
         return False
 
