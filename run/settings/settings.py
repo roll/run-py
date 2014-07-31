@@ -28,6 +28,14 @@ class Settings(Settings):
     # TODO: remove from Command-Machine-Cluster
     default_task = 'default'
 
+    # Converters
+
+    converters = [
+        'run.module.module',
+        'run.module.task',
+        'run.module.var',
+        ]
+
     # Argparse
 
     @property
