@@ -9,6 +9,7 @@ class module_Test(unittest.TestCase):
     def setUp(self):
         self.addCleanup(patch.stopall)
         self.kwargs = {'kwarg1': 'kwarg1'}
+        self.isinstance = patch.object(module, '_isinstance').start()
         self.issubclass = patch.object(module, '_issubclass').start()
         self.module_class = Mock(spec=[])
 

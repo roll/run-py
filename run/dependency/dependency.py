@@ -1,7 +1,7 @@
 import logging
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
-from box.importlib import inject
+from ..converter import convert
 
 class Dependency(metaclass=ABCMeta):
     """Dependency representation abstract base class.
@@ -43,9 +43,9 @@ class Dependency(metaclass=ABCMeta):
         return result
 
     def __call__(self, obj):
-        prototype = self._task_function(obj)
-        prototype.meta_depend(self)
-        return prototype
+        converted_object = self._convert(obj)
+        converted_object.meta_depend(self)
+        return converted_object
 
     def bind(self, task):
         """Bind dependency to the task.
@@ -115,4 +115,4 @@ class Dependency(metaclass=ABCMeta):
 
     # Protected
 
-    _task_function = inject('task', module='run.task')
+    _convert = convert

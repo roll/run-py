@@ -29,8 +29,9 @@ class module(task):
     # Public
 
     def check_matched(self, obj):
-        if self._issubclass(obj, Module):
-            return True
+        if self._isinstance(obj, type):
+            if self._issubclass(obj, Module):
+                return True
         return False
 
     def make(self, obj):
@@ -39,5 +40,6 @@ class module(task):
 
     # Protected
 
-    _issubclass = issubclass
+    _isinstance = staticmethod(isinstance)
+    _issubclass = staticmethod(issubclass)
 

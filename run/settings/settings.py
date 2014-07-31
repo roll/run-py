@@ -32,8 +32,8 @@ class Settings(Settings):
 
     converters = [
         'run.module.module',
-        'run.module.task',
-        'run.module.var',
+        'run.task.task',
+        'run.var.var',
         ]
 
     # Argparse
