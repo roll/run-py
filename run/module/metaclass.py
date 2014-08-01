@@ -52,9 +52,9 @@ class ModuleMetaclass(TaskMetaclass):
         attrs = {}
         for cls in self.mro():
             for key, attr in vars(cls).items():
-                if (key not in attrs and
-                    isinstance(attr, self._task_prototype_class)):
-                    attrs[key] = copy(attr)
+                if key not in attrs:
+                    if isinstance(attr, self._task_prototype_class):
+                        attrs[key] = copy(attr)
         attrs['__doc__'] = self.__doc__
         attrs['__module__'] = self.__module__
         return type(self)(self.__name__, (self,), attrs)
