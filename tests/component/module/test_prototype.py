@@ -7,21 +7,26 @@ class ModulePrototypeTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.MockModule = self._make_mock_module_class()
-        self.MockPrototype = self._make_mock_prototype_class()
-        self.prototype = self.MockPrototype(self.MockModule, None)
+        self.Module = self._make_mock_module_class()
+        self.Prototype = self._make_mock_prototype_class()
+        self.prototype = self.Prototype(self.Module, None)
 
     def test__create_task(self):
-        module = self.prototype._create_task()
-        self.assertIsInstance(module, self.MockModule)
-        self.assertEqual(module.attr, 'value')
+        self.module = self.prototype._create_task()
+        self.assertIsInstance(self.module, self.Module)
+        self.assertEqual(self.Module.attr, 'attr')
+        self.assertEqual(self.Module.task, 'task')
 
     # Protected
 
     def _make_mock_module_class(self):
         class MockModule:
             # Public
-            attr = Mock(__build__=Mock(return_value='value'))
+            attr = 'attr'
+            task = Mock(__build__=Mock(return_value='task'))
+            @classmethod
+            def __copy__(cls):
+                return cls
         return MockModule
 
     def _make_mock_prototype_class(self):
