@@ -1,4 +1,3 @@
-from copy import copy
 from ..task import TaskPrototype, build
 
 class ModulePrototype(TaskPrototype):
@@ -6,8 +5,8 @@ class ModulePrototype(TaskPrototype):
     # Public
 
     def __init__(self, cls, updates, *args, **kwargs):
-        eclass = copy(cls)
-        super().__init__(eclass, updates, *args, **kwargs)
+        copied_class = cls.__copy__()
+        super().__init__(copied_class, updates, *args, **kwargs)
 
     # Protected
 
