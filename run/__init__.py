@@ -1,6 +1,7 @@
+from .converter import skip
 from .dependency import depend, require, trigger
 from .module import (Module,
-                     module, skip,
+                     module,
                      AutoModule, FindModule, NullModule, SubprocessModule)
 from .settings import settings
 from .task import (build, fork, task,
