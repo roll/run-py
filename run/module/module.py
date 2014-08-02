@@ -108,10 +108,10 @@ class Module(Task, metaclass=ModuleMetaclass):
     def list(self, task=None):
         """Print tasks.
         """
-        if task is not None:
-            task = getattr(self, task)
-        else:
+        if task is None:
             task = self
+        else:
+            task = getattr(self, task)
         names = []
         if isinstance(task, Module):
             for task in task.meta_tasks.values():
@@ -126,10 +126,10 @@ class Module(Task, metaclass=ModuleMetaclass):
     def info(self, task=None):
         """Print information.
         """
-        if task is not None:
-            task = getattr(self, task)
-        else:
+        if task is None:
             task = self
+        else:
+            task = getattr(self, task)
         info = task.meta_qualname
         if isinstance(task, Task):
             info += task.meta_signature
@@ -148,10 +148,10 @@ class Module(Task, metaclass=ModuleMetaclass):
     def meta(self, task=None):
         """Print metadata.
         """
-        if task is not None:
-            task = getattr(self, task)
-        else:
+        if task is None:
             task = self
+        else:
+            task = getattr(self, task)
         meta = OrderedDict()
         for name in sorted(dir(task)):
             if name.startswith('meta_'):
