@@ -30,7 +30,5 @@ class Module(ManageModule):
 
     # Modules
 
-    # TODO: move to ManageModule when deferred load will be added to run
-    # TODO: use names instead basedir after run fix
     docs = FindModule(basedir='docs')
     tests = FindModule(basedir='tests')
