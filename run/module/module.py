@@ -111,7 +111,7 @@ class Module(Task, metaclass=ModuleMetaclass):
         if task is None:
             task = self
         else:
-            task = getattr(self, task)
+            task = self.meta_lookup(task)
         names = []
         for task in task.meta_tasks.values():
             names.append(task.meta_name)
@@ -124,10 +124,9 @@ class Module(Task, metaclass=ModuleMetaclass):
         if task is None:
             task = self
         else:
-            task = getattr(self, task)
+            task = self.meta_lookup(task)
         info = task.meta_qualname
-        if isinstance(task, Task):
-            info += task.meta_signature
+        info += task.meta_signature
         info += '\n---\n'
         info += 'Type: ' + task.meta_type
         info += '\n'
@@ -146,7 +145,7 @@ class Module(Task, metaclass=ModuleMetaclass):
         if task is None:
             task = self
         else:
-            task = getattr(self, task)
+            task = self.meta_lookup(task)
         meta = OrderedDict()
         for name in sorted(dir(task)):
             if name.startswith('meta_'):

@@ -4,10 +4,14 @@ class AttributeTask(Task):
 
     # Public
 
+    def __init__(self, attribute, *args, **kwargs):
+        self._attribute = attribute
+        super().__init__(*args, **kwargs)
+
     @property
     def meta_docstring(self):
         return self._meta_params.get('docstring',
-            'Return "{self.attribute}" attribute.'.format(self=self))
+            'Return "{self._attribute}" attribute.'.format(self=self))
 
-    def meta_invoke(self, attribute):
-        return getattr(self.meta_module, attribute)
+    def meta_invoke(self):
+        return getattr(self.meta_module, self._attribute)
