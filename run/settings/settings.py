@@ -24,11 +24,10 @@ class Settings(Settings):
 
     # Converters
 
-    # TODO: reduce to run.*
     converters = [
-        'run.module.converter.module',
-        'run.task.converter.task',
-        'run.var.converter.var',
+        'run.module',
+        'run.task',
+        'run.var',
         ]
 
     # Argparse
