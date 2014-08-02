@@ -15,7 +15,7 @@ class ModuleTest(unittest.TestCase):
         self.parent_module = self.ParentModule()
 
     def test___call__(self):
-        self.Module.default = Mock()
+        self.module.default = Mock()
         self.assertEqual(
             self.module(*self.args, **self.kwargs),
             self.module.default.return_value)
@@ -60,12 +60,13 @@ class ModuleTest(unittest.TestCase):
             self.module.meta_lookup('task'), self.module.task)
 
     def test_meta_lookup_nested(self):
-        self.Module.module = self.module
+        self.Module.meta_tasks = {
+            'module': self.module, 'task': self.module.task}
         self.assertEqual(
             self.module.meta_lookup('module.task'), self.module.task)
 
     def test_meta_invoke(self):
-        self.Module.default = Mock()
+        self.module.default = Mock()
         self.assertEqual(
             self.module.meta_invoke(*self.args, **self.kwargs),
             self.module.default.return_value)
