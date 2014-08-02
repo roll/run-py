@@ -156,7 +156,9 @@ class Module(Task, metaclass=ModuleMetaclass):
         for name in sorted(dir(task)):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
-                meta[key] = getattr(task, name)
+                attr = getattr(task, name)
+                if not inspect.ismethod(attr):
+                    meta[key] = attr
         self._meta_pprint(meta)
 
     default = NullTask(
