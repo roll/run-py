@@ -114,7 +114,7 @@ class Module(Task, metaclass=ModuleMetaclass):
             task = getattr(self, task)
         names = []
         for task in task.meta_tasks.values():
-            names.append(task.meta_qualname)
+            names.append(task.meta_name)
         for name in sorted(names):
             self._meta_print(name)
 

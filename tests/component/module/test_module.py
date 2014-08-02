@@ -124,11 +124,11 @@ class ModuleTest(unittest.TestCase):
         self.module.list()
         # Check print call
         self.module._meta_print.assert_has_calls([
-            call('[parent_module] module.default'),
-            call('[parent_module] module.info'),
-            call('[parent_module] module.list'),
-            call('[parent_module] module.meta'),
-            call('[parent_module] module.task')])
+            call('default'),
+            call('info'),
+            call('list'),
+            call('meta'),
+            call('task')])
 
     @unittest.skip('Breaks system tests. Why??')
     def test_list_with_task_is_not_module(self):
