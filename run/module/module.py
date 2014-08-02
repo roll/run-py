@@ -114,10 +114,19 @@ class Module(Task, metaclass=ModuleMetaclass):
         else:
             task = self.meta_lookup(task)
         names = []
-        for task in task.meta_tasks.values():
-            names.append(task.meta_name)
-        for name in sorted(names):
-            self._meta_print(name)
+        for name in sorted(dir(task)):
+            # TODO: code duplication to ModuleMetaclass.__copy__
+            if name.isupper():
+                continue
+            if name.startswith('_'):
+                continue
+            if name.startswith('meta_'):
+                continue
+            if name in task.meta_tasks:
+                nested_task = task.meta_tasks[name]
+                name = nested_task.meta_name
+            names.append(name)
+        self._meta_print('\n'.join(names))
 
     def info(self, task=None):
         """Print information.
