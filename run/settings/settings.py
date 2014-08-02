@@ -24,9 +24,9 @@ class Settings(Settings):
     # Converters
 
     converters = [
-        'run.module',
-        'run.task',
-        'run.var',
+        'run.module.module',
+        'run.task.task',
+        'run.var.var',
         ]
 
     # Argparse
