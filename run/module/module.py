@@ -113,15 +113,10 @@ class Module(Task, metaclass=ModuleMetaclass):
         else:
             task = getattr(self, task)
         names = []
-        if isinstance(task, Module):
-            for task in task.meta_tasks.values():
-                names.append(task.meta_qualname)
-            for name in sorted(names):
-                self._meta_print(name)
-        else:
-            raise TypeError(
-                'Task "{task}" is not a module.'.
-                format(task=task))
+        for task in task.meta_tasks.values():
+            names.append(task.meta_qualname)
+        for name in sorted(names):
+            self._meta_print(name)
 
     def info(self, task=None):
         """Print information.
