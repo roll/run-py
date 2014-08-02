@@ -24,7 +24,6 @@ class Dependency(metaclass=ABCMeta):
         if action is None:
             action = type(self).__name__
         if self.predecessor is not None:
-            # TODO: added label if not enabled?
             task = str(self.predecessor)
             if self._args or self._kwargs:
                 task += '('
