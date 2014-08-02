@@ -1,6 +1,5 @@
 import os
 from box.functools import cachedproperty
-# TODO: remove signal dependency, may be using settings IoC?
 from ..signal import NullDispatcher
 from ..settings import settings
 
