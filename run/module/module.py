@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..task import Task, NullTask
+from ..settings import settings
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
 from .signal import (InitiatedModuleSignal, SuccessedModuleSignal,
@@ -124,7 +125,10 @@ class Module(Task, metaclass=ModuleMetaclass):
                 continue
             if name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
-                name = nested_task.meta_name
+                if self._meta_color:
+                    name = nested_task.meta_color_name
+                else:
+                    name = nested_task.meta_name
             names.append(name)
         self._meta_print('\n'.join(names))
 
@@ -171,6 +175,7 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     # Protected
 
+    _meta_color = settings.color
     _meta_failed_signal_class = FailedModuleSignal  # Overriding
     _meta_initiated_signal_class = InitiatedModuleSignal  # Overriding
     _meta_print = staticmethod(print)
