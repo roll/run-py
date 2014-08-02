@@ -110,6 +110,14 @@ class Task(metaclass=TaskMetaclass):
     def meta_chdir(self, value):
         self._meta_params['chdir'] = value
 
+    @property
+    def meta_color_name(self):
+        return '\033[92m' + self.meta_name + '\033[0m'
+
+    @property
+    def meta_color_qualname(self):
+        return '\033[92m' + self.meta_qualname + '\033[0m'
+
     def meta_depend(self, dependency):
         """Add custom dependency.
         """

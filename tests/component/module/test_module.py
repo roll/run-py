@@ -106,12 +106,12 @@ class ModuleTest(unittest.TestCase):
     def test_list(self):
         self.module.list()
         # Check print call
-        self.module._meta_print.assert_has_calls([
-            call('default'),
-            call('info'),
-            call('list'),
-            call('meta'),
-            call('task')])
+        self.module._meta_print.assert_called_once_with(
+            'default\n'
+            'info\n'
+            'list\n'
+            'meta\n'
+            'task')
 
     def test_list_with_parent_module(self):
         # We have to recreate class for builtin tasks
@@ -123,12 +123,12 @@ class ModuleTest(unittest.TestCase):
         self.parent_module.meta_tasks = {'module': self.module}
         self.module.list()
         # Check print call
-        self.module._meta_print.assert_has_calls([
-            call('default'),
-            call('info'),
-            call('list'),
-            call('meta'),
-            call('task')])
+        self.module._meta_print.assert_called_once_with(
+            'default\n'
+            'info\n'
+            'list\n'
+            'meta\n'
+            'task')
 
     @unittest.skip('Breaks system tests. Why??')
     def test_list_with_task_is_not_module(self):

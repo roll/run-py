@@ -21,6 +21,8 @@ class ModuleTest(unittest.TestCase):
         self.module.list()
         self.assertEqual(
             self.stdout.getvalue(),
+            'attribute\n'
+            'class_var\n'
             'default\n'
             'info\n'
             'list\n'

@@ -10,6 +10,7 @@ class Settings(Settings):
     cache = True
     chdir = True
     convert = True
+    color = False
     exclude = None
     fallback = None
     file = 'runfile.py'
