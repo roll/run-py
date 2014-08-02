@@ -19,7 +19,6 @@ class Settings(Settings):
     strict = True
     tags = None
 
-    # TODO: remove from Command-Machine-Cluster
     default_task = 'default'
 
     # Converters
