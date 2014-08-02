@@ -68,6 +68,7 @@ class Module(Task, metaclass=ModuleMetaclass):
         if '.' in name:
             # Nested name - split
             name, nested_name = name.split('.', 1)
+        # TODO: add good exception text here like in __getattribute__
         task = self.meta_tasks[name]
         if nested_name is not None:
             task = task.meta_lookup(nested_name)
