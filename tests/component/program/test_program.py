@@ -18,6 +18,7 @@ class ProgramTest(unittest.TestCase):
             file='file',
             basedir='basedir',
             recursively='recursively',
+            grayscale='grayscale',
             skip='skip',
             plain='plain')
         self.program._machine_class.return_value.process.assert_called_with(
@@ -42,6 +43,7 @@ class ProgramTest(unittest.TestCase):
                 basedir='basedir',
                 file='file',
                 recursively='recursively',
+                grayscale='grayscale',
                 skip='skip',
                 plain='plain'))
             _machine_class = Mock()

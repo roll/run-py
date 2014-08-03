@@ -16,6 +16,7 @@ class ClusterTest(unittest.TestCase):
             file='file',
             basedir='basedir',
             recursively='recursively',
+            grayscale='grayscale',
             skip='skip',
             dispatcher='dispatcher')
         self.assertEqual(cluster.attr1, [1, 2, 3])
@@ -30,6 +31,7 @@ class ClusterTest(unittest.TestCase):
         # Find's return values
         for module in cluster._find.return_value:
             module.assert_called_with(
+                meta_grayscale='grayscale',
                 meta_dispatcher='dispatcher',
                 meta_module=None)
 

@@ -70,6 +70,10 @@ class MockModule(Module):
     class class_var:
         pass
 
+    # Meta
+
+    meta_grayscale = True
+
     # Modules
 
     module = MockSubmodule()

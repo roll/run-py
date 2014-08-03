@@ -18,6 +18,7 @@ class MachineTest(unittest.TestCase):
             file='file',
             basedir='basedir',
             recursively='recursively',
+            grayscale='grayscale',
             skip='skip')
         machine.process('task', *self.args, **self.kwargs)
         # Print
@@ -36,6 +37,7 @@ class MachineTest(unittest.TestCase):
             file='file',
             basedir='basedir',
             recursively='recursively',
+            grayscale='grayscale',
             skip='skip',
             dispatcher=machine._dispatcher_class.return_value)
         # Cluster's return values

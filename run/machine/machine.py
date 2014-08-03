@@ -11,13 +11,14 @@ class Machine:
 
     def __init__(self, names=None, tags=None, *,
                  file=None, basedir=None, recursively=False,
-                 skip=False, plain=False,
+                 grayscale=False, skip=False, plain=False,
                  **find_params):
         self._names = names
         self._tags = tags
         self._file = file
         self._basedir = basedir
         self._recursively = recursively
+        self._grayscale = grayscale
         self._skip = skip
         self._plain = plain
         self._find_params = find_params
@@ -55,6 +56,7 @@ class Machine:
             file=self._file,
             basedir=self._basedir,
             recursively=self._recursively,
+            grayscale=self._grayscale,
             skip=self._skip,
             dispatcher=self._dispatcher,
             **self._find_params)

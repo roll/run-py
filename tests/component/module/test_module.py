@@ -175,6 +175,7 @@ class ModuleTest(unittest.TestCase):
         class MockModule(Module):
             """docstring"""
             # Public
+            meta_grayscale = True
             def task(self):
                 pass
             # Protected
@@ -191,7 +192,6 @@ class ModuleTest(unittest.TestCase):
             meta_chdir = 'chdir'
             meta_dispatcher = Mock(add_signal=Mock())
             meta_fallback = 'fallback'
-            meta_grayscale = True
             meta_is_main_module = True
             meta_name = 'parent_module'
             meta_qualname = 'parent_module'

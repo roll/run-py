@@ -60,6 +60,10 @@ class DependencyTest(unittest.TestCase):
 
 class MockModule(Module):
 
+    # Meta
+
+    meta_grayscale = True
+
     # Tasks
 
     def task1(self):
