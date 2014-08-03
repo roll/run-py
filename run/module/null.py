@@ -25,6 +25,14 @@ class NullModule:
     def meta_chdir(self):
         return self._meta_default_chdir
 
+    @property
+    def meta_color_name(self):
+        return self._name
+
+    @property
+    def meta_color_qualname(self):
+        return self._qualname
+
     @cachedproperty
     def meta_dispatcher(self):
         return self._meta_dispatcher_class()
@@ -36,6 +44,10 @@ class NullModule:
     @property
     def meta_fallback(self):
         return self._meta_default_fallback
+
+    @property
+    def meta_grayscale(self):
+        return self._meta_default_grayscale
 
     @property
     def meta_is_main_module(self):
@@ -79,5 +91,6 @@ class NullModule:
     _meta_default_cache = settings.cache
     _meta_default_chdir = settings.chdir
     _meta_default_fallback = settings.fallback
+    _meta_default_grayscale = settings.grayscale
     _meta_default_main_module_name = settings.main_module_name
     _meta_default_strict = settings.strict

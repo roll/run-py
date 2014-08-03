@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, call
+from unittest.mock import Mock
 from run.module.module import Module
 
 class ModuleTest(unittest.TestCase):
@@ -189,8 +189,9 @@ class ModuleTest(unittest.TestCase):
             meta_basedir = 'basedir'
             meta_cache = 'cache'
             meta_chdir = 'chdir'
-            meta_fallback = 'fallback'
             meta_dispatcher = Mock(add_signal=Mock())
+            meta_fallback = 'fallback'
+            meta_grayscale = True
             meta_is_main_module = True
             meta_name = 'parent_module'
             meta_qualname = 'parent_module'

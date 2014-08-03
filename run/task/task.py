@@ -112,11 +112,17 @@ class Task(metaclass=TaskMetaclass):
 
     @property
     def meta_color_name(self):
-        return '\033[92m' + self.meta_name + '\033[0m'
+        name = self.meta_name
+        if not self.meta_grayscale:
+            name = '\033' + self._meta_color_code + name + '\033[0m'
+        return name
 
     @property
     def meta_color_qualname(self):
-        return '\033[92m' + self.meta_qualname + '\033[0m'
+        qualname = self.meta_qualname
+        if not self.meta_grayscale:
+            qualname = '\033' + self._meta_color_code + qualname + '\033[0m'
+        return qualname
 
     def meta_depend(self, dependency):
         """Add custom dependency.
@@ -221,6 +227,22 @@ class Task(metaclass=TaskMetaclass):
     @meta_fallback.setter
     def meta_fallback(self, value):
         self._meta_params['fallback'] = value
+
+    @property
+    def meta_grayscale(self):
+        """Task's grayscale flag (grayscale or not).
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_params.get('grayscale',
+            self.meta_module.meta_grayscale)
+
+    @meta_grayscale.setter
+    def meta_grayscale(self, value):
+        self._meta_params['grayscale'] = value
 
     @abstractmethod
     def meta_invoke(self, *args, **kwargs):
@@ -330,6 +352,7 @@ class Task(metaclass=TaskMetaclass):
 
     # Protected
 
+    _meta_color_code = '[92m'
     _meta_default_main_module_name = settings.main_module_name
     _meta_failed_signal_class = FailedTaskSignal
     _meta_initiated_signal_class = InitiatedTaskSignal
