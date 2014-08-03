@@ -2,6 +2,7 @@ import os
 import inspect
 from pprint import pprint
 from collections import OrderedDict
+from ..settings import settings
 from ..task import Task, NullTask
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
@@ -171,7 +172,7 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     # Protected
 
-    _meta_color_code = '[96m'
+    _meta_color_code = settings.module_color_code
     _meta_failed_signal_class = FailedModuleSignal  # Overriding
     _meta_initiated_signal_class = InitiatedModuleSignal  # Overriding
     _meta_print = staticmethod(print)

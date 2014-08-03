@@ -114,14 +114,14 @@ class Task(metaclass=TaskMetaclass):
     def meta_color_name(self):
         name = self.meta_name
         if not self.meta_grayscale:
-            name = '\033' + self._meta_color_code + name + '\033[0m'
+            name = '\033[' + self._meta_color_code + name + '\033[0m'
         return name
 
     @property
     def meta_color_qualname(self):
         qualname = self.meta_qualname
         if not self.meta_grayscale:
-            qualname = '\033' + self._meta_color_code + qualname + '\033[0m'
+            qualname = '\033[' + self._meta_color_code + qualname + '\033[0m'
         return qualname
 
     def meta_depend(self, dependency):
@@ -352,7 +352,7 @@ class Task(metaclass=TaskMetaclass):
 
     # Protected
 
-    _meta_color_code = '[92m'
+    _meta_color_code = settings.task_color_code
     _meta_default_main_module_name = settings.main_module_name
     _meta_failed_signal_class = FailedTaskSignal
     _meta_initiated_signal_class = InitiatedTaskSignal

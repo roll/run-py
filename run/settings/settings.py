@@ -15,10 +15,13 @@ class Settings(Settings):
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
+    module_color_code = '96m'
     names = None
     recursively = False
     strict = True
     tags = None
+    task_color_code = '92m'
+    var_color_code = '94m'
 
     default_task = 'default'
 
