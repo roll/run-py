@@ -171,6 +171,7 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     # Protected
 
+    _meta_color_code = '[96m'
     _meta_failed_signal_class = FailedModuleSignal  # Overriding
     _meta_initiated_signal_class = InitiatedModuleSignal  # Overriding
     _meta_print = staticmethod(print)

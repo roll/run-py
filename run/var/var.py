@@ -44,6 +44,7 @@ class Var(Task, metaclass=ABCMeta):
 
     # Protected
 
+    _meta_color_code = '[94m'
     _meta_failed_signal_class = FailedVarSignal  # Overriding
     _meta_initiated_signal_class = InitiatedVarSignal  # Overriding
     _meta_successed_signal_class = SuccessedVarSignal  # Overriding
