@@ -55,6 +55,18 @@ class Settings(Settings):
                  'help': 'Base directory path.',
                 },
                 {
+                 'dest': 'file',
+                 'flags': ['-f', '--file'],
+                 'default': self.file,
+                 'help': 'Runfile name/path/pattern.',
+                },
+                {
+                 'dest': 'grayscale',
+                 'action': 'store_true',
+                 'flags': ['-g', '--grayscale'],
+                 'help': 'Activate grayscale mode.',
+                },
+                {
                  'action': 'help',
                  'flags': ['-h', '--help'],
                  'help': 'Display this help message.',
@@ -64,12 +76,6 @@ class Settings(Settings):
                  'action': 'store_true',
                  'flags': ['-i', '--info'],
                  'help': 'Display task information.',
-                },
-                {
-                 'dest': 'file',
-                 'flags': ['-f', '--file'],
-                 'default': self.file,
-                 'help': 'Runfile name/path/pattern.',
                 },
                 {
                  'dest': 'list',
