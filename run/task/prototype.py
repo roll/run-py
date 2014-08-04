@@ -45,10 +45,10 @@ class TaskPrototype:
         self._add_update('meta_depend', *args, **kwargs)
 
     def meta_disable_dependency(self, *args, **kwargs):
-        self._add_update('disable_dependency', *args, **kwargs)
+        self._add_update('meta_disable_dependency', *args, **kwargs)
 
     def meta_enable_dependency(self, *args, **kwargs):
-        self._add_update('enable_dependency', *args, **kwargs)
+        self._add_update('meta_enable_dependency', *args, **kwargs)
 
     def meta_require(self, *args, **kwargs):
         self._add_update('meta_require', *args, **kwargs)
