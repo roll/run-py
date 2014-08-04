@@ -37,6 +37,7 @@ class Task(metaclass=TaskMetaclass):
     def __update__(self):
         for update in self._meta_updates:
             update.apply(self)
+        self._meta_updated = True
 
     def __call__(self, *args, **kwargs):
         self._meta_add_signal('initiated')
@@ -354,6 +355,10 @@ class Task(metaclass=TaskMetaclass):
         """Task's type as a string.
         """
         return type(self).__name__
+
+    @property
+    def meta_updated(self):
+        return vars(self).get('_meta_updated', False)
 
     # Protected
 
