@@ -37,7 +37,7 @@ class Dependency(metaclass=ABCMeta):
                 task += ', '.join(elements)
                 task += ')'
         else:
-            task = '<NotExistent "{self.task}">'.format(self=self)
+            task = '<NotExistent "{self._task}">'.format(self=self)
         result = '{action} {task}'.format(action=action, task=task)
         return result
 
@@ -78,12 +78,6 @@ class Dependency(metaclass=ABCMeta):
             self.predecessor(*self._args, **self._kwargs)
 
     @property
-    def task(self):
-        """Dependency's task name.
-        """
-        return self._task
-
-    @property
     def enabled(self):
         """Resolving status (enabled or disabled).
         """
@@ -92,9 +86,9 @@ class Dependency(metaclass=ABCMeta):
     @cachedproperty
     def predecessor(self):
         if self._successor is not None:
-            module = self._successor.meta_module
             try:
-                return getattr(module, self._task)
+                return getattr(
+                    self._successor.meta_module, self._task)
             except AttributeError as exception:
                 if self._successor.meta_strict:
                     raise
@@ -104,7 +98,7 @@ class Dependency(metaclass=ABCMeta):
                     return None
         else:
             raise RuntimeError(
-                'Dependency for "{self.task}" '
+                'Dependency for "{self._task}" '
                 'is not bound to any task'.
                 format(self=self))
 

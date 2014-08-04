@@ -8,6 +8,7 @@ class TaskTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.module = Mock()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self._make_mock_task_class()
@@ -114,7 +115,9 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_disable_dependency(self):
         dependency = Mock()
-        dependency.task = 'task'
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'task'
+        self.task = self.Task(meta_module=self.module)
         self.task.meta_depend(dependency)
         self.task.meta_disable_dependency('task', types=[Mock])
         # Check dependency disable call
@@ -122,7 +125,9 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_disable_dependency_with_different_task(self):
         dependency = Mock()
-        dependency.task = 'task'
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'different_task'
+        self.task = self.Task(meta_module=self.module)
         self.task.meta_depend(dependency)
         self.task.meta_disable_dependency('different_task', types=[Mock])
         # Check dependency disable call
@@ -130,7 +135,9 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_enable_dependency(self):
         dependency = Mock()
-        dependency.task = 'task'
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'task'
+        self.task = self.Task(meta_module=self.module)
         self.task.meta_depend(dependency)
         self.task.meta_enable_dependency('task', types=[Mock])
         # Check dependency enable call
@@ -138,7 +145,9 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_enable_dependency_with_different_task(self):
         dependency = Mock()
-        dependency.task = 'task'
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'different_task'
+        self.task = self.Task(meta_module=self.module)
         self.task.meta_depend(dependency)
         self.task.meta_enable_dependency('different_task', types=[Mock])
         # Check dependency enable call

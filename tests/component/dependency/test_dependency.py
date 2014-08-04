@@ -71,9 +71,6 @@ class DependencyTest(unittest.TestCase):
         self.dependency.bind(None)
         self.assertRaises(RuntimeError, self.dependency.invoke)
 
-    def test_task(self):
-        self.assertEqual(self.dependency.task, 'task')
-
     def test_enabled(self):
         self.assertTrue(self.dependency.enabled)
 

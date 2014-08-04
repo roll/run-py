@@ -145,12 +145,13 @@ class Task(metaclass=TaskMetaclass):
     def meta_disable_dependency(self, task, *, types=None):
         """Disable all dependencies for the task.
         """
-        if types is None:
-            types = []
         for dependency in self.meta_dependencies:
-            if isinstance(dependency, tuple(types)):
-                if dependency.task == task:
-                    dependency.disable()
+            if types is not None:
+                if not isinstance(dependency, tuple(types)):
+                    continue
+            task = self.meta_module.meta_lookup(task)
+            if dependency.predecessor is task:
+                dependency.disable()
 
     @property
     def meta_dispatcher(self):
@@ -209,12 +210,13 @@ class Task(metaclass=TaskMetaclass):
     def meta_enable_dependency(self, task, types=None):
         """Enable all dependencies for the task.
         """
-        if types is None:
-            types = []
         for dependency in self.meta_dependencies:
-            if isinstance(dependency, tuple(types)):
-                if dependency.task == task:
-                    dependency.enable()
+            if types is not None:
+                if not isinstance(dependency, tuple(types)):
+                    continue
+            task = self.meta_module.meta_lookup(task)
+            if dependency.predecessor is task:
+                dependency.enable()
 
     @property
     def meta_fallback(self):
