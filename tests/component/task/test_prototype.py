@@ -42,7 +42,7 @@ class TaskPrototypeTest(unittest.TestCase):
         self.assertIsInstance(task, self.Task)
         # Check __build__ call
         task.__build__.assert_called_with(
-            'module', *self.args, **self.kwargs)
+            *self.args, meta_module='module', **self.kwargs)
         # Check update call
         self.update.apply.assert_called_with(task)
 

@@ -12,7 +12,7 @@ class Task(metaclass=TaskMetaclass):
 
     # Public
 
-    def __build__(self, meta_module, *args, **kwargs):
+    def __build__(self, *args, meta_module, **kwargs):
         self._meta_module = meta_module
         self._meta_args = ()
         self._meta_kwargs = {}

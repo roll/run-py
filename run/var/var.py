@@ -8,9 +8,9 @@ class Var(Task, metaclass=ABCMeta):
 
     # Public
 
-    def __build__(self, meta_module, *args, **kwargs):
+    def __build__(self, *args, meta_module, **kwargs):
         self._meta_cached_value = Null
-        super().__build__(meta_module, *args, **kwargs)
+        super().__build__(*args, meta_module=meta_module, **kwargs)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:

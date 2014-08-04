@@ -65,7 +65,7 @@ class TaskPrototype:
         return object.__new__(self._class)
 
     def _build_task(self, task, module):
-        task.__build__(module, *self._args, **self._kwargs)
+        task.__build__(*self._args, meta_module=module, **self._kwargs)
 
     def _update_task(self, task):
         for update in self._updates:
