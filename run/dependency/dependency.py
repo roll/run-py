@@ -38,7 +38,10 @@ class Dependency(metaclass=ABCMeta):
                 task += ')'
         else:
             task = '<NotExistent "{self._task}">'.format(self=self)
-        result = '{action} {task}'.format(action=action, task=task)
+        pattern = '{action} {task}'
+        if not self._enabled:
+            pattern = '{action} {task} (disabled)'
+        result = pattern.format(action=action, task=task)
         return result
 
     def __call__(self, obj):
