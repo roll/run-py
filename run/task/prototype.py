@@ -5,10 +5,10 @@ class TaskPrototype:
 
     # Public
 
-    def __init__(self, cls, *args, meta_updates=None, **kwargs):
+    def __init__(self, *args, meta_class, meta_updates=None, **kwargs):
         if meta_updates is None:
             meta_updates = []
-        super().__setattr__('_class', cls)
+        super().__setattr__('_class', meta_class)
         super().__setattr__('_updates', meta_updates)
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
@@ -20,8 +20,8 @@ class TaskPrototype:
         ekwargs = self._kwargs
         ekwargs.update(kwargs)
         return type(self)(
-            self._class,
             *eargs,
+            meta_class=self._class,
             meta_updates=eupdates,
             **ekwargs)
 

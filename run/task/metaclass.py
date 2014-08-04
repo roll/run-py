@@ -10,7 +10,7 @@ class TaskMetaclass(ABCMeta):
 
     def __call__(self, *args, **kwargs):
         module = kwargs.pop('meta_module', Null)
-        prototype = self._prototype_class(self, *args, **kwargs)
+        prototype = self._prototype_class(*args, meta_class=self, **kwargs)
         if module is not Null:
             if module is None:
                 module = self._null_module_class()
