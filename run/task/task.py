@@ -12,12 +12,12 @@ class Task(metaclass=TaskMetaclass):
 
     # Public
 
-    def __build__(self, *args, meta_module, **kwargs):
+    def __build__(self, *args, meta_module, meta_updates, **kwargs):
         self._meta_module = meta_module
+        self._meta_updates = meta_updates
         self._meta_args = ()
         self._meta_kwargs = {}
         self._meta_dependencies = []
-        self._meta_initial_dir = os.path.abspath(os.getcwd())
         # Collect meta params
         self._meta_params = {}
         for key in list(kwargs):
@@ -25,6 +25,7 @@ class Task(metaclass=TaskMetaclass):
                 name = key.replace('meta_', '')
                 self._meta_params[name] = kwargs.pop(key)
         # Complete building
+        self._meta_initial_dir = os.path.abspath(os.getcwd())
         self._meta_init_dependencies()
         self.__init__(*args, **kwargs)
         self._meta_builded = True
