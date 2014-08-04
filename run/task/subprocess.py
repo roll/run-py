@@ -7,8 +7,8 @@ class SubprocessTask(Task):
 
     @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring',
-            'Execute shell command.')
+        return self._meta_params.get(
+            'docstring', 'Execute shell command.')
 
     def meta_invoke(self, command='', *, prefix='', separator=' '):
         ecommand = separator.join(filter(None, [prefix, command]))

@@ -17,8 +17,8 @@ class SubprocessModule(Module):
 
     @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring',
-            'SubprocessModule')
+        return self._meta_params.get(
+            'docstring', 'SubprocessModule')
 
     # Protected
 

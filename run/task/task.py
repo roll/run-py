@@ -82,8 +82,8 @@ class Task(metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get('basedir',
-           self.meta_module.meta_basedir)
+        return self._meta_params.get(
+            'basedir', self.meta_module.meta_basedir)
 
     @meta_basedir.setter
     def meta_basedir(self, value):
@@ -109,8 +109,8 @@ class Task(metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get('chdir',
-            self.meta_module.meta_chdir)
+        return self._meta_params.get(
+            'chdir', self.meta_module.meta_chdir)
 
     @meta_chdir.setter
     def meta_chdir(self, value):
@@ -163,8 +163,8 @@ class Task(metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get('dispatcher',
-            self.meta_module.meta_dispatcher)
+        return self._meta_params.get(
+            'dispatcher', self.meta_module.meta_dispatcher)
 
     @meta_dispatcher.setter
     def meta_dispatcher(self, value):
@@ -178,8 +178,8 @@ class Task(metaclass=TaskMetaclass):
 
         - initable/writable
         """
-        return self._meta_params.get('docstring',
-            str(inspect.getdoc(self)).strip())
+        return self._meta_params.get(
+            'docstring', str(inspect.getdoc(self)).strip())
 
     @meta_docstring.setter
     def meta_docstring(self, value):
@@ -227,8 +227,8 @@ class Task(metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get('fallback',
-            self.meta_module.meta_fallback)
+        return self._meta_params.get(
+            'fallback', self.meta_module.meta_fallback)
 
     @meta_fallback.setter
     def meta_fallback(self, value):
@@ -243,8 +243,8 @@ class Task(metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get('grayscale',
-            self.meta_module.meta_grayscale)
+        return self._meta_params.get(
+            'grayscale', self.meta_module.meta_grayscale)
 
     @meta_grayscale.setter
     def meta_grayscale(self, value):
@@ -321,8 +321,8 @@ class Task(metaclass=TaskMetaclass):
 
         - initable/writable
         """
-        return self._meta_params.get('signature',
-            str(inspect.signature(self.meta_invoke)))
+        return self._meta_params.get(
+            'signature', str(inspect.signature(self.meta_invoke)))
 
     @meta_signature.setter
     def meta_signature(self, value):
@@ -337,8 +337,8 @@ class Task(metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get('strict',
-            self.meta_module.meta_strict)
+        return self._meta_params.get(
+            'strict', self.meta_module.meta_strict)
 
     @meta_strict.setter
     def meta_strict(self, value):

@@ -45,8 +45,8 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     @property
     def meta_cache(self):
-        return self._meta_params.get('cache',
-            self.meta_module.meta_cache)
+        return self._meta_params.get(
+            'cache', self.meta_module.meta_cache)
 
     @meta_cache.setter
     def meta_cache(self, value):

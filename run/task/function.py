@@ -11,13 +11,13 @@ class FunctionTask(Task):
 
     @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring',
-            str(inspect.getdoc(self._function)).strip())
+        return self._meta_params.get(
+            'docstring', str(inspect.getdoc(self._function)).strip())
 
     def meta_invoke(self, *args, **kwargs):
         return self._function(*args, **kwargs)
 
     @property
     def meta_signature(self):
-        return self._meta_params.get('signature',
-            str(inspect.signature(self._function)))
+        return self._meta_params.get(
+            'signature', str(inspect.signature(self._function)))

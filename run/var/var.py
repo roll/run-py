@@ -32,8 +32,8 @@ class Var(Task, metaclass=ABCMeta):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get('cache',
-            self.meta_module.meta_cache)
+        return self._meta_params.get(
+            'cache', self.meta_module.meta_cache)
 
     @meta_cache.setter
     def meta_cache(self, value):

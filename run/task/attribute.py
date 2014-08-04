@@ -10,8 +10,9 @@ class AttributeTask(Task):
 
     @property
     def meta_docstring(self):
-        return self._meta_params.get('docstring',
-            'Return "{self._attribute}" attribute.'.format(self=self))
+        return self._meta_params.get(
+            'docstring', 'Return "{self._attribute}" attribute.'.
+            format(self=self))
 
     def meta_invoke(self):
         return getattr(self.meta_module, self._attribute)
