@@ -46,8 +46,6 @@ class TaskPrototypeTest(unittest.TestCase):
             meta_module='module',
             meta_updates=self.updates,
             **self.kwargs)
-        # Check __update__ call
-        task.__update__.assert_called_with()
 
     # Protected
 

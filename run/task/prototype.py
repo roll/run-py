@@ -25,7 +25,9 @@ class TaskPrototype:
         # Documented public wrapper in :func:`.build`
         task = self._create_task()
         self._build_task(task, module)
-        self._update_task(task)
+        if not module:
+            # NullModule
+            self._update_task(task)
         return task
 
     def __getattr__(self, name):
