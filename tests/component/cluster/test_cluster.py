@@ -14,6 +14,7 @@ class ClusterTest(unittest.TestCase):
             names='names',
             tags='tags',
             file='file',
+            exclude='exclude',
             basedir='basedir',
             recursively='recursively',
             grayscale='grayscale',
@@ -26,6 +27,7 @@ class ClusterTest(unittest.TestCase):
             names='names',
             tags='tags',
             file='file',
+            exclude='exclude',
             basedir='basedir',
             recursively='recursively')
         # Find's return values

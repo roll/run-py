@@ -58,6 +58,12 @@ class Settings(Settings):
                  'help': 'Base directory path.',
                 },
                 {
+                 'dest': 'exclude',
+                 'flags': ['-e', '--exclude'],
+                 'default': self.exclude,
+                 'help': 'Exclude name/path/pattern.',
+                },
+                {
                  'dest': 'file',
                  'flags': ['-f', '--file'],
                  'default': self.file,
