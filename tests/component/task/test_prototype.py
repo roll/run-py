@@ -46,8 +46,8 @@ class TaskPrototypeTest(unittest.TestCase):
             meta_module='module',
             meta_updates=self.updates,
             **self.kwargs)
-        # Check update call
-        self.update.apply.assert_called_with(task)
+        # Check __update__ call
+        task.__update__.assert_called_with()
 
     # Protected
 
@@ -55,6 +55,7 @@ class TaskPrototypeTest(unittest.TestCase):
         class MockTask:
             # Public
             __build__ = Mock()
+            __update__ = Mock()
             attr1 = 'value1'
         return MockTask
 

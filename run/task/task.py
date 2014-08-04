@@ -34,6 +34,10 @@ class Task(metaclass=TaskMetaclass):
         self._meta_args = args
         self._meta_kwargs = kwargs
 
+    def __update__(self):
+        for update in self._meta_updates:
+            update.apply(self)
+
     def __call__(self, *args, **kwargs):
         self._meta_add_signal('initiated')
         try:

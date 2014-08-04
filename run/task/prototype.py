@@ -72,5 +72,4 @@ class TaskPrototype:
             **self._kwargs)
 
     def _update_task(self, task):
-        for update in self._updates:
-            update.apply(task)
+        task.__update__()
