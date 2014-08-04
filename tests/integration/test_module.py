@@ -61,7 +61,7 @@ class MockVar(Var):
 
 class MockModule(Module):
 
-    # Attributes
+    # Public
 
     attribute = True
 
