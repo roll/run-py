@@ -1,4 +1,4 @@
-from ..task import Task, TaskPrototype, build
+from ..task import TaskPrototype, build
 
 class ModulePrototype(TaskPrototype):
 
@@ -10,19 +10,17 @@ class ModulePrototype(TaskPrototype):
 
     # Protected
 
-    _task_class = Task
     _task_prototype_class = TaskPrototype
 
-    def _create_task(self):
-        module = super()._create_task()
+    def _build_task(self, task, module):
         for name in dir(self._class):
             attr = getattr(self._class, name)
             if isinstance(attr, self._task_prototype_class):
-                nested_task = build(attr, module)
+                nested_task = build(attr, task)
                 setattr(self._class, name, nested_task)
-        return module
+        super()._build_task(task, module)
 
-    def _update_task(self, module):
-        for task in module.meta_tasks.values():
-            task.__update__()
-        super()._update_task(module)
+    def _update_task(self, task):
+        for nested_task in task.meta_tasks.values():
+            nested_task.__update__()
+        super()._update_task(task)
