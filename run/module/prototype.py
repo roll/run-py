@@ -4,9 +4,9 @@ class ModulePrototype(TaskPrototype):
 
     # Public
 
-    def __init__(self, cls, updates, *args, **kwargs):
+    def __init__(self, cls, *args, **kwargs):
         copied_class = cls.__copy__()
-        super().__init__(copied_class, updates, *args, **kwargs)
+        super().__init__(copied_class, *args, **kwargs)
 
     # Protected
 

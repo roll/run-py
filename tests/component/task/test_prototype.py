@@ -14,7 +14,7 @@ class TaskPrototypeTest(unittest.TestCase):
         self.Task = self._make_mock_task_class()
         self.Prototype = self._make_mock_prototype_class(self.update)
         self.prototype = self.Prototype(
-            self.Task, self.updates, *self.args, **self.kwargs)
+            self.Task, *self.args, meta_updates=self.updates, **self.kwargs)
 
     def test___getattr___no_attribute(self):
         self.assertRaises(AttributeError, getattr, self.prototype , 'attr2')

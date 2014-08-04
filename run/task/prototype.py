@@ -5,11 +5,11 @@ class TaskPrototype:
 
     # Public
 
-    def __init__(self, cls, updates, *args, **kwargs):
-        if updates is None:
-            updates = []
+    def __init__(self, cls, *args, meta_updates=None, **kwargs):
+        if meta_updates is None:
+            meta_updates = []
         super().__setattr__('_class', cls)
-        super().__setattr__('_updates', updates)
+        super().__setattr__('_updates', meta_updates)
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
 
@@ -19,7 +19,11 @@ class TaskPrototype:
         eargs = self._args + args
         ekwargs = self._kwargs
         ekwargs.update(kwargs)
-        return type(self)(self._class, eupdates, *eargs, **ekwargs)
+        return type(self)(
+            self._class,
+            *eargs,
+            meta_updates=eupdates,
+            **ekwargs)
 
     def __build__(self, module):
         # Documented public wrapper in :func:`.build`
