@@ -8,11 +8,13 @@ class ModuleMetaclass(TaskMetaclass):
     # Public
 
     def __copy__(self):
+        keys = []
         attrs = {}
         for cls in self.mro():
             for key, attr in vars(cls).items():
-                if key in attrs:
+                if key in keys:
                     continue
+                keys.append(key)
                 if key.isupper():
                     continue
                 if key.startswith('_'):
