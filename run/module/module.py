@@ -124,7 +124,8 @@ class Module(Task, metaclass=ModuleMetaclass):
             if name.startswith('meta_'):
                 continue
             if name in task.meta_tasks:
-                name = task.meta_tasks[name].meta_color_name
+                nested_task = task.meta_tasks[name]
+                name = nested_task.meta_color_name
             names.append(name)
         result = '\n'.join(names)
         self._meta_print(result)

@@ -17,5 +17,6 @@ class ModulePrototype(TaskPrototype):
         for name in dir(self._class):
             attr = getattr(self._class, name)
             if isinstance(attr, self._task_prototype_class):
-                setattr(self._class, name, build(attr, module))
+                nested_task = build(attr, module)
+                setattr(self._class, name, nested_task)
         return module
