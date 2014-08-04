@@ -7,8 +7,8 @@ package = {
 
 	#Main
 
-    'name': 'run',
-	'version':'0.21.0',
+    'name': 'runpack',
+	'version':'0.21.1',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
@@ -24,12 +24,12 @@ package = {
     'author_email': 'roll@respect31.com',
     'classifiers': ['Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Run is a program to run tasks from files.',
-    'download_url':'https://github.com/roll/run/tarball/0.21.0',
+    'download_url':'https://github.com/respect31/run/tarball/0.21.1',
     'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
-    'url': 'https://github.com/roll/run',
+    'url': 'https://github.com/respect31/run',
     'long_description': '''.. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
 
 Run
@@ -37,19 +37,19 @@ Run
 Run is a program to run tasks from files.
 
 .. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
-     :target: https://github.com/roll/run
+     :target: https://github.com/respect31/run
      :alt: code
-.. image:: http://img.shields.io/travis/roll/run/master.svg
-     :target: https://travis-ci.org/roll/run 
+.. image:: http://img.shields.io/travis/respect31/run/master.svg
+     :target: https://travis-ci.org/respect31/run 
      :alt: build
-.. image:: http://img.shields.io/coveralls/roll/run/master.svg 
-     :target: https://coveralls.io/r/roll/run  
+.. image:: http://img.shields.io/coveralls/respect31/run/master.svg 
+     :target: https://coveralls.io/r/respect31/run  
      :alt: coverage
 .. image:: http://img.shields.io/badge/docs-RTD-brightgreen.svg
      :target: http://run.readthedocs.org
      :alt: docs     
-.. image:: http://img.shields.io/pypi/v/run.svg
-     :target: https://pypi.python.org/pypi?:action=display&name=run
+.. image:: http://img.shields.io/pypi/v/runpack.svg
+     :target: https://pypi.python.org/pypi?:action=display&name=runpack
      :alt: pypi
 
 *Package is under active development. Before version 1 backward-compatibility 
@@ -61,7 +61,7 @@ Requirements
 
 Installation
 ------------
-- pip install run
+- pip install runpack
 
 Example
 -------
