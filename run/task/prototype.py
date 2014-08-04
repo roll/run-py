@@ -61,7 +61,8 @@ class TaskPrototype:
     _update_class = TaskUpdate
 
     def _add_update(self, name, *args, **kwargs):
-        self._updates.append(self._update_class(name, *args, **kwargs))
+        update = self._update_class(name, *args, **kwargs)
+        self._updates.append(update)
 
     def _create_task(self):
         return object.__new__(self._class)
