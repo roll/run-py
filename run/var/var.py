@@ -10,7 +10,7 @@ class Var(Task, metaclass=ABCMeta):
 
     def __build__(self, *args, **kwargs):
         self._meta_cached_value = Null
-        super().__build__(*args, **kwargs)
+        return super().__build__(*args, **kwargs)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:

@@ -18,7 +18,7 @@ class ModulePrototype(TaskPrototype):
             if isinstance(attr, self._task_prototype_class):
                 nested_task = build(attr, task)
                 setattr(self._class, name, nested_task)
-        super()._build_task(task, module)
+        return super()._build_task(task, module)
 
     def _update_task(self, task):
         for nested_task in task.meta_tasks.values():

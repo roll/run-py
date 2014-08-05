@@ -33,6 +33,7 @@ class Task(metaclass=TaskMetaclass):
         self._meta_init_dependencies()
         self.__init__(*args, **kwargs)
         self._meta_builded = True
+        return self
 
     def __update__(self):
         for update in self._meta_updates:
