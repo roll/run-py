@@ -55,6 +55,9 @@ class TaskPrototypeTest(unittest.TestCase):
     def _make_mock_task_class(self):
         class MockTask:
             # Public
+            @classmethod
+            def __create__(cls, prototype):
+                return object.__new__(cls)
             __build__ = Mock()
             __update__ = Mock()
             attr1 = 'value1'

@@ -69,7 +69,8 @@ class TaskPrototype:
         self._updates.append(update)
 
     def _create_task(self):
-        return object.__new__(self._class)
+        task = self._class.__create__(self)
+        return task
 
     def _build_task(self, task, module):
         task.__build__(

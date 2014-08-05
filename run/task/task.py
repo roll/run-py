@@ -12,6 +12,10 @@ class Task(metaclass=TaskMetaclass):
 
     # Public
 
+    @classmethod
+    def __create__(cls, prototype):
+        return object.__new__(cls)
+
     def __build__(self, *args, meta_module, meta_updates, **kwargs):
         self._meta_module = meta_module
         self._meta_updates = meta_updates
