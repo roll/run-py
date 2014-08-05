@@ -30,14 +30,14 @@ class Task(metaclass=TaskMetaclass):
         self.__init__(*args, **kwargs)
         self._meta_builded = True
 
-    def __init__(self, *args, **kwargs):
-        self._meta_args = args
-        self._meta_kwargs = kwargs
-
     def __update__(self):
         for update in self._meta_updates:
             update.apply(self)
         self._meta_updated = True
+
+    def __init__(self, *args, **kwargs):
+        self._meta_args = args
+        self._meta_kwargs = kwargs
 
     def __call__(self, *args, **kwargs):
         self._meta_add_signal('initiated')
