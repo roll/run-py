@@ -2,20 +2,14 @@ from ..task import TaskPrototype, build
 
 class ModulePrototype(TaskPrototype):
 
-    # Public
-
-    def __init__(self, *args, meta_class, **kwargs):
-        eclass = meta_class.__copy__()
-        super().__init__(*args, meta_class=eclass, **kwargs)
-
     # Protected
 
     _task_prototype_class = TaskPrototype
 
-#     def _create_task(self):
-#         class_copy = type(task).__copy__()
-#         task = class_copy.__create__(self)
-#         return task
+    def _create_task(self):
+        class_copy = self._class.__copy__()
+        task = class_copy.__create__(self)
+        return task
 
     def _initiate_task(self, task, module):
         for name in dir(type(task)):
