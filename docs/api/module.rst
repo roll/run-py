@@ -36,6 +36,7 @@ Helper functions
 ----------------
 
 .. autofunction:: run.module.module
+.. autofunction:: run.module.spawn
 
 Internal
 ========

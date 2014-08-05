@@ -1,4 +1,5 @@
 from ..task import TaskPrototype, build
+from .spawn import spawn
 
 class ModulePrototype(TaskPrototype):
 
@@ -7,8 +8,8 @@ class ModulePrototype(TaskPrototype):
     _task_prototype_class = TaskPrototype
 
     def _create_task(self):
-        class_copy = self._class.__spawn__()
-        task = class_copy.__create__(self)
+        spawned_class = spawn(self._class)
+        task = spawned_class.__create__(self)
         return task
 
     def _initiate_task(self, task, module):

@@ -8,6 +8,7 @@ class ModuleMetaclass(TaskMetaclass):
     # Public
 
     def __spawn__(self):
+        # Documented public wrapper in :func:`.spawn`
         keys = []
         attrs = {}
         for cls in self.mro():
