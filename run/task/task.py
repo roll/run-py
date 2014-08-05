@@ -14,7 +14,8 @@ class Task(metaclass=TaskMetaclass):
 
     @classmethod
     def __create__(cls, prototype):
-        return object.__new__(cls)
+        self = object.__new__(cls)
+        return self
 
     def __build__(self, *args, meta_module, meta_updates, **kwargs):
         self._meta_module = meta_module
