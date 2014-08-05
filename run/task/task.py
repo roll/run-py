@@ -374,6 +374,10 @@ class Task(metaclass=TaskMetaclass):
     def meta_updated(self):
         return vars(self).get('_meta_updated', False)
 
+    @property
+    def meta_updates(self):
+        return self._meta_updates
+
     # Protected
 
     _meta_color_code = settings.task_color_code
