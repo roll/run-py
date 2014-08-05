@@ -29,9 +29,9 @@ class TaskPrototypeTest(unittest.TestCase):
         self.prototype._update_class.assert_called_with(
             '__setattr__', 'attr2', 'value2')
 
-    def test___copy__(self):
+    def test___fork__(self):
         self.prototype.attr2 = 'value2'
-        copied_prototype = self.prototype.__copy__('arg2', kwarg2='kwarg2')
+        copied_prototype = self.prototype.__fork__('arg2', kwarg2='kwarg2')
         self.assertIsInstance(copied_prototype, self.Prototype)
         self.assertEqual(copied_prototype._class, self.Task)
         self.assertEqual(copied_prototype._updates, [self.update])

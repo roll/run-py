@@ -26,7 +26,7 @@ class ModulePrototypeTest(unittest.TestCase):
             attr = 'attr'
             task = Mock(__initiate__=Mock(return_value='task'))
             @classmethod
-            def __copy__(cls):
+            def __fork__(cls):
                 return cls
         return MockModule
 
