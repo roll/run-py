@@ -13,6 +13,7 @@ class TaskPrototype:
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
 
+    # TODO: renamed to fork?
     def __copy__(self, *args, **kwargs):
         # Documented public wrapper in :func:`.fork`
         eupdates = copy(self._updates)
