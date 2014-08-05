@@ -34,7 +34,7 @@ class TaskMetaclassTest(unittest.TestCase):
         instance = self.Class(meta_module=None)
         self.assertIsInstance(instance, Mock)
         self.Prototype.assert_called_with(meta_class=self.Class)
-        self.Metaclass._null_module_class.assert_called_with()
+        self.Metaclass._null_module.assert_called_with()
         self.Prototype.return_value.__build__.assert_called_with('null_module')
 
     # Protected
@@ -42,7 +42,7 @@ class TaskMetaclassTest(unittest.TestCase):
     def _make_mock_metaclass(self, mock_prototype_class):
         class MockMetaclass(TaskMetaclass):
             # Protected
-            _null_module_class = Mock(return_value='null_module')
+            _null_module = Mock(return_value='null_module')
             _prototype_class = mock_prototype_class
         return MockMetaclass
 
