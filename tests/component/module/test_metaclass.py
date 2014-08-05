@@ -10,8 +10,8 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.Metaclass = self._make_mock_metaclass()
         self.Class = self._make_mock_class(self.Metaclass)
 
-    def test___copy__(self):
-        result = self.Class.__copy__()
+    def test___spawn__(self):
+        result = self.Class.__spawn__()
         self.assertTrue(issubclass(result, self.Class))
         self.assertEqual(result.__name__, 'MockClass')
         self.assertEqual(result.__bases__, (self.Class,))

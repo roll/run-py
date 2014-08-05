@@ -7,7 +7,7 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Public
 
-    def __copy__(self):
+    def __spawn__(self):
         keys = []
         attrs = {}
         for cls in self.mro():

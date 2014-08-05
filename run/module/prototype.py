@@ -7,7 +7,7 @@ class ModulePrototype(TaskPrototype):
     _task_prototype_class = TaskPrototype
 
     def _create_task(self):
-        class_copy = self._class.__copy__()
+        class_copy = self._class.__spawn__()
         task = class_copy.__create__(self)
         return task
 

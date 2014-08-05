@@ -116,7 +116,7 @@ class Module(Task, metaclass=ModuleMetaclass):
             task = self.meta_lookup(task)
         names = []
         for name in sorted(dir(task)):
-            # TODO: code duplication to ModuleMetaclass.__copy__
+            # TODO: code duplication to ModuleMetaclass.__spawn__
             if name.isupper():
                 continue
             if name.startswith('_'):
