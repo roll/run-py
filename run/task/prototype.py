@@ -28,7 +28,7 @@ class TaskPrototype:
     def __build__(self, module):
         # Documented public wrapper in :func:`.build`
         task = self._create_task()
-        task = self._build_task(task, module)
+        task = self._initiate_task(task, module)
         if not module:
             # NullModule
             task = self._update_task(task)
@@ -72,8 +72,8 @@ class TaskPrototype:
         task = self._class.__create__(self)
         return task
 
-    def _build_task(self, task, module):
-        task = task.__build__(
+    def _initiate_task(self, task, module):
+        task = task.__initiate__(
             *self._args,
             meta_module=module,
             meta_updates=self._updates,

@@ -11,8 +11,8 @@ class ModulePrototypeTest(unittest.TestCase):
         self.Prototype = self._make_mock_prototype_class()
         self.prototype = self.Prototype(self.Module, None)
 
-    @unittest.skip('not changed to _build_task')
-    def test__build_task(self):
+    @unittest.skip('not changed to _initiate_task')
+    def test__initiate_task(self):
         self.module = self.prototype._create_task()
         self.assertIsInstance(self.module, self.Module)
         self.assertEqual(self.Module.attr, 'attr')
@@ -24,7 +24,7 @@ class ModulePrototypeTest(unittest.TestCase):
         class MockModule:
             # Public
             attr = 'attr'
-            task = Mock(__build__=Mock(return_value='task'))
+            task = Mock(__initiate__=Mock(return_value='task'))
             @classmethod
             def __copy__(cls):
                 return cls

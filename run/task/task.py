@@ -18,8 +18,7 @@ class Task(metaclass=TaskMetaclass):
         self._meta_created = True
         return self
 
-    # TODO: rename to __initiate__?
-    def __build__(self, *args, meta_module, meta_updates, **kwargs):
+    def __initiate__(self, *args, meta_module, meta_updates, **kwargs):
         self._meta_module = meta_module
         self._meta_updates = meta_updates
         self._meta_args = ()
@@ -35,7 +34,7 @@ class Task(metaclass=TaskMetaclass):
         self._meta_initial_dir = os.path.abspath(os.getcwd())
         self._meta_init_dependencies()
         self.__init__(*args, **kwargs)
-        self._meta_builded = True
+        self._meta_initiated = True
         return self
 
     def __update__(self):
@@ -68,7 +67,7 @@ class Task(metaclass=TaskMetaclass):
         return result
 
     def __repr__(self):
-        if self.meta_builded:
+        if self.meta_initiated:
             return ('<{self.meta_type} "{self.meta_qualname}">'.
                     format(self=self))
         return super().__repr__()
@@ -99,13 +98,13 @@ class Task(metaclass=TaskMetaclass):
         self._meta_params['basedir'] = value
 
     @property
-    def meta_builded(self):
+    def meta_initiated(self):
         """Build status of task (builded or not).
 
-        Task is builded after succefull __build__ call.
-        It includes some internal building and __init__ call.
+        Task is initiated after succefull __initiated__ call.
+        It includes some internal initiating and __init__ call.
         """
-        return vars(self).get('_meta_builded', False)
+        return vars(self).get('_meta_initiated', False)
 
     @property
     def meta_chdir(self):

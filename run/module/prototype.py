@@ -13,13 +13,13 @@ class ModulePrototype(TaskPrototype):
     _task_prototype_class = TaskPrototype
 
     # TODO: use self._class or type(task)?
-    def _build_task(self, task, module):
+    def _initiate_task(self, task, module):
         for name in dir(self._class):
             attr = getattr(self._class, name)
             if isinstance(attr, self._task_prototype_class):
                 nested_task = build(attr, task)
                 setattr(self._class, name, nested_task)
-        return super()._build_task(task, module)
+        return super()._initiate_task(task, module)
 
     # TODO: use self._class or type(task)?
     def _update_task(self, task):
