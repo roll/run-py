@@ -17,8 +17,8 @@ class Settings(Settings):
     main_module_name = '__main__'
     module_color_code = '96m'
     names = None
-    null_dispatcher = 'run.NullDispatcher'
-    null_module = 'run.NullModule'
+    null_dispatcher = 'run.signal.NullDispatcher'
+    null_module = 'run.module.NullModule'
     recursively = False
     strict = True
     tags = None

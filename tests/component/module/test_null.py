@@ -30,10 +30,10 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_chdir(self, chdir):
         self.assertEqual(self.module.meta_chdir, chdir)
 
-    @patch.object(NullModule, '_meta_dispatcher_class')
-    def test_meta_dispatcher(self, dispatcher_class):
+    @patch.object(NullModule, '_meta_null_dispatcher')
+    def test_meta_dispatcher(self, NullDispatcher):
         self.assertEqual(self.module.meta_dispatcher,
-                         dispatcher_class.return_value)
+                         NullDispatcher.return_value)
 
     def test_meta_docstring(self):
         self.assertEqual(self.module.meta_docstring, 'NullModule')
