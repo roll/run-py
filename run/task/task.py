@@ -18,6 +18,7 @@ class Task(metaclass=TaskMetaclass):
         self._meta_created = True
         return self
 
+    # TODO: rename?
     def __initiate__(self, *args, meta_module, meta_updates, **kwargs):
         self._meta_module = meta_module
         self._meta_updates = meta_updates
