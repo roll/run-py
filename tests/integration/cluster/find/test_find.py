@@ -22,6 +22,14 @@ class find_Test(unittest.TestCase):
             self.stdout.getvalue(),
             'Hits runfile.py\n')
 
+    def test_find_filepath(self):
+        modules = list(self.pfind(file='dir/runfile.py'))
+        self.assertEqual(len(modules), 1)
+        self.assertEqual(modules[0].__name__, 'Module2')
+        self.assertEqual(
+            self.stdout.getvalue(),
+            'Hits dir/runfile.py\n')
+
     def test_find_recursively(self):
         modules = list(self.pfind(file='runfile.py', recursively=True))
         self.assertEqual(len(modules), 3)

@@ -50,7 +50,7 @@ class find_Test(unittest.TestCase):
             notfilename=None,
             filepath='dir/file',
             notfilepath='dir/exclude',
-            maxdepth=1,
+            maxdepth=None,
             mappers=ANY,
             getfirst_exception=self.find._getfirst_exception)
 

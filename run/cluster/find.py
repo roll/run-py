@@ -92,7 +92,8 @@ class find(Function):
     @property
     def _maxdepth(self):
         if not self._recursively:
-            return 1
+            if self._filepath is None:
+                return 1
         return None
 
     @cachedproperty
