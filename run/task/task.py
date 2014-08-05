@@ -39,6 +39,7 @@ class Task(metaclass=TaskMetaclass):
         for update in self._meta_updates:
             update.apply(self)
         self._meta_updated = True
+        return self
 
     def __init__(self, *args, **kwargs):
         self._meta_args = args

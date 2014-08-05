@@ -12,6 +12,7 @@ class ModulePrototype(TaskPrototype):
 
     _task_prototype_class = TaskPrototype
 
+    # TODO: use self._class or type(task)?
     def _build_task(self, task, module):
         for name in dir(self._class):
             attr = getattr(self._class, name)
@@ -20,7 +21,9 @@ class ModulePrototype(TaskPrototype):
                 setattr(self._class, name, nested_task)
         return super()._build_task(task, module)
 
+    # TODO: use self._class or type(task)?
     def _update_task(self, task):
-        for nested_task in task.meta_tasks.values():
-            nested_task.__update__()
-        super()._update_task(task)
+        for name, nested_task in task.meta_tasks.items():
+            nested_task = nested_task.__update__()
+            setattr(self._class, name, nested_task)
+        return super()._update_task(task)

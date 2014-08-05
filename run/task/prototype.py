@@ -31,7 +31,7 @@ class TaskPrototype:
         task = self._build_task(task, module)
         if not module:
             # NullModule
-            self._update_task(task)
+            task = self._update_task(task)
         return task
 
     def __getattr__(self, name):
@@ -81,4 +81,5 @@ class TaskPrototype:
         return task
 
     def _update_task(self, task):
-        task.__update__()
+        task = task.__update__()
+        return task
