@@ -4,8 +4,8 @@ class Constraint:
 
     # Public
 
-    def __init__(self, module_class, *, names=None, tags=None):
-        self._module_class = module_class
+    def __init__(self, module, *, names=None, tags=None):
+        self._Module = module
         self._names = names
         self._tags = tags
 
@@ -14,7 +14,7 @@ class Constraint:
             emitter.skip()
         elif not isinstance(emitter.object, type):
             emitter.skip()
-        elif not issubclass(emitter.object, self._module_class):
+        elif not issubclass(emitter.object, self._Module):
             emitter.skip()
         elif not self._match_names(emitter.object.meta_name):
             emitter.skip()
