@@ -11,9 +11,10 @@ class TaskMetaclass(ABCMeta):
 
     def __call__(self, *args, **kwargs):
         module = kwargs.pop('meta_module', Null)
-        prototype = self._prototype_class(*args, meta_class=self, **kwargs)
+        prototype = self._TaskPrototype(*args, meta_class=self, **kwargs)
         if module is not Null:
             if module is None:
+                # TODO: use inject?
                 NullModule = import_object(self._null_module)
                 module = NullModule()
             return build(prototype, module)
@@ -24,4 +25,4 @@ class TaskMetaclass(ABCMeta):
 
     # TODO: renamed to _meta (if accessable from Task class)?
     _null_module = settings.null_module
-    _prototype_class = TaskPrototype
+    _TaskPrototype = TaskPrototype

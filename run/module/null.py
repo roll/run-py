@@ -35,6 +35,7 @@ class NullModule:
 
     @cachedproperty
     def meta_dispatcher(self):
+        # TODO: use inject?
         NullDispatcher = import_object(self._meta_null_dispatcher)
         dispatcher = NullDispatcher()
         return dispatcher

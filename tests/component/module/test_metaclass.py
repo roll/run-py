@@ -8,7 +8,7 @@ class ModuleMetaclassTest(unittest.TestCase):
 
     def setUp(self):
         self.Metaclass = self._make_mock_metaclass()
-        self.Class = self._make_mock_class(self.Metaclass)
+        self.Class = self._make_MockClass(self.Metaclass)
 
     def test___spawn__(self):
         result = self.Class.__spawn__()
@@ -33,10 +33,10 @@ class ModuleMetaclassTest(unittest.TestCase):
             _convert = Mock()
             _default_convert = True
             _fork = Mock()
-            _task_prototype_class = Mock
+            _spawn_TaskPrototype = Mock
         return MockMetaclass
 
-    def _make_mock_class(self, metaclass):
+    def _make_MockClass(self, metaclass):
         class MockClass(metaclass=metaclass):
             # Public
             UPPER_ATTR = 'UPPER_ATTR'
