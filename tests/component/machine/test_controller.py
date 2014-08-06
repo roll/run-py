@@ -8,25 +8,25 @@ class ControllerTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        MockController = self._make_mock_controller_class()
+        self.Controller = self._make_MockController()
         self.dispatcher = Mock(add_handler=Mock())
         self.stack = Mock(__repr__=Mock(
             return_value='stack'), push=Mock(), pop=Mock())
-        self.pcontroller = partial(MockController,
-            self.dispatcher, stack=self.stack)
+        self.pcontroller = partial(
+            self.Controller, self.dispatcher, stack=self.stack)
         self.signal = Mock(task=Mock(meta_qualname='attr_qualname'))
 
     def test_listen(self):
         controller = self.pcontroller()
         controller.listen()
-        controller._callback_handler_class.assert_has_calls([
+        controller._CallbackHandler.assert_has_calls([
             call(controller._on_initiated_task, signals=['initiated_task']),
             call(controller._on_successed_task, signals=['successed_task']),
             call(controller._on_failed_task, signals=['failed_task'])])
         self.dispatcher.add_handler.assert_has_calls([
-            call(controller._callback_handler_class.return_value),
-            call(controller._callback_handler_class.return_value),
-            call(controller._callback_handler_class.return_value)])
+            call(controller._CallbackHandler.return_value),
+            call(controller._CallbackHandler.return_value),
+            call(controller._CallbackHandler.return_value)])
 
     def test__on_initiated_task(self):
         controller = self.pcontroller()
@@ -73,11 +73,11 @@ class ControllerTest(unittest.TestCase):
 
     # Protected
 
-    def _make_mock_controller_class(self):
+    def _make_MockController(self):
         class MockController(Controller):
             # Protected
-            _callback_handler_class = Mock(return_value=Mock())
-            _initiated_task_signal_class = 'initiated_task'
-            _successed_task_signal_class = 'successed_task'
-            _failed_task_signal_class = 'failed_task'
+            _CallbackHandler = Mock(return_value=Mock())
+            _FailedTaskSignal = 'failed_task'
+            _InitiatedTaskSignal = 'initiated_task'
+            _SuccessedTaskSignal = 'successed_task'
         return MockController
