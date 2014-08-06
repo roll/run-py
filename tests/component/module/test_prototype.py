@@ -7,8 +7,8 @@ class ModulePrototypeTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.Module = self._make_mock_module_class()
-        self.Prototype = self._make_mock_prototype_class()
+        self.Module = self._make_MockModule()
+        self.Prototype = self._make_MockPrototype()
         self.prototype = self.Prototype(self.Module, None)
 
     @unittest.skip('not changed to _initiate_task')
@@ -20,7 +20,7 @@ class ModulePrototypeTest(unittest.TestCase):
 
     # Protected
 
-    def _make_mock_module_class(self):
+    def _make_MockModule(self):
         class MockModule:
             # Public
             attr = 'attr'
@@ -30,8 +30,8 @@ class ModulePrototypeTest(unittest.TestCase):
                 return cls
         return MockModule
 
-    def _make_mock_prototype_class(self):
+    def _make_MockPrototype(self):
         class MockPrototype(ModulePrototype):
             # Protected
-            _task_prototype_class = Mock
+            _TaskPrototype = Mock
         return MockPrototype

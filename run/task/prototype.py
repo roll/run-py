@@ -62,10 +62,10 @@ class TaskPrototype:
 
     # Protected
 
-    _update_class = TaskUpdate
+    _TaskUpdate = TaskUpdate
 
     def _add_update(self, name, *args, **kwargs):
-        update = self._update_class(name, *args, **kwargs)
+        update = self._TaskUpdate(name, *args, **kwargs)
         self._updates.append(update)
 
     def _create_task(self):

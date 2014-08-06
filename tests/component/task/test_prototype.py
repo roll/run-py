@@ -11,8 +11,8 @@ class TaskPrototypeTest(unittest.TestCase):
         self.updates = []
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Task = self._make_mock_task_class()
-        self.Prototype = self._make_mock_prototype_class(self.update)
+        self.Task = self._make_MockTask()
+        self.Prototype = self._make_MockPrototype(self.update)
         self.prototype = self.Prototype(
             *self.args,
             meta_class=self.Task,
@@ -26,7 +26,7 @@ class TaskPrototypeTest(unittest.TestCase):
         self.prototype.attr2 = 'value2'
         self.assertEqual(self.updates, [self.update])
         # Check update_class call
-        self.prototype._update_class.assert_called_with(
+        self.prototype._TaskUpdate.assert_called_with(
             '__setattr__', 'attr2', 'value2')
 
     def test___fork__(self):
@@ -53,7 +53,7 @@ class TaskPrototypeTest(unittest.TestCase):
 
     # Protected
 
-    def _make_mock_task_class(self):
+    def _make_MockTask(self):
         class MockTask:
             # Public
             __create__ = Mock()
@@ -62,8 +62,8 @@ class TaskPrototypeTest(unittest.TestCase):
             attr1 = 'value1'
         return MockTask
 
-    def _make_mock_prototype_class(self, update):
+    def _make_MockPrototype(self, update):
         class MockPrototype(TaskPrototype):
             # Protected
-            _update_class = Mock(return_value=update)
+            _TaskUpdate = Mock(return_value=update)
         return MockPrototype
