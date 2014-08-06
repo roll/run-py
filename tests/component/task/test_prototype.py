@@ -11,8 +11,8 @@ class TaskPrototypeTest(unittest.TestCase):
         self.updates = []
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Task = self._make_MockTask()
-        self.Prototype = self._make_MockPrototype(self.update)
+        self.Task = self._make_mock_task_class()
+        self.Prototype = self._make_mock_prototype_class(self.update)
         self.prototype = self.Prototype(
             *self.args,
             meta_class=self.Task,
@@ -53,7 +53,7 @@ class TaskPrototypeTest(unittest.TestCase):
 
     # Protected
 
-    def _make_MockTask(self):
+    def _make_mock_task_class(self):
         class MockTask:
             # Public
             __create__ = Mock()
@@ -62,7 +62,7 @@ class TaskPrototypeTest(unittest.TestCase):
             attr1 = 'value1'
         return MockTask
 
-    def _make_MockPrototype(self, update):
+    def _make_mock_prototype_class(self, update):
         class MockPrototype(TaskPrototype):
             # Protected
             _TaskUpdate = Mock(return_value=update)

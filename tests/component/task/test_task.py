@@ -11,7 +11,7 @@ class TaskTest(unittest.TestCase):
         self.module = Mock()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Task = self._make_MockTask()
+        self.Task = self._make_mock_task_class()
         self.pTask = partial(self.Task, meta_module=None)
         self.task = self.pTask(*self.args, **self.kwargs)
 
@@ -205,7 +205,7 @@ class TaskTest(unittest.TestCase):
 
     # Protected
 
-    def _make_MockTask(self):
+    def _make_mock_task_class(self):
         class MockTask(Task):
             # Public
             meta_dispatcher = Mock()

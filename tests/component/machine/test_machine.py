@@ -9,7 +9,7 @@ class MachineTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1', }
-        self.Machine = self._make_MockMachine()
+        self.Machine = self._make_mock_machine_class()
 
     def test_process(self):
         machine = self.Machine(
@@ -60,7 +60,7 @@ class MachineTest(unittest.TestCase):
 
     # Protected
 
-    def _make_MockMachine(self):
+    def _make_mock_machine_class(self):
         class MockMachine(Machine):
             # Protected
             _Controller = Mock()

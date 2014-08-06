@@ -7,7 +7,7 @@ class VarTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.Var = self._make_MockVar()
+        self.Var = self._make_mock_var_class()
         self.var = self.Var(meta_module=None)
         patch('run.NullModule.meta_cache', True).start()
         self.addCleanup(patch.stopall)
@@ -41,7 +41,7 @@ class VarTest(unittest.TestCase):
 
     # Protected
 
-    def _make_MockVar(self):
+    def _make_mock_var_class(self):
         class MockVar(Var):
             # Public
             meta_invoke = Mock(return_value='value')

@@ -7,7 +7,7 @@ class ClusterTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.Cluster = self._make_MockCluster()
+        self.Cluster = self._make_mock_cluster_class()
 
     def test___getattr__(self):
         cluster = self.Cluster(
@@ -43,7 +43,7 @@ class ClusterTest(unittest.TestCase):
 
     # Protected
 
-    def _make_MockCluster(self):
+    def _make_mock_cluster_class(self):
         class MockCluster(Cluster):
             # Protected
             _find = Mock(return_value=[

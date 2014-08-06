@@ -11,8 +11,8 @@ class TaskMetaclassTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Prototype = Mock(return_value=Mock(__build__=Mock()))
-        self.Metaclass = self._make_MockMetaclass(self.Prototype)
-        self.Class = self._make_MockClass(self.Metaclass)
+        self.Metaclass = self._make_mock_metaclass(self.Prototype)
+        self.Class = self._make_mock_class(self.Metaclass)
 
     def test(self):
         self.assertTrue(issubclass(self.Metaclass, ABCMeta))
@@ -39,13 +39,13 @@ class TaskMetaclassTest(unittest.TestCase):
 
     # Protected
 
-    def _make_MockMetaclass(self, Prototype):
+    def _make_mock_metaclass(self, Prototype):
         class MockMetaclass(TaskMetaclass):
             # Protected
             _null_module = Mock(return_value='null_module')
             _TaskPrototype = Prototype
         return MockMetaclass
 
-    def _make_MockClass(self, mock_metaclass):
+    def _make_mock_class(self, mock_metaclass):
             class MockClass(metaclass=mock_metaclass): pass
             return MockClass

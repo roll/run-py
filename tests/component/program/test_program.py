@@ -7,8 +7,8 @@ class ProgramTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.MockProgram = self._make_MockProgram()
-        self.program = self.MockProgram('argv')
+        self.Program = self._make_mock_program_class()
+        self.program = self.Program('argv')
 
     def test___call__(self):
         self.program()
@@ -28,7 +28,7 @@ class ProgramTest(unittest.TestCase):
 
     # Protected
 
-    def _make_MockProgram(self):
+    def _make_mock_program_class(self):
         class MockProgram(Program):
             # Protected
             _Command = Mock(return_value=Mock(

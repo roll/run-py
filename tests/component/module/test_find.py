@@ -10,7 +10,7 @@ class FindModuleTest(unittest.TestCase):
         self.inner_module = Mock()
 
     def test___new__(self):
-        Module = self._make_MockModule(self.inner_module)
+        Module = self._make_mock_module_class(self.inner_module)
         module = Module(
             names='names',
             tags='tags',
@@ -27,12 +27,12 @@ class FindModuleTest(unittest.TestCase):
             getfirst=True)
 
     def test___new___no_modules(self):
-        Module = self._make_MockModule()
+        Module = self._make_mock_module_class()
         self.assertRaises(Exception, Module)
 
     # Protected
 
-    def _make_MockModule(self, module=None):
+    def _make_mock_module_class(self, module=None):
         class MockModule(FindModule):
             # Protected
             _find = Mock(return_value=module)
