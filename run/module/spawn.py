@@ -1,3 +1,3 @@
 # TODO: add attrs altering?
-def spawn(module_class):
-    return module_class.__spawn__()
+def spawn(module):
+    return module.__spawn__()
