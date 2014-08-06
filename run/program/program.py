@@ -9,8 +9,8 @@ class Program(Program):
 
     # Protected
 
-    _command_class = Command
-    _machine_class = Machine
+    _Command = Command
+    _Machine = Machine
     _settings = settings
 
     def _execute(self):
@@ -21,7 +21,7 @@ class Program(Program):
 
     @cachedproperty
     def _machine(self):
-        machine = self._machine_class(
+        machine = self._Machine(
             names=self._command.names,
             tags=self._command.tags,
             file=self._command.file,
