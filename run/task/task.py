@@ -383,10 +383,10 @@ class Task(metaclass=TaskMetaclass):
 
     _meta_color_code = settings.task_color_code
     _meta_default_main_module_name = settings.main_module_name
-    _meta_failed_signal_class = FailedTaskSignal
-    _meta_initiated_signal_class = InitiatedTaskSignal
+    _meta_FailedTaskSignal = FailedTaskSignal
+    _meta_InitiatedTaskSignal = InitiatedTaskSignal
     _meta_require = require
-    _meta_successed_signal_class = SuccessedTaskSignal
+    _meta_SuccessedTaskSignal = SuccessedTaskSignal
     _meta_trigger = trigger
 
     def _meta_init_dependencies(self):
@@ -402,7 +402,7 @@ class Task(metaclass=TaskMetaclass):
             dependency.resolve(failed=failed)
 
     def _meta_add_signal(self, name):
-        signal_class_attr = '_meta_' + name + '_signal_class'
-        signal_class = getattr(self, signal_class_attr)
-        signal = signal_class(self)
+        attribute_name = '_meta_' + name.capitalize() + 'TaskSignal'
+        Signal = getattr(self, attribute_name)
+        signal = Signal(self)
         self.meta_dispatcher.add_signal(signal)

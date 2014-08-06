@@ -7,7 +7,7 @@ class VarTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.Var = self._make_mock_var_class()
+        self.Var = self._make_MockVar()
         self.var = self.Var(meta_module=None)
         patch('run.NullModule.meta_cache', True).start()
         self.addCleanup(patch.stopall)
@@ -18,8 +18,8 @@ class VarTest(unittest.TestCase):
         # Only one call because of caching
         self.assertEqual(self.var.meta_invoke.call_count, 1)
         self.var.meta_invoke.assert_called_with()
-        self.var._meta_initiated_signal_class.assert_called_with(self.var)
-        self.var._meta_successed_signal_class.assert_called_with(self.var)
+        self.var._meta_InitiatedTaskSignal.assert_called_with(self.var)
+        self.var._meta_SuccessedTaskSignal.assert_called_with(self.var)
         self.var.meta_dispatcher.add_signal.assert_has_calls(
             [call('initiated_signal'),
              call('successed_signal')])
@@ -41,14 +41,12 @@ class VarTest(unittest.TestCase):
 
     # Protected
 
-    def _make_mock_var_class(self):
+    def _make_MockVar(self):
         class MockVar(Var):
             # Public
             meta_invoke = Mock(return_value='value')
             meta_dispatcher = Mock()
             # Protected
-            _meta_initiated_signal_class = Mock(
-                return_value='initiated_signal')
-            _meta_successed_signal_class = Mock(
-                return_value='successed_signal')
+            _meta_InitiatedTaskSignal = Mock(return_value='initiated_signal')
+            _meta_SuccessedTaskSignal = Mock(return_value='successed_signal')
         return MockVar

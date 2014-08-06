@@ -9,9 +9,9 @@ class ModuleTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Module = self._make_mock_module_class()
+        self.Module = self._make_MockModule()
         self.module = self.Module(meta_module=None)
-        self.ParentModule = self._make_mock_parent_module_class()
+        self.ParentModule = self._make_MockParentModule()
         self.parent_module = self.ParentModule()
 
     def test___call__(self):
@@ -115,7 +115,7 @@ class ModuleTest(unittest.TestCase):
 
     def test_list_with_parent_module(self):
         # We have to recreate class for builtin tasks
-        self.Module = self._make_mock_module_class()
+        self.Module = self._make_MockModule()
         self.module = self.Module(
             meta_module=self.parent_module,
             meta_chdir=False,
@@ -171,7 +171,7 @@ class ModuleTest(unittest.TestCase):
 
     # Protected
 
-    def _make_mock_module_class(self):
+    def _make_MockModule(self):
         class MockModule(Module):
             """docstring"""
             # Public
@@ -184,7 +184,7 @@ class ModuleTest(unittest.TestCase):
             _meta_pprint = Mock()
         return MockModule
 
-    def _make_mock_parent_module_class(self):
+    def _make_MockParentModule(self):
         class MockParentModule:
             # Public
             meta_basedir = 'basedir'
