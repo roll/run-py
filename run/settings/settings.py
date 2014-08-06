@@ -34,7 +34,7 @@ class Settings(Settings):
         'run.module.module',
         'run.task.task',
         'run.var.var',
-        ]
+    ]
 
     # Argparse
 

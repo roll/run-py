@@ -43,4 +43,3 @@ class module(task):
 
     _isinstance = staticmethod(isinstance)
     _issubclass = staticmethod(issubclass)
-

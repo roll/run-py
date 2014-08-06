@@ -7,7 +7,7 @@ class FindModule(Function):
     # Public
 
     def __init__(self, names=None, tags=None, *,
-                file=None, basedir=None, recursively=False):
+                 file=None, basedir=None, recursively=False):
         self._names = names
         self._tags = tags
         self._file = file
