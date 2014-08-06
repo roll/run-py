@@ -43,7 +43,7 @@ class find(Function):
         self._find_params = find_params
 
     def __call__(self):
-        module_classes = self._find_objects(
+        Modules = self._find_objects(
             basedir=self._basedir,
             filename=self._filename,
             notfilename=self._notfilename,
@@ -53,13 +53,13 @@ class find(Function):
             mappers=self._mappers,
             getfirst_exception=self._getfirst_exception,
             **self._find_params)
-        return module_classes
+        return Modules
 
     # Protected
 
     _getfirst_exception = NotFound
     _find_objects = find_objects
-    _module_class = Module
+    _Module = Module
 
     @property
     def _filename(self):
@@ -100,6 +100,6 @@ class find(Function):
     def _mappers(self):
         mappers = []
         constraint = Constraint(
-            self._module_class, names=self._names, tags=self._tags)
+            self._Module, names=self._names, tags=self._tags)
         mappers.append(constraint)
         return mappers
