@@ -44,6 +44,6 @@ class task_Test(unittest.TestCase):
     def _make_mock_converter(self):
         class mock_converter(converter.task):
             # Protected
-            _task_class = Mock
-            _task_prototype_class = Mock
+            _Task = Mock
+            _TaskPrototype = Mock
         return mock_converter

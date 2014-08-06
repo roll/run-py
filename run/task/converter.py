@@ -32,9 +32,9 @@ class task(Converter):
     # Public
 
     def check_converted(self, obj):
-        if isinstance(obj, self._task_prototype_class):
+        if isinstance(obj, self._TaskPrototype):
             return True
-        if isinstance(obj, self._task_class):
+        if isinstance(obj, self._Task):
             return True
         return False
 
@@ -49,5 +49,5 @@ class task(Converter):
 
     # Protected
 
-    _task_class = Task
-    _task_prototype_class = TaskPrototype
+    _Task = Task
+    _TaskPrototype = TaskPrototype
