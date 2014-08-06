@@ -11,7 +11,9 @@ class CallbackHandler(Handler):
 
     # Public
 
-    def __init__(self, callback, signals=[]):
+    def __init__(self, callback, signals=None):
+        if signals is None:
+            signals = []
         self._callback = callback
         self._signals = signals
 

@@ -26,7 +26,9 @@ class AutoModule(Module):
 
     # Public
 
-    def __init__(self, sources=[]):
+    def __init__(self, sources=None):
+        if sources is None:
+            sources = []
         self._sources = sources + self._default_sources
         for task_name, task_function in self._functions.items():
             if not hasattr(type(self), task_name):
