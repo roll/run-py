@@ -47,8 +47,8 @@ class Cluster:
     @cachedproperty
     def _modules(self):
         modules = []
-        for module_class in self._module_classes:
-            module = module_class(
+        for Module in self._Modules:
+            module = Module(
                 meta_grayscale=self._grayscale,
                 meta_dispatcher=self._dispatcher,
                 meta_module=None)
@@ -56,8 +56,8 @@ class Cluster:
         return modules
 
     @cachedproperty
-    def _module_classes(self):
-        module_classes = self._find(
+    def _Modules(self):
+        Modules = self._find(
             names=self._names,
             tags=self._tags,
             file=self._file,
@@ -65,4 +65,4 @@ class Cluster:
             basedir=self._basedir,
             recursively=self._recursively,
             **self._find_params)
-        return module_classes
+        return Modules
