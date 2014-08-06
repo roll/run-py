@@ -9,7 +9,7 @@ class MachineTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1', }
-        self.Machine = self._make_mock_machine_class()
+        self.Machine = self._make_MockMachine()
 
     def test_process(self):
         machine = self.Machine(
@@ -28,11 +28,11 @@ class MachineTest(unittest.TestCase):
             call('result2'),
             call('attr3')])
         # Controller
-        machine._controller_class.assert_called_with(
-            machine._dispatcher_class.return_value,
-            machine._stack_class.return_value)
+        machine._Controller.assert_called_with(
+            machine._Dispatcher.return_value,
+            machine._Stack.return_value)
         # Cluster
-        machine._cluster_class.assert_called_with(
+        machine._Cluster.assert_called_with(
             names='names',
             tags='tags',
             file='file',
@@ -41,35 +41,35 @@ class MachineTest(unittest.TestCase):
             recursively='recursively',
             grayscale='grayscale',
             skip='skip',
-            dispatcher=machine._dispatcher_class.return_value)
+            dispatcher=machine._Dispatcher.return_value)
         # Cluster's return values
-        for attr in machine._cluster_class.return_value.task:
+        for attr in machine._Cluster.return_value.task:
             if hasattr(attr, 'assert_called_with'):
                 attr.assert_called_with(*self.args, **self.kwargs)
         # Dispatcher
-        machine._dispatcher_class.assert_called_with()
+        machine._Dispatcher.assert_called_with()
         # Stack
-        self.assertEqual(machine._stack, machine._stack_class.return_value)
-        self.assertTrue(machine._stack_class.called)
+        self.assertEqual(machine._stack, machine._Stack.return_value)
+        self.assertTrue(machine._Stack.called)
 
     def test_process_with_plain_is_true(self):
         machine = self.Machine(plain=True)
         # Stack
         self.assertEqual(machine._stack, None)
-        self.assertFalse(machine._stack_class.called)
+        self.assertFalse(machine._Stack.called)
 
     # Protected
 
-    def _make_mock_machine_class(self):
+    def _make_MockMachine(self):
         class MockMachine(Machine):
             # Protected
-            _controller_class = Mock()
-            _dispatcher_class = Mock(return_value=Mock(add_handler=Mock()))
-            _cluster_class = Mock(return_value=Mock(task=[
+            _Controller = Mock()
+            _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
+            _Cluster = Mock(return_value=Mock(task=[
                 Mock(return_value='result1'),
                 Mock(return_value='result2'),
                 'attr3']))
             _print = Mock()
-            _stack_class = Mock()
-            _task_class = Mock
+            _Stack = Mock()
+            _Task = Mock
         return MockMachine

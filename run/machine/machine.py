@@ -30,7 +30,7 @@ class Machine:
         self._controller.listen()
         tasks = getattr(self._cluster, task)
         for task in tasks:
-            if isinstance(task, self._task_class):
+            if isinstance(task, self._Task):
                 result = task(*args, **kwargs)
                 if result:
                     self._print(result)
@@ -39,21 +39,21 @@ class Machine:
 
     # Protected
 
-    _cluster_class = Cluster
-    _controller_class = Controller
-    _dispatcher_class = Dispatcher
+    _Cluster = Cluster
+    _Controller = Controller
+    _Dispatcher = Dispatcher
     _print = staticmethod(print)
-    _stack_class = Stack
-    _task_class = Task
+    _Stack = Stack
+    _Task = Task
 
     @cachedproperty
     def _controller(self):
-        return self._controller_class(
+        return self._Controller(
             self._dispatcher, self._stack)
 
     @cachedproperty
     def _cluster(self):
-        return self._cluster_class(
+        return self._Cluster(
             names=self._names,
             tags=self._tags,
             file=self._file,
@@ -67,11 +67,11 @@ class Machine:
 
     @cachedproperty
     def _dispatcher(self):
-        return self._dispatcher_class()
+        return self._Dispatcher()
 
     @cachedproperty
     def _stack(self):
         if not self._plain:
-            return self._stack_class()
+            return self._Stack()
         else:
             return None
