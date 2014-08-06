@@ -1,5 +1,6 @@
 from ..signal import Signal
 
+
 class TaskSignal(Signal):
 
     # Public

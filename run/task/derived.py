@@ -1,5 +1,6 @@
 from .task import Task
 
+
 class DerivedTask(Task):
 
     # Public

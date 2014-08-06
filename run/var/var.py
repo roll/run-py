@@ -4,6 +4,7 @@ from ..settings import settings
 from ..task import Task
 from .signal import InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal
 
+
 class Var(Task, metaclass=ABCMeta):
 
     # Public

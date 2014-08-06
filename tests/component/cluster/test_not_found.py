@@ -1,6 +1,7 @@
 import unittest
 from run.cluster.not_found import NotFound
 
+
 class NotFoundTest(unittest.TestCase):
 
     # Public

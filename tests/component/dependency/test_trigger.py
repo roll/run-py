@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 from run.dependency.trigger import trigger
 
+
 class trigger_Test(unittest.TestCase):
 
     # Public

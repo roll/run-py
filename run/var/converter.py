@@ -2,6 +2,7 @@ import inspect
 from ..task import task
 from .descriptor import DescriptorVar
 
+
 class var(task):
     """Decorate method to make var with default kwargs to invoke.
 

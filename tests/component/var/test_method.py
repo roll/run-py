@@ -1,6 +1,7 @@
 import unittest
 from run.var.method import MethodVar, Var, MethodTask
 
+
 class MethodVarTest(unittest.TestCase):
 
     # Public

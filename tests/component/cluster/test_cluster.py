@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.cluster.cluster import Cluster
 
+
 class ClusterTest(unittest.TestCase):
 
     # Public

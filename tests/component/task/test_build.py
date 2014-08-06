@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.task.build import build
 
+
 class build_Test(unittest.TestCase):
 
     # Public

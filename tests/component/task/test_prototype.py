@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.task.prototype import TaskPrototype
 
+
 class TaskPrototypeTest(unittest.TestCase):
 
     # Public

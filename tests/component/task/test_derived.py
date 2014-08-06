@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.task.derived import DerivedTask
 
+
 class DerivedTaskTest(unittest.TestCase):
 
     # Public

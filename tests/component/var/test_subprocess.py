@@ -1,6 +1,7 @@
 import unittest
 from run.var.subprocess import SubprocessVar, Var, SubprocessTask
 
+
 class SubprocessVarTest(unittest.TestCase):
 
     # Public

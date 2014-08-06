@@ -1,6 +1,7 @@
 from box import jinja2
 from .function import FunctionTask
 
+
 class RenderTask(FunctionTask):
 
     # Public

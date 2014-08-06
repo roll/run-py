@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import patch
 from run.task.render import RenderTask
 
+
 class RenderTaskTest(unittest.TestCase):
 
     # Public

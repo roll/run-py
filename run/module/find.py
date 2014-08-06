@@ -1,6 +1,7 @@
 from box.importlib import inject
 from box.functools import Function, cachedproperty
 
+
 class FindModule(Function):
 
     # Public

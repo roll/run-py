@@ -1,6 +1,7 @@
 import unittest
 from run.var.input import InputVar, Var, InputTask
 
+
 class InputVarTest(unittest.TestCase):
 
     # Public

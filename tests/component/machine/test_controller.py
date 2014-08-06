@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import Mock, call, patch
 from run.machine.controller import Controller
 
+
 class ControllerTest(unittest.TestCase):
 
     # Public

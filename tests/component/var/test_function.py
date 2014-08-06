@@ -1,6 +1,7 @@
 import unittest
 from run.var.function import FunctionVar, Var, FunctionTask
 
+
 class FunctionVarTest(unittest.TestCase):
 
     # Public

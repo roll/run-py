@@ -9,6 +9,7 @@ from .metaclass import ModuleMetaclass
 from .signal import (InitiatedModuleSignal, SuccessedModuleSignal,
                      FailedModuleSignal)
 
+
 class Module(Task, metaclass=ModuleMetaclass):
 
     # Public

@@ -1,6 +1,7 @@
 from .module import Module
 from ..task import SubprocessTask
 
+
 class SubprocessModule(Module):
 
     # Public

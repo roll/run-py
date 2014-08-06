@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import patch
 from run.program.command import Command, settings
 
+
 class CommandTest(unittest.TestCase):
 
     # Public

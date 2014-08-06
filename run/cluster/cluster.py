@@ -2,6 +2,7 @@ import logging
 from box.functools import cachedproperty
 from .find import find
 
+
 class Cluster:
     """Modules cluster representation.
     """

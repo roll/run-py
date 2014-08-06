@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.task.function import FunctionTask
 
+
 class FunctionTaskTest(unittest.TestCase):
 
     # Public

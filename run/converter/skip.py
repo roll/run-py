@@ -1,5 +1,6 @@
 from box.functools import Decorator
 
+
 class skip(Decorator):
     """Make object to be not converted while convert call.
 

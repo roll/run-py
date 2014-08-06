@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.module.find import FindModule
 
+
 class FindModuleTest(unittest.TestCase):
 
     # Public

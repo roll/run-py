@@ -1,6 +1,7 @@
 from ..task import task
 from .module import Module
 
+
 class module(task):
     """Decorate class to make module with default kwargs to invoke.
 

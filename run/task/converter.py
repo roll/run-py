@@ -4,6 +4,7 @@ from .method import MethodTask
 from .prototype import TaskPrototype
 from .task import Task
 
+
 class task(Converter):
     """Decorate method to make task with default kwargs to invoke.
 

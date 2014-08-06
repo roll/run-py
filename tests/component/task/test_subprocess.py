@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock, patch
 from run.task.subprocess import SubprocessTask
 
+
 class SubprocessTaskTest(unittest.TestCase):
 
     # Public

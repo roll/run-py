@@ -2,6 +2,7 @@ from box.functools import Function
 from ..task import FunctionTask
 from .module import Module
 
+
 class AutoModule(Module):
     """Module with auto generated tasks from sources.
 

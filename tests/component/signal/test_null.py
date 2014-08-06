@@ -1,6 +1,7 @@
 import unittest
 from run.signal.null import NullDispatcher
 
+
 class NullDispatcherTest(unittest.TestCase):
 
     # Public

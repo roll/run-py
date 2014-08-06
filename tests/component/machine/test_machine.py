@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock, call
 from run.machine.machine import Machine
 
+
 class MachineTest(unittest.TestCase):
 
     # Public

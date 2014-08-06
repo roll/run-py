@@ -1,6 +1,7 @@
 from ..task import TaskPrototype, build
 from .spawn import spawn
 
+
 class ModulePrototype(TaskPrototype):
 
     # Protected

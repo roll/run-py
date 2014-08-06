@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.program.program import Program
 
+
 class ProgramTest(unittest.TestCase):
 
     # Public

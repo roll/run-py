@@ -1,5 +1,6 @@
 from .dependency import Dependency
 
+
 class trigger(Dependency):
     """Decorate method to add trigger dependency.
 

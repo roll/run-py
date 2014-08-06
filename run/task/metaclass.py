@@ -5,6 +5,7 @@ from ..settings import settings
 from .build import build
 from .prototype import TaskPrototype
 
+
 class TaskMetaclass(ABCMeta):
 
     # Public

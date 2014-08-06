@@ -2,6 +2,7 @@ import unittest
 import fractions
 from run.module.auto import AutoModule
 
+
 class AutoModuleTest(unittest.TestCase):
 
     # Public

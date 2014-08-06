@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import patch
 from run.task.input import InputTask
 
+
 class InputTaskTest(unittest.TestCase):
 
     # Public

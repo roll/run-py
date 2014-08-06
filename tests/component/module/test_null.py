@@ -3,6 +3,7 @@ import unittest
 from unittest.mock import patch
 from run.module.null import NullModule
 
+
 class NullModuleTest(unittest.TestCase):
 
     # Public

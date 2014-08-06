@@ -5,6 +5,7 @@ from ..task import Task
 from .controller import Controller
 from .stack import Stack
 
+
 class Machine:
 
     # Public

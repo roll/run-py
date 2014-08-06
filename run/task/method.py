@@ -1,6 +1,7 @@
 import re
 from .function import FunctionTask
 
+
 class MethodTask(FunctionTask):
 
     # Public

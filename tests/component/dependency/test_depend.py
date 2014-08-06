@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.dependency.depend import depend
 
+
 class depend_Test(unittest.TestCase):
 
     # Public

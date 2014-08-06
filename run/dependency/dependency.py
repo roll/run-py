@@ -3,6 +3,7 @@ from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
 from ..converter import convert
 
+
 class Dependency(metaclass=ABCMeta):
     """Dependency representation abstract base class.
 

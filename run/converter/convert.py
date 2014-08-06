@@ -2,6 +2,7 @@ from box.functools import Function
 from box.importlib import import_object
 from ..settings import settings
 
+
 class convert(Function):
     """Convert object using converters from settings.
     """

@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import patch
 from run.task.find import FindTask
 
+
 class FindTaskTest(unittest.TestCase):
 
     # Public

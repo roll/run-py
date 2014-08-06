@@ -1,6 +1,7 @@
 from run import FindModule
 from packgram import ManageModule
 
+
 class Module(ManageModule):
 
     # Attributes

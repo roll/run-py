@@ -1,5 +1,6 @@
 from box.functools import Decorator
 
+
 class depend(Decorator):
     """Decorate method to add custom dependency.
 

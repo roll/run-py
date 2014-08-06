@@ -1,5 +1,6 @@
 from box.packtools import Version
 
+
 class Version(Version):
 
     major = 0

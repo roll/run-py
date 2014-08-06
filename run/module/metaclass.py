@@ -3,6 +3,7 @@ from ..settings import settings
 from ..task import TaskMetaclass, TaskPrototype, fork
 from .prototype import ModulePrototype
 
+
 class ModuleMetaclass(TaskMetaclass):
 
     # Public

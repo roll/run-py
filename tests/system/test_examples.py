@@ -2,6 +2,7 @@ import os
 import unittest
 from subprocess import Popen, PIPE
 
+
 class ExamplesTest(unittest.TestCase):
 
     # Public

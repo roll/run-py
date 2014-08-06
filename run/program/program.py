@@ -5,6 +5,7 @@ from ..machine import Machine
 from ..settings import settings
 from .command import Command
 
+
 class Program(Program):
 
     # Protected

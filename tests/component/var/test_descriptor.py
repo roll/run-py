@@ -1,6 +1,7 @@
 import unittest
 from run.var.descriptor import DescriptorVar, Var, DescriptorTask
 
+
 class DescriptorVarTest(unittest.TestCase):
 
     # Public

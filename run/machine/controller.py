@@ -2,6 +2,7 @@ import logging
 from ..signal import CallbackHandler
 from ..task import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
+
 class Controller:
 
     # Public

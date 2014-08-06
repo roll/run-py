@@ -1,5 +1,6 @@
 from tests.system.test_examples import ExamplesTest
 
+
 class ModulesTest(ExamplesTest):
 
     # Public

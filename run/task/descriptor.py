@@ -1,6 +1,7 @@
 import inspect
 from .task import Task
 
+
 class DescriptorTask(Task):
 
     # Public

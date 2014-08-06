@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.module.metaclass import ModuleMetaclass
 
+
 class ModuleMetaclassTest(unittest.TestCase):
 
     # Public

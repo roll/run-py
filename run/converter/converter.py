@@ -2,6 +2,7 @@ from abc import ABCMeta, abstractmethod
 from box.functools import Decorator
 from .skip import skip
 
+
 class Converter(Decorator, metaclass=ABCMeta):
     """Base abstract converter decorator.
     """

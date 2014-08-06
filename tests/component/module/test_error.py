@@ -1,6 +1,7 @@
 import unittest
 from run.module.error import ModuleAttributeError
 
+
 class NotFoundTest(unittest.TestCase):
 
     # Public

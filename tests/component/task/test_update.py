@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.task.update import TaskUpdate
 
+
 class TaskUpdateTest(unittest.TestCase):
 
     # Public

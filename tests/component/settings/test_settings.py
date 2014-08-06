@@ -1,6 +1,7 @@
 import unittest
 from run.settings.settings import settings
 
+
 class SettingsTest(unittest.TestCase):
 
     # Public

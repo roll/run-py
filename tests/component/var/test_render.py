@@ -1,6 +1,7 @@
 import unittest
 from run.var.render import RenderVar, Var, RenderTask
 
+
 class RenderVarTest(unittest.TestCase):
 
     # Public

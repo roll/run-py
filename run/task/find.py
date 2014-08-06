@@ -1,6 +1,7 @@
 from box import findtools
 from .function import FunctionTask
 
+
 class FindTask(FunctionTask):
 
     # Public

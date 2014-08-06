@@ -3,6 +3,7 @@ from abc import ABCMeta
 from unittest.mock import Mock
 from run.task.metaclass import TaskMetaclass
 
+
 class TaskMetaclassTest(unittest.TestCase):
 
     # Public

@@ -3,6 +3,7 @@ from functools import partial
 from unittest.mock import Mock, call
 from run.task.task import Task
 
+
 class TaskTest(unittest.TestCase):
 
     # Public

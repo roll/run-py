@@ -1,5 +1,6 @@
 from .dependency import Dependency
 
+
 class require(Dependency):
     """Decorate method to add require dependency.
 

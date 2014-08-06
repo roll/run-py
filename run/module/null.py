@@ -3,6 +3,7 @@ from box.functools import cachedproperty
 from box.importlib import import_object
 from ..settings import settings
 
+
 class NullModule:
 
     # Public

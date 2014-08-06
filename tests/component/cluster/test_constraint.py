@@ -3,6 +3,7 @@ import inspect
 from unittest.mock import Mock
 from run.cluster.constraint import Constraint
 
+
 class ConstraintTest(unittest.TestCase):
 
     # Public

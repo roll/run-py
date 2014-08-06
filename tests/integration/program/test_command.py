@@ -3,6 +3,7 @@ from functools import partial
 from run.program.command import Command
 from run.settings import settings
 
+
 class CommandTest(unittest.TestCase):
 
     # Public

@@ -8,6 +8,7 @@ from ..settings import settings
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
+
 class Task(metaclass=TaskMetaclass):
 
     # Public

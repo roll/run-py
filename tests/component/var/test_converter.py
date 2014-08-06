@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import patch
 from run.var import converter
 
+
 class var_Test(unittest.TestCase):
 
     # Public

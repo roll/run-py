@@ -1,6 +1,7 @@
 import unittest
 from run.var.null import NullVar, Var, NullTask
 
+
 class NullVarTest(unittest.TestCase):
 
     # Public

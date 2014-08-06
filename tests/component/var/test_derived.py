@@ -1,6 +1,7 @@
 import unittest
 from run.var.derived import DerivedVar, Var, DerivedTask
 
+
 class DerivedVarTest(unittest.TestCase):
 
     # Public

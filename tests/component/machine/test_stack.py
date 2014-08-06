@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.machine.stack import Stack
 
+
 class StackTest(unittest.TestCase):
 
     # Public

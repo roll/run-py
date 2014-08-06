@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.task.descriptor import DescriptorTask
 
+
 class DescriptorTaskTest(unittest.TestCase):
 
     # Public

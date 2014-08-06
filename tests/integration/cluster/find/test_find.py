@@ -5,6 +5,7 @@ from functools import partial
 from unittest.mock import patch
 from run.cluster.find import find
 
+
 class find_Test(unittest.TestCase):
 
     # Public

@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.signal.dispatcher import Dispatcher
 
+
 class DispatcherTest(unittest.TestCase):
 
     # Public

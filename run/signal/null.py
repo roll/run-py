@@ -1,5 +1,6 @@
 from .dispatcher import Dispatcher
 
+
 class NullDispatcher(Dispatcher):
 
     # Public

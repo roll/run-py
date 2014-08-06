@@ -1,6 +1,7 @@
 import subprocess
 from .task import Task
 
+
 class SubprocessTask(Task):
 
     # Public

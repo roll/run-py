@@ -2,6 +2,7 @@ import unittest
 from run.task.signal import (InitiatedTaskSignal, SuccessedTaskSignal,
                              FailedTaskSignal, Signal)
 
+
 class TaskSignalTest(unittest.TestCase):
 
     # Public

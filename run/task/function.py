@@ -1,6 +1,7 @@
 import inspect
 from .task import Task
 
+
 class FunctionTask(Task):
 
     # Public

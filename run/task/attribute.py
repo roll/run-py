@@ -1,5 +1,6 @@
 from .task import Task
 
+
 class AttributeTask(Task):
 
     # Public

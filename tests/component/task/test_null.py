@@ -1,6 +1,7 @@
 import unittest
 from run.task.null import NullTask
 
+
 class NullTaskTest(unittest.TestCase):
 
     # Public

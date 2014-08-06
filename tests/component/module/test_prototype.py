@@ -2,6 +2,7 @@ import unittest
 from unittest.mock import Mock
 from run.module.prototype import ModulePrototype
 
+
 class ModulePrototypeTest(unittest.TestCase):
 
     # Public

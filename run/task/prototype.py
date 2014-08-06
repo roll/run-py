@@ -1,6 +1,7 @@
 from copy import copy
 from .update import TaskUpdate
 
+
 class TaskPrototype:
 
     # Public

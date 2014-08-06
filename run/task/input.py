@@ -1,6 +1,7 @@
 from box import io
 from .function import FunctionTask
 
+
 class InputTask(FunctionTask):
 
     # Public
