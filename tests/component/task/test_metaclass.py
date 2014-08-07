@@ -21,14 +21,22 @@ class TaskMetaclassTest(unittest.TestCase):
     def test___call__(self):
         instance = self.Class(*self.args, **self.kwargs)
         self.assertIsInstance(instance, Mock)
+        # Check Prototype call
         self.Prototype.assert_called_with(
-            *self.args, meta_class=self.Class, **self.kwargs)
+            *self.args,
+            meta_class=self.Class,
+            meta_updates=None,
+            **self.kwargs)
+        # Check prototype call
         self.assertFalse(self.Prototype.return_value.called)
 
     def test___call___with_module(self):
         instance = self.Class(meta_module='module')
         self.assertIsInstance(instance, Mock)
-        self.Prototype.assert_called_with(meta_class=self.Class)
+        # Check Prototype call
+        self.Prototype.assert_called_with(
+            meta_class=self.Class,
+            meta_updates=None)
         # Check prototype call
         self.prototype = self.Prototype.return_value
         self.prototype.__meta_build__.assert_called_with('module')
@@ -36,7 +44,11 @@ class TaskMetaclassTest(unittest.TestCase):
     def test___call___with_module_is_none(self):
         instance = self.Class(meta_module=None)
         self.assertIsInstance(instance, Mock)
-        self.Prototype.assert_called_with(meta_class=self.Class)
+        # Check Prototype call
+        self.Prototype.assert_called_with(
+            meta_class=self.Class,
+            meta_updates=None)
+        # Check NullModule call
         self.Metaclass._null_module.assert_called_with()
         # Check prototype call
         self.prototype = self.Prototype.return_value

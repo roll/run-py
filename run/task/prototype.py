@@ -30,7 +30,7 @@ class TaskPrototype:
         # Documented public wrapper in :func:`.build`
         task = self._create_task(self._class, module)
         if not module:
-            # NullModule
+            # NullModule - update
             self._update_task(task)
         return task
 

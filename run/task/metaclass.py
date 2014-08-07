@@ -10,17 +10,19 @@ class TaskMetaclass(ABCMeta):
 
     # Public
 
-    def __call__(self, *args, **kwargs):
-        module = kwargs.pop('meta_module', Null)
-        prototype = self._TaskPrototype(*args, meta_class=self, **kwargs)
-        if module is not Null:
-            if module is None:
-                # TODO: use inject?
-                NullModule = import_object(self._null_module)
-                module = NullModule()
-            return build(prototype, module)
-        else:
+    def __call__(self, *args, meta_module=Null, meta_updates=None, **kwargs):
+        prototype = self._TaskPrototype(
+            *args, meta_class=self, meta_updates=meta_updates, **kwargs)
+        if meta_module is Null:
+            # Return prototype
             return prototype
+        else:
+            # Build and return task
+            if meta_module is None:
+                NullModule = import_object(self._null_module)
+                meta_module = NullModule()
+            task = build(prototype, meta_module)
+            return task
 
     # Protected
 
