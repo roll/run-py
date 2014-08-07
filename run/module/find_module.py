@@ -15,6 +15,12 @@ class FindModule(Module):
             basedir=kwargs.pop('basedir', None),
             recursively=kwargs.pop('recursively', None),
             getfirst=True)
+        module = Module(
+            *args,
+            meta_module=meta_module,
+            meta_updates=meta_updates,
+            **kwargs)
+        return module
 
     # Protected
 
