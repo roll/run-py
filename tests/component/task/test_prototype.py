@@ -30,14 +30,14 @@ class TaskPrototypeTest(unittest.TestCase):
         self.prototype._TaskUpdate.assert_called_with(
             '__setattr__', 'attr2', 'value2')
 
-    def test___fork__(self):
+    def __meta_fork__(self):
         self.prototype.attr2 = 'value2'
-        copied_prototype = self.prototype.__fork__('arg2', kwarg2='kwarg2')
-        self.assertIsInstance(copied_prototype, self.Prototype)
-        self.assertEqual(copied_prototype._class, self.Task)
-        self.assertEqual(copied_prototype._updates, [self.update])
-        self.assertEqual(copied_prototype._args, ('arg1', 'arg2'))
-        self.assertEqual(copied_prototype._kwargs,
+        fork = self.prototype.__meta_fork__('arg2', kwarg2='kwarg2')
+        self.assertIsInstance(fork, self.Prototype)
+        self.assertEqual(fork._class, self.Task)
+        self.assertEqual(fork._updates, [self.update])
+        self.assertEqual(fork._args, ('arg1', 'arg2'))
+        self.assertEqual(fork._kwargs,
             {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'})
 
     @unittest.skip('not fixed after refactoring')

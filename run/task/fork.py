@@ -22,4 +22,4 @@ def fork(prototype, *args, **kwargs):
     In this case task2 will build as task1 copy with redefined
     meta_basedir and default keyword argument param.
     """
-    return prototype.__fork__(*args, **kwargs)
+    return prototype.__meta_fork__(*args, **kwargs)

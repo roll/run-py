@@ -14,7 +14,7 @@ class TaskPrototype:
         super().__setattr__('_args', args)
         super().__setattr__('_kwargs', kwargs)
 
-    def __fork__(self, *args, **kwargs):
+    def __meta_fork__(self, *args, **kwargs):
         # Documented public wrapper in :func:`.fork`
         eupdates = copy(self._updates)
         eargs = self._args + args
