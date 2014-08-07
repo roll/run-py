@@ -6,6 +6,7 @@ from .find_module import FindModule
 from .find import find
 from .metaclass import ModuleMetaclass
 from .module import Module
+from .not_found import NotFound
 from .null import NullModule
 from .prototype import ModulePrototype
 from .spawn import spawn

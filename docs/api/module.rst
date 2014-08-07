@@ -27,7 +27,7 @@ Prototype
 Cluster
 -------
 
-.. autoclass:: run.module.Cluster
+.. autoclass:: run.module.ModuleCluster
 
 Concrete modules
 ----------------
@@ -40,14 +40,14 @@ Concrete modules
 Helper functions
 ----------------
 
-.. autoclass:: run.cluster.find
+.. autoclass:: run.module.find
 .. autofunction:: run.module.module
 .. autofunction:: run.module.spawn
 
 Exceptions
 ----------
 
-.. autoclass:: run.cluster.NotFound
+.. autoclass:: run.module.NotFound
 
 Internal
 ========
