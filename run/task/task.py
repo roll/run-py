@@ -16,7 +16,6 @@ class Task(metaclass=TaskMetaclass):
     @classmethod
     def __meta_create__(cls, prototype):
         self = object.__new__(cls)
-        self._meta_created = True
         return self
 
     def __meta_init__(self, *args, meta_module, meta_updates, **kwargs):
@@ -136,10 +135,6 @@ class Task(metaclass=TaskMetaclass):
         if not self.meta_grayscale:
             qualname = '\033[' + self._meta_color_code + qualname + '\033[0m'
         return qualname
-
-    @property
-    def meta_created(self):
-        return vars(self).get('_meta_created', False)
 
     def meta_depend(self, dependency):
         """Add custom dependency.
