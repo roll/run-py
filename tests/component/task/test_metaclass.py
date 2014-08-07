@@ -11,7 +11,7 @@ class TaskMetaclassTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Prototype = Mock(return_value=Mock(__build__=Mock()))
+        self.Prototype = Mock(return_value=Mock(__meta_build__=Mock()))
         self.Metaclass = self._make_mock_metaclass(self.Prototype)
         self.Class = self._make_mock_class(self.Metaclass)
 
@@ -29,14 +29,18 @@ class TaskMetaclassTest(unittest.TestCase):
         instance = self.Class(meta_module='module')
         self.assertIsInstance(instance, Mock)
         self.Prototype.assert_called_with(meta_class=self.Class)
-        self.Prototype.return_value.__build__.assert_called_with('module')
+        # Check prototype call
+        self.prototype = self.Prototype.return_value
+        self.prototype.__meta_build__.assert_called_with('module')
 
     def test___call___with_module_is_none(self):
         instance = self.Class(meta_module=None)
         self.assertIsInstance(instance, Mock)
         self.Prototype.assert_called_with(meta_class=self.Class)
         self.Metaclass._null_module.assert_called_with()
-        self.Prototype.return_value.__build__.assert_called_with('null_module')
+        # Check prototype call
+        self.prototype = self.Prototype.return_value
+        self.prototype.__meta_build__.assert_called_with('null_module')
 
     # Protected
 

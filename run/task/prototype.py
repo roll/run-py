@@ -26,7 +26,7 @@ class TaskPrototype:
             meta_updates=eupdates,
             **ekwargs)
 
-    def __build__(self, module):
+    def __meta_build__(self, module):
         # Documented public wrapper in :func:`.build`
         task = self._create_task()
         self._initiate_task(task, module)

@@ -13,4 +13,4 @@ def build(prototype, module):
     :class:`.Task`
         Builded task.
     """
-    return prototype.__build__(module)
+    return prototype.__meta_build__(module)
