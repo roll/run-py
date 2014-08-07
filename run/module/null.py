@@ -16,7 +16,7 @@ class NullModule:
 
     @property
     def meta_basedir(self):
-        return os.getcwd()
+        return os.path.abspath(os.getcwd())
 
     @property
     def meta_cache(self):

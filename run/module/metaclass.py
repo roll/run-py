@@ -23,7 +23,7 @@ class ModuleMetaclass(TaskMetaclass):
                     continue
                 if key.startswith('meta_'):
                     continue
-                if isinstance(attr, self._spawn_TaskPrototype):
+                if isinstance(attr, self._BaseTaskPrototype):
                     attrs[key] = self._fork(attr)
                 else:
                     if self._default_convert:
@@ -41,4 +41,4 @@ class ModuleMetaclass(TaskMetaclass):
     _default_convert = settings.convert
     _fork = staticmethod(fork)
     _TaskPrototype = ModulePrototype  # Overriding
-    _spawn_TaskPrototype = TaskPrototype
+    _BaseTaskPrototype = TaskPrototype

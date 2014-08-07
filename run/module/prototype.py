@@ -8,20 +8,17 @@ class ModulePrototype(TaskPrototype):
 
     _TaskPrototype = TaskPrototype
 
-    def _create_task(self):
-        spawned_class = spawn(self._class)
-        task = spawned_class.__meta_create__(self)
-        return task
-
-    def _initiate_task(self, task, module):
-        for name in dir(type(task)):
-            attr = getattr(type(task), name)
+    def _create_task(self, cls, parent_module):
+        spawned_class = spawn(cls)
+        module = super()._create_task(spawned_class, parent_module)
+        for name in dir(type(module)):
+            attr = getattr(type(module), name)
             if isinstance(attr, self._TaskPrototype):
-                nested_task = build(attr, task)
-                setattr(type(task), name, nested_task)
-        return super()._initiate_task(task, module)
+                task = build(attr, module)
+                setattr(type(module), name, task)
+        return module
 
-    def _update_task(self, task):
-        for nested_task in task.meta_tasks.values():
-            nested_task.__meta_update__()
-        return super()._update_task(task)
+    def _update_task(self, module):
+        for task in module.meta_tasks.values():
+            task.__meta_update__()
+        super()._update_task(module)

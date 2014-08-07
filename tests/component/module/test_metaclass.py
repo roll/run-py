@@ -34,7 +34,7 @@ class ModuleMetaclassTest(unittest.TestCase):
             _convert = Mock()
             _default_convert = True
             _fork = Mock()
-            _spawn_TaskPrototype = Mock
+            _BaseTaskPrototype = Mock
         return MockMetaclass
 
     def _make_mock_class(self, metaclass):

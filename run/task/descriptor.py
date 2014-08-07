@@ -6,8 +6,9 @@ class DescriptorTask(Task):
 
     # Public
 
-    def __init__(self, descriptor):
+    def __init__(self, descriptor, *args, **kwargs):
         self._descriptor = descriptor
+        super().__init__(*args, **kwargs)
 
     @property
     def meta_docstring(self):

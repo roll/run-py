@@ -9,15 +9,15 @@ class Var(Task, metaclass=ABCMeta):
 
     # Public
 
-    def __meta_init__(self, *args, **kwargs):
-        self._meta_cached_value = Null
-        super().__meta_init__(*args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        self._cached_value = Null
+        super().__init__(*args, **kwargs)
 
     def __get__(self, module, module_class=None):
         if self.meta_cache:
-            if self._meta_cached_value is Null:
-                self._meta_cached_value = self()
-            return self._meta_cached_value
+            if self._cached_value is Null:
+                self._cached_value = self()
+            return self._cached_value
         else:
             return self()
 

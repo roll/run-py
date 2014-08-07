@@ -35,7 +35,8 @@ class Module(Task, metaclass=ModuleMetaclass):
     @property
     def meta_basedir(self):
         if self.meta_is_main_module:
-            basedir = os.path.dirname(inspect.getfile(type(self)))
+            file = inspect.getfile(type(self))
+            basedir = os.path.abspath(os.path.dirname(file))
         else:
             basedir = self.meta_module.meta_basedir
         return self._meta_params.get('basedir', basedir)
@@ -174,7 +175,7 @@ class Module(Task, metaclass=ModuleMetaclass):
 
     # Protected
 
-    _meta_color_code = settings.module_color_code
+    _meta_color_code = settings.module_color_code  # Overriding
     _meta_FailedTaskSignal = FailedModuleSignal  # Overriding
     _meta_InitiatedTaskSignal = InitiatedModuleSignal  # Overriding
     _meta_print = staticmethod(print)

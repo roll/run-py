@@ -14,32 +14,33 @@ class Task(metaclass=TaskMetaclass):
     # Public
 
     @classmethod
-    def __meta_create__(cls, prototype):
+    def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
+        # Create task object
         self = object.__new__(cls)
-        return self
-
-    def __meta_init__(self, *args, meta_module, meta_updates, **kwargs):
+        # Initiate module, updates
         self._meta_module = meta_module
         self._meta_updates = meta_updates
-        self._meta_args = ()
-        self._meta_kwargs = {}
-        self._meta_dependencies = []
-        # Collect meta params
+        # Initiate params
         self._meta_params = {}
         for key in list(kwargs):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self._meta_params[name] = kwargs.pop(key)
-        # Complete building
+        # Initiate directory
         self._meta_initial_dir = os.path.abspath(os.getcwd())
+        # Initiate dependencies
+        self._meta_dependencies = []
         self._meta_init_dependencies()
+        # Initiate arguments
+        self._meta_args = ()
+        self._meta_kwargs = {}
+        # Call user init
         self.__init__(*args, **kwargs)
-        self._meta_initiated = True
+        return self
 
     def __meta_update__(self):
         for update in self._meta_updates:
             update.apply(self)
-        self._meta_updated = True
 
     def __init__(self, *args, **kwargs):
         self._meta_args = args
@@ -65,10 +66,8 @@ class Task(metaclass=TaskMetaclass):
         return result
 
     def __repr__(self):
-        if self.meta_initiated:
-            return ('<{self.meta_type} "{self.meta_qualname}">'.
-                    format(self=self))
-        return super().__repr__()
+        return ('<{self.meta_type} "{self.meta_qualname}">'.
+                format(self=self))
 
     @property
     def meta_args(self):
@@ -94,15 +93,6 @@ class Task(metaclass=TaskMetaclass):
     @meta_basedir.setter
     def meta_basedir(self, value):
         self._meta_params['basedir'] = value
-
-    @property
-    def meta_initiated(self):
-        """Build status of task (builded or not).
-
-        Task is initiated after succefull __initiated__ call.
-        It includes some internal initiating and __init__ call.
-        """
-        return vars(self).get('_meta_initiated', False)
 
     @property
     def meta_chdir(self):
@@ -277,6 +267,10 @@ class Task(metaclass=TaskMetaclass):
         return self.meta_module.meta_main_module
 
     @property
+    def meta_params(self):
+        return self._meta_params
+
+    @property
     def meta_module(self):
         """Task's module.
         """
@@ -363,14 +357,6 @@ class Task(metaclass=TaskMetaclass):
         """Task's type as a string.
         """
         return type(self).__name__
-
-    @property
-    def meta_updated(self):
-        return vars(self).get('_meta_updated', False)
-
-    @property
-    def meta_updates(self):
-        return self._meta_updates
 
     # Protected
 

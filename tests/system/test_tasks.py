@@ -55,7 +55,7 @@ class TasksTest(ExamplesTest):
 
     def test_meta(self):
         result = self._execute('meta default')
-        self.assertRegex(result, ".*'updates': \[\]}\n")
+        self.assertRegex(result, ".*'type': 'NullTask'}\n")
 
     def test_method(self):
         result = self._execute('method')
