@@ -41,12 +41,12 @@ class TaskPrototypeTest(unittest.TestCase):
             {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'})
 
     @unittest.skip('not fixed after refactoring')
-    def test___initiate__(self):
+    def test___meta_init__(self):
         self.prototype.attr2 = 'value2'
-        task = self.prototype.__initiate__('module')
+        task = self.prototype.__meta_init__('module')
         self.assertIsInstance(task, self.Task)
-        # Check __initiate__ call
-        task.__initiate__.assert_called_with(
+        # Check __meta_init__ call
+        task.__meta_init__.assert_called_with(
             *self.args,
             meta_module='module',
             meta_updates=self.updates,
@@ -58,7 +58,7 @@ class TaskPrototypeTest(unittest.TestCase):
         class MockTask:
             # Public
             __meta_create__ = Mock()
-            __initiate__ = Mock()
+            __meta_init__ = Mock()
             __update__ = Mock()
             attr1 = 'value1'
         return MockTask

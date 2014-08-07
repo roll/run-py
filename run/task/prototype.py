@@ -74,7 +74,7 @@ class TaskPrototype:
         return task
 
     def _initiate_task(self, task, module):
-        task.__initiate__(
+        task.__meta_init__(
             *self._args,
             meta_module=module,
             meta_updates=self._updates,

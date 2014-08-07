@@ -19,7 +19,7 @@ class Task(metaclass=TaskMetaclass):
         self._meta_created = True
         return self
 
-    def __initiate__(self, *args, meta_module, meta_updates, **kwargs):
+    def __meta_init__(self, *args, meta_module, meta_updates, **kwargs):
         self._meta_module = meta_module
         self._meta_updates = meta_updates
         self._meta_args = ()
