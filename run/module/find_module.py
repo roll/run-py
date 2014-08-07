@@ -1,3 +1,4 @@
+import inspect
 from .module import Module
 from .find import find
 
@@ -12,6 +13,7 @@ class FindModule(Module):
             names=kwargs.pop('names', None),
             tags=kwargs.pop('tags', None),
             file=kwargs.pop('file', None),
+            exclude='./' + inspect.getfile(type(meta_module)),
             basedir=kwargs.pop('basedir', None),
             recursively=kwargs.pop('recursively', None),
             getfirst=True)
