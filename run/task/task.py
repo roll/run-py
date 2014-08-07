@@ -14,7 +14,7 @@ class Task(metaclass=TaskMetaclass):
     # Public
 
     @classmethod
-    def __create__(cls, prototype):
+    def __meta_create__(cls, prototype):
         self = object.__new__(cls)
         self._meta_created = True
         return self

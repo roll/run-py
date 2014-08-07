@@ -70,7 +70,7 @@ class TaskPrototype:
         self._updates.append(update)
 
     def _create_task(self):
-        task = self._class.__create__(self)
+        task = self._class.__meta_create__(self)
         return task
 
     def _initiate_task(self, task, module):

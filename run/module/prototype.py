@@ -10,7 +10,7 @@ class ModulePrototype(TaskPrototype):
 
     def _create_task(self):
         spawned_class = spawn(self._class)
-        task = spawned_class.__create__(self)
+        task = spawned_class.__meta_create__(self)
         return task
 
     def _initiate_task(self, task, module):

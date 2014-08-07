@@ -57,7 +57,7 @@ class TaskPrototypeTest(unittest.TestCase):
     def _make_mock_task_class(self):
         class MockTask:
             # Public
-            __create__ = Mock()
+            __meta_create__ = Mock()
             __initiate__ = Mock()
             __update__ = Mock()
             attr1 = 'value1'
