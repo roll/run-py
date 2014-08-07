@@ -22,7 +22,6 @@ class ModulePrototype(TaskPrototype):
         return super()._initiate_task(task, module)
 
     def _update_task(self, task):
-        for name, nested_task in task.meta_tasks.items():
-            nested_task = nested_task.__update__()
-            setattr(type(task), name, nested_task)
+        for nested_task in task.meta_tasks.values():
+            nested_task.__update__()
         return super()._update_task(task)
