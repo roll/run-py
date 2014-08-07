@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.cluster.cluster import Cluster
+from run.module.cluster import Cluster
 
 
 class ClusterTest(unittest.TestCase):

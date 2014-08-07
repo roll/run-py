@@ -1,40 +1,71 @@
 import unittest
-from unittest.mock import Mock
-from run.module.find import FindModule
+from unittest.mock import Mock, ANY
+from run.module.find import find
 
 
-class FindModuleTest(unittest.TestCase):
+class find_Test(unittest.TestCase):
 
     # Public
 
     def setUp(self):
-        self.inner_module = Mock()
+        self.find = self._make_mock_find()
 
-    def test___new__(self):
-        Module = self._make_mock_module_class(self.inner_module)
-        module = Module(
-            names='names',
-            tags='tags',
-            file='file',
-            basedir='basedir',
-            recursively='recursively')
-        self.assertIsInstance(module, Mock)
-        Module._find.assert_called_with(
-            names='names',
-            tags='tags',
-            file='file',
-            basedir='basedir',
-            recursively='recursively',
-            getfirst=True)
+    def test(self):
+        result = self.find()
+        self.assertEqual(result, self.find._find_objects.return_value)
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
+            filename='default_file',
+            notfilename='default_exclude',
+            filepath=None,
+            notfilepath=None,
+            maxdepth=None,
+            mappers=ANY,
+            getfirst_exception=self.find._getfirst_exception)
 
-    def test___new___no_modules(self):
-        Module = self._make_mock_module_class()
-        self.assertRaises(Exception, Module)
+    def test_with_filenames(self):
+        self.find(
+            file='file',
+            exclude='exclude')
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
+            filename='file',
+            notfilename='exclude',
+            filepath=None,
+            notfilepath=None,
+            maxdepth=None,
+            mappers=ANY,
+            getfirst_exception=self.find._getfirst_exception)
+
+    def test_with_filepathes_not_recursively(self):
+        self.find(
+            file='dir/file',
+            exclude='dir/exclude',
+            recursively=False)
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
+            filename=None,
+            notfilename=None,
+            filepath='dir/file',
+            notfilepath='dir/exclude',
+            maxdepth=None,
+            mappers=ANY,
+            getfirst_exception=self.find._getfirst_exception)
 
     # Protected
 
-    def _make_mock_module_class(self, module=None):
-        class MockModule(FindModule):
+    def _make_mock_find(self):
+        class mock_find(find):
+            # Public
+            default_basedir = 'default_basedir'
+            default_exclude = 'default_exclude'
+            default_file = 'default_file'
+            default_names = 'default_names'
+            default_recursively = 'default_recursively'
+            default_tags = 'default_tags'
             # Protected
-            _find = Mock(return_value=module)
-        return MockModule
+            _find_objects = Mock()
+        return mock_find

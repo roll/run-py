@@ -1,7 +1,7 @@
 import unittest
 import inspect
 from unittest.mock import Mock
-from run.cluster.constraint import Constraint
+from run.module.constraint import Constraint
 
 
 class ConstraintTest(unittest.TestCase):

@@ -10,7 +10,6 @@ Design Explained
      design/converters
      design/dependencies
      design/signals
-     design/cluster
      design/machine
      design/program
      design/settings

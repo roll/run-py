@@ -1,5 +1,5 @@
 from box.functools import cachedproperty
-from ..cluster import Cluster
+from ..module import Cluster
 from ..signal import Dispatcher
 from ..task import Task
 from .controller import Controller

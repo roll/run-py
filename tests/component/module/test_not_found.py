@@ -1,5 +1,5 @@
 import unittest
-from run.cluster.not_found import NotFound
+from run.module.not_found import NotFound
 
 
 class NotFoundTest(unittest.TestCase):
