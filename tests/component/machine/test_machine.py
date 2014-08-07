@@ -33,7 +33,7 @@ class MachineTest(unittest.TestCase):
             machine._Dispatcher.return_value,
             machine._Stack.return_value)
         # Cluster
-        machine._Cluster.assert_called_with(
+        machine._ModuleCluster.assert_called_with(
             names='names',
             tags='tags',
             file='file',
@@ -44,7 +44,7 @@ class MachineTest(unittest.TestCase):
             skip='skip',
             dispatcher=machine._Dispatcher.return_value)
         # Cluster's return values
-        for attr in machine._Cluster.return_value.task:
+        for attr in machine._ModuleCluster.return_value.task:
             if hasattr(attr, 'assert_called_with'):
                 attr.assert_called_with(*self.args, **self.kwargs)
         # Dispatcher
@@ -66,7 +66,7 @@ class MachineTest(unittest.TestCase):
             # Protected
             _Controller = Mock()
             _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
-            _Cluster = Mock(return_value=Mock(task=[
+            _ModuleCluster = Mock(return_value=Mock(task=[
                 Mock(return_value='result1'),
                 Mock(return_value='result2'),
                 'attr3']))

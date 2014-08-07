@@ -1,5 +1,5 @@
 from box.functools import cachedproperty
-from ..module import Cluster
+from ..module import ModuleCluster
 from ..signal import Dispatcher
 from ..task import Task
 from .controller import Controller
@@ -40,7 +40,7 @@ class Machine:
 
     # Protected
 
-    _Cluster = Cluster
+    _ModuleCluster = ModuleCluster
     _Controller = Controller
     _Dispatcher = Dispatcher
     _print = staticmethod(print)
@@ -54,7 +54,7 @@ class Machine:
 
     @cachedproperty
     def _cluster(self):
-        return self._Cluster(
+        return self._ModuleCluster(
             names=self._names,
             tags=self._tags,
             file=self._file,

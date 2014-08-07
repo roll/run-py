@@ -1,6 +1,6 @@
 from .auto import AutoModule
 from .cluster_module import ClusterModule
-from .cluster import Cluster
+from .cluster import ModuleCluster
 from .converter import module
 from .find_module import FindModule
 from .find import find

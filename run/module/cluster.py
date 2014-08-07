@@ -3,7 +3,7 @@ from box.functools import cachedproperty
 from .find import find
 
 
-class Cluster:
+class ModuleCluster:
     """Modules cluster representation.
     """
 

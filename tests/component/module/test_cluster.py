@@ -1,9 +1,9 @@
 import unittest
 from unittest.mock import Mock
-from run.module.cluster import Cluster
+from run.module.cluster import ModuleCluster
 
 
-class ClusterTest(unittest.TestCase):
+class ModuleClusterTest(unittest.TestCase):
 
     # Public
 
@@ -45,7 +45,7 @@ class ClusterTest(unittest.TestCase):
     # Protected
 
     def _make_mock_cluster_class(self):
-        class MockCluster(Cluster):
+        class MockCluster(ModuleCluster):
             # Protected
             _find = Mock(return_value=[
                 Mock(return_value=Mock(attr1=1, attr2=1)),
