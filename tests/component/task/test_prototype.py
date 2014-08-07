@@ -59,7 +59,7 @@ class TaskPrototypeTest(unittest.TestCase):
             # Public
             __meta_create__ = Mock()
             __meta_init__ = Mock()
-            __update__ = Mock()
+            __meta_update__ = Mock()
             attr1 = 'value1'
         return MockTask
 

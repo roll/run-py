@@ -23,5 +23,5 @@ class ModulePrototype(TaskPrototype):
 
     def _update_task(self, task):
         for nested_task in task.meta_tasks.values():
-            nested_task.__update__()
+            nested_task.__meta_update__()
         return super()._update_task(task)

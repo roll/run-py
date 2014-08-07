@@ -81,4 +81,4 @@ class TaskPrototype:
             **self._kwargs)
 
     def _update_task(self, task):
-        task.__update__()
+        task.__meta_update__()
