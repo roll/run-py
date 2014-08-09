@@ -1,7 +1,8 @@
 import inspect
+from box.findtools import Constraint
 
 
-class Constraint:
+class Constraint(Constraint):
 
     # Public
 
