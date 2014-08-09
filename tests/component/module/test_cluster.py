@@ -15,7 +15,6 @@ class ModuleClusterTest(unittest.TestCase):
             names='names',
             tags='tags',
             file='file',
-            exclude='exclude',
             basedir='basedir',
             recursively='recursively',
             grayscale='grayscale',
@@ -28,7 +27,6 @@ class ModuleClusterTest(unittest.TestCase):
             names='names',
             tags='tags',
             file='file',
-            exclude='exclude',
             basedir='basedir',
             recursively='recursively')
         # Find's return values

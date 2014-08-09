@@ -17,7 +17,6 @@ class find_Test(unittest.TestCase):
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
             filename='default_file',
-            notfilename='default_exclude',
             filepath=None,
             notfilepath=None,
             maxdepth=None,
@@ -25,16 +24,12 @@ class find_Test(unittest.TestCase):
             getfirst_exception=self.find._getfirst_exception)
 
     def test_with_filenames(self):
-        self.find(
-            file='file',
-            exclude='exclude')
+        self.find(file='file')
         # Check find_objects call
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
             filename='file',
-            notfilename='exclude',
             filepath=None,
-            notfilepath=None,
             maxdepth=None,
             mappers=ANY,
             getfirst_exception=self.find._getfirst_exception)
@@ -42,7 +37,6 @@ class find_Test(unittest.TestCase):
     def test_with_filepathes_not_recursively(self):
         self.find(
             file='dir/file',
-            exclude='dir/exclude',
             recursively=False)
         # Check find_objects call
         self.find._find_objects.assert_called_with(
@@ -50,7 +44,6 @@ class find_Test(unittest.TestCase):
             filename=None,
             notfilename=None,
             filepath='dir/file',
-            notfilepath='dir/exclude',
             maxdepth=None,
             mappers=ANY,
             getfirst_exception=self.find._getfirst_exception)
@@ -61,7 +54,6 @@ class find_Test(unittest.TestCase):
         class mock_find(find):
             # Public
             default_basedir = 'default_basedir'
-            default_exclude = 'default_exclude'
             default_file = 'default_file'
             default_names = 'default_names'
             default_recursively = 'default_recursively'

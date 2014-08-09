@@ -14,7 +14,6 @@ class find(Function):
     # Public
 
     default_basedir = settings.basedir
-    default_exclude = settings.exclude
     default_file = settings.file
     default_names = settings.names
     default_recursively = settings.recursively
@@ -22,7 +21,7 @@ class find(Function):
 
     def __init__(self, *,
                  names=None, tags=None,
-                 file=None, exclude=None, basedir=None, recursively=None,
+                 file=None, basedir=None, recursively=None,
                  **find_params):
         if names is None:
             names = self.default_names
@@ -30,8 +29,6 @@ class find(Function):
             tags = self.default_tags
         if file is None:
             file = self.default_file
-        if exclude is None:
-            exclude = self.default_exclude
         if basedir is None:
             basedir = self.default_basedir
         if recursively is None:
@@ -39,7 +36,6 @@ class find(Function):
         self._names = names
         self._tags = tags
         self._file = file
-        self._exclude = exclude
         self._basedir = basedir
         self._recursively = recursively
         self._find_params = find_params
@@ -48,9 +44,7 @@ class find(Function):
         Modules = self._find_objects(
             basedir=self._basedir,
             filename=self._filename,
-            notfilename=self._notfilename,
             filepath=self._filepath,
-            notfilepath=self._notfilepath,
             maxdepth=self._maxdepth,
             mappers=self._mappers,
             getfirst_exception=self._getfirst_exception,
@@ -75,20 +69,6 @@ class find(Function):
         if self._file:
             if os.path.sep in self._file:
                 return self._file
-        return None
-
-    @property
-    def _notfilename(self):
-        if self._exclude:
-            if os.path.sep not in self._exclude:
-                return self._exclude
-        return None
-
-    @property
-    def _notfilepath(self):
-        if self._exclude:
-            if os.path.sep in self._exclude:
-                return self._exclude
         return None
 
     @property

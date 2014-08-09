@@ -12,7 +12,6 @@ class Settings(Settings):
     chdir = True
     convert = True
     grayscale = False
-    exclude = None
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
@@ -59,12 +58,6 @@ class Settings(Settings):
                  'flags': ['-b', '--basedir'],
                  'default': self.basedir,
                  'help': 'Base directory path.',
-                },
-                {
-                 'dest': 'exclude',
-                 'flags': ['-e', '--exclude'],
-                 'default': self.exclude,
-                 'help': 'Exclude name/path/pattern.',
                 },
                 {
                  'dest': 'file',

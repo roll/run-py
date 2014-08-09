@@ -11,15 +11,13 @@ class ModuleCluster:
 
     def __init__(self, *,
                  names=None, tags=None,
-                 file=None, exclude=None,
-                 basedir=None, recursively=False,
+                 file=None, basedir=None, recursively=False,
                  grayscale=False, skip=False,
                  dispatcher=None,
                  **find_params):
         self._names = names
         self._tags = tags
         self._file = file
-        self._exclude = exclude
         self._basedir = basedir
         self._recursively = recursively
         self._grayscale = grayscale
@@ -62,7 +60,6 @@ class ModuleCluster:
             names=self._names,
             tags=self._tags,
             file=self._file,
-            exclude=self._exclude,
             basedir=self._basedir,
             recursively=self._recursively,
             **self._find_params)

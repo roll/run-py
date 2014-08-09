@@ -17,39 +17,37 @@ class MachineTest(unittest.TestCase):
             names='names',
             tags='tags',
             file='file',
-            exclude='exclude',
             basedir='basedir',
             recursively='recursively',
             grayscale='grayscale',
             skip='skip')
         machine.process('task', *self.args, **self.kwargs)
-        # Print
+        # Check print call
         machine._print.assert_has_calls([
             call('result1'),
             call('result2'),
             call('attr3')])
-        # Controller
+        # Check Controller call
         machine._Controller.assert_called_with(
             machine._Dispatcher.return_value,
             machine._Stack.return_value)
-        # Cluster
+        # Check ModuleCluster call
         machine._ModuleCluster.assert_called_with(
             names='names',
             tags='tags',
             file='file',
-            exclude='exclude',
             basedir='basedir',
             recursively='recursively',
             grayscale='grayscale',
             skip='skip',
             dispatcher=machine._Dispatcher.return_value)
-        # Cluster's return values
+        # Check Cluster's return values
         for attr in machine._ModuleCluster.return_value.task:
             if hasattr(attr, 'assert_called_with'):
                 attr.assert_called_with(*self.args, **self.kwargs)
-        # Dispatcher
+        # Check Dispatcher callCluster
         machine._Dispatcher.assert_called_with()
-        # Stack
+        # Check stack
         self.assertEqual(machine._stack, machine._Stack.return_value)
         self.assertTrue(machine._Stack.called)
 
