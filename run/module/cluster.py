@@ -9,12 +9,12 @@ class ModuleCluster:
 
     # Public
 
-    def __init__(self, *,
+    def __init__(self, *filters,
                  names=None, tags=None,
                  file=None, basedir=None, recursively=False,
-                 grayscale=False, skip=False,
-                 dispatcher=None,
-                 **find_params):
+                 grayscale=False, skip=False, dispatcher=None,
+                 **params):
+        self._filters = filters
         self._names = names
         self._tags = tags
         self._file = file
@@ -23,7 +23,7 @@ class ModuleCluster:
         self._grayscale = grayscale
         self._skip = skip
         self._dispatcher = dispatcher
-        self._find_params = find_params
+        self._params = params
 
     def __getattr__(self, name):
         tasks = []
@@ -57,10 +57,11 @@ class ModuleCluster:
     @cachedproperty
     def _Modules(self):
         Modules = self._find(
+            *self._filters,
             names=self._names,
             tags=self._tags,
             file=self._file,
             basedir=self._basedir,
             recursively=self._recursively,
-            **self._find_params)
+            **self._params)
         return Modules

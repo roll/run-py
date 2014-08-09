@@ -19,10 +19,10 @@ class find(Function):
     default_recursively = settings.recursively
     default_tags = settings.tags
 
-    def __init__(self, *,
+    def __init__(self, *filters,
                  names=None, tags=None,
                  file=None, basedir=None, recursively=None,
-                 **find_params):
+                 **params):
         if names is None:
             names = self.default_names
         if tags is None:
@@ -33,55 +33,52 @@ class find(Function):
             basedir = self.default_basedir
         if recursively is None:
             recursively = self.default_recursively
+        self._filters = filters
         self._names = names
         self._tags = tags
         self._file = file
         self._basedir = basedir
         self._recursively = recursively
-        self._find_params = find_params
+        self._params = params
 
     def __call__(self):
         Modules = self._find_objects(
+            *self._effective_filters,
             basedir=self._basedir,
-            filename=self._filename,
-            filepath=self._filepath,
-            maxdepth=self._maxdepth,
-            mappers=self._mappers,
-            getfirst_exception=self._getfirst_exception,
-            **self._find_params)
+            filepathes=self._filepathes,
+            mappers=self._effective_mappers,
+            getfirst_exception=self._NotFound,
+            **self._params)
         return Modules
 
     # Protected
 
-    _getfirst_exception = NotFound
     _find_objects = find_objects
     _Module = Module
+    _NotFound = NotFound
 
     @property
-    def _filename(self):
-        if self._file:
-            if os.path.sep not in self._file:
-                return self._file
-        return None
+    def _effective_filters(self):
+        filters = []
+        if self._filepathesis is not None:
+            filters.append({'filename': self._file})
+            if not self._recursively:
+                filters.append({'maxdepth': 1})
+        filters += self._filters
+        return filters
 
     @property
-    def _filepath(self):
-        if self._file:
+    def _filepathes(self):
+        if self._file is not None:
             if os.path.sep in self._file:
-                return self._file
-        return None
-
-    @property
-    def _maxdepth(self):
-        if not self._recursively:
-            if self._filepath is None:
-                return 1
+                return [self._file]
         return None
 
     @cachedproperty
-    def _mappers(self):
+    def _effective_mappers(self):
         mappers = []
         constraint = Constraint(
             self._Module, names=self._names, tags=self._tags)
         mappers.append(constraint)
+        mappers += self.params.pop('mappers', [])
         return mappers

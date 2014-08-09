@@ -10,11 +10,12 @@ class Machine:
 
     # Public
 
-    def __init__(self, *,
+    def __init__(self, *filters,
                  names=None, tags=None,
                  file=None, basedir=None, recursively=False,
                  grayscale=False, skip=False, plain=False,
-                 **find_params):
+                 **params):
+        self._filters = filters
         self._names = names
         self._tags = tags
         self._file = file
@@ -23,7 +24,7 @@ class Machine:
         self._grayscale = grayscale
         self._skip = skip
         self._plain = plain
-        self._find_params = find_params
+        self._params = params
 
     def process(self, task, *args, **kwargs):
         self._controller.listen()
@@ -53,6 +54,7 @@ class Machine:
     @cachedproperty
     def _cluster(self):
         return self._ModuleCluster(
+            *self._filters,
             names=self._names,
             tags=self._tags,
             file=self._file,
@@ -61,7 +63,7 @@ class Machine:
             grayscale=self._grayscale,
             skip=self._skip,
             dispatcher=self._dispatcher,
-            **self._find_params)
+            **self._params)
 
     @cachedproperty
     def _dispatcher(self):
