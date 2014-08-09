@@ -10,12 +10,12 @@ class FindModule(Module):
     @classmethod
     def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
         Module = cls._find(
-            {'notfilepath': inspect.getfile(type(meta_module))},
             names=kwargs.pop('names', None),
             tags=kwargs.pop('tags', None),
             file=kwargs.pop('file', None),
             basedir=kwargs.pop('basedir', None),
             recursively=kwargs.pop('recursively', None),
+            filters=[{'notfilepath': inspect.getfile(type(meta_module))}],
             getfirst=True)
         module = Module(
             *args,
