@@ -7,6 +7,7 @@ from .module import Module
 from .not_found import NotFound
 
 
+# TODO: rebase on findtools.find?
 class find(Function):
     """Find run modules.
     """
@@ -19,7 +20,8 @@ class find(Function):
     default_recursively = settings.recursively
     default_tags = settings.tags
 
-    def __init__(self, *, names=None, tags=None,
+    def __init__(self, *,
+                 names=None, tags=None,
                  file=None, basedir=None, recursively=None, **find_params):
         if names is None:
             names = self.default_names
