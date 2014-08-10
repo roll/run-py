@@ -13,7 +13,7 @@ class Machine:
     def __init__(self, *,
                  names=None, tags=None,
                  file=None, basedir=None, recursively=False,
-                 grayscale=False, skip=False, plain=False, **find_params):
+                 grayscale=False, skip=False, plain=False):
         self._names = names
         self._tags = tags
         self._file = file
@@ -22,7 +22,6 @@ class Machine:
         self._grayscale = grayscale
         self._skip = skip
         self._plain = plain
-        self._find_params = find_params
 
     def process(self, task, *args, **kwargs):
         self._controller.listen()
@@ -59,8 +58,7 @@ class Machine:
             recursively=self._recursively,
             grayscale=self._grayscale,
             skip=self._skip,
-            dispatcher=self._dispatcher,
-            **self._find_params)
+            dispatcher=self._dispatcher)
 
     @cachedproperty
     def _dispatcher(self):
