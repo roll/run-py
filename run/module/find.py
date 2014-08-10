@@ -8,6 +8,8 @@ class FindModule(Module):
 
     # Public
 
+    default_recursively = True
+
     @classmethod
     def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
         basedir = kwargs.pop('basedir', None)
@@ -18,7 +20,7 @@ class FindModule(Module):
             tags=kwargs.pop('tags', None),
             file=kwargs.pop('file', None),
             basedir=basedir,
-            recursively=kwargs.pop('recursively', None),
+            recursively=kwargs.pop('recursively', cls.default_recursively),
             filters=[{'notfilepath': notfilepath}],
             getfirst=True)
         module = Module(
