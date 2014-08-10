@@ -1,0 +1,5 @@
+class TaskCluster:
+
+    # Public
+
+    pass
