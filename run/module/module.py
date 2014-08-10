@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..settings import settings
+from ..finder import Target
 from ..task import Task, NullTask
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
@@ -10,7 +11,7 @@ from .signal import (InitiatedModuleSignal, SuccessedModuleSignal,
                      FailedModuleSignal)
 
 
-class Module(Task, metaclass=ModuleMetaclass):
+class Module(Task, Target, metaclass=ModuleMetaclass):
 
     # Public
 

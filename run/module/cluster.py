@@ -1,6 +1,6 @@
 import logging
 from box.functools import cachedproperty
-from .find import find
+from ..finder import find
 
 
 class ModuleCluster:
