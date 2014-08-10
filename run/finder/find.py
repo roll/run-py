@@ -3,11 +3,10 @@ from box.findtools import find_objects
 from box.functools import Function, cachedproperty
 from ..settings import settings
 from .constraint import Constraint
-from .module import Module
 from .not_found import NotFound
+from .target import Target
 
 
-# TODO: rebase on findtools.find?
 class find(Function):
     """Find run modules.
     """
@@ -19,10 +18,13 @@ class find(Function):
     default_names = settings.names
     default_recursively = settings.recursively
     default_tags = settings.tags
+    default_target = Target
 
-    def __init__(self, *,
+    def __init__(self, *, target=None,
                  names=None, tags=None,
                  file=None, basedir=None, recursively=None, **find_params):
+        if target is None:
+            target = self.default_target
         if names is None:
             names = self.default_names
         if tags is None:
@@ -53,7 +55,6 @@ class find(Function):
     # Protected
 
     _find_objects = find_objects
-    _Module = Module
     _NotFound = NotFound
 
     @property
@@ -76,6 +77,6 @@ class find(Function):
     @cachedproperty
     def _effective_constraints(self):
         constraints = [
-            Constraint(self._Module, names=self._names, tags=self._tags)]
+            Constraint(self._target, names=self._names, tags=self._tags)]
         constraints += self._find_params.pop('constraints', [])
         return constraints

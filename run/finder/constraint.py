@@ -6,8 +6,8 @@ class Constraint(Constraint):
 
     # Public
 
-    def __init__(self, module, *, names=None, tags=None):
-        self._Module = module
+    def __init__(self, target, *, names=None, tags=None):
+        self._target = target
         self._names = names
         self._tags = tags
 
@@ -16,7 +16,7 @@ class Constraint(Constraint):
             emitter.skip()
         elif not isinstance(emitter.object, type):
             emitter.skip()
-        elif not issubclass(emitter.object, self._Module):
+        elif not issubclass(emitter.object, self._target):
             emitter.skip()
         elif not self._match_names(emitter.object.meta_name):
             emitter.skip()
