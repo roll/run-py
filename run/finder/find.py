@@ -20,9 +20,11 @@ class find(Function):
     default_tags = settings.tags
     default_target = Target
 
-    def __init__(self, *, target=None,
+    def __init__(self, *,
+                 target=None,
                  names=None, tags=None,
-                 file=None, basedir=None, recursively=None, **find_params):
+                 file=None, basedir=None, recursively=None,
+                 **find_params):
         if target is None:
             target = self.default_target
         if names is None:

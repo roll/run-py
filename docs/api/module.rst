@@ -40,19 +40,12 @@ Concrete modules
 Helper functions
 ----------------
 
-.. autoclass:: run.module.find
 .. autofunction:: run.module.module
 .. autofunction:: run.module.spawn
-
-Exceptions
-----------
-
-.. autoclass:: run.module.NotFound
 
 Internal
 ========
 
 Module’s internal implementation.
 
-.. autoclass:: run.module.constraint.Constraint
 .. autoclass:: run.module.error.ModuleAttributeError
