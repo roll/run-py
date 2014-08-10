@@ -17,9 +17,9 @@ class require(Dependency):
 
     # Public
 
-    def __init__(self, task, *args, **kwargs):
+    def __init__(self, predecessor_name, *args, **kwargs):
         self._is_resolved = False
-        super().__init__(task, *args, **kwargs)
+        super().__init__(predecessor_name, *args, **kwargs)
 
     def resolve(self, failed=None):
         if self.enabled:

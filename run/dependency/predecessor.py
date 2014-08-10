@@ -1,7 +1,9 @@
-from abc import ABCMeta
+from abc import ABCMeta, abstractmethod
 
 class Predecessor(metaclass=ABCMeta):
 
     # Public
 
-    pass
+    @abstractmethod
+    def __call__(self, *args, **kwargs):
+        pass  # pragma: no cover

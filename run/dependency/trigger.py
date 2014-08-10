@@ -17,10 +17,10 @@ class trigger(Dependency):
 
     # Public
 
-    def __init__(self, task, *args, **kwargs):
+    def __init__(self, predecessor_name, *args, **kwargs):
         self._on_success = kwargs.pop('on_success', True)
         self._on_fail = kwargs.pop('on_fail', False)
-        super().__init__(task, *args, **kwargs)
+        super().__init__(predecessor_name, *args, **kwargs)
 
     def resolve(self, failed=None):
         if self.enabled:

@@ -3,13 +3,13 @@ import inspect
 from copy import copy
 from abc import abstractmethod
 from contextlib import contextmanager
-from ..dependency import require, trigger
+from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
 from .metaclass import TaskMetaclass
 from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
 
 
-class Task(metaclass=TaskMetaclass):
+class Task(Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Public
 
