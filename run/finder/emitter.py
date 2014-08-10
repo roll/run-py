@@ -1,6 +1,7 @@
-from box.findtools import FindObjectsEmitter
+from box.findtools import ObjectEmitter
 
-class FindEmitter(FindObjectsEmitter):
+
+class Emitter(ObjectEmitter):
 
     # Public
 
