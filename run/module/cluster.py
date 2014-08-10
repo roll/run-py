@@ -1,6 +1,7 @@
 import logging
 from box.functools import cachedproperty
 from ..finder import find
+from .module import Module
 
 
 class ModuleCluster:
@@ -60,3 +61,10 @@ class ModuleCluster:
             basedir=self._basedir,
             recursively=self._recursively)
         return Modules
+
+
+class ClusterModule(Module):
+
+    # Public
+
+    pass

@@ -1,5 +1,0 @@
-class ClusterTask:
-
-    # Public
-
-    pass

@@ -1,6 +1,5 @@
 from .auto import AutoModule
-from .cluster_module import ClusterModule
-from .cluster import ModuleCluster
+from .cluster import ClusterModule, ModuleCluster
 from .converter import module
 from .find import FindModule
 from .metaclass import ModuleMetaclass
