@@ -4,8 +4,8 @@ from box.packaging import Version
 class Version(Version):
 
     major = 0
-    minor = 21
-    micro = 1
+    minor = 22
+    micro = 0
     level = 'final'
 
 
