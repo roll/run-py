@@ -49,14 +49,14 @@ class find(Function):
             filepathes=self._filepathes,
             filters=self._effective_filters,
             constraints=self._effective_constraints,
-            getfirst_exception=self._NotFound,
+            getfirst_exception=self._getfirst_exception,
             **self._find_params)
         return result
 
     # Protected
 
     _find_objects = find_objects
-    _NotFound = NotFound
+    _getfirst_exception = NotFound
 
     @property
     def _filepathes(self):

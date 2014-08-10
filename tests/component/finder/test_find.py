@@ -16,36 +16,42 @@ class find_Test(unittest.TestCase):
         # Check find_objects call
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
-            filename='default_file',
-            filepath=None,
-            notfilepath=None,
-            maxdepth=None,
-            mappers=ANY,
+            filepathes=None,
+            filters=[{'filename': 'default_file'}],
+            constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
 
-    def test_with_filenames(self):
-        self.find(file='file')
+    def test_with_recursively_is_false(self):
+        result = self.find(recursively=False)
+        self.assertEqual(result, self.find._find_objects.return_value)
         # Check find_objects call
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
-            filename='file',
-            filepath=None,
-            maxdepth=None,
-            mappers=ANY,
+            filepathes=None,
+            filters=[{'filename': 'default_file'}, {'maxdepth': 1}],
+            constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
 
-    def test_with_filepathes_not_recursively(self):
-        self.find(
-            file='dir/file',
-            recursively=False)
+    def test_with_file_is_filepath(self):
+        result = self.find(file='dir/file')
+        self.assertEqual(result, self.find._find_objects.return_value)
         # Check find_objects call
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
-            filename=None,
-            notfilename=None,
-            filepath='dir/file',
-            maxdepth=None,
-            mappers=ANY,
+            filepathes=['dir/file'],
+            filters=[],
+            constraints=ANY,
+            getfirst_exception=self.find._getfirst_exception)
+
+    def test_with_file_is_filepath_and_recursively_is_false(self):
+        result = self.find(file='dir/file', recursively=False)
+        self.assertEqual(result, self.find._find_objects.return_value)
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
+            filepathes=['dir/file'],
+            filters=[],
+            constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
 
     # Protected
@@ -58,6 +64,7 @@ class find_Test(unittest.TestCase):
             default_names = 'default_names'
             default_recursively = 'default_recursively'
             default_tags = 'default_tags'
+            default_target = 'default_target'
             # Protected
             _find_objects = Mock()
         return mock_find
