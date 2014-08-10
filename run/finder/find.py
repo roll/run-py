@@ -35,6 +35,7 @@ class find(Function):
             basedir = self.default_basedir
         if recursively is None:
             recursively = self.default_recursively
+        self._target = target
         self._names = names
         self._tags = tags
         self._file = file

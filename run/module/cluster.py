@@ -39,7 +39,7 @@ class ModuleCluster:
 
     # Protected
 
-    _find = staticmethod(find)
+    _find = find
 
     @cachedproperty
     def _modules(self):

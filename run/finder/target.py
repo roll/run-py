@@ -6,7 +6,7 @@ class Target(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def meta_names(self):
+    def meta_name(self):
         pass  # pragma: no cover
 
     @property

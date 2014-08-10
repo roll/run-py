@@ -12,15 +12,15 @@ class Constraint(Constraint):
         self._tags = tags
 
     def __call__(self, emitter):
-        if inspect.getmodule(emitter.object) != emitter.module:
+        if inspect.getmodule(emitter.objself) != emitter.module:
             emitter.skip()
-        elif not isinstance(emitter.object, type):
+        elif not isinstance(emitter.objself, type):
             emitter.skip()
-        elif not issubclass(emitter.object, self._target):
+        elif not issubclass(emitter.objself, self._target):
             emitter.skip()
-        elif not self._match_names(emitter.object.meta_name):
+        elif not self._match_names(emitter.objself.meta_name):
             emitter.skip()
-        elif not self._match_tags(emitter.object.meta_tags):
+        elif not self._match_tags(emitter.objself.meta_tags):
             emitter.skip()
 
     # Protected

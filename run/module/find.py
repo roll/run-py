@@ -1,6 +1,6 @@
 import inspect
 from .module import Module
-from .find import find
+from ..finder import find
 
 
 class FindModule(Module):

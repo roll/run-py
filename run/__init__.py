@@ -1,7 +1,7 @@
 from .converter import skip
 from .dependency import depend, require, trigger
 from .module import (Module,
-                     find, module, spawn,
+                     module, spawn,
                      AutoModule, ClusterModule, FindModule,
                      NullModule, SubprocessModule)
 from .settings import settings
