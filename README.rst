@@ -21,7 +21,7 @@ Run is a program to run tasks from files.
      :alt: pypi
 
 *Package is under active development. Before version 1 backward-compatibility 
-on minor releases (0.x.0), documentation and changelog are not guaranteed.*
+between minor releases (0.x.0), documentation and changelog are not guaranteed.*
 
 Requirements
 ------------
