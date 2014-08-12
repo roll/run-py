@@ -1,9 +1,8 @@
 import os
 import inspect
 from copy import copy
-from io import StringIO
 from abc import abstractmethod
-from box.io import ColoredPrint
+from box.terminal import Colorize
 from contextlib import contextmanager
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
@@ -117,11 +116,8 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_colorize(self, text):
         result = text
         if not self.meta_grayscale:
-            string = StringIO()
-            cprint = ColoredPrint(file=string)
-            with cprint.style(foreground=self._meta_color):
-                cprint(text)
-            result = string.getvalue()
+            colorize = Colorize()
+            result = colorize(text, foreground=self._meta_color)
         return result
 
     def meta_depend(self, dependency):
