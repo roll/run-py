@@ -113,15 +113,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_chdir(self, value):
         self._meta_params['chdir'] = value
 
-    def meta_colorize(self, text):
-        result = text
-        if not self.meta_plain:
-            style = self._meta_styles.get(self._meta_style, None)
-            if style is not None:
-                formater = Formatter()
-                result = formater.format(text, **style)
-        return result
-
     def meta_depend(self, dependency):
         """Add custom dependency.
         """
@@ -227,6 +218,15 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     @meta_fallback.setter
     def meta_fallback(self, value):
         self._meta_params['fallback'] = value
+
+    def meta_format(self, text):
+        result = text
+        if not self.meta_plain:
+            style = self._meta_styles.get(self._meta_style, None)
+            if style is not None:
+                formater = Formatter()
+                result = formater.format(text, **style)
+        return result
 
     @property
     def meta_plain(self):
