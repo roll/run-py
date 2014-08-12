@@ -13,7 +13,7 @@ class FindTaskTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.ptask = partial(FindTask, meta_module=None)
 
-    @patch('box.findtools.find_strings')
+    @patch('box.find.find_strings')
     def test___call__(self, find_string):
         task = self.ptask()
         result = task(*self.args, **self.kwargs)

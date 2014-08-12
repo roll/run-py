@@ -1,4 +1,4 @@
-from box import findtools
+from box import find
 from .function import FunctionTask
 
 
@@ -8,7 +8,7 @@ class FindTask(FunctionTask):
 
     def __init__(self, *args, mode='strings', **kwargs):
         try:
-            function = getattr(findtools, 'find_' + mode)
+            function = getattr(find, 'find_' + mode)
         except AttributeError:
             raise ValueError('Unsupported mode "{mode}".'.
                              format(mode=mode))
