@@ -6,7 +6,7 @@ class Stack(list):
         names = []
         if len(self) >= 1:
             previous = self[0]
-            names.append(previous.meta_format(previous.meta_name))
+            names.append(previous.meta_format(previous.meta_qualname))
             for task in self[1:]:
                 current = task
                 if current.meta_module == previous.meta_module:

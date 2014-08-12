@@ -11,12 +11,14 @@ class StackTest(unittest.TestCase):
         self.stack = Stack()
         self.task1 = Mock(
             meta_module='module1',
-            meta_color_name='task1',
-            meta_color_qualname='module1.task1')
+            meta_name='task1',
+            meta_qualname='module1.task1',
+            meta_format=lambda string: string)
         self.task2 = Mock(
             meta_module='module2',
-            meta_color_name='task2',
-            meta_color_qualname='module2.task2')
+            meta_name='task2',
+            meta_qualname='module2.task2',
+            meta_format=lambda string: string)
 
     def test_push(self):
         self.stack.push('task')
