@@ -2,7 +2,7 @@ import os
 import inspect
 from copy import copy
 from abc import abstractmethod
-from box.terminal import Colorize
+from box.terminal import Formatter
 from contextlib import contextmanager
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
@@ -118,8 +118,8 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         if not self.meta_grayscale:
             style = self._meta_styles.get(self._meta_style, None)
             if style is not None:
-                colorize = Colorize()
-                result = colorize(text, **style)
+                formater = Formatter()
+                result = formater.format(text, **style)
         return result
 
     def meta_depend(self, dependency):

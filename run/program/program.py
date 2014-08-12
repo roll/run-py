@@ -30,7 +30,7 @@ class Program(Program):
             recursively=self._command.recursively,
             grayscale=self._command.grayscale,
             skip=self._command.skip,
-            plain=self._command.plain)
+            compact=self._command.compact)
         return machine
 
 

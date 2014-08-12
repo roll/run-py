@@ -21,7 +21,7 @@ class ProgramTest(unittest.TestCase):
             recursively='recursively',
             grayscale='grayscale',
             skip='skip',
-            plain='plain')
+            compact='compact')
         self.program._Machine.return_value.process.assert_called_with(
             self.program._command.task,
             *self.program._command.args,
@@ -46,6 +46,6 @@ class ProgramTest(unittest.TestCase):
                 recursively='recursively',
                 grayscale='grayscale',
                 skip='skip',
-                plain='plain'))
+                compact='compact'))
             _Machine = Mock()
         return MockProgram

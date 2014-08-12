@@ -65,6 +65,12 @@ class Settings(Settings):
                  'help': 'Base directory path.',
                 },
                 {
+                 'dest': 'compact',
+                 'action': 'store_true',
+                 'flags': ['-c', '--compact'],
+                 'help': 'Enable compact mode.',
+                },
+                {
                  'dest': 'file',
                  'flags': ['-f', '--file'],
                  'default': self.file,
@@ -105,12 +111,6 @@ class Settings(Settings):
                  'flags': ['-n', '--names'],
                  'default': self.names,
                  'help': 'Main modules names to match.',
-                },
-                {
-                 'dest': 'plain',
-                 'action': 'store_true',
-                 'flags': ['-p', '--plain'],
-                 'help': 'Enable plain mode.',
                 },
                 {
                  'dest': 'recursively',

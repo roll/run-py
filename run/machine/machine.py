@@ -13,7 +13,7 @@ class Machine:
     def __init__(self, *,
                  names=None, tags=None,
                  file=None, basedir=None, recursively=False,
-                 grayscale=False, skip=False, plain=False):
+                 grayscale=False, skip=False, compact=False):
         self._names = names
         self._tags = tags
         self._file = file
@@ -21,7 +21,7 @@ class Machine:
         self._recursively = recursively
         self._grayscale = grayscale
         self._skip = skip
-        self._plain = plain
+        self._compact = compact
 
     def process(self, task, *args, **kwargs):
         self._controller.listen()
@@ -66,7 +66,7 @@ class Machine:
 
     @cachedproperty
     def _stack(self):
-        if not self._plain:
+        if not self._compact:
             return self._Stack()
         else:
             return None

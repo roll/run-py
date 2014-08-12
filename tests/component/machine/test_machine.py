@@ -51,8 +51,8 @@ class MachineTest(unittest.TestCase):
         self.assertEqual(machine._stack, machine._Stack.return_value)
         self.assertTrue(machine._Stack.called)
 
-    def test_process_with_plain_is_true(self):
-        machine = self.Machine(plain=True)
+    def test_process_with_compact_is_true(self):
+        machine = self.Machine(compact=True)
         # Stack
         self.assertEqual(machine._stack, None)
         self.assertFalse(machine._Stack.called)
