@@ -13,13 +13,13 @@ class ModuleCluster:
     def __init__(self, *,
                  names=None, tags=None,
                  file=None, basedir=None, recursively=False,
-                 grayscale=False, skip=False, dispatcher=None):
+                 plain=False, skip=False, dispatcher=None):
         self._names = names
         self._tags = tags
         self._file = file
         self._basedir = basedir
         self._recursively = recursively
-        self._grayscale = grayscale
+        self._plain = plain
         self._skip = skip
         self._dispatcher = dispatcher
 
@@ -46,7 +46,7 @@ class ModuleCluster:
         modules = []
         for Module in self._Modules:
             module = Module(
-                meta_grayscale=self._grayscale,
+                meta_plain=self._plain,
                 meta_dispatcher=self._dispatcher,
                 meta_module=None)
             modules.append(module)

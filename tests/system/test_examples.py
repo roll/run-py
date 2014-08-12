@@ -16,7 +16,7 @@ class ExamplesTest(unittest.TestCase):
         ecommand = 'python3 -c "from run.program import program; program()" '
         ecommand += '-b {basedir} '.format(basedir=self._basedir)
         ecommand += '-f {file} '.format(file=self._file)
-        ecommand += '--grayscale '
+        ecommand += '--plain '
         ecommand += command
         process = Popen(ecommand,
             shell=True, universal_newlines=True,

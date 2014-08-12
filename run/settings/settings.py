@@ -11,7 +11,7 @@ class Settings(Settings):
     cache = True
     chdir = True
     convert = True
-    grayscale = False
+    plain = False
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
@@ -77,10 +77,10 @@ class Settings(Settings):
                  'help': 'Runfile name/path/pattern.',
                 },
                 {
-                 'dest': 'grayscale',
+                 'dest': 'plain',
                  'action': 'store_true',
-                 'flags': ['-g', '--grayscale'],
-                 'help': 'Activate grayscale mode.',
+                 'flags': ['-p', '--plain'],
+                 'help': 'Activate plain mode.',
                 },
                 {
                  'action': 'help',

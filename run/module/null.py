@@ -41,8 +41,8 @@ class NullModule:
         return self._meta_default_fallback
 
     @property
-    def meta_grayscale(self):
-        return self._meta_default_grayscale
+    def meta_plain(self):
+        return self._meta_default_plain
 
     @property
     def meta_is_main_module(self):
@@ -86,6 +86,6 @@ class NullModule:
     _meta_default_cache = settings.cache
     _meta_default_chdir = settings.chdir
     _meta_default_fallback = settings.fallback
-    _meta_default_grayscale = settings.grayscale
     _meta_default_main_module_name = settings.main_module_name
+    _meta_default_plain = settings.plain
     _meta_default_strict = settings.strict

@@ -115,7 +115,7 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
 
     def meta_colorize(self, text):
         result = text
-        if not self.meta_grayscale:
+        if not self.meta_plain:
             style = self._meta_styles.get(self._meta_style, None)
             if style is not None:
                 formater = Formatter()
@@ -229,8 +229,8 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         self._meta_params['fallback'] = value
 
     @property
-    def meta_grayscale(self):
-        """Task's grayscale flag (grayscale or not).
+    def meta_plain(self):
+        """Task's plain flag (plain or not).
 
         This property is:
 
@@ -238,11 +238,11 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         - inherited from module
         """
         return self._meta_params.get(
-            'grayscale', self.meta_module.meta_grayscale)
+            'plain', self.meta_module.meta_plain)
 
-    @meta_grayscale.setter
-    def meta_grayscale(self, value):
-        self._meta_params['grayscale'] = value
+    @meta_plain.setter
+    def meta_plain(self, value):
+        self._meta_params['plain'] = value
 
     @abstractmethod
     def meta_invoke(self, *args, **kwargs):

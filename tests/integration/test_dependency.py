@@ -62,7 +62,7 @@ class MockModule(Module):
 
     # Meta
 
-    meta_grayscale = True
+    meta_plain = True
 
     # Tasks
 

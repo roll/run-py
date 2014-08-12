@@ -28,7 +28,7 @@ class Program(Program):
             file=self._command.file,
             basedir=self._command.basedir,
             recursively=self._command.recursively,
-            grayscale=self._command.grayscale,
+            plain=self._command.plain,
             skip=self._command.skip,
             compact=self._command.compact)
         return machine

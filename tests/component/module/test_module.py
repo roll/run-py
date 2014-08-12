@@ -176,7 +176,7 @@ class ModuleTest(unittest.TestCase):
         class MockModule(Module):
             """docstring"""
             # Public
-            meta_grayscale = True
+            meta_plain = True
             def task(self):
                 pass
             # Protected
