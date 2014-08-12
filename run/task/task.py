@@ -116,8 +116,10 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_colorize(self, text):
         result = text
         if not self.meta_grayscale:
-            colorize = Colorize()
-            result = colorize(text, foreground=self._meta_color)
+            style = self._meta_styles.get(self._meta_style, None)
+            if style is not None:
+                colorize = Colorize()
+                result = colorize(text, **style)
         return result
 
     def meta_depend(self, dependency):
@@ -354,7 +356,8 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Protected
 
-    _meta_color = settings.task_color
+    _meta_style = 'task'
+    _meta_styles = settings.styles
     _meta_default_main_module_name = settings.main_module_name
     _meta_FailedTaskSignal = FailedTaskSignal
     _meta_InitiatedTaskSignal = InitiatedTaskSignal

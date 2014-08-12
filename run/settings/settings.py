@@ -15,15 +15,12 @@ class Settings(Settings):
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
-    module_color = 'bright_cyan'
     names = None
     null_dispatcher = 'run.signal.NullDispatcher'
     null_module = 'run.module.NullModule'
     recursively = False
     strict = True
     tags = None
-    task_color = 'bright_green'
-    var_color = 'bright_blue'
 
     default_task = 'default'
 
@@ -34,6 +31,14 @@ class Settings(Settings):
         'run.task.task',
         'run.var.var',
     ]
+
+    # Styles
+
+    styles = {
+        'module': {'foreground': 'bright_cyan'},
+        'task': {'foreground': 'bright_green'},
+        'var': {'foreground': 'bright_blue'},
+    }
 
     # Argparse
 
