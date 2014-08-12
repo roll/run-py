@@ -26,14 +26,6 @@ class NullModule:
     def meta_chdir(self):
         return self._meta_default_chdir
 
-    @property
-    def meta_color_name(self):
-        return self._name
-
-    @property
-    def meta_color_qualname(self):
-        return self._qualname
-
     @cachedproperty
     def meta_dispatcher(self):
         NullDispatcher = import_object(self._meta_null_dispatcher)

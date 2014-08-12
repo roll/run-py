@@ -1,7 +1,9 @@
 import os
 import inspect
 from copy import copy
+from io import StringIO
 from abc import abstractmethod
+from box.io import ColoredPrint
 from contextlib import contextmanager
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
@@ -112,19 +114,15 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_chdir(self, value):
         self._meta_params['chdir'] = value
 
-    @property
-    def meta_color_name(self):
-        name = self.meta_name
+    def meta_colorize(self, text):
+        result = text
         if not self.meta_grayscale:
-            name = '\033[' + self._meta_color_code + name + '\033[0m'
-        return name
-
-    @property
-    def meta_color_qualname(self):
-        qualname = self.meta_qualname
-        if not self.meta_grayscale:
-            qualname = '\033[' + self._meta_color_code + qualname + '\033[0m'
-        return qualname
+            string = StringIO()
+            cprint = ColoredPrint(file=string)
+            with cprint.style(foreground=self._meta_color):
+                cprint(text)
+            result = string.getvalue()
+        return result
 
     def meta_depend(self, dependency):
         """Add custom dependency.
@@ -360,7 +358,7 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Protected
 
-    _meta_color_code = settings.task_color_code
+    _meta_color = settings.task_color
     _meta_default_main_module_name = settings.main_module_name
     _meta_FailedTaskSignal = FailedTaskSignal
     _meta_InitiatedTaskSignal = InitiatedTaskSignal

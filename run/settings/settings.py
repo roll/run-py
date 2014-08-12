@@ -15,15 +15,15 @@ class Settings(Settings):
     fallback = None
     file = 'runfile.py'
     main_module_name = '__main__'
-    module_color_code = '96m'
+    module_color = 'bright_cyan'
     names = None
     null_dispatcher = 'run.signal.NullDispatcher'
     null_module = 'run.module.NullModule'
     recursively = False
     strict = True
     tags = None
-    task_color_code = '92m'
-    var_color_code = '94m'
+    task_color = 'bright_green'
+    var_color = 'bright_blue'
 
     default_task = 'default'
 

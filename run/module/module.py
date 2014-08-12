@@ -128,7 +128,7 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
                 continue
             if name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
-                name = nested_task.meta_color_name
+                name = nested_task.meta_colorize(nested_task.meta_name)
             names.append(name)
         result = '\n'.join(names)
         self._meta_print(result)
@@ -176,7 +176,7 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
 
     # Protected
 
-    _meta_color_code = settings.module_color_code  # Overriding
+    _meta_color = settings.module_color  # Overriding
     _meta_FailedTaskSignal = FailedModuleSignal  # Overriding
     _meta_InitiatedTaskSignal = InitiatedModuleSignal  # Overriding
     _meta_print = staticmethod(print)
