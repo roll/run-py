@@ -7,8 +7,8 @@ Design Explained
      design/modules
      design/tasks
      design/vars
+     design/dependencies     
      design/converters
-     design/dependencies
      design/signals
      design/find
      design/machine
