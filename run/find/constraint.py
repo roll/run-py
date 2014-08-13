@@ -26,7 +26,7 @@ class Constraint(Constraint):
     # Protected
 
     def _match_names(self, name):
-        if self._names:
+        if self._names is not None:
             if inspect.isdatadescriptor(name):
                 return False
             elif name not in self._names:
@@ -34,7 +34,7 @@ class Constraint(Constraint):
         return True
 
     def _match_tags(self, tags):
-        if self._tags:
+        if self._tags is not None:
             if inspect.isdatadescriptor(tags):
                 return False
             elif set(tags).isdisjoint(self._tags):
