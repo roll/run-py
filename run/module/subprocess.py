@@ -1,3 +1,4 @@
+from box.collections import merge_dicts
 from .module import Module
 from ..task import SubprocessTask
 
@@ -9,8 +10,7 @@ class SubprocessModule(Module):
     def __init__(self, mapping=None, *, prefix='', separator=' '):
         if mapping is None:
             mapping = {}
-        emapping = self._default_mapping
-        emapping.update(mapping)
+        emapping = merge_dicts(self._default_mapping, mapping)
         for task_name, task_prefix in emapping.items():
             if not hasattr(type(self), task_name):
                 eprefix = separator.join(filter(None, [prefix, task_prefix]))
