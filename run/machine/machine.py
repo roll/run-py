@@ -50,6 +50,7 @@ class Machine:
                 self._on_task_signal,
                 signals=[self._TaskSignal]))
 
+    # TODO: improve design?
     def _on_task_signal(self, signal):
         if signal.event == 'initiated':
             if not self._compact:
@@ -57,7 +58,7 @@ class Machine:
         elif signal.event in ['successed', 'failed']:
             if self._compact:
                 self._stack.push(signal.task)
-            message = signal.prefix + repr(self._stack)
+            message = signal.format(signal.prefix) + repr(self._stack)
             logger = logging.getLogger('task')
             logger.info(message)
             self._stack.pop()
