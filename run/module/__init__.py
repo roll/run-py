@@ -6,6 +6,5 @@ from .metaclass import ModuleMetaclass
 from .module import Module
 from .null import NullModule
 from .prototype import ModulePrototype
-from .signal import ModuleSignal
 from .spawn import spawn
 from .subprocess import SubprocessModule

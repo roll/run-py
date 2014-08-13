@@ -6,7 +6,6 @@ from ..find import Target
 from ..task import Task, NullTask
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
-from .signal import ModuleSignal
 
 
 class Module(Task, Target, metaclass=ModuleMetaclass):
@@ -175,6 +174,5 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
     # Protected
 
     _meta_style = 'module'  # Overriding
-    _meta_TaskSignal = ModuleSignal  # Overriding
     _meta_print = staticmethod(print)
     _meta_pprint = staticmethod(pprint)
