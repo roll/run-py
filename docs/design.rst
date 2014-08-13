@@ -10,7 +10,7 @@ Design Explained
      design/converters
      design/dependencies
      design/signals
-     design/finders
+     design/find
      design/machine
      design/program
      design/settings

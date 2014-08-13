@@ -1,6 +1,6 @@
 import os
 import inspect
-from ..finder import find
+from ..find import find
 from .module import Module
 
 

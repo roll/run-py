@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, ANY
-from run.finder.find import find
+from run.find.find import find
 
 
 class find_Test(unittest.TestCase):

@@ -2,7 +2,7 @@ import os
 import inspect
 from pprint import pprint
 from collections import OrderedDict
-from ..finder import Target
+from ..find import Target
 from ..task import Task, NullTask
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass

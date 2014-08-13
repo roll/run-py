@@ -1,7 +1,7 @@
 import unittest
 import inspect
 from unittest.mock import Mock
-from run.finder.constraint import Constraint
+from run.find.constraint import Constraint
 
 
 class ConstraintTest(unittest.TestCase):
