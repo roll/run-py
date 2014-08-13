@@ -1,4 +1,5 @@
 from copy import copy
+from box.collections import merge_dicts
 from .update import TaskUpdate
 
 
@@ -18,8 +19,7 @@ class TaskPrototype:
         # Documented public wrapper in :func:`.fork`
         eupdates = copy(self._updates)
         eargs = self._args + args
-        ekwargs = self._kwargs
-        ekwargs.update(kwargs)
+        ekwargs = merge_dicts(self._kwargs, kwargs)
         return type(self)(
             *eargs,
             meta_class=self._class,

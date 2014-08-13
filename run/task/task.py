@@ -1,7 +1,7 @@
 import os
 import inspect
-from copy import copy
 from abc import abstractmethod
+from box.collections import merge_dicts
 from box.terminal import Formatter
 from contextlib import contextmanager
 from ..dependency import Predecessor, Successor, require, trigger
@@ -185,8 +185,7 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         """Invoke task with effective dir, args and kwargs.
         """
         eargs = self.meta_args + args
-        ekwargs = copy(self.meta_kwargs)
-        ekwargs.update(kwargs)
+        ekwargs = merge_dicts(self.meta_kwargs, kwargs)
         with self.meta_effective_dir():
             return self.meta_invoke(*eargs, **ekwargs)
 
