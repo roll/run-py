@@ -1,6 +1,5 @@
 import unittest
-from run.task.signal import (InitiatedTaskSignal, SuccessedTaskSignal,
-                             FailedTaskSignal, Signal)
+from run.task.signal import TaskSignal, Signal
 
 
 class TaskSignalTest(unittest.TestCase):
@@ -8,6 +7,4 @@ class TaskSignalTest(unittest.TestCase):
     # Public
 
     def test(self):
-        self.assertTrue(issubclass(InitiatedTaskSignal, Signal))
-        self.assertTrue(issubclass(SuccessedTaskSignal, Signal))
-        self.assertTrue(issubclass(FailedTaskSignal, Signal))
+        self.assertTrue(issubclass(TaskSignal, Signal))

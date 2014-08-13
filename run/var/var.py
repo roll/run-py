@@ -1,8 +1,7 @@
 from abc import ABCMeta
 from box.types import Null
-from ..settings import settings
 from ..task import Task
-from .signal import InitiatedVarSignal, SuccessedVarSignal, FailedVarSignal
+from .signal import VarSignal
 
 
 class Var(Task, metaclass=ABCMeta):
@@ -47,6 +46,4 @@ class Var(Task, metaclass=ABCMeta):
     # Protected
 
     _meta_style = 'var'  # Overriding
-    _meta_FailedTaskSignal = FailedVarSignal  # Overriding
-    _meta_InitiatedTaskSignal = InitiatedVarSignal  # Overriding
-    _meta_SuccessedTaskSignal = SuccessedVarSignal  # Overriding
+    _meta_TaskSignal = VarSignal  # Overriding

@@ -1,7 +1,5 @@
 import unittest
-from run.var.signal import (InitiatedVarSignal, InitiatedTaskSignal,
-                            SuccessedVarSignal, SuccessedTaskSignal,
-                            FailedVarSignal, FailedTaskSignal)
+from run.var.signal import VarSignal, TaskSignal
 
 
 class VarSignalTest(unittest.TestCase):
@@ -9,6 +7,4 @@ class VarSignalTest(unittest.TestCase):
     # Public
 
     def test(self):
-        self.assertTrue(issubclass(InitiatedVarSignal, InitiatedTaskSignal))
-        self.assertTrue(issubclass(SuccessedVarSignal, SuccessedTaskSignal))
-        self.assertTrue(issubclass(FailedVarSignal, FailedTaskSignal))
+        self.assertTrue(issubclass(VarSignal, TaskSignal))

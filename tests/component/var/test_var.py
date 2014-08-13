@@ -19,11 +19,13 @@ class VarTest(unittest.TestCase):
         # Only one call because of caching
         self.assertEqual(self.var.meta_invoke.call_count, 1)
         self.var.meta_invoke.assert_called_with()
-        self.var._meta_InitiatedTaskSignal.assert_called_with(self.var)
-        self.var._meta_SuccessedTaskSignal.assert_called_with(self.var)
+        # Check TaskSignal call
+        self.var._meta_TaskSignal.assert_has_calls(
+            [call(self.var, event='initiated'),
+             call(self.var, event='successed')])
+        # Check dispatcher.add_signal call
         self.var.meta_dispatcher.add_signal.assert_has_calls(
-            [call('initiated_signal'),
-             call('successed_signal')])
+            [call('signal'), call('signal')])
 
     def test___get___with_meta_cache_is_false(self):
         self.var.meta_cache = False
@@ -48,6 +50,5 @@ class VarTest(unittest.TestCase):
             meta_invoke = Mock(return_value='value')
             meta_dispatcher = Mock()
             # Protected
-            _meta_InitiatedTaskSignal = Mock(return_value='initiated_signal')
-            _meta_SuccessedTaskSignal = Mock(return_value='successed_signal')
+            _meta_TaskSignal = Mock(return_value='signal')
         return MockVar

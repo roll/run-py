@@ -13,6 +13,6 @@ from .method import MethodTask
 from .null import NullTask
 from .prototype import TaskPrototype
 from .render import RenderTask
-from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
+from .signal import TaskSignal
 from .subprocess import SubprocessTask
 from .task import Task

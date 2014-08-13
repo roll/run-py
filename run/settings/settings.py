@@ -146,45 +146,21 @@ class Settings(Settings):
     def logging(self):
         return self._inherit_logging(Settings, {
             'loggers': {
-                'initiated': {
-                    'handlers': ['initiated'],
-                    'propagate': False,
-                },
-                'successed': {
-                    'handlers': ['successed'],
-                    'propagate': False,
-                },
-                'failed': {
-                    'handlers': ['failed'],
+                'task': {
+                    'handlers': ['task'],
                     'propagate': False,
                 },
             },
             'handlers': {
-                'initiated': {
+                'task': {
                     'level': 'DEBUG',
                     'class': 'logging.StreamHandler',
-                    'formatter': 'initiated',
-                },
-                'successed': {
-                    'level': 'DEBUG',
-                    'class': 'logging.StreamHandler',
-                    'formatter': 'successed',
-                },
-                'failed': {
-                    'level': 'DEBUG',
-                    'class': 'logging.StreamHandler',
-                    'formatter': 'failed',
+                    'formatter': 'task',
                 },
             },
             'formatters': {
-                'initiated': {
-                    'format': '[.] %(message)s'
-                },
-                'successed': {
-                    'format': '[+] %(message)s'
-                },
-                'failed': {
-                    'format': '[-] %(message)s'
+                'task': {
+                    'format': '%(message)s'
                 },
             },
         })

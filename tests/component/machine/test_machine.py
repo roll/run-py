@@ -27,10 +27,6 @@ class MachineTest(unittest.TestCase):
             call('result1'),
             call('result2'),
             call('attr3')])
-        # Check Controller call
-        machine._Controller.assert_called_with(
-            machine._Dispatcher.return_value,
-            machine._Stack.return_value)
         # Check ModuleCluster call
         machine._ModuleCluster.assert_called_with(
             names='names',
@@ -54,7 +50,6 @@ class MachineTest(unittest.TestCase):
     def test_process_with_compact_is_true(self):
         machine = self.Machine(compact=True)
         # Stack
-        self.assertEqual(machine._stack, None)
         self.assertFalse(machine._Stack.called)
 
     # Protected

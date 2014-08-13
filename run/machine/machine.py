@@ -1,8 +1,8 @@
+import logging
 from box.functools import cachedproperty
 from ..module import ModuleCluster
-from ..signal import Dispatcher
-from ..task import Task
-from .controller import Controller
+from ..signal import Dispatcher, CallbackHandler
+from ..task import Task, TaskSignal
 from .stack import Stack
 
 
@@ -22,9 +22,9 @@ class Machine:
         self._plain = plain
         self._skip = skip
         self._compact = compact
+        self._init_handlers()
 
     def process(self, task, *args, **kwargs):
-        self._controller.listen()
         tasks = getattr(self._cluster, task)
         for task in tasks:
             if isinstance(task, self._Task):
@@ -36,17 +36,31 @@ class Machine:
 
     # Protected
 
-    _ModuleCluster = ModuleCluster
-    _Controller = Controller
+    _CallbackHandler = CallbackHandler
     _Dispatcher = Dispatcher
+    _ModuleCluster = ModuleCluster
     _print = staticmethod(print)
     _Stack = Stack
     _Task = Task
+    _TaskSignal = TaskSignal
 
-    @cachedproperty
-    def _controller(self):
-        return self._Controller(
-            self._dispatcher, self._stack)
+    def _init_handlers(self):
+        self._dispatcher.add_handler(
+            self._CallbackHandler(
+                self._on_task_signal,
+                signals=[self._TaskSignal]))
+
+    def _on_task_signal(self, signal):
+        if signal.event == 'initiated':
+            if not self._compact:
+                self._stack.push(signal.task)
+        elif signal.event in ['successed', 'failed']:
+            if self._compact:
+                self._stack.push(signal.task)
+            message = signal.prefix + repr(self._stack)
+            logger = logging.getLogger('task')
+            logger.info(message)
+            self._stack.pop()
 
     @cachedproperty
     def _cluster(self):
@@ -66,7 +80,4 @@ class Machine:
 
     @cachedproperty
     def _stack(self):
-        if not self._compact:
-            return self._Stack()
-        else:
-            return None
+        return self._Stack()

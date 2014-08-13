@@ -20,22 +20,24 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task(), self.task.meta_invoke.return_value)
         # Check meta_invoke call
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
-        # Check signal call
-        self.task._meta_InitiatedTaskSignal.assert_called_with(self.task)
-        self.task._meta_SuccessedTaskSignal.assert_called_with(self.task)
-        # Check dispatcher call
+        # Check TaskSignal call
+        self.task._meta_TaskSignal.assert_has_calls(
+            [call(self.task, event='initiated'),
+             call(self.task, event='successed')])
+        # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call('initiated_signal'), call('successed_signal')])
+            [call('signal'), call('signal')])
 
     def test___call___with_meta_invoke_exception(self):
         self.task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
-        # Check signal call
-        self.task._meta_InitiatedTaskSignal.assert_called_with(self.task)
-        self.task._meta_FailedTaskSignal.assert_called_with(self.task)
-        # Check dispatcher call
+        # Check TaskSignal call
+        self.task._meta_TaskSignal.assert_has_calls(
+            [call(self.task, event='initiated'),
+             call(self.task, event='failed')])
+        # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call('initiated_signal'), call('failed_signal')])
+            [call('signal'), call('signal')])
 
     def test___call___with_meta_invoke_exception_and_meta_fallback(self):
         self.task.meta_invoke.side_effect = Exception()
@@ -212,9 +214,7 @@ class TaskTest(unittest.TestCase):
             meta_dispatcher = Mock()
             meta_invoke = Mock()
             # Protected
-            _meta_FailedTaskSignal = Mock(return_value='failed_signal')
-            _meta_InitiatedTaskSignal = Mock(return_value='initiated_signal')
             _meta_require = Mock()
-            _meta_SuccessedTaskSignal = Mock(return_value='successed_signal')
             _meta_trigger = Mock()
+            _meta_TaskSignal = Mock(return_value='signal')
         return MockTask

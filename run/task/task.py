@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
 from .metaclass import TaskMetaclass
-from .signal import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
+from .signal import TaskSignal
 
 
 class Task(Predecessor, Successor, metaclass=TaskMetaclass):
@@ -359,10 +359,8 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     _meta_style = 'task'
     _meta_styles = settings.styles
     _meta_default_main_module_name = settings.main_module_name
-    _meta_FailedTaskSignal = FailedTaskSignal
-    _meta_InitiatedTaskSignal = InitiatedTaskSignal
     _meta_require = require
-    _meta_SuccessedTaskSignal = SuccessedTaskSignal
+    _meta_TaskSignal = TaskSignal
     _meta_trigger = trigger
 
     def _meta_init_dependencies(self):
@@ -377,8 +375,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         for dependency in self.meta_dependencies:
             dependency.resolve(failed=failed)
 
-    def _meta_add_signal(self, name):
-        attribute_name = '_meta_' + name.capitalize() + 'TaskSignal'
-        Signal = getattr(self, attribute_name)
-        signal = Signal(self)
+    def _meta_add_signal(self, event):
+        signal = self._meta_TaskSignal(self, event=event)
         self.meta_dispatcher.add_signal(signal)

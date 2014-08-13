@@ -1,6 +1,4 @@
-from ..task import InitiatedTaskSignal, SuccessedTaskSignal, FailedTaskSignal
+from ..task import TaskSignal
 
 
-class InitiatedVarSignal(InitiatedTaskSignal): pass
-class SuccessedVarSignal(SuccessedTaskSignal): pass
-class FailedVarSignal(FailedTaskSignal): pass
+class VarSignal(TaskSignal): pass
