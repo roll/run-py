@@ -32,7 +32,6 @@ class ModuleMetaclassTest(unittest.TestCase):
         class MockMetaclass(ModuleMetaclass):
             # Protected
             _convert = Mock()
-            _default_convert = True
             _fork = Mock()
             _BaseTaskPrototype = Mock
         return MockMetaclass
@@ -40,6 +39,7 @@ class ModuleMetaclassTest(unittest.TestCase):
     def _make_mock_class(self, metaclass):
         class MockClass(metaclass=metaclass):
             # Public
+            meta_convert = True
             UPPER_ATTR = 'UPPER_ATTR'
             _underscore_attr = '_underscore_attr'
             meta_attr = 'meta_attr'

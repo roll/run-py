@@ -1,5 +1,4 @@
 from ..converter import convert
-from ..settings import settings
 from ..task import TaskMetaclass, TaskPrototype, fork
 from .prototype import ModulePrototype
 
@@ -26,7 +25,7 @@ class ModuleMetaclass(TaskMetaclass):
                 if isinstance(attr, self._BaseTaskPrototype):
                     attrs[key] = self._fork(attr)
                 else:
-                    if self._default_convert:
+                    if cls.meta_convert:
                         try:
                             attrs[key] = self._convert(attr)
                         except TypeError:
@@ -37,8 +36,7 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Protected
 
+    _BaseTaskPrototype = TaskPrototype
     _convert = convert
-    _default_convert = settings.convert
     _fork = staticmethod(fork)
     _TaskPrototype = ModulePrototype  # Overriding
-    _BaseTaskPrototype = TaskPrototype

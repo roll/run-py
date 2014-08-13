@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 from collections import OrderedDict
 from ..find import Target
+from ..settings import settings
 from ..task import Task, NullTask
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
@@ -11,6 +12,8 @@ from .metaclass import ModuleMetaclass
 class Module(Task, Target, metaclass=ModuleMetaclass):
 
     # Public
+
+    meta_convert = settings.convert
 
     def __getattribute__(self, name):
         nested_name = None
@@ -173,6 +176,7 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
 
     # Protected
 
+    _meta_default_convert = settings.convert
     _meta_style = 'module'  # Overriding
     _meta_print = staticmethod(print)
     _meta_pprint = staticmethod(pprint)
