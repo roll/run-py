@@ -14,6 +14,7 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
     # Public
 
     meta_convert = settings.convert
+    meta_tags = []
 
     def __getattribute__(self, name):
         nested_name = None
@@ -91,12 +92,6 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
             return super().meta_name
         else:
             return self._meta_default_main_module_name
-
-    @property
-    def meta_tags(self):
-        """Module's tag list.
-        """
-        return []
 
     @property
     def meta_tasks(self):
