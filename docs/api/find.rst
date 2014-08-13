@@ -1,8 +1,8 @@
-==========
-run.finder
-==========
+========
+run.find
+========
 
-Module provides finder related functionality.
+Module provides find related functionality.
 
 Public
 ======
@@ -12,26 +12,26 @@ Module’s public interface.
 Main function
 -------------
 
-.. autoclass:: run.finder.find
+.. autoclass:: run.find.find
 
 Emitter
 -------
 
-.. autoclass:: run.finder.Emitter
+.. autoclass:: run.find.Emitter
 
 Target
 ------
 
-.. autoclass:: run.finder.Target
+.. autoclass:: run.find.Target
 
 Exceptions
 ----------
 
-.. autoclass:: run.finder.NotFound
+.. autoclass:: run.find.NotFound
 
 Internal
 ========
 
 Module’s internal implementation.
 
-.. autoclass:: run.finder.constraint.Constraint
+.. autoclass:: run.find.constraint.Constraint

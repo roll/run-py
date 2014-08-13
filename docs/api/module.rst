@@ -37,6 +37,11 @@ Concrete modules
 .. autoclass:: run.module.NullModule
 .. autoclass:: run.module.SubprocessModule
 
+Signal class
+------------
+
+.. autoclass:: run.module.ModuleSignal
+
 Helper functions
 ----------------
 

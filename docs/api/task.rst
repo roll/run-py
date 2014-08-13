@@ -37,12 +37,10 @@ Concrete tasks
 .. autoclass:: run.task.RenderTask
 .. autoclass:: run.task.SubprocessTask
 
-Signal classes
---------------
+Signal class
+------------
 
-.. autoclass:: run.task.InitiatedTaskSignal
-.. autoclass:: run.task.SuccessedTaskSignal
-.. autoclass:: run.task.FailedTaskSignal
+.. autoclass:: run.task.TaskSignal
 
 Helper functions
 ----------------
@@ -56,5 +54,4 @@ Internal
 
 Module’s internal implementation.
 
-.. autoclass:: run.task.signal.TaskSignal
 .. autoclass:: run.task.update.TaskUpdate

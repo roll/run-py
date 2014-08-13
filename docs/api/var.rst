@@ -27,12 +27,10 @@ Concrete vars
 .. autoclass:: run.var.RenderVar
 .. autoclass:: run.var.SubprocessVar
 
-Signal classes
---------------
+Signal class
+------------
 
-.. autoclass:: run.var.InitiatedVarSignal
-.. autoclass:: run.var.SuccessedVarSignal
-.. autoclass:: run.var.FailedVarSignal
+.. autoclass:: run.var.VarSignal
 
 Helper functions
 ----------------

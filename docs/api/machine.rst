@@ -19,5 +19,4 @@ Internal
 
 Module’s internal implementation.
 
-.. autoclass:: run.machine.controller.Controller
 .. autoclass:: run.machine.stack.Stack
