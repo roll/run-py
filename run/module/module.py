@@ -84,7 +84,7 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
         if self.meta_is_main_module:
             return self
         else:
-            return self.meta_module.meta_main_module
+            return super().meta_main_module
 
     @property
     def meta_name(self):
