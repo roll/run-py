@@ -14,7 +14,6 @@ class Settings(Settings):
     plain = False
     fallback = None
     file = 'runfile.py'
-    main_module_name = '__main__'
     names = None
     null_dispatcher = 'run.signal.NullDispatcher'
     null_module = 'run.module.NullModule'

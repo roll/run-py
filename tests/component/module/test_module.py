@@ -90,7 +90,7 @@ class ModuleTest(unittest.TestCase):
         self.assertIs(self.module.meta_main_module, self.parent_module)
 
     def test_meta_name(self):
-        self.assertEqual(self.module.meta_name, '__main__')
+        self.assertEqual(self.module.meta_name, '')
 
     def test_meta_name_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
@@ -125,11 +125,11 @@ class ModuleTest(unittest.TestCase):
         self.module.list()
         # Check print call
         self.module._meta_print.assert_called_once_with(
-            'default\n'
-            'info\n'
-            'list\n'
-            'meta\n'
-            'task')
+            'parent_module.module.default\n'
+            'parent_module.module.info\n'
+            'parent_module.module.list\n'
+            'parent_module.module.meta\n'
+            'parent_module.module.task')
 
     @unittest.skip('Breaks system tests. Why??')
     def test_list_with_task_is_not_module(self):
@@ -139,7 +139,7 @@ class ModuleTest(unittest.TestCase):
         self.module.info()
         # Check print call
         self.module._meta_print.assert_called_once_with(
-            '__main__(*args, **kwargs)\n'
+            '(*args, **kwargs)\n'
             '---\n'
             'Type: MockModule\nDependencies: []\n'
             'Default arguments: ()\n'
@@ -193,6 +193,7 @@ class ModuleTest(unittest.TestCase):
             meta_chdir = 'chdir'
             meta_dispatcher = Mock(add_signal=Mock())
             meta_fallback = 'fallback'
+            meta_fullname = 'parent_module'
             meta_is_main_module = True
             meta_name = 'parent_module'
             meta_qualname = 'parent_module'

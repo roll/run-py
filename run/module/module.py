@@ -14,6 +14,7 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
     # Public
 
     meta_convert = settings.convert
+    meta_key = None
     meta_tags = []
 
     def __getattribute__(self, name):
@@ -57,6 +58,16 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
         self._meta_params['cache'] = value
 
     @property
+    def meta_fullname(self):
+        if self.meta_is_main_module:
+            pattern = '{self.meta_qualname}'
+            if self.meta_key is not None:
+                pattern = '[{self.meta_key}] {self.meta_qualname}'
+            return pattern.format(self=self)
+        else:
+            return super().meta_fullname
+
+    @property
     def meta_is_main_module(self):
         """Module's main module status (is main module or not).
         """
@@ -87,13 +98,6 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
             return super().meta_main_module
 
     @property
-    def meta_name(self):
-        if self.meta_is_main_module:
-            return self._meta_default_main_module_name
-        else:
-            return super().meta_name
-
-    @property
     def meta_tasks(self):
         """Module's tasks dict-like object.
 
@@ -114,16 +118,19 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
             task = self.meta_lookup(task)
         names = []
         for name in sorted(dir(task)):
-            # TODO: code duplication to ModuleMetaclass.__spawn__
+            # TODO: code duplication with ModuleMetaclass.__spawn__
             if name.isupper():
                 continue
-            if name.startswith('_'):
+            elif name.startswith('_'):
                 continue
-            if name.startswith('meta_'):
+            elif name.startswith('meta_'):
                 continue
-            if name in task.meta_tasks:
+            elif name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
-                name = nested_task.meta_format(nested_task.meta_name)
+                name = nested_task.meta_format(nested_task.meta_fullname)
+            else:
+                # TODO: code duplication with Task.qualname/fullname?
+                name = '.'.join(filter(None, [task.meta_fullname, name]))
             names.append(name)
         result = '\n'.join(names)
         self._meta_print(result)

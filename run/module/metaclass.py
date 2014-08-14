@@ -18,11 +18,11 @@ class ModuleMetaclass(TaskMetaclass):
                 keys.append(key)
                 if key.isupper():
                     continue
-                if key.startswith('_'):
+                elif key.startswith('_'):
                     continue
-                if key.startswith('meta_'):
+                elif key.startswith('meta_'):
                     continue
-                if isinstance(attr, self._BaseTaskPrototype):
+                elif isinstance(attr, self._BaseTaskPrototype):
                     attrs[key] = self._fork(attr)
                 else:
                     if cls.meta_convert:

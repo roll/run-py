@@ -52,12 +52,11 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_module(self):
         self.assertEqual(self.module.meta_module, self.module)
 
-    @patch.object(NullModule, '_meta_default_main_module_name')
-    def test_meta_name(self, name):
-        self.assertEqual(self.module.meta_name, name)
+    def test_meta_name(self):
+        self.assertEqual(self.module.meta_name, '')
 
     def test_meta_qualname(self):
-        self.assertEqual(self.module.meta_qualname, '__main__')
+        self.assertEqual(self.module.meta_qualname, '')
 
     @patch.object(NullModule, '_meta_default_strict')
     def test_meta_strict(self, strict):

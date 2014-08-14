@@ -8,6 +8,10 @@ class NullModule:
 
     # Public
 
+    meta_convert = settings.convert
+    meta_key = None
+    meta_tags = []
+
     def __bool__(self):
         return False
 
@@ -41,6 +45,10 @@ class NullModule:
         return self._meta_default_fallback
 
     @property
+    def meta_fullname(self):
+        return ''
+
+    @property
     def meta_plain(self):
         return self._meta_default_plain
 
@@ -58,7 +66,7 @@ class NullModule:
 
     @property
     def meta_name(self):
-        return self._meta_default_main_module_name
+        return ''
 
     @property
     def meta_qualname(self):
@@ -67,10 +75,6 @@ class NullModule:
     @property
     def meta_strict(self):
         return self._meta_default_strict
-
-    @property
-    def meta_tags(self):
-        return []
 
     @property
     def meta_type(self):
@@ -86,6 +90,5 @@ class NullModule:
     _meta_default_cache = settings.cache
     _meta_default_chdir = settings.chdir
     _meta_default_fallback = settings.fallback
-    _meta_default_main_module_name = settings.main_module_name
     _meta_default_plain = settings.plain
     _meta_default_strict = settings.strict

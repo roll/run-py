@@ -11,11 +11,11 @@ class ModulesTest(ExamplesTest):
         result = self._execute('auto.list')
         self.assertEqual(
             result,
-            'default\n'
-            'gcd\n'
-            'info\n'
-            'list\n'
-            'meta\n')
+            'auto.default\n'
+            'auto.gcd\n'
+            'auto.info\n'
+            'auto.list\n'
+            'auto.meta\n')
 
     def test_auto_gcd(self):
         result = self._execute('auto.gcd 10,15')
@@ -25,30 +25,30 @@ class ModulesTest(ExamplesTest):
         result = self._execute('find.list')
         self.assertEqual(
             result,
-            'default\n'
-            'derived\n'
-            'descriptor\n'
-            'find\n'
-            'function\n'
-            'info\n'
-            'input\n'
-            'list\n'
-            'meta\n'
-            'method\n'
-            'null\n'
-            'render\n'
-            'subprocess\n')
+            'find.default\n'
+            'find.derived\n'
+            'find.descriptor\n'
+            'find.find\n'
+            'find.function\n'
+            'find.info\n'
+            'find.input\n'
+            'find.list\n'
+            'find.meta\n'
+            'find.method\n'
+            'find.null\n'
+            'find.render\n'
+            'find.subprocess\n')
 
     def test_subprocess_list(self):
         result = self._execute('subprocess.list')
         self.assertEqual(
             result,
-            'default\n'
-            'goodbye\n'
-            'hello\n'
-            'info\n'
-            'list\n'
-            'meta\n')
+            'subprocess.default\n'
+            'subprocess.goodbye\n'
+            'subprocess.hello\n'
+            'subprocess.info\n'
+            'subprocess.list\n'
+            'subprocess.meta\n')
 
     def test_subprocess_hello(self):
         result = self._execute('subprocess.hello')

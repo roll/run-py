@@ -67,8 +67,10 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         return result
 
     def __repr__(self):
-        return ('<{self.meta_type} "{self.meta_qualname}">'.
-                format(self=self))
+        pattern = '<{self.meta_type}>'
+        if self.meta_qualname:
+            pattern = '<{self.meta_type} "{self.meta_qualname}">'
+        return pattern.format(self=self)
 
     @property
     def meta_args(self):
@@ -228,6 +230,11 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         return result
 
     @property
+    def meta_fullname(self):
+        module_fullname = self.meta_module.meta_fullname
+        return '.'.join(filter(None, [module_fullname, self.meta_name]))
+
+    @property
     def meta_plain(self):
         """Task's plain flag (plain or not).
 
@@ -276,7 +283,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         """Task's name.
 
         Name is defined as task name in module.
-        If module is None name will be empty string.
         """
         name = ''
         tasks = self.meta_module.meta_tasks
@@ -289,20 +295,11 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_qualname(self):
         """Task's qualified name.
 
-        Qualname is full task name in hierarhy
-        starts from main module.
+        Qualname is full task name in hierarhy starts
+        from main module.
         """
-        if self.meta_module.meta_is_main_module:
-            if (self.meta_module.meta_name ==
-                self._meta_default_main_module_name):
-                pattern = '{name}'
-            else:
-                pattern = '[{module_qualname}] {name}'
-        else:
-            pattern = '{module_qualname}.{name}'
-        return pattern.format(
-            module_qualname=self.meta_module.meta_qualname,
-            name=self.meta_name)
+        module_qualname = self.meta_module.meta_qualname
+        return '.'.join(filter(None, [module_qualname, self.meta_name]))
 
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
@@ -357,7 +354,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
 
     _meta_style = 'task'
     _meta_styles = settings.styles
-    _meta_default_main_module_name = settings.main_module_name
     _meta_require = require
     _meta_TaskSignal = TaskSignal
     _meta_trigger = trigger
