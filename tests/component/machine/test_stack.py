@@ -12,7 +12,7 @@ class StackTest(unittest.TestCase):
         self.task1 = Mock(
             meta_module='module1',
             meta_name='task1',
-            meta_qualname='module1.task1',
+            meta_fullname='[key] module1.task1',
             meta_format=lambda string: string)
         self.task2 = Mock(
             meta_module='module2',
@@ -34,16 +34,17 @@ class StackTest(unittest.TestCase):
 
     def test___repr___1_tasks(self):
         self.stack.push(self.task1)
-        self.assertEqual(repr(self.stack), 'module1.task1')
+        self.assertEqual(repr(self.stack),
+                         '[key] module1.task1')
 
     def test___repr___tasks_with_same_modules(self):
         self.stack.push(self.task1)
         self.stack.push(self.task1)
         self.assertEqual(repr(self.stack),
-                         'module1.task1/task1')
+                         '[key] module1.task1/task1')
 
     def test___repr___tasks_with_different_modules(self):
         self.stack.push(self.task1)
         self.stack.push(self.task2)
         self.assertEqual(repr(self.stack),
-                         'module1.task1/module2.task2')
+                         '[key] module1.task1/module2.task2')

@@ -231,8 +231,11 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
 
     @property
     def meta_fullname(self):
-        module_fullname = self.meta_module.meta_fullname
-        return '.'.join(filter(None, [module_fullname, self.meta_name]))
+        separator = '.'
+        if self.meta_module.meta_is_main_module:
+            separator = ' '
+        return separator.join(filter(None,
+            [self.meta_module.meta_fullname, self.meta_name]))
 
     @property
     def meta_plain(self):

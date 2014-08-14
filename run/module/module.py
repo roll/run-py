@@ -60,10 +60,10 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
     @property
     def meta_fullname(self):
         if self.meta_is_main_module:
-            pattern = '{self.meta_qualname}'
+            fullname = ''
             if self.meta_key is not None:
-                pattern = '[{self.meta_key}] {self.meta_qualname}'
-            return pattern.format(self=self)
+                fullname = '[{self.meta_key}]'.format(self=self)
+            return fullname
         else:
             return super().meta_fullname
 
@@ -129,8 +129,12 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
                 nested_task = task.meta_tasks[name]
                 name = nested_task.meta_format(nested_task.meta_fullname)
             else:
-                # TODO: code duplication with Task.qualname/fullname?
-                name = '.'.join(filter(None, [task.meta_fullname, name]))
+                # TODO: code duplication with Task.meta_fullname
+                separator = '.'
+                if task.meta_is_main_module:
+                    separator = ' '
+                name = separator.join(filter(None,
+                    [task.meta_fullname, name]))
             names.append(name)
         result = '\n'.join(names)
         self._meta_print(result)

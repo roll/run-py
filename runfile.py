@@ -3,8 +3,6 @@ from packgram import ManageModule
 
 class Module(ManageModule):
 
-    meta_tags = ['id:ivan']
-
     # Attributes
 
     author = 'roll'
