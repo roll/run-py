@@ -11,10 +11,10 @@ class ModuleCluster:
     # Public
 
     def __init__(self, *,
-                 names=None, tags=None,
+                 key=None, tags=None,
                  file=None, basedir=None, recursively=False,
                  plain=False, skip=False, dispatcher=None):
-        self._names = names
+        self._key = key
         self._tags = tags
         self._file = file
         self._basedir = basedir
@@ -55,7 +55,7 @@ class ModuleCluster:
     @cachedproperty
     def _Modules(self):
         Modules = self._find(
-            names=self._names,
+            key=self._key,
             tags=self._tags,
             file=self._file,
             basedir=self._basedir,

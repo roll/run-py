@@ -43,9 +43,9 @@ class find_Test(unittest.TestCase):
             'Hits dir/runfile.py\n'
             'Hits dir/subdir/runfile.py\n')
 
-    def test_find_with_names(self):
+    def test_find_with_key(self):
         modules = self.pfind(
-            names=['name1'], file='runfile.py', recursively=True)
+            key='key1', file='runfile.py', recursively=True)
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module1')
 

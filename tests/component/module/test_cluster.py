@@ -12,7 +12,7 @@ class ModuleClusterTest(unittest.TestCase):
 
     def test___getattr__(self):
         cluster = self.Cluster(
-            names='names',
+            key='key',
             tags='tags',
             file='file',
             basedir='basedir',
@@ -24,7 +24,7 @@ class ModuleClusterTest(unittest.TestCase):
         self.assertEqual(cluster.attr2, [1])
         # Find
         cluster._find.assert_called_with(
-            names='names',
+            key='key',
             tags='tags',
             file='file',
             basedir='basedir',

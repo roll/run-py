@@ -14,7 +14,7 @@ class ProgramTest(unittest.TestCase):
     def test___call__(self):
         self.program()
         self.program._Machine.assert_called_with(
-            names='names',
+            key='key',
             tags='tags',
             file='file',
             basedir='basedir',
@@ -39,7 +39,7 @@ class ProgramTest(unittest.TestCase):
                 debug='debug',
                 verbose='verbose',
                 quiet='quiet',
-                names='names',
+                key='key',
                 tags='tags',
                 basedir='basedir',
                 file='file',

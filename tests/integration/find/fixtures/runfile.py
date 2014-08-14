@@ -6,7 +6,7 @@ class Module1(Module):
 
     # Public
 
-    meta_name = 'name1'
+    meta_key = 'key1'
     meta_tags = ['tag1']
 
 

@@ -14,14 +14,14 @@ class FindModuleTest(unittest.TestCase):
     def test___new__(self):
         Module = self._make_mock_module_class(self.inner_module)
         module = Module(
-            names='names',
+            key='key',
             tags='tags',
             file='file',
             basedir='basedir',
             recursively='recursively')
         self.assertIsInstance(module, Mock)
         Module._find.assert_called_with(
-            names='names',
+            key='key',
             tags='tags',
             file='file',
             basedir='basedir',

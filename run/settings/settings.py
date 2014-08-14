@@ -11,12 +11,12 @@ class Settings(Settings):
     cache = True
     chdir = True
     convert = True
-    plain = False
     fallback = None
     file = 'runfile.py'
-    names = None
+    key = None
     null_dispatcher = 'run.signal.NullDispatcher'
     null_module = 'run.module.NullModule'
+    plain = False
     recursively = False
     strict = True
     tags = None
@@ -89,6 +89,12 @@ class Settings(Settings):
                  'help': 'Display this help message.',
                 },
                 {
+                 'dest': 'key',
+                 'flags': ['-k', '--key'],
+                 'default': self.key,
+                 'help': 'Main module key to match.',
+                },
+                {
                  'dest': 'info',
                  'action': 'store_true',
                  'flags': ['-i', '--info'],
@@ -105,13 +111,6 @@ class Settings(Settings):
                  'action': 'store_true',
                  'flags': ['-m', '--meta'],
                  'help': 'Display task meta.',
-                },
-                {
-                 'dest': 'names',
-                 'nargs': '*',
-                 'flags': ['-n', '--names'],
-                 'default': self.names,
-                 'help': 'Main modules names to match.',
                 },
                 {
                  'dest': 'recursively',

@@ -15,20 +15,20 @@ class find(Function):
 
     default_basedir = settings.basedir
     default_file = settings.file
-    default_names = settings.names
+    default_key = settings.key
     default_recursively = settings.recursively
     default_tags = settings.tags
     default_target = Target
 
     def __init__(self, *,
                  target=None,
-                 names=None, tags=None,
+                 key=None, tags=None,
                  file=None, basedir=None, recursively=None,
                  **find_params):
         if target is None:
             target = self.default_target
-        if names is None:
-            names = self.default_names
+        if key is None:
+            key = self.default_key
         if tags is None:
             tags = self.default_tags
         if file is None:
@@ -38,7 +38,7 @@ class find(Function):
         if recursively is None:
             recursively = self.default_recursively
         self._target = target
-        self._names = names
+        self._key = key
         self._tags = tags
         self._file = file
         self._basedir = basedir
@@ -80,6 +80,6 @@ class find(Function):
     @cachedproperty
     def _effective_constraints(self):
         constraints = [
-            Constraint(self._target, names=self._names, tags=self._tags)]
+            Constraint(self._target, key=self._key, tags=self._tags)]
         constraints += self._find_params.pop('constraints', [])
         return constraints

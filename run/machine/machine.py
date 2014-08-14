@@ -11,10 +11,10 @@ class Machine:
     # Public
 
     def __init__(self, *,
-                 names=None, tags=None,
+                 key=None, tags=None,
                  file=None, basedir=None, recursively=False,
                  plain=False, skip=False, compact=False):
-        self._names = names
+        self._key = key
         self._tags = tags
         self._file = file
         self._basedir = basedir
@@ -66,7 +66,7 @@ class Machine:
     @cachedproperty
     def _cluster(self):
         return self._ModuleCluster(
-            names=self._names,
+            key=self._key,
             tags=self._tags,
             file=self._file,
             basedir=self._basedir,

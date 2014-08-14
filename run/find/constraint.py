@@ -6,9 +6,9 @@ class Constraint(Constraint):
 
     # Public
 
-    def __init__(self, target, *, names=None, tags=None):
+    def __init__(self, target, *, key=None, tags=None):
         self._target = target
-        self._names = names
+        self._key = key
         self._tags = tags
 
     def __call__(self, emitter):
@@ -18,25 +18,21 @@ class Constraint(Constraint):
             emitter.skip()
         elif not issubclass(emitter.objself, self._target):
             emitter.skip()
-        elif not self._match_names(emitter.objself.meta_name):
+        elif not self._match_key(emitter.objself.meta_key):
             emitter.skip()
         elif not self._match_tags(emitter.objself.meta_tags):
             emitter.skip()
 
     # Protected
 
-    def _match_names(self, name):
-        if self._names is not None:
-            if inspect.isdatadescriptor(name):
-                return False
-            elif name not in self._names:
+    def _match_key(self, key):
+        if self._key is not None:
+            if key != self._key:
                 return False
         return True
 
     def _match_tags(self, tags):
         if self._tags is not None:
-            if inspect.isdatadescriptor(tags):
-                return False
-            elif set(tags).isdisjoint(self._tags):
+            if set(tags).isdisjoint(self._tags):
                 return False
         return True

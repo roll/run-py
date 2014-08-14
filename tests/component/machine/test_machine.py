@@ -14,7 +14,7 @@ class MachineTest(unittest.TestCase):
 
     def test_process(self):
         machine = self.Machine(
-            names='names',
+            key='key',
             tags='tags',
             file='file',
             basedir='basedir',
@@ -29,7 +29,7 @@ class MachineTest(unittest.TestCase):
             call('attr3')])
         # Check ModuleCluster call
         machine._ModuleCluster.assert_called_with(
-            names='names',
+            key='key',
             tags='tags',
             file='file',
             basedir='basedir',

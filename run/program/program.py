@@ -23,7 +23,7 @@ class Program(Program):
     @cachedproperty
     def _machine(self):
         machine = self._Machine(
-            names=self._command.names,
+            key=self._command.key,
             tags=self._command.tags,
             file=self._command.file,
             basedir=self._command.basedir,

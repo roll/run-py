@@ -61,7 +61,7 @@ class find_Test(unittest.TestCase):
             # Public
             default_basedir = 'default_basedir'
             default_file = 'default_file'
-            default_names = 'default_names'
+            default_key = 'default_key'
             default_recursively = 'default_recursively'
             default_tags = 'default_tags'
             default_target = 'default_target'
