@@ -27,7 +27,7 @@ class TaskPrototypeTest(unittest.TestCase):
         self.prototype.attr2 = 'value2'
         self.assertEqual(self.updates, [self.update])
         # Check update_class call
-        self.prototype._TaskUpdate.assert_called_with(
+        self.prototype._meta_TaskUpdate.assert_called_with(
             '__setattr__', 'attr2', 'value2')
 
     def __meta_fork__(self):
@@ -66,5 +66,5 @@ class TaskPrototypeTest(unittest.TestCase):
     def _make_mock_prototype_class(self, update):
         class MockPrototype(TaskPrototype):
             # Protected
-            _TaskUpdate = Mock(return_value=update)
+            _meta_TaskUpdate = Mock(return_value=update)
         return MockPrototype
