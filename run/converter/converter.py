@@ -13,9 +13,9 @@ class Converter(Decorator, metaclass=ABCMeta):
         self._kwargs = kwargs
 
     def __call__(self, obj):
+        if self.check_converted(obj):
+            return obj
         if self.check_applicable(obj):
-            if self.check_converted(obj):
-                return obj
             if self.check_matched(obj):
                 return self.make(obj)
         raise TypeError(
