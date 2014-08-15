@@ -20,6 +20,9 @@ class TaskPrototypeTest(unittest.TestCase):
             meta_updates=self.updates,
             **self.kwargs)
 
+    def test___getattr___no_attribute(self):
+        self.assertRaises(AttributeError, getattr, self.prototype , 'attr2')
+
     def test___setattr__(self):
         self.prototype.attr2 = 'value2'
         self.assertEqual(self.updates, [self.update])
