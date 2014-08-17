@@ -3,7 +3,7 @@ _run()
     local list
     local cur
 
-    list=$(run)
+    list=$(run -p)
     cur=${COMP_WORDS[COMP_CWORD]}
 
     COMPREPLY=($(compgen -W '${list}' -- $cur))
