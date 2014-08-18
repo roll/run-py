@@ -72,6 +72,69 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
             pattern = '<{self.meta_type} "{self.meta_qualname}">'
         return pattern.format(self=self)
 
+    def meta_depend(self, dependency):
+        """Add custom dependency.
+        """
+        dependency.bind(self)
+        self.meta_dependencies.append(dependency)
+
+    def meta_require(self, task, *args, **kwargs):
+        """Add require dependency.
+        """
+        dependency = self._meta_require(task, *args, **kwargs)
+        self.meta_depend(dependency)
+
+    def meta_trigger(self, task, *args, **kwargs):
+        """Add trigger dependency.
+        """
+        dependency = self._meta_trigger(task, *args, **kwargs)
+        self.meta_depend(dependency)
+
+    def meta_enable_dependency(self, task, types=None):
+        """Enable all dependencies for the task.
+        """
+        for dependency in self.meta_dependencies:
+            if types is not None:
+                if not isinstance(dependency, tuple(types)):
+                    continue
+            task = self.meta_module.meta_lookup(task)
+            if dependency.predecessor is task:
+                dependency.enable()
+
+    def meta_disable_dependency(self, task, *, types=None):
+        """Disable all dependencies for the task.
+        """
+        for dependency in self.meta_dependencies:
+            if types is not None:
+                if not isinstance(dependency, tuple(types)):
+                    continue
+            task = self.meta_module.meta_lookup(task)
+            if dependency.predecessor is task:
+                dependency.disable()
+
+    def meta_format(self, text):
+        result = text
+        if not self.meta_plain:
+            style = self._meta_styles.get(self._meta_style, None)
+            if style is not None:
+                formater = Formatter()
+                result = formater.format(text, **style)
+        return result
+
+    def meta_effective_invoke(self, *args, **kwargs):
+        """Invoke task with effective dir, args and kwargs.
+        """
+        eargs = self.meta_args + args
+        ekwargs = merge_dicts(self.meta_kwargs, kwargs)
+        with self._meta_change_directory():
+            return self.meta_invoke(*eargs, **ekwargs)
+
+    @abstractmethod
+    def meta_invoke(self, *args, **kwargs):
+        """Invoke task.
+        """
+        pass  # pragma: no cover
+
     @property
     def meta_args(self):
         """Tasks's default arguments
@@ -115,28 +178,11 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_chdir(self, value):
         self._meta_params['chdir'] = value
 
-    def meta_depend(self, dependency):
-        """Add custom dependency.
-        """
-        dependency.bind(self)
-        self.meta_dependencies.append(dependency)
-
     @property
     def meta_dependencies(self):
         """Task's list of dependencies.
         """
         return self._meta_dependencies
-
-    def meta_disable_dependency(self, task, *, types=None):
-        """Disable all dependencies for the task.
-        """
-        for dependency in self.meta_dependencies:
-            if types is not None:
-                if not isinstance(dependency, tuple(types)):
-                    continue
-            task = self.meta_module.meta_lookup(task)
-            if dependency.predecessor is task:
-                dependency.disable()
 
     @property
     def meta_dispatcher(self):
@@ -171,25 +217,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_docstring(self, value):
         self._meta_params['docstring'] = value
 
-    def meta_effective_invoke(self, *args, **kwargs):
-        """Invoke task with effective dir, args and kwargs.
-        """
-        eargs = self.meta_args + args
-        ekwargs = merge_dicts(self.meta_kwargs, kwargs)
-        with self._meta_change_directory():
-            return self.meta_invoke(*eargs, **ekwargs)
-
-    def meta_enable_dependency(self, task, types=None):
-        """Enable all dependencies for the task.
-        """
-        for dependency in self.meta_dependencies:
-            if types is not None:
-                if not isinstance(dependency, tuple(types)):
-                    continue
-            task = self.meta_module.meta_lookup(task)
-            if dependency.predecessor is task:
-                dependency.enable()
-
     @property
     def meta_fallback(self):
         """Task's fallback.
@@ -207,15 +234,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     @meta_fallback.setter
     def meta_fallback(self, value):
         self._meta_params['fallback'] = value
-
-    def meta_format(self, text):
-        result = text
-        if not self.meta_plain:
-            style = self._meta_styles.get(self._meta_style, None)
-            if style is not None:
-                formater = Formatter()
-                result = formater.format(text, **style)
-        return result
 
     @property
     def meta_fullname(self):
@@ -240,12 +258,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     @meta_plain.setter
     def meta_plain(self, value):
         self._meta_params['plain'] = value
-
-    @abstractmethod
-    def meta_invoke(self, *args, **kwargs):
-        """Invoke task.
-        """
-        pass  # pragma: no cover
 
     @property
     def meta_kwargs(self):
@@ -288,12 +300,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         module_qualname = self.meta_module.meta_qualname
         return '.'.join(filter(None, [module_qualname, self.meta_name]))
 
-    def meta_require(self, task, *args, **kwargs):
-        """Add require dependency.
-        """
-        dependency = self._meta_require(task, *args, **kwargs)
-        self.meta_depend(dependency)
-
     @property
     def meta_signature(self):
         """Task's signature.
@@ -324,12 +330,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     @meta_strict.setter
     def meta_strict(self, value):
         self._meta_params['strict'] = value
-
-    def meta_trigger(self, task, *args, **kwargs):
-        """Add trigger dependency.
-        """
-        dependency = self._meta_trigger(task, *args, **kwargs)
-        self.meta_depend(dependency)
 
     @property
     def meta_type(self):

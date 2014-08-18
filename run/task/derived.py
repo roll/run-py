@@ -9,6 +9,9 @@ class DerivedTask(Task):
         self._task = task
         super().__init__(*args, **kwargs)
 
+    def meta_invoke(self, *args, **kwargs):
+        return self._task_instance(*args, **kwargs)
+
     @property
     def meta_docstring(self):
         return self._meta_params.get(
@@ -16,9 +19,6 @@ class DerivedTask(Task):
             'Derived from task "{task_qualname}".\n{task_docstring}'.
             format(task_qualname=self._task_instance.meta_qualname,
                    task_docstring=self._task_instance.meta_docstring))
-
-    def meta_invoke(self, *args, **kwargs):
-        return self._task_instance(*args, **kwargs)
 
     @property
     def meta_signature(self):

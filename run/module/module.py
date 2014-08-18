@@ -35,6 +35,20 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
             attribute = getattr(attribute, nested_name)
         return attribute
 
+    def meta_lookup(self, name):
+        nested_name = None
+        if '.' in name:
+            # Nested name - split
+            name, nested_name = name.split('.', 1)
+        # TODO: add good exception text here like in __getattribute__
+        task = self.meta_tasks[name]
+        if nested_name is not None:
+            task = task.meta_lookup(nested_name)
+        return task
+
+    def meta_invoke(self, *args, **kwargs):
+        return self.default(*args, **kwargs)
+
     @property
     def meta_basedir(self):
         if self.meta_is_main_module:
@@ -76,20 +90,6 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
         else:
             return True
 
-    def meta_invoke(self, *args, **kwargs):
-        return self.default(*args, **kwargs)
-
-    def meta_lookup(self, name):
-        nested_name = None
-        if '.' in name:
-            # Nested name - split
-            name, nested_name = name.split('.', 1)
-        # TODO: add good exception text here like in __getattribute__
-        task = self.meta_tasks[name]
-        if nested_name is not None:
-            task = task.meta_lookup(nested_name)
-        return task
-
     @property
     def meta_main_module(self):
         if self.meta_is_main_module:
@@ -108,6 +108,8 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
             if isinstance(attr, Task):
                 tasks[name] = attr
         return tasks
+
+    # Tasks
 
     def list(self, task=None):
         """Print tasks.

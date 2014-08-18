@@ -6,11 +6,6 @@ class SubprocessTask(Task):
 
     # Public
 
-    @property
-    def meta_docstring(self):
-        return self._meta_params.get(
-            'docstring', 'Execute shell command.')
-
     def meta_invoke(self, command='', *, prefix='', separator=' '):
         ecommand = separator.join(filter(None, [prefix, command]))
         process = subprocess.Popen(ecommand, shell=True)
@@ -19,3 +14,8 @@ class SubprocessTask(Task):
             raise RuntimeError(
                 'Command "{ecommand}" exited with "{returncode}"'.
                 format(ecommand=ecommand, returncode=returncode))
+
+    @property
+    def meta_docstring(self):
+        return self._meta_params.get(
+            'docstring', 'Execute shell command.')

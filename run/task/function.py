@@ -10,13 +10,13 @@ class FunctionTask(Task):
         self._function = function
         super().__init__(*args, **kwargs)
 
+    def meta_invoke(self, *args, **kwargs):
+        return self._function(*args, **kwargs)
+
     @property
     def meta_docstring(self):
         return self._meta_params.get(
             'docstring', str(inspect.getdoc(self._function)).strip())
-
-    def meta_invoke(self, *args, **kwargs):
-        return self._function(*args, **kwargs)
 
     @property
     def meta_signature(self):
