@@ -17,9 +17,6 @@ class NullModuleTest(unittest.TestCase):
     def test___repr__(self):
         self.assertTrue(repr(self.module))
 
-    def test_meta_tasks(self):
-        self.assertEqual(self.module.meta_tasks, {})
-
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, os.getcwd())
 
@@ -35,9 +32,6 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_dispatcher(self, NullDispatcher):
         self.assertEqual(self.module.meta_dispatcher,
                          NullDispatcher.return_value)
-
-    def test_meta_docstring(self):
-        self.assertEqual(self.module.meta_docstring, 'NullModule')
 
     @patch.object(NullModule, '_meta_default_fallback')
     def test_meta_fallback(self, fallback):
@@ -61,6 +55,9 @@ class NullModuleTest(unittest.TestCase):
     @patch.object(NullModule, '_meta_default_strict')
     def test_meta_strict(self, strict):
         self.assertEqual(self.module.meta_strict, strict)
+
+    def test_meta_tasks(self):
+        self.assertEqual(self.module.meta_tasks, {})
 
     def test_meta_type(self):
         self.assertEqual(self.module.meta_type, 'NullModule')

@@ -36,10 +36,6 @@ class NullModule(Module):
         return dispatcher
 
     @property
-    def meta_docstring(self):
-        return 'NullModule'
-
-    @property
     def meta_fallback(self):
         return self._meta_default_fallback
 
