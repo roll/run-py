@@ -1,11 +1,11 @@
 import os
 from box.functools import cachedproperty
-from box.importlib import import_object
 from ..settings import settings
 from ..signal import NullDispatcher
+from .module import Module
 
 
-class NullModule:
+class NullModule(Module):
 
     # Public
 

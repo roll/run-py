@@ -4,12 +4,12 @@ from pprint import pprint
 from collections import OrderedDict
 from ..find import Target
 from ..settings import settings
-from ..task import Task, NullTask
+from ..task import Task, NullTask, Module
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
 
 
-class Module(Task, Target, metaclass=ModuleMetaclass):
+class Module(Task, Module, Target, metaclass=ModuleMetaclass):
 
     # Public
 
