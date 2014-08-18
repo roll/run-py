@@ -6,8 +6,9 @@ class Var(Task, metaclass=ABCMeta):
 
     # Public
 
-    def __get__(self, module, module_class=None):
-        return self()
+    @property
+    def meta_is_descriptor(self):
+        return True
 
     @property
     def meta_signature(self):
