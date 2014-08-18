@@ -3,6 +3,7 @@ import inspect
 from abc import abstractmethod
 from box.collections import merge_dicts
 from box.terminal import Formatter
+from box.types import Null
 from contextlib import contextmanager
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
@@ -29,6 +30,8 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
                 self._meta_params[name] = kwargs.pop(key)
         # Initiate directory
         self._meta_initial_dir = os.path.abspath(os.getcwd())
+        # Initiate cache
+        self._meta_cached_result = Null
         # Initiate dependencies
         self._meta_dependencies = []
         self._meta_init_dependencies()
@@ -55,7 +58,10 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
                 eargs = self.meta_args + args
                 ekwargs = merge_dicts(self.meta_kwargs, kwargs)
                 with self._meta_change_directory():
-                    result = self.meta_invoke(*eargs, **ekwargs)
+                    result = self._meta_retrieve_cached_result(*args, **kwargs)
+                    if result is Null:
+                        result = self.meta_invoke(*eargs, **ekwargs)
+                    self._meta_store_cached_result(result, *args, **kwargs)
             except Exception:
                 if self.meta_fallback is not None:
                     result = self.meta_fallback
@@ -154,6 +160,25 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     @meta_basedir.setter
     def meta_basedir(self, value):
         self._meta_params['basedir'] = value
+
+    @property
+    def meta_cache(self):
+        """Task's caching status (enabled or disabled).
+
+        If meta_cache is True task caches result of invocation
+        without arguments.
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_params.get(
+            'cache', self.meta_module.meta_cache)
+
+    @meta_cache.setter
+    def meta_cache(self, value):
+        self._meta_params['cache'] = value
 
     @property
     def meta_chdir(self):
@@ -367,3 +392,16 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
             os.chdir(previous_dir)
         else:
             yield
+
+    def _meta_retrieve_cached_result(self, *args, **kwargs):
+        if not args and not kwargs:
+            # Works only without arguments
+            if self.meta_cache:
+                return self._meta_cached_result
+        return Null
+
+    def _meta_store_cached_result(self, result, *args, **kwargs):
+        if not args and not kwargs:
+            # Works only without arguments
+            if self.meta_cache:
+                self._meta_cached_result = result

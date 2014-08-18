@@ -63,15 +63,6 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
         self._meta_params['basedir'] = value
 
     @property
-    def meta_cache(self):
-        return self._meta_params.get(
-            'cache', self.meta_module.meta_cache)
-
-    @meta_cache.setter
-    def meta_cache(self, value):
-        self._meta_params['cache'] = value
-
-    @property
     def meta_fullname(self):
         if self.meta_is_main_module:
             fullname = ''
