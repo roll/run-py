@@ -15,6 +15,9 @@ class NullModule(Module):
     def __repr__(self):
         return '<NullModule>'
 
+    def meta_lookup(self, name):
+        raise KeyError(name)
+
     @property
     def meta_basedir(self):
         return os.path.abspath(os.getcwd())
