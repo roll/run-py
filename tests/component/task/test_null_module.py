@@ -46,9 +46,6 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_module(self):
         self.assertEqual(self.module.meta_module, self.module)
 
-    def test_meta_name(self):
-        self.assertEqual(self.module.meta_name, '')
-
     def test_meta_qualname(self):
         self.assertEqual(self.module.meta_qualname, '')
 
