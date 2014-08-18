@@ -17,6 +17,9 @@ class NullModuleTest(unittest.TestCase):
     def test___repr__(self):
         self.assertTrue(repr(self.module))
 
+    def test_meta_lookup(self):
+        self.assertRaises(KeyError, self.module.meta_lookup, 'name')
+
     def test_meta_basedir(self):
         self.assertEqual(self.module.meta_basedir, os.getcwd())
 
@@ -37,14 +40,21 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_fallback(self, fallback):
         self.assertEqual(self.module.meta_fallback, fallback)
 
+    def test_meta_fullname(self):
+        self.assertEqual(self.module.meta_fullname, '')
+
     def test_meta_is_main_module(self):
         self.assertEqual(self.module.meta_is_main_module, True)
+
+    def test_meta_qualname(self):
+        self.assertEqual(self.module.meta_qualname, '')
 
     def test_meta_main_module(self):
         self.assertEqual(self.module.meta_main_module, self.module)
 
-    def test_meta_qualname(self):
-        self.assertEqual(self.module.meta_qualname, '')
+    @patch.object(NullModule, '_meta_default_plain')
+    def test_meta_plain(self, plain):
+        self.assertEqual(self.module.meta_plain, plain)
 
     @patch.object(NullModule, '_meta_default_strict')
     def test_meta_strict(self, strict):
