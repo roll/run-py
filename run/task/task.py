@@ -171,24 +171,12 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_docstring(self, value):
         self._meta_params['docstring'] = value
 
-    @contextmanager
-    def meta_effective_dir(self):
-        if self.meta_chdir:
-            previous_dir = os.path.abspath(os.getcwd())
-            following_dir = os.path.join(
-                self._meta_initial_dir, self.meta_basedir)
-            os.chdir(following_dir)
-            yield
-            os.chdir(previous_dir)
-        else:
-            yield
-
     def meta_effective_invoke(self, *args, **kwargs):
         """Invoke task with effective dir, args and kwargs.
         """
         eargs = self.meta_args + args
         ekwargs = merge_dicts(self.meta_kwargs, kwargs)
-        with self.meta_effective_dir():
+        with self._meta_change_directory():
             return self.meta_invoke(*eargs, **ekwargs)
 
     def meta_enable_dependency(self, task, types=None):
@@ -369,10 +357,22 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         for task in self._meta_params.get('trigger', []):
             self.meta_trigger(task)
 
+    def _meta_add_signal(self, event):
+        signal = self._meta_TaskSignal(self, event=event)
+        self.meta_dispatcher.add_signal(signal)
+
     def _meta_resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
             dependency.resolve(failed=failed)
 
-    def _meta_add_signal(self, event):
-        signal = self._meta_TaskSignal(self, event=event)
-        self.meta_dispatcher.add_signal(signal)
+    @contextmanager
+    def _meta_change_directory(self):
+        if self.meta_chdir:
+            previous_dir = os.path.abspath(os.getcwd())
+            following_dir = os.path.join(
+                self._meta_initial_dir, self.meta_basedir)
+            os.chdir(following_dir)
+            yield
+            os.chdir(previous_dir)
+        else:
+            yield
