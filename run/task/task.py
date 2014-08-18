@@ -51,28 +51,28 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         self._meta_kwargs = kwargs
 
     def __call__(self, *args, **kwargs):
-        self._meta_add_signal('initiated')
-        try:
-            self._meta_resolve_dependencies()
+        result = self._meta_retrieve_cached_result(*args, **kwargs)
+        if result is Null:
+            self._meta_add_signal('initiated')
             try:
-                eargs = self.meta_args + args
-                ekwargs = merge_dicts(self.meta_kwargs, kwargs)
-                with self._meta_change_directory():
-                    result = self._meta_retrieve_cached_result(*args, **kwargs)
-                    if result is Null:
+                self._meta_resolve_dependencies()
+                try:
+                    eargs = self.meta_args + args
+                    ekwargs = merge_dicts(self.meta_kwargs, kwargs)
+                    with self._meta_change_directory():
                         result = self.meta_invoke(*eargs, **ekwargs)
-                    self._meta_store_cached_result(result, *args, **kwargs)
+                except Exception:
+                    if self.meta_fallback is not None:
+                        result = self.meta_fallback
+                    else:
+                        self._meta_resolve_dependencies(failed=True)
+                        raise
+                self._meta_resolve_dependencies(failed=False)
             except Exception:
-                if self.meta_fallback is not None:
-                    result = self.meta_fallback
-                else:
-                    self._meta_resolve_dependencies(failed=True)
-                    raise
-            self._meta_resolve_dependencies(failed=False)
-        except Exception:
-            self._meta_add_signal('failed')
-            raise
-        self._meta_add_signal('successed')
+                self._meta_add_signal('failed')
+                raise
+            self._meta_add_signal('successed')
+            self._meta_store_cached_result(result, *args, **kwargs)
         return result
 
     def __repr__(self):
@@ -373,6 +373,13 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         for task in self._meta_params.get('trigger', []):
             self.meta_trigger(task)
 
+    def _meta_retrieve_cached_result(self, *args, **kwargs):
+        if not args and not kwargs:
+            # Works only without arguments
+            if self.meta_cache:
+                return self._meta_cached_result
+        return Null
+
     def _meta_add_signal(self, event):
         signal = self._meta_TaskSignal(self, event=event)
         self.meta_dispatcher.add_signal(signal)
@@ -392,13 +399,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
             os.chdir(previous_dir)
         else:
             yield
-
-    def _meta_retrieve_cached_result(self, *args, **kwargs):
-        if not args and not kwargs:
-            # Works only without arguments
-            if self.meta_cache:
-                return self._meta_cached_result
-        return Null
 
     def _meta_store_cached_result(self, result, *args, **kwargs):
         if not args and not kwargs:

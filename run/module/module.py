@@ -100,8 +100,6 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
                 tasks[name] = attr
         return tasks
 
-    # Tasks
-
     def list(self, task=None):
         """Print tasks.
         """
