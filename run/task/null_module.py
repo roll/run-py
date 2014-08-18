@@ -59,10 +59,6 @@ class NullModule(Module):
         return self._meta_default_plain
 
     @property
-    def meta_module(self):
-        return self
-
-    @property
     def meta_strict(self):
         return self._meta_default_strict
 
