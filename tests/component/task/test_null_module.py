@@ -58,6 +58,3 @@ class NullModuleTest(unittest.TestCase):
 
     def test_meta_tasks(self):
         self.assertEqual(self.module.meta_tasks, {})
-
-    def test_meta_type(self):
-        self.assertEqual(self.module.meta_type, 'NullModule')

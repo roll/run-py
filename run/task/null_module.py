@@ -72,10 +72,6 @@ class NullModule(Module):
         return self._meta_default_strict
 
     @property
-    def meta_type(self):
-        return type(self).__name__
-
-    @property
     def meta_tasks(self):
         return {}
 
