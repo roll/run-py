@@ -43,16 +43,20 @@ class NullModule(Module):
         return ''
 
     @property
-    def meta_plain(self):
-        return self._meta_default_plain
-
-    @property
     def meta_is_main_module(self):
         return True
 
     @property
+    def meta_qualname(self):
+        return self.meta_name
+
+    @property
     def meta_main_module(self):
         return self
+
+    @property
+    def meta_plain(self):
+        return self._meta_default_plain
 
     @property
     def meta_module(self):
@@ -61,10 +65,6 @@ class NullModule(Module):
     @property
     def meta_name(self):
         return ''
-
-    @property
-    def meta_qualname(self):
-        return self.meta_name
 
     @property
     def meta_strict(self):

@@ -50,6 +50,11 @@ class Module(metaclass=ABCMeta):
 
     @property
     @abstractmethod
+    def meta_main_module(self):
+        pass  # pragma: no cover
+
+    @property
+    @abstractmethod
     def meta_plain(self):
         pass  # pragma: no cover
 
