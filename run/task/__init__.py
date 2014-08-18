@@ -1,7 +1,6 @@
 from .attribute import AttributeTask
 from .build import build
 from .cluster import TaskCluster, ClusterTask
-from .container import Container
 from .converter import task
 from .derived import DerivedTask
 from .descriptor import DescriptorTask
@@ -11,6 +10,7 @@ from .function import FunctionTask
 from .input import InputTask
 from .metaclass import TaskMetaclass
 from .method import MethodTask
+from .module import Module
 from .null_module import NullModule
 from .null import NullTask
 from .prototype import TaskPrototype

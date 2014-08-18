@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-class Container(metaclass=ABCMeta):
+class Module(metaclass=ABCMeta):
 
     # Public
 
