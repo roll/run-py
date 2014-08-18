@@ -50,7 +50,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         self._meta_args = args
         self._meta_kwargs = kwargs
 
-    # TODO: replace module by container/namespace?
     def __get__(self, module, module_class=None):
         if self.meta_is_descriptor:
             if self.meta_cache:
