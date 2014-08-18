@@ -84,7 +84,7 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_format(self, text):
         result = text
         if not self.meta_plain:
-            style = self._meta_styles.get(self._meta_style, None)
+            style = self._meta_styles.get(self.meta_style, None)
             if style is not None:
                 formater = Formatter()
                 result = formater.format(text, **style)
@@ -352,6 +352,10 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         self._meta_params['strict'] = value
 
     @property
+    def meta_style(self):
+        return 'task'
+
+    @property
     def meta_type(self):
         """Task's type as a string.
         """
@@ -359,7 +363,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Protected
 
-    _meta_style = 'task'
     _meta_styles = settings.styles
     _meta_require = require
     _meta_TaskSignal = TaskSignal

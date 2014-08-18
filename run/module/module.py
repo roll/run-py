@@ -89,6 +89,10 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
             return super().meta_main_module
 
     @property
+    def meta_style(self):
+        return 'module'
+
+    @property
     def meta_tasks(self):
         """Module's tasks dict-like object.
 
@@ -174,6 +178,5 @@ class Module(Task, Target, metaclass=ModuleMetaclass):
     # Protected
 
     _meta_default_convert = settings.convert
-    _meta_style = 'module'  # Overriding
     _meta_print = staticmethod(print)
     _meta_pprint = staticmethod(pprint)

@@ -13,6 +13,6 @@ class Var(Task, metaclass=ABCMeta):
     def meta_signature(self):
         return ''
 
-    # Protected
-
-    _meta_style = 'var'  # Overriding
+    @property
+    def meta_style(self):
+        return 'var'
