@@ -62,8 +62,5 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_strict(self, strict):
         self.assertEqual(self.module.meta_strict, strict)
 
-    def test_meta_tags(self):
-        self.assertEqual(self.module.meta_tags, [])
-
     def test_meta_type(self):
         self.assertEqual(self.module.meta_type, 'NullModule')

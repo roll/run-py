@@ -9,10 +9,6 @@ class NullModule(Module):
 
     # Public
 
-    meta_convert = settings.convert
-    meta_key = None
-    meta_tags = []
-
     def __bool__(self):
         return False
 
