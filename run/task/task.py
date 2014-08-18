@@ -32,12 +32,12 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         self._meta_initial_dir = os.path.abspath(os.getcwd())
         # Initiate cache
         self._meta_cached_result = Null
-        # Initiate dependencies
-        self._meta_dependencies = []
-        self._meta_init_dependencies()
         # Initiate arguments
         self._meta_args = ()
         self._meta_kwargs = {}
+        # Initiate dependencies
+        self._meta_dependencies = []
+        self._meta_init_dependencies()
         # Call user init
         self.__init__(*args, **kwargs)
         return self
