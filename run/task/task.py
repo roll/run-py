@@ -52,7 +52,10 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         try:
             self._meta_resolve_dependencies()
             try:
-                result = self.meta_effective_invoke(*args, **kwargs)
+                eargs = self.meta_args + args
+                ekwargs = merge_dicts(self.meta_kwargs, kwargs)
+                with self._meta_change_directory():
+                    result = self.meta_invoke(*eargs, **ekwargs)
             except Exception:
                 if self.meta_fallback is not None:
                     result = self.meta_fallback
@@ -120,14 +123,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
                 formater = Formatter()
                 result = formater.format(text, **style)
         return result
-
-    def meta_effective_invoke(self, *args, **kwargs):
-        """Invoke task with effective dir, args and kwargs.
-        """
-        eargs = self.meta_args + args
-        ekwargs = merge_dicts(self.meta_kwargs, kwargs)
-        with self._meta_change_directory():
-            return self.meta_invoke(*eargs, **ekwargs)
 
     @abstractmethod
     def meta_invoke(self, *args, **kwargs):
