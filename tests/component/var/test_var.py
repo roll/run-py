@@ -9,10 +9,10 @@ class VarTest(unittest.TestCase):
 
     def setUp(self):
         self.Var = self._make_mock_var_class()
-        self.var = self.Var(meta_module=None)
-        patch('run.NullModule.meta_cache', True).start()
+        self.var = self.Var(meta_module=None, meta_cache=True)
         self.addCleanup(patch.stopall)
 
+    # TODO: move to Task
     def test___get__(self):
         self.assertEqual(self.var.__get__('module'), 'value')
         self.assertEqual(self.var.__get__('module'), 'value')
@@ -33,11 +33,6 @@ class VarTest(unittest.TestCase):
         self.assertEqual(self.var.__get__('module'), 'value')
         # Two calls because of caching is off
         self.assertEqual(self.var.meta_invoke.call_count, 2)
-
-    def test_meta_cache(self):
-        self.assertEqual(self.var.meta_cache, True)
-        self.var.meta_cache = False
-        self.assertEqual(self.var.meta_cache, False)
 
     def test_meta_signature(self):
         self.assertEqual(self.var.meta_signature, '')

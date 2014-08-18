@@ -1,8 +1,7 @@
 from abc import ABCMeta
-from box.importlib import import_object
 from box.types import Null
-from ..settings import settings
 from .build import build
+from .null_module import NullModule
 from .prototype import TaskPrototype
 
 
@@ -19,13 +18,11 @@ class TaskMetaclass(ABCMeta):
         else:
             # Build and return task
             if meta_module is None:
-                NullModule = import_object(self._null_module)
-                meta_module = NullModule()
+                meta_module = self._NullModule()
             task = build(prototype, meta_module)
             return task
 
     # Protected
 
-    # TODO: renamed to _meta (if accessable from Task class)?
-    _null_module = settings.null_module
+    _NullModule = NullModule
     _TaskPrototype = TaskPrototype

@@ -2,8 +2,7 @@ from .converter import skip
 from .dependency import depend, require, trigger
 from .module import (Module,
                      module, spawn,
-                     AutoModule, ClusterModule, FindModule,
-                     NullModule, SubprocessModule)
+                     AutoModule, ClusterModule, FindModule, SubprocessModule)
 from .settings import settings
 from .task import (build, fork, task,
                    AttributeTask, DerivedTask, DescriptorTask, FindTask,

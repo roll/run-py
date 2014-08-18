@@ -11,6 +11,7 @@ from .function import FunctionTask
 from .input import InputTask
 from .metaclass import TaskMetaclass
 from .method import MethodTask
+from .null_module import NullModule
 from .null import NullTask
 from .prototype import TaskPrototype
 from .render import RenderTask

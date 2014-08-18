@@ -1,7 +1,7 @@
 import os
 import unittest
 from unittest.mock import patch
-from run.module.null import NullModule
+from run.task.null_module import NullModule
 
 
 class NullModuleTest(unittest.TestCase):
@@ -31,7 +31,7 @@ class NullModuleTest(unittest.TestCase):
     def test_meta_chdir(self, chdir):
         self.assertEqual(self.module.meta_chdir, chdir)
 
-    @patch.object(NullModule, '_meta_null_dispatcher')
+    @patch.object(NullModule, '_meta_NullDispatcher')
     def test_meta_dispatcher(self, NullDispatcher):
         self.assertEqual(self.module.meta_dispatcher,
                          NullDispatcher.return_value)

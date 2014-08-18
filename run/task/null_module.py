@@ -2,6 +2,7 @@ import os
 from box.functools import cachedproperty
 from box.importlib import import_object
 from ..settings import settings
+from ..signal import NullDispatcher
 
 
 class NullModule:
@@ -32,8 +33,7 @@ class NullModule:
 
     @cachedproperty
     def meta_dispatcher(self):
-        NullDispatcher = import_object(self._meta_null_dispatcher)
-        dispatcher = NullDispatcher()
+        dispatcher = self._meta_NullDispatcher()
         return dispatcher
 
     @property
@@ -86,7 +86,7 @@ class NullModule:
 
     # Protected
 
-    _meta_null_dispatcher = settings.null_dispatcher
+    _meta_NullDispatcher = NullDispatcher
     _meta_default_cache = settings.cache
     _meta_default_chdir = settings.chdir
     _meta_default_fallback = settings.fallback
