@@ -7,7 +7,7 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Public
 
-    def __spawn__(self):
+    def __meta_spawn__(self):
         # Documented public wrapper in :func:`.spawn`
         keys = []
         attrs = {}
@@ -22,12 +22,12 @@ class ModuleMetaclass(TaskMetaclass):
                     continue
                 elif key.startswith('meta_'):
                     continue
-                elif isinstance(attr, self._BaseTaskPrototype):
-                    attrs[key] = self._fork(attr)
+                elif isinstance(attr, self._meta_BaseTaskPrototype):
+                    attrs[key] = self._meta_fork(attr)
                 else:
                     if cls.meta_convert:
                         try:
-                            attrs[key] = self._convert(attr)
+                            attrs[key] = self._meta_convert(attr)
                         except TypeError:
                             pass
         attrs['__doc__'] = self.__doc__
@@ -36,7 +36,7 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Protected
 
-    _BaseTaskPrototype = TaskPrototype
-    _convert = convert
-    _fork = staticmethod(fork)
-    _TaskPrototype = ModulePrototype  # Overriding
+    _meta_BaseTaskPrototype = TaskPrototype
+    _meta_convert = convert
+    _meta_fork = staticmethod(fork)
+    _meta_TaskPrototype = ModulePrototype  # Overriding

@@ -10,7 +10,7 @@ class TaskMetaclass(ABCMeta):
     # Public
 
     def __call__(self, *args, meta_module=Null, meta_updates=None, **kwargs):
-        prototype = self._TaskPrototype(
+        prototype = self._meta_TaskPrototype(
             *args, meta_class=self, meta_updates=meta_updates, **kwargs)
         if meta_module is Null:
             # Return prototype
@@ -18,11 +18,11 @@ class TaskMetaclass(ABCMeta):
         else:
             # Build and return task
             if meta_module is None:
-                meta_module = self._NullModule()
+                meta_module = self._meta_NullModule()
             task = build(prototype, meta_module)
             return task
 
     # Protected
 
-    _NullModule = NullModule
-    _TaskPrototype = TaskPrototype
+    _meta_NullModule = NullModule
+    _meta_TaskPrototype = TaskPrototype

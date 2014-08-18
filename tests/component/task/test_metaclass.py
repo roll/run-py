@@ -49,7 +49,7 @@ class TaskMetaclassTest(unittest.TestCase):
             meta_class=self.Class,
             meta_updates=None)
         # Check NullModule call
-        self.Metaclass._NullModule.assert_called_with()
+        self.Metaclass._meta_NullModule.assert_called_with()
         # Check prototype call
         self.prototype = self.Prototype.return_value
         self.prototype.__meta_build__.assert_called_with('null_module')
@@ -59,8 +59,8 @@ class TaskMetaclassTest(unittest.TestCase):
     def _make_mock_metaclass(self, Prototype):
         class MockMetaclass(TaskMetaclass):
             # Protected
-            _NullModule = Mock(return_value='null_module')
-            _TaskPrototype = Prototype
+            _meta_NullModule = Mock(return_value='null_module')
+            _meta_TaskPrototype = Prototype
         return MockMetaclass
 
     def _make_mock_class(self, mock_metaclass):
