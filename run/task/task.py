@@ -75,6 +75,15 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
             pattern = '<{self.meta_type} "{self.meta_qualname}">'
         return pattern.format(self=self)
 
+    def meta_format(self, text):
+        result = text
+        if not self.meta_plain:
+            style = self._meta_styles.get(self._meta_style, None)
+            if style is not None:
+                formater = Formatter()
+                result = formater.format(text, **style)
+        return result
+
     def meta_depend(self, dependency):
         """Add custom dependency.
         """
@@ -114,15 +123,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
             task = self.meta_module.meta_lookup(task)
             if dependency.predecessor is task:
                 dependency.disable()
-
-    def meta_format(self, text):
-        result = text
-        if not self.meta_plain:
-            style = self._meta_styles.get(self._meta_style, None)
-            if style is not None:
-                formater = Formatter()
-                result = formater.format(text, **style)
-        return result
 
     @abstractmethod
     def meta_invoke(self, *args, **kwargs):
