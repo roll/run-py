@@ -260,10 +260,6 @@ class Task(Predecessor, Successor, metaclass=TaskMetaclass):
         return self.meta_module.meta_main_module
 
     @property
-    def meta_params(self):
-        return self._meta_params
-
-    @property
     def meta_module(self):
         """Task's module.
         """
