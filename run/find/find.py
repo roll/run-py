@@ -14,6 +14,7 @@ class find(Function):
     # Public
 
     default_basedir = settings.basedir
+    default_exclude = settings.exclude
     default_file = settings.file
     default_key = settings.key
     default_recursively = settings.recursively
@@ -23,7 +24,7 @@ class find(Function):
     def __init__(self, *,
                  target=None,
                  key=None, tags=None,
-                 file=None, basedir=None, recursively=None,
+                 file=None, exclude=None, basedir=None, recursively=None,
                  **find_params):
         if target is None:
             target = self.default_target
@@ -33,6 +34,8 @@ class find(Function):
             tags = self.default_tags
         if file is None:
             file = self.default_file
+        if exclude is None:
+            exclude = self.default_exclude
         if basedir is None:
             basedir = self.default_basedir
         if recursively is None:
@@ -41,6 +44,7 @@ class find(Function):
         self._key = key
         self._tags = tags
         self._file = file
+        self._exclude = exclude
         self._basedir = basedir
         self._recursively = recursively
         self._find_params = find_params
@@ -67,6 +71,11 @@ class find(Function):
             filters.append({'filename': self._file})
             if not self._recursively:
                 filters.append({'maxdepth': 1})
+        if self._exclude is not None:
+            if os.path.sep not in self._exclude:
+                filters.append({'notfilename': self._exclude})
+            else:
+                filters.append({'notfilepath': self._exclude})
         filters += self._find_params.pop('filters', [])
         return filters
 

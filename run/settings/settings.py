@@ -11,6 +11,7 @@ class Settings(Settings):
     cache = True
     chdir = True
     convert = True
+    exclude = None
     fallback = None
     file = 'runfile.py'
     key = None
