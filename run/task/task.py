@@ -89,13 +89,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             pattern = '<{self.meta_type} "{self.meta_qualname}">'
         return pattern.format(self=self)
 
-    def meta_format(self, text):
-        result = text
+    def meta_format(self, mode='name'):
+        result = str(getattr(self, 'meta_' + mode))
         if not self.meta_plain:
             style = self._meta_styles.get(self.meta_style, None)
             if style is not None:
                 formater = Formatter()
-                result = formater.format(text, **style)
+                result = formater.format(result, **style)
         return result
 
     def meta_depend(self, dependency):

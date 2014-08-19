@@ -122,7 +122,7 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
                 continue
             elif name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
-                name = nested_task.meta_format(nested_task.meta_fullname)
+                name = nested_task.meta_format(mode='fullname')
             else:
                 # TODO: code duplication with Task.meta_fullname
                 separator = '.'
