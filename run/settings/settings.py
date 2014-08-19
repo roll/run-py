@@ -71,16 +71,16 @@ class Settings(Settings):
                  'help': 'Enable compact mode.',
                 },
                 {
+                 'dest': 'exclude',
+                 'flags': ['-e', '--exclude'],
+                 'default': self.exclude,
+                 'help': 'Runfile name/path/pattern to exclude.',
+                },
+                {
                  'dest': 'file',
                  'flags': ['-f', '--file'],
                  'default': self.file,
                  'help': 'Runfile name/path/pattern.',
-                },
-                {
-                 'dest': 'plain',
-                 'action': 'store_true',
-                 'flags': ['-p', '--plain'],
-                 'help': 'Activate plain mode.',
                 },
                 {
                  'action': 'help',
@@ -110,6 +110,12 @@ class Settings(Settings):
                  'action': 'store_true',
                  'flags': ['-m', '--meta'],
                  'help': 'Display task meta.',
+                },
+                {
+                 'dest': 'plain',
+                 'action': 'store_true',
+                 'flags': ['-p', '--plain'],
+                 'help': 'Activate plain mode.',
                 },
                 {
                  'dest': 'recursively',
