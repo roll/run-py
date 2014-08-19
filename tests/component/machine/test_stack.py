@@ -29,22 +29,22 @@ class StackTest(unittest.TestCase):
         self.assertEqual(self.stack.pop(), 'task')
         self.assertFalse(self.stack)
 
-    def test___repr___0_tasks(self):
-        self.assertEqual(str(self.stack), '')
+    def test_format_0_tasks(self):
+        self.assertEqual(self.stack.format(), '')
 
-    def test___repr___1_tasks(self):
+    def test_format_1_tasks(self):
         self.stack.push(self.task1)
-        self.assertEqual(repr(self.stack),
+        self.assertEqual(self.stack.format(),
                          '[key] module1.task1')
 
-    def test___repr___tasks_with_same_modules(self):
+    def test_format_tasks_with_same_modules(self):
         self.stack.push(self.task1)
         self.stack.push(self.task1)
-        self.assertEqual(repr(self.stack),
+        self.assertEqual(self.stack.format(),
                          '[key] module1.task1/task1')
 
-    def test___repr___tasks_with_different_modules(self):
+    def test_format_tasks_with_different_modules(self):
         self.stack.push(self.task1)
         self.stack.push(self.task2)
-        self.assertEqual(repr(self.stack),
+        self.assertEqual(self.stack.format(),
                          '[key] module1.task1/module2.task2')

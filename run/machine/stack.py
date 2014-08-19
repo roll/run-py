@@ -2,7 +2,10 @@ class Stack(list):
 
     # Public
 
-    def __repr__(self):
+    def push(self, task):
+        self.append(task)
+
+    def format(self):
         names = []
         if len(self) >= 1:
             previous = self[0]
@@ -15,6 +18,3 @@ class Stack(list):
                     names.append(current.meta_format(current.meta_qualname))
                 previous = current
         return '/'.join(names)
-
-    def push(self, task):
-        self.append(task)

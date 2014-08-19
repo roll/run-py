@@ -59,7 +59,7 @@ class Machine:
         elif signal.event in ['successed', 'failed']:
             if self._compact:
                 self._stack.push(signal.task)
-            message = signal.format(signal.prefix) + repr(self._stack)
+            message = signal.format(signal.prefix) + self._stack.format()
             logger = logging.getLogger('task')
             logger.info(message)
             self._stack.pop()
