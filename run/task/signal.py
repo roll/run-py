@@ -11,22 +11,18 @@ class TaskSignal(Signal):
         self._task = task
         self._event = event
 
-    def format(self, text):
-        result = text
+    def format(self):
+        result = self._events.get(self.event, '')
         if not self.task.meta_plain:
             style = self._styles.get(self.event, None)
             if style is not None:
                 formater = Formatter()
-                result = formater.format(text, **style)
+                result = formater.format(result, **style)
         return result
 
     @property
     def event(self):
         return self._event
-
-    @property
-    def prefix(self):
-        return self._events.get(self.event, '')
 
     @property
     def task(self):

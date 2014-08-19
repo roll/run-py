@@ -51,18 +51,24 @@ class Machine:
                 self._on_task_signal,
                 signals=[self._TaskSignal]))
 
-    # TODO: improve design?
     def _on_task_signal(self, signal):
-        if signal.event == 'initiated':
-            if not self._compact:
+        # Stack operations
+        if self._compact:
+            self._stack.push(signal.task)
+            formatted_stack = self._stack.format()
+            self._stack.pop()
+        else:
+            if signal.event == 'initiated':
                 self._stack.push(signal.task)
-        elif signal.event in ['successed', 'failed']:
-            if self._compact:
-                self._stack.push(signal.task)
-            message = signal.format(signal.prefix) + self._stack.format()
+            formatted_stack = self._stack.format()
+            if signal.event in ['successed', 'failed']:
+                self._stack.pop()
+        # Logging operations
+        formatted_signal = signal.format()
+        if formatted_signal:
+            message = formatted_signal + formatted_stack
             logger = logging.getLogger('task')
             logger.info(message)
-            self._stack.pop()
 
     @cachedproperty
     def _cluster(self):
