@@ -11,10 +11,6 @@ class TaskSignal(Signal):
         self._task = task
         self._event = event
 
-    @property
-    def event(self):
-        return self._event
-
     def format(self, text):
         result = text
         if not self.task.meta_plain:
@@ -25,14 +21,12 @@ class TaskSignal(Signal):
         return result
 
     @property
+    def event(self):
+        return self._event
+
+    @property
     def prefix(self):
-        # TODO: move to settings
-        if self.event == 'initiated':
-            return '[.] '
-        elif self.event == 'successed':
-            return '[+] '
-        elif self.event == 'failed':
-            return '[-] '
+        return self._events.get(self.event, '')
 
     @property
     def task(self):
@@ -40,4 +34,5 @@ class TaskSignal(Signal):
 
     # Protected
 
+    _events = settings.events
     _styles = settings.styles

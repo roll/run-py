@@ -31,6 +31,13 @@ class Settings(Settings):
         'run.var.var',
     ]
 
+    # Events
+
+    events = {
+        'failed': '[-] ',
+        'successed': '[+] ',
+    }
+
     # Styles
 
     styles = {
