@@ -5,13 +5,14 @@ from box.collections import merge_dicts
 from box.terminal import Formatter
 from box.types import Null
 from contextlib import contextmanager
+from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
 from .metaclass import TaskMetaclass
 from .signal import TaskSignal
 
 
-class Task(Predecessor, Successor, metaclass=TaskMetaclass):
+class Task(Predecessor, Successor, Converted, metaclass=TaskMetaclass):
 
     # Public
 
