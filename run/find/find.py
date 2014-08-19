@@ -61,13 +61,6 @@ class find(Function):
     _getfirst_exception = NotFound
 
     @property
-    def _filepathes(self):
-        if self._file is not None:
-            if os.path.sep in self._file:
-                return [self._file]
-        return None
-
-    @property
     def _effective_filters(self):
         filters = []
         if self._filepathes is None:
@@ -83,3 +76,10 @@ class find(Function):
             Constraint(self._target, key=self._key, tags=self._tags)]
         constraints += self._find_params.pop('constraints', [])
         return constraints
+
+    @property
+    def _filepathes(self):
+        if self._file is not None:
+            if os.path.sep in self._file:
+                return [self._file]
+        return None
