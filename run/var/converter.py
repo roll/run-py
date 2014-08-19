@@ -30,7 +30,7 @@ class var(task):
 
     # Public
 
-    def check_matched(self, obj):
+    def match(self, obj):
         if inspect.isdatadescriptor(obj):
             return True
         if inspect.isfunction(obj):

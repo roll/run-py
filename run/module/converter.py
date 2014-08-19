@@ -29,7 +29,7 @@ class module(task):
 
     # Public
 
-    def check_matched(self, obj):
+    def match(self, obj):
         if self._isinstance(obj, type):
             if self._issubclass(obj, Module):
                 return True

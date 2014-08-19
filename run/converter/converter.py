@@ -14,10 +14,10 @@ class Converter(Decorator, metaclass=ABCMeta):
         self._kwargs = kwargs
 
     def __call__(self, obj):
-        if self.check_converted(obj):
+        if self._check_converted(obj):
             return obj
-        if self.check_applicable(obj):
-            if self.check_matched(obj):
+        if self._check_eligible(obj):
+            if self.match(obj):
                 return self.make(obj)
         raise TypeError(
             'Converter "{self}" is not suitable converter '
@@ -28,20 +28,8 @@ class Converter(Decorator, metaclass=ABCMeta):
         # Composite only if args not passed
         return not bool(args)
 
-    def check_applicable(self, obj):
-        if isinstance(obj, staticmethod):
-            return False
-        if isinstance(obj, classmethod):
-            return False
-        if getattr(obj, skip.attribute_name, False):
-            return False
-        return True
-
-    def check_converted(self, obj):
-        return isinstance(obj, Converted)
-
     @abstractmethod
-    def check_matched(self, obj):
+    def match(self, obj):
         pass  # pragma: no cover
 
     @abstractmethod
@@ -51,3 +39,15 @@ class Converter(Decorator, metaclass=ABCMeta):
     # Protected
 
     _kwargs = {}
+
+    def _check_converted(self, obj):
+        return isinstance(obj, Converted)
+
+    def _check_eligible(self, obj):
+        if isinstance(obj, staticmethod):
+            return False
+        if isinstance(obj, classmethod):
+            return False
+        if getattr(obj, skip.attribute_name, False):
+            return False
+        return True

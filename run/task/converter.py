@@ -30,7 +30,7 @@ class task(Converter):
 
     # Public
 
-    def check_matched(self, obj):
+    def match(self, obj):
         if inspect.isfunction(obj):
             return True
         return False
