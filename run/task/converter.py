@@ -1,8 +1,6 @@
 import inspect
 from ..converter import Converter
 from .method import MethodTask
-from .prototype import TaskPrototype
-from .task import Task
 
 
 class task(Converter):
@@ -32,13 +30,6 @@ class task(Converter):
 
     # Public
 
-    def check_converted(self, obj):
-        if isinstance(obj, self._TaskPrototype):
-            return True
-        if isinstance(obj, self._Task):
-            return True
-        return False
-
     def check_matched(self, obj):
         if inspect.isfunction(obj):
             return True
@@ -47,8 +38,3 @@ class task(Converter):
     def make(self, obj):
         prototype = MethodTask(obj, **self._kwargs)
         return prototype
-
-    # Protected
-
-    _Task = Task
-    _TaskPrototype = TaskPrototype

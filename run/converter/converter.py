@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import Decorator
+from .converted import Converted
 from .skip import skip
 
 
@@ -36,9 +37,8 @@ class Converter(Decorator, metaclass=ABCMeta):
             return False
         return True
 
-    @abstractmethod
     def check_converted(self, obj):
-        pass  # pragma: no cover
+        return isinstance(obj, Converted)
 
     @abstractmethod
     def check_matched(self, obj):
