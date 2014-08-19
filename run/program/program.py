@@ -26,6 +26,7 @@ class Program(Program):
             key=self._command.key,
             tags=self._command.tags,
             file=self._command.file,
+            exclude=self._command.exclude,
             basedir=self._command.basedir,
             recursively=self._command.recursively,
             plain=self._command.plain,

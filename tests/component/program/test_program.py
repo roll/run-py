@@ -17,6 +17,7 @@ class ProgramTest(unittest.TestCase):
             key='key',
             tags='tags',
             file='file',
+            exclude='exclude',
             basedir='basedir',
             recursively='recursively',
             plain='plain',
@@ -39,13 +40,14 @@ class ProgramTest(unittest.TestCase):
                 debug='debug',
                 verbose='verbose',
                 quiet='quiet',
-                key='key',
                 tags='tags',
                 basedir='basedir',
+                compact='compact',
+                exclude='exclude',
                 file='file',
+                key='key',
                 recursively='recursively',
                 plain='plain',
-                skip='skip',
-                compact='compact'))
+                skip='skip'))
             _Machine = Mock()
         return MockProgram
