@@ -1,10 +1,10 @@
 from copy import copy
 from box.collections import merge_dicts
-from ..converter import Converted
+from ..converter import Result
 from .update import TaskUpdate
 
 
-class TaskPrototype(Converted):
+class TaskPrototype(Result):
 
     # Public
 
