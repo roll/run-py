@@ -12,11 +12,12 @@ class Machine:
 
     def __init__(self, *,
                  key=None, tags=None,
-                 file=None, basedir=None, recursively=False,
+                 file=None, exclude=None, basedir=None, recursively=False,
                  plain=False, skip=False, compact=False):
         self._key = key
         self._tags = tags
         self._file = file
+        self._exclude = exclude
         self._basedir = basedir
         self._recursively = recursively
         self._plain = plain
@@ -69,6 +70,7 @@ class Machine:
             key=self._key,
             tags=self._tags,
             file=self._file,
+            exclude=self._exclude,
             basedir=self._basedir,
             recursively=self._recursively,
             plain=self._plain,
