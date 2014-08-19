@@ -32,8 +32,7 @@ class NullModule(Module):
 
     @cachedproperty
     def meta_dispatcher(self):
-        dispatcher = self._meta_NullDispatcher()
-        return dispatcher
+        return self._meta_NullDispatcher()
 
     @property
     def meta_fallback(self):
