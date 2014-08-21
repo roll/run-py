@@ -24,11 +24,6 @@ Prototype
 
 .. autoclass:: run.module.ModulePrototype 
 
-Cluster
--------
-
-.. autoclass:: run.module.ModuleCluster
-
 Concrete modules
 ----------------
 
