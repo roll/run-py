@@ -22,12 +22,12 @@ class TaskSignal(Signal):
         return result
 
     @property
-    def event(self):
-        return self._event
-
-    @property
     def task(self):
         return self._task
+
+    @property
+    def event(self):
+        return self._event
 
     # Protected
 
