@@ -5,7 +5,7 @@ from .module import (Module,
                      AutoModule, ClusterModule, FindModule, SubprocessModule)
 from .settings import settings
 from .task import (build, fork, task,
-                   AttributeTask, DerivedTask, DescriptorTask, FindTask,
+                   AttributeTask, ClusterTask, DerivedTask, DescriptorTask, FindTask,
                    FunctionTask, InputTask, MethodTask, NullTask,
                    RenderTask, SubprocessTask)
 from .var import (var,
