@@ -8,11 +8,11 @@ from contextlib import contextmanager
 from ..converter import Result
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
-from ..signal import Operation, OperationSignal
 from .metaclass import TaskMetaclass
+from .signal import TaskSignal
 
 
-class Task(Result, Predecessor, Successor, Operation, metaclass=TaskMetaclass):
+class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Public
 
@@ -377,7 +377,7 @@ class Task(Result, Predecessor, Successor, Operation, metaclass=TaskMetaclass):
 
     _meta_styles = settings.styles
     _meta_require = require
-    _meta_OperationSignal = OperationSignal
+    _meta_TaskSignal = TaskSignal
     _meta_trigger = trigger
 
     def _meta_init_dependencies(self):
@@ -389,7 +389,7 @@ class Task(Result, Predecessor, Successor, Operation, metaclass=TaskMetaclass):
             self.meta_trigger(task)
 
     def _meta_add_signal(self, event):
-        signal = self._meta_OperationSignal(operation=self, event=event)
+        signal = self._meta_TaskSignal(self, event=event)
         self.meta_dispatcher.add_signal(signal)
 
     def _meta_resolve_dependencies(self, failed=None):

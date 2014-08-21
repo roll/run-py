@@ -157,20 +157,20 @@ class Settings(Settings):
     def logging(self):
         return self._inherit_logging(Settings, {
             'loggers': {
-                'operation': {
-                    'handlers': ['operation'],
+                'task': {
+                    'handlers': ['task'],
                     'propagate': False,
                 },
             },
             'handlers': {
-                'operation': {
+                'task': {
                     'level': 'DEBUG',
                     'class': 'logging.StreamHandler',
-                    'formatter': 'operation',
+                    'formatter': 'task',
                 },
             },
             'formatters': {
-                'operation': {
+                'task': {
                     'format': '%(message)s'
                 },
             },

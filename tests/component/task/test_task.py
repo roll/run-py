@@ -21,9 +21,9 @@ class TaskTest(unittest.TestCase):
         # Check meta_invoke call
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskSignal call
-        self.task._meta_OperationSignal.assert_has_calls(
-            [call(operation=self.task, event='initiated'),
-             call(operation=self.task, event='successed')])
+        self.task._meta_TaskSignal.assert_has_calls(
+            [call(self.task, event='initiated'),
+             call(self.task, event='successed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('signal'), call('signal')])
@@ -32,9 +32,9 @@ class TaskTest(unittest.TestCase):
         self.task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check TaskSignal call
-        self.task._meta_OperationSignal.assert_has_calls(
-            [call(operation=self.task, event='initiated'),
-             call(operation=self.task, event='failed')])
+        self.task._meta_TaskSignal.assert_has_calls(
+            [call(self.task, event='initiated'),
+             call(self.task, event='failed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
             [call('signal'), call('signal')])
@@ -216,5 +216,5 @@ class TaskTest(unittest.TestCase):
             # Protected
             _meta_require = Mock()
             _meta_trigger = Mock()
-            _meta_OperationSignal = Mock(return_value='signal')
+            _meta_TaskSignal = Mock(return_value='signal')
         return MockTask

@@ -20,9 +20,9 @@ class VarTest(unittest.TestCase):
         self.assertEqual(self.var.meta_invoke.call_count, 1)
         self.var.meta_invoke.assert_called_with()
         # Check TaskSignal call
-        self.var._meta_OperationSignal.assert_has_calls(
-            [call(operation=self.var, event='initiated'),
-             call(operation=self.var, event='successed')])
+        self.var._meta_TaskSignal.assert_has_calls(
+            [call(self.var, event='initiated'),
+             call(self.var, event='successed')])
         # Check dispatcher.add_signal call
         self.var.meta_dispatcher.add_signal.assert_has_calls(
             [call('signal'), call('signal')])
@@ -45,5 +45,5 @@ class VarTest(unittest.TestCase):
             meta_invoke = Mock(return_value='value')
             meta_dispatcher = Mock()
             # Protected
-            _meta_OperationSignal = Mock(return_value='signal')
+            _meta_TaskSignal = Mock(return_value='signal')
         return MockVar

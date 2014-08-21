@@ -37,6 +37,11 @@ Concrete tasks
 .. autoclass:: run.task.RenderTask
 .. autoclass:: run.task.SubprocessTask
 
+Signal class
+------------
+
+.. autoclass:: run.task.TaskSignal
+
 Helper functions
 ----------------
 
