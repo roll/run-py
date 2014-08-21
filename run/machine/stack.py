@@ -17,4 +17,4 @@ class Stack(list):
                 else:
                     names.append(current.meta_format(mode='qualname'))
                 previous = current
-        return '/'.join(names)
+        return '/'.join(filter(None, names))

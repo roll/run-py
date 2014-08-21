@@ -1,6 +1,7 @@
 import unittest
 from functools import partial
-from run.program.command import Command, settings
+from run.program.command import Command
+from run.settings import settings
 
 
 class CommandTest(unittest.TestCase):
@@ -12,7 +13,7 @@ class CommandTest(unittest.TestCase):
 
     def test(self):
         self.command = self.pCommand(['run'])
-        self.assertEqual(self.command.attribute, self.command.default_task)
+        self.assertEqual(self.command.attribute, None)
         self.assertEqual(self.command.arguments, {'args': [], 'kwargs': {}})
 
     def test_with_task_and_arguments(self):

@@ -27,10 +27,12 @@ class Machine:
         self._plain = plain
         self._init_handlers()
 
-    def run(self, attribute, *args, **kwargs):
+    def run(self, attribute=None, *args, **kwargs):
         for module in self._modules:
             try:
-                instance = getattr(module, attribute)
+                instance = module
+                if attribute is not None:
+                    instance = getattr(module, attribute)
                 if callable(instance):
                     result = instance(*args, **kwargs)
                     if result:

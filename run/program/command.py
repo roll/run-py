@@ -2,14 +2,11 @@ import csv
 import ast
 from box.argparse import Command
 from box.functools import cachedproperty
-from ..settings import settings
 
 
 class Command(Command):
 
     # Public
-
-    default_task = settings.default_task
 
     @cachedproperty
     def attribute(self):
@@ -20,8 +17,6 @@ class Command(Command):
             attribute = 'info'
         elif self.meta:
             attribute = 'meta'
-        elif not attribute:
-            attribute = self.default_task
         return attribute
 
     @cachedproperty

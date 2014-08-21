@@ -20,8 +20,6 @@ class Settings(Settings):
     strict = True
     tags = None
 
-    default_task = 'default'
-
     # Converters
 
     # TODO: Nose in shell imports a module instead of an object
