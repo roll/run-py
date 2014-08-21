@@ -1,6 +1,6 @@
 from .attribute import AttributeTask
 from .build import build
-from .cluster import TaskCluster, ClusterTask
+from .cluster import ClusterTask
 from .converter import task
 from .derived import DerivedTask
 from .descriptor import DescriptorTask
