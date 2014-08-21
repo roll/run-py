@@ -1,6 +1,5 @@
 import unittest
 from functools import partial
-from unittest.mock import patch
 from run.program.command import Command, settings
 
 
@@ -11,32 +10,29 @@ class CommandTest(unittest.TestCase):
     def setUp(self):
         self.pCommand = partial(Command, config=settings.argparse)
 
-    @patch.object(Command, 'default_task')
-    def test(self, default_task):
-        command = self.pCommand(['run'])
-        self.assertEqual(command.task, default_task)
-        self.assertEqual(command.arguments, [])
-        self.assertEqual(command.args, [])
-        self.assertEqual(command.kwargs, {})
+    def test(self):
+        self.command = self.pCommand(['run'])
+        self.assertEqual(self.command.attribute, self.command.default_task)
+        self.assertEqual(self.command.arguments, {'args': [], 'kwargs': {}})
 
-    def test_task_args_kwargs(self):
-        command = self.pCommand(['run', 'task', 'arg1,', 'kwarg1=kwarg1'])
-        self.assertEqual(command.task, 'task')
-        self.assertEqual(command.arguments, ['arg1,', 'kwarg1=kwarg1'])
-        self.assertEqual(command.args, ['arg1'])
-        self.assertEqual(command.kwargs, {'kwarg1': 'kwarg1'})
+    def test_with_task_and_arguments(self):
+        self.command = self.pCommand(
+            ['run', 'attribute', 'arg1,True,kwarg1=1,', 'kwarg2=1.5'])
+        self.assertEqual(self.command.attribute, 'attribute')
+        self.assertEqual(self.command.arguments,
+            {'args': ['arg1', True], 'kwargs': {'kwarg1': 1, 'kwarg2': 1.5}})
 
-    def test_list(self):
-        command = self.pCommand(['run', 'task', '-l'])
-        self.assertEqual(command.task, 'list')
-        self.assertEqual(command.args, ['task'])
+    def test_with_with_list_flag(self):
+        self.command = self.pCommand(['run', 'attribute', '-l'])
+        self.assertEqual(self.command.attribute, 'list')
+        self.assertEqual(self.command.arguments, {'args': ['attribute'], 'kwargs': {}})
 
-    def test_meta(self):
-        command = self.pCommand(['run', 'task', '-m'])
-        self.assertEqual(command.task, 'meta')
-        self.assertEqual(command.args, ['task'])
+    def test_with_with_info_flag(self):
+        self.command = self.pCommand(['run', 'attribute', '-i'])
+        self.assertEqual(self.command.attribute, 'info')
+        self.assertEqual(self.command.arguments, {'args': ['attribute'], 'kwargs': {}})
 
-    def test_info(self):
-        command = self.pCommand(['run', 'task', '-i'])
-        self.assertEqual(command.task, 'info')
-        self.assertEqual(command.args, ['task'])
+    def test_with_with_meta_flag(self):
+        self.command = self.pCommand(['run', 'attribute', '-m'])
+        self.assertEqual(self.command.attribute, 'meta')
+        self.assertEqual(self.command.arguments, {'args': ['attribute'], 'kwargs': {}})

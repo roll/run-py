@@ -57,14 +57,14 @@ class Settings(Settings):
             'add_help': False,
             'arguments': [
                 {
-                 'name': 'task',
+                 'name': 'attribute',
                  'nargs': '?',
-                 'help': 'Task to run.',
+                 'help': 'Attribute to run.',
                 },
                 {
                  'name': 'arguments',
                  'nargs': '*',
-                 'help': 'Arguments for task.',
+                 'help': 'Arguments for attribute.',
                 },
                 {
                  'dest': 'basedir',

@@ -15,10 +15,10 @@ class Program(Program):
     _settings = settings
 
     def _execute(self):
-        self._machine.process(
-            self._command.task,
-            *self._command.args,
-            **self._command.kwargs)
+        self._machine.run(
+            self._command.attribute,
+            *self._command.arguments['args'],
+            **self._command.arguments['kwargs'])
 
     @cachedproperty
     def _machine(self):

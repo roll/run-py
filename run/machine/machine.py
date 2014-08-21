@@ -1,8 +1,8 @@
 import logging
 from box.functools import cachedproperty
-from ..module import ModuleCluster
+from ..find import find
 from ..signal import Dispatcher, CallbackHandler
-from ..task import Task, TaskSignal
+from ..task import TaskSignal
 from .stack import Stack
 
 
@@ -10,39 +10,46 @@ class Machine:
 
     # Public
 
+    # TODO: add defaults from settings?
     def __init__(self, *,
                  key=None, tags=None,
                  file=None, exclude=None, basedir=None, recursively=False,
-                 plain=False, skip=False, compact=False):
+                 compact=False, skip=False, plain=False):
         self._key = key
         self._tags = tags
         self._file = file
         self._exclude = exclude
         self._basedir = basedir
         self._recursively = recursively
-        self._plain = plain
-        self._skip = skip
         self._compact = compact
+        self._skip = skip
+        self._plain = plain
         self._init_handlers()
 
-    def process(self, task, *args, **kwargs):
-        tasks = getattr(self._cluster, task)
-        for task in tasks:
-            if isinstance(task, self._Task):
-                result = task(*args, **kwargs)
-                if result:
-                    self._print(result)
-            else:
-                self._print(task)
+    def run(self, attribute, *args, **kwargs):
+        for module in self._modules:
+            try:
+                instance = getattr(module, attribute)
+                if callable(instance):
+                    result = instance(*args, **kwargs)
+                    if result:
+                        self._print(result)
+                else:
+                    self._print(instance)
+            except AttributeError as exception:
+                if self._skip:
+                    logger = logging.getLogger(__name__)
+                    logger.warning(str(exception))
+                else:
+                    raise
 
     # Protected
 
     _CallbackHandler = CallbackHandler
     _Dispatcher = Dispatcher
-    _ModuleCluster = ModuleCluster
+    _find = find
     _print = staticmethod(print)
     _Stack = Stack
-    _Task = Task
     _TaskSignal = TaskSignal
 
     def _init_handlers(self):
@@ -71,17 +78,26 @@ class Machine:
             logger.info(message)
 
     @cachedproperty
-    def _cluster(self):
-        return self._ModuleCluster(
+    def _modules(self):
+        modules = []
+        for Module in self._Modules:
+            module = Module(
+                meta_dispatcher=self._dispatcher,
+                meta_plain=self._plain,
+                meta_module=None)
+            modules.append(module)
+        return modules
+
+    @cachedproperty
+    def _Modules(self):
+        Modules = self._find(
             key=self._key,
             tags=self._tags,
             file=self._file,
             exclude=self._exclude,
             basedir=self._basedir,
-            recursively=self._recursively,
-            plain=self._plain,
-            skip=self._skip,
-            dispatcher=self._dispatcher)
+            recursively=self._recursively)
+        return Modules
 
     @cachedproperty
     def _dispatcher(self):

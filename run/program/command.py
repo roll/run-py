@@ -11,49 +11,41 @@ class Command(Command):
 
     default_task = settings.default_task
 
-    @property
-    def task(self):
-        task = self._namespace.task
+    @cachedproperty
+    def attribute(self):
+        attribute = self._namespace.attribute
         if self.list:
-            task = 'list'
+            attribute = 'list'
         elif self.info:
-            task = 'info'
+            attribute = 'info'
         elif self.meta:
-            task = 'meta'
-        elif not task:
-            task = self.default_task
-        return task
+            attribute = 'meta'
+        elif not attribute:
+            attribute = self.default_task
+        return attribute
 
-    @property
+    @cachedproperty
     def arguments(self):
-        task = self._namespace.task
+        attribute = self._namespace.attribute
         arguments = self._namespace.arguments
-        if (self.list or self.info or self.meta) and task:
-            arguments = [task] + arguments
-        return arguments
-
-    @property
-    def args(self):
-        return self._parsed_arguments[0]
-
-    @property
-    def kwargs(self):
-        return self._parsed_arguments[1]
+        if (self.list or self.info or self.meta) and attribute:
+            arguments = [attribute] + arguments
+        parsed_arguments = self._parse_arguments(arguments)
+        return parsed_arguments
 
     # Protected
 
-    @cachedproperty
-    def _parsed_arguments(self):
+    def _parse_arguments(self, arguments):
         args = []
         kwargs = {}
-        for element in next(csv.reader([''.join(self.arguments)])):
+        for element in next(csv.reader([''.join(arguments)])):
             parts = [self._parse_literal(item.strip()) for item in
                      next(csv.reader([element], delimiter='='))]
             if len(parts) == 1:
                 args.append(parts[0])
             elif len(parts) == 2:
                 kwargs[parts[0]] = parts[1]
-        return (args, kwargs)
+        return {'args': args, 'kwargs': kwargs}
 
     def _parse_literal(self, literal):
         try:

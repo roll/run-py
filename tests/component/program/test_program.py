@@ -23,10 +23,10 @@ class ProgramTest(unittest.TestCase):
             plain='plain',
             skip='skip',
             compact='compact')
-        self.program._Machine.return_value.process.assert_called_with(
-            self.program._command.task,
-            *self.program._command.args,
-            **self.program._command.kwargs)
+        self.program._Machine.return_value.run.assert_called_with(
+            self.program._command.attribute,
+            *self.program._command.arguments['args'],
+            **self.program._command.arguments['kwargs'])
 
     # Protected
 
@@ -34,9 +34,8 @@ class ProgramTest(unittest.TestCase):
         class MockProgram(Program):
             # Protected
             _Command = Mock(return_value=Mock(
-                task='task',
-                args=('arg1',),
-                kwargs={'kwarg1': 'kwarg1'},
+                attribute='attribute',
+                arguments={'args': ('arg1',), 'kwargs': {'kwarg1': 'kwarg1'}},
                 debug='debug',
                 verbose='verbose',
                 quiet='quiet',
