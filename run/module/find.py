@@ -14,6 +14,7 @@ class FindModule(Module):
         notfilepath = os.path.relpath(
             inspect.getfile(type(meta_module)), start=basedir)
         Module = cls._find(
+            target=cls._Module,
             key=kwargs.pop('key', None),
             tags=kwargs.pop('tags', None),
             file=kwargs.pop('file', None),
@@ -31,3 +32,4 @@ class FindModule(Module):
     # Protected
 
     _find = find
+    _Module = Module
