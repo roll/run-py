@@ -2,8 +2,7 @@ import logging
 from box.functools import cachedproperty
 from ..find import find
 from ..module import Module
-from ..signal import Dispatcher, CallbackHandler
-from ..task import TaskSignal
+from ..signal import Dispatcher, CallbackHandler, OperationSignal
 from .stack import Stack
 
 
@@ -54,23 +53,23 @@ class Machine:
     _Module = Module
     _print = staticmethod(print)
     _Stack = Stack
-    _TaskSignal = TaskSignal
+    _OperationSignal = OperationSignal
 
     def _init_handlers(self):
         self._dispatcher.add_handler(
             self._CallbackHandler(
-                self._on_task_signal,
-                signals=[self._TaskSignal]))
+                self._on_operation_signal,
+                signals=[self._OperationSignal]))
 
-    def _on_task_signal(self, signal):
+    def _on_operation_signal(self, signal):
         # Stack operations
         if self._compact:
-            self._stack.push(signal.task)
+            self._stack.push(signal.operation)
             formatted_stack = self._stack.format()
             self._stack.pop()
         else:
             if signal.event == 'initiated':
-                self._stack.push(signal.task)
+                self._stack.push(signal.operation)
             formatted_stack = self._stack.format()
             if signal.event in ['successed', 'failed']:
                 self._stack.pop()
@@ -78,7 +77,7 @@ class Machine:
         formatted_signal = signal.format()
         if formatted_signal:
             message = formatted_signal + formatted_stack
-            logger = logging.getLogger('task')
+            logger = logging.getLogger('operation')
             logger.info(message)
 
     @cachedproperty

@@ -15,6 +15,5 @@ from .null_module import NullModule
 from .null import NullTask
 from .prototype import TaskPrototype
 from .render import RenderTask
-from .signal import TaskSignal
 from .subprocess import SubprocessTask
 from .task import Task
