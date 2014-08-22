@@ -2,6 +2,7 @@ import os
 import inspect
 from box.functools import cachedproperty
 from ..find import find
+from ..task import ClusterTask
 from .module import Module
 
 
@@ -18,11 +19,30 @@ class ClusterModule(Module):
         self._exclude = exclude
         self._basedir = basedir
         self._recursively = recursively
+        for task_name, task_instances in self._tasks.items():
+            if not hasattr(type(self), task_name):
+                task = ClusterTask(task_instances, meta_module=self)
+                setattr(type(self), task_name, task)
 
     # Protected
 
     _find = find
     _Module = Module
+
+    @property
+    def _tasks(self):
+        tasks = {}
+        keys = set()
+        for module in self._modules:
+            keys.update(module.meta_tasks.keys())
+        for key in keys:
+            tasks[key] = []
+            for module in self._modules:
+                # TODO: sync with skip parameter
+                if key in module.meta_tasks:
+                    task = module.meta_tasks[key]
+                    tasks[key].append(task)
+        return tasks
 
     @cachedproperty
     def _modules(self):
