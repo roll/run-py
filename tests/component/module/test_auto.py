@@ -8,7 +8,7 @@ class AutoModuleTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.module = AutoModule(sources=[fractions], meta_module=None)
+        self.module = AutoModule([fractions], meta_module=None)
 
     def test_meta_docstring(self):
         self.assertTrue(self.module.meta_docstring)
