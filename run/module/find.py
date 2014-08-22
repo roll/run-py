@@ -9,24 +9,24 @@ class FindModule(Module):
     # Public
 
     @classmethod
-    def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
-        basedir = kwargs.pop('basedir', None)
+    def __meta_create__(cls, *,
+                        key=None, tags=None,
+                        file=None, exclude=None, basedir=None, recursively=None,
+                        meta_module, meta_updates):
         notfilepath = os.path.relpath(
             inspect.getfile(type(meta_module)), start=basedir)
         Module = cls._find(
             target=cls._Module,
-            key=kwargs.pop('key', None),
-            tags=kwargs.pop('tags', None),
-            file=kwargs.pop('file', None),
+            key=key,
+            tags=tags,
+            file=file,
             basedir=basedir,
-            recursively=kwargs.pop('recursively', None),
+            recursively=recursively,
             filters=[{'notfilepath': notfilepath}],
             getfirst=True)
         module = Module(
-            *args,
             meta_module=meta_module,
-            meta_updates=meta_updates,
-            **kwargs)
+            meta_updates=meta_updates)
         return module
 
     # Protected
