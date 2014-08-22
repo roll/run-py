@@ -70,7 +70,7 @@ class Machine:
             formatted_stack = self._stack.format()
             self._stack.pop()
         else:
-            if signal.event == 'initiated':
+            if signal.event == 'launched':
                 self._stack.push(signal.task)
             formatted_stack = self._stack.format()
             if signal.event in ['successed', 'failed']:

@@ -62,7 +62,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         return self
 
     def __call__(self, *args, **kwargs):
-        self._meta_add_signal('initiated')
+        self._meta_add_signal('launched')
         try:
             self._meta_resolve_dependencies()
             try:

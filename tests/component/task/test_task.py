@@ -22,7 +22,7 @@ class TaskTest(unittest.TestCase):
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskSignal call
         self.task._meta_TaskSignal.assert_has_calls(
-            [call(self.task, event='initiated'),
+            [call(self.task, event='launched'),
              call(self.task, event='successed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
@@ -33,7 +33,7 @@ class TaskTest(unittest.TestCase):
         self.assertRaises(Exception, self.task)
         # Check TaskSignal call
         self.task._meta_TaskSignal.assert_has_calls(
-            [call(self.task, event='initiated'),
+            [call(self.task, event='launched'),
              call(self.task, event='failed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(

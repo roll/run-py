@@ -21,7 +21,7 @@ class VarTest(unittest.TestCase):
         self.var.meta_invoke.assert_called_with()
         # Check TaskSignal call
         self.var._meta_TaskSignal.assert_has_calls(
-            [call(self.var, event='initiated'),
+            [call(self.var, event='launched'),
              call(self.var, event='successed')])
         # Check dispatcher.add_signal call
         self.var.meta_dispatcher.add_signal.assert_has_calls(
