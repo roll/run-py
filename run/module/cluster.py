@@ -9,17 +9,15 @@ class ClusterModule(Module):
 
     # Public
 
-    def __init__(self, *args,
+    def __init__(self, *,
                  key=None, tags=None,
-                 file=None, exclude=None, basedir=None, recursively=None,
-                 **kwargs):
+                 file=None, exclude=None, basedir=None, recursively=None):
         self._key = key
         self._tags = tags
         self._file = file
         self._exclude = exclude
         self._basedir = basedir
         self._recursively = recursively
-        super().__init__(*args, **kwargs)
 
     # Protected
 
