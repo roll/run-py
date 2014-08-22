@@ -9,25 +9,25 @@ class ModuleMetaclass(TaskMetaclass):
 
     def __meta_spawn__(self):
         # Documented public wrapper in :func:`.spawn`
-        keys = []
+        names = []
         attrs = {}
         for cls in self.mro():
-            for key, attr in vars(cls).items():
-                if key in keys:
+            for name, attr in vars(cls).items():
+                if name in names:
                     continue
-                keys.append(key)
-                if key.isupper():
+                names.append(name)
+                if name.isupper():
                     continue
-                elif key.startswith('_'):
+                elif name.startswith('_'):
                     continue
-                elif key.startswith('meta_'):
+                elif name.startswith('meta_'):
                     continue
                 elif isinstance(attr, self._meta_BaseTaskPrototype):
-                    attrs[key] = self._meta_fork(attr)
+                    attrs[name] = self._meta_fork(attr)
                 else:
                     if cls.meta_convert:
                         try:
-                            attrs[key] = self._meta_convert(attr)
+                            attrs[name] = self._meta_convert(attr)
                         except TypeError:
                             pass
         attrs['__doc__'] = self.__doc__
