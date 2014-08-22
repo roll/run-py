@@ -10,8 +10,11 @@ class ClusterTask(Task):
         super().__init__(*args, **kwargs)
 
     def meta_invoke(self, *args, **kwargs):
+        results = []
         for task in self._tasks:
-            task(*args, **kwargs)
+            result = task(*args, **kwargs)
+            results.append(result)
+        return results
 
     @property
     def meta_docstring(self):
