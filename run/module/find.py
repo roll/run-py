@@ -9,10 +9,9 @@ class FindModule(Module):
     # Public
 
     @classmethod
-    def __meta_create__(cls, *,
+    def __meta_create__(cls, *, meta_module, meta_updates,
                         key=None, tags=None,
-                        file=None, exclude=None, basedir=None, recursively=None,
-                        meta_module, meta_updates):
+                        file=None, exclude=None, basedir=None, recursively=None):
         notfilepath = os.path.relpath(
             inspect.getfile(type(meta_module)), start=basedir)
         Module = cls._find(
