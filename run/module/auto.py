@@ -12,7 +12,7 @@ class AutoModule(Module):
     module creates :class:`run.task.FunctionTask` object. It may to be
     used as regular run's tasks::
 
-      >>> module = AutoModule([os.path], meta_module=None)
+      >>> module = AutoModule(sources=[os.path], meta_module=None)
       >>> module.list()
       abspath
       ...
@@ -27,7 +27,7 @@ class AutoModule(Module):
 
     # Public
 
-    def __init__(self, sources=None):
+    def __init__(self, *args, sources=None, **kwargs):
         if sources is None:
             sources = []
         self._sources = sources + self._default_sources
@@ -35,6 +35,7 @@ class AutoModule(Module):
             if not hasattr(type(self), task_name):
                 task = FunctionTask(task_function, meta_module=self)
                 setattr(type(self), task_name, task)
+        super().__init__(*args, **kwargs)
 
     @property
     def meta_docstring(self):
