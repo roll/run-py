@@ -9,13 +9,17 @@ class ModulePrototype(TaskPrototype):
     _meta_TaskPrototype = TaskPrototype
 
     def _meta_create_task(self, cls, parent_module):
+        names = []
         spawned_class = spawn(cls)
         module = super()._meta_create_task(spawned_class, parent_module)
-        for name in dir(type(module)):
-            attr = getattr(type(module), name)
-            if isinstance(attr, self._meta_TaskPrototype):
-                task = build(attr, module)
-                setattr(type(module), name, task)
+        for cls in type(module).mro():
+            for name, attr in vars(cls).items():
+                if name in names:
+                    continue
+                names.append(name)
+                if isinstance(attr, self._meta_TaskPrototype):
+                    task = build(attr, module)
+                    setattr(type(module), name, task)
         return module
 
     def _meta_update_task(self, module):
