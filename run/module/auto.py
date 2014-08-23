@@ -6,11 +6,18 @@ from .module import Module
 class AutoModule(Module):
     """Module with auto generated tasks from sources.
 
-    :param list sources: python objects with attributes include functions
-
     For every function (callable or box.functools.Function) in every source
     module creates :class:`run.task.FunctionTask` object. It may to be
-    used as regular run's tasks::
+    used as regular run's tasks.
+
+    Parameters
+    ----------
+    sources: list
+        Python objects with attributes include functions.
+
+    Examples
+    --------
+    Usage example::
 
       >>> module = AutoModule([os.path], meta_module=None)
       >>> module.list()

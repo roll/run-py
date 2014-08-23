@@ -6,6 +6,8 @@ from .method import MethodTask
 class task(Converter):
     """Decorate method to make task with default kwargs to invoke.
 
+    Examples
+    --------
     There are two ways to use decorator:
 
     - Form without kwargs is designed for case when you have to convert method

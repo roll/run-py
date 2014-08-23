@@ -4,6 +4,8 @@ from box.functools import Decorator
 class depend(Decorator):
     """Decorate method to add custom dependency.
 
+    Examples
+    --------
     Dependency has to be instance of :class:`run.dependency.Dependency`::
 
       class Module(Module):

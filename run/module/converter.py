@@ -5,6 +5,8 @@ from .module import Module
 class module(task):
     """Decorate class to make module with default kwargs to invoke.
 
+    Examples
+    --------
     There are two ways to use decorator:
 
     - Form without kwargs is designed for case when you have to convert class

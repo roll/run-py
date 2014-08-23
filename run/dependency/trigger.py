@@ -4,6 +4,8 @@ from .dependency import Dependency
 class trigger(Dependency):
     """Decorate method to add trigger dependency.
 
+    Examples
+    --------
     Usage example::
 
       class Module(Module):
@@ -12,6 +14,8 @@ class trigger(Dependency):
           def method(self):
               pass
 
+    Notes
+    -----
     It's a shortcut for :class:`run.dependency.depend` decorator.
     """
 

@@ -7,9 +7,14 @@ from ..converter import convert
 class Dependency(metaclass=ABCMeta):
     """Dependency representation abstract base class.
 
-    :param predecessor_name: predecessor name
-    :param tuple args: args to be used in predecessor call
-    :param dict kwargs: kwargs to be used in predecessor call
+    Parameters
+    ----------
+    predecessor_name: str
+        Predecessor name.
+    args: tuple
+        Args to be used in predecessor call.
+    kwargs: dict
+        Kwargs to be used in predecessor call.
     """
 
     # Public
@@ -54,7 +59,10 @@ class Dependency(metaclass=ABCMeta):
     def bind(self, successor):
         """Bind dependency to the successor.
 
-        :param object successor: successor object
+        Parameters
+        ----------
+        successor: object
+            Successor object.
         """
         self._successor = successor
 
@@ -72,7 +80,10 @@ class Dependency(metaclass=ABCMeta):
     def resolve(self, failed=None):
         """Resolve dependency.
 
-        :param bool failed: resolve status
+        Parameters
+        ----------
+        failed: bool
+            Resolve status.
         """
         pass  # pragma: no cover
 
