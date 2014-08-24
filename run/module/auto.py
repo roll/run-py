@@ -34,7 +34,7 @@ class AutoModule(Module):
 
     # Public
 
-    def __init__(self, sources=None):
+    def __init__(self, sources=None, *args, **kwargs):
         if sources is None:
             sources = []
         self._sources = sources + self._default_sources
@@ -42,6 +42,7 @@ class AutoModule(Module):
             if not hasattr(type(self), task_name):
                 task = FunctionTask(task_function, meta_module=self)
                 setattr(type(self), task_name, task)
+        super().__init__(*args, **kwargs)
 
     @property
     def meta_docstring(self):
