@@ -3,5 +3,5 @@
 packgram>=0.13
 sphinx
 sphinx_rtd_theme
-box>=0.34
+box>=0.35
 nose

@@ -14,7 +14,7 @@ package = {
         exclude=['tests*']
     ),
 	'include_package_data': True,
-    'install_requires': ['box>=0.34'],  
+    'install_requires': ['box>=0.35'],  
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
     
