@@ -10,9 +10,10 @@ class ClusterModule(Module):
 
     # Public
 
-    def __init__(self, *,
+    def __init__(self, *args,
                  key=None, tags=None,
-                 file=None, exclude=None, basedir=None, recursively=None):
+                 file=None, exclude=None, basedir=None, recursively=None,
+                 **kwargs):
         self._key = key
         self._tags = tags
         self._file = file
@@ -23,6 +24,7 @@ class ClusterModule(Module):
             if not hasattr(type(self), task_name):
                 task = ClusterTask(task_instances, meta_module=self)
                 setattr(type(self), task_name, task)
+        super().__init__(*args, **kwargs)
 
     # Protected
 
