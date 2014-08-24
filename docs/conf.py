@@ -1,5 +1,6 @@
 import os
 import run
+import sphinx
 from packgram.docs import Settings
 
 class Settings(Settings):
@@ -21,4 +22,4 @@ class Settings(Settings):
     autodoc_skip_members = ['__weakref__']
 
 
-locals().update(Settings())
+locals().update(Settings(sphinx=sphinx))
