@@ -45,10 +45,6 @@ class Module(Module):
         require=['subprocess_task'],
     )
 
-    render = RenderVar(
-        source=os.path.abspath((__file__)),
-    )
-
     subprocess = SubprocessVar(
         prefix='echo "Hello World!"',
     )

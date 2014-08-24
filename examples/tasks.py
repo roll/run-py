@@ -1,7 +1,6 @@
 import os
-from run import (Module, DerivedTask, DescriptorTask, FindTask,
-                 FunctionTask, InputTask, MethodTask, NullTask,
-                 RenderTask, SubprocessTask)
+from run import (Module, DerivedTask, DescriptorTask, FindTask, FunctionTask,
+                 InputTask, MethodTask, NullTask, SubprocessTask)
 
 class Module(Module):
 
@@ -36,10 +35,6 @@ class Module(Module):
 
     null = NullTask(
         require=['subprocess'],
-    )
-
-    render = RenderTask(
-        source=os.path.abspath((__file__)),
     )
 
     subprocess = SubprocessTask(

@@ -22,7 +22,6 @@ class TasksTest(ExamplesTest):
             'meta\n'
             'method\n'
             'null\n'
-            'render\n'
             'subprocess\n')
 
     def test_derived(self):
@@ -51,7 +50,7 @@ class TasksTest(ExamplesTest):
 
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 13)
+        self.assertEqual(len(result.splitlines()), 12)
 
     def test_meta(self):
         result = self._execute('meta default')
@@ -64,10 +63,6 @@ class TasksTest(ExamplesTest):
     def test_null(self):
         result = self._execute('method')
         self.assertEqual(result, 'Hello World!\n')
-
-    def test_render(self):
-        result = self._execute('render')
-        self.assertRegex(result, '.*Render.*')
 
     def test_subprocess(self):
         result = self._execute('subprocess')

@@ -36,7 +36,6 @@ class ModulesTest(ExamplesTest):
             'find.meta\n'
             'find.method\n'
             'find.null\n'
-            'find.render\n'
             'find.subprocess\n')
 
     def test_subprocess_list(self):

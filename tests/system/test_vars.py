@@ -22,7 +22,6 @@ class VarsTest(ExamplesTest):
             'meta\n'
             'method\n'
             'null\n'
-            'render\n'
             'subprocess\n'
             'subprocess_task\n')
 
@@ -53,10 +52,6 @@ class VarsTest(ExamplesTest):
     def test_null(self):
         result = self._execute('method')
         self.assertEqual(result, 'Hello World!\n')
-
-    def test_render(self):
-        result = self._execute('render')
-        self.assertRegex(result, '.*Render.*')
 
     def test_subprocess(self):
         result = self._execute('subprocess')
