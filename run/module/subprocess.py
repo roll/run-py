@@ -7,7 +7,8 @@ class SubprocessModule(Module):
 
     # Public
 
-    def __init__(self, mapping=None, *, prefix='', separator=' '):
+    def __init__(self, mapping=None, *args,
+                 prefix='', separator=' ', **kwargs):
         if mapping is None:
             mapping = {}
         emapping = merge_dicts(self._default_mapping, mapping)
@@ -17,6 +18,7 @@ class SubprocessModule(Module):
                 task = SubprocessTask(
                     prefix=eprefix, separator=separator, meta_module=self)
                 setattr(type(self), task_name, task)
+        super().__init__(*args, **kwargs)
 
     @property
     def meta_docstring(self):
