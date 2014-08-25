@@ -10,11 +10,17 @@ class TaskTest(unittest.TestCase):
 
     def setUp(self):
         self.module = Mock()
+        self.update = Mock()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self._make_mock_task_class()
-        self.pTask = partial(self.Task, meta_module=None)
+        self.pTask = partial(
+            self.Task, meta_module=None, meta_updates=[self.update])
         self.task = self.pTask(*self.args, **self.kwargs)
+
+    def test(self):
+        # Check update.apply call
+        self.update.apply.assert_called_with(self.task)
 
     def test___get__(self):
         self.assertEqual(self.task.__get__('module'), self.task)
