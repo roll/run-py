@@ -121,6 +121,16 @@ class TaskTest(unittest.TestCase):
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(repr(self.task), '<MockTask "module.task">')
 
+    def test_meta_format(self):
+        self.Task._styles = {'task': {'foreground': 'bright_green'}}
+        self.assertEqual(self.task.meta_format('type'),
+                         '\x1b[92mMockTask\x1b[m')
+
+    def test_meta_format_with_meta_plain_is_true(self):
+        self.Task.meta_plain = True
+        self.Task._styles = {'task': {'foreground': 'bright_green'}}
+        self.assertEqual(self.task.meta_format('type'), 'MockTask')
+
     def test_meta_depend(self):
         dependency = Mock()
         self.task.meta_depend(dependency)
