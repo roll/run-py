@@ -36,26 +36,6 @@ class ModuleTest(unittest.TestCase):
         self.assertRaises(AttributeError,
             getattr, self.module, 'not_existent')
 
-    def test_meta_basedir(self):
-        self.assertRegex(self.module.meta_basedir,
-                         r'.*tests.component.module')
-
-    def test_meta_basedir_with_parent_module(self):
-        self.module = self.Module(meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_basedir, 'basedir')
-
-    def test_meta_basedir_setter(self):
-        self.module.meta_basedir = 'basedir'
-        self.assertEqual(self.module.meta_basedir, 'basedir')
-
-    def test_meta_cache(self):
-        self.assertEqual(self.module.meta_cache,
-                         self.module.meta_module.meta_cache)
-
-    def test_meta_cache_setter(self):
-        self.module.meta_cache = 'cache'
-        self.assertEqual(self.module.meta_cache, 'cache')
-
     def test_meta_lookup(self):
         self.assertEqual(
             self.module.meta_lookup('task'), self.module.task)
@@ -75,6 +55,18 @@ class ModuleTest(unittest.TestCase):
         # Check default call
         self.module.default.assert_called_with(*self.args, **self.kwargs)
 
+    def test_meta_basedir(self):
+        self.assertRegex(self.module.meta_basedir,
+                         r'.*tests.component.module')
+
+    def test_meta_basedir_with_parent_module(self):
+        self.module = self.Module(meta_module=self.parent_module)
+        self.assertEqual(self.module.meta_basedir, 'basedir')
+
+    def test_meta_basedir_setter(self):
+        self.module.meta_basedir = 'basedir'
+        self.assertEqual(self.module.meta_basedir, 'basedir')
+
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
 
@@ -88,14 +80,6 @@ class ModuleTest(unittest.TestCase):
     def test_meta_main_module_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
         self.assertIs(self.module.meta_main_module, self.parent_module)
-
-    def test_meta_name(self):
-        self.assertEqual(self.module.meta_name, '')
-
-    def test_meta_name_with_parent_module(self):
-        self.module = self.Module(meta_module=self.parent_module)
-        self.parent_module.meta_tasks = {'module': self.module}
-        self.assertEqual(self.module.meta_name, 'module')
 
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
