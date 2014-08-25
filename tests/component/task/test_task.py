@@ -16,8 +16,35 @@ class TaskTest(unittest.TestCase):
         self.pTask = partial(self.Task, meta_module=None)
         self.task = self.pTask(*self.args, **self.kwargs)
 
+    def test___get__(self):
+        self.assertEqual(self.task.__get__('module'), self.task)
+
+    def test___get___with_meta_is_descriptor(self):
+        self.Task.meta_is_descriptor = True
+        self.task.meta_cache = False
+        self.assertEqual(self.task.__get__('module'), 'value')
+        self.assertEqual(self.task.__get__('module'), 'value')
+        # Two calls because of caching is off
+        self.assertEqual(self.task.meta_invoke.call_count, 2)
+
+    def test___get___with_meta_is_descriptor_and_meta_cache(self):
+        self.Task.meta_is_descriptor = True
+        self.task.meta_cache = True
+        self.assertEqual(self.task.__get__('module'), 'value')
+        self.assertEqual(self.task.__get__('module'), 'value')
+        # Only one call because of caching
+        self.assertEqual(self.task.meta_invoke.call_count, 1)
+        self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
+        # Check TaskSignal call
+        self.task._meta_TaskSignal.assert_has_calls(
+            [call(self.task, event='called'),
+             call(self.task, event='successed')])
+        # Check dispatcher.add_signal call
+        self.task.meta_dispatcher.add_signal.assert_has_calls(
+            [call('signal'), call('signal')])
+
     def test___call__(self):
-        self.assertEqual(self.task(), self.task.meta_invoke.return_value)
+        self.assertEqual(self.task(), 'value')
         # Check meta_invoke call
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskSignal call
@@ -47,7 +74,7 @@ class TaskTest(unittest.TestCase):
     def test___call___with_dependencies(self):
         dependency = Mock()
         self.task.meta_depend(dependency)
-        self.assertEqual(self.task(), self.task.meta_invoke.return_value)
+        self.assertEqual(self.task(), 'value')
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
             call(failed=None),
@@ -65,7 +92,7 @@ class TaskTest(unittest.TestCase):
 
     def test___call___with_meta_chdir_is_false(self):
         self.task.meta_chdir = False
-        self.assertEqual(self.task(), self.task.meta_invoke.return_value)
+        self.assertEqual(self.task(), 'value')
 
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
@@ -212,7 +239,7 @@ class TaskTest(unittest.TestCase):
         class MockTask(Task):
             # Public
             meta_dispatcher = Mock()
-            meta_invoke = Mock()
+            meta_invoke = Mock(return_value='value')
             # Protected
             _meta_require = Mock()
             _meta_trigger = Mock()
