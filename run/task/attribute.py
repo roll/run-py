@@ -15,4 +15,5 @@ class AttributeTask(Task):
     @property
     def meta_docstring(self):
         return self._meta_params.get(
-            'docstring', 'Return "{self._attribute}" attribute.'.format(self=self))
+            'docstring', 'Return "{self._attribute}" attribute.'.
+            format(self=self))
