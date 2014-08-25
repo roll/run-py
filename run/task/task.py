@@ -276,22 +276,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             [self.meta_module.meta_fullname, self.meta_name]))
 
     @property
-    def meta_plain(self):
-        """Task's plain flag (plain or not).
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
-        """
-        return self._meta_params.get(
-            'plain', self.meta_module.meta_plain)
-
-    @meta_plain.setter
-    def meta_plain(self, value):
-        self._meta_params['plain'] = value
-
-    @property
     def meta_kwargs(self):
         """Tasks's default keyword arguments
         """
@@ -331,6 +315,22 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         """
         module_qualname = self.meta_module.meta_qualname
         return '.'.join(filter(None, [module_qualname, self.meta_name]))
+
+    @property
+    def meta_plain(self):
+        """Task's plain flag (plain or not).
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_params.get(
+            'plain', self.meta_module.meta_plain)
+
+    @meta_plain.setter
+    def meta_plain(self, value):
+        self._meta_params['plain'] = value
 
     @property
     def meta_signature(self):
