@@ -67,6 +67,13 @@ class ModuleTest(unittest.TestCase):
         self.module.meta_basedir = 'basedir'
         self.assertEqual(self.module.meta_basedir, 'basedir')
 
+    def test_meta_fullname(self):
+        self.assertEqual(self.module.meta_fullname, '')
+
+    def test_meta_fullname_with_meta_key(self):
+        self.Module.meta_key = 'key'
+        self.assertEqual(self.module.meta_fullname, '[key]')
+
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
 
