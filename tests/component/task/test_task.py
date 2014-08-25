@@ -106,6 +106,15 @@ class TaskTest(unittest.TestCase):
         # Check dependency disable call
         self.assertTrue(dependency.disable.called)
 
+    def test___repr__(self):
+        self.assertEqual(repr(self.task), '<MockTask>')
+
+    def test___repr___with_module(self):
+        self.Task.meta_module = self.module
+        self.module.meta_qualname = 'module'
+        self.module.meta_tasks = {'task': self.task}
+        self.assertEqual(repr(self.task), '<MockTask "module.task">')
+
     def test_meta_depend(self):
         dependency = Mock()
         self.task.meta_depend(dependency)
