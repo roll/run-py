@@ -220,6 +220,15 @@ class TaskTest(unittest.TestCase):
     def test_meta_kwargs(self):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)
 
+    def test_meta_name(self):
+        self.assertEqual(self.task.meta_name, '')
+
+    def test_meta_name_with_module(self):
+        self.module = Mock()
+        self.task = self.Task(meta_module=self.module)
+        self.module.meta_tasks = {'task': self.task}
+        self.assertEqual(self.task.meta_name, 'task')
+
     def test_meta_signature(self):
         self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
 
