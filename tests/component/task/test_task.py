@@ -168,6 +168,14 @@ class TaskTest(unittest.TestCase):
         self.task.meta_basedir = 'basedir'
         self.assertEqual(self.task.meta_basedir, 'basedir')
 
+    def test_meta_cache(self):
+        self.assertEqual(self.task.meta_cache,
+                         self.task.meta_module.meta_cache)
+
+    def test_meta_cache_setter(self):
+        self.task.meta_cache = 'cache'
+        self.assertEqual(self.task.meta_cache, 'cache')
+
     def test_meta_chdir(self):
         self.assertEqual(self.task.meta_chdir,
                          self.task.meta_module.meta_chdir)
