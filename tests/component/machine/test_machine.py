@@ -10,12 +10,12 @@ class MachineTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1', }
-        self.task = Mock()
-        self.module = Mock(attribute='attribute', task=self.task)
+        self.callable = Mock()
+        self.module = Mock(callable=self.callable, not_callable='not_callable')
         self.Module = Mock(return_value=self.module)
         self.Machine = self._make_mock_machine_class(self.Module)
 
-    def test_run(self):
+    def test_run_callable(self):
         self.machine = self.Machine(
             key='key',
             tags='tags',
@@ -26,7 +26,7 @@ class MachineTest(unittest.TestCase):
             compact='compact',
             skip='skip',
             plain='plain')
-        self.machine.run('task', *self.args, **self.kwargs)
+        self.machine.run('callable', *self.args, **self.kwargs)
         # Check find call
         self.machine._find.assert_called_with(
             target=self.machine._Module,
@@ -43,14 +43,21 @@ class MachineTest(unittest.TestCase):
             meta_dispatcher=self.machine._Dispatcher.return_value,
             meta_plain='plain',
             meta_module=None)
-        # Check task call
-        self.task.assert_called_with(*self.args, **self.kwargs)
+        # Check callable call
+        self.callable.assert_called_with(*self.args, **self.kwargs)
         # Check stack
         self.assertEqual(self.machine._stack, self.machine._Stack.return_value)
         self.assertTrue(self.machine._Stack.called)
         # Check print call
         self.machine._print.assert_has_calls([
-            call(self.task.return_value)])
+            call(self.callable.return_value)])
+
+    def test_run_not_callable(self):
+        self.machine = self.Machine()
+        self.machine.run('not_callable')
+        # Check print call
+        self.machine._print.assert_has_calls([
+            call('not_callable')])
 
     def test_run_with_not_existent_attribute(self):
         self.module.mock_add_spec([])
