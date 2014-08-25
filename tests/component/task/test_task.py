@@ -243,6 +243,15 @@ class TaskTest(unittest.TestCase):
     def test_meta_kwargs(self):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)
 
+    def test_meta_main_module(self):
+        # NullModule
+        self.assertFalse(self.task.meta_main_module)
+        self.assertNotEqual(self.task.meta_main_module, None)
+
+    def test_meta_main_module_with_module(self):
+        self.Task.meta_main_module = self.module
+        self.assertEqual(self.task.meta_main_module, self.module)
+
     def test_meta_name(self):
         self.assertEqual(self.task.meta_name, '')
 
