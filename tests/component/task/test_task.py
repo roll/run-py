@@ -225,6 +225,10 @@ class TaskTest(unittest.TestCase):
         self.task.meta_dispatcher = 'dispatcher'
         self.assertEqual(self.task.meta_dispatcher, 'dispatcher')
 
+    def test_meta_docstring(self):
+        self.assertEqual(self.task.meta_docstring,
+                         self.task.__doc__)
+
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback,
                          self.task.meta_module.meta_fallback)
@@ -269,6 +273,7 @@ class TaskTest(unittest.TestCase):
 
     def _make_mock_task_class(self):
         class MockTask(Task):
+            """docstring"""
             # Public
             meta_invoke = Mock(return_value='value')
             # Protected
