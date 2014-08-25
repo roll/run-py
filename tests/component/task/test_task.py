@@ -103,6 +103,13 @@ class TaskTest(unittest.TestCase):
         # Check dependency disable call
         self.assertTrue(dependency.disable.called)
 
+    def test_meta_depend(self):
+        dependency = Mock()
+        self.task.meta_depend(dependency)
+        self.assertEqual(self.task.meta_dependencies, [dependency])
+        # Check dependency's bind call
+        dependency.bind.assert_called_with(self.task)
+
     def test_meta_disable_dependency_with_different_task(self):
         dependency = Mock()
         dependency.predecessor = 'task'
@@ -183,13 +190,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_chdir_setter(self):
         self.task.meta_chdir = 'chdir'
         self.assertEqual(self.task.meta_chdir, 'chdir')
-
-    def test_meta_depend(self):
-        dependency = Mock()
-        self.task.meta_depend(dependency)
-        self.assertEqual(self.task.meta_dependencies, [dependency])
-        # Check dependency's bind call
-        dependency.bind.assert_called_with(self.task)
 
     def test_meta_dependencies(self):
         self.assertEqual(self.task.meta_dependencies, [])

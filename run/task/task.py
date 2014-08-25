@@ -213,10 +213,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         return self._meta_dependencies
 
     @property
-    def meta_is_descriptor(self):
-        return False
-
-    @property
     def meta_dispatcher(self):
         """Task's dispatcher.
 
@@ -274,6 +270,10 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             separator = ' '
         return separator.join(filter(None,
             [self.meta_module.meta_fullname, self.meta_name]))
+
+    @property
+    def meta_is_descriptor(self):
+        return False
 
     @property
     def meta_kwargs(self):
