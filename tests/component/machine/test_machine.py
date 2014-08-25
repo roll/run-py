@@ -10,57 +10,56 @@ class MachineTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1', }
-        self.Machine = self._make_mock_machine_class()
+        self.task = Mock()
+        self.module = Mock(attribute='attribute', task=self.task)
+        self.Module = Mock(return_value=self.module)
+        self.Machine = self._make_mock_machine_class(self.Module)
 
-    @unittest.skip('broken after redesign')
     def test_run(self):
-        machine = self.Machine(
+        self.machine = self.Machine(
             key='key',
             tags='tags',
             file='file',
             exclude='exclude',
             basedir='basedir',
             recursively='recursively',
-            plain='plain',
-            skip='skip')
-        machine.run('task', *self.args, **self.kwargs)
-        # Check print call
-        machine._print.assert_has_calls([
-            call('result1'),
-            call('result2'),
-            call('attr3')])
-        # Check ModuleCluster call
-        machine._ModuleCluster.assert_called_with(
-            key='key',
-            tags='tags',
-            file='file',
-            exclude='exclude',
-            basedir='basedir',
-            recursively='recursively',
-            plain='plain',
+            compact='compact',
             skip='skip',
-            dispatcher=machine._Dispatcher.return_value)
-        # Check Cluster's return values
-        for attr in machine._ModuleCluster.return_value.task:
-            if hasattr(attr, 'assert_called_with'):
-                attr.assert_called_with(*self.args, **self.kwargs)
+            plain='plain')
+        self.machine.run('task', *self.args, **self.kwargs)
+        # Check find call
+        self.machine._find.assert_called_with(
+            target=self.machine._Module,
+            key='key',
+            tags='tags',
+            file='file',
+            exclude='exclude',
+            basedir='basedir',
+            recursively='recursively')
         # Check Dispatcher call
-        machine._Dispatcher.assert_called_with()
+        self.machine._Dispatcher.assert_called_with()
+        # Check Module call
+        self.Module.assert_called_with(
+            meta_dispatcher=self.machine._Dispatcher.return_value,
+            meta_plain='plain',
+            meta_module=None)
+        # Check task call
+        self.task.assert_called_with(*self.args, **self.kwargs)
         # Check stack
-        self.assertEqual(machine._stack, machine._Stack.return_value)
-        self.assertTrue(machine._Stack.called)
+        self.assertEqual(self.machine._stack, self.machine._Stack.return_value)
+        self.assertTrue(self.machine._Stack.called)
+        # Check print call
+        self.machine._print.assert_has_calls([
+            call(self.task.return_value)])
 
     # Protected
 
-    def _make_mock_machine_class(self):
+    def _make_mock_machine_class(self, module_class):
         class MockMachine(Machine):
             # Protected
             _Controller = Mock()
             _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
-            _find = Mock(return_value=Mock(task=[
-                Mock(return_value='result1'),
-                Mock(return_value='result2'),
-                'attr3']))
+            _find = Mock(return_value=[module_class])
             _print = Mock()
             _Stack = Mock()
             _Task = Mock
