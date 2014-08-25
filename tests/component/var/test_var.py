@@ -11,8 +11,14 @@ class VarTest(unittest.TestCase):
         self.Var = self._make_mock_var_class()
         self.var = self.Var(meta_module=None)
 
+    def test_meta_is_descriptor(self):
+        self.assertEqual(self.var.meta_is_descriptor, True)
+
     def test_meta_signature(self):
         self.assertEqual(self.var.meta_signature, '')
+
+    def test_meta_style(self):
+        self.assertEqual(self.var.meta_style, 'var')
 
     # Protected
 
