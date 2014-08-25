@@ -235,6 +235,9 @@ class TaskTest(unittest.TestCase):
         self.task.meta_strict = 'strict'
         self.assertEqual(self.task.meta_strict, 'strict')
 
+    def test_meta_style(self):
+        self.assertEqual(self.task.meta_style, 'task')
+
     # Protected
 
     def _make_mock_task_class(self):
