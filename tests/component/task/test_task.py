@@ -21,7 +21,7 @@ class TaskTest(unittest.TestCase):
 
     def test___get___with_meta_is_descriptor(self):
         self.Task.meta_is_descriptor = True
-        self.task.meta_cache = False
+        self.Task.meta_cache = False
         self.assertEqual(self.task.__get__('module'), 'value')
         self.assertEqual(self.task.__get__('module'), 'value')
         # Two calls because of caching is off
@@ -29,8 +29,8 @@ class TaskTest(unittest.TestCase):
 
     def test___get___with_meta_is_descriptor_and_meta_cache(self):
         self.Task.meta_is_descriptor = True
-        self.task.meta_cache = True
-        self.task.meta_dispatcher = Mock()
+        self.Task.meta_cache = True
+        self.Task.meta_dispatcher = Mock()
         self.assertEqual(self.task.__get__('module'), 'value')
         self.assertEqual(self.task.__get__('module'), 'value')
         # Only one call because of caching
@@ -45,7 +45,7 @@ class TaskTest(unittest.TestCase):
             [call('signal'), call('signal')])
 
     def test___call__(self):
-        self.task.meta_dispatcher = Mock()
+        self.Task.meta_dispatcher = Mock()
         self.assertEqual(self.task(), 'value')
         # Check meta_invoke call
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
@@ -58,8 +58,8 @@ class TaskTest(unittest.TestCase):
             [call('signal'), call('signal')])
 
     def test___call___with_meta_invoke_exception(self):
-        self.task.meta_dispatcher = Mock()
-        self.task.meta_invoke.side_effect = Exception()
+        self.Task.meta_dispatcher = Mock()
+        self.Task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check TaskSignal call
         self.task._meta_TaskSignal.assert_has_calls(
@@ -70,8 +70,8 @@ class TaskTest(unittest.TestCase):
             [call('signal'), call('signal')])
 
     def test___call___with_meta_invoke_exception_and_meta_fallback(self):
-        self.task.meta_invoke.side_effect = Exception()
-        self.task.meta_fallback = 'fallback'
+        self.Task.meta_invoke.side_effect = Exception()
+        self.Task.meta_fallback = 'fallback'
         self.assertEqual(self.task(), 'fallback')
 
     def test___call___with_dependencies(self):
@@ -94,7 +94,7 @@ class TaskTest(unittest.TestCase):
             call(failed=True)])
 
     def test___call___with_meta_chdir_is_false(self):
-        self.task.meta_chdir = False
+        self.Task.meta_chdir = False
         self.assertEqual(self.task(), 'value')
     def test_meta_disable_dependency(self):
         dependency = Mock()
@@ -243,7 +243,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_name, '')
 
     def test_meta_name_with_module(self):
-        self.task = self.Task(meta_module=self.module)
+        self.Task.meta_module = self.module
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(self.task.meta_name, 'task')
 
