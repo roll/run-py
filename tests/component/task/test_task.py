@@ -269,6 +269,15 @@ class TaskTest(unittest.TestCase):
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(self.task.meta_name, 'task')
 
+    def test_meta_qualname(self):
+        self.assertEqual(self.task.meta_qualname, '')
+
+    def test_meta_qualname_with_module(self):
+        self.Task.meta_module = self.module
+        self.module.meta_qualname = 'module'
+        self.module.meta_tasks = {'task': self.task}
+        self.assertEqual(self.task.meta_qualname, 'module.task')
+
     def test_meta_signature(self):
         self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
 
