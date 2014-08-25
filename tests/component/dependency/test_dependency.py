@@ -20,6 +20,12 @@ class DependencyTest(unittest.TestCase):
         self.assertEqual(repr(self.dependency),
             "MockDependency task('arg1', kwarg1='kwarg1')")
 
+    def test___repr___disabled(self):
+        self.successor.meta_module.task.__repr__ = lambda self: 'task'
+        self.dependency.disable()
+        self.assertEqual(repr(self.dependency),
+            "MockDependency task('arg1', kwarg1='kwarg1') [disabled]")
+
     def test___repr___task_not_existent(self):
         self.successor.meta_module.task = None
         self.assertEqual(repr(self.dependency),

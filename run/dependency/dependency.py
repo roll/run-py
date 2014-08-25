@@ -47,7 +47,7 @@ class Dependency(metaclass=ABCMeta):
                     format(self=self))
         pattern = '{action} {predecessor}'
         if not self._enabled:
-            pattern = '{action} {predecessor} (disabled)'
+            pattern = '{action} {predecessor} [disabled]'
         result = pattern.format(action=action, predecessor=predecessor)
         return result
 
