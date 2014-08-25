@@ -229,6 +229,10 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_docstring,
                          self.task.__doc__)
 
+    def test_meta_docstring_setter(self):
+        self.task.meta_docstring = 'docstring'
+        self.assertEqual(self.task.meta_docstring, 'docstring')
+
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback,
                          self.task.meta_module.meta_fallback)
