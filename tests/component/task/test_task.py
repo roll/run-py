@@ -93,6 +93,69 @@ class TaskTest(unittest.TestCase):
     def test___call___with_meta_chdir_is_false(self):
         self.task.meta_chdir = False
         self.assertEqual(self.task(), 'value')
+    def test_meta_disable_dependency(self):
+        dependency = Mock()
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'task'
+        self.task = self.Task(meta_module=self.module)
+        self.task.meta_depend(dependency)
+        self.task.meta_disable_dependency('task', types=[Mock])
+        # Check dependency disable call
+        self.assertTrue(dependency.disable.called)
+
+    def test_meta_disable_dependency_with_different_task(self):
+        dependency = Mock()
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'different_task'
+        self.task = self.Task(meta_module=self.module)
+        self.task.meta_depend(dependency)
+        self.task.meta_disable_dependency('different_task', types=[Mock])
+        # Check dependency disable call
+        self.assertFalse(dependency.disable.called)
+
+    def test_meta_enable_dependency(self):
+        dependency = Mock()
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'task'
+        self.task = self.Task(meta_module=self.module)
+        self.task.meta_depend(dependency)
+        self.task.meta_enable_dependency('task', types=[Mock])
+        # Check dependency enable call
+        self.assertTrue(dependency.enable.called)
+
+    def test_meta_enable_dependency_with_different_task(self):
+        dependency = Mock()
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'different_task'
+        self.task = self.Task(meta_module=self.module)
+        self.task.meta_depend(dependency)
+        self.task.meta_enable_dependency('different_task', types=[Mock])
+        # Check dependency enable call
+        self.assertFalse(dependency.enable.called)
+
+    def test_meta_require(self):
+        self.task.meta_require('task', *self.args, **self.kwargs)
+        self.assertEqual(
+            self.task.meta_dependencies,
+            [self.task._meta_require.return_value])
+        # Check require call
+        self.task._meta_require.assert_called_with(
+            'task', *self.args, **self.kwargs)
+        # Check require's return_value (require dependency) bind call
+        require = self.task._meta_require.return_value
+        require.bind.assert_called_with(self.task)
+
+    def test_meta_trigger(self):
+        self.task.meta_trigger('task', *self.args, **self.kwargs)
+        self.assertEqual(
+            self.task.meta_dependencies,
+            [self.task._meta_trigger.return_value])
+        # Check trigger call
+        self.task._meta_trigger.assert_called_with(
+            'task', *self.args, **self.kwargs)
+        # Check trigger's return_value (trigger dependency) bind call
+        trigger = self.task._meta_trigger.return_value
+        trigger.bind.assert_called_with(self.task)
 
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
@@ -143,46 +206,6 @@ class TaskTest(unittest.TestCase):
         require.bind.assert_called_with(self.task)
         trigger.bind.assert_called_with(self.task)
 
-    def test_meta_disable_dependency(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_disable_dependency('task', types=[Mock])
-        # Check dependency disable call
-        self.assertTrue(dependency.disable.called)
-
-    def test_meta_disable_dependency_with_different_task(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'different_task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_disable_dependency('different_task', types=[Mock])
-        # Check dependency disable call
-        self.assertFalse(dependency.disable.called)
-
-    def test_meta_enable_dependency(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_enable_dependency('task', types=[Mock])
-        # Check dependency enable call
-        self.assertTrue(dependency.enable.called)
-
-    def test_meta_enable_dependency_with_different_task(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'different_task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_enable_dependency('different_task', types=[Mock])
-        # Check dependency enable call
-        self.assertFalse(dependency.enable.called)
-
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback,
                          self.task.meta_module.meta_fallback)
@@ -190,6 +213,9 @@ class TaskTest(unittest.TestCase):
     def test_meta_fallback_setter(self):
         self.task.meta_fallback = 'fallback'
         self.assertEqual(self.task.meta_fallback, 'fallback')
+
+    def test_meta_is_descriptor(self):
+        self.assertEqual(self.task.meta_is_descriptor, False)
 
     def test_meta_kwargs(self):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)
@@ -208,30 +234,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_strict_setter(self):
         self.task.meta_strict = 'strict'
         self.assertEqual(self.task.meta_strict, 'strict')
-
-    def test_meta_require(self):
-        self.task.meta_require('task', *self.args, **self.kwargs)
-        self.assertEqual(
-            self.task.meta_dependencies,
-            [self.task._meta_require.return_value])
-        # Check require call
-        self.task._meta_require.assert_called_with(
-            'task', *self.args, **self.kwargs)
-        # Check require's return_value (require dependency) bind call
-        require = self.task._meta_require.return_value
-        require.bind.assert_called_with(self.task)
-
-    def test_meta_trigger(self):
-        self.task.meta_trigger('task', *self.args, **self.kwargs)
-        self.assertEqual(
-            self.task.meta_dependencies,
-            [self.task._meta_trigger.return_value])
-        # Check trigger call
-        self.task._meta_trigger.assert_called_with(
-            'task', *self.args, **self.kwargs)
-        # Check trigger's return_value (trigger dependency) bind call
-        trigger = self.task._meta_trigger.return_value
-        trigger.bind.assert_called_with(self.task)
 
     # Protected
 
