@@ -52,6 +52,18 @@ class MachineTest(unittest.TestCase):
         self.machine._print.assert_has_calls([
             call(self.task.return_value)])
 
+    def test_run_with_not_existent_attribute(self):
+        self.module.mock_add_spec([])
+        self.machine = self.Machine()
+        self.assertRaises(AttributeError, self.machine.run, 'not_existent')
+
+    def test_run_with_not_existent_attribute_and_skip_is_true(self):
+        self.module.mock_add_spec([])
+        self.machine = self.Machine(skip=True)
+        self.machine.run('not_existent')
+        # Check print call
+        self.assertFalse(self.machine._print.called)
+
     # Protected
 
     def _make_mock_machine_class(self, module_class):
