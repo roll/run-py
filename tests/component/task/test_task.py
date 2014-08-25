@@ -109,7 +109,7 @@ class TaskTest(unittest.TestCase):
     def test___repr__(self):
         self.assertEqual(repr(self.task), '<MockTask>')
 
-    def test___repr___with_module(self):
+    def test___repr___with_meta_module(self):
         self.Task.meta_module = self.module
         self.module.meta_qualname = 'module'
         self.module.meta_tasks = {'task': self.task}
@@ -253,14 +253,14 @@ class TaskTest(unittest.TestCase):
     def test_meta_fullname(self):
         self.assertEqual(self.task.meta_fullname, '')
 
-    def test_meta_fullname_with_module(self):
+    def test_meta_fullname_with_meta_module(self):
         self.Task.meta_module = self.module
         self.module.meta_fullname = 'module'
         self.module.meta_is_main_module = False
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(self.task.meta_fullname, 'module.task')
 
-    def test_meta_fullname_with_module_is_main(self):
+    def test_meta_fullname_with_meta_module_is_main(self):
         self.Task.meta_module = self.module
         self.module.meta_fullname = '[key]'
         self.module.meta_is_main_module = True
@@ -278,7 +278,7 @@ class TaskTest(unittest.TestCase):
         self.assertFalse(self.task.meta_main_module)
         self.assertNotEqual(self.task.meta_main_module, None)
 
-    def test_meta_main_module_with_module(self):
+    def test_meta_main_module_with_meta_module(self):
         self.Task.meta_main_module = self.module
         self.assertEqual(self.task.meta_main_module, self.module)
 
@@ -287,14 +287,14 @@ class TaskTest(unittest.TestCase):
         self.assertFalse(self.task.meta_module)
         self.assertNotEqual(self.task.meta_module, None)
 
-    def test_meta_module_with_module(self):
+    def test_meta_module_with_meta_module(self):
         self.task = self.Task(meta_module=self.module)
         self.assertEqual(self.task.meta_module, self.module)
 
     def test_meta_name(self):
         self.assertEqual(self.task.meta_name, '')
 
-    def test_meta_name_with_module(self):
+    def test_meta_name_with_meta_module(self):
         self.Task.meta_module = self.module
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(self.task.meta_name, 'task')
@@ -302,7 +302,7 @@ class TaskTest(unittest.TestCase):
     def test_meta_qualname(self):
         self.assertEqual(self.task.meta_qualname, '')
 
-    def test_meta_qualname_with_module(self):
+    def test_meta_qualname_with_meta_module(self):
         self.Task.meta_module = self.module
         self.module.meta_qualname = 'module'
         self.module.meta_tasks = {'task': self.task}
