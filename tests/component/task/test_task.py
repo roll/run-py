@@ -149,6 +149,16 @@ class TaskTest(unittest.TestCase):
         # Check dependency disable call
         self.assertFalse(dependency.disable.called)
 
+    def test_meta_disable_dependency_with_different_types(self):
+        dependency = Mock()
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'task'
+        self.task = self.Task(meta_module=self.module)
+        self.task.meta_depend(dependency)
+        self.task.meta_disable_dependency('task', types=[Exception])
+        # Check dependency disable call
+        self.assertFalse(dependency.disable.called)
+
     def test_meta_enable_dependency(self):
         dependency = Mock()
         dependency.predecessor = 'task'
@@ -167,6 +177,16 @@ class TaskTest(unittest.TestCase):
         self.task.meta_depend(dependency)
         self.task.meta_enable_dependency('different_task', types=[Mock])
         # Check dependency enable call
+        self.assertFalse(dependency.enable.called)
+
+    def test_meta_enable_dependency_with_different_types(self):
+        dependency = Mock()
+        dependency.predecessor = 'task'
+        self.module.meta_lookup.return_value = 'task'
+        self.task = self.Task(meta_module=self.module)
+        self.task.meta_depend(dependency)
+        self.task.meta_enable_dependency('task', types=[Exception])
+        # Check dependency disable call
         self.assertFalse(dependency.enable.called)
 
     def test_meta_require(self):
