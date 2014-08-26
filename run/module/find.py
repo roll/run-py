@@ -20,6 +20,7 @@ class FindModule(Module):
             key=key,
             tags=tags,
             file=file,
+            exclude=exclude,
             basedir=basedir,
             recursively=recursively,
             filters=[{'notfilepath': notfilepath}],
