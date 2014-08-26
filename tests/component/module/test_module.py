@@ -122,10 +122,6 @@ class ModuleTest(unittest.TestCase):
             '[key] module.meta\n'
             '[key] module.task')
 
-    @unittest.skip('Breaks system tests. Why??')
-    def test_list_with_task_is_not_module(self):
-        self.assertRaises(TypeError, self.module.list, 'list')
-
     def test_info(self):
         self.module.info()
         # Check print call
@@ -151,11 +147,13 @@ class ModuleTest(unittest.TestCase):
             '---\n'
             'Print information.')
 
+    # TODO: implement
     def test_meta(self):
         self.module.meta()
         # Check print call
         self.assertTrue(self.module._meta_pprint.called)
 
+    # TODO: implement
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check print call
