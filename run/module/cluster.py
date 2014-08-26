@@ -64,6 +64,7 @@ class ClusterModule(Module):
             key=self._key,
             tags=self._tags,
             file=self._file,
+            exclude=self._exclude,
             basedir=self._basedir,
             recursively=self._recursively,
             filters=[{'notfilepath': self._notfilepath}])
