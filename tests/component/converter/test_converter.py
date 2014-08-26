@@ -31,7 +31,7 @@ class ConverterTest(unittest.TestCase):
         self.assertRaises(TypeError, self.converter, classmethod(print))
 
     def test_with_skipped_object(self):
-        self.assertRaises(TypeError, self.converter, skip(Mock))
+        self.assertRaises(TypeError, self.converter, skip(Mock()))
 
     # Protected
 
