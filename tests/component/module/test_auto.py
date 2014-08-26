@@ -1,5 +1,6 @@
 import unittest
 import fractions
+from functools import partial
 from run.module.auto import AutoModule
 
 
@@ -8,7 +9,11 @@ class AutoModuleTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.module = AutoModule([fractions], meta_module=None)
+        self.pModule = partial(AutoModule, meta_module=None)
+        self.module = self.pModule([fractions])
+
+    def test_gcd(self):
+        self.assertEqual(self.module.gcd(10, 15), 5)
 
     def test_meta_docstring(self):
         self.assertTrue(self.module.meta_docstring)
@@ -17,5 +22,7 @@ class AutoModuleTest(unittest.TestCase):
         self.assertEqual(sorted(self.module.meta_tasks),
             ['default', 'gcd', 'info', 'list', 'meta'])
 
-    def test_gcd(self):
-        self.assertEqual(self.module.gcd(10, 15), 5)
+    def test_meta_tasks_witout_sources(self):
+        self.module = self.pModule()
+        self.assertEqual(sorted(self.module.meta_tasks),
+            ['default', 'info', 'list', 'meta'])
