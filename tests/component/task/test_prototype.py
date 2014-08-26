@@ -3,7 +3,6 @@ from unittest.mock import Mock
 from run.task.prototype import TaskPrototype
 
 
-# TODO: implement fully
 class TaskPrototypeTest(unittest.TestCase):
 
     # Public
@@ -50,6 +49,10 @@ class TaskPrototypeTest(unittest.TestCase):
         self.assertEqual(fork._meta_args, ('arg1', 'arg2'))
         self.assertEqual(fork._meta_kwargs,
             {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'})
+
+    # TODO: implement
+    def test___meta_build__(self):
+        pass
 
     # Protected
 
