@@ -21,19 +21,22 @@ class TaskPrototypeTest(unittest.TestCase):
             meta_updates=self.updates,
             **self.kwargs)
 
+    def test___getattr__(self):
+        self.assertEqual(self.prototype.attr2, Mock)
+
     def test___setattr__(self):
-        self.prototype.attr2.nested_attr2 = 'value2'
+        self.prototype.attr3.nested_attr3 = 'value2'
         self.assertEqual(self.updates, [self.update])
         # Check update_class call
         self.prototype._meta_TaskUpdate.assert_called_with(
-            '__setattr__', 'attr2.nested_attr2', 'value2')
+            '__setattr__', 'attr3.nested_attr3', 'value2')
 
     def test___call__(self):
-        self.prototype.attr2.nested_attr2(*self.args, **self.kwargs)
+        self.prototype.attr3.nested_attr3(*self.args, **self.kwargs)
         self.assertEqual(self.updates, [self.update])
         # Check update_class call
         self.prototype._meta_TaskUpdate.assert_called_with(
-            'attr2.nested_attr2', *self.args, **self.kwargs)
+            'attr3.nested_attr3', *self.args, **self.kwargs)
 
     def test___call___before_getattr(self):
         self.assertRaises(TypeError, self.prototype)
@@ -56,6 +59,7 @@ class TaskPrototypeTest(unittest.TestCase):
             __meta_create__ = Mock()
             __meta_update__ = Mock()
             attr1 = 'value1'
+            attr2 = Mock
         return MockTask
 
     def _make_mock_prototype_class(self, update):
