@@ -8,7 +8,7 @@ package = {
 	#Main
 
     'name': 'runpack',
-	'version':'0.25.0',
+	'version':'0.26.0',
 	'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
@@ -24,7 +24,7 @@ package = {
     'author_email': 'roll@respect31.com',
     'classifiers': ['Intended Audience :: Developers', 'License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
     'description': 'Run is a program to run tasks from files.',
-    'download_url':'https://github.com/respect31/run/tarball/0.25.0',
+    'download_url':'https://github.com/respect31/run/tarball/0.26.0',
     'license': 'MIT License',
     'maintainer': 'roll',
     'maintainer_email': 'roll@respect31.com',
