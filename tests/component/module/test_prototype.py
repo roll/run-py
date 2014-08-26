@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from run.module.prototype import ModulePrototype
 
 
+# TODO: implement
 class ModulePrototypeTest(unittest.TestCase):
 
     # Public
@@ -11,13 +12,6 @@ class ModulePrototypeTest(unittest.TestCase):
         self.Module = self._make_mock_module_class()
         self.Prototype = self._make_mock_prototype_class()
         self.prototype = self.Prototype(self.Module, None)
-
-    @unittest.skip('not changed to _initiate_task')
-    def test__initiate_task(self):
-        self.module = self.prototype._create_task()
-        self.assertIsInstance(self.module, self.Module)
-        self.assertEqual(self.Module.attr, 'attr')
-        self.assertEqual(self.Module.task, 'task')
 
     # Protected
 
