@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from run.task.prototype import TaskPrototype
 
 
+# TODO: implement fully
 class TaskPrototypeTest(unittest.TestCase):
 
     # Public
@@ -27,27 +28,15 @@ class TaskPrototypeTest(unittest.TestCase):
         self.prototype._meta_TaskUpdate.assert_called_with(
             '__setattr__', 'attr2', 'value2')
 
-    def __meta_fork__(self):
+    def test___meta_fork__(self):
         self.prototype.attr2 = 'value2'
         fork = self.prototype.__meta_fork__('arg2', kwarg2='kwarg2')
         self.assertIsInstance(fork, self.Prototype)
-        self.assertEqual(fork._class, self.Task)
-        self.assertEqual(fork._updates, [self.update])
-        self.assertEqual(fork._args, ('arg1', 'arg2'))
-        self.assertEqual(fork._kwargs,
+        self.assertEqual(fork._meta_class, self.Task)
+        self.assertEqual(fork._meta_updates, [self.update])
+        self.assertEqual(fork._meta_args, ('arg1', 'arg2'))
+        self.assertEqual(fork._meta_kwargs,
             {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'})
-
-    @unittest.skip('not fixed after refactoring')
-    def test___meta_init__(self):
-        self.prototype.attr2 = 'value2'
-        task = self.prototype.__meta_init__('module')
-        self.assertIsInstance(task, self.Task)
-        # Check __meta_init__ call
-        task.__meta_init__.assert_called_with(
-            *self.args,
-            meta_module='module',
-            meta_updates=self.updates,
-            **self.kwargs)
 
     # Protected
 
