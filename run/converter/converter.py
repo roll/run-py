@@ -28,7 +28,8 @@ class Converter(Decorator, metaclass=ABCMeta):
 
     _kwargs = {}
 
-    def _is_composite(self, *args, **kwargs):  # Overriding
+    # Overriding
+    def _is_composite(self, *args, **kwargs):
         # Composite only if args not passed
         return not bool(args)
 
