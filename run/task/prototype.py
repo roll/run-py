@@ -18,7 +18,7 @@ class TaskPrototype(Result):
         self._meta_name = None
 
     def __getattr__(self, name):
-        if name == '__isabstractmethod__':
+        if name.startswith('__'):
             return super().__getattribute__(name)
         if hasattr(self._meta_class, name):
             attr = getattr(self._meta_class, name)
