@@ -17,7 +17,9 @@ class find_Test(unittest.TestCase):
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
             filepathes=None,
-            filters=[{'filename': 'default_file'}],
+            filters=[
+                {'filename': 'default_file'},
+                {'notfilename': 'default_exclude'}],
             constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
 
@@ -28,7 +30,10 @@ class find_Test(unittest.TestCase):
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
             filepathes=None,
-            filters=[{'filename': 'default_file'}, {'maxdepth': 1}],
+            filters=[
+                {'filename': 'default_file'},
+                {'maxdepth': 1},
+                {'notfilename': 'default_exclude'}],
             constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
 
@@ -39,7 +44,8 @@ class find_Test(unittest.TestCase):
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
             filepathes=['dir/file'],
-            filters=[],
+            filters=[
+                {'notfilename': 'default_exclude'}],
             constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
 
@@ -50,7 +56,21 @@ class find_Test(unittest.TestCase):
         self.find._find_objects.assert_called_with(
             basedir='default_basedir',
             filepathes=['dir/file'],
-            filters=[],
+            filters=[
+                {'notfilename': 'default_exclude'}],
+            constraints=ANY,
+            getfirst_exception=self.find._getfirst_exception)
+
+    def test_with_exclude_is_filepath(self):
+        result = self.find(exclude='dir/file')
+        self.assertEqual(result, self.find._find_objects.return_value)
+        # Check find_objects call
+        self.find._find_objects.assert_called_with(
+            basedir='default_basedir',
+            filepathes=None,
+            filters=[
+                {'filename': 'default_file'},
+                {'notfilepath': 'dir/file'}],
             constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
 
@@ -60,6 +80,7 @@ class find_Test(unittest.TestCase):
         class mock_find(find):
             # Public
             default_basedir = 'default_basedir'
+            default_exclude = 'default_exclude'
             default_file = 'default_file'
             default_key = 'default_key'
             default_recursively = 'default_recursively'
