@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import Mock, call
-from run.machine.machine import Machine
+from unittest.mock import Mock, call, patch
+from run.machine import machine
 
 
 class MachineTest(unittest.TestCase):
@@ -8,12 +8,18 @@ class MachineTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1', }
         self.callable = Mock()
+        self.Signal = self._make_mock_signal_class()
+        self.Stack = self._make_mock_stack_class()
+        self.logging = patch.object(machine, 'logging').start()
+        self.logger = self.logging.getLogger.return_value
         self.module = Mock(callable=self.callable, not_callable='not_callable')
         self.Module = Mock(return_value=self.module)
-        self.Machine = self._make_mock_machine_class(self.Module)
+        self.Machine = self._make_mock_machine_class(self.Module, self.Stack)
+        self.machine = self.Machine()
 
     def test_run_callable(self):
         self.machine = self.Machine(
@@ -45,15 +51,11 @@ class MachineTest(unittest.TestCase):
             meta_module=None)
         # Check callable call
         self.callable.assert_called_with(*self.args, **self.kwargs)
-        # Check stack
-        self.assertEqual(self.machine._stack, self.machine._Stack.return_value)
-        self.assertTrue(self.machine._Stack.called)
         # Check print call
         self.machine._print.assert_has_calls([
             call(self.callable.return_value)])
 
     def test_run_not_callable(self):
-        self.machine = self.Machine()
         self.machine.run('not_callable')
         # Check print call
         self.machine._print.assert_has_calls([
@@ -61,25 +63,67 @@ class MachineTest(unittest.TestCase):
 
     def test_run_with_not_existent_attribute(self):
         self.module.mock_add_spec([])
-        self.machine = self.Machine()
         self.assertRaises(AttributeError, self.machine.run, 'not_existent')
 
     def test_run_with_not_existent_attribute_and_skip_is_true(self):
-        self.module.mock_add_spec([])
         self.machine = self.Machine(skip=True)
+        self.module.mock_add_spec([])
         self.machine.run('not_existent')
         # Check print call
         self.assertFalse(self.machine._print.called)
 
+    def test__on_task_signal(self):
+        self.signal = self.Signal('task', 'event')
+        self.machine._on_task_signal(self.signal)
+        self.logger.info.assert_called_with('event_')
+
+    def test__on_task_signal_with_compact_is_true(self):
+        self.machine = self.Machine(compact=True)
+        self.signal = self.Signal('task', 'event')
+        self.machine._on_task_signal(self.signal)
+        self.logger.info.assert_called_with('event_task')
+        self.assertEqual(self.machine._stack, [])
+
+    def test__on_task_signal_with_event_is_called_then_successed(self):
+        # Signal is called
+        self.signal = self.Signal('task', 'called')
+        self.machine._on_task_signal(self.signal)
+        self.logger.info.assert_called_with('called_task')
+        self.assertEqual(self.machine._stack, ['task'])
+        # Signal is successed
+        self.signal = self.Signal('task', 'successed')
+        self.machine._on_task_signal(self.signal)
+        self.logger.info.assert_called_with('successed_task')
+        self.assertEqual(self.machine._stack, [])
+
     # Protected
 
-    def _make_mock_machine_class(self, module_class):
-        class MockMachine(Machine):
+    def _make_mock_signal_class(self):
+        class MockSignal:
+            # Public
+            def __init__(self, task, event):
+                self.task = task
+                self.event = event
+            def format(self):
+                return self.event + '_'
+        return MockSignal
+
+    def _make_mock_stack_class(self):
+        class MockStack(list):
+            # Public
+            def push(self, task):
+                self.append(task)
+            def format(self):
+                return '.'.join(self)
+        return MockStack
+
+    def _make_mock_machine_class(self, module_class, stack_class):
+        class MockMachine(machine.Machine):
             # Protected
             _Controller = Mock()
             _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
             _find = Mock(return_value=[module_class])
             _print = Mock()
-            _Stack = Mock()
+            _Stack = stack_class
             _Task = Mock
         return MockMachine
