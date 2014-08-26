@@ -24,13 +24,13 @@ class Converter(Decorator, metaclass=ABCMeta):
             'for the given object "{obj}" convertation.'.
             format(self=self, obj=obj))
 
-    def is_composite(self, *args, **kwargs):  # Overriding
-        # Composite only if args not passed
-        return not bool(args)
-
     # Protected
 
     _kwargs = {}
+
+    def _is_composite(self, *args, **kwargs):  # Overriding
+        # Composite only if args not passed
+        return not bool(args)
 
     def _check_converted(self, obj):
         return isinstance(obj, Result)
