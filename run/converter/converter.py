@@ -17,8 +17,8 @@ class Converter(Decorator, metaclass=ABCMeta):
         if self._check_converted(obj):
             return obj
         if self._check_eligible(obj):
-            if self.match(obj):
-                return self.make(obj)
+            if self._match(obj):
+                return self._make(obj)
         raise TypeError(
             'Converter "{self}" is not suitable converter '
             'for the given object "{obj}" convertation.'.
@@ -27,14 +27,6 @@ class Converter(Decorator, metaclass=ABCMeta):
     def is_composite(self, *args, **kwargs):  # Overriding
         # Composite only if args not passed
         return not bool(args)
-
-    @abstractmethod
-    def match(self, obj):
-        pass  # pragma: no cover
-
-    @abstractmethod
-    def make(self, obj):
-        pass  # pragma: no cover
 
     # Protected
 
@@ -51,3 +43,11 @@ class Converter(Decorator, metaclass=ABCMeta):
         if getattr(obj, skip.attribute_name, False):
             return False
         return True
+
+    @abstractmethod
+    def _match(self, obj):
+        pass  # pragma: no cover
+
+    @abstractmethod
+    def _make(self, obj):
+        pass  # pragma: no cover

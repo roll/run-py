@@ -30,13 +30,13 @@ class task(Converter):
                 pass
     """
 
-    # Public
+    # Protected
 
-    def match(self, obj):
+    def _match(self, obj):
         if inspect.isfunction(obj):
             return True
         return False
 
-    def make(self, obj):
+    def _make(self, obj):
         prototype = MethodTask(obj, **self._kwargs)
         return prototype

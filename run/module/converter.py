@@ -29,19 +29,17 @@ class module(task):
                 def default(self, **kwargs): pass
     """
 
-    # Public
+    # Protected
 
-    def match(self, obj):
+    _isinstance = staticmethod(isinstance)
+    _issubclass = staticmethod(issubclass)
+
+    def _match(self, obj):
         if self._isinstance(obj, type):
             if self._issubclass(obj, Module):
                 return True
         return False
 
-    def make(self, obj):
+    def _make(self, obj):
         prototype = obj(**self._kwargs)
         return prototype
-
-    # Protected
-
-    _isinstance = staticmethod(isinstance)
-    _issubclass = staticmethod(issubclass)

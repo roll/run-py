@@ -30,16 +30,16 @@ class var(task):
                 pass
     """
 
-    # Public
+    # Protected
 
-    def match(self, obj):
+    def _match(self, obj):
         if inspect.isdatadescriptor(obj):
             return True
         if inspect.isfunction(obj):
             return True
         return False
 
-    def make(self, obj):
+    def _make(self, obj):
         descriptor = obj
         if not inspect.isdatadescriptor(obj):
             descriptor = property(obj)
