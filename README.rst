@@ -31,6 +31,7 @@ Installation
 ------------
 - pip install runpack
 
+
 Example
 -------
 
@@ -118,7 +119,6 @@ More usefull example you can find here:
 - `Run's templates <https://github.com/respect31/run/tree/master/_sources>`_
 
 That's how run builds himself using module inheritance.
-
 
 Authors
 -------

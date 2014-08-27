@@ -5,15 +5,15 @@ from setuptools import find_packages
 
 package = {
 
-	#Main
+    #Main
 
     'name': 'runpack',
-	'version':'0.26.0',
-	'packages': find_packages(
+    'version':'0.26.0',
+    'packages': find_packages(
         os.path.dirname(__file__) or '.', 
         exclude=['tests*']
     ),
-	'include_package_data': True,
+    'include_package_data': True,
     'install_requires': ['box>=0.36'],  
     'tests_require': ['nose'],
     'test_suite': 'nose.collector',
@@ -62,6 +62,7 @@ Requirements
 Installation
 ------------
 - pip install runpack
+
 
 Example
 -------
@@ -151,7 +152,6 @@ More usefull example you can find here:
 
 That's how run builds himself using module inheritance.
 
-
 Authors
 -------
 - roll <roll@respect31.com>
@@ -182,15 +182,15 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.''',  
-    
+THE SOFTWARE.
+''',  
 }
 
 if (not os.environ.get('TRAVIS', None) and  
-	not	os.environ.get('READTHEDOCS', None)):
-	package['entry_points'] = {'console_scripts': ['run = run.program:program']}
-	package['data_files'] = [('/etc/bash_completion.d', ['data/run.sh'])]
+    not os.environ.get('READTHEDOCS', None)):
+    package['entry_points'] = {'console_scripts': ['run = run.program:program']}
+    package['data_files'] = [('/etc/bash_completion.d', ['data/run.sh'])]
 
 if __name__ == '__main__':
-	from setuptools import setup
-	setup(**package)
+    from setuptools import setup
+    setup(**package)
