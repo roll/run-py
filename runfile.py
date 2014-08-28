@@ -14,11 +14,13 @@ class Module(ManageModule):
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: System :: Systems Administration',
     ]
+    copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
     data_files = [('/etc/bash_completion.d', ['data/run.sh'])]
     description = 'Run is a program to run tasks from files.'
     development_requires = ['packgram>=0.13', 'sphinx', 'sphinx_rtd_theme']
     entry_points = {'console_scripts': ['run = run.program:program']}
     github_user = 'respect31'
+    interpreters = ['3.3', '3.4']
     install_requires = ['box>=0.36']
     license = 'MIT License'
     name = 'run'

@@ -122,6 +122,8 @@ Requirements
   - Unix
 - Interpreters
 
+  - Python 3.3
+  - Python 3.4
 
 Installation
 ------------
@@ -144,7 +146,7 @@ License
 -------
 **MIT License**
 
-
+Copyright (c) 2014 Respect31 <post@respect31.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
