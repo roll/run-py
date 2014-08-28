@@ -52,17 +52,6 @@ Run is a program to run tasks from files.
      :target: https://pypi.python.org/pypi?:action=display&name=runpack
      :alt: pypi
 
-*Package is under active development. Before version 1 backward-compatibility 
-between minor releases (0.x.0), documentation and changelog are not guaranteed.*
-
-Requirements
-------------
-- Python 3.3 and higher
-
-Installation
-------------
-- pip install runpack
-
 
 Example
 -------
@@ -152,19 +141,42 @@ More usefull example you can find here:
 
 That's how run builds himself using module inheritance.
 
-Authors
--------
-- roll <roll@respect31.com>
-
-Maintainers
+Application
 -----------
-- roll <roll@respect31.com>
+Package is under active development and is not ready for production use.
+Backward-compatibility between minor releases (0.x.0), documentation and 
+changelog are not guaranteed to be present before stable versions (>=1.0.0).
+
+Requirements
+------------
+- Platforms
+
+  - Unix
+- Interpreters
+
+
+Installation
+------------
+- pip install runpack
+
+Contribution
+------------
+- Authors
+
+  - roll <roll@respect31.com>
+- Maintainers
+
+  - roll <roll@respect31.com>
+
+Changelog
+---------
+- no entries yet
 
 License
 -------
-MIT License
-`````````````
-Copyright (c) 2014 Respect31 <post@respect31.com>
+**MIT License**
+
+
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

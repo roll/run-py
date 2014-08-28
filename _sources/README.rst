@@ -1,6 +1,6 @@
 {% extends "packgram/README.rst" %}
 
-{% block installation %}
+{% block badges %}
 {{ super() }}
 
 Example
