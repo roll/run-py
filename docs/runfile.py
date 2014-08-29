@@ -1,4 +1,4 @@
 from packgram.docs import DocsModule
 
 
-class Module(DocsModule): pass
+class DocsModule(DocsModule): pass

@@ -1,4 +1,4 @@
 from packgram.tests import TestsModule
 
 
-class Module(TestsModule): pass
+class TestsModule(TestsModule): pass

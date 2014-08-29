@@ -1,7 +1,7 @@
 from packgram.project import ProjectModule
 
 
-class Module(ProjectModule):
+class ProjectModule(ProjectModule):
 
     # Attributes
 

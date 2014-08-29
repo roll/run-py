@@ -2,7 +2,8 @@ import os
 from run import (Module, DerivedTask, DescriptorTask, FindTask, FunctionTask,
                  InputTask, MethodTask, NullTask, SubprocessTask)
 
-class Module(Module):
+
+class TasksModule(Module):
 
     # Tasks
 
