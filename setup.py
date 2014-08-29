@@ -1,4 +1,4 @@
-#DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+#TO MAKE CHANGES USE "_sources" DIRECTORY (see packgram docs).
 
 import os
 from setuptools import find_packages
@@ -30,7 +30,7 @@ package = {
     'maintainer_email': 'roll@respect31.com',
     'platforms': ['Unix'],
     'url': 'https://github.com/respect31/run',
-    'long_description': '''.. DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+    'long_description': '''.. TO MAKE CHANGES USE "_sources" DIRECTORY (see packgram docs).
 
 Run
 =====================

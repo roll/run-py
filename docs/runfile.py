@@ -1,3 +1,3 @@
-from packgram.docs import ManageModule
+from packgram.docs import DocsModule
 
-class Module(ManageModule): pass
+class Module(DocsModule): pass

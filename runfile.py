@@ -1,7 +1,7 @@
-from packgram import ManageModule
+from packgram.project import ProjectModule
 
 
-class Module(ManageModule):
+class Module(ProjectModule):
 
     # Attributes
 

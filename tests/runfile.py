@@ -1,4 +1,4 @@
-from packgram.tests import ManageModule
+from packgram.tests import TestsModule
 
 
-class Module(ManageModule): pass
+class Module(TestsModule): pass

@@ -1,4 +1,4 @@
-#DO NOT CHANGE THIS FILE. SOURCE IS IN "_sources" DIRECTORY.
+#TO MAKE CHANGES USE "_sources" DIRECTORY (see packgram docs).
 
 language: 
   python
