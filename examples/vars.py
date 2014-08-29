@@ -1,7 +1,6 @@
 import os
 from run import (Module, SubprocessTask, DerivedVar, DescriptorVar, FindVar,
-                 FunctionVar, InputVar, MethodVar, NullVar,
-                 RenderVar, SubprocessVar)
+                 FunctionVar, InputVar, MethodVar, NullVar, SubprocessVar)
 
 class Module(Module):
 
