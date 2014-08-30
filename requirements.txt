@@ -1,6 +1,6 @@
 #TO MAKE CHANGES USE "_sources" DIRECTORY (see packgram docs).
 
-packgram>=0.13
+packgram>=0.15
 sphinx
 sphinx_rtd_theme
 box>=0.36
