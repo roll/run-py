@@ -20,9 +20,9 @@ class AutoModuleTest(unittest.TestCase):
 
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
-            ['default', 'gcd', 'info', 'list', 'meta'])
+            ['gcd', 'info', 'list', 'meta'])
 
     def test_meta_tasks_witout_sources(self):
         self.module = self.pModule()
         self.assertEqual(sorted(self.module.meta_tasks),
-            ['default', 'info', 'list', 'meta'])
+            ['info', 'list', 'meta'])

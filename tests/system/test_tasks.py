@@ -11,7 +11,6 @@ class TasksTest(ExamplesTest):
         result = self._execute()
         self.assertEqual(
             result,
-            'default\n'
             'derived\n'
             'descriptor\n'
             'find\n'
@@ -41,8 +40,8 @@ class TasksTest(ExamplesTest):
         self.assertRegex(result, '.*examples/path\n')
 
     def test_info(self):
-        result = self._execute('info default')
-        self.assertRegex(result, 'default.*')
+        result = self._execute('info list')
+        self.assertRegex(result, 'list.*')
 
     def test_input(self):
         # TODO: implement
@@ -50,11 +49,11 @@ class TasksTest(ExamplesTest):
 
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 12)
+        self.assertEqual(len(result.splitlines()), 11)
 
     def test_meta(self):
-        result = self._execute('meta default')
-        self.assertRegex(result, ".*'type': 'NullTask'}\n")
+        result = self._execute('meta list')
+        self.assertRegex(result, ".*'type': 'MethodTask'}\n")
 
     def test_method(self):
         result = self._execute('method')

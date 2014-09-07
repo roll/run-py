@@ -21,7 +21,6 @@ class DependencyTest(unittest.TestCase):
         self.module.list()
         self.assertEqual(
             self.stdout.getvalue(),
-            'default\n'
             'info\n'
             'list\n'
             'meta\n'

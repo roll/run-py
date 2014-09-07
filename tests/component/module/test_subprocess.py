@@ -37,12 +37,12 @@ class SubprocessModuleTest(unittest.TestCase):
 
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
-            ['command0', 'command1', 'default', 'info', 'list', 'meta'])
+            ['command0', 'command1', 'info', 'list', 'meta'])
 
     def test_meta_tasks_without_mapping(self):
         self.module = self.pModule()
         self.assertEqual(sorted(self.module.meta_tasks),
-            ['command0', 'default', 'info', 'list', 'meta'])
+            ['command0', 'info', 'list', 'meta'])
 
     # Protected
 

@@ -11,7 +11,6 @@ class ModulesTest(ExamplesTest):
         result = self._execute('auto.list')
         self.assertEqual(
             result,
-            'auto.default\n'
             'auto.gcd\n'
             'auto.info\n'
             'auto.list\n'
@@ -25,7 +24,6 @@ class ModulesTest(ExamplesTest):
         result = self._execute('find.list')
         self.assertEqual(
             result,
-            'find.default\n'
             'find.derived\n'
             'find.descriptor\n'
             'find.find\n'
@@ -42,7 +40,6 @@ class ModulesTest(ExamplesTest):
         result = self._execute('subprocess.list')
         self.assertEqual(
             result,
-            'subprocess.default\n'
             'subprocess.goodbye\n'
             'subprocess.hello\n'
             'subprocess.info\n'

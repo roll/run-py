@@ -4,7 +4,7 @@ from pprint import pprint
 from collections import OrderedDict
 from ..find import Target
 from ..settings import settings
-from ..task import Task, NullTask, Module
+from ..task import Task, Module
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
 
@@ -47,7 +47,9 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
         return task
 
     def meta_invoke(self, *args, **kwargs):
-        return self.default(*args, **kwargs)
+        default = getattr(self, self.meta_default)
+        result = default(*args, **kwargs)
+        return result
 
     @property
     def meta_basedir(self):
@@ -61,6 +63,14 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
     @meta_basedir.setter
     def meta_basedir(self, value):
         self._meta_params['basedir'] = value
+
+    @property
+    def meta_default(self):
+        return self._meta_params.get('default', 'list')
+
+    @meta_default.setter
+    def meta_default(self, value):
+        self._meta_params['default'] = value
 
     @property
     def meta_fullname(self):
@@ -171,10 +181,6 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
                 if not inspect.ismethod(attr):
                     meta[key] = attr
         self._meta_pprint(meta)
-
-    default = NullTask(
-        meta_require=['list'],
-    )
 
     # Protected
 

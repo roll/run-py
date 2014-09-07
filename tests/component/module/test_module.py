@@ -16,6 +16,7 @@ class ModuleTest(unittest.TestCase):
         self.parent_module = self.ParentModule()
 
     def test___call__(self):
+        self.module.meta_default = 'default'
         self.module.default = Mock()
         self.assertEqual(
             self.module(*self.args, **self.kwargs),
@@ -47,6 +48,7 @@ class ModuleTest(unittest.TestCase):
             self.module.meta_lookup('module.task'), self.module.task)
 
     def test_meta_invoke(self):
+        self.module.meta_default = 'default'
         self.module.default = Mock()
         self.assertEqual(
             self.module.meta_invoke(*self.args, **self.kwargs),
@@ -93,13 +95,12 @@ class ModuleTest(unittest.TestCase):
 
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
-            ['default', 'info', 'list', 'meta', 'task'])
+            ['info', 'list', 'meta', 'task'])
 
     def test_list(self):
         self.module.list()
         # Check print call
         self.module._meta_print.assert_called_once_with(
-            'default\n'
             'info\n'
             'list\n'
             'meta\n'
@@ -116,7 +117,6 @@ class ModuleTest(unittest.TestCase):
         self.module.list()
         # Check print call
         self.module._meta_print.assert_called_once_with(
-            '[key] module.default\n'
             '[key] module.info\n'
             '[key] module.list\n'
             '[key] module.meta\n'

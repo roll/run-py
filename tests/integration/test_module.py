@@ -23,7 +23,6 @@ class ModuleTest(unittest.TestCase):
             self.stdout.getvalue(),
             'attribute\n'
             'class_var\n'
-            'default\n'
             'info\n'
             'list\n'
             'meta\n'

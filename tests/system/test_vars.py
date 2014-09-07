@@ -11,7 +11,6 @@ class VarsTest(ExamplesTest):
         result = self._execute()
         self.assertEqual(
             result,
-            'default\n'
             'derived\n'
             'descriptor\n'
             'find\n'
