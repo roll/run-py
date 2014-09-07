@@ -1,10 +1,10 @@
-#TO MAKE CHANGES USE "_sources" DIRECTORY (see packgram docs).
+# TO MAKE CHANGES USE "_sources" DIRECTORY (see packgram docs).
 
-#Coverage
+# Coverage
 .coverage
 coverage.xml
 
-#Distutils
+# Distutils
 /build/
 /develop-eggs/
 /dist/
@@ -13,29 +13,29 @@ coverage.xml
 /*.egg-info/
 /*.egg
 
-#Nosetests
+# Nosetests
 nosetests.xml
 
-#Pip
+# Pip
 pip-log.txt
 pip-delete-this-directory.txt
 
-#Project
+# Project
 /tmp/
 
-#PyDev
+# PyDev
 /.settings/
 /.project
 /.pydevproject
 
-#Python
+# Python
 __pycache__/
 *.py[cod]
 
-#Sphinx
+# Sphinx
 /docs/_build
 
-#Virtualenv
+# Virtualenv
 /env/
 /envs/
 /venv/
