@@ -178,6 +178,5 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
 
     # Protected
 
-    _meta_default_convert = settings.convert
     _meta_print = staticmethod(print)
     _meta_pprint = staticmethod(pprint)
