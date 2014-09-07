@@ -1,4 +1,4 @@
-#TO MAKE CHANGES USE "_sources" DIRECTORY (see packgram docs).
+#TO MAKE CHANGES USE "sources" DIRECTORY (see packgram docs).
 
 packgram>=0.15
 sphinx

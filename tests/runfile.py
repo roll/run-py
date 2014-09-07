@@ -1,4 +1,8 @@
 from packgram.tests import TestsModule
 
 
-class TestsModule(TestsModule): pass
+class TestsModule(TestsModule):
+
+    # Meta
+
+    meta_tags = ['test']
