@@ -35,6 +35,7 @@ class Machine:
                     instance = getattr(module, attribute)
                 if callable(instance):
                     result = instance(*args, **kwargs)
+                    # TODO: is None?/bad work with ClusterModule
                     if result:
                         self._print(result)
                 else:
