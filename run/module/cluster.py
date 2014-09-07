@@ -50,10 +50,7 @@ class ClusterModule(Module):
     def _modules(self):
         modules = []
         for Module in self._Modules:
-            module = Module(
-                meta_dispatcher=self.meta_dispatcher,
-                meta_plain=self.meta_plain,
-                meta_module=None)
+            module = Module(meta_module=self)
             modules.append(module)
         return modules
 

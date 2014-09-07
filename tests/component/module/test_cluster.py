@@ -35,10 +35,7 @@ class ClusterModuleTest(unittest.TestCase):
             recursively='recursively',
             filters=ANY)
         # Check FoundModule call
-        self.FoundModule.assert_called_with(
-            meta_dispatcher=self.module.meta_dispatcher,
-            meta_plain=self.module.meta_plain,
-            meta_module=None)
+        self.FoundModule.assert_called_with(meta_module=self.module)
 
     # Protected
 
