@@ -19,8 +19,6 @@ class VarsTest(ExamplesTest):
             'input\n'
             'list\n'
             'meta\n'
-            'method\n'
-            'null\n'
             'subprocess\n'
             'subprocess_task\n')
 
@@ -43,14 +41,6 @@ class VarsTest(ExamplesTest):
     def test_input(self):
         # TODO: implement
         pass
-
-    def test_method(self):
-        result = self._execute('method')
-        self.assertEqual(result, 'Hello World!\n')
-
-    def test_null(self):
-        result = self._execute('method')
-        self.assertEqual(result, 'Hello World!\n')
 
     def test_subprocess(self):
         result = self._execute('subprocess')

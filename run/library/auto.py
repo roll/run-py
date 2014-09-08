@@ -1,6 +1,6 @@
 from box.functools import Function
+from ..module import Module
 from ..task import FunctionTask
-from .module import Module
 
 
 class AutoModule(Module):

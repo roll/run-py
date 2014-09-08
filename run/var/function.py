@@ -3,3 +3,4 @@ from .var import Var
 
 
 class FunctionVar(Var, FunctionTask): pass
+

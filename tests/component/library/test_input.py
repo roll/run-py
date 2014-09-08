@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import patch
-from run.task.input import InputTask
+from run.library.input import InputTask, InputVar, Var
 
 
 class InputTaskTest(unittest.TestCase):
@@ -19,3 +19,12 @@ class InputTaskTest(unittest.TestCase):
         result = task(*self.args, **self.kwargs)
         self.assertEqual(result, enhanced_input.return_value)
         enhanced_input.assert_called_with(*self.args, **self.kwargs)
+
+
+class InputVarTest(unittest.TestCase):
+
+    # Public
+
+    def test(self):
+        self.assertTrue(issubclass(InputVar, Var))
+        self.assertTrue(issubclass(InputVar, InputTask))

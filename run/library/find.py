@@ -1,7 +1,10 @@
 import os
 import inspect
+from box import find as box_find
 from ..find import find
-from .module import Module
+from ..module import Module
+from ..task import FunctionTask
+from ..var import Var
 
 
 class FindModule(Module):
@@ -36,3 +39,19 @@ class FindModule(Module):
 
     _find = find
     _Module = Module
+
+
+class FindTask(FunctionTask):
+
+    # Public
+
+    def __init__(self, *args, mode='strings', **kwargs):
+        try:
+            function = getattr(box_find, 'find_' + mode)
+        except AttributeError:
+            raise ValueError('Unsupported mode "{mode}".'.
+                             format(mode=mode))
+        super().__init__(function, *args, **kwargs)
+
+
+class FindVar(Var, FindTask): pass

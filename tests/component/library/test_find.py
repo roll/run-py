@@ -1,6 +1,7 @@
 import unittest
-from unittest.mock import Mock, ANY
-from run.module.find import FindModule
+from functools import partial
+from unittest.mock import Mock, patch, ANY
+from run.library.find import FindModule, FindTask, FindVar, Var
 
 
 class FindModuleTest(unittest.TestCase):
@@ -52,3 +53,32 @@ class FindModuleTest(unittest.TestCase):
             _find = Mock(return_value=FoundModule)
             _Module = Mock()
         return MockModule
+
+
+class FindTaskTest(unittest.TestCase):
+
+    # Public
+
+    def setUp(self):
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
+        self.ptask = partial(FindTask, meta_module=None)
+
+    @patch('box.find.find_strings')
+    def test___call__(self, find_string):
+        task = self.ptask()
+        result = task(*self.args, **self.kwargs)
+        self.assertEqual(result, find_string.return_value)
+        find_string.assert_called_with(*self.args, **self.kwargs)
+
+    def test___call___with_unsopported_mode(self):
+        self.assertRaises(ValueError, self.ptask, mode='unsupported')
+
+
+class FindVarTest(unittest.TestCase):
+
+    # Public
+
+    def test(self):
+        self.assertTrue(issubclass(FindVar, Var))
+        self.assertTrue(issubclass(FindVar, FindTask))

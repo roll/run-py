@@ -14,6 +14,12 @@ Base class
 
 .. autoclass:: run.task.Task
 
+Concrete tasks
+--------------
+
+.. autoclass:: run.task.DescriptorTask
+.. autoclass:: run.task.FunctionTask
+
 Metaclass
 ---------
 
@@ -23,19 +29,6 @@ Prototype
 ---------
 
 .. autoclass:: run.task.TaskPrototype
-
-Concrete tasks
---------------
-
-.. autoclass:: run.task.DerivedTask
-.. autoclass:: run.task.DescriptorTask
-.. autoclass:: run.task.FindTask
-.. autoclass:: run.task.FunctionTask
-.. autoclass:: run.task.InputTask
-.. autoclass:: run.task.MethodTask
-.. autoclass:: run.task.NullTask
-.. autoclass:: run.task.RenderTask
-.. autoclass:: run.task.SubprocessTask
 
 Signal class
 ------------

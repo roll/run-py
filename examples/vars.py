@@ -1,6 +1,6 @@
 import os
 from run import (Module, SubprocessTask, DerivedVar, DescriptorVar, FindVar,
-                 FunctionVar, InputVar, MethodVar, NullVar, SubprocessVar)
+                 FunctionVar, InputVar, SubprocessVar)
 
 
 class VarsModule(Module):
@@ -34,15 +34,6 @@ class VarsModule(Module):
 
     input = InputVar(
         prompt='Type here',
-    )
-
-    method = MethodVar(
-        method=lambda self: 'Hello World!',
-        meta_docstring='Return "Hello World!".',
-    )
-
-    null = NullVar(
-        require=['subprocess_task'],
     )
 
     subprocess = SubprocessVar(

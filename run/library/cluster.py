@@ -2,8 +2,8 @@ import os
 import inspect
 from box.functools import cachedproperty
 from ..find import find
-from ..task import ClusterTask
-from .module import Module
+from ..module import Module
+from ..task import Task
 
 
 class ClusterModule(Module):
@@ -72,3 +72,24 @@ class ClusterModule(Module):
         notfilepath = os.path.relpath(
             inspect.getfile(type(self.meta_module)), start=self._basedir)
         return notfilepath
+
+
+class ClusterTask(Task):
+
+    # Public
+
+    def __init__(self, tasks, *args, **kwargs):
+        self._tasks = tasks
+        super().__init__(*args, **kwargs)
+
+    def meta_invoke(self, *args, **kwargs):
+        results = []
+        for task in self._tasks:
+            result = task(*args, **kwargs)
+            results.append(result)
+        return results
+
+    @property
+    def meta_docstring(self):
+        return self._meta_params.get(
+            'docstring', 'Invoke "{self._tasks}" tasks.'.format(self=self))

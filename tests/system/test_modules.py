@@ -32,7 +32,6 @@ class ModulesTest(ExamplesTest):
             'find.input\n'
             'find.list\n'
             'find.meta\n'
-            'find.method\n'
             'find.null\n'
             'find.subprocess\n')
 

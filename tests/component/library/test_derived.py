@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock
-from run.task.derived import DerivedTask
+from run.library.derived import DerivedTask, DerivedVar, Var
 
 
 class DerivedTaskTest(unittest.TestCase):
@@ -26,3 +26,12 @@ class DerivedTaskTest(unittest.TestCase):
 
     def test_meta_signature(self):
         self.assertTrue(self.task.meta_signature)
+
+
+class DerivedVarTest(unittest.TestCase):
+
+    # Public
+
+    def test(self):
+        self.assertTrue(issubclass(DerivedVar, Var))
+        self.assertTrue(issubclass(DerivedVar, DerivedTask))

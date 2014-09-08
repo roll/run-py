@@ -140,7 +140,7 @@ class ModuleTest(unittest.TestCase):
         self.module._meta_print.assert_called_once_with(
             'info(task=None)\n'
             '---\n'
-            'Type: MethodTask\n'
+            'Type: FunctionTask\n'
             'Dependencies: []\n'
             'Default arguments: ()\n'
             'Default keyword arguments: {}\n'

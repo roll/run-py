@@ -1,5 +1,5 @@
 import unittest
-from run.task.null import NullTask
+from run.library.null import NullTask
 
 
 class NullTaskTest(unittest.TestCase):

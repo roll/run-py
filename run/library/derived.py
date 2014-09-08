@@ -1,4 +1,5 @@
-from .task import Task
+from ..task import Task
+from ..var import Var
 
 
 class DerivedTask(Task):
@@ -30,3 +31,6 @@ class DerivedTask(Task):
     @property
     def _task_instance(self):
         return getattr(self.meta_module, self._task)
+
+
+class DerivedVar(Var, DerivedTask): pass

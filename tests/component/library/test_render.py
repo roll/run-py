@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import patch
-from run.task.render import RenderTask
+from run.library.render import RenderTask, RenderVar, Var
 
 
 class RenderTaskTest(unittest.TestCase):
@@ -23,3 +23,12 @@ class RenderTaskTest(unittest.TestCase):
 
     def test___call___with_unsopported_mode(self):
         self.assertRaises(ValueError, self.ptask, mode='unsupported')
+
+
+class RenderVarTest(unittest.TestCase):
+
+    # Public
+
+    def test(self):
+        self.assertTrue(issubclass(RenderVar, Var))
+        self.assertTrue(issubclass(RenderVar, RenderTask))

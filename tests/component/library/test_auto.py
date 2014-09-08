@@ -1,7 +1,7 @@
 import unittest
 import fractions
 from functools import partial
-from run.module.auto import AutoModule
+from run.library.auto import AutoModule
 
 
 class AutoModuleTest(unittest.TestCase):

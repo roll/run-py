@@ -1,6 +1,6 @@
 import inspect
 from ..converter import Converter
-from .method import MethodTask
+from .function import FunctionTask
 
 
 class task(Converter):
@@ -38,5 +38,5 @@ class task(Converter):
         return False
 
     def _make(self, obj):
-        prototype = MethodTask(obj, **self._kwargs)
+        prototype = FunctionTask(obj, bind=True, **self._kwargs)
         return prototype

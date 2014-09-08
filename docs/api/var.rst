@@ -17,15 +17,8 @@ Base class
 Concrete vars
 -------------
 
-.. autoclass:: run.var.DerivedVar
 .. autoclass:: run.var.DescriptorVar
-.. autoclass:: run.var.FindVar
 .. autoclass:: run.var.FunctionVar
-.. autoclass:: run.var.InputVar
-.. autoclass:: run.var.MethodVar
-.. autoclass:: run.var.NullVar
-.. autoclass:: run.var.RenderVar
-.. autoclass:: run.var.SubprocessVar
 
 Helper functions
 ----------------

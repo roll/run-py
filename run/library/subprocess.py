@@ -1,6 +1,8 @@
+import subprocess
 from box.collections import merge_dicts
-from .module import Module
-from ..task import SubprocessTask
+from ..module import Module
+from ..task import Task
+from ..var import Var
 
 
 class SubprocessModule(Module):
@@ -28,3 +30,25 @@ class SubprocessModule(Module):
     # Protected
 
     _default_mapping = {}
+
+
+class SubprocessTask(Task):
+
+    # Public
+
+    def meta_invoke(self, command='', *, prefix='', separator=' '):
+        ecommand = separator.join(filter(None, [prefix, command]))
+        process = subprocess.Popen(ecommand, shell=True)
+        returncode = process.wait()
+        if returncode != 0:
+            raise RuntimeError(
+                'Command "{ecommand}" exited with "{returncode}"'.
+                format(ecommand=ecommand, returncode=returncode))
+
+    @property
+    def meta_docstring(self):
+        return self._meta_params.get(
+            'docstring', 'Execute shell command.')
+
+
+class SubprocessVar(Var, SubprocessTask): pass

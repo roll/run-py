@@ -1,6 +1,6 @@
 import os
 from run import (Module, DerivedTask, DescriptorTask, FindTask, FunctionTask,
-                 InputTask, MethodTask, NullTask, SubprocessTask)
+                 InputTask, NullTask, SubprocessTask)
 
 
 class TasksModule(Module):
@@ -29,13 +29,8 @@ class TasksModule(Module):
         prompt='Type here',
     )
 
-    method = MethodTask(
-        method=lambda self: 'Hello World!',
-        meta_docstring='Return "Hello World!".',
-    )
-
     null = NullTask(
-        require=['subprocess'],
+        meta_require=['subprocess'],
     )
 
     subprocess = SubprocessTask(

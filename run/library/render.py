@@ -1,5 +1,6 @@
 from box import jinja2
-from .function import FunctionTask
+from ..task import FunctionTask
+from ..var import Var
 
 
 class RenderTask(FunctionTask):
@@ -14,3 +15,6 @@ class RenderTask(FunctionTask):
                              format(mode=mode))
         kwargs.setdefault('context', self.meta_module)
         super().__init__(function, *args, **kwargs)
+
+
+class RenderVar(Var, RenderTask): pass

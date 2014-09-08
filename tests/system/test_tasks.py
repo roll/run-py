@@ -19,7 +19,6 @@ class TasksTest(ExamplesTest):
             'input\n'
             'list\n'
             'meta\n'
-            'method\n'
             'null\n'
             'subprocess\n')
 
@@ -49,18 +48,14 @@ class TasksTest(ExamplesTest):
 
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 11)
+        self.assertEqual(len(result.splitlines()), 10)
 
     def test_meta(self):
         result = self._execute('meta list')
-        self.assertRegex(result, ".*'type': 'MethodTask'}\n")
-
-    def test_method(self):
-        result = self._execute('method')
-        self.assertEqual(result, 'Hello World!\n')
+        self.assertRegex(result, ".*'type': 'FunctionTask'}\n")
 
     def test_null(self):
-        result = self._execute('method')
+        result = self._execute('null')
         self.assertEqual(result, 'Hello World!\n')
 
     def test_subprocess(self):

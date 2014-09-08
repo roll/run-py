@@ -1,4 +1,5 @@
-from .task import Task
+from ..task import Task
+from ..var import Var
 
 
 class AttributeTask(Task):
@@ -17,3 +18,6 @@ class AttributeTask(Task):
         return self._meta_params.get(
             'docstring', 'Return "{self._attribute}" attribute.'.
             format(self=self))
+
+
+class AttributeVar(Var, AttributeTask): pass

@@ -1,5 +1,5 @@
 import unittest
-from run.task.attribute import AttributeTask
+from run.library.attribute import AttributeTask
 
 
 class AttributeTaskTest(unittest.TestCase):
