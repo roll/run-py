@@ -1,7 +1,8 @@
 import os
 import run
 import sphinx
-from packgram.docs import Settings
+from packgram.sphinx import Settings
+
 
 class Settings(Settings):
 

@@ -1,7 +1,7 @@
-from packgram.tests import TestsModule
+from packgram.nose import NoseModule
 
 
-class TestsModule(TestsModule):
+class TestsModule(NoseModule):
 
     # Meta
 

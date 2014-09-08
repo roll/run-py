@@ -1,7 +1,7 @@
-from packgram.docs import DocsModule
+from packgram.sphinx import SphinxModule
 
 
-class DocsModule(DocsModule):
+class DocsModule(SphinxModule):
 
     # Meta
 
