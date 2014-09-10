@@ -1,4 +1,4 @@
-# TO MAKE CHANGES USE "sources" DIRECTORY (see packgram docs).
+# TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 # Coverage
 .coverage

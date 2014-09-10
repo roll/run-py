@@ -1,4 +1,4 @@
-.. TO MAKE CHANGES USE "sources" DIRECTORY (see packgram docs).
+.. TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
 Run
 =====================
@@ -13,7 +13,7 @@ Run is a program to run tasks from files.
 .. image:: http://img.shields.io/coveralls/respect31/run/master.svg 
      :target: https://coveralls.io/r/respect31/run  
      :alt: coverage
-.. image:: http://img.shields.io/badge/docs-RTD-brightgreen.svg
+.. image:: http://img.shields.io/badge/docs-latest-brightgreen.svg
      :target: http://run.readthedocs.org
      :alt: docs     
 .. image:: http://img.shields.io/pypi/v/runpack.svg
