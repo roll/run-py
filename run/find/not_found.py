@@ -1,4 +1,4 @@
-from box.find import NotFound
+from find import NotFound
 
 
 class NotFound(NotFound):

@@ -1,5 +1,5 @@
 import inspect
-from box.find import Constraint
+from find.frame import Constraint
 
 
 class Constraint(Constraint):
