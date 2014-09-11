@@ -1,4 +1,4 @@
-from box import jinja2
+import render
 from ..task import FunctionTask
 from ..var import Var
 
@@ -9,7 +9,7 @@ class RenderTask(FunctionTask):
 
     def __init__(self, *args, mode='file', **kwargs):
         try:
-            function = getattr(jinja2, 'render_' + mode)
+            function = getattr(render, 'render_' + mode)
         except AttributeError:
             raise ValueError('Unsupported mode "{mode}".'.
                              format(mode=mode))
