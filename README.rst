@@ -16,8 +16,8 @@ Run is a program to run tasks from files.
 .. image:: http://img.shields.io/badge/docs-latest-brightgreen.svg
      :target: http://run.readthedocs.org
      :alt: docs     
-.. image:: http://img.shields.io/pypi/v/runpack.svg
-     :target: https://pypi.python.org/pypi?:action=display&name=runpack
+.. image:: http://img.shields.io/pypi/v/runfile.svg
+     :target: https://pypi.python.org/pypi?:action=display&name=runfile
      :alt: pypi
 
 
@@ -127,7 +127,7 @@ Requirements
 
 Installation
 ------------
-- pip install runpack
+- pip install runfile
 
 Contribution
 ------------

@@ -24,7 +24,7 @@ setup(
     license='MIT License',
     maintainer='roll',
     maintainer_email='roll@respect31.com',
-    name='runpack',
+    name='runfile',
     include_package_data=True,
     install_requires=['box>=0.36', 'find>=0.1', 'render>=0.1'], 
     packages=packages,
@@ -48,8 +48,8 @@ Run is a program to run tasks from files.
 .. image:: http://img.shields.io/badge/docs-latest-brightgreen.svg
      :target: http://run.readthedocs.org
      :alt: docs     
-.. image:: http://img.shields.io/pypi/v/runpack.svg
-     :target: https://pypi.python.org/pypi?:action=display&name=runpack
+.. image:: http://img.shields.io/pypi/v/runfile.svg
+     :target: https://pypi.python.org/pypi?:action=display&name=runfile
      :alt: pypi
 
 
@@ -159,7 +159,7 @@ Requirements
 
 Installation
 ------------
-- pip install runpack
+- pip install runfile
 
 Contribution
 ------------
