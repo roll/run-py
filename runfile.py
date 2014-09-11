@@ -10,7 +10,7 @@ class ProjectModule(ProjectModule):
     copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
     data_files = [('/etc/bash_completion.d', ['data/run.sh'])]
     description = 'Run is a program to run tasks from files.'
-    development_requires = ['packgram>=0.16']
+    development_requires = ['packgram>=0.17']
     entry_points = {'console_scripts': ['run = run.program:program']}
     github_user = 'respect31'
     install_requires = ['box>=0.36', 'find>=0.1', 'render>=0.1']
