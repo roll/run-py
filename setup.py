@@ -26,7 +26,7 @@ setup(
     maintainer_email='roll@respect31.com',
     name='runpack',
     include_package_data=True,
-    install_requires=['box>=0.36'], 
+    install_requires=['box>=0.36', 'find>=0.1', 'render>=0.1'], 
     packages=packages,
     platforms=['Unix'],
     url='https://github.com/respect31/run',
