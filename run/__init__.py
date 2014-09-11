@@ -12,7 +12,7 @@ from .library import (AnsibleTask,
                       ClusterModule, ClusterTask,
                       DerivedTask, DerivedVar,
                       FindModule, FindTask, FindVar,
-                      InputTask, InputVar,
                       NullTask,
+                      PromptTask, PromptVar,
                       RenderTask, RenderVar,
                       SubprocessModule, SubprocessTask, SubprocessVar)

@@ -12,7 +12,7 @@ The real simple example introduces some functionality.
 
   .. code-block:: python
 
-    from run import Module, InputVar, require, trigger
+    from run import Module, PromptVar, require, trigger
     
     class Module(Module):
         
@@ -32,7 +32,7 @@ The real simple example introduces some functionality.
             
         #Vars
         
-        greeting = InputVar(
+        greeting = PromptVar(
             prompt='Type your greeting',
             default='Hello',
         )

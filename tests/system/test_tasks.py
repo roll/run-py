@@ -16,7 +16,6 @@ class TasksTest(ExamplesTest):
             'find\n'
             'function\n'
             'info\n'
-            'input\n'
             'list\n'
             'meta\n'
             'null\n'
@@ -42,13 +41,9 @@ class TasksTest(ExamplesTest):
         result = self._execute('info list')
         self.assertRegex(result, 'list.*')
 
-    def test_input(self):
-        # TODO: implement
-        pass
-
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 10)
+        self.assertEqual(len(result.splitlines()), 9)
 
     def test_meta(self):
         result = self._execute('meta list')

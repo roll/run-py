@@ -1,6 +1,6 @@
 import os
 from run import (Module, SubprocessTask, DerivedVar, DescriptorVar, FindVar,
-                 FunctionVar, InputVar, SubprocessVar)
+                 FunctionVar, SubprocessVar)
 
 
 class VarsModule(Module):
@@ -30,10 +30,6 @@ class VarsModule(Module):
     function = FunctionVar(
         function=os.path.abspath,
         path='path',
-    )
-
-    input = InputVar(
-        prompt='Type here',
     )
 
     subprocess = SubprocessVar(

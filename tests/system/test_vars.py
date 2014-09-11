@@ -16,7 +16,6 @@ class VarsTest(ExamplesTest):
             'find\n'
             'function\n'
             'info\n'
-            'input\n'
             'list\n'
             'meta\n'
             'subprocess\n'
@@ -37,10 +36,6 @@ class VarsTest(ExamplesTest):
     def test_function(self):
         result = self._execute('function')
         self.assertRegex(result, '.*examples/path\n')
-
-    def test_input(self):
-        # TODO: implement
-        pass
 
     def test_subprocess(self):
         result = self._execute('subprocess')

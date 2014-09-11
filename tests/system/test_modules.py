@@ -29,7 +29,6 @@ class ModulesTest(ExamplesTest):
             'find.find\n'
             'find.function\n'
             'find.info\n'
-            'find.input\n'
             'find.list\n'
             'find.meta\n'
             'find.null\n'

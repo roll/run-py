@@ -39,16 +39,16 @@ Find
 .. autoclass:: run.library.FindTask
 .. autoclass:: run.library.FindVar
 
-Input
------
-
-.. autoclass:: run.library.InputTask
-.. autoclass:: run.library.InputVar
-
 Null
 ----
 
 .. autoclass:: run.library.NullTask
+
+Prompt
+------
+
+.. autoclass:: run.prompt.PromptTask
+.. autoclass:: run.prompt.PromptVar
 
 Render
 ------

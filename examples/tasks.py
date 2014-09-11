@@ -1,6 +1,6 @@
 import os
 from run import (Module, DerivedTask, DescriptorTask, FindTask, FunctionTask,
-                 InputTask, NullTask, SubprocessTask)
+                 NullTask, SubprocessTask)
 
 
 class TasksModule(Module):
@@ -23,10 +23,6 @@ class TasksModule(Module):
 
     function = FunctionTask(
         function=os.path.abspath,
-    )
-
-    input = InputTask(
-        prompt='Type here',
     )
 
     null = NullTask(
