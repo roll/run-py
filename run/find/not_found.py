@@ -1,4 +1,4 @@
-from find import NotFound
+from find.frame import NotFound
 
 
 class NotFound(NotFound):
