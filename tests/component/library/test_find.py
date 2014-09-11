@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from unittest.mock import Mock, patch, ANY
-from run.library.find import FindModule, FindTask, FindVar, Var
+from run.library import find
 
 
 class FindModuleTest(unittest.TestCase):
@@ -48,7 +48,7 @@ class FindModuleTest(unittest.TestCase):
     # Protected
 
     def _make_mock_module_class(self, FoundModule):
-        class MockModule(FindModule):
+        class MockModule(find.FindModule):
             # Protected
             _find = Mock(return_value=FoundModule)
             _Module = Mock()
@@ -62,9 +62,9 @@ class FindTaskTest(unittest.TestCase):
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.ptask = partial(FindTask, meta_module=None)
+        self.ptask = partial(find.FindTask, meta_module=None)
 
-    @patch('find.find_strings')
+    @patch.object(find.find, 'find_strings')
     def test___call__(self, find_string):
         task = self.ptask()
         result = task(*self.args, **self.kwargs)
@@ -80,5 +80,5 @@ class FindVarTest(unittest.TestCase):
     # Public
 
     def test(self):
-        self.assertTrue(issubclass(FindVar, Var))
-        self.assertTrue(issubclass(FindVar, FindTask))
+        self.assertTrue(issubclass(find.FindVar, find.Var))
+        self.assertTrue(issubclass(find.FindVar, find.FindTask))
