@@ -1,4 +1,3 @@
-import os
 from box.logging import Settings
 from ..version import version
 
@@ -175,12 +174,6 @@ class Settings(Settings):
                 },
             },
         })
-
-    # Extensions
-
-    _extensions = [
-        os.path.join(os.path.expanduser('~'), '.run', 'settings.py'),
-    ]
 
 
 settings = Settings()
