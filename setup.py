@@ -16,7 +16,7 @@ packages = find_packages(os.path.dirname(__file__) or '.', exclude=['tests*'])
 setup(
     author='roll',
     author_email='roll@respect31.com',
-    classifiers=['License :: OSI Approved :: MIT License', 'Programming Language :: Python :: 3', 'Topic :: Software Development :: Libraries :: Python Modules', 'Topic :: System :: Systems Administration'],       
+    classifiers=[],       
     description='Run is a program to run tasks from files.',
     data_files=data_files,
     download_url='https://github.com/respect31/run/tarball/0.26.0',

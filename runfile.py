@@ -7,12 +7,6 @@ class ProjectModule(ProjectModule):
 
     author = 'roll'
     author_email = 'roll@respect31.com'
-    classifiers = [
-        'License :: OSI Approved :: MIT License',
-        'Programming Language :: Python :: 3',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Topic :: System :: Systems Administration',
-    ]
     copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
     data_files = [('/etc/bash_completion.d', ['data/run.sh'])]
     description = 'Run is a program to run tasks from files.'
