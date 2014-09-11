@@ -3,6 +3,7 @@ from ..task import FunctionTask
 from ..var import Var
 
 
+# TODO: add mode use with find_files?
 class RenderTask(FunctionTask):
 
     # Public
