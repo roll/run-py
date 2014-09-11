@@ -1,6 +1,6 @@
 import logging
 from box.functools import cachedproperty
-from ..find import find
+from ..find import find_modules
 from ..module import Module
 from ..signal import Dispatcher, CallbackHandler
 from ..task import TaskSignal
@@ -51,7 +51,7 @@ class Machine:
 
     _CallbackHandler = CallbackHandler
     _Dispatcher = Dispatcher
-    _find = find
+    _find = find_modules
     _Module = Module
     _print = staticmethod(print)
     _Stack = Stack

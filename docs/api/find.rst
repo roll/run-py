@@ -9,23 +9,18 @@ Public
 
 Module’s public interface.
 
-Main function
--------------
+Find
+----
 
-.. autoclass:: run.find.find
-
-Emitter
--------
-
-.. autoclass:: run.find.Emitter
+.. autoclass:: run.find.find_modules
 
 Target
 ------
 
 .. autoclass:: run.find.Target
 
-Exceptions
-----------
+Exception
+---------
 
 .. autoclass:: run.find.NotFound
 

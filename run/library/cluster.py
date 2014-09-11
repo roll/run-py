@@ -1,7 +1,7 @@
 import os
 import inspect
 from box.functools import cachedproperty
-from ..find import find
+from ..find import find_modules
 from ..module import Module
 from ..task import Task
 
@@ -28,7 +28,7 @@ class ClusterModule(Module):
 
     # Protected
 
-    _find = find
+    _find = find_modules
     _Module = Module
 
     @property

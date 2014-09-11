@@ -1,7 +1,7 @@
 import os
 import inspect
 from box import find as box_find
-from ..find import find
+from ..find import find_modules
 from ..module import Module
 from ..task import FunctionTask
 from ..var import Var
@@ -37,7 +37,7 @@ class FindModule(Module):
 
     # Protected
 
-    _find = find
+    _find = find_modules
     _Module = Module
 
 

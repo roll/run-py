@@ -7,7 +7,7 @@ from .not_found import NotFound
 from .target import Target
 
 
-class find(Function):
+class find_modules(Function):
     """Find run modules.
     """
 

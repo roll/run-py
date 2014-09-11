@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, ANY
-from run.find.find import find
+from run.find.find_modules import find_modules
 
 
 class find_Test(unittest.TestCase):
@@ -77,7 +77,7 @@ class find_Test(unittest.TestCase):
     # Protected
 
     def _make_mock_find(self):
-        class mock_find(find):
+        class mock_find(find_modules):
             # Public
             default_basedir = 'default_basedir'
             default_exclude = 'default_exclude'

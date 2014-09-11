@@ -3,7 +3,7 @@ import unittest
 from io import StringIO
 from functools import partial
 from unittest.mock import patch
-from run.find.find import find
+from run.find.find_modules import find_modules
 
 
 class find_Test(unittest.TestCase):
@@ -13,7 +13,8 @@ class find_Test(unittest.TestCase):
     def setUp(self):
         self.stdout = patch('sys.stdout', new_callable=StringIO).start()
         self.addCleanup(patch.stopall)
-        self.pfind = partial(find, basedir=self._basedir, reducers=[list])
+        self.pfind = partial(
+            find_modules, basedir=self._basedir, reducers=[list])
 
     def test_find(self):
         modules = self.pfind(file='runfile.py')
