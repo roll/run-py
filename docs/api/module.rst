@@ -1,13 +1,7 @@
-==========
 run.module
 ==========
 
 Module provides module related functionality.
-
-Public
-======
-
-Module’s public interface.
 
 Module class
 ------------
@@ -29,10 +23,3 @@ Helper functions
 
 .. autofunction:: run.module.module
 .. autofunction:: run.module.spawn
-
-Internal
-========
-
-Module’s internal implementation.
-
-.. autoclass:: run.module.error.ModuleAttributeError

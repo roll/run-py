@@ -1,13 +1,7 @@
-=============
 run.converter
 =============
 
 Module provides converter related functionality.
-
-Public
-======
-
-Module’s public interface.
 
 Base class
 ----------

@@ -1,14 +1,7 @@
-===
 run
 ===
 
 Module provides program's end-user functionality.
-
-------
-Public
-------
-
-Module’s public interface.
 
 Imported
 --------

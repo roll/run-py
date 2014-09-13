@@ -1,13 +1,7 @@
-=======
 run.var
 =======
 
 Module provides var related functionality.
-
-Public
-======
-
-Module’s public interface.
 
 Base class
 ----------

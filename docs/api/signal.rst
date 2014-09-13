@@ -1,13 +1,7 @@
-==========
 run.signal
 ==========
 
 Module provides signal related functionality.
-
-Public
-======
-
-Module’s public interface.
 
 Signal
 ------

@@ -1,13 +1,7 @@
-===========
 run.program
 ===========
 
 Module provides program related functionality.
-
-Public
-======
-
-Module’s public interface.
 
 Program class
 -------------
@@ -18,11 +12,3 @@ Program instance
 ----------------
 
 .. autoclass:: run.program.program
-
-
-Internal
-========
-
-Module’s internal implementation.
-
-.. autoclass:: run.program.command.Command

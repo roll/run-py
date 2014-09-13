@@ -1,13 +1,7 @@
-========
 run.task
 ========
 
 Module provides task related functionality.
-
-Public
-======
-
-Module’s public interface.
 
 Base class
 ----------
@@ -41,10 +35,3 @@ Helper functions
 .. autofunction:: run.task.build
 .. autofunction:: run.task.fork
 .. autofunction:: run.task.task
-   
-Internal
-========
-
-Module’s internal implementation.
-
-.. autoclass:: run.task.update.TaskUpdate

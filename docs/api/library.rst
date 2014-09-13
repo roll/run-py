@@ -1,13 +1,7 @@
-========
 run.task
 ========
 
 Module provides module/task/var library.
-
-Public
-======
-
-Module’s public interface.
 
 Attribute
 ---------
