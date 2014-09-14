@@ -13,7 +13,8 @@ class ProjectModule(ProjectModule):
     development_requires = ['packgram>=0.18']
     entry_points = {'console_scripts': ['run = run.program:program']}
     github_user = 'respect31'
-    install_requires = ['box>=0.40', 'dialog>=0.3', 'find>=0.2', 'render>=0.1']
+    install_requires = [
+        'box>=0.40', 'clyde>=0.1', 'dialog>=0.3', 'find>=0.2', 'render>=0.1']
     interpreters = ['3.3', '3.4']
     license = 'MIT License'
     name = 'run'
