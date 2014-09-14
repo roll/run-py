@@ -1,6 +1,6 @@
 #TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
-packgram>=0.17
+packgram>=0.18
 box>=0.40
 dialog>=0.2
 find>=0.2
