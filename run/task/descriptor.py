@@ -6,6 +6,7 @@ class DescriptorTask(Task):
 
     # Public
 
+    # TODO: why args, kwargs?
     def __init__(self, descriptor, *args, **kwargs):
         self._descriptor = descriptor
         super().__init__(*args, **kwargs)
