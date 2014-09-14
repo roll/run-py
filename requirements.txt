@@ -2,7 +2,7 @@
 
 packgram>=0.18
 box>=0.40
-dialog>=0.2
+dialog>=0.3
 find>=0.2
 render>=0.1
 nose
