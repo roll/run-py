@@ -1,4 +1,5 @@
 from subprocess import Popen
+from clyde import Command
 from ..task import Task
 from ..var import Var
 
@@ -7,14 +8,14 @@ class CommandTask(Task):
 
     # Public
 
-    def meta_invoke(self, command='', *, prefix='', separator=' '):
-        ecommand = separator.join(filter(None, [prefix, command]))
-        process = Popen(ecommand, shell=True)
+    def meta_invoke(self, *args, **kwargs):
+        command = Command(*args, **kwargs)
+        process = command(operator=Popen, shell=True)
         returncode = process.wait()
         if returncode != 0:
             raise RuntimeError(
-                'Command "{ecommand}" exited with "{returncode}"'.
-                format(ecommand=ecommand, returncode=returncode))
+                'Command "{command}" exited with "{returncode}"'.
+                format(command=command, returncode=returncode))
 
     @property
     def meta_docstring(self):
