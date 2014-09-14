@@ -9,7 +9,7 @@ python:
 
 install:
   - pip install coveralls
-  - pip install box>=0.36 find>=0.1 render>=0.1 prompt>=0.1 nose coverage
+  - pip install box>=0.40 dialog>=0.2 find>=0.2 render>=0.1 nose coverage
 
 script:
   - coverage run --source=run setup.py test

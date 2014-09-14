@@ -26,7 +26,7 @@ setup(
     maintainer_email='roll@respect31.com',
     name='runfile',
     include_package_data=True,
-    install_requires=['box>=0.36', 'find>=0.1', 'render>=0.1', 'prompt>=0.1'], 
+    install_requires=['box>=0.40', 'dialog>=0.2', 'find>=0.2', 'render>=0.1'], 
     packages=packages,
     platforms=['Unix'],
     url='https://github.com/respect31/run',
@@ -62,7 +62,7 @@ The real simple example introduces some functionality.
 
   .. code-block:: python
 
-    from run import Module, PromptVar, require, trigger
+    from run import Module, DialogVar, require, trigger
     
     class Module(Module):
         
@@ -82,8 +82,8 @@ The real simple example introduces some functionality.
             
         #Vars
         
-        greeting = PromptVar(
-            prompt='Type your greeting',
+        greeting = DialogVar(
+            question='Type your greeting: ',
             default='Hello',
         )
 	    
@@ -127,7 +127,7 @@ The real simple example introduces some functionality.
   .. code-block:: bash
 
     $ run greet Rachel, times=5
-    Type your greeting (Hello): <Hi>
+    Type your greeting ([Hello]/*): <Hi>
     We are ready to say Hi to person.
     Hi Rachel 5 times!
     We are done.

@@ -30,7 +30,7 @@ The real simple example introduces some functionality.
 
   .. code-block:: python
 
-    from run import Module, PromptVar, require, trigger
+    from run import Module, DialogVar, require, trigger
     
     class Module(Module):
         
@@ -50,8 +50,8 @@ The real simple example introduces some functionality.
             
         #Vars
         
-        greeting = PromptVar(
-            prompt='Type your greeting',
+        greeting = DialogVar(
+            question='Type your greeting: ',
             default='Hello',
         )
 	    
@@ -95,7 +95,7 @@ The real simple example introduces some functionality.
   .. code-block:: bash
 
     $ run greet Rachel, times=5
-    Type your greeting (Hello): <Hi>
+    Type your greeting ([Hello]/*): <Hi>
     We are ready to say Hi to person.
     Hi Rachel 5 times!
     We are done.

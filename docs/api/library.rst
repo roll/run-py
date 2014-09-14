@@ -26,6 +26,12 @@ Derived
 .. autoclass:: run.library.DerivedTask
 .. autoclass:: run.library.DerivedVar
 
+Dialog
+------
+
+.. autoclass:: run.library.DialogTask
+.. autoclass:: run.library.DialogVar
+
 Find
 ----
 
@@ -37,12 +43,6 @@ Null
 ----
 
 .. autoclass:: run.library.NullTask
-
-Prompt
-------
-
-.. autoclass:: run.prompt.PromptTask
-.. autoclass:: run.prompt.PromptVar
 
 Render
 ------

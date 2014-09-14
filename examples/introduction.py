@@ -1,4 +1,4 @@
-from run import Module, PromptVar, require, trigger
+from run import Module, DialogVar, require, trigger
 
 
 class IntroductionModule(Module):
@@ -19,7 +19,7 @@ class IntroductionModule(Module):
 
     # Vars
 
-    greeting = PromptVar(
-        prompt='Type your greeting',
+    greeting = DialogVar(
+        question='Type your greeting ({hint}): ',
         default='Hello',
     )
