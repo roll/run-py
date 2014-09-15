@@ -17,9 +17,8 @@ class DerivedTask(Task):
     def meta_docstring(self):
         return self._meta_params.get(
             'docstring',
-            'Derived from task "{task_qualname}".\n{task_docstring}'.
-            format(task_qualname=self._task_instance.meta_qualname,
-                   task_docstring=self._task_instance.meta_docstring))
+            'Derived from task "{self._task_instance.meta_qualname}".\n'
+            '{self._task_instance.meta_docstring}'.format(self=self))
 
     @property
     def meta_signature(self):

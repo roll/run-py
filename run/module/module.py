@@ -29,8 +29,8 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
             if isinstance(exception, ModuleAttributeError):
                 raise  # pragma: no cover TODO: remove
             raise ModuleAttributeError(
-                'Module "{module}" has no attribute "{name}".'.
-                format(module=self, name=name))
+                'Module "{self}" has no attribute "{name}".'.
+                format(self=self, name=name))
         if nested_name is not None:
             attribute = getattr(attribute, nested_name)
         return attribute
