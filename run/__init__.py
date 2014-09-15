@@ -13,5 +13,4 @@ from .module import Module, module, spawn
 from .settings import settings
 from .task import DescriptorTask, FunctionTask, build, fork, task
 from .var import DescriptorVar, FunctionVar, var
-
-from .package import version as __version__
+from .version import version

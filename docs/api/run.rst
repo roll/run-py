@@ -7,9 +7,9 @@ Imported
 --------
 
 .. literalinclude:: ../../run/__init__.py
-     :end-before: from .package
+     :end-before: from .version
 
 Version
 -------
 
-.. autodata:: run.__version__
+.. autodata:: run.version
