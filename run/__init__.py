@@ -10,6 +10,7 @@ from .library.find import FindModule, FindTask, FindVar
 from .library.null import NullTask
 from .library.render import RenderTask, RenderVar
 from .module import Module, module, spawn
+from .program import program
 from .settings import settings
 from .task import DescriptorTask, FunctionTask, build, fork, task
 from .var import DescriptorVar, FunctionVar, var
