@@ -1,4 +1,3 @@
-from .ansible import AnsibleTask
 from .attribute import AttributeTask, AttributeVar
 from .auto import AutoModule
 from .cluster import ClusterModule, ClusterTask
