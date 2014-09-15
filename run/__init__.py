@@ -9,7 +9,7 @@ from .version import version
 from .library import (AttributeTask, AttributeVar,
                       AutoModule,
                       ClusterModule, ClusterTask,
-                      CommandTask, CommandVar,
+                      CommandModule, CommandTask, CommandVar,
                       DerivedTask, DerivedVar,
                       DialogTask, DialogVar,
                       FindModule, FindTask, FindVar,
