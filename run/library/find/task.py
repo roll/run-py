@@ -1,5 +1,5 @@
 import find
-from ...frame.task import FunctionTask
+from ...task import FunctionTask
 
 
 class FindTask(FunctionTask):

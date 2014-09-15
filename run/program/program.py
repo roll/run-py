@@ -1,7 +1,7 @@
 import sys
 from box.functools import cachedproperty
 from box.logging import Program
-from ..frame.machine import Machine
+from ..machine import Machine
 from ..settings import settings
 from .command import Command
 

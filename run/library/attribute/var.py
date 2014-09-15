@@ -1,4 +1,4 @@
-from ...frame.var import Var
+from ...var import Var
 from .task import AttributeTask
 
 

@@ -1,5 +1,5 @@
 from dialog import Dialog
-from ...frame.task import FunctionTask
+from ...task import FunctionTask
 
 
 # TODO: rebase from FunctionTask?

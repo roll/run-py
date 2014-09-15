@@ -1,4 +1,4 @@
-from ...frame.task import Task
+from ...task import Task
 
 
 class ClusterTask(Task):

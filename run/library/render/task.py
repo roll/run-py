@@ -1,5 +1,5 @@
 import render
-from ...frame.task import FunctionTask
+from ...task import FunctionTask
 
 
 # TODO: add mode use with find_files?

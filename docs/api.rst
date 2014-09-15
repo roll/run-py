@@ -7,5 +7,4 @@ API Reference
    
      api/run
      api/*
-     api/*/*
      

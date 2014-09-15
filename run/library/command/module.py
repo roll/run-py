@@ -1,5 +1,5 @@
 from box.collections import merge_dicts
-from ...frame.module import Module
+from ...module import Module
 from .task import CommandTask
 
 

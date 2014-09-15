@@ -1,7 +1,7 @@
 import os
 import inspect
-from ...frame.find import find_modules
-from ...frame.module import Module
+from ...find import find_modules
+from ...module import Module
 
 
 class FindModule(Module):

@@ -1,6 +1,6 @@
 from subprocess import Popen
 from clyde import Command
-from ...frame.task import Task
+from ...task import Task
 
 
 class CommandTask(Task):
