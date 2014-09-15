@@ -56,10 +56,3 @@ Render
 
 .. autoclass:: run.library.RenderTask
 .. autoclass:: run.library.RenderVar
-
-Subprocess
-----------
-
-.. autoclass:: run.library.SubprocessModule
-.. autoclass:: run.library.SubprocessTask
-.. autoclass:: run.library.SubprocessVar
