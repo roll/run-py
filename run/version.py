@@ -1,12 +1,1 @@
-from box.package import Version
-
-
-class Version(Version):
-
-    major = 0
-    minor = 30
-    micro = 0
-    level = 'final'
-
-
-version = Version()
+version = '0.30.0'
