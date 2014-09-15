@@ -1,9 +1,9 @@
 import os
 import inspect
 from box.functools import cachedproperty
-from ..find import find_modules
-from ..module import Module
-from ..task import Task
+from ..frame.find import find_modules
+from ..frame.module import Module
+from ..frame.task import Task
 
 
 class ClusterModule(Module):

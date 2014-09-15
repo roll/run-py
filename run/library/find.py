@@ -1,10 +1,10 @@
 import os
 import find
 import inspect
-from ..find import find_modules
-from ..module import Module
-from ..task import FunctionTask
-from ..var import Var
+from ..frame.find import find_modules
+from ..frame.module import Module
+from ..frame.task import FunctionTask
+from ..frame.var import Var
 
 
 class FindModule(Module):

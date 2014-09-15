@@ -1,4 +1,4 @@
-from ..task import Task
+from ..frame.task import Task
 
 
 class NullTask(Task):

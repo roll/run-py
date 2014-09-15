@@ -1,5 +1,5 @@
-from ..task import Task
-from ..var import Var
+from ..frame.task import Task
+from ..frame.var import Var
 
 
 class AttributeTask(Task):

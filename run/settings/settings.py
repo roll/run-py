@@ -21,11 +21,10 @@ class Settings(Settings):
 
     # Converters
 
-    # TODO: Nose in shell imports a module instead of an object
     converters = [
-        'run.module.module',
-        'run.task.task',
-        'run.var.var',
+        'run.module',
+        'run.task',
+        'run.var',
     ]
 
     # Events

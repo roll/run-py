@@ -1,6 +1,6 @@
 from dialog import Dialog
-from ..task import FunctionTask
-from ..var import Var
+from ..frame.task import FunctionTask
+from ..frame.var import Var
 
 
 # TODO: rebase from FunctionTask?

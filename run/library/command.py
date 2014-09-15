@@ -1,9 +1,9 @@
 from subprocess import Popen
 from box.collections import merge_dicts
 from clyde import Command
-from ..module import Module
-from ..task import Task
-from ..var import Var
+from ..frame.module import Module
+from ..frame.task import Task
+from ..frame.var import Var
 
 
 class CommandModule(Module):
