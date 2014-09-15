@@ -7,19 +7,9 @@ class TasksTest(ExamplesTest):
 
     __test__ = True
 
-    def test_default(self):
-        result = self._execute()
-        self.assertEqual(
-            result,
-            'derived\n'
-            'descriptor\n'
-            'find\n'
-            'function\n'
-            'info\n'
-            'list\n'
-            'meta\n'
-            'null\n'
-            'subprocess\n')
+    def test_command(self):
+        result = self._execute('command')
+        self.assertEqual(result, 'Hello World!\n')
 
     def test_derived(self):
         result = self._execute('derived')
@@ -43,7 +33,17 @@ class TasksTest(ExamplesTest):
 
     def test_list(self):
         result = self._execute('list')
-        self.assertEqual(len(result.splitlines()), 9)
+        self.assertEqual(
+            result,
+            'command\n'
+            'derived\n'
+            'descriptor\n'
+            'find\n'
+            'function\n'
+            'info\n'
+            'list\n'
+            'meta\n'
+            'null\n')
 
     def test_meta(self):
         result = self._execute('meta list')
@@ -51,10 +51,6 @@ class TasksTest(ExamplesTest):
 
     def test_null(self):
         result = self._execute('null')
-        self.assertEqual(result, 'Hello World!\n')
-
-    def test_subprocess(self):
-        result = self._execute('subprocess')
         self.assertEqual(result, 'Hello World!\n')
 
     # Protected

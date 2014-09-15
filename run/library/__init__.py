@@ -7,7 +7,6 @@ from .derived import DerivedTask, DerivedVar
 from .find import FindModule, FindTask, FindVar
 from .null import NullTask
 from .render import RenderTask, RenderVar
-from .subprocess import SubprocessModule, SubprocessTask, SubprocessVar
 
 # TODO: WatchTask?
 # TODO: RequestsTask?

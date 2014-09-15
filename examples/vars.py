@@ -1,20 +1,24 @@
 import os
-from run import (Module, SubprocessTask, DerivedVar, DescriptorVar, FindVar,
-                 FunctionVar, SubprocessVar)
+from run import (Module, CommandTask, DerivedVar, DescriptorVar, FindVar,
+                 FunctionVar, CommandVar)
 
 
 class VarsModule(Module):
 
     # Tasks
 
-    subprocess_task = SubprocessTask(
-        prefix='echo "Hello World!"',
+    command_task = CommandTask(
+        'echo "Hello World!"',
     )
 
     # Vars
 
+    command = CommandVar(
+        'echo "Hello World!"',
+    )
+
     derived = DerivedVar(
-        task='subprocess_task',
+        task='command_task',
     )
 
     descriptor = DescriptorVar(
@@ -30,8 +34,4 @@ class VarsModule(Module):
     function = FunctionVar(
         function=os.path.abspath,
         path='path',
-    )
-
-    subprocess = SubprocessVar(
-        prefix='echo "Hello World!"',
     )

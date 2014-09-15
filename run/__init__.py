@@ -14,5 +14,4 @@ from .library import (AttributeTask, AttributeVar,
                       DialogTask, DialogVar,
                       FindModule, FindTask, FindVar,
                       NullTask,
-                      RenderTask, RenderVar,
-                      SubprocessModule, SubprocessTask, SubprocessVar)
+                      RenderTask, RenderVar)

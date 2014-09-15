@@ -7,19 +7,9 @@ class VarsTest(ExamplesTest):
 
     __test__ = True
 
-    def test_default(self):
-        result = self._execute()
-        self.assertEqual(
-            result,
-            'derived\n'
-            'descriptor\n'
-            'find\n'
-            'function\n'
-            'info\n'
-            'list\n'
-            'meta\n'
-            'subprocess\n'
-            'subprocess_task\n')
+    def test_command(self):
+        result = self._execute('command')
+        self.assertEqual(result, 'Hello World!\nNone\n')
 
     def test_derived(self):
         result = self._execute('derived')
@@ -37,9 +27,19 @@ class VarsTest(ExamplesTest):
         result = self._execute('function')
         self.assertRegex(result, '.*examples/path\n')
 
-    def test_subprocess(self):
-        result = self._execute('subprocess')
-        self.assertEqual(result, 'Hello World!\nNone\n')
+    def test_list(self):
+        result = self._execute('list')
+        self.assertEqual(
+            result,
+            'command\n'
+            'command_task\n'
+            'derived\n'
+            'descriptor\n'
+            'find\n'
+            'function\n'
+            'info\n'
+            'list\n'
+            'meta\n')
 
     # Protected
 

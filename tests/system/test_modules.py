@@ -20,10 +20,25 @@ class ModulesTest(ExamplesTest):
         result = self._execute('auto.gcd 10,15')
         self.assertEqual(result, '5\n')
 
+    def test_command_list(self):
+        result = self._execute('command.list')
+        self.assertEqual(
+            result,
+            'command.goodbye\n'
+            'command.hello\n'
+            'command.info\n'
+            'command.list\n'
+            'command.meta\n')
+
+    def test_command_hello(self):
+        result = self._execute('command.hello')
+        self.assertEqual(result, 'Hello World!\n')
+
     def test_find_list(self):
         result = self._execute('find.list')
         self.assertEqual(
             result,
+            'find.command\n'
             'find.derived\n'
             'find.descriptor\n'
             'find.find\n'
@@ -31,22 +46,7 @@ class ModulesTest(ExamplesTest):
             'find.info\n'
             'find.list\n'
             'find.meta\n'
-            'find.null\n'
-            'find.subprocess\n')
-
-    def test_subprocess_list(self):
-        result = self._execute('subprocess.list')
-        self.assertEqual(
-            result,
-            'subprocess.goodbye\n'
-            'subprocess.hello\n'
-            'subprocess.info\n'
-            'subprocess.list\n'
-            'subprocess.meta\n')
-
-    def test_subprocess_hello(self):
-        result = self._execute('subprocess.hello')
-        self.assertEqual(result, 'Hello World!\n')
+            'find.null\n')
 
     # Protected
 

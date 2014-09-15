@@ -1,14 +1,18 @@
 import os
 from run import (Module, DerivedTask, DescriptorTask, FindTask, FunctionTask,
-                 NullTask, SubprocessTask)
+                 NullTask, CommandTask)
 
 
 class TasksModule(Module):
 
     # Tasks
 
+    command = CommandTask(
+        'echo "Hello World!"',
+    )
+
     derived = DerivedTask(
-        task='subprocess',
+        task='command',
     )
 
     descriptor = DescriptorTask(
@@ -26,9 +30,5 @@ class TasksModule(Module):
     )
 
     null = NullTask(
-        meta_require=['subprocess'],
-    )
-
-    subprocess = SubprocessTask(
-        prefix='echo "Hello World!"',
+        meta_require=['command'],
     )

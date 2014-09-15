@@ -1,6 +1,6 @@
 import os
 import fractions
-from run import Module, AutoModule, FindModule, SubprocessModule
+from run import Module, AutoModule, FindModule, CommandModule
 
 
 class ModulesModule(Module):
@@ -11,14 +11,14 @@ class ModulesModule(Module):
         sources=[fractions],
     )
 
-    find = FindModule(
-        file='tasks.py',
-        basedir=os.path.dirname(__file__),
-    )
-
-    subprocess = SubprocessModule(
+    command = CommandModule(
         mapping={
             'hello': 'echo "Hello World!"',
             'goodbye': 'echo "Goodbye World!"',
         },
+    )
+
+    find = FindModule(
+        file='tasks.py',
+        basedir=os.path.dirname(__file__),
     )
