@@ -20,6 +20,13 @@ Cluster
 .. autoclass:: run.library.ClusterModule
 .. autoclass:: run.library.ClusterTask
 
+Command
+-------
+
+.. autoclass:: run.library.CommandModule
+.. autoclass:: run.library.CommandTask
+.. autoclass:: run.library.CommandVar
+
 Derived
 -------
 
