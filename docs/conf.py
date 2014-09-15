@@ -20,7 +20,7 @@ class Settings(Settings):
     project = 'run'
     author = 'roll'
     copyright = '2014, Respect31'
-    version = run.version
+    version = run.__version__
 
     # HTML
 

@@ -1,5 +1,5 @@
 from box.logging import Settings
-from ..version import version
+from ..package import version
 
 
 class Settings(Settings):
