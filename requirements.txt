@@ -1,6 +1,6 @@
 #TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
-packgram>=0.18
+packgram>=0.19
 box>=0.40
 clyde>=0.1
 dialog>=0.3
