@@ -20,7 +20,7 @@ setup(
     description='Run is a program to run tasks from files.',
     data_files=data_files,
     download_url='https://github.com/respect31/run/tarball/0.31.0',
-    entry_points={'console_scripts': ['run = run.program:program']},
+    entry_points={'console_scripts': ['run = run:program']},
     license='MIT License',
     maintainer='roll',
     maintainer_email='roll@respect31.com',
