@@ -11,12 +11,12 @@ class Converter(Decorator, metaclass=ABCMeta):
     # Public
 
     def __init__(self, **kwargs):
-        self._kwargs = kwargs
+        self.__kwargs = kwargs
 
     def __call__(self, obj):
-        if self._check_converted(obj):
+        if self.__check_converted(obj):
             return obj
-        if self._check_eligible(obj):
+        if self.__check_eligible(obj):
             if self._match(obj):
                 return self._make(obj)
         raise TypeError(
@@ -26,24 +26,10 @@ class Converter(Decorator, metaclass=ABCMeta):
 
     # Protected
 
-    _kwargs = {}
-
     # Overriding
     def _is_composite(self, *args, **kwargs):
         # Composite only if args not passed
         return not bool(args)
-
-    def _check_converted(self, obj):
-        return isinstance(obj, Result)
-
-    def _check_eligible(self, obj):
-        if isinstance(obj, staticmethod):
-            return False
-        if isinstance(obj, classmethod):
-            return False
-        if getattr(obj, skip.attribute_name, False):
-            return False
-        return True
 
     @abstractmethod
     def _match(self, obj):
@@ -52,3 +38,23 @@ class Converter(Decorator, metaclass=ABCMeta):
     @abstractmethod
     def _make(self, obj):
         pass  # pragma: no cover
+
+    @property
+    def _kwargs(self):
+        return self.__kwargs
+
+    # Private
+
+    __kwargs = {}
+
+    def __check_converted(self, obj):
+        return isinstance(obj, Result)
+
+    def __check_eligible(self, obj):
+        if isinstance(obj, staticmethod):
+            return False
+        if isinstance(obj, classmethod):
+            return False
+        if getattr(obj, skip.attribute_name, False):
+            return False
+        return True
