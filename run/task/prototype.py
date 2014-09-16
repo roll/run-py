@@ -66,6 +66,7 @@ class TaskPrototype(Result):
 
     # Protected
 
+    # TODO: renamed to __meta_create__?
     def _meta_create_task(self, cls, module):
         task = cls.__meta_create__(
             *self.__args,
