@@ -5,6 +5,7 @@ from ..signal import NullDispatcher
 from .module import Module
 
 
+# TODO: fixe protected/private
 class NullModule(Module):
 
     # Public
