@@ -3,14 +3,14 @@ class Dispatcher:
     # Public
 
     def __init__(self):
-        self._handlers = []
+        self.__handlers = []
 
     def __repr__(self):
         return '<Dispatcher>'
 
     def add_handler(self, handler):
-        self._handlers.append(handler)
+        self.__handlers.append(handler)
 
     def add_signal(self, signal):
-        for handler in self._handlers:
+        for handler in self.__handlers:
             handler.handle(signal)
