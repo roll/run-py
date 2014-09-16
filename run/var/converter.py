@@ -32,6 +32,7 @@ class var(task):
 
     # Protected
 
+    # override
     def _match(self, obj):
         if inspect.isdatadescriptor(obj):
             return True
@@ -39,6 +40,7 @@ class var(task):
             return True
         return False
 
+    # override
     def _make(self, obj):
         descriptor = obj
         if not inspect.isdatadescriptor(obj):

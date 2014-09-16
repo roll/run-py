@@ -32,11 +32,13 @@ class task(Converter):
 
     # Protected
 
+    # override
     def _match(self, obj):
         if inspect.isfunction(obj):
             return True
         return False
 
+    # override
     def _make(self, obj):
         prototype = FunctionTask(obj, bind=True, **self._kwargs)
         return prototype

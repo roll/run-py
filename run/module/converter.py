@@ -32,12 +32,14 @@ class module(task):
 
     # Protected
 
+    # override
     def _match(self, obj):
         if isinstance(obj, type):
             if issubclass(obj, Module):
                 return True
         return False
 
+    # override
     def _make(self, obj):
         prototype = obj(**self._kwargs)
         return prototype

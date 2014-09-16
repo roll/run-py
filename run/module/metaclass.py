@@ -36,4 +36,4 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Protected
 
-    _meta_TaskPrototype = ModulePrototype  # Overriding
+    _meta_TaskPrototype = ModulePrototype  # override

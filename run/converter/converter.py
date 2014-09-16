@@ -26,7 +26,7 @@ class Converter(Decorator, metaclass=ABCMeta):
 
     # Protected
 
-    # Overriding
+    # override
     def _is_composite(self, *args, **kwargs):
         # Composite only if args not passed
         return not bool(args)

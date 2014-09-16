@@ -10,8 +10,8 @@ class Program(Program):
 
     # Protected
 
-    _Command = Command  # Overriding
-    _settings = settings  # Overriding
+    _Command = Command  # override
+    _settings = settings  # override
 
     def _execute(self):
         self._machine.run(
