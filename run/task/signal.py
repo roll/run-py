@@ -8,14 +8,14 @@ class TaskSignal(Signal):
     # Public
 
     def __init__(self, task, *, event):
-        self._task = task
-        self._event = event
+        self.__task = task
+        self.__event = event
 
     def format(self):
-        result = self._events.get(self.event, '')
+        result = settings.events.get(self.event, '')
         if result:
             if not self.task.meta_plain:
-                style = self._styles.get(self.event, None)
+                style = settings.styles.get(self.event, None)
                 if style is not None:
                     formater = Formatter()
                     result = formater.format(result, **style)
@@ -23,13 +23,8 @@ class TaskSignal(Signal):
 
     @property
     def task(self):
-        return self._task
+        return self.__task
 
     @property
     def event(self):
-        return self._event
-
-    # Protected
-
-    _events = settings.events
-    _styles = settings.styles
+        return self.__event
