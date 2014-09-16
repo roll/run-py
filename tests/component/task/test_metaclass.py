@@ -1,7 +1,7 @@
 import unittest
 from abc import ABCMeta
-from unittest.mock import Mock
-from run.task.metaclass import TaskMetaclass
+from unittest.mock import Mock, patch
+from run.task import metaclass
 
 
 class TaskMetaclassTest(unittest.TestCase):
@@ -9,6 +9,9 @@ class TaskMetaclassTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
+        self.NullModule = Mock()
+        patch.object(metaclass, 'NullModule', self.NullModule).start()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Prototype = Mock(return_value=Mock(__meta_build__=Mock()))
@@ -49,17 +52,17 @@ class TaskMetaclassTest(unittest.TestCase):
             meta_class=self.Class,
             meta_updates=None)
         # Check NullModule call
-        self.Metaclass._meta_NullModule.assert_called_with()
+        self.NullModule.assert_called_with()
         # Check prototype call
         self.prototype = self.Prototype.return_value
-        self.prototype.__meta_build__.assert_called_with('null_module')
+        self.prototype.__meta_build__.assert_called_with(
+            self.NullModule.return_value)
 
     # Protected
 
     def _make_mock_metaclass(self, Prototype):
-        class MockMetaclass(TaskMetaclass):
+        class MockMetaclass(metaclass.TaskMetaclass):
             # Protected
-            _meta_NullModule = Mock(return_value='null_module')
             _meta_TaskPrototype = Prototype
         return MockMetaclass
 

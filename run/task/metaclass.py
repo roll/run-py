@@ -18,11 +18,10 @@ class TaskMetaclass(ABCMeta):
         else:
             # Build and return task
             if meta_module is None:
-                meta_module = self._meta_NullModule()
+                meta_module = NullModule()
             task = build(prototype, meta_module)
             return task
 
     # Protected
 
-    _meta_NullModule = NullModule
     _meta_TaskPrototype = TaskPrototype
