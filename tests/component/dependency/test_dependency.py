@@ -23,12 +23,6 @@ class DependencyTest(unittest.TestCase):
         self.assertEqual(repr(self.dependency),
             "MockDependency task('arg1', kwarg1='kwarg1')")
 
-    def test___repr___disabled(self):
-        self.successor.meta_module.task.__repr__ = lambda self: 'task'
-        self.dependency.disable()
-        self.assertEqual(repr(self.dependency),
-            "MockDependency task('arg1', kwarg1='kwarg1') [disabled]")
-
     def test___repr___task_not_existent(self):
         self.successor.meta_module.task = None
         self.assertEqual(repr(self.dependency),
@@ -48,14 +42,6 @@ class DependencyTest(unittest.TestCase):
     def test_bind(self):
         self.dependency.bind('task')
         self.assertEqual(self.dependency.successor, 'task')
-
-    def test_enable(self):
-        self.dependency.enable()
-        self.assertTrue(self.dependency.enabled)
-
-    def test_disable(self):
-        self.dependency.disable()
-        self.assertFalse(self.dependency.enabled)
 
     def test_invoke(self):
         self.dependency.invoke()
@@ -80,9 +66,6 @@ class DependencyTest(unittest.TestCase):
     def test_invoke_not_bound(self):
         self.dependency.bind(None)
         self.assertRaises(RuntimeError, self.dependency.invoke)
-
-    def test_enabled(self):
-        self.assertTrue(self.dependency.enabled)
 
     def test_predecessor(self):
         self.assertEqual(

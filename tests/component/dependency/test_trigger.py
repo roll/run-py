@@ -16,11 +16,6 @@ class trigger_Test(unittest.TestCase):
         self.trigger.resolve()
         self.assertEqual(self.invoke.call_count, 0)
 
-    def test_resolve_not_enabled(self):
-        self.trigger.disable()
-        self.trigger.resolve()
-        self.assertEqual(self.invoke.call_count, 0)
-
     def test_resolve_failed_is_false(self):
         self.trigger.resolve(failed=False)
         self.assertEqual(self.invoke.call_count, 1)

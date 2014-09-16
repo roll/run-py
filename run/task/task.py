@@ -1,5 +1,6 @@
 import os
 import inspect
+from copy import copy
 from abc import abstractmethod
 from box.collections import merge_dicts
 from box.terminal import Formatter
@@ -109,6 +110,14 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         dependency.bind(self)
         self.meta_dependencies.append(dependency)
 
+    def meta_ignore(self, task):
+        """Remove all of task dependencies.
+        """
+        task = self.meta_module.meta_lookup(task)
+        for dependency in copy(self.meta_dependencies):
+            if dependency.predecessor is task:
+                self.meta_dependencies.remove(dependency)
+
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
         """
@@ -120,28 +129,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         """
         dependency = self._meta_trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
-
-    def meta_enable_dependency(self, task, types=None):
-        """Enable all dependencies for the task.
-        """
-        for dependency in self.meta_dependencies:
-            if types is not None:
-                if not isinstance(dependency, tuple(types)):
-                    continue
-            task = self.meta_module.meta_lookup(task)
-            if dependency.predecessor is task:
-                dependency.enable()
-
-    def meta_disable_dependency(self, task, *, types=None):
-        """Disable all dependencies for the task.
-        """
-        for dependency in self.meta_dependencies:
-            if types is not None:
-                if not isinstance(dependency, tuple(types)):
-                    continue
-            task = self.meta_module.meta_lookup(task)
-            if dependency.predecessor is task:
-                dependency.disable()
 
     @abstractmethod
     def meta_invoke(self, *args, **kwargs):

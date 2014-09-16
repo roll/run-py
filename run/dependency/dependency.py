@@ -23,7 +23,6 @@ class Dependency(metaclass=ABCMeta):
         self.__predecessor_name = predecessor_name
         self.__args = args
         self.__kwargs = kwargs
-        self.__enabled = True
         self.__successor = None
 
     def __repr__(self, action=None):
@@ -46,8 +45,6 @@ class Dependency(metaclass=ABCMeta):
             predecessor = ('<NotExistent "{predecessor_name}">'.
                 format(predecessor_name=self.__predecessor_name))
         pattern = '{action} {predecessor}'
-        if not self.__enabled:
-            pattern = '{action} {predecessor} [disabled]'
         result = pattern.format(action=action, predecessor=predecessor)
         return result
 
@@ -66,16 +63,6 @@ class Dependency(metaclass=ABCMeta):
         """
         self.__successor = successor
 
-    def enable(self):
-        """Enable resolving.
-        """
-        self.__enabled = True
-
-    def disable(self):
-        """Disable resolving.
-        """
-        self.__enabled = False
-
     @abstractmethod
     def resolve(self, failed=None):
         """Resolve dependency.
@@ -92,12 +79,6 @@ class Dependency(metaclass=ABCMeta):
         """
         if self.predecessor is not None:
             self.predecessor(*self.__args, **self.__kwargs)
-
-    @property
-    def enabled(self):
-        """Resolving status (enabled or disabled).
-        """
-        return self.__enabled
 
     @cachedproperty
     def predecessor(self):

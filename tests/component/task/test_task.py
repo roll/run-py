@@ -129,65 +129,16 @@ class TaskTest(unittest.TestCase):
         # Check dependency's bind call
         dependency.bind.assert_called_with(self.task)
 
-    def test_meta_disable_dependency(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'task'
+    def test_meta_ignore(self):
+        dependency1 = Mock()
+        dependency1.predecessor = 'task1'
+        dependency2 = Mock()
+        dependency2.predecessor = 'task2'
+        self.module.meta_lookup.return_value = 'task1'
+        self.Task.meta_dependencies = [dependency1, dependency2]
         self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_disable_dependency('task', types=[Mock])
-        # Check dependency disable call
-        self.assertTrue(dependency.disable.called)
-
-    def test_meta_disable_dependency_with_different_task(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'different_task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_disable_dependency('different_task', types=[Mock])
-        # Check dependency disable call
-        self.assertFalse(dependency.disable.called)
-
-    def test_meta_disable_dependency_with_different_types(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_disable_dependency('task', types=[Exception])
-        # Check dependency disable call
-        self.assertFalse(dependency.disable.called)
-
-    def test_meta_enable_dependency(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_enable_dependency('task', types=[Mock])
-        # Check dependency enable call
-        self.assertTrue(dependency.enable.called)
-
-    def test_meta_enable_dependency_with_different_task(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'different_task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_enable_dependency('different_task', types=[Mock])
-        # Check dependency enable call
-        self.assertFalse(dependency.enable.called)
-
-    def test_meta_enable_dependency_with_different_types(self):
-        dependency = Mock()
-        dependency.predecessor = 'task'
-        self.module.meta_lookup.return_value = 'task'
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_depend(dependency)
-        self.task.meta_enable_dependency('task', types=[Exception])
-        # Check dependency disable call
-        self.assertFalse(dependency.enable.called)
+        self.task.meta_ignore('task1')
+        self.assertEqual(self.task.meta_dependencies, [dependency2])
 
     def test_meta_require(self):
         self.task.meta_require('task', *self.args, **self.kwargs)

@@ -17,11 +17,6 @@ class require_Test(unittest.TestCase):
         self.require.resolve()
         self.assertEqual(self.invoke.call_count, 1)
 
-    def test_resolve_not_enabled(self):
-        self.require.disable()
-        self.require.resolve()
-        self.assertEqual(self.invoke.call_count, 0)
-
-    def test_resolve_failed_not_none(self):
+    def test_resolve_failed_is_not_none(self):
         self.require.resolve(failed='failed')
         self.assertEqual(self.invoke.call_count, 0)

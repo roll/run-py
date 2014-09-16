@@ -26,8 +26,7 @@ class require(Dependency):
         super().__init__(predecessor_name, *args, **kwargs)
 
     def resolve(self, failed=None):
-        if self.enabled:
-            if failed is None:
-                if not self.__is_resolved:
-                    self.invoke()
-                    self.__is_resolved = True
+        if failed is None:
+            if not self.__is_resolved:
+                self.invoke()
+                self.__is_resolved = True
