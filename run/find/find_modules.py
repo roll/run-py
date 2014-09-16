@@ -7,6 +7,7 @@ from .not_found import NotFound
 from .target import Target
 
 
+# TODO: fix protected/private
 class find_modules(Function):
     """Find run modules.
     """
