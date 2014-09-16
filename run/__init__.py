@@ -15,3 +15,5 @@ from .settings import settings
 from .task import DescriptorTask, FunctionTask, build, fork, task
 from .var import DescriptorVar, FunctionVar, var
 from .version import version
+
+# TODO: dependencies, *Task make namespace collisions with args, kwargs

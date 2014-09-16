@@ -7,6 +7,7 @@ class DescriptorTask(Task):
     # Public
 
     # TODO: why args, kwargs?
+    # TODO: namespaces collision?
     def __init__(self, descriptor, *args, **kwargs):
         self.__descriptor = descriptor
         super().__init__(*args, **kwargs)

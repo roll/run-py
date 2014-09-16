@@ -7,7 +7,7 @@ class FunctionTask(Task):
 
     # Public
 
-    # TODO: meta_bind instead of bind?
+    # TODO: namespaces collision?
     def __init__(self, function, *args, bind=False, **kwargs):
         self.__function = function
         self.__bind = bind

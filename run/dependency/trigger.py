@@ -21,6 +21,7 @@ class trigger(Dependency):
 
     # Public
 
+    # TODO: namespaces collision?
     def __init__(self, predecessor_name, *args,
                  on_success=True, on_fail=False, **kwargs):
         self.__on_success = on_success
