@@ -1,1 +1,5 @@
-class ModuleAttributeError(AttributeError): pass
+class ModuleAttributeError(AttributeError):
+
+    # Public
+
+    pass

@@ -22,12 +22,12 @@ class ModuleMetaclass(TaskMetaclass):
                     continue
                 elif name.startswith('meta_'):
                     continue
-                elif isinstance(attr, self._meta_BaseTaskPrototype):
-                    attrs[name] = self._meta_fork(attr)
+                elif isinstance(attr, TaskPrototype):
+                    attrs[name] = fork(attr)
                 else:
                     if cls.meta_convert:
                         try:
-                            attrs[name] = self._meta_convert(attr)
+                            attrs[name] = convert(attr)
                         except TypeError:
                             pass
         attrs['__doc__'] = self.__doc__
@@ -36,7 +36,4 @@ class ModuleMetaclass(TaskMetaclass):
 
     # Protected
 
-    _meta_BaseTaskPrototype = TaskPrototype
-    _meta_convert = convert
-    _meta_fork = staticmethod(fork)
     _meta_TaskPrototype = ModulePrototype  # Overriding

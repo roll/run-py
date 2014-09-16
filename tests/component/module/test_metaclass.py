@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import Mock
-from run.module.metaclass import ModuleMetaclass
+from unittest.mock import Mock, patch
+from run.module import metaclass
 
 
 class ModuleMetaclassTest(unittest.TestCase):
@@ -8,8 +8,13 @@ class ModuleMetaclassTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.Metaclass = self._make_mock_metaclass()
-        self.Class = self._make_mock_class(self.Metaclass)
+        self.addCleanup(patch.stopall)
+        self.fork = Mock()
+        self.convert = Mock()
+        patch.object(metaclass, 'TaskPrototype', Mock).start()
+        patch.object(metaclass, 'fork', self.fork).start()
+        patch.object(metaclass, 'convert', self.convert).start()
+        self.Class = self._make_mock_class()
 
     def test___meta_spawn__(self):
         result = self.Class.__meta_spawn__()
@@ -19,25 +24,17 @@ class ModuleMetaclassTest(unittest.TestCase):
         self.assertEqual(result.UPPER_ATTR, 'UPPER_ATTR')
         self.assertEqual(result._underscore_attr, '_underscore_attr')
         self.assertEqual(result.meta_attr, 'meta_attr')
-        self.assertEqual(result.prototype, self.Metaclass._meta_fork.return_value)
-        self.assertEqual(result.task, self.Metaclass._meta_convert.return_value)
+        self.assertEqual(result.prototype, self.fork.return_value)
+        self.assertEqual(result.task, self.convert.return_value)
         # Check fork call
-        self.Metaclass._meta_fork.assert_called_with(self.Class.prototype)
+        self.fork.assert_called_with(self.Class.prototype)
         # Check convert call
-        self.Metaclass._meta_convert.assert_called_with('task')
+        self.convert.assert_called_with('task')
 
     # Protected
 
-    def _make_mock_metaclass(self):
-        class MockMetaclass(ModuleMetaclass):
-            # Protected
-            _meta_convert = Mock()
-            _meta_fork = Mock()
-            _meta_BaseTaskPrototype = Mock
-        return MockMetaclass
-
-    def _make_mock_class(self, metaclass):
-        class MockClass(metaclass=metaclass):
+    def _make_mock_class(self):
+        class MockClass(metaclass=metaclass.ModuleMetaclass):
             # Public
             meta_convert = True
             UPPER_ATTR = 'UPPER_ATTR'
