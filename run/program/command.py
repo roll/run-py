@@ -25,16 +25,16 @@ class Command(Command):
         arguments = self._namespace.arguments
         if (self.list or self.info or self.meta) and attribute:
             arguments = [attribute] + arguments
-        parsed_arguments = self._parse_arguments(arguments)
+        parsed_arguments = self.__parse_arguments(arguments)
         return parsed_arguments
 
-    # Protected
+    # Private
 
-    def _parse_arguments(self, arguments):
+    def __parse_arguments(self, arguments):
         args = []
         kwargs = {}
         for element in next(csv.reader([''.join(arguments)])):
-            parts = [self._parse_literal(item.strip()) for item in
+            parts = [self.__parse_literal(item.strip()) for item in
                      next(csv.reader([element], delimiter='='))]
             if len(parts) == 1:
                 args.append(parts[0])
@@ -42,7 +42,7 @@ class Command(Command):
                 kwargs[parts[0]] = parts[1]
         return {'args': args, 'kwargs': kwargs}
 
-    def _parse_literal(self, literal):
+    def __parse_literal(self, literal):
         try:
             value = ast.literal_eval(literal)
         except Exception:
