@@ -19,7 +19,7 @@ class depend(Decorator):
     # Public
 
     def __init__(self, dependency):
-        self._dependency = dependency
+        self.__dependency = dependency
 
     def __call__(self, method):
-        return self._dependency(method)
+        return self.__dependency(method)
