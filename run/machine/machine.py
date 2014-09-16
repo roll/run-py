@@ -7,6 +7,7 @@ from ..task import TaskSignal
 from .stack import Stack
 
 
+# TODO: fix protected/private
 class Machine:
 
     # Public
