@@ -12,6 +12,7 @@ from .metaclass import TaskMetaclass
 from .signal import TaskSignal
 
 
+# TODO: fix protected/private
 class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Public

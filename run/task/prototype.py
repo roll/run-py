@@ -4,6 +4,7 @@ from ..converter import Result
 from .update import TaskUpdate
 
 
+# TODO: fix protected/private
 class TaskPrototype(Result):
 
     # Public
