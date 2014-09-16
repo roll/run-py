@@ -1,6 +1,8 @@
+import inspect
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from run.module.module import Module
+module = inspect.getmodule(Module)
 
 
 class ModuleTest(unittest.TestCase):
@@ -8,8 +10,13 @@ class ModuleTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
+        self.print = Mock()
+        self.pprint = Mock()
+        patch.object(module, 'print', self.print).start()
+        patch.object(module, 'pprint', self.pprint).start()
         self.Module = self._make_mock_module_class()
         self.module = self.Module(meta_module=None)
         self.ParentModule = self._make_mock_parent_module_class()
@@ -100,7 +107,7 @@ class ModuleTest(unittest.TestCase):
     def test_list(self):
         self.module.list()
         # Check print call
-        self.module._meta_print.assert_called_once_with(
+        self.print.assert_called_once_with(
             'info\n'
             'list\n'
             'meta\n'
@@ -116,7 +123,7 @@ class ModuleTest(unittest.TestCase):
         self.parent_module.meta_tasks = {'module': self.module}
         self.module.list()
         # Check print call
-        self.module._meta_print.assert_called_once_with(
+        self.print.assert_called_once_with(
             '[key] module.info\n'
             '[key] module.list\n'
             '[key] module.meta\n'
@@ -125,7 +132,7 @@ class ModuleTest(unittest.TestCase):
     def test_info(self):
         self.module.info()
         # Check print call
-        self.module._meta_print.assert_called_once_with(
+        self.print.assert_called_once_with(
             '(*args, **kwargs)\n'
             '---\n'
             'Type: MockModule\nDependencies: []\n'
@@ -137,7 +144,7 @@ class ModuleTest(unittest.TestCase):
     def test_info_with_task(self):
         self.module.info('info')
         # Check print call
-        self.module._meta_print.assert_called_once_with(
+        self.print.assert_called_once_with(
             'info(task=None)\n'
             '---\n'
             'Type: FunctionTask\n'
@@ -151,27 +158,23 @@ class ModuleTest(unittest.TestCase):
     def test_meta(self):
         self.module.meta()
         # Check print call
-        self.assertTrue(self.module._meta_pprint.called)
+        self.assertTrue(self.pprint.called)
 
     # TODO: implement
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check print call
-        self.assertTrue(self.module._meta_pprint.called)
+        self.assertTrue(self.pprint.called)
 
     # Protected
 
     def _make_mock_module_class(self):
-        class MockModule(Module):
+        class MockModule(module.Module):
             """docstring"""
             # Public
             meta_plain = True
             def task(self):
                 pass
-            # Protected
-            _meta_default_main_module_name = '__main__'
-            _meta_print = Mock()
-            _meta_pprint = Mock()
         return MockModule
 
     def _make_mock_parent_module_class(self):

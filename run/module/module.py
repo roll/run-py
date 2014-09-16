@@ -1,6 +1,7 @@
 import os
 import inspect
 from pprint import pprint
+from builtins import print
 from collections import OrderedDict
 from ..find import Target
 from ..settings import settings
@@ -143,7 +144,7 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
                     [task.meta_fullname, name]))
             names.append(name)
         result = '\n'.join(names)
-        self._meta_print(result)
+        print(result)
 
     def info(self, task=None):
         """Print information.
@@ -164,7 +165,7 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
         info += 'Default keyword arguments: ' + str(task.meta_kwargs)
         info += '\n---\n'
         info += task.meta_docstring
-        self._meta_print(info)
+        print(info)
 
     def meta(self, task=None):
         """Print metadata.
@@ -180,9 +181,4 @@ class Module(Task, Module, Target, metaclass=ModuleMetaclass):
                 attr = getattr(task, name)
                 if not inspect.ismethod(attr):
                     meta[key] = attr
-        self._meta_pprint(meta)
-
-    # Protected
-
-    _meta_print = staticmethod(print)
-    _meta_pprint = staticmethod(pprint)
+        pprint(meta)
