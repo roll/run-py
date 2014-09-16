@@ -24,4 +24,5 @@ class TaskMetaclass(ABCMeta):
 
     # Protected
 
+    # TODO: change interface?
     _meta_TaskPrototype = TaskPrototype

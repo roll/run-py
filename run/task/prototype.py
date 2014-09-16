@@ -26,13 +26,13 @@ class TaskPrototype(Result):
             # TODO: more attributes to forward from class?
             if isinstance(attr, type):
                 return attr
-        self._meta_name = self._meta_join_names(self._meta_name, name)
+        self._meta_name = '.'.join(filter(None, [self._meta_name, name]))
         return self
 
     def __setattr__(self, name, value):
         if name.startswith('_meta'):
             return super().__setattr__(name, value)
-        name = self._meta_join_names(self._meta_name, name)
+        name = '.'.join(filter(None, [self._meta_name, name]))
         self._meta_add_update('__setattr__', name, value)
         self._meta_name = None
 
@@ -66,9 +66,6 @@ class TaskPrototype(Result):
     # Protected
 
     _meta_TaskUpdate = TaskUpdate
-
-    def _meta_join_names(self, *names):
-        return '.'.join(filter(None, names))
 
     def _meta_add_update(self, name, *args, **kwargs):
         update = self._meta_TaskUpdate(name, *args, **kwargs)
