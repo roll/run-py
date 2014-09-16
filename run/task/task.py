@@ -110,14 +110,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         dependency.bind(self)
         self.meta_dependencies.append(dependency)
 
-    def meta_ignore(self, task):
-        """Remove all of task dependencies.
-        """
-        task = self.meta_module.meta_lookup(task)
-        for dependency in copy(self.meta_dependencies):
-            if dependency.predecessor is task:
-                self.meta_dependencies.remove(dependency)
-
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
         """
@@ -129,6 +121,15 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         """
         dependency = self._meta_trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
+
+    # TODO: rename?
+    def meta_not_depend(self, task):
+        """Remove all of task dependencies.
+        """
+        task = self.meta_module.meta_lookup(task)
+        for dependency in copy(self.meta_dependencies):
+            if dependency.predecessor is task:
+                self.meta_dependencies.remove(dependency)
 
     @abstractmethod
     def meta_invoke(self, *args, **kwargs):

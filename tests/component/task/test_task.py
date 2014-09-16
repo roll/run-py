@@ -129,7 +129,7 @@ class TaskTest(unittest.TestCase):
         # Check dependency's bind call
         dependency.bind.assert_called_with(self.task)
 
-    def test_meta_ignore(self):
+    def test_meta_not_depend(self):
         dependency1 = Mock()
         dependency1.predecessor = 'task1'
         dependency2 = Mock()
@@ -137,7 +137,7 @@ class TaskTest(unittest.TestCase):
         self.module.meta_lookup.return_value = 'task1'
         self.Task.meta_dependencies = [dependency1, dependency2]
         self.task = self.Task(meta_module=self.module)
-        self.task.meta_ignore('task1')
+        self.task.meta_not_depend('task1')
         self.assertEqual(self.task.meta_dependencies, [dependency2])
 
     def test_meta_require(self):
