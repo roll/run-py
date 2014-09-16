@@ -20,15 +20,9 @@ class ProgramTest(unittest.TestCase):
         self.program()
         # Check Machine call
         self.Machine.assert_called_with(
-            key='key',
-            tags='tags',
-            file='file',
-            exclude='exclude',
-            basedir='basedir',
-            recursively='recursively',
-            plain='plain',
-            skip='skip',
-            compact='compact')
+            filepath='filepath',
+            compact='compact',
+            plain='plain')
         # Check Machine's return value call
         self.Machine.return_value.run.assert_called_with(
             self.program._command.attribute,
@@ -46,14 +40,7 @@ class ProgramTest(unittest.TestCase):
                 debug='debug',
                 verbose='verbose',
                 quiet='quiet',
-                tags='tags',
-                basedir='basedir',
+                filepath='filepath',
                 compact='compact',
-                exclude='exclude',
-                file='file',
-                key='key',
-                recursively='recursively',
-                plain='plain',
-                skip='skip'))
-            _Machine = Mock()
+                plain='plain'))
         return MockProgram

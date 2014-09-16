@@ -55,6 +55,7 @@ class TasksTest(ExamplesTest):
 
     # Protected
 
+    # override
     @property
-    def _file(self):
+    def _filename(self):
         return 'tasks.py'

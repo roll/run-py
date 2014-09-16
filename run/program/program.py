@@ -22,15 +22,9 @@ class Program(Program):
     @cachedproperty
     def _machine(self):
         machine = Machine(
-            key=self._command.key,
-            tags=self._command.tags,
-            file=self._command.file,
-            exclude=self._command.exclude,
-            basedir=self._command.basedir,
-            recursively=self._command.recursively,
-            plain=self._command.plain,
-            skip=self._command.skip,
-            compact=self._command.compact)
+            filepath=self._command.filepath,
+            compact=self._command.compact,
+            plain=self._command.plain)
         return machine
 
 

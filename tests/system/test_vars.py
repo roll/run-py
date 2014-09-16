@@ -43,6 +43,7 @@ class VarsTest(ExamplesTest):
 
     # Protected
 
+    # override
     @property
-    def _file(self):
+    def _filename(self):
         return 'vars.py'

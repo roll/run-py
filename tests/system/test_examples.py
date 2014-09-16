@@ -14,8 +14,7 @@ class ExamplesTest(unittest.TestCase):
     def _execute(self, command='', messages=[None], **kwargs):
         result = ''
         ecommand = 'python3 -c "from run.program import program; program()" '
-        ecommand += '-b {basedir} '.format(basedir=self._basedir)
-        ecommand += '-f {file} '.format(file=self._file)
+        ecommand += '--filepath {filepath} '.format(filepath=self._filepath)
         ecommand += '--plain '
         ecommand += command
         process = Popen(ecommand,
@@ -29,11 +28,15 @@ class ExamplesTest(unittest.TestCase):
         return stdout
 
     @property
-    def _basedir(self):
-        filedir = os.path.dirname(__file__)
-        basedir = os.path.abspath(os.path.join(filedir, '..', '..', 'examples'))
-        return basedir
+    def _filepath(self):
+        return os.path.join(self._dirpath, self._filename)
 
     @property
-    def _file(self):
+    def _dirpath(self):
+        filedir = os.path.dirname(__file__)
+        dirpath = os.path.abspath(os.path.join(filedir, '..', '..', 'examples'))
+        return dirpath
+
+    @property
+    def _filename(self):
         return 'runfile.py'

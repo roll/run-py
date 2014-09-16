@@ -16,7 +16,7 @@ class find_modules(Function):
 
     default_basedir = settings.basedir
     default_exclude = settings.exclude
-    default_file = settings.file
+    default_file = settings.filepath
     default_key = settings.key
     default_recursively = settings.recursively
     default_tags = settings.tags

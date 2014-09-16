@@ -9,10 +9,11 @@ class Settings(Settings):
     basedir = None
     cache = True
     chdir = True
+    compact = False
     convert = True
     exclude = None
     fallback = None
-    file = 'runfile.py'
+    filepath = 'runfile.py'
     key = None
     plain = False
     recursively = False
@@ -64,39 +65,21 @@ class Settings(Settings):
                  'help': 'Arguments for attribute.',
                 },
                 {
-                 'dest': 'basedir',
-                 'flags': ['-b', '--basedir'],
-                 'default': self.basedir,
-                 'help': 'Base directory path.',
-                },
-                {
                  'dest': 'compact',
                  'action': 'store_true',
                  'flags': ['-c', '--compact'],
                  'help': 'Enable compact mode.',
                 },
                 {
-                 'dest': 'exclude',
-                 'flags': ['-e', '--exclude'],
-                 'default': self.exclude,
-                 'help': 'Runfile name/path/pattern to exclude.',
-                },
-                {
-                 'dest': 'file',
-                 'flags': ['-f', '--file'],
-                 'default': self.file,
-                 'help': 'Runfile name/path/pattern.',
+                 'dest': 'filepath',
+                 'flags': ['-f', '--filepath'],
+                 'default': self.filepath,
+                 'help': 'Runfile path.',
                 },
                 {
                  'action': 'help',
                  'flags': ['-h', '--help'],
                  'help': 'Display this help message.',
-                },
-                {
-                 'dest': 'key',
-                 'flags': ['-k', '--key'],
-                 'default': self.key,
-                 'help': 'Main module key to match.',
                 },
                 {
                  'dest': 'info',
@@ -121,25 +104,6 @@ class Settings(Settings):
                  'action': 'store_true',
                  'flags': ['-p', '--plain'],
                  'help': 'Activate plain mode.',
-                },
-                {
-                 'dest': 'recursively',
-                 'action': 'store_true',
-                 'flags': ['-r', '--recursively'],
-                 'help': 'Enable finding runfiles recursively.',
-                },
-                {
-                 'dest': 'skip',
-                 'action': 'store_true',
-                 'flags': ['-s', '--skip'],
-                 'help': 'Skip not existen tasks.',
-                },
-                {
-                 'dest': 'tags',
-                 'nargs': '*',
-                 'flags': ['-t', '--tags'],
-                 'default': self.tags,
-                 'help': 'Main module tags to match.',
                 },
                 {
                  'action': 'version',

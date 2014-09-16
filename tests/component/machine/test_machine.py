@@ -3,6 +3,7 @@ from unittest.mock import Mock, call, patch
 from run.machine import machine
 
 
+@unittest.skip
 class MachineTest(unittest.TestCase):
 
     # Public

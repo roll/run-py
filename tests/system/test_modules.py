@@ -51,5 +51,5 @@ class ModulesTest(ExamplesTest):
     # Protected
 
     @property
-    def _file(self):
+    def _filename(self):
         return 'modules.py'
