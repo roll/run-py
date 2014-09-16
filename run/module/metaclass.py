@@ -1,6 +1,5 @@
 from ..converter import convert
 from ..task import TaskMetaclass, TaskPrototype, fork
-from .prototype import ModulePrototype
 
 
 class ModuleMetaclass(TaskMetaclass):
@@ -33,7 +32,3 @@ class ModuleMetaclass(TaskMetaclass):
         attrs['__doc__'] = self.__doc__
         attrs['__module__'] = self.__module__
         return type(self)(self.__name__, (self,), attrs)
-
-    # Protected
-
-    _meta_TaskPrototype = ModulePrototype  # override

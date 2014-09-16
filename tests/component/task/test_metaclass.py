@@ -1,5 +1,4 @@
 import unittest
-from abc import ABCMeta
 from unittest.mock import Mock, patch
 from run.task import metaclass
 
@@ -15,11 +14,7 @@ class TaskMetaclassTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Prototype = Mock(return_value=Mock(__meta_build__=Mock()))
-        self.Metaclass = self._make_mock_metaclass(self.Prototype)
-        self.Class = self._make_mock_class(self.Metaclass)
-
-    def test(self):
-        self.assertTrue(issubclass(self.Metaclass, ABCMeta))
+        self.Class = self._make_mock_class(self.Prototype)
 
     def test___call__(self):
         instance = self.Class(*self.args, **self.kwargs)
@@ -60,12 +55,8 @@ class TaskMetaclassTest(unittest.TestCase):
 
     # Protected
 
-    def _make_mock_metaclass(self, Prototype):
-        class MockMetaclass(metaclass.TaskMetaclass):
-            # Protected
-            _meta_TaskPrototype = Prototype
-        return MockMetaclass
-
-    def _make_mock_class(self, mock_metaclass):
-            class MockClass(metaclass=mock_metaclass): pass
+    def _make_mock_class(self, Prototype):
+            class MockClass(metaclass=metaclass.TaskMetaclass):
+                # Public
+                meta_prototype = Prototype
             return MockClass

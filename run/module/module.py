@@ -8,12 +8,14 @@ from ..settings import settings
 from ..task import Task, Module
 from .error import ModuleAttributeError
 from .metaclass import ModuleMetaclass
+from .prototype import ModulePrototype
 
 
 class Module(Task, Module, Target, metaclass=ModuleMetaclass):
 
     # Public
 
+    meta_prototype = ModulePrototype
     meta_convert = settings.convert
     meta_key = None
     meta_tags = []
