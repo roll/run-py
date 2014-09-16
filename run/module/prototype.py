@@ -6,10 +6,10 @@ class ModulePrototype(TaskPrototype):
 
     # Protected
 
-    def _meta_create_task(self, cls, parent_module):
+    def __meta_create__(self, cls, parent_module):
         names = []
         spawned_class = spawn(cls)
-        module = super()._meta_create_task(spawned_class, parent_module)
+        module = super().__meta_create__(spawned_class, parent_module)
         for cls in type(module).mro():
             for name, attr in vars(cls).items():
                 if name in names:
@@ -20,7 +20,7 @@ class ModulePrototype(TaskPrototype):
                     setattr(type(module), name, task)
         return module
 
-    def _meta_update_task(self, module):
+    def __meta_update__(self, module):
         for task in module.meta_tasks.values():
             task.__meta_update__()
-        super()._meta_update_task(module)
+        super().__meta_update__(module)

@@ -58,16 +58,13 @@ class TaskPrototype(Result):
 
     def __meta_build__(self, module):
         # Documented public wrapper in :func:`.build`
-        task = self._meta_create_task(self.__class, module)
+        task = self.__meta_create__(self.__class, module)
         if not module:
             # NullModule - update
-            self._meta_update_task(task)
+            self.__meta_update__(task)
         return task
 
-    # Protected
-
-    # TODO: renamed to __meta_create__?
-    def _meta_create_task(self, cls, module):
+    def __meta_create__(self, cls, module):
         task = cls.__meta_create__(
             *self.__args,
             meta_module=module,
@@ -75,5 +72,5 @@ class TaskPrototype(Result):
             **self.__kwargs)
         return task
 
-    def _meta_update_task(self, task):
+    def __meta_update__(self, task):
         task.__meta_update__()
