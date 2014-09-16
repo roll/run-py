@@ -6,7 +6,7 @@ class FindTask(FunctionTask):
 
     # Public
 
-    def __init__(self, *args, mode='strings', **kwargs):
+    def __init__(self, *args, mode, **kwargs):
         try:
             function = getattr(find, 'find_' + mode)
         except AttributeError:

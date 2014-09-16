@@ -21,6 +21,7 @@ class TasksModule(Module):
     )
 
     find = FindTask(
+        mode='strings',
         string='find',
         getfirst=True,
     )

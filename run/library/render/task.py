@@ -2,12 +2,11 @@ import render
 from ...task import FunctionTask
 
 
-# TODO: add mode use with find_files?
 class RenderTask(FunctionTask):
 
     # Public
 
-    def __init__(self, *args, mode='file', **kwargs):
+    def __init__(self, *args, mode, **kwargs):
         try:
             function = getattr(render, 'render_' + mode)
         except AttributeError:

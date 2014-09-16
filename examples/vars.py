@@ -27,6 +27,7 @@ class VarsModule(Module):
     )
 
     find = FindVar(
+        mode='strings',
         string='find',
         getfirst=True,
     )

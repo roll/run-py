@@ -14,12 +14,12 @@ class RenderTaskTest(unittest.TestCase):
         self.ptask = partial(task.RenderTask, meta_module=None)
 
     @patch.object(task.render, 'render_file')
-    def test___call__(self, render_file):
-        task = self.ptask()
+    def test___call___with_mode_is_file(self, render_file):
+        task = self.ptask(mode='file')
         result = task(*self.args, **self.kwargs)
         self.assertEqual(result, render_file.return_value)
         render_file.assert_called_with(
             *self.args, context=task.meta_module, **self.kwargs)
 
-    def test___call___with_unsopported_mode(self):
+    def test___call___with_mode_is_unsopported(self):
         self.assertRaises(ValueError, self.ptask, mode='unsupported')
