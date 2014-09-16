@@ -1,1 +1,5 @@
-class Result: pass
+class Result:
+
+    # Public
+
+    pass
