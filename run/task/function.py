@@ -9,23 +9,23 @@ class FunctionTask(Task):
 
     # TODO: meta_bind instead of bind?
     def __init__(self, function, *args, bind=False, **kwargs):
-        self._function = function
-        self._bind = bind
+        self.__function = function
+        self.__bind = bind
         super().__init__(*args, **kwargs)
 
     def meta_invoke(self, *args, **kwargs):
-        if self._bind:
+        if self.__bind:
             args = [self.meta_module] + list(args)
-        return self._function(*args, **kwargs)
+        return self.__function(*args, **kwargs)
 
     @property
     def meta_docstring(self):
         return self._meta_params.get(
-            'docstring', str(inspect.getdoc(self._function)).strip())
+            'docstring', str(inspect.getdoc(self.__function)).strip())
 
     @property
     def meta_signature(self):
-        signature = str(inspect.signature(self._function))
-        if self._bind:
+        signature = str(inspect.signature(self.__function))
+        if self.__bind:
             signature = re.sub('self[,\s]*', '', signature)
         return self._meta_params.get('signature', signature)
