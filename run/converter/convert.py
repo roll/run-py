@@ -10,20 +10,17 @@ class convert(Function):
     # Public
 
     def __init__(self, obj):
-        self._object = obj
+        self.__object = obj
 
     def __call__(self):
-        for converter in self._converters:
+        for converter in settings.converters:
             converter = import_object(converter)
             try:
-                return converter(self._object)
+                return converter(self.__object)
             except TypeError:
                 pass
         raise TypeError(
-            'Object "{self._object}" has no corresponding converter '
-            'between converters from settings: {self._converters}'.
-            format(self=self))
-
-    # Protected
-
-    _converters = settings.converters
+            'Object "{object}" has no corresponding converter '
+            'between converters from settings: {converters}'.
+            format(object=self.__object,
+                   converters=settings.converters))
