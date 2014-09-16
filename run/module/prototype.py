@@ -6,8 +6,6 @@ class ModulePrototype(TaskPrototype):
 
     # Protected
 
-    _meta_TaskPrototype = TaskPrototype
-
     def _meta_create_task(self, cls, parent_module):
         names = []
         spawned_class = spawn(cls)
@@ -17,7 +15,7 @@ class ModulePrototype(TaskPrototype):
                 if name in names:
                     continue
                 names.append(name)
-                if isinstance(attr, self._meta_TaskPrototype):
+                if isinstance(attr, TaskPrototype):
                     task = build(attr, module)
                     setattr(type(module), name, task)
         return module
