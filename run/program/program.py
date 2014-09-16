@@ -10,8 +10,7 @@ class Program(Program):
 
     # Protected
 
-    _Command = Command
-    _Machine = Machine
+    _Command = Command  # Overriding
     _settings = settings  # Overriding
 
     def _execute(self):
@@ -22,7 +21,7 @@ class Program(Program):
 
     @cachedproperty
     def _machine(self):
-        machine = self._Machine(
+        machine = Machine(
             key=self._command.key,
             tags=self._command.tags,
             file=self._command.file,

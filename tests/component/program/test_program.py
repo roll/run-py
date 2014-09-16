@@ -1,6 +1,8 @@
+import inspect
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 from run.program.program import Program
+program = inspect.getmodule(Program)
 
 
 class ProgramTest(unittest.TestCase):
@@ -8,12 +10,16 @@ class ProgramTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
+        self.Machine = Mock()
+        patch.object(program, 'Machine', self.Machine).start()
         self.Program = self._make_mock_program_class()
         self.program = self.Program('argv')
 
     def test___call__(self):
         self.program()
-        self.program._Machine.assert_called_with(
+        # Check Machine call
+        self.Machine.assert_called_with(
             key='key',
             tags='tags',
             file='file',
@@ -23,7 +29,8 @@ class ProgramTest(unittest.TestCase):
             plain='plain',
             skip='skip',
             compact='compact')
-        self.program._Machine.return_value.run.assert_called_with(
+        # Check Machine's return value call
+        self.Machine.return_value.run.assert_called_with(
             self.program._command.attribute,
             *self.program._command.arguments['args'],
             **self.program._command.arguments['kwargs'])
@@ -31,7 +38,7 @@ class ProgramTest(unittest.TestCase):
     # Protected
 
     def _make_mock_program_class(self):
-        class MockProgram(Program):
+        class MockProgram(program.Program):
             # Protected
             _Command = Mock(return_value=Mock(
                 attribute='attribute',
