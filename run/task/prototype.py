@@ -32,14 +32,16 @@ class TaskPrototype(Result):
         if name.startswith('_'):
             return super().__setattr__(name, value)
         name = '.'.join(filter(None, [self.__name, name]))
-        self._meta_add_update('__setattr__', name, value)
+        update = TaskUpdate('__setattr__', name, value)
+        self.__updates.append(update)
         self.__name = None
 
     def __call__(self, *args, **kwargs):
         if self.__name is None:
             raise TypeError(
                 'Object "{self}" is not callable'.format(self=self))
-        self._meta_add_update(self.__name, *args, **kwargs)
+        update = TaskUpdate(self.__name, *args, **kwargs)
+        self.__updates.append(update)
         self.__name = None
         return self
 
@@ -63,10 +65,6 @@ class TaskPrototype(Result):
         return task
 
     # Protected
-
-    def _meta_add_update(self, name, *args, **kwargs):
-        update = TaskUpdate(name, *args, **kwargs)
-        self.__updates.append(update)
 
     def _meta_create_task(self, cls, module):
         task = cls.__meta_create__(
