@@ -6,6 +6,7 @@ from ...module import Module
 from .task import ClusterTask
 
 
+# TODO: fix protected/private
 class ClusterModule(Module):
 
     # Public
@@ -14,12 +15,12 @@ class ClusterModule(Module):
                  key=None, tags=None,
                  file=None, exclude=None, basedir=None, recursively=None,
                  **kwargs):
-        self._key = key
-        self._tags = tags
-        self._file = file
-        self._exclude = exclude
-        self._basedir = basedir
-        self._recursively = recursively
+        self.__key = key
+        self.__tags = tags
+        self.__file = file
+        self.__exclude = exclude
+        self.__basedir = basedir
+        self.__recursively = recursively
         for task_name, task_instances in self._tasks.items():
             if not hasattr(type(self), task_name):
                 task = ClusterTask(task_instances, meta_module=self)
@@ -27,9 +28,6 @@ class ClusterModule(Module):
         super().__init__(*args, **kwargs)
 
     # Protected
-
-    _find = find_modules
-    _Module = Module
 
     @property
     def _tasks(self):
@@ -56,19 +54,19 @@ class ClusterModule(Module):
 
     @cachedproperty
     def _Modules(self):
-        Modules = self._find(
-            target=self._Module,
-            key=self._key,
-            tags=self._tags,
-            file=self._file,
-            exclude=self._exclude,
-            basedir=self._basedir,
-            recursively=self._recursively,
+        Modules = find_modules(
+            target=Module,
+            key=self.__key,
+            tags=self.__tags,
+            file=self.__file,
+            exclude=self.__exclude,
+            basedir=self.__basedir,
+            recursively=self.__recursively,
             filters=[{'notfilepath': self._notfilepath}])
         return Modules
 
     @property
     def _notfilepath(self):
         notfilepath = os.path.relpath(
-            inspect.getfile(type(self.meta_module)), start=self._basedir)
+            inspect.getfile(type(self.meta_module)), start=self.__basedir)
         return notfilepath

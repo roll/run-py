@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import Mock, ANY
-from run.library.cluster.module import ClusterModule
+from unittest.mock import Mock, ANY, patch
+from run.library.cluster import module
 
 
 class ClusterModuleTest(unittest.TestCase):
@@ -8,15 +8,17 @@ class ClusterModuleTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
         self.task = Mock()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.FoundModule = Mock(
             return_value=Mock(meta_tasks={'task': self.task}))
-        self.Module = self._make_mock_module_class(self.FoundModule)
+        self.find = Mock(return_value=[self.FoundModule])
+        patch.object(module, 'find_modules', self.find).start()
 
     def test(self):
-        self.module = self.Module(
+        self.module = module.ClusterModule(
             meta_module=None,
             key='key',
             tags='tags',
@@ -26,8 +28,8 @@ class ClusterModuleTest(unittest.TestCase):
             recursively='recursively')
         self.assertEqual(self.module.task(), [self.task.return_value])
         # Check find call
-        self.Module._find.assert_called_with(
-            target=self.Module._Module,
+        self.find.assert_called_with(
+            target=module.Module,
             key='key',
             tags='tags',
             file='file',
@@ -37,12 +39,3 @@ class ClusterModuleTest(unittest.TestCase):
             filters=ANY)
         # Check FoundModule call
         self.FoundModule.assert_called_with(meta_module=self.module)
-
-    # Protected
-
-    def _make_mock_module_class(self, FoundModule):
-        class MockModule(ClusterModule):
-            # Protected
-            _find = Mock(return_value=[FoundModule])
-            _Module = Mock()
-        return MockModule
