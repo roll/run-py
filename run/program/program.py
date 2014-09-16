@@ -12,7 +12,7 @@ class Program(Program):
 
     _Command = Command
     _Machine = Machine
-    _settings = settings
+    _settings = settings  # Overriding
 
     def _execute(self):
         self._machine.run(
