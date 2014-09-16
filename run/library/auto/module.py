@@ -37,8 +37,8 @@ class AutoModule(Module):
     def __init__(self, sources=None, *args, **kwargs):
         if sources is None:
             sources = []
-        self._sources = sources + self._default_sources
-        for task_name, task_function in self._functions.items():
+        self.__sources = sources + self._default_sources
+        for task_name, task_function in self.__functions.items():
             if not hasattr(type(self), task_name):
                 task = FunctionTask(task_function, meta_module=self)
                 setattr(type(self), task_name, task)
@@ -47,17 +47,19 @@ class AutoModule(Module):
     @property
     def meta_docstring(self):
         return self._meta_params.get(
-            'docstring', 'AutoModule with following sources: {self._sources}'.
-             format(self=self))
+            'docstring', 'AutoModule with following sources: {sources}'.
+             format(sources=self.__sources))
 
     # Protected
 
     _default_sources = []
 
+    # Private
+
     @property
-    def _functions(self):
+    def __functions(self):
         functions = {}
-        for obj in reversed(self._sources):
+        for obj in reversed(self.__sources):
             for name in dir(obj):
                 if name.startswith('_'):
                     continue
