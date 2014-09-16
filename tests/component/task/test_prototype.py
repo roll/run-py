@@ -1,6 +1,6 @@
 import unittest
-from unittest.mock import Mock
-from run.task.prototype import TaskPrototype
+from unittest.mock import Mock, patch
+from run.task import prototype
 
 
 class TaskPrototypeTest(unittest.TestCase):
@@ -8,33 +8,29 @@ class TaskPrototypeTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
         self.update = Mock()
-        self.updates = []
+        self.TaskUpdate = Mock(return_value=self.update)
+        patch.object(prototype, 'TaskUpdate', self.TaskUpdate).start()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self._make_mock_task_class()
-        self.Prototype = self._make_mock_prototype_class(self.update)
-        self.prototype = self.Prototype(
-            *self.args,
-            meta_class=self.Task,
-            meta_updates=self.updates,
-            **self.kwargs)
+        self.prototype = prototype.TaskPrototype(
+            *self.args, meta_class=self.Task, **self.kwargs)
 
     def test___getattr__(self):
         self.assertEqual(self.prototype.attr2, Mock)
 
     def test___setattr__(self):
         self.prototype.attr3.nested_attr3 = 'value2'
-        self.assertEqual(self.updates, [self.update])
         # Check update_class call
-        self.prototype._meta_TaskUpdate.assert_called_with(
+        self.TaskUpdate.assert_called_with(
             '__setattr__', 'attr3.nested_attr3', 'value2')
 
     def test___call__(self):
         self.prototype.attr3.nested_attr3(*self.args, **self.kwargs)
-        self.assertEqual(self.updates, [self.update])
         # Check update_class call
-        self.prototype._meta_TaskUpdate.assert_called_with(
+        self.TaskUpdate.assert_called_with(
             'attr3.nested_attr3', *self.args, **self.kwargs)
 
     def test___call___before_getattr(self):
@@ -43,12 +39,7 @@ class TaskPrototypeTest(unittest.TestCase):
     def test___meta_fork__(self):
         self.prototype.attr2 = 'value2'
         fork = self.prototype.__meta_fork__('arg2', kwarg2='kwarg2')
-        self.assertIsInstance(fork, self.Prototype)
-        self.assertEqual(fork._meta_class, self.Task)
-        self.assertEqual(fork._meta_updates, [self.update])
-        self.assertEqual(fork._meta_args, ('arg1', 'arg2'))
-        self.assertEqual(fork._meta_kwargs,
-            {'kwarg1': 'kwarg1', 'kwarg2': 'kwarg2'})
+        self.assertIsInstance(fork, prototype.TaskPrototype)
 
     # TODO: implement
     def test___meta_build__(self):
@@ -64,9 +55,3 @@ class TaskPrototypeTest(unittest.TestCase):
             attr1 = 'value1'
             attr2 = Mock
         return MockTask
-
-    def _make_mock_prototype_class(self, update):
-        class MockPrototype(TaskPrototype):
-            # Protected
-            _meta_TaskUpdate = Mock(return_value=update)
-        return MockPrototype
