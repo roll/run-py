@@ -1,3 +1,4 @@
+from builtins import isinstance, issubclass
 from ..task import task
 from .module import Module
 
@@ -31,12 +32,9 @@ class module(task):
 
     # Protected
 
-    _isinstance = staticmethod(isinstance)
-    _issubclass = staticmethod(issubclass)
-
     def _match(self, obj):
-        if self._isinstance(obj, type):
-            if self._issubclass(obj, Module):
+        if isinstance(obj, type):
+            if issubclass(obj, Module):
                 return True
         return False
 
