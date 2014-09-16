@@ -15,8 +15,8 @@ class FindModule(Module):
                         **kwargs):
         notfilepath = os.path.relpath(
             inspect.getfile(type(meta_module)), start=basedir)
-        Module = cls._find(
-            target=cls._Module,
+        FoundModule = find_modules(
+            target=Module,
             key=key,
             tags=tags,
             file=file,
@@ -25,14 +25,9 @@ class FindModule(Module):
             recursively=recursively,
             filters=[{'notfilepath': notfilepath}],
             getfirst=True)
-        module = Module(
+        found_module = FoundModule(
             *args,
             meta_module=meta_module,
             meta_updates=meta_updates,
             **kwargs)
-        return module
-
-    # Protected
-
-    _find = find_modules
-    _Module = Module
+        return found_module

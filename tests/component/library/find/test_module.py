@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, ANY
+from unittest.mock import Mock, ANY, patch
 from run.library.find import module
 
 
@@ -12,10 +12,11 @@ class FindModuleTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.FoundModule = Mock(
             return_value=Mock(meta_tasks={}, __meta_update__=Mock()))
-        self.Module = self._make_mock_module_class(self.FoundModule)
+        self.find = Mock(return_value=self.FoundModule)
+        patch.object(module, 'find_modules', self.find).start()
 
     def test(self):
-        self.module = self.Module(
+        self.module = module.FindModule(
             *self.args,
             meta_module=None,
             key='key',
@@ -27,8 +28,8 @@ class FindModuleTest(unittest.TestCase):
             **self.kwargs)
         self.assertEqual(self.module, self.FoundModule.return_value)
         # Check find call
-        self.Module._find.assert_called_with(
-            target=self.Module._Module,
+        self.find.assert_called_with(
+            target=module.Module,
             key='key',
             tags='tags',
             file='file',
@@ -43,12 +44,3 @@ class FindModuleTest(unittest.TestCase):
             meta_module=ANY,
             meta_updates=[],
             **self.kwargs)
-
-    # Protected
-
-    def _make_mock_module_class(self, FoundModule):
-        class MockModule(module.FindModule):
-            # Protected
-            _find = Mock(return_value=FoundModule)
-            _Module = Mock()
-        return MockModule
