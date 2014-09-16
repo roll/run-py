@@ -20,39 +20,39 @@ class Dependency(metaclass=ABCMeta):
     # Public
 
     def __init__(self, predecessor_name, *args, **kwargs):
-        self._predecessor_name = predecessor_name
-        self._args = args
-        self._kwargs = kwargs
-        self._enabled = True
-        self._successor = None
+        self.__predecessor_name = predecessor_name
+        self.__args = args
+        self.__kwargs = kwargs
+        self.__enabled = True
+        self.__successor = None
 
     def __repr__(self, action=None):
         if action is None:
             action = type(self).__name__
         if self.predecessor is not None:
             predecessor = str(self.predecessor)
-            if self._args or self._kwargs:
+            if self.__args or self.__kwargs:
                 predecessor += '('
                 elements = []
-                for value in self._args:
+                for value in self.__args:
                     element = repr(value)
                     elements.append(element)
-                for key, value in self._kwargs.items():
+                for key, value in self.__kwargs.items():
                     element = '{0}={1}'.format(str(key), repr(value))
                     elements.append(element)
                 predecessor += ', '.join(elements)
                 predecessor += ')'
         else:
-            predecessor = ('<NotExistent "{self._predecessor_name}">'.
-                    format(self=self))
+            predecessor = ('<NotExistent "{predecessor_name}">'.
+                format(predecessor_name=self.__predecessor_name))
         pattern = '{action} {predecessor}'
-        if not self._enabled:
+        if not self.__enabled:
             pattern = '{action} {predecessor} [disabled]'
         result = pattern.format(action=action, predecessor=predecessor)
         return result
 
     def __call__(self, obj):
-        converted_object = self._convert(obj)
+        converted_object = convert(obj)
         converted_object.meta_depend(self)
         return converted_object
 
@@ -64,17 +64,17 @@ class Dependency(metaclass=ABCMeta):
         successor: object
             Successor object.
         """
-        self._successor = successor
+        self.__successor = successor
 
     def enable(self):
         """Enable resolving.
         """
-        self._enabled = True
+        self.__enabled = True
 
     def disable(self):
         """Disable resolving.
         """
-        self._enabled = False
+        self.__enabled = False
 
     @abstractmethod
     def resolve(self, failed=None):
@@ -91,22 +91,22 @@ class Dependency(metaclass=ABCMeta):
         """Invoke predecessor if it exists.
         """
         if self.predecessor is not None:
-            self.predecessor(*self._args, **self._kwargs)
+            self.predecessor(*self.__args, **self.__kwargs)
 
     @property
     def enabled(self):
         """Resolving status (enabled or disabled).
         """
-        return self._enabled
+        return self.__enabled
 
     @cachedproperty
     def predecessor(self):
-        if self._successor is not None:
+        if self.__successor is not None:
             try:
                 return getattr(
-                    self._successor.meta_module, self._predecessor_name)
+                    self.__successor.meta_module, self.__predecessor_name)
             except AttributeError as exception:
-                if self._successor.meta_strict:
+                if self.__successor.meta_strict:
                     raise
                 else:
                     logger = logging.getLogger(__name__)
@@ -114,14 +114,10 @@ class Dependency(metaclass=ABCMeta):
                     return None
         else:
             raise RuntimeError(
-                'Dependency for "{self._predecessor_name}" '
+                'Dependency for "{predecessor_name}" '
                 'is not bound to any successor'.
-                format(self=self))
+                format(predecessor_name=self.__predecessor_name))
 
     @property
     def successor(self):
-        return self._successor
-
-    # Protected
-
-    _convert = convert
+        return self.__successor

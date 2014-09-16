@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
-from run.dependency.dependency import Dependency
+from run.dependency import dependency
 
 
 class DependencyTest(unittest.TestCase):
@@ -8,6 +8,9 @@ class DependencyTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
+        self.convert = Mock()
+        patch.object(dependency, 'convert', self.convert).start()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.successor = Mock()
@@ -35,11 +38,11 @@ class DependencyTest(unittest.TestCase):
         method = Mock()
         self.assertEqual(
             self.dependency(method),
-            self.dependency._convert.return_value)
+            self.convert.return_value)
         # Check convert call
-        self.dependency._convert.assert_called_with(method)
+        self.convert.assert_called_with(method)
         # Check convert's return_value (prototype) depend call
-        prototype = self.dependency._convert.return_value
+        prototype = self.convert.return_value
         prototype.meta_depend.assert_called_with(self.dependency)
 
     def test_bind(self):
@@ -64,7 +67,7 @@ class DependencyTest(unittest.TestCase):
         self.successor.meta_module = Mock(spec=[])
         self.assertRaises(AttributeError, self.dependency.invoke)
 
-    @patch('logging.getLogger')
+    @patch.object(dependency.logging, 'getLogger')
     def test_invoke_task_not_existent_and_strict_is_false(self, getLogger):
         self.successor.meta_strict = False
         self.successor.meta_module = Mock(spec=[])
@@ -94,9 +97,7 @@ class DependencyTest(unittest.TestCase):
     # Protected
 
     def _make_mock_dependency(self):
-        class MockDependency(Dependency):
+        class MockDependency(dependency.Dependency):
             # Public
             resolve = Mock()
-            # Protected
-            _convert = Mock()
         return MockDependency
