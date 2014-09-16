@@ -1,1 +1,5 @@
-class Signal: pass
+class Signal:
+
+    # Public
+
+    pass
