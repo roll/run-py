@@ -2,12 +2,12 @@ import inspect
 import unittest
 from unittest.mock import Mock, patch
 from run.module.module import Module
-module = inspect.getmodule(Module)
+component = inspect.getmodule(Module)
 
 
 class ModuleTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
@@ -15,12 +15,44 @@ class ModuleTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.print = Mock()
         self.pprint = Mock()
-        patch.object(module, 'print', self.print).start()
-        patch.object(module, 'pprint', self.pprint).start()
-        self.Module = self._make_mock_module_class()
+        patch.object(component, 'print', self.print).start()
+        patch.object(component, 'pprint', self.pprint).start()
+        self.Module = self.make_mock_module_class()
         self.module = self.Module(meta_module=None)
-        self.ParentModule = self._make_mock_parent_module_class()
+        self.ParentModule = self.make_mock_parent_module_class()
         self.parent_module = self.ParentModule()
+
+    # Helpers
+
+    def make_mock_module_class(self):
+        class MockModule(component.Module):
+            """docstring"""
+            # Public
+            meta_plain = True
+            def task(self):
+                pass
+        return MockModule
+
+    def make_mock_parent_module_class(self):
+        class MockParentModule:
+            # Public
+            meta_basedir = 'basedir'
+            meta_cache = 'cache'
+            meta_chdir = 'chdir'
+            meta_dispatcher = Mock(add_signal=Mock())
+            meta_fallback = 'fallback'
+            meta_fullname = '[key]'
+            meta_is_main_module = True
+            meta_name = ''
+            meta_qualname = ''
+            meta_strict = 'strict'
+            meta_tasks = {}
+            @property
+            def meta_main_module(self):
+                return self
+        return MockParentModule
+
+    # Tests
 
     def test___call__(self):
         self.module.meta_default = 'default'
@@ -116,7 +148,7 @@ class ModuleTest(unittest.TestCase):
 
     def test_list_with_parent_module(self):
         # We have to recreate class for builtin tasks
-        self.Module = self._make_mock_module_class()
+        self.Module = self.make_mock_module_class()
         self.module = self.Module(
             meta_module=self.parent_module,
             meta_chdir=False,
@@ -166,33 +198,3 @@ class ModuleTest(unittest.TestCase):
         self.module.meta('meta')
         # Check print call
         self.assertTrue(self.pprint.called)
-
-    # Protected
-
-    def _make_mock_module_class(self):
-        class MockModule(module.Module):
-            """docstring"""
-            # Public
-            meta_plain = True
-            def task(self):
-                pass
-        return MockModule
-
-    def _make_mock_parent_module_class(self):
-        class MockParentModule:
-            # Public
-            meta_basedir = 'basedir'
-            meta_cache = 'cache'
-            meta_chdir = 'chdir'
-            meta_dispatcher = Mock(add_signal=Mock())
-            meta_fallback = 'fallback'
-            meta_fullname = '[key]'
-            meta_is_main_module = True
-            meta_name = ''
-            meta_qualname = ''
-            meta_strict = 'strict'
-            meta_tasks = {}
-            @property
-            def meta_main_module(self):
-                return self
-        return MockParentModule

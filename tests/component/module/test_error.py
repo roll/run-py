@@ -1,15 +1,16 @@
 import unittest
-from run.module.error import ModuleAttributeError
+from importlib import import_module
+component = import_module('run.module.error')
 
 
 class NotFoundTest(unittest.TestCase):
 
-    # Public
+    # Helpers
+
+    def raise_error(self):
+        raise component.ModuleAttributeError()
+
+    # Tests
 
     def test(self):
-        self.assertRaises(ModuleAttributeError, self._raise)
-
-    # Protected
-
-    def _raise(self):
-        raise ModuleAttributeError()
+        self.assertRaises(component.ModuleAttributeError, self.raise_error)
