@@ -148,29 +148,23 @@ class TaskTest(unittest.TestCase):
         self.task.meta_not_depend('task1')
         self.assertEqual(self.task.meta_dependencies, [dependency2])
 
-    def test_meta_require(self):
+    @patch.object(component, 'require')
+    def test_meta_require(self, require):
         self.task.meta_require('task', *self.args, **self.kwargs)
-        self.assertEqual(
-            self.task.meta_dependencies,
-            [self.task._meta_require.return_value])
+        self.assertEqual(self.task.meta_dependencies, [require.return_value])
         # Check require call
-        self.task._meta_require.assert_called_with(
-            'task', *self.args, **self.kwargs)
+        require.assert_called_with('task', *self.args, **self.kwargs)
         # Check require's return_value (require dependency) bind call
-        require = self.task._meta_require.return_value
-        require.bind.assert_called_with(self.task)
+        require.return_value.bind.assert_called_with(self.task)
 
-    def test_meta_trigger(self):
+    @patch.object(component, 'trigger')
+    def test_meta_trigger(self, trigger):
         self.task.meta_trigger('task', *self.args, **self.kwargs)
-        self.assertEqual(
-            self.task.meta_dependencies,
-            [self.task._meta_trigger.return_value])
+        self.assertEqual(self.task.meta_dependencies, [trigger.return_value])
         # Check trigger call
-        self.task._meta_trigger.assert_called_with(
-            'task', *self.args, **self.kwargs)
+        trigger.assert_called_with('task', *self.args, **self.kwargs)
         # Check trigger's return_value (trigger dependency) bind call
-        trigger = self.task._meta_trigger.return_value
-        trigger.bind.assert_called_with(self.task)
+        trigger.return_value.bind.assert_called_with(self.task)
 
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
@@ -200,25 +194,26 @@ class TaskTest(unittest.TestCase):
     def test_meta_dependencies(self):
         self.assertEqual(self.task.meta_dependencies, [])
 
-    def test_meta_dependencies_initter(self):
+    @patch.object(component, 'trigger')
+    @patch.object(component, 'require')
+    def test_meta_dependencies_initter(self, require, trigger):
         dependency = Mock()
         self.task = self.pTask(
             meta_depend=[dependency],
             meta_require=['require'],
             meta_trigger=['trigger'])
-        self.assertEqual(self.task.meta_dependencies, [
-            dependency,
-            self.task._meta_require.return_value,
-            self.task._meta_trigger.return_value])
+        self.assertEqual(
+            self.task.meta_dependencies,
+            [dependency,
+             require.return_value,
+             trigger.return_value])
         # Check require, trigger call
-        self.task._meta_require.assert_called_with('require')
-        self.task._meta_trigger.assert_called_with('trigger')
+        require.assert_called_with('require')
+        trigger.assert_called_with('trigger')
         # Check dependency's bind call
-        require = self.task._meta_require.return_value
-        trigger = self.task._meta_trigger.return_value
         dependency.bind.assert_called_with(self.task)
-        require.bind.assert_called_with(self.task)
-        trigger.bind.assert_called_with(self.task)
+        require.return_value.bind.assert_called_with(self.task)
+        trigger.return_value.bind.assert_called_with(self.task)
 
     def test_meta_dispatcher(self):
         self.assertEqual(self.task.meta_dispatcher, None)
@@ -330,7 +325,4 @@ class TaskTest(unittest.TestCase):
             """docstring"""
             # Public
             meta_invoke = Mock(return_value='value')
-            # Protected
-            _meta_require = Mock()
-            _meta_trigger = Mock()
         return MockTask

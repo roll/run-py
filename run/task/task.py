@@ -120,13 +120,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
         """
-        dependency = self._meta_require(task, *args, **kwargs)
+        dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
     def meta_trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
         """
-        dependency = self._meta_trigger(task, *args, **kwargs)
+        dependency = trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
 
     @abstractmethod
@@ -416,8 +416,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     # Protected
 
     _meta_styles = settings.styles
-    _meta_require = require
-    _meta_trigger = trigger
 
     def _meta_init_dependencies(self):
         for dependency in self.meta_params.get('depend', []):
