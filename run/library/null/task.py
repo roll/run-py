@@ -10,5 +10,6 @@ class NullTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_params.get(
-            'docstring', 'Do nothing but resolve dependencies.')
+        return self.meta_getmeta(
+            'docstring',
+            default='Do nothing but resolve dependencies.')

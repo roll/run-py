@@ -19,12 +19,12 @@ class FunctionTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_params.get(
-            'docstring', str(inspect.getdoc(self.__function)).strip())
+        return self.meta_getmeta(
+            'docstring', default=str(inspect.getdoc(self.__function)).strip())
 
     @property
     def meta_signature(self):
         signature = str(inspect.signature(self.__function))
         if self.__bind:
             signature = re.sub('self[,\s]*', '', signature)
-        return self.meta_params.get('signature', signature)
+        return self.meta_getmeta('signature', default=signature)

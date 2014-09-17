@@ -46,9 +46,10 @@ class AutoModule(Module):
 
     @property
     def meta_docstring(self):
-        return self.meta_params.get(
-            'docstring', 'AutoModule with following sources: {sources}'.
-             format(sources=self.__sources))
+        return self.meta_getmeta(
+            'docstring',
+            default=('AutoModule with following sources: {sources}'.
+                     format(sources=self.__sources)))
 
     # Protected
 

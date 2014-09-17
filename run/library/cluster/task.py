@@ -18,5 +18,6 @@ class ClusterTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_params.get(
-            'docstring', 'Invoke "{tasks}" tasks.'.format(tasks=self.__tasks))
+        return self.meta_getmeta(
+            'docstring',
+            default='Invoke "{tasks}" tasks.'.format(tasks=self.__tasks))

@@ -103,6 +103,7 @@ class Module(Task, Module):
         return result
 
     @property
+    # TODO: fix getmeta
     def meta_basedir(self):
         if self.meta_is_main_module:
             file = inspect.getfile(type(self))
@@ -112,15 +113,15 @@ class Module(Task, Module):
 
     @meta_basedir.setter
     def meta_basedir(self, value):
-        self.meta_params['basedir'] = value
+        self.meta_setmeta('basedir', value)
 
     @property
     def meta_default(self):
-        return self.meta_params.get('default', 'list')
+        return self.meta_getmeta('default', default='list')
 
     @meta_default.setter
     def meta_default(self, value):
-        self.meta_params['default'] = value
+        self.meta_setmeta('default', value)
 
     @property
     def meta_fullname(self):

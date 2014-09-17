@@ -14,16 +14,16 @@ class DerivedTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_params.get(
+        return self.meta_getmeta(
             'docstring',
-            'Derived from task "{meta_qualname}".\n{meta_docstring}'.
-                format(meta_qualname=self.__task_instance.meta_qualname,
-                       meta_docstring=self.__task_instance.meta_docstring))
+            default=('Derived from task "{meta_qualname}".\n{meta_docstring}'.
+                     format(meta_qualname=self.__task_instance.meta_qualname,
+                            meta_docstring=self.__task_instance.meta_docstring)))
 
     @property
     def meta_signature(self):
-        return self.meta_params.get(
-            'signature', self.__task_instance.meta_signature)
+        return self.meta_getmeta(
+            'signature', default=self.__task_instance.meta_signature)
 
     # Private
 
