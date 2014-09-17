@@ -37,7 +37,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         self.__meta_cached_result = Null
         # Initiate dependencies
         self.__meta_dependencies = []
-        self.__meta_init_dependencies()
+        self.__init_dependencies()
         # Initiate arguments
         self.__meta_args = ()
         self.__meta_kwargs = {}
@@ -64,25 +64,25 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         return self
 
     def __call__(self, *args, **kwargs):
-        self.__meta_add_signal('called')
+        self.__add_signal('called')
         try:
-            self.__meta_resolve_dependencies()
+            self.__resolve_dependencies()
             try:
                 eargs = self.meta_args + args
                 ekwargs = merge_dicts(self.meta_kwargs, kwargs)
-                with self.__meta_change_directory():
+                with self.__change_directory():
                     result = self.meta_invoke(*eargs, **ekwargs)
             except Exception:
                 if self.meta_fallback is not None:
                     result = self.meta_fallback
                 else:
-                    self.__meta_resolve_dependencies(failed=True)
+                    self.__resolve_dependencies(failed=True)
                     raise
-            self.__meta_resolve_dependencies(failed=False)
+            self.__resolve_dependencies(failed=False)
         except Exception:
-            self.__meta_add_signal('failed')
+            self.__add_signal('failed')
             raise
-        self.__meta_add_signal('successed')
+        self.__add_signal('successed')
         return result
 
     def __repr__(self):
@@ -432,7 +432,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Protected
 
-    def __meta_init_dependencies(self):
+    def __init_dependencies(self):
         for dependency in self.meta_params.get('depend', []):
             self.meta_depend(dependency)
         for task in self.meta_params.get('require', []):
@@ -440,17 +440,17 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         for task in self.meta_params.get('trigger', []):
             self.meta_trigger(task)
 
-    def __meta_add_signal(self, event):
+    def __add_signal(self, event):
         if self.meta_dispatcher:
             signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
 
-    def __meta_resolve_dependencies(self, failed=None):
+    def __resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
             dependency.resolve(failed=failed)
 
     @contextmanager
-    def __meta_change_directory(self):
+    def __change_directory(self):
         if self.meta_chdir:
             previous_dir = os.path.abspath(os.getcwd())
             following_dir = os.path.join(
