@@ -5,16 +5,16 @@ from subprocess import Popen, PIPE
 
 class ExamplesTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     __test__ = False
 
-    # Protected
+    # Helpers
 
-    def _execute(self, command='', messages=[None], **kwargs):
+    def execute(self, command='', messages=[None], **kwargs):
         result = ''
         ecommand = 'python3 -c "from run.program import program; program()" '
-        ecommand += '--filepath {filepath} '.format(filepath=self._filepath)
+        ecommand += '--filepath {filepath} '.format(filepath=self.filepath)
         ecommand += '--plain '
         ecommand += command
         process = Popen(ecommand,
@@ -28,15 +28,15 @@ class ExamplesTest(unittest.TestCase):
         return stdout
 
     @property
-    def _filepath(self):
-        return os.path.join(self._dirpath, self._filename)
+    def filepath(self):
+        return os.path.join(self.dirpath, self.filename)
 
     @property
-    def _dirpath(self):
+    def dirpath(self):
         filedir = os.path.dirname(__file__)
         dirpath = os.path.abspath(os.path.join(filedir, '..', '..', 'examples'))
         return dirpath
 
     @property
-    def _filename(self):
+    def filename(self):
         return 'runfile.py'

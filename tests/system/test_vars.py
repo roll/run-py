@@ -3,32 +3,41 @@ from tests.system.test_examples import ExamplesTest
 
 class VarsTest(ExamplesTest):
 
-    # Public
+    # Actions
 
     __test__ = True
 
+    # Helpers
+
+    # override
+    @property
+    def filename(self):
+        return 'vars.py'
+
+    # Tests
+
     def test_command(self):
-        result = self._execute('command')
+        result = self.execute('command')
         self.assertEqual(result, 'Hello World!\nNone\n')
 
     def test_derived(self):
-        result = self._execute('derived')
+        result = self.execute('derived')
         self.assertEqual(result, 'Hello World!\nNone\n')
 
     def test_descriptor(self):
-        result = self._execute('descriptor')
+        result = self.execute('descriptor')
         self.assertEqual(result, 'True\n')
 
     def test_find(self):
-        result = self._execute('find')
+        result = self.execute('find')
         self.assertEqual(result, 'find\n')
 
     def test_function(self):
-        result = self._execute('function')
+        result = self.execute('function')
         self.assertRegex(result, '.*examples/path\n')
 
     def test_list(self):
-        result = self._execute('list')
+        result = self.execute('list')
         self.assertEqual(
             result,
             'command\n'
@@ -40,10 +49,3 @@ class VarsTest(ExamplesTest):
             'info\n'
             'list\n'
             'meta\n')
-
-    # Protected
-
-    # override
-    @property
-    def _filename(self):
-        return 'vars.py'

@@ -3,36 +3,45 @@ from tests.system.test_examples import ExamplesTest
 
 class TasksTest(ExamplesTest):
 
-    # Public
+    # Actions
 
     __test__ = True
 
+    # Helpers
+
+    # override
+    @property
+    def filename(self):
+        return 'tasks.py'
+
+    # Tests
+
     def test_command(self):
-        result = self._execute('command')
+        result = self.execute('command')
         self.assertEqual(result, 'Hello World!\n')
 
     def test_derived(self):
-        result = self._execute('derived')
+        result = self.execute('derived')
         self.assertEqual(result, 'Hello World!\n')
 
     def test_descriptor(self):
-        result = self._execute('descriptor')
+        result = self.execute('descriptor')
         self.assertEqual(result, 'True\n')
 
     def test_find(self):
-        result = self._execute('find')
+        result = self.execute('find')
         self.assertEqual(result, 'find\n')
 
     def test_function(self):
-        result = self._execute('function path')
+        result = self.execute('function path')
         self.assertRegex(result, '.*examples/path\n')
 
     def test_info(self):
-        result = self._execute('info list')
+        result = self.execute('info list')
         self.assertRegex(result, 'list.*')
 
     def test_list(self):
-        result = self._execute('list')
+        result = self.execute('list')
         self.assertEqual(
             result,
             'command\n'
@@ -46,16 +55,9 @@ class TasksTest(ExamplesTest):
             'null\n')
 
     def test_meta(self):
-        result = self._execute('meta list')
+        result = self.execute('meta list')
         self.assertRegex(result, ".*'type': 'FunctionTask'}\n")
 
     def test_null(self):
-        result = self._execute('null')
+        result = self.execute('null')
         self.assertEqual(result, 'Hello World!\n')
-
-    # Protected
-
-    # override
-    @property
-    def _filename(self):
-        return 'tasks.py'
