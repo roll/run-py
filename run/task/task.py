@@ -157,7 +157,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - inherited from module
         """
         try:
-            return self._meta_params['basedir']
+            return self.meta_params['basedir']
         except KeyError:
             try:
                 return self._inherit('meta_basedir')
@@ -166,7 +166,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     @meta_basedir.setter
     def meta_basedir(self, value):
-        self._meta_params['basedir'] = value
+        self.meta_params['basedir'] = value
 
     @property
     def meta_cache(self):
@@ -179,12 +179,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'cache', self.meta_module.meta_cache)
 
     @meta_cache.setter
     def meta_cache(self, value):
-        self._meta_params['cache'] = value
+        self.meta_params['cache'] = value
 
     @property
     def meta_chdir(self):
@@ -197,12 +197,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'chdir', self.meta_module.meta_chdir)
 
     @meta_chdir.setter
     def meta_chdir(self, value):
-        self._meta_params['chdir'] = value
+        self.meta_params['chdir'] = value
 
     @property
     def meta_dependencies(self):
@@ -221,12 +221,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'dispatcher', self.meta_module.meta_dispatcher)
 
     @meta_dispatcher.setter
     def meta_dispatcher(self, value):
-        self._meta_params['dispatcher'] = value
+        self.meta_params['dispatcher'] = value
 
     @property
     def meta_docstring(self):
@@ -236,12 +236,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
         - initable/writable
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'docstring', str(inspect.getdoc(self)).strip())
 
     @meta_docstring.setter
     def meta_docstring(self, value):
-        self._meta_params['docstring'] = value
+        self.meta_params['docstring'] = value
 
     @property
     def meta_fallback(self):
@@ -254,12 +254,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'fallback', self.meta_module.meta_fallback)
 
     @meta_fallback.setter
     def meta_fallback(self, value):
-        self._meta_params['fallback'] = value
+        self.meta_params['fallback'] = value
 
     @property
     def meta_fullname(self):
@@ -315,6 +315,10 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         return '.'.join(filter(None, [module_qualname, self.meta_name]))
 
     @property
+    def meta_params(self):
+        return self._meta_params
+
+    @property
     def meta_plain(self):
         """Task's plain flag (plain or not).
 
@@ -323,12 +327,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'plain', self.meta_module.meta_plain)
 
     @meta_plain.setter
     def meta_plain(self, value):
-        self._meta_params['plain'] = value
+        self.meta_params['plain'] = value
 
     @property
     def meta_signature(self):
@@ -338,12 +342,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
         - initable/writable
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'signature', str(inspect.signature(self.meta_invoke)))
 
     @meta_signature.setter
     def meta_signature(self, value):
-        self._meta_params['signature'] = value
+        self.meta_params['signature'] = value
 
     @property
     def meta_strict(self):
@@ -354,12 +358,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get(
+        return self.meta_params.get(
             'strict', self.meta_module.meta_strict)
 
     @meta_strict.setter
     def meta_strict(self, value):
-        self._meta_params['strict'] = value
+        self.meta_params['strict'] = value
 
     @property
     def meta_style(self):
@@ -379,11 +383,11 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     _meta_trigger = trigger
 
     def _meta_init_dependencies(self):
-        for dependency in self._meta_params.get('depend', []):
+        for dependency in self.meta_params.get('depend', []):
             self.meta_depend(dependency)
-        for task in self._meta_params.get('require', []):
+        for task in self.meta_params.get('require', []):
             self.meta_require(task)
-        for task in self._meta_params.get('trigger', []):
+        for task in self.meta_params.get('trigger', []):
             self.meta_trigger(task)
 
     def _meta_add_signal(self, event):
