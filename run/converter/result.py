@@ -1,3 +1,4 @@
+# TODO: rename?
 class Result:
 
     # Public
