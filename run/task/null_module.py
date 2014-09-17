@@ -18,14 +18,6 @@ class NullModule:
         raise KeyError(name)
 
     @property
-    def meta_qualname(self):
-        return ''
-
-    @property
-    def meta_plain(self):
-        return self._meta_default_plain
-
-    @property
     def meta_strict(self):
         return self._meta_default_strict
 

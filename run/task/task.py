@@ -360,8 +360,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_params.get(
-            'plain', self.meta_module.meta_plain)
+        try:
+            return self.meta_params['plain']
+        except KeyError:
+            try:
+                return self._inherit('meta_plain')
+            except TaskInheritError:
+                return settings.plain
 
     @meta_plain.setter
     def meta_plain(self, value):
