@@ -139,14 +139,18 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params[name]
         except KeyError:
             if inherit:
-                if self.meta_module is not None:
-                    return getattr(self.meta_module, 'meta_' + name)
+                return self.meta_derive('meta_' + name)
         if default is not Null:
             return default
         raise AttributeError('meta_' + name)
 
     def meta_setmeta(self, name, value):
         self.meta_params[name] = value
+
+    def meta_derive(self, name):
+        if self.meta_module is None:
+            raise TaskInheritError(name)
+        return getattr(self.meta_module, name)
 
     @property
     def meta_args(self):
