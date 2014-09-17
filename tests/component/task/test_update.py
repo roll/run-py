@@ -1,14 +1,17 @@
 import unittest
 from unittest.mock import Mock
-from run.task.update import Update
+from importlib import import_module
+component = import_module('run.task.update')
 
 
 class UpdateTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.update = Update('method', 'value')
+        self.update = component.Update('method', 'value')
+
+    # Tests
 
     def test_apply(self):
         task = Mock()

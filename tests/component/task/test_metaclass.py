@@ -1,18 +1,29 @@
 import unittest
 from unittest.mock import Mock
-from run.task import metaclass
+from importlib import import_module
+component = import_module('run.task.metaclass')
 
 
 @unittest.skip
 class TaskMetaclassTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Prototype = Mock(return_value=Mock(__meta_build__=Mock()))
-        self.Class = self._make_mock_class(self.Prototype)
+        self.Class = self.make_mock_class(self.Prototype)
+
+    # Helpers
+
+    def make_mock_class(self, Prototype):
+        class MockClass(metaclass=component.TaskMetaclass):
+            # Public
+            meta_prototype = Prototype
+        return MockClass
+
+    # Tests
 
     def test___call__(self):
         instance = self.Class(*self.args, **self.kwargs)
@@ -47,11 +58,3 @@ class TaskMetaclassTest(unittest.TestCase):
         # Check prototype call
         self.prototype = self.Prototype.return_value
         self.prototype.__meta_build__.assert_called_with(None)
-
-    # Protected
-
-    def _make_mock_class(self, Prototype):
-            class MockClass(metaclass=metaclass.TaskMetaclass):
-                # Public
-                meta_prototype = Prototype
-            return MockClass

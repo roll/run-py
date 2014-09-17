@@ -1,14 +1,15 @@
 import unittest
 from unittest.mock import Mock
-from run.task.build import build
+from importlib import import_module
+component = import_module('run.task.build')
 
 
 class build_Test(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
         prototype = Mock(__meta_build__=Mock(return_value='builded_prototype'))
-        builded_prototype = build(prototype, 'module')
+        builded_prototype = component.build(prototype, 'module')
         self.assertEqual(builded_prototype, 'builded_prototype')
         prototype.__meta_build__.assert_called_with('module')

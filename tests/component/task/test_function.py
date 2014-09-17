@@ -1,17 +1,20 @@
 import unittest
 from unittest.mock import Mock
-from run.task.function import FunctionTask
+from importlib import import_module
+component = import_module('run.task.function')
 
 
 class FunctionTaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.function = Mock(__doc__='__doc__')
-        self.task = FunctionTask(self.function, meta_module=None)
+        self.task = component.FunctionTask(self.function, meta_module=None)
+
+    # Tests
 
     def test___call__(self):
         result = self.task(*self.args, **self.kwargs)

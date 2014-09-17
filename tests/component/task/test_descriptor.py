@@ -1,15 +1,18 @@
 import unittest
 from unittest.mock import Mock
-from run.task.descriptor import DescriptorTask
+from importlib import import_module
+component = import_module('run.task.descriptor')
 
 
 class DescriptorTaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.descriptor = Mock(__get__=Mock(), __doc__='__doc__')
-        self.task = DescriptorTask(self.descriptor, meta_module=None)
+        self.task = component.DescriptorTask(self.descriptor, meta_module=None)
+
+    # Tests
 
     def test___call__(self):
         result = self.task()

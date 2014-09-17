@@ -1,18 +1,21 @@
 import unittest
 from unittest.mock import Mock, patch
-from run.task import signal
+from importlib import import_module
+component = import_module('run.task.signal')
 
 
 class TaskSignalTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
         self.settings = Mock()
-        patch.object(signal, 'settings', self.settings).start()
+        patch.object(component, 'settings', self.settings).start()
         self.task = Mock()
-        self.signal = signal.TaskSignal(self.task, event='event')
+        self.signal = component.TaskSignal(self.task, event='event')
+
+    # Tests
 
     def test_format(self):
         self.settings.events = {'event': 'event'}

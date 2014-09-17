@@ -1,22 +1,36 @@
 import unittest
 from unittest.mock import Mock, patch
-from run.task import prototype
+from importlib import import_module
+component = import_module('run.task.prototype')
 
 
 class PrototypeTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
         self.update = Mock()
         self.Update = Mock(return_value=self.update)
-        patch.object(prototype, 'Update', self.Update).start()
+        patch.object(component, 'Update', self.Update).start()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Task = self._make_mock_task_class()
-        self.prototype = prototype.Prototype(
+        self.Task = self.make_mock_task_class()
+        self.prototype = component.Prototype(
             *self.args, meta_class=self.Task, **self.kwargs)
+
+    # Helpers
+
+    def make_mock_task_class(self):
+        class MockTask:
+            # Public
+            __meta_create__ = Mock()
+            __meta_update__ = Mock()
+            attr1 = 'value1'
+            attr2 = Mock
+        return MockTask
+
+    # Tests
 
     def test___getattr__(self):
         self.assertEqual(self.prototype.attr2, Mock)
@@ -39,19 +53,8 @@ class PrototypeTest(unittest.TestCase):
     def test___meta_fork__(self):
         self.prototype.attr2 = 'value2'
         fork = self.prototype.__meta_fork__('arg2', kwarg2='kwarg2')
-        self.assertIsInstance(fork, prototype.Prototype)
+        self.assertIsInstance(fork, component.Prototype)
 
     # TODO: implement
     def test___meta_build__(self):
         pass
-
-    # Protected
-
-    def _make_mock_task_class(self):
-        class MockTask:
-            # Public
-            __meta_create__ = Mock()
-            __meta_update__ = Mock()
-            attr1 = 'value1'
-            attr2 = Mock
-        return MockTask
