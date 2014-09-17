@@ -1,12 +1,10 @@
-import os
 from box.functools import cachedproperty
 from ..settings import settings
 from ..signal import NullDispatcher
-from .module import Module
 
 
 # TODO: fixe protected/private
-class NullModule(Module):
+class NullModule:
 
     # Public
 
@@ -18,10 +16,6 @@ class NullModule(Module):
 
     def meta_lookup(self, name):
         raise KeyError(name)
-
-    @property
-    def meta_basedir(self):
-        return os.path.abspath(os.getcwd())
 
     @property
     def meta_cache(self):

@@ -9,6 +9,7 @@ from contextlib import contextmanager
 from ..converter import Result
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
+from .error import TaskInheritError
 from .metaclass import TaskMetaclass
 from .prototype import TaskPrototype
 from .signal import TaskSignal
@@ -155,8 +156,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self._meta_params.get(
-            'basedir', self.meta_module.meta_basedir)
+        try:
+            return self._meta_params['basedir']
+        except KeyError:
+            try:
+                return self._inherit('meta_basedir')
+            except TaskInheritError:
+                return os.path.abspath(os.getcwd())
 
     @meta_basedir.setter
     def meta_basedir(self, value):
@@ -399,3 +405,8 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             os.chdir(previous_dir)
         else:
             yield
+
+    def _inherit(self, name):
+        if self.meta_module is None:
+            return TaskInheritError(name)
+        return getattr(self.meta_module, name)
