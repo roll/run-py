@@ -26,10 +26,6 @@ class NullModule:
         return ''
 
     @property
-    def meta_main_module(self):
-        return self
-
-    @property
     def meta_plain(self):
         return self._meta_default_plain
 

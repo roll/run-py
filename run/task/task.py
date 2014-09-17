@@ -304,11 +304,15 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         """
         return self._meta_kwargs
 
+    # TODO: move only to Module? Remove?
     @property
     def meta_main_module(self):
         """Task's main module of module hierarchy.
         """
-        return self.meta_module.meta_main_module
+        main_module = None
+        if self.meta_module:
+            main_module = self.meta_module.meta_main_module
+        return main_module
 
     @property
     def meta_module(self):
