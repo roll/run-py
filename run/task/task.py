@@ -174,7 +174,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['basedir']
         except KeyError:
             try:
-                return self.__inherit('meta_basedir')
+                return self.meta_derive('meta_basedir')
             except TaskInheritError:
                 return os.path.abspath(os.getcwd())
 
@@ -197,7 +197,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['cache']
         except KeyError:
             try:
-                return self.__inherit('meta_cache')
+                return self.meta_derive('meta_cache')
             except TaskInheritError:
                 return settings.cache
 
@@ -220,7 +220,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['chdir']
         except KeyError:
             try:
-                return self.__inherit('meta_chdir')
+                return self.meta_derive('meta_chdir')
             except TaskInheritError:
                 return settings.chdir
 
@@ -249,7 +249,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['dispatcher']
         except KeyError:
             try:
-                return self.__inherit('meta_dispatcher')
+                return self.meta_derive('meta_dispatcher')
             except TaskInheritError:
                 return None
 
@@ -287,7 +287,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['fallback']
         except KeyError:
             try:
-                return self.__inherit('meta_fallback')
+                return self.meta_derive('meta_fallback')
             except TaskInheritError:
                 return settings.fallback
 
@@ -376,7 +376,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['plain']
         except KeyError:
             try:
-                return self.__inherit('meta_plain')
+                return self.meta_derive('meta_plain')
             except TaskInheritError:
                 return settings.plain
 
@@ -412,7 +412,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['strict']
         except KeyError:
             try:
-                return self.__inherit('meta_strict')
+                return self.meta_derive('meta_strict')
             except TaskInheritError:
                 return settings.strict
 
@@ -460,8 +460,3 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             os.chdir(previous_dir)
         else:
             yield
-
-    def __inherit(self, name):
-        if self.meta_module is None:
-            raise TaskInheritError(name)
-        return getattr(self.meta_module, name)
