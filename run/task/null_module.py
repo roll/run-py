@@ -17,10 +17,6 @@ class NullModule:
     def meta_lookup(self, name):
         raise KeyError(name)
 
-    @cachedproperty
-    def meta_dispatcher(self):
-        return self._meta_NullDispatcher()
-
     @property
     def meta_fallback(self):
         return self._meta_default_fallback

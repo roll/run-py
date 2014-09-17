@@ -9,6 +9,7 @@ from contextlib import contextmanager
 from ..converter import Result
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
+from ..signal import NullDispatcher
 from .error import TaskInheritError
 from .metaclass import TaskMetaclass
 from .prototype import TaskPrototype
@@ -231,8 +232,14 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_params.get(
-            'dispatcher', self.meta_module.meta_dispatcher)
+        try:
+            return self.meta_params['dispatcher']
+        except KeyError:
+            try:
+                return self._inherit('meta_dispatcher')
+            except TaskInheritError:
+                # TODO: not cached! change to None?
+                return NullDispatcher()
 
     @meta_dispatcher.setter
     def meta_dispatcher(self, value):
