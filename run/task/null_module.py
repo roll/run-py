@@ -18,10 +18,6 @@ class NullModule:
         raise KeyError(name)
 
     @property
-    def meta_strict(self):
-        return self._meta_default_strict
-
-    @property
     def meta_tasks(self):
         return {}
 

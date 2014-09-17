@@ -396,8 +396,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_params.get(
-            'strict', self.meta_module.meta_strict)
+        try:
+            return self.meta_params['strict']
+        except KeyError:
+            try:
+                return self._inherit('meta_strict')
+            except TaskInheritError:
+                return settings.strict
 
     @meta_strict.setter
     def meta_strict(self, value):
