@@ -9,7 +9,6 @@ from contextlib import contextmanager
 from ..converter import Result
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
-from ..signal import NullDispatcher
 from .error import TaskInheritError
 from .metaclass import TaskMetaclass
 from .prototype import TaskPrototype
@@ -238,8 +237,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             try:
                 return self._inherit('meta_dispatcher')
             except TaskInheritError:
-                # TODO: not cached! change to None?
-                return NullDispatcher()
+                return None
 
     @meta_dispatcher.setter
     def meta_dispatcher(self, value):
@@ -434,8 +432,9 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             self.meta_trigger(task)
 
     def _meta_add_signal(self, event):
-        signal = self._meta_TaskSignal(self, event=event)
-        self.meta_dispatcher.add_signal(signal)
+        if self.meta_dispatcher:
+            signal = self._meta_TaskSignal(self, event=event)
+            self.meta_dispatcher.add_signal(signal)
 
     def _meta_resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
