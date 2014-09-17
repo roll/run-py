@@ -1,11 +1,14 @@
 import unittest
-from run.var.function import FunctionVar, Var, FunctionTask
+from importlib import import_module
+component = import_module('run.var.function')
 
 
 class FunctionVarTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertTrue(issubclass(FunctionVar, Var))
-        self.assertTrue(issubclass(FunctionVar, FunctionTask))
+        self.assertTrue(issubclass(
+            component.FunctionVar, component.Var))
+        self.assertTrue(issubclass(
+            component.FunctionVar, component.FunctionTask))

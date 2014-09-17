@@ -1,11 +1,14 @@
 import unittest
-from run.var.descriptor import DescriptorVar, Var, DescriptorTask
+from importlib import import_module
+component = import_module('run.var.descriptor')
 
 
 class DescriptorVarTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertTrue(issubclass(DescriptorVar, Var))
-        self.assertTrue(issubclass(DescriptorVar, DescriptorTask))
+        self.assertTrue(issubclass(
+            component.DescriptorVar, component.Var))
+        self.assertTrue(issubclass(
+            component.DescriptorVar, component.DescriptorTask))
