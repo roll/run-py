@@ -327,10 +327,11 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         Name is defined as task name in module.
         """
         name = ''
-        tasks = self.meta_module.meta_tasks
-        for key, task in tasks.items():
-            if task is self:
-                name = key
+        if self.meta_module:
+            tasks = self.meta_module.meta_tasks
+            for key, task in tasks.items():
+                if task is self:
+                    name = key
         return name
 
     @property
