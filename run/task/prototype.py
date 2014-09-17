@@ -4,7 +4,7 @@ from ..converter import Result
 from .update import TaskUpdate
 
 
-class TaskPrototype(Result):
+class Prototype(Result):
 
     # Public
 

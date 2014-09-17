@@ -12,7 +12,6 @@ Dispatcher
 ----------
 
 .. autoclass:: run.signal.Dispatcher
-.. autoclass:: run.signal.NullDispatcher
 
 Handler
 -------

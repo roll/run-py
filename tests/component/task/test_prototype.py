@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 from run.task import prototype
 
 
-class TaskPrototypeTest(unittest.TestCase):
+class PrototypeTest(unittest.TestCase):
 
     # Public
 
@@ -15,7 +15,7 @@ class TaskPrototypeTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self._make_mock_task_class()
-        self.prototype = prototype.TaskPrototype(
+        self.prototype = prototype.Prototype(
             *self.args, meta_class=self.Task, **self.kwargs)
 
     def test___getattr__(self):
@@ -39,7 +39,7 @@ class TaskPrototypeTest(unittest.TestCase):
     def test___meta_fork__(self):
         self.prototype.attr2 = 'value2'
         fork = self.prototype.__meta_fork__('arg2', kwarg2='kwarg2')
-        self.assertIsInstance(fork, prototype.TaskPrototype)
+        self.assertIsInstance(fork, prototype.Prototype)
 
     # TODO: implement
     def test___meta_build__(self):

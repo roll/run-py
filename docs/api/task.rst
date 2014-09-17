@@ -14,15 +14,10 @@ Concrete tasks
 .. autoclass:: run.task.DescriptorTask
 .. autoclass:: run.task.FunctionTask
 
-Metaclass
----------
-
-.. autoclass:: run.task.TaskMetaclass
-
 Prototype
 ---------
 
-.. autoclass:: run.task.TaskPrototype
+.. autoclass:: run.task.Prototype
 
 Signal class
 ------------
@@ -32,6 +27,5 @@ Signal class
 Helper functions
 ----------------
 
-.. autofunction:: run.task.build
 .. autofunction:: run.task.fork
 .. autofunction:: run.task.task

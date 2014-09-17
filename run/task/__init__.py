@@ -4,6 +4,6 @@ from .descriptor import DescriptorTask
 from .fork import fork
 from .function import FunctionTask
 from .module import Module
-from .prototype import TaskPrototype
+from .prototype import Prototype
 from .signal import TaskSignal
 from .task import Task

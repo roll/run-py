@@ -3,7 +3,7 @@ def build(prototype, module):
 
     Parameters
     ----------
-    prototype: :class:`.TaskPrototype`
+    prototype: :class:`.Prototype`
         Task prototype.
     module: :class:`.Module`
         Module to build prototype as task of module.

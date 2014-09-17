@@ -3,7 +3,7 @@ def fork(prototype, *args, **kwargs):
 
     Parameters
     ----------
-    prototype: :class:`.TaskPrototype`
+    prototype: :class:`.Prototype`
         Task prototype to fork.
     args: tuple
         Positional arguments to add to prototype's default.
