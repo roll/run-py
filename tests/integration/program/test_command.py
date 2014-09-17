@@ -6,10 +6,12 @@ from run.settings import settings
 
 class CommandTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.pCommand = partial(Command, config=settings.argparse)
+
+    # Tests
 
     def test(self):
         self.command = self.pCommand(['run'])

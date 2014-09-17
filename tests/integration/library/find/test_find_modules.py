@@ -8,13 +8,21 @@ from run.library.find.find_modules import find_modules
 
 class find_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.stdout = patch('sys.stdout', new_callable=StringIO).start()
         self.addCleanup(patch.stopall)
         self.pfind = partial(
-            find_modules, basedir=self._basedir, reducers=[list])
+            find_modules, basedir=self.basedir, reducers=[list])
+
+    # Helpers
+
+    @property
+    def basedir(self):
+        return os.path.join(os.path.dirname(__file__), 'fixtures')
+
+    # Tests
 
     def test_find(self):
         modules = self.pfind(file='runfile.py')
@@ -55,9 +63,3 @@ class find_Test(unittest.TestCase):
             tags=['tag2'], file='runfile.py', recursively=True)
         self.assertEqual(len(modules), 1)
         self.assertEqual(modules[0].__name__, 'Module2')
-
-    # Protected
-
-    @property
-    def _basedir(self):
-        return os.path.join(os.path.dirname(__file__), 'fixtures')

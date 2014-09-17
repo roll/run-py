@@ -5,33 +5,6 @@ from run.module import Module
 from run.task import Task
 from run.var import Var
 
-# Tests
-
-class ModuleTest(unittest.TestCase):
-
-    # Public
-
-    def setUp(self):
-        self.patcher = patch('sys.stdout', new_callable=StringIO)
-        self.stdout = self.patcher.start()
-        self.addCleanup(patch.stopall)
-        self.module = MockModule(meta_module=None)
-
-    def test_list(self):
-        self.module.list()
-        self.assertEqual(
-            self.stdout.getvalue(),
-            'attribute\n'
-            'class_var\n'
-            'info\n'
-            'list\n'
-            'meta\n'
-            'method_task\n'
-            'module\n'
-            'property_var\n'
-            'task\n'
-            'var\n')
-
 
 # Fixtures
 
@@ -91,3 +64,33 @@ class MockModule(Module):
     @property
     def property_var(self):
         pass
+
+
+# Cases
+
+class ModuleTest(unittest.TestCase):
+
+    # Actions
+
+    def setUp(self):
+        self.patcher = patch('sys.stdout', new_callable=StringIO)
+        self.stdout = self.patcher.start()
+        self.addCleanup(patch.stopall)
+        self.module = MockModule(meta_module=None)
+
+    # Tests
+
+    def test_list(self):
+        self.module.list()
+        self.assertEqual(
+            self.stdout.getvalue(),
+            'attribute\n'
+            'class_var\n'
+            'info\n'
+            'list\n'
+            'meta\n'
+            'method_task\n'
+            'module\n'
+            'property_var\n'
+            'task\n'
+            'var\n')
