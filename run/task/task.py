@@ -454,5 +454,5 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     def _inherit(self, name):
         if self.meta_module is None:
-            return TaskInheritError(name)
+            raise TaskInheritError(name)
         return getattr(self.meta_module, name)

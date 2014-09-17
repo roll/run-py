@@ -63,7 +63,7 @@ class Module(Task, Module, metaclass=ModuleMetaclass):
 
     @meta_basedir.setter
     def meta_basedir(self, value):
-        super().meta_basedir = value
+        self.meta_params['basedir'] = value
 
     @property
     def meta_default(self):
@@ -71,7 +71,7 @@ class Module(Task, Module, metaclass=ModuleMetaclass):
 
     @meta_default.setter
     def meta_default(self, value):
-        super().meta_default = value
+        self.meta_params['default'] = value
 
     @property
     def meta_fullname(self):

@@ -1,7 +1,8 @@
+import os
 import unittest
 from functools import partial
 from unittest.mock import Mock, call
-from run.task.task import Task
+from run.task.task import Task, settings
 
 
 class TaskTest(unittest.TestCase):
@@ -169,23 +170,21 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_basedir(self):
         self.assertEqual(self.task.meta_basedir,
-                         self.task.meta_module.meta_basedir)
+                         os.path.abspath(os.getcwd()))
 
     def test_meta_basedir_setter(self):
         self.task.meta_basedir = 'basedir'
         self.assertEqual(self.task.meta_basedir, 'basedir')
 
     def test_meta_cache(self):
-        self.assertEqual(self.task.meta_cache,
-                         self.task.meta_module.meta_cache)
+        self.assertEqual(self.task.meta_cache, settings.cache)
 
     def test_meta_cache_setter(self):
         self.task.meta_cache = 'cache'
         self.assertEqual(self.task.meta_cache, 'cache')
 
     def test_meta_chdir(self):
-        self.assertEqual(self.task.meta_chdir,
-                         self.task.meta_module.meta_chdir)
+        self.assertEqual(self.task.meta_chdir, settings.chdir)
 
     def test_meta_chdir_setter(self):
         self.task.meta_chdir = 'chdir'
@@ -215,8 +214,7 @@ class TaskTest(unittest.TestCase):
         trigger.bind.assert_called_with(self.task)
 
     def test_meta_dispatcher(self):
-        self.assertEqual(self.task.meta_dispatcher,
-                         self.task.meta_module.meta_dispatcher)
+        self.assertEqual(self.task.meta_dispatcher, None)
 
     def test_meta_dispatcher_setter(self):
         self.task.meta_dispatcher = 'dispatcher'
@@ -231,8 +229,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_docstring, 'docstring')
 
     def test_meta_fallback(self):
-        self.assertEqual(self.task.meta_fallback,
-                         self.task.meta_module.meta_fallback)
+        self.assertEqual(self.task.meta_fallback, settings.fallback)
 
     def test_meta_fallback_setter(self):
         self.task.meta_fallback = 'fallback'
@@ -293,8 +290,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_qualname, 'module.task')
 
     def test_meta_plain(self):
-        self.assertEqual(self.task.meta_plain,
-                         self.task.meta_module.meta_plain)
+        self.assertEqual(self.task.meta_plain, settings.plain)
 
     def test_meta_plain_setter(self):
         self.task.meta_plain = 'plain'
@@ -308,8 +304,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_signature, 'signature')
 
     def test_meta_strict(self):
-        self.assertEqual(self.task.meta_strict,
-                         self.task.meta_module.meta_strict)
+        self.assertEqual(self.task.meta_strict, settings.strict)
 
     def test_meta_strict_setter(self):
         self.task.meta_strict = 'strict'
