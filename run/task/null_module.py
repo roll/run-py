@@ -17,14 +17,6 @@ class NullModule:
     def meta_lookup(self, name):
         raise KeyError(name)
 
-    @property
-    def meta_cache(self):
-        return self._meta_default_cache
-
-    @property
-    def meta_chdir(self):
-        return self._meta_default_chdir
-
     @cachedproperty
     def meta_dispatcher(self):
         return self._meta_NullDispatcher()

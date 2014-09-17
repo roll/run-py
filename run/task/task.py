@@ -179,8 +179,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_params.get(
-            'cache', self.meta_module.meta_cache)
+        try:
+            return self.meta_params['cache']
+        except KeyError:
+            try:
+                return self._inherit('meta_cache')
+            except TaskInheritError:
+                return settings.cache
 
     @meta_cache.setter
     def meta_cache(self, value):
@@ -197,8 +202,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_params.get(
-            'chdir', self.meta_module.meta_chdir)
+        try:
+            return self.meta_params['chdir']
+        except KeyError:
+            try:
+                return self._inherit('meta_chdir')
+            except TaskInheritError:
+                return settings.chdir
 
     @meta_chdir.setter
     def meta_chdir(self, value):
@@ -411,6 +421,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             yield
 
     def _inherit(self, name):
-        if self.meta_module is None:
+        # TODO: change to is None after NullModule removed
+        if not self.meta_module:
             return TaskInheritError(name)
         return getattr(self.meta_module, name)
