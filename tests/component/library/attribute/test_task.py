@@ -2,6 +2,7 @@ import unittest
 from run.library.attribute.task import AttributeTask
 
 
+@unittest.skip
 class AttributeTaskTest(unittest.TestCase):
 
     # Public

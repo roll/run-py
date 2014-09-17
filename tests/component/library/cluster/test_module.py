@@ -3,6 +3,7 @@ from unittest.mock import Mock, ANY, patch
 from run.library.cluster import module
 
 
+@unittest.skip
 class ClusterModuleTest(unittest.TestCase):
 
     # Public

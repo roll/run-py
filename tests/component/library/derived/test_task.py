@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from run.library.derived.task import DerivedTask
 
 
+@unittest.skip
 class DerivedTaskTest(unittest.TestCase):
 
     # Public

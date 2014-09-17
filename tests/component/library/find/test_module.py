@@ -3,6 +3,7 @@ from unittest.mock import Mock, ANY, patch
 from run.library.find import module
 
 
+@unittest.skip
 class FindModuleTest(unittest.TestCase):
 
     # Public
