@@ -1,16 +1,17 @@
 import unittest
 from unittest.mock import Mock
-from run.dependency.depend import depend
+from importlib import import_module
+component = import_module('run.dependency.depend')
 
 
 class depend_Test(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
         dependency = Mock()
         method = Mock()
-        result = depend(dependency)(method)
+        result = component.depend(dependency)(method)
         self.assertEqual(result, dependency.return_value)
         # Check dependency call
         dependency.assert_called_with(method)

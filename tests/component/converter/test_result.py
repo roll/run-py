@@ -5,7 +5,7 @@ component = import_module('run.converter.result')
 
 class ResultTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
         self.assertTrue(issubclass(component.Result, object))

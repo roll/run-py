@@ -6,7 +6,7 @@ component = import_module('run.converter.skip')
 
 class skip_Test(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
         task = Mock()

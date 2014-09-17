@@ -1,16 +1,19 @@
 import unittest
 from unittest.mock import patch
-from run.dependency.require import require
+from importlib import import_module
+component = import_module('run.dependency.require')
 
 
 class require_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
-        self.invoke = patch.object(require, 'invoke').start()
-        self.require = require('task')
+        self.invoke = patch.object(component.require, 'invoke').start()
+        self.require = component.require('task')
+
+    # Tests
 
     def test_resolve(self):
         self.require.resolve()

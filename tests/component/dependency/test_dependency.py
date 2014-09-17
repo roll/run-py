@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock, patch
-from run.dependency import dependency
+from importlib import import_module
+component = import_module('run.dependency.dependency')
 
 
 class DependencyTest(unittest.TestCase):
@@ -10,13 +11,23 @@ class DependencyTest(unittest.TestCase):
     def setUp(self):
         self.addCleanup(patch.stopall)
         self.convert = Mock()
-        patch.object(dependency, 'convert', self.convert).start()
+        patch.object(component, 'convert', self.convert).start()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.successor = Mock()
-        self.Dependency = self._make_mock_dependency()
+        self.Dependency = self.make_mock_dependency()
         self.dependency = self.Dependency('task', *self.args, **self.kwargs)
         self.dependency.bind(self.successor)
+
+    # Helpers
+
+    def make_mock_dependency(self):
+        class MockDependency(component.Dependency):
+            # Public
+            resolve = Mock()
+        return MockDependency
+
+    # Tests
 
     def test___repr__(self):
         self.successor.meta_module.task.__repr__ = lambda self: 'task'
@@ -53,7 +64,7 @@ class DependencyTest(unittest.TestCase):
         self.successor.meta_module = Mock(spec=[])
         self.assertRaises(AttributeError, self.dependency.invoke)
 
-    @patch.object(dependency.logging, 'getLogger')
+    @patch.object(component.logging, 'getLogger')
     def test_invoke_task_not_existent_and_strict_is_false(self, getLogger):
         self.successor.meta_strict = False
         self.successor.meta_module = Mock(spec=[])
@@ -76,11 +87,3 @@ class DependencyTest(unittest.TestCase):
         self.assertEqual(
             self.dependency.successor,
             self.successor)
-
-    # Protected
-
-    def _make_mock_dependency(self):
-        class MockDependency(dependency.Dependency):
-            # Public
-            resolve = Mock()
-        return MockDependency
