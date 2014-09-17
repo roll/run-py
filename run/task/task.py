@@ -150,6 +150,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_derive(self, name):
         if self.meta_module is None:
             raise TaskInheritError(name)
+        # TODO: add inheritance check
         return getattr(self.meta_module, name)
 
     @property
