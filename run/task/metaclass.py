@@ -1,7 +1,6 @@
 from abc import ABCMeta
 from box.types import Null
 from .build import build
-from .null_module import NullModule
 
 
 class TaskMetaclass(ABCMeta):
@@ -16,7 +15,5 @@ class TaskMetaclass(ABCMeta):
             return prototype
         else:
             # Build and return task
-            if meta_module is None:
-                meta_module = NullModule()
             task = build(prototype, meta_module)
             return task

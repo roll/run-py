@@ -454,7 +454,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             yield
 
     def _inherit(self, name):
-        # TODO: change to is None after NullModule removed
-        if not self.meta_module:
+        if self.meta_module is None:
             return TaskInheritError(name)
         return getattr(self.meta_module, name)

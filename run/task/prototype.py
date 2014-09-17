@@ -60,7 +60,7 @@ class TaskPrototype(Result):
         # Documented public wrapper in :func:`.build`
         task = self.__meta_create__(self.__class, module)
         if not module:
-            # NullModule - update
+            # Main module - update
             self.__meta_update__(task)
         return task
 
