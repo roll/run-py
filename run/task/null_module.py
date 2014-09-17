@@ -18,10 +18,6 @@ class NullModule:
         raise KeyError(name)
 
     @property
-    def meta_fallback(self):
-        return self._meta_default_fallback
-
-    @property
     def meta_fullname(self):
         return ''
 

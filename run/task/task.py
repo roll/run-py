@@ -271,8 +271,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_params.get(
-            'fallback', self.meta_module.meta_fallback)
+        try:
+            return self.meta_params['fallback']
+        except KeyError:
+            try:
+                return self._inherit('meta_fallback')
+            except TaskInheritError:
+                return settings.fallback
 
     @meta_fallback.setter
     def meta_fallback(self, value):
