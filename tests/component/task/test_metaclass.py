@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import Mock
 from run.task import metaclass
 
 
@@ -8,9 +8,6 @@ class TaskMetaclassTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.addCleanup(patch.stopall)
-        self.NullModule = Mock()
-        patch.object(metaclass, 'NullModule', self.NullModule).start()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Prototype = Mock(return_value=Mock(__meta_build__=Mock()))
@@ -46,12 +43,9 @@ class TaskMetaclassTest(unittest.TestCase):
         self.Prototype.assert_called_with(
             meta_class=self.Class,
             meta_updates=None)
-        # Check NullModule call
-        self.NullModule.assert_called_with()
         # Check prototype call
         self.prototype = self.Prototype.return_value
-        self.prototype.__meta_build__.assert_called_with(
-            self.NullModule.return_value)
+        self.prototype.__meta_build__.assert_called_with(None)
 
     # Protected
 
