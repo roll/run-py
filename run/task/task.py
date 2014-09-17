@@ -341,8 +341,11 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         Qualname is full task name in hierarhy starts
         from main module.
         """
-        module_qualname = self.meta_module.meta_qualname
-        return '.'.join(filter(None, [module_qualname, self.meta_name]))
+        qualname = ''
+        if self.meta_module:
+            module_qualname = self.meta_module.meta_qualname
+            qualname = '.'.join(filter(None, [module_qualname, self.meta_name]))
+        return qualname
 
     @property
     def meta_params(self):
