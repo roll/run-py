@@ -18,6 +18,8 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Public
 
+    meta_inherit = False
+
     @classmethod
     def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
         # Create task object
