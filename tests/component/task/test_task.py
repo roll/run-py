@@ -8,17 +8,28 @@ component = import_module('run.task.task')
 
 class TaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.module = Mock()
         self.update = Mock()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.Task = self._make_mock_task_class()
+        self.Task = self.make_task_class()
         self.pTask = partial(
             self.Task, meta_module=None, meta_updates=[self.update])
         self.task = self.pTask(*self.args, **self.kwargs)
+
+    # Helpers
+
+    def make_task_class(self):
+        class Task(component.Task):
+            """docstring"""
+            # Public
+            meta_invoke = Mock(return_value='value')
+        return Task
+
+    # Tests
 
     def test(self):
         # Check update.apply call
@@ -112,23 +123,23 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task(), 'value')
 
     def test___repr__(self):
-        self.assertEqual(repr(self.task), '<MockTask>')
+        self.assertEqual(repr(self.task), '<Task>')
 
     def test___repr___with_meta_module(self):
         self.Task.meta_module = self.module
         self.module.meta_qualname = 'module'
         self.module.meta_tasks = {'task': self.task}
-        self.assertEqual(repr(self.task), '<MockTask "module.task">')
+        self.assertEqual(repr(self.task), '<Task "module.task">')
 
     def test_meta_format(self):
         self.Task._styles = {'task': {'foreground': 'bright_green'}}
         self.assertEqual(self.task.meta_format('type'),
-                         '\x1b[92mMockTask\x1b[m')
+                         '\x1b[92mTask\x1b[m')
 
     def test_meta_format_with_meta_plain_is_true(self):
         self.Task.meta_plain = True
         self.Task._styles = {'task': {'foreground': 'bright_green'}}
-        self.assertEqual(self.task.meta_format('type'), 'MockTask')
+        self.assertEqual(self.task.meta_format('type'), 'Task')
 
     def test_meta_depend(self):
         dependency = Mock()
@@ -316,13 +327,4 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_style, 'task')
 
     def test_meta_type(self):
-        self.assertEqual(self.task.meta_type, 'MockTask')
-
-    # Protected
-
-    def _make_mock_task_class(self):
-        class MockTask(component.Task):
-            """docstring"""
-            # Public
-            meta_invoke = Mock(return_value='value')
-        return MockTask
+        self.assertEqual(self.task.meta_type, 'Task')
