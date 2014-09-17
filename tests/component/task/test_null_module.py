@@ -4,6 +4,7 @@ from unittest.mock import patch
 from run.task.null_module import NullModule
 
 
+@unittest.skip
 class NullModuleTest(unittest.TestCase):
 
     # Public
