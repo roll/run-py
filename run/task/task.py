@@ -134,6 +134,20 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         """
         pass  # pragma: no cover
 
+    def meta_getmeta(self, name, *, inherit=False, default=Null):
+        try:
+            return self.meta_params[name]
+        except KeyError:
+            if inherit:
+                if self.meta_module is not None:
+                    return getattr(self.meta_module, 'meta_' + name)
+        if default is not Null:
+            return default
+        raise AttributeError('meta_' + name)
+
+    def meta_setmeta(self, name, value):
+        self.meta_params[name] = value
+
     @property
     def meta_args(self):
         """Tasks's default arguments
