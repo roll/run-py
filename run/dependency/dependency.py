@@ -19,7 +19,6 @@ class Dependency(metaclass=ABCMeta):
 
     # Public
 
-    # TODO: namespaces collision?
     def __init__(self, predecessor_name, *args, **kwargs):
         self.__predecessor_name = predecessor_name
         self.__args = args

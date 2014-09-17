@@ -7,7 +7,6 @@ class FunctionTask(Task):
 
     # Public
 
-    # TODO: namespaces collision?
     def __init__(self, function, *args, bind=False, **kwargs):
         self.__function = function
         self.__bind = bind
