@@ -6,6 +6,7 @@ from .constraint import Constraint
 from .not_found import NotFound
 
 
+# TODO: add attribute find parameter?
 # TODO: fix protected/private
 class find_modules(Function):
     """Find run modules.

@@ -57,10 +57,9 @@ class Module(Task, Module, metaclass=ModuleMetaclass):
     def meta_basedir(self):
         if self.meta_is_main_module:
             file = inspect.getfile(type(self))
-            basedir = os.path.abspath(os.path.dirname(file))
+            return os.path.abspath(os.path.dirname(file))
         else:
-            basedir = self.meta_module.meta_basedir
-        return self._meta_params.get('basedir', basedir)
+            return super().meta_basedir
 
     @meta_basedir.setter
     def meta_basedir(self, value):
