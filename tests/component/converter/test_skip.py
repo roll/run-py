@@ -1,6 +1,7 @@
 import unittest
 from unittest.mock import Mock
-from run.converter.skip import skip
+from importlib import import_module
+component = import_module('run.converter.skip')
 
 
 class skip_Test(unittest.TestCase):
@@ -9,5 +10,5 @@ class skip_Test(unittest.TestCase):
 
     def test(self):
         task = Mock()
-        self.assertEqual(skip(task), task)
-        self.assertEqual(getattr(task, skip.attribute_name), True)
+        self.assertEqual(component.skip(task), task)
+        self.assertEqual(getattr(task, component.skip.attribute_name), True)

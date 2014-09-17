@@ -1,14 +1,27 @@
 import unittest
 from unittest.mock import Mock
-from run.converter.converter import Converter, Result, skip
+from importlib import import_module
+component = import_module('run.converter.converter')
+
 
 class ConverterTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.converter = self._make_mock_converter()
+        self.converter = self.make_mock_converter()
+
+    # Helpers
+
+    def make_mock_converter(self):
+        class mock_converter(component.Converter):
+            # Protected
+            _match = Mock()
+            _make = Mock()
+        return mock_converter
+
+    # Tests
 
     def test(self):
         self.assertEqual(
@@ -21,7 +34,7 @@ class ConverterTest(unittest.TestCase):
             self.converter._make.return_value)
 
     def test_with_converted_object(self):
-        result = Result()
+        result = component.Result()
         self.assertEqual(self.converter(result), result)
 
     def test_with_staticmethod_object(self):
@@ -31,13 +44,4 @@ class ConverterTest(unittest.TestCase):
         self.assertRaises(TypeError, self.converter, classmethod(print))
 
     def test_with_skipped_object(self):
-        self.assertRaises(TypeError, self.converter, skip(Mock()))
-
-    # Protected
-
-    def _make_mock_converter(self):
-        class mock_converter(Converter):
-            # Protected
-            _match = Mock()
-            _make = Mock()
-        return mock_converter
+        self.assertRaises(TypeError, self.converter, component.skip(Mock()))

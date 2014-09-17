@@ -1,5 +1,6 @@
 import unittest
-from run.converter.result import Result
+from importlib import import_module
+component = import_module('run.converter.result')
 
 
 class ResultTest(unittest.TestCase):
@@ -7,4 +8,4 @@ class ResultTest(unittest.TestCase):
     # Public
 
     def test(self):
-        self.assertTrue(issubclass(Result, object))
+        self.assertTrue(issubclass(component.Result, object))
