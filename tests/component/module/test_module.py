@@ -1,8 +1,7 @@
-import inspect
 import unittest
+from importlib import import_module
 from unittest.mock import Mock, patch
-from run.module.module import Module
-component = inspect.getmodule(Module)
+component = import_module('run.module.module')
 
 
 class ModuleTest(unittest.TestCase):
