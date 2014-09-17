@@ -11,9 +11,6 @@ class TaskTest(unittest.TestCase):
     # Public
 
     def setUp(self):
-        self.addCleanup(patch.stopall)
-        self.TaskSignal = Mock()
-        patch.object(component, 'TaskSignal', self.TaskSignal).start()
         self.module = Mock()
         self.update = Mock()
         self.args = ('arg1',)
@@ -38,7 +35,8 @@ class TaskTest(unittest.TestCase):
         # Two calls because of caching is off
         self.assertEqual(self.task.meta_invoke.call_count, 2)
 
-    def test___get___with_meta_is_descriptor_and_meta_cache(self):
+    @patch.object(component, 'TaskSignal')
+    def test___get___with_meta_is_descriptor_and_meta_cache(self, TaskSignal):
         self.Task.meta_is_descriptor = True
         self.Task.meta_cache = True
         self.Task.meta_dispatcher = Mock()
@@ -48,40 +46,42 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_invoke.call_count, 1)
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskSignal call
-        self.TaskSignal.assert_has_calls(
+        TaskSignal.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='successed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call(self.TaskSignal.return_value),
-             call(self.TaskSignal.return_value)])
+            [call(TaskSignal.return_value),
+             call(TaskSignal.return_value)])
 
-    def test___call__(self):
+    @patch.object(component, 'TaskSignal')
+    def test___call__(self, TaskSignal):
         self.Task.meta_dispatcher = Mock()
         self.assertEqual(self.task(), 'value')
         # Check meta_invoke call
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskSignal call
-        self.TaskSignal.assert_has_calls(
+        TaskSignal.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='successed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call(self.TaskSignal.return_value),
-             call(self.TaskSignal.return_value)])
+            [call(TaskSignal.return_value),
+             call(TaskSignal.return_value)])
 
-    def test___call___with_meta_invoke_exception(self):
+    @patch.object(component, 'TaskSignal')
+    def test___call___with_meta_invoke_exception(self, TaskSignal):
         self.Task.meta_dispatcher = Mock()
         self.Task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check TaskSignal call
-        self.TaskSignal.assert_has_calls(
+        TaskSignal.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='failed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call(self.TaskSignal.return_value),
-             call(self.TaskSignal.return_value)])
+            [call(TaskSignal.return_value),
+             call(TaskSignal.return_value)])
 
     def test___call___with_meta_invoke_exception_and_meta_fallback(self):
         self.Task.meta_invoke.side_effect = Exception()
