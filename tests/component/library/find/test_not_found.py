@@ -1,5 +1,5 @@
 import unittest
-from run.find.not_found import NotFound
+from run.library.find.not_found import NotFound
 
 
 class NotFoundTest(unittest.TestCase):

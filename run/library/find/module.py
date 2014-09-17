@@ -1,7 +1,7 @@
 import os
 import inspect
-from ...find import find_modules
 from ...module import Module
+from .find_modules import find_modules
 
 
 class FindModule(Module):

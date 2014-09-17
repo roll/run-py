@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, ANY
-from run.find.find_modules import find_modules
+from run.library.find.find_modules import find_modules
 
 
 class find_Test(unittest.TestCase):

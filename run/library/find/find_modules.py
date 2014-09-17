@@ -1,10 +1,9 @@
 import os
 from find import find_objects
 from box.functools import Function, cachedproperty
-from ..settings import settings
+from ...settings import settings
 from .constraint import Constraint
 from .not_found import NotFound
-from .target import Target
 
 
 # TODO: fix protected/private
@@ -20,15 +19,12 @@ class find_modules(Function):
     default_key = settings.key
     default_recursively = settings.recursively
     default_tags = settings.tags
-    default_target = Target
 
     def __init__(self, *,
                  target=None,
                  key=None, tags=None,
                  file=None, exclude=None, basedir=None, recursively=None,
                  **find_params):
-        if target is None:
-            target = self.default_target
         if key is None:
             key = self.default_key
         if tags is None:
@@ -41,7 +37,6 @@ class find_modules(Function):
             basedir = self.default_basedir
         if recursively is None:
             recursively = self.default_recursively
-        self._target = target
         self._key = key
         self._tags = tags
         self._file = file
@@ -90,6 +85,6 @@ class find_modules(Function):
     @cachedproperty
     def _effective_constraints(self):
         constraints = [
-            Constraint(self._target, key=self._key, tags=self._tags)]
+            Constraint(key=self._key, tags=self._tags)]
         constraints += self._find_params.pop('constraints', [])
         return constraints

@@ -3,7 +3,7 @@ import unittest
 from io import StringIO
 from functools import partial
 from unittest.mock import patch
-from run.find.find_modules import find_modules
+from run.library.find.find_modules import find_modules
 
 
 class find_Test(unittest.TestCase):

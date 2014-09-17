@@ -1,13 +1,13 @@
 import inspect
 from find.frame import Constraint
+from ...module import Module
 
 
 class Constraint(Constraint):
 
     # Public
 
-    def __init__(self, target, *, key=None, tags=None):
-        self.__target = target
+    def __init__(self, *, key=None, tags=None):
         self.__key = key
         self.__tags = tags
 
@@ -16,7 +16,7 @@ class Constraint(Constraint):
             emitter.skip()
         elif not isinstance(emitter.objself, type):
             emitter.skip()
-        elif not issubclass(emitter.objself, self.__target):
+        elif not issubclass(emitter.objself, Module):
             emitter.skip()
         elif not self.__match_key(emitter.objself.meta_key):
             emitter.skip()
