@@ -10,6 +10,7 @@ from ..task import TaskSignal
 from .stack import Stack
 
 
+# TODO: Support for tasks without module in runfile?
 class Machine:
 
     # Public
