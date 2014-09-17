@@ -285,11 +285,14 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     @property
     def meta_fullname(self):
-        separator = '.'
-        if self.meta_module.meta_is_main_module:
-            separator = ' '
-        return separator.join(filter(None,
-            [self.meta_module.meta_fullname, self.meta_name]))
+        fullname = ''
+        if self.meta_module:
+            separator = '.'
+            if self.meta_module.meta_is_main_module:
+                separator = ' '
+            fullname = separator.join(filter(None,
+                [self.meta_module.meta_fullname, self.meta_name]))
+        return fullname
 
     @property
     def meta_is_descriptor(self):

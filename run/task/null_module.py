@@ -18,10 +18,6 @@ class NullModule:
         raise KeyError(name)
 
     @property
-    def meta_fullname(self):
-        return ''
-
-    @property
     def meta_is_main_module(self):
         return True
 
