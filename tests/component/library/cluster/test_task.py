@@ -1,19 +1,22 @@
 import unittest
 from unittest.mock import Mock
-from run.library.cluster.task import ClusterTask
+from importlib import import_module
+component = import_module('run.library.cluster.task')
 
 
 class ClusterTaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.nested_task1 = Mock()
         self.nested_task2 = Mock()
-        self.task = ClusterTask(
+        self.task = component.ClusterTask(
             [self.nested_task1, self.nested_task2], meta_module=None)
+
+    # Tests
 
     def test___call__(self):
         self.assertEqual(

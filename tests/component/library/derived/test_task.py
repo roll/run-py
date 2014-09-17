@@ -1,18 +1,21 @@
 import unittest
 from unittest.mock import Mock
-from run.library.derived.task import DerivedTask
+from importlib import import_module
+component = import_module('run.library.derived.task')
 
 
 @unittest.skip
 class DerivedTaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.task = DerivedTask('task', meta_module=None)
+        self.task = component.DerivedTask('task', meta_module=None)
         self.task.meta_module.task = Mock()
+
+    # Tests
 
     def test___call__(self):
         self.assertEqual(

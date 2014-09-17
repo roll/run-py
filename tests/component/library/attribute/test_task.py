@@ -1,15 +1,18 @@
 import unittest
-from run.library.attribute.task import AttributeTask
+from importlib import import_module
+component = import_module('run.library.attribute.task')
 
 
 @unittest.skip
 class AttributeTaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.task = AttributeTask('attribute', meta_module=None)
+        self.task = component.AttributeTask('attribute', meta_module=None)
         self.task.meta_module.attribute = 'attribute'
+
+    # Tests
 
     def test___call__(self):
         self.assertEqual(self.task(), 'attribute')

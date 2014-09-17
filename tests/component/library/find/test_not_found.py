@@ -1,10 +1,11 @@
 import unittest
-from run.library.find.not_found import NotFound
+from importlib import import_module
+component = import_module('run.library.find.not_found')
 
 
 class NotFoundTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertTrue(issubclass(NotFound, Exception))
+        self.assertTrue(issubclass(component.NotFound, Exception))

@@ -1,11 +1,12 @@
 import unittest
-from run.library.derived.var import DerivedTask, DerivedVar, Var
+from importlib import import_module
+component = import_module('run.library.derived.var')
 
 
 class DerivedVarTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertTrue(issubclass(DerivedVar, Var))
-        self.assertTrue(issubclass(DerivedVar, DerivedTask))
+        self.assertTrue(issubclass(component.DerivedVar, component.Var))
+        self.assertTrue(issubclass(component.DerivedVar, component.DerivedTask))

@@ -1,12 +1,13 @@
 import unittest
 from unittest.mock import Mock, ANY, patch
-from run.library.find import module
+from importlib import import_module
+component = import_module('run.library.find.module')
 
 
 @unittest.skip
 class FindModuleTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.args = ('arg1',)
@@ -14,10 +15,12 @@ class FindModuleTest(unittest.TestCase):
         self.FoundModule = Mock(
             return_value=Mock(meta_tasks={}, __meta_update__=Mock()))
         self.find = Mock(return_value=self.FoundModule)
-        patch.object(module, 'find_modules', self.find).start()
+        patch.object(component, 'find_modules', self.find).start()
+
+    # Tests
 
     def test(self):
-        self.module = module.FindModule(
+        self.module = component.FindModule(
             *self.args,
             meta_module=None,
             key='key',
@@ -30,7 +33,7 @@ class FindModuleTest(unittest.TestCase):
         self.assertEqual(self.module, self.FoundModule.return_value)
         # Check find call
         self.find.assert_called_with(
-            target=module.Module,
+            target=component.Module,
             key='key',
             tags='tags',
             file='file',

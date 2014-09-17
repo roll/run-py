@@ -1,19 +1,22 @@
 import unittest
 from functools import partial
 from unittest.mock import patch
-from run.library.render import task
+from importlib import import_module
+component = import_module('run.library.render.task')
 
 
 class RenderTaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.ptask = partial(task.RenderTask, meta_module=None)
+        self.ptask = partial(component.RenderTask, meta_module=None)
 
-    @patch.object(task.render, 'render_file')
+    # Tests
+
+    @patch.object(component.render, 'render_file')
     def test___call___with_mode_is_file(self, render_file):
         task = self.ptask(mode='file')
         result = task(*self.args, **self.kwargs)

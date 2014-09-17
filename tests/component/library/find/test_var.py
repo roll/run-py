@@ -1,11 +1,12 @@
 import unittest
-from run.library.find import var
+from importlib import import_module
+component = import_module('run.library.find.var')
 
 
 class FindVarTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertTrue(issubclass(var.FindVar, var.Var))
-        self.assertTrue(issubclass(var.FindVar, var.FindTask))
+        self.assertTrue(issubclass(component.FindVar, component.Var))
+        self.assertTrue(issubclass(component.FindVar, component.FindTask))

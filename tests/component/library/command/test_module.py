@@ -1,19 +1,30 @@
 import unittest
 from functools import partial
 from unittest.mock import patch, call
-from run.library.command import module
+from importlib import import_module
+component = import_module('run.library.command.module')
 
 
 class CommandModuleTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.Module = self._make_mock_module_class()
+        self.Module = self.make_mock_module_class()
         self.pModule = partial(self.Module, meta_module=None)
         self.module = self.pModule({'command1': 'command1'})
 
-    @patch.object(module, 'CommandTask')
+    # Helpers
+
+    def make_mock_module_class(self):
+        class MockModule(component.CommandModule):
+            # Protected
+            _default_mapping = {'command0': 'command0'}
+        return MockModule
+
+    # Tests
+
+    @patch.object(component, 'CommandTask')
     def test(self, CommandTask):
         self.module = self.pModule({'command1': 'command1'})
         self.assertEqual(self.module.command0, CommandTask.return_value)
@@ -35,11 +46,3 @@ class CommandModuleTest(unittest.TestCase):
         self.module = self.pModule()
         self.assertEqual(sorted(self.module.meta_tasks),
             ['command0', 'info', 'list', 'meta'])
-
-    # Protected
-
-    def _make_mock_module_class(self):
-        class MockModule(module.CommandModule):
-            # Protected
-            _default_mapping = {'command0': 'command0'}
-        return MockModule

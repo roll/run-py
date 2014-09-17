@@ -1,18 +1,21 @@
 import unittest
 from unittest.mock import Mock, patch
-from run.library.command import task
+from importlib import import_module
+component = import_module('run.library.command.task')
 
 
 class CommandTaskTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
         self.process = Mock(wait=Mock(return_value=0))
         self.Popen = Mock(return_value=self.process)
-        patch.object(task, 'Popen', self.Popen).start()
-        self.task = task.CommandTask(meta_module=None)
+        patch.object(component, 'Popen', self.Popen).start()
+        self.task = component.CommandTask(meta_module=None)
+
+    # Tests
 
     def test___call__(self):
         self.task('command')

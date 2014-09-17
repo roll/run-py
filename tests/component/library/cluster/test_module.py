@@ -1,12 +1,13 @@
 import unittest
+from importlib import import_module
 from unittest.mock import Mock, ANY, patch
-from run.library.cluster import module
+component = import_module('run.library.cluster.module')
 
 
 @unittest.skip
 class ClusterModuleTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
@@ -16,10 +17,12 @@ class ClusterModuleTest(unittest.TestCase):
         self.FoundModule = Mock(
             return_value=Mock(meta_tasks={'task': self.task}))
         self.find = Mock(return_value=[self.FoundModule])
-        patch.object(module, 'find_modules', self.find).start()
+        patch.object(component, 'find_modules', self.find).start()
+
+    # Tests
 
     def test(self):
-        self.module = module.ClusterModule(
+        self.module = component.ClusterModule(
             meta_module=None,
             key='key',
             tags='tags',
@@ -30,7 +33,7 @@ class ClusterModuleTest(unittest.TestCase):
         self.assertEqual(self.module.task(), [self.task.return_value])
         # Check find call
         self.find.assert_called_with(
-            target=module.Module,
+            target=component.Module,
             key='key',
             tags='tags',
             file='file',

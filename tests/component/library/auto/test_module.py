@@ -1,16 +1,19 @@
 import unittest
 import fractions
 from functools import partial
-from run.library.auto.module import AutoModule
+from importlib import import_module
+component = import_module('run.library.auto.module')
 
 
 class AutoModuleTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.pModule = partial(AutoModule, meta_module=None)
+        self.pModule = partial(component.AutoModule, meta_module=None)
         self.module = self.pModule([fractions])
+
+    # Tests
 
     def test_gcd(self):
         self.assertEqual(self.module.gcd(10, 15), 5)

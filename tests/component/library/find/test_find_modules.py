@@ -1,14 +1,33 @@
 import unittest
 from unittest.mock import Mock, ANY
-from run.library.find.find_modules import find_modules
+from importlib import import_module
+component = import_module('run.library.find.find_modules')
 
 
 class find_Test(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.find = self._make_mock_find()
+        self.find = self.make_mock_find()
+
+    # Helpers
+
+    def make_mock_find(self):
+        class mock_find(component.find_modules):
+            # Public
+            default_basedir = 'default_basedir'
+            default_exclude = 'default_exclude'
+            default_file = 'default_file'
+            default_key = 'default_key'
+            default_recursively = 'default_recursively'
+            default_tags = 'default_tags'
+            default_target = 'default_target'
+            # Protected
+            _find_objects = Mock()
+        return mock_find
+
+    # Tests
 
     def test(self):
         result = self.find()
@@ -73,19 +92,3 @@ class find_Test(unittest.TestCase):
                 {'notfilepath': 'dir/file'}],
             constraints=ANY,
             getfirst_exception=self.find._getfirst_exception)
-
-    # Protected
-
-    def _make_mock_find(self):
-        class mock_find(find_modules):
-            # Public
-            default_basedir = 'default_basedir'
-            default_exclude = 'default_exclude'
-            default_file = 'default_file'
-            default_key = 'default_key'
-            default_recursively = 'default_recursively'
-            default_tags = 'default_tags'
-            default_target = 'default_target'
-            # Protected
-            _find_objects = Mock()
-        return mock_find

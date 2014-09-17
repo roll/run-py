@@ -1,16 +1,17 @@
 import unittest
 import inspect
 from unittest.mock import Mock
-from run.library.find.constraint import Constraint
+from importlib import import_module
+component = import_module('run.library.find.constraint')
 
 
 @unittest.skip
 class ConstraintTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.constraint = Constraint(
+        self.constraint = component.Constraint(
             key='key1',
             tags=['tag1', 'tag2'])
         self.emitter = Mock()
@@ -18,6 +19,8 @@ class ConstraintTest(unittest.TestCase):
         self.emitter.objself.meta_key = 'key1'
         self.emitter.objself.meta_tags = ['tag1', 'tag3']
         self.emitter.module = inspect.getmodule(self.emitter.objself)
+
+    # Tests
 
     def test___call__not_skip(self):
         self.constraint(self.emitter)
@@ -34,7 +37,7 @@ class ConstraintTest(unittest.TestCase):
         self.assertTrue(self.emitter.skip.called)
 
     def test___call___skip_object_is_not_subclass(self):
-        self.constraint = Constraint(Exception)
+        self.constraint = component.Constraint(Exception)
         self.constraint(self.emitter)
         self.assertTrue(self.emitter.skip.called)
 
