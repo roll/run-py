@@ -134,6 +134,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         """
         pass  # pragma: no cover
 
+    # TODO: rename?
     def meta_getmeta(self, name, *, inherit=False, default=Null):
         fullname = 'meta_' + name
         try:
@@ -148,9 +149,11 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return default
         raise AttributeError(fullname)
 
+    # TODO: rename?
     def meta_setmeta(self, name, value):
         self.__meta_params[name] = value
 
+    # TODO: rename?
     def meta_derive(self, name):
         if self.meta_module is None:
             raise TaskInheritError(name)
