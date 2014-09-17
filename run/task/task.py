@@ -96,7 +96,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         result = str(getattr(self, 'meta_' + mode, ''))
         if result:
             if not self.meta_plain:
-                style = self._meta_styles.get(self.meta_style, None)
+                style = settings.styles.get(self.meta_style, None)
                 if style is not None:
                     formater = Formatter()
                     result = formater.format(result, **style)
@@ -414,8 +414,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         return type(self).__name__
 
     # Protected
-
-    _meta_styles = settings.styles
 
     def _meta_init_dependencies(self):
         for dependency in self.meta_params.get('depend', []):
