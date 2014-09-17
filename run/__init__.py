@@ -12,7 +12,7 @@ from .library.render import RenderTask, RenderVar
 from .module import Module, module, spawn
 from .program import program
 from .settings import settings
-from .task import DescriptorTask, FunctionTask, build, fork, task
+from .task import DescriptorTask, FunctionTask, fork, task
 from .var import DescriptorVar, FunctionVar, var
 from .version import version
 
