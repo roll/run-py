@@ -3,6 +3,7 @@ from unittest.mock import Mock
 from run.task import metaclass
 
 
+@unittest.skip
 class TaskMetaclassTest(unittest.TestCase):
 
     # Public

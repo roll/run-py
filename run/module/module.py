@@ -5,23 +5,39 @@ from builtins import print
 from collections import OrderedDict
 from ..converter import convert
 from ..settings import settings
-from ..task import Task, Module, TaskPrototype, fork
+from ..task import Task, Module, TaskPrototype, build, fork
 from .error import ModuleAttributeError
-from .prototype import ModulePrototype
 
 
 class Module(Task, Module):
 
     # Public
 
-    meta_prototype = ModulePrototype
     meta_convert = settings.convert
     meta_key = None
     meta_tags = []
 
     @classmethod
+    def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
+        spawned_class = cls.__meta_spawn__()
+        self = super(Module, spawned_class).__meta_create__(
+            *args,
+            meta_module=meta_module,
+            meta_updates=meta_updates,
+            **kwargs)
+        names = []
+        for cls in type(self).mro():
+            for name, attr in vars(cls).items():
+                if name in names:
+                    continue
+                names.append(name)
+                if isinstance(attr, TaskPrototype):
+                    task = build(attr, self)
+                    setattr(type(self), name, task)
+        return self
+
+    @classmethod
     def __meta_spawn__(cls):
-        # Documented public wrapper in :func:`.spawn`
         names = []
         attrs = {}
         for namespace in cls.mro():
@@ -46,6 +62,11 @@ class Module(Task, Module):
         attrs['__doc__'] = cls.__doc__
         attrs['__module__'] = cls.__module__
         return type(cls)(cls.__name__, (cls,), attrs)
+
+    def __meta_update__(self):
+        for task in self.meta_tasks.values():
+            task.__meta_update__()
+        super().__meta_update__()
 
     def __getattribute__(self, name):
         nested_name = None

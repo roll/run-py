@@ -11,7 +11,6 @@ from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
 from .error import TaskInheritError
 from .metaclass import TaskMetaclass
-from .prototype import TaskPrototype
 from .signal import TaskSignal
 
 
@@ -19,8 +18,6 @@ from .signal import TaskSignal
 class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Public
-
-    meta_prototype = TaskPrototype
 
     @classmethod
     def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
