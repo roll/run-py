@@ -1,8 +1,9 @@
 import os
 import unittest
 from functools import partial
-from unittest.mock import Mock, call
-from run.task.task import Task, settings
+from importlib import import_module
+from unittest.mock import Mock, call, patch
+component = import_module('run.task.task')
 
 
 class TaskTest(unittest.TestCase):
@@ -10,6 +11,9 @@ class TaskTest(unittest.TestCase):
     # Public
 
     def setUp(self):
+        self.addCleanup(patch.stopall)
+        self.TaskSignal = Mock()
+        patch.object(component, 'TaskSignal', self.TaskSignal).start()
         self.module = Mock()
         self.update = Mock()
         self.args = ('arg1',)
@@ -44,12 +48,13 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_invoke.call_count, 1)
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskSignal call
-        self.task._meta_TaskSignal.assert_has_calls(
+        self.TaskSignal.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='successed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call('signal'), call('signal')])
+            [call(self.TaskSignal.return_value),
+             call(self.TaskSignal.return_value)])
 
     def test___call__(self):
         self.Task.meta_dispatcher = Mock()
@@ -57,24 +62,26 @@ class TaskTest(unittest.TestCase):
         # Check meta_invoke call
         self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskSignal call
-        self.task._meta_TaskSignal.assert_has_calls(
+        self.TaskSignal.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='successed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call('signal'), call('signal')])
+            [call(self.TaskSignal.return_value),
+             call(self.TaskSignal.return_value)])
 
     def test___call___with_meta_invoke_exception(self):
         self.Task.meta_dispatcher = Mock()
         self.Task.meta_invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check TaskSignal call
-        self.task._meta_TaskSignal.assert_has_calls(
+        self.TaskSignal.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='failed')])
         # Check dispatcher.add_signal call
         self.task.meta_dispatcher.add_signal.assert_has_calls(
-            [call('signal'), call('signal')])
+            [call(self.TaskSignal.return_value),
+             call(self.TaskSignal.return_value)])
 
     def test___call___with_meta_invoke_exception_and_meta_fallback(self):
         self.Task.meta_invoke.side_effect = Exception()
@@ -177,14 +184,14 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_basedir, 'basedir')
 
     def test_meta_cache(self):
-        self.assertEqual(self.task.meta_cache, settings.cache)
+        self.assertEqual(self.task.meta_cache, component.settings.cache)
 
     def test_meta_cache_setter(self):
         self.task.meta_cache = 'cache'
         self.assertEqual(self.task.meta_cache, 'cache')
 
     def test_meta_chdir(self):
-        self.assertEqual(self.task.meta_chdir, settings.chdir)
+        self.assertEqual(self.task.meta_chdir, component.settings.chdir)
 
     def test_meta_chdir_setter(self):
         self.task.meta_chdir = 'chdir'
@@ -229,7 +236,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_docstring, 'docstring')
 
     def test_meta_fallback(self):
-        self.assertEqual(self.task.meta_fallback, settings.fallback)
+        self.assertEqual(self.task.meta_fallback, component.settings.fallback)
 
     def test_meta_fallback_setter(self):
         self.task.meta_fallback = 'fallback'
@@ -290,7 +297,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_qualname, 'module.task')
 
     def test_meta_plain(self):
-        self.assertEqual(self.task.meta_plain, settings.plain)
+        self.assertEqual(self.task.meta_plain, component.settings.plain)
 
     def test_meta_plain_setter(self):
         self.task.meta_plain = 'plain'
@@ -304,7 +311,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_signature, 'signature')
 
     def test_meta_strict(self):
-        self.assertEqual(self.task.meta_strict, settings.strict)
+        self.assertEqual(self.task.meta_strict, component.settings.strict)
 
     def test_meta_strict_setter(self):
         self.task.meta_strict = 'strict'
@@ -319,12 +326,11 @@ class TaskTest(unittest.TestCase):
     # Protected
 
     def _make_mock_task_class(self):
-        class MockTask(Task):
+        class MockTask(component.Task):
             """docstring"""
             # Public
             meta_invoke = Mock(return_value='value')
             # Protected
             _meta_require = Mock()
             _meta_trigger = Mock()
-            _meta_TaskSignal = Mock(return_value='signal')
         return MockTask

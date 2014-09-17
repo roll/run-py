@@ -417,7 +417,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     _meta_styles = settings.styles
     _meta_require = require
-    _meta_TaskSignal = TaskSignal
     _meta_trigger = trigger
 
     def _meta_init_dependencies(self):
@@ -430,7 +429,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     def _meta_add_signal(self, event):
         if self.meta_dispatcher:
-            signal = self._meta_TaskSignal(self, event=event)
+            signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
 
     def _meta_resolve_dependencies(self, failed=None):
