@@ -1,10 +1,11 @@
 import unittest
-from run.signal.signal import Signal
+from importlib import import_module
+component = import_module('run.signal.signal')
 
 
 class SignalTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertTrue(issubclass(Signal, object))
+        self.assertTrue(issubclass(component.Signal, object))

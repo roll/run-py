@@ -1,15 +1,18 @@
 import unittest
 from unittest.mock import Mock
-from run.signal.dispatcher import Dispatcher
+from importlib import import_module
+component = import_module('run.signal.dispatcher')
 
 
 class DispatcherTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.handler = Mock()
-        self.dispatcher = Dispatcher()
+        self.dispatcher = component.Dispatcher()
+
+    # Tests
 
     def test___repr__(self):
         self.assertTrue(repr(self.dispatcher))
