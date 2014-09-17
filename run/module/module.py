@@ -3,14 +3,14 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
+from ..converter import convert
 from ..settings import settings
-from ..task import Task, Module
+from ..task import Task, Module, TaskPrototype, fork
 from .error import ModuleAttributeError
-from .metaclass import ModuleMetaclass
 from .prototype import ModulePrototype
 
 
-class Module(Task, Module, metaclass=ModuleMetaclass):
+class Module(Task, Module):
 
     # Public
 
@@ -18,6 +18,34 @@ class Module(Task, Module, metaclass=ModuleMetaclass):
     meta_convert = settings.convert
     meta_key = None
     meta_tags = []
+
+    @classmethod
+    def __meta_spawn__(cls):
+        # Documented public wrapper in :func:`.spawn`
+        names = []
+        attrs = {}
+        for namespace in cls.mro():
+            for name, attr in vars(namespace).items():
+                if name in names:
+                    continue
+                names.append(name)
+                if name.isupper():
+                    continue
+                elif name.startswith('_'):
+                    continue
+                elif name.startswith('meta_'):
+                    continue
+                elif isinstance(attr, TaskPrototype):
+                    attrs[name] = fork(attr)
+                else:
+                    if cls.meta_convert:
+                        try:
+                            attrs[name] = convert(attr)
+                        except TypeError:
+                            pass
+        attrs['__doc__'] = cls.__doc__
+        attrs['__module__'] = cls.__module__
+        return type(cls)(cls.__name__, (cls,), attrs)
 
     def __getattribute__(self, name):
         nested_name = None

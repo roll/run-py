@@ -3,7 +3,6 @@ from .converter import task
 from .descriptor import DescriptorTask
 from .fork import fork
 from .function import FunctionTask
-from .metaclass import TaskMetaclass
 from .module import Module
 from .prototype import TaskPrototype
 from .signal import TaskSignal
