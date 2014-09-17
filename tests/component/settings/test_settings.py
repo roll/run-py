@@ -1,10 +1,11 @@
 import unittest
-from run.settings.settings import settings
+from importlib import import_module
+component = import_module('run.settings.settings')
 
 
 class SettingsTest(unittest.TestCase):
 
-    # Public
+    # Tests
 
     def test(self):
-        self.assertTrue(settings)
+        self.assertTrue(component.settings)
