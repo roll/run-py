@@ -1,15 +1,40 @@
 import unittest
-from run.machine.stack import Stack
+from importlib import import_module
+component = import_module('run.machine.stack')
 
 
 class StackTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
-        self.stack = Stack()
-        self.task1 = self._make_mock_task1_class()()
-        self.task2 = self._make_mock_task2_class()()
+        self.stack = component.Stack()
+        self.task1 = self.make_mock_task1_class()()
+        self.task2 = self.make_mock_task2_class()()
+
+    # Helpers
+
+    def make_mock_task1_class(self):
+        class Task1:
+            # Public
+            meta_module = 'module1'
+            meta_name = 'task1'
+            meta_fullname = '[key] module1.task1'
+            def meta_format(self, mode='name'):
+                return getattr(self, 'meta_' + mode)
+        return Task1
+
+    def make_mock_task2_class(self):
+        class Task2:
+            # Public
+            meta_module = 'module2'
+            meta_name = 'task2'
+            meta_qualname = 'module2.task2'
+            def meta_format(self, mode='name'):
+                return getattr(self, 'meta_' + mode)
+        return Task2
+
+    # Tests
 
     def test_push(self):
         self.stack.push('task')
@@ -39,25 +64,3 @@ class StackTest(unittest.TestCase):
         self.stack.push(self.task2)
         self.assertEqual(self.stack.format(),
                          '[key] module1.task1/module2.task2')
-
-    # Protected
-
-    def _make_mock_task1_class(self):
-        class Task1:
-            # Public
-            meta_module = 'module1'
-            meta_name = 'task1'
-            meta_fullname = '[key] module1.task1'
-            def meta_format(self, mode='name'):
-                return getattr(self, 'meta_' + mode)
-        return Task1
-
-    def _make_mock_task2_class(self):
-        class Task2:
-            # Public
-            meta_module = 'module2'
-            meta_name = 'task2'
-            meta_qualname = 'module2.task2'
-            def meta_format(self, mode='name'):
-                return getattr(self, 'meta_' + mode)
-        return Task2

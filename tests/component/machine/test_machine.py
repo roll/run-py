@@ -1,26 +1,61 @@
 import unittest
 from unittest.mock import Mock, call, patch
-from run.machine import machine
+from importlib import import_module
+component = import_module('run.machine.machine')
 
 
 @unittest.skip
 class MachineTest(unittest.TestCase):
 
-    # Public
+    # Actions
 
     def setUp(self):
         self.addCleanup(patch.stopall)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1', }
         self.callable = Mock()
-        self.Signal = self._make_mock_signal_class()
-        self.Stack = self._make_mock_stack_class()
-        self.logging = patch.object(machine, 'logging').start()
+        self.Signal = self.make_mock_signal_class()
+        self.Stack = self.make_mock_stack_class()
+        self.logging = patch.object(component, 'logging').start()
         self.logger = self.logging.getLogger.return_value
         self.module = Mock(callable=self.callable, not_callable='not_callable')
         self.Module = Mock(return_value=self.module)
-        self.Machine = self._make_mock_machine_class(self.Module, self.Stack)
+        self.Machine = self.make_mock_machine_class(self.Module, self.Stack)
         self.machine = self.Machine()
+
+    # Helpers
+
+    def make_mock_signal_class(self):
+        class MockSignal:
+            # Public
+            def __init__(self, task, event):
+                self.task = task
+                self.event = event
+            def format(self):
+                return self.event + '_'
+        return MockSignal
+
+    def make_mock_stack_class(self):
+        class MockStack(list):
+            # Public
+            def push(self, task):
+                self.append(task)
+            def format(self):
+                return '.'.join(self)
+        return MockStack
+
+    def make_mock_machine_class(self, module_class, stack_class):
+        class MockMachine(component.Machine):
+            # Protected
+            _Controller = Mock()
+            _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
+            _find = Mock(return_value=[module_class])
+            _print = Mock()
+            _Stack = stack_class
+            _Task = Mock
+        return MockMachine
+
+    # Tests
 
     def test_run_callable(self):
         self.machine = self.Machine(
@@ -96,35 +131,3 @@ class MachineTest(unittest.TestCase):
         self.machine._on_task_signal(self.signal)
         self.logger.info.assert_called_with('successed_task')
         self.assertEqual(self.machine._stack, [])
-
-    # Protected
-
-    def _make_mock_signal_class(self):
-        class MockSignal:
-            # Public
-            def __init__(self, task, event):
-                self.task = task
-                self.event = event
-            def format(self):
-                return self.event + '_'
-        return MockSignal
-
-    def _make_mock_stack_class(self):
-        class MockStack(list):
-            # Public
-            def push(self, task):
-                self.append(task)
-            def format(self):
-                return '.'.join(self)
-        return MockStack
-
-    def _make_mock_machine_class(self, module_class, stack_class):
-        class MockMachine(machine.Machine):
-            # Protected
-            _Controller = Mock()
-            _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
-            _find = Mock(return_value=[module_class])
-            _print = Mock()
-            _Stack = stack_class
-            _Task = Mock
-        return MockMachine
