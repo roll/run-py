@@ -64,6 +64,7 @@ class TaskPrototype(Result):
             self.__meta_update__(task)
         return task
 
+    # TODO: moved to Task.__meta_create__?
     def __meta_create__(self, cls, module):
         task = cls.__meta_create__(
             *self.__args,
@@ -72,5 +73,6 @@ class TaskPrototype(Result):
             **self.__kwargs)
         return task
 
+    # TODO: moved to Task.__meta_update__?
     def __meta_update__(self, task):
         task.__meta_update__()
