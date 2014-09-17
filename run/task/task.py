@@ -411,11 +411,6 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         for task in self.__meta_params.get('trigger', []):
             self.meta_trigger(task)
 
-    def __add_signal(self, event):
-        if self.meta_dispatcher:
-            signal = TaskSignal(self, event=event)
-            self.meta_dispatcher.add_signal(signal)
-
     def __resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
             dependency.resolve(failed=failed)
@@ -431,3 +426,8 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             os.chdir(previous_dir)
         else:
             yield
+
+    def __add_signal(self, event):
+        if self.meta_dispatcher:
+            signal = TaskSignal(self, event=event)
+            self.meta_dispatcher.add_signal(signal)
