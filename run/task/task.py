@@ -14,7 +14,6 @@ from .metaclass import TaskMetaclass
 from .signal import TaskSignal
 
 
-# TODO: fix protected/private
 class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Public
@@ -24,66 +23,66 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         # Create task object
         self = object.__new__(cls)
         # Initiate module, updates
-        self._meta_module = meta_module
-        self._meta_updates = meta_updates
+        self.__meta_module = meta_module
+        self.__meta_updates = meta_updates
         # Initiate params
-        self._meta_params = {}
+        self.__meta_params = {}
         for key in list(kwargs):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
-                self._meta_params[name] = kwargs.pop(key)
+                self.__meta_params[name] = kwargs.pop(key)
         # Initiate directory
-        self._meta_initial_dir = os.path.abspath(os.getcwd())
+        self.__meta_initial_dir = os.path.abspath(os.getcwd())
         # Initiate cache
-        self._meta_cached_result = Null
+        self.__meta_cached_result = Null
         # Initiate dependencies
-        self._meta_dependencies = []
-        self._meta_init_dependencies()
+        self.__meta_dependencies = []
+        self.__meta_init_dependencies()
         # Initiate arguments
-        self._meta_args = ()
-        self._meta_kwargs = {}
+        self.__meta_args = ()
+        self.__meta_kwargs = {}
         # Call user init
         self.__init__(*args, **kwargs)
         return self
 
     def __meta_update__(self):
-        for update in self._meta_updates:
+        for update in self.__meta_updates:
             update.apply(self)
 
     def __init__(self, *args, **kwargs):
-        self._meta_args = args
-        self._meta_kwargs = kwargs
+        self.__meta_args = args
+        self.__meta_kwargs = kwargs
 
     def __get__(self, module, module_class=None):
         if self.meta_is_descriptor:
             if self.meta_cache:
-                if self._meta_cached_result is Null:
-                    self._meta_cached_result = self()
-                return self._meta_cached_result
+                if self.__meta_cached_result is Null:
+                    self.__meta_cached_result = self()
+                return self.__meta_cached_result
             else:
                 return self()
         return self
 
     def __call__(self, *args, **kwargs):
-        self._meta_add_signal('called')
+        self.__meta_add_signal('called')
         try:
-            self._meta_resolve_dependencies()
+            self.__meta_resolve_dependencies()
             try:
                 eargs = self.meta_args + args
                 ekwargs = merge_dicts(self.meta_kwargs, kwargs)
-                with self._meta_change_directory():
+                with self.__meta_change_directory():
                     result = self.meta_invoke(*eargs, **ekwargs)
             except Exception:
                 if self.meta_fallback is not None:
                     result = self.meta_fallback
                 else:
-                    self._meta_resolve_dependencies(failed=True)
+                    self.__meta_resolve_dependencies(failed=True)
                     raise
-            self._meta_resolve_dependencies(failed=False)
+            self.__meta_resolve_dependencies(failed=False)
         except Exception:
-            self._meta_add_signal('failed')
+            self.__meta_add_signal('failed')
             raise
-        self._meta_add_signal('successed')
+        self.__meta_add_signal('successed')
         return result
 
     def __repr__(self):
@@ -139,7 +138,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_args(self):
         """Tasks's default arguments
         """
-        return self._meta_args
+        return self.__meta_args
 
     @property
     def meta_basedir(self):
@@ -157,7 +156,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['basedir']
         except KeyError:
             try:
-                return self._inherit('meta_basedir')
+                return self.__inherit('meta_basedir')
             except TaskInheritError:
                 return os.path.abspath(os.getcwd())
 
@@ -180,7 +179,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['cache']
         except KeyError:
             try:
-                return self._inherit('meta_cache')
+                return self.__inherit('meta_cache')
             except TaskInheritError:
                 return settings.cache
 
@@ -203,7 +202,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['chdir']
         except KeyError:
             try:
-                return self._inherit('meta_chdir')
+                return self.__inherit('meta_chdir')
             except TaskInheritError:
                 return settings.chdir
 
@@ -215,7 +214,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_dependencies(self):
         """Task's list of dependencies.
         """
-        return self._meta_dependencies
+        return self.__meta_dependencies
 
     @property
     def meta_dispatcher(self):
@@ -232,7 +231,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['dispatcher']
         except KeyError:
             try:
-                return self._inherit('meta_dispatcher')
+                return self.__inherit('meta_dispatcher')
             except TaskInheritError:
                 return None
 
@@ -270,7 +269,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['fallback']
         except KeyError:
             try:
-                return self._inherit('meta_fallback')
+                return self.__inherit('meta_fallback')
             except TaskInheritError:
                 return settings.fallback
 
@@ -297,7 +296,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_kwargs(self):
         """Tasks's default keyword arguments
         """
-        return self._meta_kwargs
+        return self.__meta_kwargs
 
     # TODO: move only to Module? Remove?
     @property
@@ -313,7 +312,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_module(self):
         """Task's module.
         """
-        return self._meta_module
+        return self.__meta_module
 
     @property
     def meta_name(self):
@@ -344,7 +343,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     @property
     def meta_params(self):
-        return self._meta_params
+        return self.__meta_params
 
     @property
     def meta_plain(self):
@@ -359,7 +358,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['plain']
         except KeyError:
             try:
-                return self._inherit('meta_plain')
+                return self.__inherit('meta_plain')
             except TaskInheritError:
                 return settings.plain
 
@@ -395,7 +394,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
             return self.meta_params['strict']
         except KeyError:
             try:
-                return self._inherit('meta_strict')
+                return self.__inherit('meta_strict')
             except TaskInheritError:
                 return settings.strict
 
@@ -415,7 +414,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # Protected
 
-    def _meta_init_dependencies(self):
+    def __meta_init_dependencies(self):
         for dependency in self.meta_params.get('depend', []):
             self.meta_depend(dependency)
         for task in self.meta_params.get('require', []):
@@ -423,28 +422,28 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         for task in self.meta_params.get('trigger', []):
             self.meta_trigger(task)
 
-    def _meta_add_signal(self, event):
+    def __meta_add_signal(self, event):
         if self.meta_dispatcher:
             signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
 
-    def _meta_resolve_dependencies(self, failed=None):
+    def __meta_resolve_dependencies(self, failed=None):
         for dependency in self.meta_dependencies:
             dependency.resolve(failed=failed)
 
     @contextmanager
-    def _meta_change_directory(self):
+    def __meta_change_directory(self):
         if self.meta_chdir:
             previous_dir = os.path.abspath(os.getcwd())
             following_dir = os.path.join(
-                self._meta_initial_dir, self.meta_basedir)
+                self.__meta_initial_dir, self.meta_basedir)
             os.chdir(following_dir)
             yield
             os.chdir(previous_dir)
         else:
             yield
 
-    def _inherit(self, name):
+    def __inherit(self, name):
         if self.meta_module is None:
             raise TaskInheritError(name)
         return getattr(self.meta_module, name)
