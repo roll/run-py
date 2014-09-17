@@ -1,7 +1,7 @@
 from copy import copy
 from box.collections import merge_dicts
 from ..converter import Result
-from .update import TaskUpdate
+from .update import Update
 
 
 class Prototype(Result):
@@ -32,7 +32,7 @@ class Prototype(Result):
         if name.startswith('_'):
             return super().__setattr__(name, value)
         name = '.'.join(filter(None, [self.__name, name]))
-        update = TaskUpdate('__setattr__', name, value)
+        update = Update('__setattr__', name, value)
         self.__updates.append(update)
         self.__name = None
 
@@ -40,7 +40,7 @@ class Prototype(Result):
         if self.__name is None:
             raise TypeError(
                 'Object "{self}" is not callable'.format(self=self))
-        update = TaskUpdate(self.__name, *args, **kwargs)
+        update = Update(self.__name, *args, **kwargs)
         self.__updates.append(update)
         self.__name = None
         return self

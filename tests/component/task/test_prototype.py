@@ -10,8 +10,8 @@ class PrototypeTest(unittest.TestCase):
     def setUp(self):
         self.addCleanup(patch.stopall)
         self.update = Mock()
-        self.TaskUpdate = Mock(return_value=self.update)
-        patch.object(prototype, 'TaskUpdate', self.TaskUpdate).start()
+        self.Update = Mock(return_value=self.update)
+        patch.object(prototype, 'Update', self.Update).start()
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self._make_mock_task_class()
@@ -24,13 +24,13 @@ class PrototypeTest(unittest.TestCase):
     def test___setattr__(self):
         self.prototype.attr3.nested_attr3 = 'value2'
         # Check update_class call
-        self.TaskUpdate.assert_called_with(
+        self.Update.assert_called_with(
             '__setattr__', 'attr3.nested_attr3', 'value2')
 
     def test___call__(self):
         self.prototype.attr3.nested_attr3(*self.args, **self.kwargs)
         # Check update_class call
-        self.TaskUpdate.assert_called_with(
+        self.Update.assert_called_with(
             'attr3.nested_attr3', *self.args, **self.kwargs)
 
     def test___call___before_getattr(self):
