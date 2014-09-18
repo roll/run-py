@@ -1,4 +1,5 @@
 import os
+import re
 import inspect
 from copy import copy
 from abc import abstractmethod
@@ -435,8 +436,25 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
             signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
 
+    # TODO: improve
     def __check_inheritance(self, name):
         if isinstance(self.meta_inherit, list):
             # TODO: implement
-            return True
+            result = False
+            for pattern in self.meta_inherit:
+                pattern = re.search(
+                    r'^(?P<exclude>\!?)'
+                    '(?P<content>.*?)'
+                    '(?P<wildcard>\*?)$',
+                    pattern)
+                if pattern.group('wildcard'):
+                    match = name.startswith(pattern.group('content'))
+                else:
+                    match = (name == pattern.group('content'))
+                if match:
+                    if pattern.group('exclude'):
+                        result = False
+                    else:
+                        result = True
+            return result
         return self.meta_inherit
