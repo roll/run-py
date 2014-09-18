@@ -144,10 +144,8 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
                 # TODO: add check_inheritance
                 inherit = True
             if inherit:
-                try:
-                    return self.meta_derive(fullname)
-                except TaskInheritError:
-                    pass
+                if self.meta_module is not None:
+                    return getattr(self.meta_module, fullname)
         if default is not Null:
             return default
         raise AttributeError(fullname)
@@ -156,13 +154,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
     # TODO: move to protected?
     def meta_set_parameter(self, name, value):
         self.__parameters[name] = value
-
-    # TODO: rename?
-    def meta_derive(self, name):
-        if self.meta_module is None:
-            raise TaskInheritError(name)
-        # TODO: add inheritance check
-        return getattr(self.meta_module, name)
 
     @property
     def meta_args(self):
