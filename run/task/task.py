@@ -29,6 +29,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
         # Initiate directory
+        # TODO: error for cases like run -f some/path?
         self.__initial_dir = os.path.abspath(os.getcwd())
         # Initiate cache
         self.__cached_result = Null
