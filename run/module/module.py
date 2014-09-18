@@ -176,10 +176,12 @@ class Module(Task, Module):
                 tasks[name] = attr
         return tasks
 
-    # TODO: exception here caught in tests breaks system tests. Why?
     def list(self, task=None):
         """Print tasks.
         """
+        # TODO: exception here breaks system tests. Why???
+        # Example:
+        # raise Exception()
         if task is None:
             task = self
         else:
