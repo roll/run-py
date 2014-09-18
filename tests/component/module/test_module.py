@@ -100,6 +100,7 @@ class ModuleTest(unittest.TestCase):
                          r'.*tests.component.module')
 
     def test_meta_basedir_with_parent_module(self):
+        self.Module.meta_inherit = ['meta_basedir']
         self.module = self.Module(meta_module=self.parent_module)
         self.assertEqual(self.module.meta_basedir, 'basedir')
 

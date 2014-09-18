@@ -17,7 +17,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
 
     # Public
 
-    meta_inherit = False
+    meta_inherit = ['meta_*']
 
     @classmethod
     def __meta_create__(cls, *args, **kwargs):
@@ -140,8 +140,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
             return self.__parameters[name]
         except KeyError:
             if inherit is Null:
-                # TODO: add check_inheritance
-                inherit = True
+                inherit = self.__check_inheritance(fullname)
             if inherit:
                 if self.meta_module is not None:
                     return getattr(self.meta_module, fullname)
@@ -349,7 +348,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         - inherited from module
         """
         return self.meta_get_parameter(
-            'plain', default=settings.plain)
+            'plain', inherit=True, default=settings.plain)
 
     @meta_plain.setter
     def meta_plain(self, value):
@@ -435,3 +434,9 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         if self.meta_dispatcher:
             signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
+
+    def __check_inheritance(self, name):
+        if isinstance(self.meta_inherit, list):
+            # TODO: implement
+            return True
+        return self.meta_inherit

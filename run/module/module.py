@@ -14,6 +14,7 @@ class Module(Task, Module):
     # Public
 
     meta_convert = settings.convert
+    meta_inherit = False
     meta_key = None
     meta_tags = []
 
@@ -99,11 +100,12 @@ class Module(Task, Module):
         return result
 
     @property
-    # TODO: fix get_parameter
     def meta_basedir(self):
         if self.meta_is_main_module:
-            file = inspect.getfile(type(self))
-            return os.path.abspath(os.path.dirname(file))
+            filepath = inspect.getfile(type(self))
+            default = os.path.abspath(os.path.dirname(filepath))
+            return self.meta_get_parameter(
+                'basedir', inherit=False, default=default)
         else:
             return super().meta_basedir
 
