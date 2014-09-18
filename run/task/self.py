@@ -1,4 +1,13 @@
-class Self:
+class Metaclass(type):
+
+    # Public
+
+    pass
+
+
+class self(metaclass=Metaclass):
+
+    # Public
 
     def __init__(self):
         self.__get = False
@@ -26,6 +35,3 @@ class Self:
         if self.__call:
             result = result(*self.__args, **self.__kwargs)
         return result
-
-
-self = Self()

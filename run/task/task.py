@@ -11,7 +11,7 @@ from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
 from .metaclass import Metaclass
-from .self import self
+from .self import self as selftype
 from .signal import TaskSignal
 
 
@@ -76,7 +76,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             self.__resolve_dependencies()
             try:
                 args = self.meta_args + args
+                args = tuple(map(self.__expand_value, args))
                 kwargs = merge_dicts(self.meta_kwargs, kwargs)
+                for key, value in kwargs.items():
+                    kwargs[key] = self.__expand_value(value)
                 with self.__change_directory():
                     result = self.meta_invoke(*args, **kwargs)
             except Exception:
@@ -477,22 +480,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             return result
         return self.meta_inherit
 
-    # TODO: reimplement
-
-    def __effective_args(self, *args):
-        eargs = self.meta_args + args
-        eargs = tuple(map(self._expand_arg, eargs))
-        return eargs
-
-    def __effective_kwargs(self, **kwargs):
-        ekwargs = copy(self.meta_kwargs)
-        ekwargs.update(kwargs)
-        for key, value in ekwargs.items():
-            ekwargs[key] = self._expand_arg(value)
-        return ekwargs
-
-    def __expand_arg(self, value):
+    def __expand_value(self, value):
         result = value
-        if isinstance(value, self):
+        if isinstance(value, selftype):
             result = value.expand(self.meta_module)
         return result
