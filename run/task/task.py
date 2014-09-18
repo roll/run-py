@@ -457,7 +457,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             yield
 
     def __add_signal(self, event):
-        if self.meta_dispatcher:
+        if self.meta_dispatcher is not None:
             signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
 
