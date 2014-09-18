@@ -100,13 +100,10 @@ class Module(Task, Module):
 
     @property
     def meta_basedir(self):
-        if self.meta_is_main_module:
-            filepath = inspect.getfile(type(self))
-            default = os.path.abspath(os.path.dirname(filepath))
-            return self.meta_get_parameter(
-                'basedir', inherit=False, default=default)
-        else:
-            return super().meta_basedir
+        filepath = inspect.getfile(type(self))
+        default = os.path.abspath(os.path.dirname(filepath))
+        return self.meta_get_parameter(
+            'basedir', default=default)
 
     @meta_basedir.setter
     def meta_basedir(self, value):
