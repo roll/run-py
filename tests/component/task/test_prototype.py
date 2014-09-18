@@ -27,13 +27,10 @@ class PrototypeTest(unittest.TestCase):
             __meta_create__ = Mock()
             __meta_update__ = Mock()
             attr1 = 'value1'
-            attr2 = Mock
+            attr2 = Mock()
         return MockTask
 
     # Tests
-
-    def test___getattr__(self):
-        self.assertEqual(self.prototype.attr2, Mock)
 
     def test___setattr__(self):
         self.prototype.attr3.nested_attr3 = 'value2'

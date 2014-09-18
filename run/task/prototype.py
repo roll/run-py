@@ -20,12 +20,8 @@ class Prototype(Result):
     def __getattr__(self, name):
         if name.startswith('_'):
             return super().__getattribute__(name)
-        if hasattr(self.__class, name):
-            attr = getattr(self.__class, name)
-            # TODO: more attributes to forward from class?
-            if isinstance(attr, type):
-                return attr
-        self.__name = '.'.join(filter(None, [self.__name, name]))
+        name = '.'.join(filter(None, [self.__name, name]))
+        self.__name = name
         return self
 
     def __setattr__(self, name, value):
