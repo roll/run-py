@@ -35,13 +35,19 @@ class Machine:
             attribute = self.__module
         else:
             attribute = getattr(self.__module, attribute)
-        if callable(attribute):
-            result = attribute(*args, **kwargs)
-            # TODO: is None?/bad work with ClusterModule
-            if result:
-                print(result)
-        else:
+        if not callable(attribute):
             print(attribute)
+            return
+        result = attribute(*args, **kwargs)
+        if result is None:
+            return
+        if not isinstance(result, list):
+            print(result)
+            return
+        for element in result:
+            if element is not None:
+                print(result)
+                return
 
     # Private
 
