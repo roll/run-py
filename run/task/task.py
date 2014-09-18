@@ -11,6 +11,7 @@ from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
 from .metaclass import Metaclass
+from .self import self
 from .signal import TaskSignal
 
 
@@ -475,3 +476,23 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                         result = True
             return result
         return self.meta_inherit
+
+    # TODO: reimplement
+
+    def __effective_args(self, *args):
+        eargs = self.meta_args + args
+        eargs = tuple(map(self._expand_arg, eargs))
+        return eargs
+
+    def __effective_kwargs(self, **kwargs):
+        ekwargs = copy(self.meta_kwargs)
+        ekwargs.update(kwargs)
+        for key, value in ekwargs.items():
+            ekwargs[key] = self._expand_arg(value)
+        return ekwargs
+
+    def __expand_arg(self, value):
+        result = value
+        if isinstance(value, self):
+            result = value.expand(self.meta_module)
+        return result
