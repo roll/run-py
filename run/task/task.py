@@ -137,11 +137,14 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         pass  # pragma: no cover
 
     # TODO: rename?
-    def meta_getmeta(self, name, *, inherit=False, default=Null):
+    def meta_get_parameter(self, name, *, inherit=Null, default=Null):
         fullname = 'meta_' + name
         try:
             return self.__meta_params[name]
         except KeyError:
+            if inherit is Null:
+                # TODO: add check_inheritance
+                inherit = True
             if inherit:
                 try:
                     return self.meta_derive(fullname)
@@ -152,7 +155,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         raise AttributeError(fullname)
 
     # TODO: rename?
-    def meta_setmeta(self, name, value):
+    def meta_set_parameter(self, name, value):
         self.__meta_params[name] = value
 
     # TODO: rename?
@@ -180,12 +183,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_getmeta(
-            'basedir', inherit=True, default=os.path.abspath(os.getcwd()))
+        return self.meta_get_parameter(
+            'basedir', default=os.path.abspath(os.getcwd()))
 
     @meta_basedir.setter
     def meta_basedir(self, value):
-        self.meta_setmeta('basedir', value)
+        self.meta_set_parameter('basedir', value)
 
     @property
     def meta_cache(self):
@@ -198,12 +201,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_getmeta(
-            'cache', inherit=True, default=settings.cache)
+        return self.meta_get_parameter(
+            'cache', default=settings.cache)
 
     @meta_cache.setter
     def meta_cache(self, value):
-        self.meta_setmeta('cache', value)
+        self.meta_set_parameter('cache', value)
 
     @property
     def meta_chdir(self):
@@ -216,12 +219,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_getmeta(
-            'chdir', inherit=True, default=settings.chdir)
+        return self.meta_get_parameter(
+            'chdir', default=settings.chdir)
 
     @meta_chdir.setter
     def meta_chdir(self, value):
-        self.meta_setmeta('chdir', value)
+        self.meta_set_parameter('chdir', value)
 
     @property
     def meta_dependencies(self):
@@ -240,12 +243,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_getmeta(
+        return self.meta_get_parameter(
             'dispatcher', inherit=True, default=None)
 
     @meta_dispatcher.setter
     def meta_dispatcher(self, value):
-        self.meta_setmeta('dispatcher', value)
+        self.meta_set_parameter('dispatcher', value)
 
     @property
     def meta_docstring(self):
@@ -255,12 +258,14 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
         - initable/writable
         """
-        return self.meta_getmeta(
-            'docstring', default=str(inspect.getdoc(self)).strip())
+        return self.meta_get_parameter(
+            'docstring',
+            inherit=False,
+            default=str(inspect.getdoc(self)).strip())
 
     @meta_docstring.setter
     def meta_docstring(self, value):
-        self.meta_setmeta('docstring', value)
+        self.meta_set_parameter('docstring', value)
 
     @property
     def meta_fallback(self):
@@ -273,12 +278,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_getmeta(
-            'fallback', inherit=True, default=settings.fallback)
+        return self.meta_get_parameter(
+            'fallback', default=settings.fallback)
 
     @meta_fallback.setter
     def meta_fallback(self, value):
-        self.meta_setmeta('fallback', value)
+        self.meta_set_parameter('fallback', value)
 
     @property
     def meta_fullname(self):
@@ -353,12 +358,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_getmeta(
-            'plain', inherit=True, default=settings.plain)
+        return self.meta_get_parameter(
+            'plain', default=settings.plain)
 
     @meta_plain.setter
     def meta_plain(self, value):
-        self.meta_setmeta('plain', value)
+        self.meta_set_parameter('plain', value)
 
     @property
     def meta_signature(self):
@@ -368,12 +373,14 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
         - initable/writable
         """
-        return self.meta_getmeta(
-            'signature', default=str(inspect.signature(self.meta_invoke)))
+        return self.meta_get_parameter(
+            'signature',
+            inherit=False,
+            default=str(inspect.signature(self.meta_invoke)))
 
     @meta_signature.setter
     def meta_signature(self, value):
-        self.meta_setmeta('signature', value)
+        self.meta_set_parameter('signature', value)
 
     @property
     def meta_strict(self):
@@ -384,12 +391,12 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_getmeta(
-            'strict', inherit=True, default=settings.strict)
+        return self.meta_get_parameter(
+            'strict', default=settings.strict)
 
     @meta_strict.setter
     def meta_strict(self, value):
-        self.meta_setmeta('strict', value)
+        self.meta_set_parameter('strict', value)
 
     @property
     def meta_style(self):

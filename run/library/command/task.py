@@ -18,5 +18,5 @@ class CommandTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_getmeta(
-            'docstring', default='Execute shell command.')
+        return self.meta_get_parameter(
+            'docstring', inherit=False, default='Execute shell command.')

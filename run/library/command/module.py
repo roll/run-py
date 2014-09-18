@@ -19,8 +19,8 @@ class CommandModule(Module):
 
     @property
     def meta_docstring(self):
-        return self.meta_getmeta(
-            'docstring', default='CommandModule')
+        return self.meta_get_parameter(
+            'docstring', inherit=False, default='CommandModule')
 
     # Protected
 

@@ -14,7 +14,8 @@ class AttributeTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_getmeta(
+        return self.meta_get_parameter(
             'docstring',
+            inherit=False,
             default=('Return "{attribute}" attribute.'.
                      format(attribute=self.__attribute)))
