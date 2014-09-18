@@ -18,13 +18,9 @@ class Module(Task, Module):
     meta_tags = []
 
     @classmethod
-    def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
+    def __meta_create__(cls, *args, **kwargs):
         spawned_class = cls.__meta_spawn__()
-        self = super(Module, spawned_class).__meta_create__(
-            *args,
-            meta_module=meta_module,
-            meta_updates=meta_updates,
-            **kwargs)
+        self = super(Module, spawned_class).__meta_create__(*args, **kwargs)
         names = []
         for cls in type(self).mro():
             for name, attr in vars(cls).items():

@@ -56,7 +56,7 @@ class TasksTest(ExamplesTest):
 
     def test_meta(self):
         result = self.execute('meta list')
-        self.assertRegex(result, ".*'type': 'FunctionTask'}\n")
+        self.assertRegex(result, "^{'args'.*")
 
     def test_null(self):
         result = self.execute('null')

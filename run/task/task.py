@@ -21,12 +21,9 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     meta_inherit = False
 
     @classmethod
-    def __meta_create__(cls, *args, meta_module, meta_updates, **kwargs):
+    def __meta_create__(cls, *args, **kwargs):
         # Create task object
         self = object.__new__(cls)
-        # Initiate module, updates
-        self.__module = meta_module
-        self.__updates = meta_updates
         # Initiate parameters
         self.__parameters = {}
         for key in list(kwargs):
@@ -48,7 +45,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         return self
 
     def __meta_update__(self):
-        for update in self.__updates:
+        for update in self.meta_updates:
             update.apply(self)
 
     def __init__(self, *args, **kwargs):
@@ -320,7 +317,8 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_module(self):
         """Task's module.
         """
-        return self.__module
+        return self.meta_get_parameter(
+            'module', inherit=False, default=None)
 
     @property
     def meta_name(self):
@@ -407,6 +405,13 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         """Task's type as a string.
         """
         return type(self).__name__
+
+    @property
+    def meta_updates(self):
+        """Task's module.
+        """
+        return self.meta_get_parameter(
+            'updates', inherit=False, default=[])
 
     # Protected
 
