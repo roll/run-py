@@ -6,7 +6,6 @@ from ..find import find_modules
 from .task import ClusterTask
 
 
-# TODO: fix protected/private
 class ClusterModule(Module):
 
     # Public
