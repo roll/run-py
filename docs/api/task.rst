@@ -27,4 +27,5 @@ Signal class
 Helper functions
 ----------------
 
+.. autofunction:: run.task.self
 .. autofunction:: run.task.task

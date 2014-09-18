@@ -12,6 +12,6 @@ from .library.render import RenderTask, RenderVar
 from .module import Module, module
 from .program import program
 from .settings import settings
-from .task import DescriptorTask, FunctionTask, task
+from .task import DescriptorTask, FunctionTask, task, self
 from .var import DescriptorVar, FunctionVar, var
 from .version import version

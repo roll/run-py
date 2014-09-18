@@ -1,0 +1,31 @@
+class Self:
+
+    def __init__(self):
+        self.__get = False
+        self.__name = ''
+        self.__call = False
+        self.__args = ()
+        self.__kwargs = {}
+
+    def __getattr__(self, name):
+        name = '.'.join(filter(None, [self.__name, name]))
+        self.__get = True
+        self.__name = name
+        return self
+
+    def __call__(self, *args, **kwargs):
+        self.__call = True
+        self.__args = args
+        self.__kwargs = kwargs
+        return self
+
+    def expand(self, module):
+        result = module
+        if self.__get:
+            result = getattr(result, self.__name)
+        if self.__call:
+            result = result(*self.__args, **self.__kwargs)
+        return result
+
+
+self = Self()
