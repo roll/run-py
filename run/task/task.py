@@ -25,42 +25,42 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         # Create task object
         self = object.__new__(cls)
         # Initiate module, updates
-        self.__meta_module = meta_module
-        self.__meta_updates = meta_updates
-        # Initiate params
-        self.__meta_params = {}
+        self.__module = meta_module
+        self.__updates = meta_updates
+        # Initiate parameters
+        self.__parameters = {}
         for key in list(kwargs):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
-                self.__meta_params[name] = kwargs.pop(key)
+                self.__parameters[name] = kwargs.pop(key)
         # Initiate directory
-        self.__meta_initial_dir = os.path.abspath(os.getcwd())
+        self.__initial_dir = os.path.abspath(os.getcwd())
         # Initiate cache
-        self.__meta_cached_result = Null
+        self.__cached_result = Null
         # Initiate dependencies
-        self.__meta_dependencies = []
+        self.__dependencies = []
         self.__init_dependencies()
         # Initiate arguments
-        self.__meta_args = ()
-        self.__meta_kwargs = {}
+        self.__args = ()
+        self.__kwargs = {}
         # Call user init
         self.__init__(*args, **kwargs)
         return self
 
     def __meta_update__(self):
-        for update in self.__meta_updates:
+        for update in self.__updates:
             update.apply(self)
 
     def __init__(self, *args, **kwargs):
-        self.__meta_args = args
-        self.__meta_kwargs = kwargs
+        self.__args = args
+        self.__kwargs = kwargs
 
     def __get__(self, module, module_class=None):
         if self.meta_is_descriptor:
             if self.meta_cache:
-                if self.__meta_cached_result is Null:
-                    self.__meta_cached_result = self()
-                return self.__meta_cached_result
+                if self.__cached_result is Null:
+                    self.__cached_result = self()
+                return self.__cached_result
             else:
                 return self()
         return self
@@ -140,7 +140,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_get_parameter(self, name, *, inherit=Null, default=Null):
         fullname = 'meta_' + name
         try:
-            return self.__meta_params[name]
+            return self.__parameters[name]
         except KeyError:
             if inherit is Null:
                 # TODO: add check_inheritance
@@ -156,7 +156,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
 
     # TODO: rename?
     def meta_set_parameter(self, name, value):
-        self.__meta_params[name] = value
+        self.__parameters[name] = value
 
     # TODO: rename?
     def meta_derive(self, name):
@@ -169,7 +169,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_args(self):
         """Tasks's default arguments
         """
-        return self.__meta_args
+        return self.__args
 
     @property
     def meta_basedir(self):
@@ -230,7 +230,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_dependencies(self):
         """Task's list of dependencies.
         """
-        return self.__meta_dependencies
+        return self.__dependencies
 
     @property
     def meta_dispatcher(self):
@@ -304,7 +304,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_kwargs(self):
         """Tasks's default keyword arguments
         """
-        return self.__meta_kwargs
+        return self.__kwargs
 
     # TODO: move only to Module? Remove?
     @property
@@ -320,7 +320,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     def meta_module(self):
         """Task's module.
         """
-        return self.__meta_module
+        return self.__module
 
     @property
     def meta_name(self):
@@ -411,11 +411,11 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     # Protected
 
     def __init_dependencies(self):
-        for dependency in self.__meta_params.get('depend', []):
+        for dependency in self.__parameters.get('depend', []):
             self.meta_depend(dependency)
-        for task in self.__meta_params.get('require', []):
+        for task in self.__parameters.get('require', []):
             self.meta_require(task)
-        for task in self.__meta_params.get('trigger', []):
+        for task in self.__parameters.get('trigger', []):
             self.meta_trigger(task)
 
     def __resolve_dependencies(self, failed=None):
@@ -427,7 +427,7 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
         if self.meta_chdir:
             previous_dir = os.path.abspath(os.getcwd())
             following_dir = os.path.join(
-                self.__meta_initial_dir, self.meta_basedir)
+                self.__initial_dir, self.meta_basedir)
             os.chdir(following_dir)
             yield
             os.chdir(previous_dir)
