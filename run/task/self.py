@@ -2,7 +2,15 @@ class Metaclass(type):
 
     # Public
 
-    pass
+    def __getattr__(self, name):
+        instance = self()
+        instance = getattr(instance, name)
+        return instance
+
+    def __call__(self, name, *args, **kwargs):
+        instance = self()
+        instance = instance(*args, **kwargs)
+        return instance
 
 
 class self(metaclass=Metaclass):
