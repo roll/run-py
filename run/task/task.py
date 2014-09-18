@@ -67,10 +67,10 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         try:
             self.__resolve_dependencies()
             try:
-                eargs = self.meta_args + args
-                ekwargs = merge_dicts(self.meta_kwargs, kwargs)
+                args = self.meta_args + args
+                kwargs = merge_dicts(self.meta_kwargs, kwargs)
                 with self.__change_directory():
-                    result = self.meta_invoke(*eargs, **ekwargs)
+                    result = self.meta_invoke(*args, **kwargs)
             except Exception:
                 if self.meta_fallback is not None:
                     result = self.meta_fallback
@@ -134,6 +134,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         pass  # pragma: no cover
 
     # TODO: rename?
+    # TODO: move to protected?
     def meta_get_parameter(self, name, *, inherit=Null, default=Null):
         fullname = 'meta_' + name
         try:
@@ -152,6 +153,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         raise AttributeError(fullname)
 
     # TODO: rename?
+    # TODO: move to protected?
     def meta_set_parameter(self, name, value):
         self.__parameters[name] = value
 
