@@ -74,7 +74,7 @@ class Module(Task, Module):
         except AttributeError as exception:
             # To get correct AttributeError message here
             if isinstance(exception, ModuleAttributeError):
-                raise  # pragma: no cover TODO: remove
+                raise  # pragma: no cover TODO: remove no cover
             raise ModuleAttributeError(
                 'Module "{self}" has no attribute "{name}".'.
                 format(self=self, name=name))
@@ -185,12 +185,12 @@ class Module(Task, Module):
         if task is None:
             task = self
         else:
-            task = self.meta_lookup(task)  # pragma: no cover TODO: remove
+            task = self.meta_lookup(task)  # pragma: no cover TODO: remove no cover
         names = []
         for name in sorted(dir(task)):
             # TODO: code duplication with ModuleMetaclass.__spawn__
             if name.isupper():
-                continue  # pragma: no cover TODO: remove
+                continue  # pragma: no cover TODO: remove no cover
             elif name.startswith('_'):
                 continue
             elif name.startswith('meta_'):

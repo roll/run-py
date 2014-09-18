@@ -104,7 +104,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         dependency.bind(self)
         self.meta_dependencies.append(dependency)
 
-    # TODO: rename?
     def meta_not_depend(self, task):
         """Remove all of task dependencies.
         """
@@ -131,8 +130,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         """
         pass  # pragma: no cover
 
-    # TODO: rename?
-    # TODO: move to protected?
     def meta_get_parameter(self, name, *, inherit=Null, default=Null):
         fullname = 'meta_' + name
         try:
@@ -147,8 +144,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
             return default
         raise AttributeError(fullname)
 
-    # TODO: rename?
-    # TODO: move to protected?
     def meta_set_parameter(self, name, value):
         self.__parameters[name] = value
 
