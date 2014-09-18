@@ -60,6 +60,15 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 return self()
         return self
 
+    def __getattr__(self, name):
+        if self.__check_inheritance(name):
+            if self.meta_module is not None:
+                try:
+                    return getattr(self.meta_module, name)
+                except AttributeError:
+                    pass
+        raise AttributeError(name)
+
     def __call__(self, *args, **kwargs):
         self.__add_signal('called')
         try:
@@ -139,7 +148,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 inherit = self.__check_inheritance(fullname)
             if inherit:
                 if self.meta_module is not None:
-                    return getattr(self.meta_module, fullname)
+                    try:
+                        return getattr(self.meta_module, fullname)
+                    except AttributeError:
+                        pass
         if default is not Null:
             return default
         raise AttributeError(fullname)
