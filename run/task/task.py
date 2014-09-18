@@ -9,7 +9,6 @@ from contextlib import contextmanager
 from ..converter import Result
 from ..dependency import Predecessor, Successor, require, trigger
 from ..settings import settings
-from .error import TaskInheritError
 from .metaclass import Metaclass
 from .signal import TaskSignal
 
