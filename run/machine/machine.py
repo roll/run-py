@@ -10,9 +10,6 @@ from ..task import TaskSignal
 from .stack import Stack
 
 
-# TODO: info/list/meta here from Module?
-# TODO: move all plain/format logic here?
-# TODO: Support for tasks without module in runfile?
 class Machine:
 
     # Public
