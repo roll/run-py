@@ -398,7 +398,13 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_style(self):
-        return 'task'
+        # TODO: move default to settings?
+        return self.meta_get_parameter(
+            'style', inherit=False, default='task')
+
+    @meta_style.setter
+    def meta_style(self, value):
+        self.meta_set_parameter('style', value)
 
     @property
     def meta_type(self):
