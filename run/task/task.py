@@ -406,7 +406,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_get_parameter(
             'updates', inherit=False, default=[])
 
-    # Protected
+    # Private
 
     def __init_dependencies(self):
         for dependency in self.__parameters.pop('depend', []):
