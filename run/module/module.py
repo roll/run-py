@@ -14,7 +14,6 @@ class Module(Task, Module):
     # Public
 
     meta_convert = settings.convert
-    meta_inherit = False
     meta_key = None
     meta_tags = []
 
@@ -131,6 +130,16 @@ class Module(Task, Module):
             return fullname
         else:
             return super().meta_fullname
+
+    @property
+    def meta_inherit(self):
+        # TODO: move default to settings?
+        return self.meta_get_parameter(
+            'inherit', inherit=False, default=False)
+
+    @meta_inherit.setter
+    def meta_inherit(self, value):
+        self.meta_set_parameter('inherit', value)
 
     @property
     def meta_is_main_module(self):

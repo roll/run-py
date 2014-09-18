@@ -18,8 +18,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
 
     # Public
 
-    meta_inherit = ['meta_*']
-
     @classmethod
     def __meta_create__(cls, *args, **kwargs):
         # Create task object
@@ -284,6 +282,16 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
             fullname = separator.join(filter(None,
                 [self.meta_module.meta_fullname, self.meta_name]))
         return fullname
+
+    @property
+    def meta_inherit(self):
+        # TODO: move default to settings?
+        return self.meta_get_parameter(
+            'inherit', inherit=False, default=['meta_*'])
+
+    @meta_inherit.setter
+    def meta_inherit(self, value):
+        self.meta_set_parameter('inherit', value)
 
     @property
     def meta_is_descriptor(self):
