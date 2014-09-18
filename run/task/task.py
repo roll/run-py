@@ -146,7 +146,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_get_parameter(self, name, *, inherit=Null, default=Null):
         fullname = 'meta_' + name
         try:
-            return self.__parameters[name]
+            # TODO: remove expand from try/except?
+            value = self.__parameters[name]
+            value = self.__expand_value(value)
+            return value
         except KeyError:
             if inherit is Null:
                 inherit = self.__check_inheritance(fullname)
@@ -481,7 +484,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inherit
 
     def __expand_value(self, value):
-        result = value
         if isinstance(value, selftype):
-            result = value.expand(self.meta_module)
-        return result
+            value = value.expand(self.meta_module)
+        return value
