@@ -187,14 +187,14 @@ class ModuleTest(unittest.TestCase):
             '---\n'
             'Print information.')
 
-    # TODO: implement
     def test_meta(self):
         self.module.meta()
-        # Check print call
-        self.assertTrue(self.pprint.called)
+        # Check pprint call
+        argument = self.pprint.call_args[0][0]
+        self.assertEqual(len(argument), 28)
 
-    # TODO: implement
     def test_meta_with_task(self):
         self.module.meta('meta')
-        # Check print call
-        self.assertTrue(self.pprint.called)
+        # Check pprint call
+        argument = self.pprint.call_args[0][0]
+        self.assertEqual(len(argument), 22)
