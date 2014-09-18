@@ -5,7 +5,7 @@ component = import_module('run.task.metaclass')
 
 
 @unittest.skip
-class TaskMetaclassTest(unittest.TestCase):
+class MetaclassTest(unittest.TestCase):
 
     # Actions
 
@@ -18,7 +18,7 @@ class TaskMetaclassTest(unittest.TestCase):
     # Helpers
 
     def make_mock_class(self, Prototype):
-        class MockClass(metaclass=component.TaskMetaclass):
+        class MockClass(metaclass=component.Metaclass):
             # Public
             meta_prototype = Prototype
         return MockClass

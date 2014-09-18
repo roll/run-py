@@ -4,7 +4,7 @@ from .build import build
 from .prototype import Prototype
 
 
-class TaskMetaclass(ABCMeta):
+class Metaclass(ABCMeta):
 
     # Public
 
