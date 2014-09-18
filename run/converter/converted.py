@@ -1,0 +1,5 @@
+class Converted:
+
+    # Public
+
+    pass

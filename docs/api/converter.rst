@@ -3,10 +3,15 @@ run.converter
 
 Module provides converter related functionality.
 
-Base class
-----------
+Converter
+---------
 
 .. autoclass:: run.converter.Converter
+
+Converted
+---------
+
+.. autoclass:: run.converter.Converted
 
 Helper decorators
 -----------------

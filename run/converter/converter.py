@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from box.functools import Decorator
-from .result import Result
+from .converted import Converted
 from .skip import skip
 
 
@@ -48,7 +48,7 @@ class Converter(Decorator, metaclass=ABCMeta):
     __kwargs = {}
 
     def __check_converted(self, obj):
-        return isinstance(obj, Result)
+        return isinstance(obj, Converted)
 
     def __check_eligible(self, obj):
         if isinstance(obj, staticmethod):

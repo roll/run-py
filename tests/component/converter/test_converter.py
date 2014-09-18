@@ -34,7 +34,7 @@ class ConverterTest(unittest.TestCase):
             self.converter._make.return_value)
 
     def test_with_converted_object(self):
-        result = component.Result()
+        result = component.Converted()
         self.assertEqual(self.converter(result), result)
 
     def test_with_staticmethod_object(self):
