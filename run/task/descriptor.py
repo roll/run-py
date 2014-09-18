@@ -6,10 +6,8 @@ class DescriptorTask(Task):
 
     # Public
 
-    # TODO: why args, kwargs?
-    def __init__(self, descriptor, *args, **kwargs):
+    def __init__(self, descriptor):
         self.__descriptor = descriptor
-        super().__init__(*args, **kwargs)
 
     def meta_invoke(self):
         return self.__descriptor.__get__(
