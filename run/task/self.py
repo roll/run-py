@@ -3,12 +3,12 @@ class Metaclass(type):
     # Public
 
     def __getattr__(self, name):
-        instance = self()
+        instance = super().__call__()
         instance = getattr(instance, name)
         return instance
 
-    def __call__(self, name, *args, **kwargs):
-        instance = self()
+    def __call__(self, *args, **kwargs):
+        instance = super().__call__()
         instance = instance(*args, **kwargs)
         return instance
 
