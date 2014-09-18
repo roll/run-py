@@ -16,7 +16,6 @@ class Var(Task, metaclass=ABCMeta):
 
     @property
     def meta_style(self):
-        # TODO: move default to settings?
         return self.meta_get_parameter(
             'style', inherit=False, default='var')
 

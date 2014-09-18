@@ -22,8 +22,9 @@ class Settings(Settings):
 
     # Converters
 
-    # TODO: Nose in shell imports a module instead of an object
     converters = [
+        # Short 'run.module' doesn't work
+        # in shell for nosetests
         'run.module.module',
         'run.task.task',
         'run.var.var',

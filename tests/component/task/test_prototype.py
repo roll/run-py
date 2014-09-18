@@ -51,7 +51,3 @@ class PrototypeTest(unittest.TestCase):
         self.prototype.attr2 = 'value2'
         fork = self.prototype.meta_fork('arg2', kwarg2='kwarg2')
         self.assertIsInstance(fork, component.Prototype)
-
-    # TODO: implement
-    def test_meta_build(self):
-        pass

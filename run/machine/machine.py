@@ -85,7 +85,7 @@ class Machine:
     def __on_task_signal(self, signal):
         # Stack operations
         if self.__compact:
-            # TODO: not tread-safe?
+            # TODO: stack here is not tread-safe?
             self.__stack.push(signal.task)
             formatted__stack = self.__stack.format()
             self.__stack.pop()

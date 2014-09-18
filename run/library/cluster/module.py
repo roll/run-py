@@ -37,7 +37,6 @@ class ClusterModule(Module):
         for key in keys:
             tasks[key] = []
             for module in self._modules:
-                # TODO: sync with skip parameter
                 if key in module.meta_tasks:
                     task = module.meta_tasks[key]
                     tasks[key].append(task)

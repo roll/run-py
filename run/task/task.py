@@ -280,7 +280,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_inherit(self):
-        # TODO: move default to settings?
         return self.meta_get_parameter(
             'inherit', inherit=False, default=['meta_*'])
 
@@ -298,7 +297,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
         """
         return self.__kwargs
 
-    # TODO: move only to Module? Remove?
     @property
     def meta_main_module(self):
         """Task's main module of module hierarchy.
@@ -393,7 +391,6 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_style(self):
-        # TODO: move default to settings?
         return self.meta_get_parameter(
             'style', inherit=False, default='task')
 
@@ -445,7 +442,7 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
             signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
 
-    # TODO: improve implementation?
+    # TODO: improve implementation
     def __check_inheritance(self, name):
         if isinstance(self.meta_inherit, list):
             result = False

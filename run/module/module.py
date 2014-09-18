@@ -130,7 +130,6 @@ class Module(Task, Module):
 
     @property
     def meta_inherit(self):
-        # TODO: move default to settings?
         return self.meta_get_parameter(
             'inherit', inherit=False, default=False)
 
@@ -156,7 +155,6 @@ class Module(Task, Module):
 
     @property
     def meta_style(self):
-        # TODO: move default to settings?
         return self.meta_get_parameter(
             'style', inherit=False, default='module')
 
