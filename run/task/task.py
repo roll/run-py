@@ -411,11 +411,11 @@ class Task(Result, Predecessor, Successor, metaclass=TaskMetaclass):
     # Protected
 
     def __init_dependencies(self):
-        for dependency in self.__parameters.get('depend', []):
+        for dependency in self.__parameters.pop('depend', []):
             self.meta_depend(dependency)
-        for task in self.__parameters.get('require', []):
+        for task in self.__parameters.pop('require', []):
             self.meta_require(task)
-        for task in self.__parameters.get('trigger', []):
+        for task in self.__parameters.pop('trigger', []):
             self.meta_trigger(task)
 
     def __resolve_dependencies(self, failed=None):
