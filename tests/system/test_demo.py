@@ -3,7 +3,7 @@ import unittest
 from subprocess import Popen, PIPE
 
 
-class ExamplesTest(unittest.TestCase):
+class DemoTest(unittest.TestCase):
 
     # Actions
 
@@ -34,7 +34,7 @@ class ExamplesTest(unittest.TestCase):
     @property
     def dirpath(self):
         filedir = os.path.dirname(__file__)
-        dirpath = os.path.abspath(os.path.join(filedir, '..', '..', 'examples'))
+        dirpath = os.path.abspath(os.path.join(filedir, '..', '..', 'demo'))
         return dirpath
 
     @property

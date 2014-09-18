@@ -1,7 +1,7 @@
-from tests.system.test_examples import ExamplesTest
+from tests.system.test_demo import DemoTest
 
 
-class ModulesTest(ExamplesTest):
+class ModulesTest(DemoTest):
 
     # Actions
 

@@ -1,7 +1,7 @@
-from tests.system.test_examples import ExamplesTest
+from tests.system.test_demo import DemoTest
 
 
-class VarsTest(ExamplesTest):
+class VarsTest(DemoTest):
 
     # Actions
 
@@ -34,7 +34,7 @@ class VarsTest(ExamplesTest):
 
     def test_function(self):
         result = self.execute('function')
-        self.assertRegex(result, '.*examples/path\n')
+        self.assertRegex(result, '.*demo/path\n')
 
     def test_list(self):
         result = self.execute('list')
