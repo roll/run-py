@@ -1,6 +1,5 @@
 from abc import ABCMeta
 from box.types import Null
-from .build import build
 from .prototype import Prototype
 
 
@@ -16,5 +15,5 @@ class Metaclass(ABCMeta):
             return prototype
         else:
             # Build and return task
-            task = build(prototype, meta_module)
+            task = prototype.meta_build(meta_module=meta_module)
             return task

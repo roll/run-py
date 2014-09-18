@@ -45,25 +45,63 @@ class Prototype(Result):
         self.__name = None
         return self
 
-    def __meta_fork__(self, *args, **kwargs):
-        # Documented public wrapper in :func:`.fork`
-        eupdates = copy(self.__updates)
-        eargs = self.__args + args
-        ekwargs = merge_dicts(self.__kwargs, kwargs)
-        return type(self)(
-            *eargs,
-            meta_class=self.__class,
-            meta_updates=eupdates,
-            **ekwargs)
+    def meta_fork(self, *args, **kwargs):
+        """Fork task prototype with optional args, kwargs altering.
 
-    def __meta_build__(self, module):
-        # Documented public wrapper in :func:`.build`
+        Parameters
+        ----------
+        args: tuple
+            Positional arguments to add to prototype's default.
+        kwargs: dict
+            Keyword arguments to add to prototype's default.
+
+        Returns
+        -------
+        :class:`.Prototype`
+            Forked prototype.
+
+        Examples
+        --------
+        Usage example::
+
+            class Module(Module):
+
+                task1 = SomeTask()
+                task2 = task1.meta_fork(param='value', meta_basedir='new/path')
+
+        In this case task2 will build as task1 copy with redefined
+        meta_basedir and default keyword argument param.
+        """
+        updates = copy(self.__updates)
+        args = self.__args + args
+        kwargs = merge_dicts(self.__kwargs, kwargs)
+        return type(self)(
+            *args,
+            meta_class=self.__class,
+            meta_updates=updates,
+            **kwargs)
+
+    def meta_build(self, *args, **kwargs):
+        """Build task prototype to task with optional args, kwargs altering.
+
+        Parameters
+        ----------
+        module: :class:`.Module`
+            Module to build prototype as task of module.
+
+        Returns
+        -------
+        :class:`.Task`
+            Builded task.
+        """
+        updates = copy(self.__updates)
+        args = self.__args + args
+        kwargs = merge_dicts(self.__kwargs, kwargs)
         task = self.__class.__meta_create__(
-            *self.__args,
-            meta_module=module,
-            meta_updates=self.__updates,
-            **self.__kwargs)
-        if not module:
-            # Main module - update
+            *args,
+            meta_updates=updates,
+            **kwargs)
+        if task.meta_module is None:
+            # No module - update
             task.__meta_update__()
         return task

@@ -50,11 +50,11 @@ class PrototypeTest(unittest.TestCase):
     def test___call___before_getattr(self):
         self.assertRaises(TypeError, self.prototype)
 
-    def test___meta_fork__(self):
+    def test_meta_fork(self):
         self.prototype.attr2 = 'value2'
-        fork = self.prototype.__meta_fork__('arg2', kwarg2='kwarg2')
+        fork = self.prototype.meta_fork('arg2', kwarg2='kwarg2')
         self.assertIsInstance(fork, component.Prototype)
 
     # TODO: implement
-    def test___meta_build__(self):
+    def test_meta_build(self):
         pass

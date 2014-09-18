@@ -5,7 +5,7 @@ from builtins import print
 from collections import OrderedDict
 from ..converter import convert
 from ..settings import settings
-from ..task import Task, Prototype, Module, build, fork
+from ..task import Task, Prototype, Module
 from .error import ModuleAttributeError
 
 
@@ -28,7 +28,7 @@ class Module(Task, Module):
                     continue
                 names.append(name)
                 if isinstance(attr, Prototype):
-                    task = build(attr, self)
+                    task = attr.meta_build(meta_module=self)
                     setattr(type(self), name, task)
         return self
 
@@ -48,7 +48,7 @@ class Module(Task, Module):
                 elif name.startswith('meta_'):
                     continue
                 elif isinstance(attr, Prototype):
-                    attrs[name] = fork(attr)
+                    attrs[name] = attr.meta_fork()
                 else:
                     if cls.meta_convert:
                         try:
