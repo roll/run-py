@@ -450,10 +450,9 @@ class Task(Result, Predecessor, Successor, metaclass=Metaclass):
             signal = TaskSignal(self, event=event)
             self.meta_dispatcher.add_signal(signal)
 
-    # TODO: improve
+    # TODO: improve implementation?
     def __check_inheritance(self, name):
         if isinstance(self.meta_inherit, list):
-            # TODO: implement
             result = False
             for pattern in self.meta_inherit:
                 pattern = re.search(
