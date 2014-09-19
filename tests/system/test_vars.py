@@ -20,10 +20,6 @@ class VarsTest(DemoTest):
         result = self.execute('command')
         self.assertEqual(result, 'Hello World!\nNone\n')
 
-    def test_derived(self):
-        result = self.execute('derived')
-        self.assertEqual(result, 'Hello World!\nNone\n')
-
     def test_descriptor(self):
         result = self.execute('descriptor')
         self.assertEqual(result, 'True\n')
@@ -42,10 +38,14 @@ class VarsTest(DemoTest):
             result,
             'command\n'
             'command_task\n'
-            'derived\n'
             'descriptor\n'
             'find\n'
             'function\n'
             'info\n'
             'list\n'
-            'meta\n')
+            'meta\n'
+            'proxy\n')
+
+    def test_proxy(self):
+        result = self.execute('proxy')
+        self.assertEqual(result, 'Hello World!\nNone\n')

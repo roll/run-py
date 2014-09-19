@@ -1,6 +1,6 @@
 import os
-from run import (Module, DerivedTask, DescriptorTask, FindTask, FunctionTask,
-                 NullTask, CommandTask)
+from run import (Module, CommandTask, DescriptorTask, FindTask,
+                 FunctionTask, NullTask, ProxyTask)
 
 
 class TasksModule(Module):
@@ -9,10 +9,6 @@ class TasksModule(Module):
 
     command = CommandTask(
         'echo "Hello World!"',
-    )
-
-    derived = DerivedTask(
-        task='command',
     )
 
     descriptor = DescriptorTask(
@@ -32,4 +28,8 @@ class TasksModule(Module):
 
     null = NullTask(
         meta_require=['command'],
+    )
+
+    proxy = ProxyTask(
+        task='command',
     )

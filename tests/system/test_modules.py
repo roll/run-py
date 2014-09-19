@@ -48,11 +48,11 @@ class ModulesTest(DemoTest):
         self.assertEqual(
             result,
             'find.command\n'
-            'find.derived\n'
             'find.descriptor\n'
             'find.find\n'
             'find.function\n'
             'find.info\n'
             'find.list\n'
             'find.meta\n'
-            'find.null\n')
+            'find.null\n'
+            'find.proxy\n')

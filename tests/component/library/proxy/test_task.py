@@ -1,18 +1,18 @@
 import unittest
 from unittest.mock import Mock
 from importlib import import_module
-component = import_module('run.library.derived.task')
+component = import_module('run.library.proxy.task')
 
 
 @unittest.skip
-class DerivedTaskTest(unittest.TestCase):
+class ProxyTaskTest(unittest.TestCase):
 
     # Actions
 
     def setUp(self):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.task = component.DerivedTask('task', meta_module=None)
+        self.task = component.ProxyTask('task', meta_module=None)
         self.task.meta_module.task = Mock()
 
     # Tests

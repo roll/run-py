@@ -1,6 +1,6 @@
 import os
-from run import (Module, CommandTask, DerivedVar, DescriptorVar, FindVar,
-                 FunctionVar, CommandVar)
+from run import (Module, CommandTask, CommandVar, DescriptorVar,
+                 FindVar, FunctionVar, ProxyVar)
 
 
 class VarsModule(Module):
@@ -17,10 +17,6 @@ class VarsModule(Module):
         'echo "Hello World!"',
     )
 
-    derived = DerivedVar(
-        task='command_task',
-    )
-
     descriptor = DescriptorVar(
         descriptor=property(lambda self: True),
         meta_docstring='Return True.',
@@ -35,4 +31,8 @@ class VarsModule(Module):
     function = FunctionVar(
         function=os.path.abspath,
         path='path',
+    )
+
+    proxy = ProxyVar(
+        task='command_task',
     )

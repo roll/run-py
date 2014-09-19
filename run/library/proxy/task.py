@@ -1,7 +1,7 @@
 from ...task import Task
 
 
-class DerivedTask(Task):
+class ProxyTask(Task):
 
     # Public
 
@@ -17,7 +17,7 @@ class DerivedTask(Task):
         return self.meta_get_parameter(
             'docstring',
             inherit=False,
-            default=('Derived from task "{meta_qualname}".\n{meta_docstring}'.
+            default=('Proxy to task "{meta_qualname}".\n{meta_docstring}'.
                      format(meta_qualname=self.__task_instance.meta_qualname,
                             meta_docstring=self.__task_instance.meta_docstring)))
 
