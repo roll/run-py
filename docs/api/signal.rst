@@ -13,8 +13,8 @@ Dispatcher
 
 .. autoclass:: run.signal.Dispatcher
 
-Handler
--------
+Handlers
+--------
 
 .. autoclass:: run.signal.Handler
-.. autoclass:: run.signal.CallbackHandler
+.. autoclass:: run.signal.FunctionHandler

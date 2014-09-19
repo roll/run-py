@@ -5,7 +5,7 @@ from box.functools import cachedproperty
 from importlib.machinery import SourceFileLoader
 from ..module import Module
 from ..settings import settings
-from ..signal import Dispatcher, CallbackHandler
+from ..signal import Dispatcher, FunctionHandler
 from ..task import TaskSignal
 from .stack import Stack
 
@@ -53,7 +53,7 @@ class Machine:
 
     def __init_handlers(self):
         self.__dispatcher.add_handler(
-            CallbackHandler(self.__on_task_signal, signals=[TaskSignal]))
+            FunctionHandler(self.__on_task_signal, signals=[TaskSignal]))
 
     @cachedproperty
     def __module(self):
