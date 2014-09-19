@@ -6,5 +6,6 @@ Module provides dialog library.
 Dialog
 ------
 
+.. autoclass:: run.library.dialog.DialogModule
 .. autoclass:: run.library.dialog.DialogTask
 .. autoclass:: run.library.dialog.DialogVar
