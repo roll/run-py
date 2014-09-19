@@ -9,7 +9,7 @@ from .library.null import NullTask
 from .library.proxy import ProxyTask, ProxyVar
 from .library.render import RenderTask, RenderVar
 from .library.value import ValueTask, ValueVar
-from .module import Module, module
+from .module import Module, FunctionModule, module
 from .program import program
 from .settings import settings
 from .task import DescriptorTask, FunctionTask, task, self
