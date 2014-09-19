@@ -61,14 +61,19 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 return self()
         return self
 
-    def __getattr__(self, name):
-        if self.__check_inheritance(name):
-            if self.meta_module is not None:
-                try:
-                    return getattr(self.meta_module, name)
-                except AttributeError:
-                    pass
-        raise AttributeError(name)
+    def __getattribute__(self, name):
+        try:
+            return super().__getattribute__(name)
+        except AttributeError:
+            if self.__check_inheritance(name):
+                if self.meta_module is not None:
+                    try:
+                        return getattr(self.meta_module, name)
+                    except AttributeError:
+                        pass
+        raise AttributeError(
+            'Task "{self}" has no attribute "{name}".'.
+            format(self=self, name=name))
 
     def __call__(self, *args, **kwargs):
         self.__add_signal('called')
