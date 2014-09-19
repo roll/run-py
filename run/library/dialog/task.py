@@ -2,6 +2,7 @@ from dialog import Dialog
 from ...task import FunctionTask
 
 
+# TODO: incorporate access to module's attribute like in RenderTask?
 # TODO: rebase from FunctionTask?
 class DialogTask(FunctionTask):
 
