@@ -1,6 +1,5 @@
 from .converter import skip
 from .dependency import depend, require, trigger
-from .library.auto import AutoModule
 from .library.cluster import ClusterModule, ClusterTask
 from .library.command import CommandModule, CommandTask, CommandVar
 from .library.dialog import DialogTask, DialogVar

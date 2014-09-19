@@ -1,15 +1,11 @@
 import os
 import fractions
-from run import Module, AutoModule, FindModule, CommandModule
+from run import Module, FindModule, FunctionModule, CommandModule
 
 
 class ModulesModule(Module):
 
     # Modules
-
-    auto = AutoModule(
-        sources=[fractions],
-    )
 
     command = CommandModule(
         mapping={
@@ -21,4 +17,8 @@ class ModulesModule(Module):
     find = FindModule(
         file='tasks.py',
         basedir=os.path.dirname(__file__),
+    )
+
+    function = FunctionModule(
+        mapping=fractions,
     )

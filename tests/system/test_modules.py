@@ -16,19 +16,6 @@ class ModulesTest(DemoTest):
 
     # Tests
 
-    def test_auto_list(self):
-        result = self.execute('auto.list')
-        self.assertEqual(
-            result,
-            'auto.gcd\n'
-            'auto.info\n'
-            'auto.list\n'
-            'auto.meta\n')
-
-    def test_auto_gcd(self):
-        result = self.execute('auto.gcd 10,15')
-        self.assertEqual(result, '5\n')
-
     def test_command_list(self):
         result = self.execute('command.list')
         self.assertEqual(
@@ -56,3 +43,16 @@ class ModulesTest(DemoTest):
             'find.meta\n'
             'find.null\n'
             'find.proxy\n')
+
+    def test_function_list(self):
+        result = self.execute('function.list')
+        self.assertEqual(
+            result,
+            'function.gcd\n'
+            'function.info\n'
+            'function.list\n'
+            'function.meta\n')
+
+    def test_function_gcd(self):
+        result = self.execute('function.gcd 10,15')
+        self.assertEqual(result, '5\n')
