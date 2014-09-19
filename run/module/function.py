@@ -35,7 +35,7 @@ class FunctionModule(Module):
 
     # Public
 
-    def __init__(self, mapping=None, *args, **kwargs):
+    def __init__(self, mapping, *args, **kwargs):
         self.__mapping = mapping
         for name, function in self.__functions.items():
             if not hasattr(type(self), name):
