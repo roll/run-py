@@ -1,4 +1,3 @@
-from box.collections import merge_dicts
 from ...module import Module
 from .task import CommandTask
 
@@ -7,11 +6,8 @@ class CommandModule(Module):
 
     # Public
 
-    def __init__(self, mapping=None, *args, **kwargs):
-        if mapping is None:
-            mapping = {}
-        emapping = merge_dicts(self._default_mapping, mapping)
-        for name, command in emapping.items():
+    def __init__(self, mapping, *args, **kwargs):
+        for name, command in mapping.items():
             if not hasattr(type(self), name):
                 task = CommandTask(command, meta_module=self)
                 setattr(type(self), name, task)
@@ -21,7 +17,3 @@ class CommandModule(Module):
     def meta_docstring(self):
         return self.meta_get_parameter(
             'docstring', inherit=False, default='CommandModule')
-
-    # Protected
-
-    _default_mapping = {}

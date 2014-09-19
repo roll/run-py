@@ -24,8 +24,3 @@ class FunctionModuleTest(unittest.TestCase):
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
             ['gcd', 'info', 'list', 'meta'])
-
-    def test_meta_tasks_witout_sources(self):
-        self.module = self.pModule()
-        self.assertEqual(sorted(self.module.meta_tasks),
-            ['info', 'list', 'meta'])

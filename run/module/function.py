@@ -1,4 +1,3 @@
-from functools import partial
 from box.functools import Function
 from ..task import FunctionTask
 from .module import Module
@@ -55,21 +54,17 @@ class FunctionModule(Module):
 
     @property
     def __functions(self):
-        functions = {}
-        if isinstance(self.__mapping, dict):
-            iterator = iter(self.__mapping)
-            accessor = self.__mapping.get
-        else:
-            iterator = iter(dir(self.__mapping))
-            accessor = partial(getattr, self.__mapping)
-        for name in iterator:
-            if name.startswith('_'):
-                continue
-            attr = accessor(name)
-            if not callable(attr):
-                continue
-            if isinstance(attr, type):
-                if not isinstance(attr, Function):
+        functions = self.__mapping
+        if not isinstance(self.__mapping, dict):
+            functions = {}
+            for name in dir(self.__mapping):
+                if name.startswith('_'):
                     continue
-            functions[name] = attr
+                attr = getattr(self.__mapping, name)
+                if not callable(attr):
+                    continue
+                if isinstance(attr, type):
+                    if not isinstance(attr, Function):
+                        continue
+                functions[name] = attr
         return functions
