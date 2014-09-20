@@ -31,8 +31,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
-        # Initiate directory
-        self.__initial_dir = os.path.abspath(os.getcwd())
         # Initiate cache
         self.__cached_result = Null
         # Initiate dependencies
@@ -422,12 +420,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @contextmanager
     def __change_directory(self):
         if self.meta_chdir:
-            previous_dir = os.path.abspath(os.getcwd())
-            following_dir = os.path.join(
-                self.__initial_dir, self.meta_basedir)
-            os.chdir(following_dir)
+            buffer = os.path.abspath(os.getcwd())
+            os.chdir(self.meta_basedir)
             yield
-            os.chdir(previous_dir)
+            os.chdir(buffer)
         else:
             yield
 
