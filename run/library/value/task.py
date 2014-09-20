@@ -10,5 +10,5 @@ class ValueTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'docstring', inherit=False, default='Return value')

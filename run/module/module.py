@@ -102,21 +102,21 @@ class Module(Task, Module):
     def meta_basedir(self):
         filepath = inspect.getfile(type(self))
         default = os.path.abspath(os.path.dirname(filepath))
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'basedir', default=default)
 
     @meta_basedir.setter
     def meta_basedir(self, value):
-        self.meta_set_parameter('basedir', value)
+        self._meta_set_parameter('basedir', value)
 
     @property
     def meta_default(self):
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'default', inherit=False, default='list')
 
     @meta_default.setter
     def meta_default(self, value):
-        self.meta_set_parameter('default', value)
+        self._meta_set_parameter('default', value)
 
     @property
     def meta_fullname(self):
@@ -130,12 +130,12 @@ class Module(Task, Module):
 
     @property
     def meta_inherit(self):
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'inherit', inherit=False, default=False)
 
     @meta_inherit.setter
     def meta_inherit(self, value):
-        self.meta_set_parameter('inherit', value)
+        self._meta_set_parameter('inherit', value)
 
     @property
     def meta_is_main_module(self):
@@ -155,12 +155,12 @@ class Module(Task, Module):
 
     @property
     def meta_style(self):
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'style', inherit=False, default='module')
 
     @meta_style.setter
     def meta_style(self, value):
-        self.meta_set_parameter('style', value)
+        self._meta_set_parameter('style', value)
 
     @property
     def meta_tasks(self):

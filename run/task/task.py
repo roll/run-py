@@ -148,29 +148,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """
         pass  # pragma: no cover
 
-    def meta_get_parameter(self, name, *, inherit=Null, default=Null):
-        fullname = 'meta_' + name
-        try:
-            # TODO: remove expand from try/except?
-            value = self.__parameters[name]
-            value = self.__expand_value(value)
-            return value
-        except KeyError:
-            if inherit is Null:
-                inherit = self.__check_inheritance(fullname)
-            if inherit:
-                if self.meta_module is not None:
-                    try:
-                        return getattr(self.meta_module, fullname)
-                    except AttributeError:
-                        pass
-        if default is not Null:
-            return default
-        raise AttributeError(fullname)
-
-    def meta_set_parameter(self, name, value):
-        self.__parameters[name] = value
-
     @property
     def meta_args(self):
         """Tasks's default arguments
@@ -189,12 +166,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'basedir', default=os.path.abspath(os.getcwd()))
 
     @meta_basedir.setter
     def meta_basedir(self, value):
-        self.meta_set_parameter('basedir', value)
+        self._meta_set_parameter('basedir', value)
 
     @property
     def meta_cache(self):
@@ -207,12 +184,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'cache', default=settings.cache)
 
     @meta_cache.setter
     def meta_cache(self, value):
-        self.meta_set_parameter('cache', value)
+        self._meta_set_parameter('cache', value)
 
     @property
     def meta_chdir(self):
@@ -225,12 +202,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'chdir', default=settings.chdir)
 
     @meta_chdir.setter
     def meta_chdir(self, value):
-        self.meta_set_parameter('chdir', value)
+        self._meta_set_parameter('chdir', value)
 
     @property
     def meta_dependencies(self):
@@ -249,12 +226,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'dispatcher', inherit=True, default=None)
 
     @meta_dispatcher.setter
     def meta_dispatcher(self, value):
-        self.meta_set_parameter('dispatcher', value)
+        self._meta_set_parameter('dispatcher', value)
 
     @property
     def meta_docstring(self):
@@ -264,14 +241,14 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         - initable/writable
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'docstring',
             inherit=False,
             default=str(inspect.getdoc(self)).strip())
 
     @meta_docstring.setter
     def meta_docstring(self, value):
-        self.meta_set_parameter('docstring', value)
+        self._meta_set_parameter('docstring', value)
 
     @property
     def meta_fallback(self):
@@ -284,12 +261,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'fallback', default=settings.fallback)
 
     @meta_fallback.setter
     def meta_fallback(self, value):
-        self.meta_set_parameter('fallback', value)
+        self._meta_set_parameter('fallback', value)
 
     @property
     def meta_fullname(self):
@@ -304,12 +281,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_inherit(self):
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'inherit', inherit=False, default=['meta_*'])
 
     @meta_inherit.setter
     def meta_inherit(self, value):
-        self.meta_set_parameter('inherit', value)
+        self._meta_set_parameter('inherit', value)
 
     @property
     def meta_is_descriptor(self):
@@ -334,7 +311,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_module(self):
         """Task's module.
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'module', inherit=False, default=None)
 
     @property
@@ -373,12 +350,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'plain', inherit=True, default=settings.plain)
 
     @meta_plain.setter
     def meta_plain(self, value):
-        self.meta_set_parameter('plain', value)
+        self._meta_set_parameter('plain', value)
 
     @property
     def meta_signature(self):
@@ -388,14 +365,14 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         - initable/writable
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'signature',
             inherit=False,
             default=str(inspect.signature(self.meta_invoke)))
 
     @meta_signature.setter
     def meta_signature(self, value):
-        self.meta_set_parameter('signature', value)
+        self._meta_set_parameter('signature', value)
 
     @property
     def meta_strict(self):
@@ -406,21 +383,21 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         - initable/writable
         - inherited from module
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'strict', default=settings.strict)
 
     @meta_strict.setter
     def meta_strict(self, value):
-        self.meta_set_parameter('strict', value)
+        self._meta_set_parameter('strict', value)
 
     @property
     def meta_style(self):
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'style', inherit=False, default='task')
 
     @meta_style.setter
     def meta_style(self, value):
-        self.meta_set_parameter('style', value)
+        self._meta_set_parameter('style', value)
 
     @property
     def meta_type(self):
@@ -432,8 +409,33 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_updates(self):
         """Task's module.
         """
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'updates', inherit=False, default=[])
+
+    # Protected
+
+    def _meta_get_parameter(self, name, *, inherit=Null, default=Null):
+        fullname = 'meta_' + name
+        try:
+            # TODO: remove expand from try/except?
+            value = self.__parameters[name]
+            value = self.__expand_value(value)
+            return value
+        except KeyError:
+            if inherit is Null:
+                inherit = self.__check_inheritance(fullname)
+            if inherit:
+                if self.meta_module is not None:
+                    try:
+                        return getattr(self.meta_module, fullname)
+                    except AttributeError:
+                        pass
+        if default is not Null:
+            return default
+        raise AttributeError(fullname)
+
+    def _meta_set_parameter(self, name, value):
+        self.__parameters[name] = value
 
     # Private
 

@@ -10,7 +10,7 @@ class NullTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_get_parameter(
+        return self._meta_get_parameter(
             'docstring',
             inherit=False,
             default='Do nothing but resolve dependencies.')
