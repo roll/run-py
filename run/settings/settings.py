@@ -14,6 +14,7 @@ class Settings(Settings):
     inherit = ['meta_*']
     plain = False
     strict = True
+    workdir = None
 
     # Converters
 

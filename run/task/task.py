@@ -401,7 +401,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         to meta_workdir when task invoking.
         """
         return self.meta_inspect(
-            name='workdir', inherit=True, default=None)
+            name='workdir', inherit=True, default=settings.workdir)
 
     # Private
 
