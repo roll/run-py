@@ -133,13 +133,13 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_format(self):
         self.Task._styles = {'task': {'foreground': 'bright_green'}}
-        self.assertEqual(self.task.meta_format('type'),
+        self.assertEqual(self.task.meta_format(attribute='meta_type'),
                          '\x1b[92mTask\x1b[m')
 
     def test_meta_format_with_meta_plain_is_true(self):
         self.Task.meta_plain = True
         self.Task._styles = {'task': {'foreground': 'bright_green'}}
-        self.assertEqual(self.task.meta_format('type'), 'Task')
+        self.assertEqual(self.task.meta_format(attribute='meta_type'), 'Task')
 
     def test_meta_depend(self):
         dependency = Mock()

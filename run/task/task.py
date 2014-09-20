@@ -106,8 +106,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             pattern = '<{self.meta_type} "{self.meta_qualname}">'
         return pattern.format(self=self)
 
-    def meta_format(self, mode='name'):
-        result = str(getattr(self, 'meta_' + mode, ''))
+    def meta_format(self, attribute=None):
+        result = str(self)
+        if attribute is not None:
+            result = str(getattr(self, attribute))
         if result:
             if not self.meta_plain:
                 style = settings.styles.get(self.meta_style, None)

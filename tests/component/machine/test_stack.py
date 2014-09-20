@@ -20,8 +20,8 @@ class StackTest(unittest.TestCase):
             meta_module = 'module1'
             meta_name = 'task1'
             meta_fullname = '[key] module1.task1'
-            def meta_format(self, mode='name'):
-                return getattr(self, 'meta_' + mode)
+            def meta_format(self, attribute=None):
+                return getattr(self, attribute)
         return Task1
 
     def make_mock_task2_class(self):
@@ -30,8 +30,8 @@ class StackTest(unittest.TestCase):
             meta_module = 'module2'
             meta_name = 'task2'
             meta_qualname = 'module2.task2'
-            def meta_format(self, mode='name'):
-                return getattr(self, 'meta_' + mode)
+            def meta_format(self, attribute=None):
+                return getattr(self, attribute)
         return Task2
 
     # Tests

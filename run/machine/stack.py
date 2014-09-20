@@ -9,12 +9,15 @@ class Stack(list):
         names = []
         if len(self) >= 1:
             previous = self[0]
-            names.append(previous.meta_format(mode='fullname'))
+            name = previous.meta_format(attribute='meta_fullname')
+            names.append(name)
             for task in self[1:]:
                 current = task
                 if current.meta_module == previous.meta_module:
-                    names.append(current.meta_format())
+                    name = current.meta_format(attribute='meta_name')
+                    names.append(name)
                 else:
-                    names.append(current.meta_format(mode='qualname'))
+                    name = current.meta_format(attribute='meta_qualname')
+                    names.append(name)
                 previous = current
         return '/'.join(filter(None, names))
