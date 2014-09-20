@@ -6,25 +6,21 @@ from ..find import find_modules
 from .task import ClusterTask
 
 
+# TODO: fix private/protected after cachedproperty fix
 class ClusterModule(Module):
 
     # Public
 
-    def __init__(self, *args,
-                 key=None, tags=None,
-                 file=None, exclude=None, basedir=None, recursively=None,
-                 **kwargs):
+    def __init__(self, filename=None, key=None, tags=None,
+                 basedir=None, **params):
+        self.__filename = filename
         self.__key = key
         self.__tags = tags
-        self.__file = file
-        self.__exclude = exclude
         self.__basedir = basedir
-        self.__recursively = recursively
         for task_name, task_instances in self._tasks.items():
             if not hasattr(type(self), task_name):
                 task = ClusterTask(task_instances, meta_module=self)
                 setattr(type(self), task_name, task)
-        super().__init__(*args, **kwargs)
 
     # Protected
 
@@ -53,13 +49,10 @@ class ClusterModule(Module):
     @cachedproperty
     def _Modules(self):
         Modules = find_modules(
-            target=Module,
+            filename=self.__filename,
             key=self.__key,
             tags=self.__tags,
-            file=self.__file,
-            exclude=self.__exclude,
             basedir=self.__basedir,
-            recursively=self.__recursively,
             filters=[{'notfilepath': self._notfilepath}])
         return Modules
 

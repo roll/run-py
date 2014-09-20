@@ -1,9 +1,8 @@
-import os
+import inspect
 from find import find_objects
-from box.functools import Function, cachedproperty
+from box.functools import Function
+from ...module import Module
 from ...settings import settings
-from .constraint import Constraint
-from .not_found import NotFound
 
 
 class find_modules(Function):
@@ -12,78 +11,58 @@ class find_modules(Function):
 
     # Public
 
-    default_basedir = None
-    default_exclude = None
-    default_file = 'runfile.py'
-    default_key = None
-    default_recursively = False
-    default_tags = None
+    default_filename = settings.filename
 
-    def __init__(self, *,
-                 target=None,
-                 key=None, tags=None,
-                 file=None, exclude=None, basedir=None, recursively=None,
-                 **find_params):
-        if key is None:
-            key = self.default_key
-        if tags is None:
-            tags = self.default_tags
-        if file is None:
-            file = self.default_file
-        if exclude is None:
-            exclude = self.default_exclude
-        if basedir is None:
-            basedir = self.default_basedir
-        if recursively is None:
-            recursively = self.default_recursively
-        self._key = key
-        self._tags = tags
-        self._file = file
-        self._exclude = exclude
-        self._basedir = basedir
-        self._recursively = recursively
-        self._find_params = find_params
+    def __init__(self, *, filename=None, key=None, tags=None,
+                 filters=None, mappers=None, **params):
+        if filename is None:
+            filename = self.default_filename
+        if filters is None:
+            filters = []
+        if mappers is None:
+            mappers = []
+        self.__filename = filename
+        self.__key = key
+        self.__tags = tags
+        self.__filters = filters
+        self.__mappers = mappers
+        self.__params = params
 
     def __call__(self):
-        result = self._find_objects(
-            basedir=self._basedir,
-            filepathes=self._filepathes,
-            filters=self._effective_filters,
-            constraints=self._effective_constraints,
-            getfirst_exception=self._getfirst_exception,
-            **self._find_params)
+        filters = [self.__filter] + self.__filters
+        mappers = [self.__mapper] + self.__mappers
+        result = find_objects(
+            filters=filters,
+            mappers=mappers,
+            **self.__params)
         return result
 
-    # Protected
-
-    _find_objects = find_objects
-    _getfirst_exception = NotFound
+    # Private
 
     @property
-    def _filepathes(self):
-        if self._file is not None:
-            if os.path.sep in self._file:
-                return [self._file]
-        return None
+    def __filter(self):
+        return {'filename': self.__filename}
 
-    @property
-    def _effective_filters(self):
-        filters = []
-        if self._filepathes is None:
-            filters.append({'filename': self._file})
-            if not self._recursively:
-                filters.append({'maxdepth': 1})
-        if self._exclude is not None:
-            if os.path.sep not in self._exclude:
-                filters.append({'notfilename': self._exclude})
-            else:
-                filters.append({'notfilepath': self._exclude})
-        filters += self._find_params.pop('filters', [])
-        return filters
+    def __mapper(self, emitter):
+        if inspect.getmodule(emitter.objself) != emitter.module:
+            emitter.skip()
+        elif not isinstance(emitter.objself, type):
+            emitter.skip()
+        elif not issubclass(emitter.objself, Module):
+            emitter.skip()
+        elif not self.__match_key(emitter.objself.meta_key):
+            emitter.skip()
+        elif not self.__match_tags(emitter.objself.meta_tags):
+            emitter.skip()
 
-    @cachedproperty
-    def _effective_constraints(self):
-        constraints = [
-            Constraint(key=self._key, tags=self._tags)]
-        constraints += self._find_params.pop('constraints', [])
-        return constraints
+    def __match_key(self, key):
+        if self.__key is not None:
+            if key != self.__key:
+                return False
+        return True
+
+    def __match_tags(self, tags):
+        if self.__tags is not None:
+            if set(tags).isdisjoint(self.__tags):
+                return False
+        return True

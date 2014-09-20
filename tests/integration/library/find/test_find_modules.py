@@ -6,6 +6,7 @@ from unittest.mock import patch
 from run.library.find.find_modules import find_modules
 
 
+@unittest.skip
 class find_Test(unittest.TestCase):
 
     # Actions

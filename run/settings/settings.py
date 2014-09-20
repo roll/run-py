@@ -11,9 +11,8 @@ class Settings(Settings):
     compact = False
     convert = True
     fallback = None
-    filepath = 'runfile.py'
+    filename = 'runfile.py'
     inherit = ['meta_*']
-    key = None
     plain = False
     strict = True
 
@@ -71,7 +70,7 @@ class Settings(Settings):
                 {
                  'dest': 'filepath',
                  'flags': ['-f', '--filepath'],
-                 'default': self.filepath,
+                 'default': self.filename,
                  'help': 'Runfile path.',
                 },
                 {

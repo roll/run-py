@@ -13,7 +13,7 @@ class Machine:
 
     # Public
 
-    default_filepath = settings.filepath
+    default_filepath = settings.filename
     default_compact = settings.compact
     default_plain = settings.plain
 

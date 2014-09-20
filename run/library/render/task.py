@@ -10,7 +10,7 @@ class RenderTask(FunctionTask):
         try:
             function = getattr(render, 'render_' + mode)
         except AttributeError:
-            raise ValueError('Unsupported mode "{mode}".'.
-                             format(mode=mode))
+            raise ValueError(
+                'Unsupported mode "{mode}".'.format(mode=mode))
         kwargs.setdefault('context', self.meta_module)
         super().__init__(function, *args, **kwargs)

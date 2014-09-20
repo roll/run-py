@@ -4,6 +4,7 @@ from importlib import import_module
 component = import_module('run.library.find.find_modules')
 
 
+@unittest.skip
 class find_Test(unittest.TestCase):
 
     # Actions
