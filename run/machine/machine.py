@@ -5,7 +5,7 @@ from box.functools import cachedproperty
 from importlib.machinery import SourceFileLoader
 from ..module import Module
 from ..settings import settings
-from ..signal import Dispatcher, FunctionHandler
+from ..signal import FunctionHandler
 from ..task import TaskSignal
 from .stack import Stack
 
@@ -28,7 +28,6 @@ class Machine:
         self.__filepath = filepath
         self.__compact = compact
         self.__plain = plain
-        self.__init_handlers()
 
     def run(self, attribute=None, *args, **kwargs):
         if attribute is None:
@@ -51,16 +50,15 @@ class Machine:
 
     # Private
 
-    def __init_handlers(self):
-        self.__dispatcher.add_handler(
-            FunctionHandler(self.__on_task_signal, signals=[TaskSignal]))
-
     @cachedproperty
     def __module(self):
+        # Create module
         module = self.__Module(
-            meta_dispatcher=self.__dispatcher,
             meta_plain=self.__plain,
             meta_module=None)
+        # Add handlers
+        module.meta_dispatcher.add_handler(
+            FunctionHandler(self.__on_task_signal, signals=[TaskSignal]))
         return module
 
     @cachedproperty
@@ -77,10 +75,6 @@ class Machine:
                 continue
             return attr
         raise RuntimeError('Module not found.')
-
-    @cachedproperty
-    def __dispatcher(self):
-        return Dispatcher()
 
     def __on_task_signal(self, signal):
         # Stack operations
