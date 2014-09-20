@@ -343,10 +343,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'strict', default=settings.strict)
 
-    @meta_strict.setter
-    def meta_strict(self, value):
-        self._meta_set_parameter('strict', value)
-
     @property
     def meta_style(self):
         return self._meta_get_parameter(

@@ -319,10 +319,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_strict(self):
         self.assertEqual(self.task.meta_strict, component.settings.strict)
 
-    def test_meta_strict_setter(self):
-        self.task.meta_strict = 'strict'
-        self.assertEqual(self.task.meta_strict, 'strict')
-
     def test_meta_style(self):
         self.assertEqual(self.task.meta_style, 'task')
 
