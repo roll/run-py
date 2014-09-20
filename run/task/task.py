@@ -5,6 +5,7 @@ from copy import copy
 from abc import abstractmethod
 from box.collections import merge_dicts
 from box.functools import cachedproperty
+from box.os import enhanced_join
 from box.terminal import Formatter
 from box.types import Null
 from contextlib import contextmanager
@@ -228,6 +229,13 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             Arguments for task invokation.
         """
         pass  # pragma: no cover
+
+    def meta_path(self, *components, codedir=False):
+        basedir = self.meta_workdir
+        if codedir:
+            basedir = self.meta_codedir
+        path = enhanced_join(basedir, *components)
+        return path
 
     @property
     def meta_args(self):
