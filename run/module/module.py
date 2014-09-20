@@ -129,15 +129,6 @@ class Module(Task, Module):
             return super().meta_fullname
 
     @property
-    def meta_inherit(self):
-        return self._meta_get_parameter(
-            'inherit', inherit=False, default=False)
-
-    @meta_inherit.setter
-    def meta_inherit(self, value):
-        self._meta_set_parameter('inherit', value)
-
-    @property
     def meta_is_main_module(self):
         """Module's main module status (is main module or not).
         """
