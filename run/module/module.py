@@ -105,10 +105,6 @@ class Module(Task, Module):
         return self._meta_get_parameter(
             'basedir', default=default)
 
-    @meta_basedir.setter
-    def meta_basedir(self, value):
-        self._meta_set_parameter('basedir', value)
-
     @property
     def meta_default(self):
         return self._meta_get_parameter(

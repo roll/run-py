@@ -184,10 +184,6 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_basedir,
                          os.path.abspath(os.getcwd()))
 
-    def test_meta_basedir_setter(self):
-        self.task.meta_basedir = 'basedir'
-        self.assertEqual(self.task.meta_basedir, 'basedir')
-
     def test_meta_cache(self):
         self.assertEqual(self.task.meta_cache, component.settings.cache)
 

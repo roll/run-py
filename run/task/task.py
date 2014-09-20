@@ -164,10 +164,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'basedir', default=os.path.abspath(os.getcwd()))
 
-    @meta_basedir.setter
-    def meta_basedir(self, value):
-        self._meta_set_parameter('basedir', value)
-
     @property
     def meta_cache(self):
         """Task's caching status (enabled or disabled).
