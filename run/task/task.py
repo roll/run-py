@@ -115,8 +115,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if not self.meta_plain:
                 style = settings.styles.get(self.meta_style, None)
                 if style is not None:
-                    formater = Formatter()
-                    result = formater.format(result, **style)
+                    formatter = Formatter()
+                    result = formatter.format(result, **style)
         return result
 
     def meta_inspect(self, name, *, inherit=False, default=None):

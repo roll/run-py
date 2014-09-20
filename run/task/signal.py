@@ -17,8 +17,8 @@ class TaskSignal(Signal):
             if not self.task.meta_plain:
                 style = settings.styles.get(self.event, None)
                 if style is not None:
-                    formater = Formatter()
-                    result = formater.format(result, **style)
+                    formatter = Formatter()
+                    result = formatter.format(result, **style)
         return result
 
     @property
