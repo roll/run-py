@@ -63,10 +63,10 @@ class Prototype(Converted):
             class Module(Module):
 
                 task1 = SomeTask()
-                task2 = task1.meta_fork(param='value', meta_workdir='/path')
+                task2 = task1.meta_fork(param='value', meta_basedir='/path')
 
         In this case task2 will build as task1 copy with redefined
-        meta_workdir and default keyword argument param.
+        meta_basedir and default keyword argument param.
         """
         updates = copy(self.__updates)
         args = self.__args + args

@@ -45,7 +45,7 @@ class ModuleTest(unittest.TestCase):
             meta_qualname = ''
             meta_strict = 'strict'
             meta_tasks = {}
-            meta_workdir = 'workdir'
+            meta_basedir = 'basedir'
             @property
             def meta_main_module(self):
                 return self
@@ -95,18 +95,13 @@ class ModuleTest(unittest.TestCase):
         # Check default call
         self.module.default.assert_called_with(*self.args, **self.kwargs)
 
-    def test_meta_workdir(self):
-        self.assertRegex(self.module.meta_workdir,
+    def test_meta_basedir(self):
+        self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
-    def test_meta_workdir_with_parent_module(self):
+    def test_meta_basedir_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_workdir, 'workdir')
-
-    @unittest.skip
-    def test_meta_workdir_setter(self):
-        self.Module.meta_workdir = 'workdir'
-        self.assertEqual(self.module.meta_workdir, 'workdir')
+        self.assertEqual(self.module.meta_basedir, 'basedir')
 
     def test_meta_fullname(self):
         self.assertEqual(self.module.meta_fullname, '')

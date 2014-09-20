@@ -33,7 +33,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 self.__parameters[name] = kwargs.pop(key)
         # Initiate pathes
         self.__initial_dir = os.path.abspath(os.getcwd())
-        self.__init_workdir()
+        self.__init_basedir()
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
@@ -231,7 +231,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         pass  # pragma: no cover
 
     def meta_path(self, *components, codedir=False):
-        basedir = self.meta_workdir
+        basedir = self.meta_basedir
         if codedir:
             basedir = self.meta_codedir
         path = enhanced_join(basedir, *components)
@@ -242,6 +242,16 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Tasks's default arguments
         """
         return self.__args
+
+    @property
+    def meta_basedir(self):
+        """Task's basedir (absulute path).
+
+        If meta_chdir is True current directory will be
+        changed to meta_basedir when task invoking.
+        """
+        return self.meta_inspect(
+            name='basedir', inherit=True, default=os.path.abspath(os.getcwd()))
 
     @property
     def meta_cache(self):
@@ -256,7 +266,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_chdir(self):
         """Task's chdir status (enabled or disabled).
 
-        .. seealso:: :attr:`run.Task.meta_workdir`
+        .. seealso:: :attr:`run.Task.meta_basedir`
         """
         return self.meta_inspect(
             name='chdir', inherit=True, default=settings.chdir)
@@ -410,27 +420,17 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inspect(
             name='updates', default=[])
 
-    @property
-    def meta_workdir(self):
-        """Task's workdir (absulute path).
-
-        If meta_chdir is True current directory will be
-        changed to meta_workdir when task invoking.
-        """
-        return self.meta_inspect(
-            name='workdir', inherit=True, default=os.path.abspath(os.getcwd()))
-
     # Private
 
-    def __init_workdir(self):
-        workdir = self.meta_workdir
-        if not os.path.isabs(self.meta_workdir):
-            workdir = os.path.abspath(self.meta_workdir)
+    def __init_basedir(self):
+        basedir = self.meta_basedir
+        if not os.path.isabs(self.meta_basedir):
+            basedir = os.path.abspath(self.meta_basedir)
             if self.meta_module is not None:
-                workdir = os.path.join(
-                    self.meta_module.meta_workdir,
-                    self.meta_workdir)
-        self.__parameters['workdir'] = workdir
+                basedir = os.path.join(
+                    self.meta_module.meta_basedir,
+                    self.meta_basedir)
+        self.__parameters['basedir'] = basedir
 
     def __init_dependencies(self):
         for dependency in self.__parameters.pop('depend', []):
@@ -448,7 +448,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def __change_directory(self):
         if self.meta_chdir:
             buffer = os.path.abspath(os.getcwd())
-            os.chdir(self.meta_workdir)
+            os.chdir(self.meta_basedir)
             yield
             os.chdir(buffer)
         else:

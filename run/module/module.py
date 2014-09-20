@@ -98,6 +98,11 @@ class Module(Task, Module):
         return result
 
     @property
+    def meta_basedir(self):
+        return self.meta_inspect(
+            name='basedir', inherit=True, default=self.meta_codedir)
+
+    @property
     def meta_default(self):
         return self.meta_inspect(
             name='default', default='list')
@@ -144,11 +149,6 @@ class Module(Task, Module):
             if isinstance(attr, Task):
                 tasks[name] = attr
         return tasks
-
-    @property
-    def meta_workdir(self):
-        return self.meta_inspect(
-            name='workdir', inherit=True, default=self.meta_codedir)
 
     def list(self, task=None):
         """Print tasks.
