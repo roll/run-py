@@ -1,9 +1,7 @@
-import os
 import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
-from box.functools import cachedproperty
 from ..converter import convert
 from ..settings import settings
 from ..task import Task, Prototype, Module
@@ -99,13 +97,6 @@ class Module(Task, Module):
         result = default(*args, **kwargs)
         return result
 
-    @cachedproperty
-    def meta_basedir(self):
-        filepath = inspect.getfile(type(self))
-        default = os.path.abspath(os.path.dirname(filepath))
-        return self.meta_inspect(
-            name='basedir', inherit=True, default=default)
-
     @property
     def meta_default(self):
         return self.meta_inspect(
@@ -157,7 +148,7 @@ class Module(Task, Module):
     @property
     def meta_workdir(self):
         return self.meta_inspect(
-            name='basedir', inherit=True, default=self.meta_codedir)
+            name='workdir', inherit=True, default=self.meta_codedir)
 
     def list(self, task=None):
         """Print tasks.

@@ -235,16 +235,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """
         return self.__args
 
-    @cachedproperty
-    def meta_basedir(self):
-        """Task's basedir (absulute path).
-
-        If meta_chdir is True current directory will be
-        changed to meta_basedir when task invoking.
-        """
-        return self.meta_inspect(
-            name='basedir', inherit=True, default=os.path.abspath(os.getcwd()))
-
     @property
     def meta_cache(self):
         """Task's caching status (enabled or disabled).
@@ -258,7 +248,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_chdir(self):
         """Task's chdir status (enabled or disabled).
 
-        .. seealso:: :attr:`run.Task.meta_basedir`
+        .. seealso:: :attr:`run.Task.meta_workdir`
         """
         return self.meta_inspect(
             name='chdir', inherit=True, default=settings.chdir)
@@ -414,13 +404,13 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_workdir(self):
-        """Task's basedir (absulute path).
+        """Task's workdir (absulute path).
 
         If meta_chdir is True current directory will be
-        changed to meta_basedir when task invoking.
+        changed to meta_workdir when task invoking.
         """
         return self.meta_inspect(
-            name='basedir', inherit=True, default=os.path.abspath(os.getcwd()))
+            name='workdir', inherit=True, default=os.path.abspath(os.getcwd()))
 
     # Private
 
@@ -440,7 +430,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def __change_directory(self):
         if self.meta_chdir:
             buffer = os.path.abspath(os.getcwd())
-            os.chdir(self.meta_basedir)
+            os.chdir(self.meta_workdir)
             yield
             os.chdir(buffer)
         else:

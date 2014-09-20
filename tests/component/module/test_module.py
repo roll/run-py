@@ -35,7 +35,6 @@ class ModuleTest(unittest.TestCase):
     def make_mock_parent_module_class(self):
         class MockParentModule:
             # Public
-            meta_basedir = 'basedir'
             meta_cache = 'cache'
             meta_chdir = 'chdir'
             meta_dispatcher = Mock(add_signal=Mock())
@@ -46,6 +45,7 @@ class ModuleTest(unittest.TestCase):
             meta_qualname = ''
             meta_strict = 'strict'
             meta_tasks = {}
+            meta_workdir = 'workdir'
             @property
             def meta_main_module(self):
                 return self
@@ -95,19 +95,19 @@ class ModuleTest(unittest.TestCase):
         # Check default call
         self.module.default.assert_called_with(*self.args, **self.kwargs)
 
-    def test_meta_basedir(self):
-        self.assertRegex(self.module.meta_basedir,
+    def test_meta_workdir(self):
+        self.assertRegex(self.module.meta_workdir,
                          r'.*tests.component.module')
 
-    def test_meta_basedir_with_parent_module(self):
-        self.Module.meta_inherit = ['meta_basedir']
+    def test_meta_workdir_with_parent_module(self):
+        self.Module.meta_inherit = ['meta_workdir']
         self.module = self.Module(meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_basedir, 'basedir')
+        self.assertEqual(self.module.meta_workdir, 'workdir')
 
     @unittest.skip
-    def test_meta_basedir_setter(self):
-        self.Module.meta_basedir = 'basedir'
-        self.assertEqual(self.module.meta_basedir, 'basedir')
+    def test_meta_workdir_setter(self):
+        self.Module.meta_workdir = 'workdir'
+        self.assertEqual(self.module.meta_workdir, 'workdir')
 
     def test_meta_fullname(self):
         self.assertEqual(self.module.meta_fullname, '')
@@ -191,10 +191,10 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 30)
+        self.assertEqual(len(argument), 29)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 24)
+        self.assertEqual(len(argument), 23)

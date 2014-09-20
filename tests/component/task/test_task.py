@@ -180,8 +180,8 @@ class TaskTest(unittest.TestCase):
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
 
-    def test_meta_basedir(self):
-        self.assertEqual(self.task.meta_basedir,
+    def test_meta_workdir(self):
+        self.assertEqual(self.task.meta_workdir,
                          os.path.abspath(os.getcwd()))
 
     def test_meta_cache(self):
