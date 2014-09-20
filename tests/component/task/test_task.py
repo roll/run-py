@@ -191,10 +191,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_cache(self):
         self.assertEqual(self.task.meta_cache, component.settings.cache)
 
-    def test_meta_cache_setter(self):
-        self.task.meta_cache = 'cache'
-        self.assertEqual(self.task.meta_cache, 'cache')
-
     def test_meta_chdir(self):
         self.assertEqual(self.task.meta_chdir, component.settings.chdir)
 

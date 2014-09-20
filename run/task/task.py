@@ -177,10 +177,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'cache', default=settings.cache)
 
-    @meta_cache.setter
-    def meta_cache(self, value):
-        self._meta_set_parameter('cache', value)
-
     @property
     def meta_chdir(self):
         """Task's chdir status (enabled or disabled).
