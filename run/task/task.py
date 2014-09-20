@@ -160,11 +160,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         If meta_chdir is True current directory will be
         changed to meta_basedir when task invoking.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
         """
         return self._meta_get_parameter(
             'basedir', default=os.path.abspath(os.getcwd()))
@@ -178,11 +173,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's caching status (enabled or disabled).
 
         If meta_cache is True descriptor tasks cache result of invocations.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
         """
         return self._meta_get_parameter(
             'cache', default=settings.cache)
@@ -196,11 +186,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's chdir status (enabled or disabled).
 
         .. seealso:: :attr:`run.Task.meta_basedir`
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
         """
         return self._meta_get_parameter(
             'chdir', default=settings.chdir)
@@ -220,11 +205,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's dispatcher.
 
         Dispatcher used to operate signals.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
         """
         return self._meta_get_parameter(
             'dispatcher', inherit=True, default=None)
@@ -236,10 +216,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_docstring(self):
         """Task's docstring.
-
-        This property is:
-
-        - initable/writable
         """
         return self._meta_get_parameter(
             'docstring',
@@ -255,11 +231,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's fallback.
 
         Fallback used when task invocation fails.
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
         """
         return self._meta_get_parameter(
             'fallback', default=settings.fallback)
@@ -344,11 +315,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_plain(self):
         """Task's plain flag (plain or not).
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
         """
         return self._meta_get_parameter(
             'plain', inherit=True, default=settings.plain)
@@ -360,10 +326,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_signature(self):
         """Task's signature.
-
-        This property is:
-
-        - initable/writable
         """
         return self._meta_get_parameter(
             'signature',
@@ -377,11 +339,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_strict(self):
         """Task's strict mode status (enabled or disabled).
-
-        This property is:
-
-        - initable/writable
-        - inherited from module
         """
         return self._meta_get_parameter(
             'strict', default=settings.strict)
@@ -394,10 +351,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_style(self):
         return self._meta_get_parameter(
             'style', inherit=False, default='task')
-
-    @meta_style.setter
-    def meta_style(self, value):
-        self._meta_set_parameter('style', value)
 
     @property
     def meta_type(self):
