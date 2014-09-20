@@ -12,12 +12,12 @@ class find_modules(Function):
 
     # Public
 
-    default_basedir = settings.basedir
-    default_exclude = settings.exclude
-    default_file = settings.filepath
-    default_key = settings.key
-    default_recursively = settings.recursively
-    default_tags = settings.tags
+    default_basedir = None
+    default_exclude = None
+    default_file = 'runfile.py'
+    default_key = None
+    default_recursively = False
+    default_tags = None
 
     def __init__(self, *,
                  target=None,

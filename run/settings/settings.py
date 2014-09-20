@@ -6,20 +6,16 @@ class Settings(Settings):
 
     # Main
 
-    basedir = None
     cache = True
     chdir = True
     compact = False
     convert = True
-    exclude = None
     fallback = None
     filepath = 'runfile.py'
     inherit = ['meta_*']
     key = None
     plain = False
-    recursively = False
     strict = True
-    tags = None
 
     # Converters
 
