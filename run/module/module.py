@@ -110,10 +110,6 @@ class Module(Task, Module):
         return self._meta_get_parameter(
             'default', inherit=False, default='list')
 
-    @meta_default.setter
-    def meta_default(self, value):
-        self._meta_set_parameter('default', value)
-
     @property
     def meta_fullname(self):
         if self.meta_is_main_module:

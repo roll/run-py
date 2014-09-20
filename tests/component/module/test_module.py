@@ -54,8 +54,8 @@ class ModuleTest(unittest.TestCase):
     # Tests
 
     def test___call__(self):
-        self.module.meta_default = 'default'
-        self.module.default = Mock()
+        self.Module.meta_default = 'default'
+        self.Module.default = Mock()
         self.assertEqual(
             self.module(*self.args, **self.kwargs),
             self.module.default.return_value)
@@ -86,8 +86,8 @@ class ModuleTest(unittest.TestCase):
             self.module.meta_lookup('module.task'), self.module.task)
 
     def test_meta_invoke(self):
-        self.module.meta_default = 'default'
-        self.module.default = Mock()
+        self.Module.meta_default = 'default'
+        self.Module.default = Mock()
         self.assertEqual(
             self.module.meta_invoke(*self.args, **self.kwargs),
             self.module.default.return_value)
@@ -106,7 +106,7 @@ class ModuleTest(unittest.TestCase):
 
     @unittest.skip
     def test_meta_basedir_setter(self):
-        self.module.meta_basedir = 'basedir'
+        self.Module.meta_basedir = 'basedir'
         self.assertEqual(self.module.meta_basedir, 'basedir')
 
     def test_meta_fullname(self):
