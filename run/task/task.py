@@ -252,7 +252,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inspect(
             name='cache', inherit=True, default=settings.cache)
 
-    @cachedproperty
+    @property
     def meta_codedir(self):
         filepath = inspect.getfile(type(self))
         dirpath = os.path.join(
