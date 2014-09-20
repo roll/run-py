@@ -44,7 +44,7 @@ class ModuleTest(unittest.TestCase):
             meta_qualname = ''
             meta_strict = 'strict'
             meta_tasks = {}
-            meta_workdir = None
+            meta_workdir = 'workdir'
             @property
             def meta_main_module(self):
                 return self
@@ -99,7 +99,6 @@ class ModuleTest(unittest.TestCase):
                          r'.*tests.component.module')
 
     def test_meta_workdir_with_parent_module(self):
-        self.Module.meta_inherit = ['meta_workdir']
         self.module = self.Module(meta_module=self.parent_module)
         self.assertEqual(
             self.module.meta_workdir,

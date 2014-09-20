@@ -33,6 +33,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 self.__parameters[name] = kwargs.pop(key)
         # Initiate pathes
         self.__initial_dir = os.path.abspath(os.getcwd())
+        self.__init_workdir()
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
@@ -408,9 +409,19 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         to meta_workdir when task invoking.
         """
         return self.meta_inspect(
-            name='workdir', inherit=True, default=settings.workdir)
+            name='workdir', inherit=True, default=os.path.abspath(os.getcwd()))
 
     # Private
+
+    def __init_workdir(self):
+        workdir = self.meta_workdir
+        if not os.path.isabs(self.meta_workdir):
+            workdir = os.path.abspath(self.meta_workdir)
+            if self.meta_module is not None:
+                workdir = os.path.join(
+                    self.meta_module.meta_workdir,
+                    self.meta_workdir)
+        self.__parameters['workdir'] = workdir
 
     def __init_dependencies(self):
         for dependency in self.__parameters.pop('depend', []):
