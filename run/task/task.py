@@ -332,10 +332,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             inherit=False,
             default=str(inspect.signature(self.meta_invoke)))
 
-    @meta_signature.setter
-    def meta_signature(self, value):
-        self._meta_set_parameter('signature', value)
-
     @property
     def meta_strict(self):
         """Task's strict mode status (enabled or disabled).
