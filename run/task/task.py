@@ -406,6 +406,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     # Private
 
+    # TODO: doesn't work right
     def __init_basedir(self):
         basedir = self.meta_basedir
         if not os.path.isabs(self.meta_basedir):
