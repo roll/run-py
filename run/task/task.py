@@ -222,10 +222,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             inherit=False,
             default=str(inspect.getdoc(self)).strip())
 
-    @meta_docstring.setter
-    def meta_docstring(self, value):
-        self._meta_set_parameter('docstring', value)
-
     @property
     def meta_fallback(self):
         """Task's fallback.
