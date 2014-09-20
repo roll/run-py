@@ -12,21 +12,6 @@ class Module(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def meta_cache(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def meta_dispatcher(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def meta_fallback(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
     def meta_fullname(self):
         pass  # pragma: no cover
 
@@ -37,30 +22,15 @@ class Module(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def meta_qualname(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
     def meta_main_module(self):
         pass  # pragma: no cover
 
     @property
     @abstractmethod
-    def meta_plain(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def meta_strict(self):
+    def meta_qualname(self):
         pass  # pragma: no cover
 
     @property
     @abstractmethod
     def meta_tasks(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def meta_workdir(self):
         pass  # pragma: no cover
