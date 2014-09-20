@@ -18,7 +18,3 @@ class Var(Task, metaclass=ABCMeta):
     def meta_style(self):
         return self._meta_get_parameter(
             'style', inherit=False, default='var')
-
-    @meta_style.setter
-    def meta_style(self, value):
-        self._meta_set_parameter('style', value)

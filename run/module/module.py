@@ -141,10 +141,6 @@ class Module(Task, Module):
         return self._meta_get_parameter(
             'style', inherit=False, default='module')
 
-    @meta_style.setter
-    def meta_style(self, value):
-        self._meta_set_parameter('style', value)
-
     @property
     def meta_tasks(self):
         """Module's tasks dict-like object.
