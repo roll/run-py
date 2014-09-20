@@ -255,10 +255,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'inherit', inherit=False, default=['meta_*'])
 
-    @meta_inherit.setter
-    def meta_inherit(self, value):
-        self._meta_set_parameter('inherit', value)
-
     @property
     def meta_is_descriptor(self):
         return False
