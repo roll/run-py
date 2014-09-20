@@ -6,15 +6,10 @@ class Formatter:
 
     # Public
 
-    def __init__(self, *, style, plain):
-        self.__style = style
+    def __init__(self, *, plain):
         self.__plain = plain
 
-    def format(self, string, *, style=None, plain=None):
-        if style is None:
-            style = self.__style
-        if plain is None:
-            plain = self.__plain
+    def format(self, string, *, style):
         if not self.__plain:
             style = settings.styles.get(style, None)
             if style is not None:
