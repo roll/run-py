@@ -347,9 +347,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             return default
         raise AttributeError(fullname)
 
-    def _meta_set_parameter(self, name, value):
-        self.__parameters[name] = value
-
     # Private
 
     def __init_dependencies(self):
