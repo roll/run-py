@@ -31,6 +31,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
+        # Initiate pathes
+        self.__initial_dir = os.path.abspath(os.getcwd())
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
@@ -261,6 +263,13 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inspect(
             name='chdir', inherit=True, default=settings.chdir)
 
+    @cachedproperty
+    def meta_codedir(self):
+        filepath = inspect.getfile(type(self))
+        dirpath = os.path.join(
+            self.__initial_dir, os.path.dirname(filepath))
+        return dirpath
+
     @property
     def meta_dependencies(self):
         """Task's list of dependencies.
@@ -402,6 +411,16 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """
         return self.meta_inspect(
             name='updates', default=[])
+
+    @property
+    def meta_workdir(self):
+        """Task's basedir (absulute path).
+
+        If meta_chdir is True current directory will be
+        changed to meta_basedir when task invoking.
+        """
+        return self.meta_inspect(
+            name='basedir', inherit=True, default=os.path.abspath(os.getcwd()))
 
     # Private
 
