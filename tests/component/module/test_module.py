@@ -35,6 +35,7 @@ class ModuleTest(unittest.TestCase):
     def make_mock_parent_module_class(self):
         class MockParentModule:
             # Public
+            meta_basedir = '/basedir'
             meta_cache = 'cache'
             meta_chdir = 'chdir'
             meta_dispatcher = Mock(add_signal=Mock())
@@ -45,7 +46,6 @@ class ModuleTest(unittest.TestCase):
             meta_qualname = ''
             meta_strict = 'strict'
             meta_tasks = {}
-            meta_basedir = 'basedir'
             @property
             def meta_main_module(self):
                 return self
@@ -101,7 +101,7 @@ class ModuleTest(unittest.TestCase):
 
     def test_meta_basedir_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_basedir, 'basedir')
+        self.assertEqual(self.module.meta_basedir, '/basedir')
 
     def test_meta_fullname(self):
         self.assertEqual(self.module.meta_fullname, '')

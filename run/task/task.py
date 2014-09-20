@@ -4,7 +4,6 @@ import inspect
 from copy import copy
 from abc import abstractmethod
 from box.collections import merge_dicts
-from box.os import enhanced_join
 from box.terminal import Formatter
 from box.types import Null
 from contextlib import contextmanager
@@ -31,8 +30,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
-        # Initiate pathes
-        self.__initial_dir = os.path.abspath(os.getcwd())
+        # Initiate basedir
         self.__init_basedir()
         # Initiate dependencies
         self.__dependencies = []
