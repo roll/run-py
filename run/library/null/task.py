@@ -11,6 +11,4 @@ class NullTask(Task):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            'docstring',
-            inherit=False,
-            default='Do nothing but resolve dependencies.')
+            name='docstring', default='Do nothing but resolve dependencies.')

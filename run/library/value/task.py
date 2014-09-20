@@ -11,4 +11,4 @@ class ValueTask(Task):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            'docstring', inherit=False, default='Return value')
+            name='docstring', default='Return value')

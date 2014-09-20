@@ -16,6 +16,5 @@ class DescriptorTask(Task):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            'docstring',
-            inherit=False,
+            name='docstring',
             default=str(inspect.getdoc(self.__descriptor)).strip())

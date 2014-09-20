@@ -26,4 +26,4 @@ class DialogModule(Module):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            'docstring', inherit=False, default='DialogModule')
+            name='docstring', default='DialogModule')

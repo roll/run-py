@@ -103,12 +103,12 @@ class Module(Task, Module):
         filepath = inspect.getfile(type(self))
         default = os.path.abspath(os.path.dirname(filepath))
         return self.meta_inspect(
-            'basedir', default=default)
+            name='basedir', inherit=True, default=default)
 
     @property
     def meta_default(self):
         return self.meta_inspect(
-            'default', inherit=False, default='list')
+            name='default', default='list')
 
     @property
     def meta_fullname(self):
@@ -139,7 +139,7 @@ class Module(Task, Module):
     @property
     def meta_style(self):
         return self.meta_inspect(
-            'style', inherit=False, default='module')
+            name='style', default='module')
 
     @property
     def meta_tasks(self):
