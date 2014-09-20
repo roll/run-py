@@ -316,7 +316,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_kwargs(self):
-        """Tasks's default keyword arguments
+        """Tasks's default keyword arguments.
         """
         return self.__kwargs
 
