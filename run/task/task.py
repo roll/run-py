@@ -4,6 +4,7 @@ import inspect
 from copy import copy
 from abc import abstractmethod
 from box.collections import merge_dicts
+from box.functools import cachedproperty
 from box.terminal import Formatter
 from box.types import Null
 from contextlib import contextmanager
@@ -234,7 +235,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """
         return self.__args
 
-    @property
+    @cachedproperty
     def meta_basedir(self):
         """Task's basedir.
 

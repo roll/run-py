@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
+from box.functools import cachedproperty
 from ..converter import convert
 from ..settings import settings
 from ..task import Task, Prototype, Module
@@ -98,7 +99,7 @@ class Module(Task, Module):
         result = default(*args, **kwargs)
         return result
 
-    @property
+    @cachedproperty
     def meta_basedir(self):
         filepath = inspect.getfile(type(self))
         default = os.path.abspath(os.path.dirname(filepath))
