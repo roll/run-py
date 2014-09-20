@@ -245,7 +245,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_inherit(self):
         return self.meta_inspect(
-            name='inherit', default=['meta_*'])
+            name='inherit', default=settings.inherit)
 
     @property
     def meta_is_descriptor(self):

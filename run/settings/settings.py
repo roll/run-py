@@ -14,6 +14,7 @@ class Settings(Settings):
     exclude = None
     fallback = None
     filepath = 'runfile.py'
+    inherit = ['meta_*']
     key = None
     plain = False
     recursively = False
