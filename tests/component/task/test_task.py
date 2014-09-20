@@ -198,10 +198,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_chdir(self):
         self.assertEqual(self.task.meta_chdir, component.settings.chdir)
 
-    def test_meta_chdir_setter(self):
-        self.task.meta_chdir = 'chdir'
-        self.assertEqual(self.task.meta_chdir, 'chdir')
-
     def test_meta_dependencies(self):
         self.assertEqual(self.task.meta_dependencies, [])
 

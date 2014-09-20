@@ -190,10 +190,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'chdir', default=settings.chdir)
 
-    @meta_chdir.setter
-    def meta_chdir(self, value):
-        self._meta_set_parameter('chdir', value)
-
     @property
     def meta_dependencies(self):
         """Task's list of dependencies.
