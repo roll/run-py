@@ -209,10 +209,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'dispatcher', inherit=True, default=None)
 
-    @meta_dispatcher.setter
-    def meta_dispatcher(self, value):
-        self._meta_set_parameter('dispatcher', value)
-
     @property
     def meta_docstring(self):
         """Task's docstring.

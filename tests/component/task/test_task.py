@@ -229,10 +229,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_dispatcher(self):
         self.assertEqual(self.task.meta_dispatcher, None)
 
-    def test_meta_dispatcher_setter(self):
-        self.task.meta_dispatcher = 'dispatcher'
-        self.assertEqual(self.task.meta_dispatcher, 'dispatcher')
-
     def test_meta_docstring(self):
         self.assertEqual(self.task.meta_docstring,
                          self.task.__doc__)
