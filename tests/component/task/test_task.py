@@ -244,10 +244,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback, component.settings.fallback)
 
-    def test_meta_fallback_setter(self):
-        self.task.meta_fallback = 'fallback'
-        self.assertEqual(self.task.meta_fallback, 'fallback')
-
     def test_meta_fullname(self):
         self.assertEqual(self.task.meta_fullname, '')
 

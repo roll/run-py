@@ -235,10 +235,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'fallback', default=settings.fallback)
 
-    @meta_fallback.setter
-    def meta_fallback(self, value):
-        self._meta_set_parameter('fallback', value)
-
     @property
     def meta_fullname(self):
         fullname = ''
