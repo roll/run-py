@@ -17,11 +17,6 @@ class Module(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def meta_chdir(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
     def meta_dispatcher(self):
         pass  # pragma: no cover
 

@@ -36,7 +36,6 @@ class ModuleTest(unittest.TestCase):
         class MockParentModule:
             # Public
             meta_cache = 'cache'
-            meta_chdir = 'chdir'
             meta_dispatcher = Mock(add_signal=Mock())
             meta_fallback = 'fallback'
             meta_fullname = '[key]'
@@ -45,7 +44,7 @@ class ModuleTest(unittest.TestCase):
             meta_qualname = ''
             meta_strict = 'strict'
             meta_tasks = {}
-            meta_workdir = 'workdir'
+            meta_workdir = None
             @property
             def meta_main_module(self):
                 return self
@@ -102,7 +101,9 @@ class ModuleTest(unittest.TestCase):
     def test_meta_workdir_with_parent_module(self):
         self.Module.meta_inherit = ['meta_workdir']
         self.module = self.Module(meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_workdir, 'workdir')
+        self.assertEqual(
+            self.module.meta_workdir,
+            self.module.meta_module.meta_workdir)
 
     @unittest.skip
     def test_meta_workdir_setter(self):
@@ -151,7 +152,6 @@ class ModuleTest(unittest.TestCase):
         self.Module = self.make_mock_module_class()
         self.module = self.Module(
             meta_module=self.parent_module,
-            meta_chdir=False,
             meta_fallback=None)
         self.parent_module.meta_tasks = {'module': self.module}
         self.module.list()
@@ -191,10 +191,10 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 29)
+        self.assertEqual(len(argument), 28)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 23)
+        self.assertEqual(len(argument), 22)

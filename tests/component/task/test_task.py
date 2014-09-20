@@ -118,10 +118,6 @@ class TaskTest(unittest.TestCase):
             call(failed=None),
             call(failed=True)])
 
-    def test___call___with_meta_chdir_is_false(self):
-        self.Task.meta_chdir = False
-        self.assertEqual(self.task(), 'value')
-
     def test___repr__(self):
         self.assertEqual(repr(self.task), '<Task>')
 
@@ -181,14 +177,10 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_args, self.args)
 
     def test_meta_workdir(self):
-        self.assertEqual(self.task.meta_workdir,
-                         os.path.abspath(os.getcwd()))
+        self.assertEqual(self.task.meta_workdir, None)
 
     def test_meta_cache(self):
         self.assertEqual(self.task.meta_cache, component.settings.cache)
-
-    def test_meta_chdir(self):
-        self.assertEqual(self.task.meta_chdir, component.settings.chdir)
 
     def test_meta_dependencies(self):
         self.assertEqual(self.task.meta_dependencies, [])
