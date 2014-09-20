@@ -108,6 +108,18 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return pattern.format(self=self)
 
     def meta_format(self, attribute=None):
+        """Format task.
+
+        Parameters
+        ----------
+        attribute: str
+            Format attribute instead of whole task.
+
+        Returns
+        -------
+        str
+            Formatted task/attribute.
+        """
         result = str(self)
         if attribute is not None:
             result = str(getattr(self, attribute))
@@ -120,6 +132,22 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return result
 
     def meta_inspect(self, name, *, inherit=False, default=None):
+        """Return internal meta parameter.
+
+        Parameters
+        ----------
+        name: str
+            Name of parameter.
+        inherit: bool
+            Allow to inherit from meta_module if not set.
+        default: mixed
+            Default value if not set and can't inherit.
+
+        Returns
+        -------
+        mixed
+            Value of parameter.
+        """
         fullname = 'meta_' + name
         try:
             # TODO: remove expand from try/except?
@@ -139,12 +167,22 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     def meta_depend(self, dependency):
         """Add custom dependency.
+
+        Parameters
+        ----------
+        dependency: :class:`.dependency.Dependency`
+            Dependency to be dependent upon.
         """
         dependency.bind(self)
         self.meta_dependencies.append(dependency)
 
     def meta_not_depend(self, task):
         """Remove all of task dependencies.
+
+        Parameters
+        ----------
+        task: str
+            Task name to be not dependent upon.
         """
         task = self.meta_module.meta_lookup(task)
         for dependency in copy(self.meta_dependencies):
@@ -153,12 +191,26 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
+
+        Parameters
+        ----------
+        task: str
+            Task name to require.
+        args, kwargs
+            Arguments for dependency resolve call.
         """
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
     def meta_trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
+
+        Parameters
+        ----------
+        task: str
+            Task name to trigger.
+        args, kwargs
+            Arguments for dependency resolve call.
         """
         dependency = trigger(task, *args, **kwargs)
         self.meta_depend(dependency)
@@ -166,6 +218,11 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @abstractmethod
     def meta_invoke(self, *args, **kwargs):
         """Invoke task.
+
+        Parameters
+        ----------
+        args, kwargs
+            Arguments for task invokation.
         """
         pass  # pragma: no cover
 
