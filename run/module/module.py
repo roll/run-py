@@ -1,3 +1,4 @@
+import os
 import inspect
 from pprint import pprint
 from builtins import print
@@ -99,8 +100,10 @@ class Module(Task, Module):
 
     @property
     def meta_basedir(self):
+        filepath = inspect.getfile(type(self))
+        dirpath = os.path.abspath(os.path.dirname(filepath))
         return self.meta_inspect(
-            name='basedir', inherit=True, default=self.meta_codedir)
+            name='basedir', inherit=True, default=dirpath)
 
     @property
     def meta_default(self):

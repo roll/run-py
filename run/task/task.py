@@ -230,13 +230,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """
         pass  # pragma: no cover
 
-    def meta_path(self, *components, codedir=False):
-        basedir = self.meta_basedir
-        if codedir:
-            basedir = self.meta_codedir
-        path = enhanced_join(basedir, *components)
-        return path
-
     @property
     def meta_args(self):
         """Tasks's default arguments
@@ -270,13 +263,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """
         return self.meta_inspect(
             name='chdir', inherit=True, default=settings.chdir)
-
-    @property
-    def meta_codedir(self):
-        filepath = inspect.getfile(type(self))
-        dirpath = os.path.join(
-            self.__initial_dir, os.path.dirname(filepath))
-        return dirpath
 
     @property
     def meta_dependencies(self):
