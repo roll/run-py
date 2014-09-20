@@ -319,10 +319,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self._meta_get_parameter(
             'plain', inherit=True, default=settings.plain)
 
-    @meta_plain.setter
-    def meta_plain(self, value):
-        self._meta_set_parameter('plain', value)
-
     @property
     def meta_signature(self):
         """Task's signature.

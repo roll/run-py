@@ -305,10 +305,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_plain(self):
         self.assertEqual(self.task.meta_plain, component.settings.plain)
 
-    def test_meta_plain_setter(self):
-        self.task.meta_plain = 'plain'
-        self.assertEqual(self.task.meta_plain, 'plain')
-
     def test_meta_signature(self):
         self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
 
