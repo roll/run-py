@@ -4,7 +4,6 @@ import inspect
 from copy import copy
 from abc import abstractmethod
 from box.collections import merge_dicts
-from box.functools import cachedproperty
 from box.os import enhanced_join
 from box.terminal import Formatter
 from box.types import Null
