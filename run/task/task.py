@@ -31,11 +31,11 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
-        # Initiate cache
-        self.__cached_result = Null
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
+        # Initiate cache
+        self.__cached_result = Null
         # Initiate arguments
         self.__args = ()
         self.__kwargs = {}
@@ -235,7 +235,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     @cachedproperty
     def meta_basedir(self):
-        """Task's basedir.
+        """Task's basedir (absulute path).
 
         If meta_chdir is True current directory will be
         changed to meta_basedir when task invoking.
