@@ -7,6 +7,7 @@ class Settings(Settings):
     # Main
 
     cache = True
+    chdir = True
     compact = False
     convert = True
     fallback = None

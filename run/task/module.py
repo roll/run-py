@@ -34,3 +34,8 @@ class Module(metaclass=ABCMeta):
     @abstractmethod
     def meta_tasks(self):
         pass  # pragma: no cover
+
+    @property
+    @abstractmethod
+    def meta_workdir(self):
+        pass  # pragma: no cover
