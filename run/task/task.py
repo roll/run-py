@@ -13,7 +13,6 @@ from ..settings import settings
 from .metaclass import Metaclass
 from .self import self as selftype
 from .signal import TaskSignal
-from .parameter import Parameter
 
 
 class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
@@ -156,10 +155,118 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.__args
 
     @property
+    def meta_basedir(self):
+        """Task's basedir.
+
+        If meta_chdir is True current directory will be
+        changed to meta_basedir when task invoking.
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_get_parameter(
+            'basedir', default=os.path.abspath(os.getcwd()))
+
+    @meta_basedir.setter
+    def meta_basedir(self, value):
+        self._meta_set_parameter('basedir', value)
+
+    @property
+    def meta_cache(self):
+        """Task's caching status (enabled or disabled).
+
+        If meta_cache is True descriptor tasks cache result of invocations.
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_get_parameter(
+            'cache', default=settings.cache)
+
+    @meta_cache.setter
+    def meta_cache(self, value):
+        self._meta_set_parameter('cache', value)
+
+    @property
+    def meta_chdir(self):
+        """Task's chdir status (enabled or disabled).
+
+        .. seealso:: :attr:`run.Task.meta_basedir`
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_get_parameter(
+            'chdir', default=settings.chdir)
+
+    @meta_chdir.setter
+    def meta_chdir(self, value):
+        self._meta_set_parameter('chdir', value)
+
+    @property
     def meta_dependencies(self):
         """Task's list of dependencies.
         """
         return self.__dependencies
+
+    @property
+    def meta_dispatcher(self):
+        """Task's dispatcher.
+
+        Dispatcher used to operate signals.
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_get_parameter(
+            'dispatcher', inherit=True, default=None)
+
+    @meta_dispatcher.setter
+    def meta_dispatcher(self, value):
+        self._meta_set_parameter('dispatcher', value)
+
+    @property
+    def meta_docstring(self):
+        """Task's docstring.
+
+        This property is:
+
+        - initable/writable
+        """
+        return self._meta_get_parameter(
+            'docstring',
+            inherit=False,
+            default=str(inspect.getdoc(self)).strip())
+
+    @meta_docstring.setter
+    def meta_docstring(self, value):
+        self._meta_set_parameter('docstring', value)
+
+    @property
+    def meta_fallback(self):
+        """Task's fallback.
+
+        Fallback used when task invocation fails.
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_get_parameter(
+            'fallback', default=settings.fallback)
+
+    @meta_fallback.setter
+    def meta_fallback(self, value):
+        self._meta_set_parameter('fallback', value)
 
     @property
     def meta_fullname(self):
@@ -171,6 +278,15 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             fullname = separator.join(filter(None,
                 [self.meta_module.meta_fullname, self.meta_name]))
         return fullname
+
+    @property
+    def meta_inherit(self):
+        return self._meta_get_parameter(
+            'inherit', inherit=False, default=['meta_*'])
+
+    @meta_inherit.setter
+    def meta_inherit(self, value):
+        self._meta_set_parameter('inherit', value)
 
     @property
     def meta_is_descriptor(self):
@@ -190,6 +306,13 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         if self.meta_module:
             main_module = self.meta_module.meta_main_module
         return main_module
+
+    @property
+    def meta_module(self):
+        """Task's module.
+        """
+        return self._meta_get_parameter(
+            'module', inherit=False, default=None)
 
     @property
     def meta_name(self):
@@ -219,106 +342,75 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return qualname
 
     @property
+    def meta_plain(self):
+        """Task's plain flag (plain or not).
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_get_parameter(
+            'plain', inherit=True, default=settings.plain)
+
+    @meta_plain.setter
+    def meta_plain(self, value):
+        self._meta_set_parameter('plain', value)
+
+    @property
+    def meta_signature(self):
+        """Task's signature.
+
+        This property is:
+
+        - initable/writable
+        """
+        return self._meta_get_parameter(
+            'signature',
+            inherit=False,
+            default=str(inspect.signature(self.meta_invoke)))
+
+    @meta_signature.setter
+    def meta_signature(self, value):
+        self._meta_set_parameter('signature', value)
+
+    @property
+    def meta_strict(self):
+        """Task's strict mode status (enabled or disabled).
+
+        This property is:
+
+        - initable/writable
+        - inherited from module
+        """
+        return self._meta_get_parameter(
+            'strict', default=settings.strict)
+
+    @meta_strict.setter
+    def meta_strict(self, value):
+        self._meta_set_parameter('strict', value)
+
+    @property
+    def meta_style(self):
+        return self._meta_get_parameter(
+            'style', inherit=False, default='task')
+
+    @meta_style.setter
+    def meta_style(self, value):
+        self._meta_set_parameter('style', value)
+
+    @property
     def meta_type(self):
         """Task's type as a string.
         """
         return type(self).__name__
 
-    # Parameters
-
-    meta_basedir = Parameter(
-        name='basedir',
-        writable=True,
-        inheritable=True,
-        default=os.path.abspath(os.getcwd()),
-        docstring="""Task's basedir.
-        If meta_chdir is True current directory will be
-        changed to meta_basedir when task invoking.""")
-
-    meta_cache = Parameter(
-        name='cache',
-        writable=True,
-        inheritable=True,
-        default=settings.cache,
-        docstring="""Task's caching status (enabled or disabled).
-        If meta_cache is True descriptor tasks cache result of invocations.""")
-
-    meta_chdir = Parameter(
-        name='chdir',
-        writable=True,
-        inheritable=True,
-        default=settings.chdir,
-        docstring="""Task's chdir status (enabled or disabled).
-        .. seealso:: :attr:`run.Task.meta_basedir`""")
-
-    meta_dispatcher = Parameter(
-        name='dispatcher',
-        writable=True,
-        inheritable=True,
-        default=None,
-        docstring="""Task's dispatcher.
-        Dispatcher used to operate signals.""")
-
-    meta_docstring = Parameter(
-        name='docstring',
-        writable=True,
-        inheritable=False,
-        default=lambda self: str(inspect.getdoc(self)).strip(),
-        docstring="""Task's dispatcher.
-        Dispatcher used to operate signals.""")
-
-    meta_fallback = Parameter(
-        name='fallback',
-        writable=True,
-        inheritable=True,
-        default=settings.fallback,
-        docstring="""Task's fallback.
-        Fallback used when task invocation fails.""")
-
-    meta_inherit = Parameter(
-        name='inherit',
-        writable=True,
-        inheritable=False,
-        default=['meta_*'])
-
-    meta_module = Parameter(
-        name='module',
-        writable=False,
-        inheritable=False,
-        default=None)
-
-    meta_plain = Parameter(
-        name='plain',
-        writable=True,
-        inheritable=True,
-        default=settings.plain,
-        docstring="""Task's plain flag (plain or not).""")
-
-    meta_signature = Parameter(
-        name='signature',
-        writable=True,
-        inheritable=False,
-        default=lambda self: str(inspect.signature(self.meta_invoke)),
-        docstring="""Task's signature.""")
-
-    meta_strict = Parameter(
-        name='strict',
-        writable=True,
-        inheritable=True,
-        default=settings.strict,
-        docstring="""Task's strict mode status (enabled or disabled).""")
-
-    meta_style = Parameter(
-        name='style',
-        writable=True,
-        inheritable=False,
-        default='task')
-
-    meta_updates = Parameter(
-        name='updates',
-        writable=False,
-        inheritable=False,
-        default=lambda self: [])
+    @property
+    def meta_updates(self):
+        """Task's module.
+        """
+        return self._meta_get_parameter(
+            'updates', inherit=False, default=[])
 
     # Protected
 

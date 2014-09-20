@@ -19,11 +19,6 @@ Prototype
 
 .. autoclass:: run.task.Prototype
 
-Parameter
----------
-
-.. autoclass:: run.task.Parameter
-
 Signal class
 ------------
 
