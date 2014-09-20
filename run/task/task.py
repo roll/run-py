@@ -116,6 +116,26 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                     result = formater.format(result, **style)
         return result
 
+    def meta_inspect(self, name, *, inherit=Null, default=Null):
+        fullname = 'meta_' + name
+        try:
+            # TODO: remove expand from try/except?
+            value = self.__parameters[name]
+            value = self.__expand_value(value)
+            return value
+        except KeyError:
+            if inherit is Null:
+                inherit = self.__check_inheritance(fullname)
+            if inherit:
+                if self.meta_module is not None:
+                    try:
+                        return getattr(self.meta_module, fullname)
+                    except AttributeError:
+                        pass
+        if default is not Null:
+            return default
+        raise AttributeError(fullname)
+
     def meta_depend(self, dependency):
         """Add custom dependency.
         """
@@ -161,7 +181,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         If meta_chdir is True current directory will be
         changed to meta_basedir when task invoking.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'basedir', default=os.path.abspath(os.getcwd()))
 
     @property
@@ -170,7 +190,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         If meta_cache is True descriptor tasks cache result of invocations.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'cache', default=settings.cache)
 
     @property
@@ -179,7 +199,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         .. seealso:: :attr:`run.Task.meta_basedir`
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'chdir', default=settings.chdir)
 
     @property
@@ -194,14 +214,14 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         Dispatcher used to operate signals.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'dispatcher', inherit=True, default=None)
 
     @property
     def meta_docstring(self):
         """Task's docstring.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'docstring',
             inherit=False,
             default=str(inspect.getdoc(self)).strip())
@@ -212,7 +232,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         Fallback used when task invocation fails.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'fallback', default=settings.fallback)
 
     @property
@@ -228,7 +248,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_inherit(self):
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'inherit', inherit=False, default=['meta_*'])
 
     @property
@@ -254,7 +274,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_module(self):
         """Task's module.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'module', inherit=False, default=None)
 
     @property
@@ -288,14 +308,14 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_plain(self):
         """Task's plain flag (plain or not).
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'plain', inherit=True, default=settings.plain)
 
     @property
     def meta_signature(self):
         """Task's signature.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'signature',
             inherit=False,
             default=str(inspect.signature(self.meta_invoke)))
@@ -304,12 +324,12 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_strict(self):
         """Task's strict mode status (enabled or disabled).
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'strict', default=settings.strict)
 
     @property
     def meta_style(self):
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'style', inherit=False, default='task')
 
     @property
@@ -322,30 +342,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_updates(self):
         """Task's module.
         """
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'updates', inherit=False, default=[])
-
-    # Protected
-
-    def _meta_get_parameter(self, name, *, inherit=Null, default=Null):
-        fullname = 'meta_' + name
-        try:
-            # TODO: remove expand from try/except?
-            value = self.__parameters[name]
-            value = self.__expand_value(value)
-            return value
-        except KeyError:
-            if inherit is Null:
-                inherit = self.__check_inheritance(fullname)
-            if inherit:
-                if self.meta_module is not None:
-                    try:
-                        return getattr(self.meta_module, fullname)
-                    except AttributeError:
-                        pass
-        if default is not Null:
-            return default
-        raise AttributeError(fullname)
 
     # Private
 

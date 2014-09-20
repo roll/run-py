@@ -14,7 +14,7 @@ class ProxyTask(Task):
 
     @property
     def meta_docstring(self):
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'docstring',
             inherit=False,
             default=('Proxy to task "{meta_qualname}".\n{meta_docstring}'.
@@ -23,7 +23,7 @@ class ProxyTask(Task):
 
     @property
     def meta_signature(self):
-        return self._meta_get_parameter(
+        return self.meta_inspect(
             'signature',
             inherit=False,
             default=self.__task_instance.meta_signature)
