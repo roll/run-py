@@ -154,6 +154,11 @@ class Module(Task, Module):
                 tasks[name] = attr
         return tasks
 
+    @property
+    def meta_workdir(self):
+        return self.meta_inspect(
+            name='basedir', inherit=True, default=self.meta_codedir)
+
     def list(self, task=None):
         """Print tasks.
         """
