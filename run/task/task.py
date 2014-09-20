@@ -125,7 +125,9 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             result = str(getattr(self, attribute))
         if result:
             if not self.meta_plain:
-                style = settings.styles.get(self.meta_style, None)
+                style = self.meta_style
+                if not isinstance(self.meta_style, dict):
+                    style = settings.styles.get(self.meta_style, None)
                 if style is not None:
                     formatter = Formatter()
                     result = formatter.format(result, **style)
