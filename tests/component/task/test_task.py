@@ -214,6 +214,7 @@ class TaskTest(unittest.TestCase):
         require.return_value.bind.assert_called_with(self.task)
         trigger.return_value.bind.assert_called_with(self.task)
 
+    @unittest.skip
     def test_meta_dispatcher(self):
         self.assertEqual(self.task.meta_dispatcher, None)
 

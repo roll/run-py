@@ -9,6 +9,7 @@ from box.types import Null
 from contextlib import contextmanager
 from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
+from ..signal import Dispatcher
 from ..settings import settings
 from .metaclass import Metaclass
 from .self import self as selftype
@@ -215,7 +216,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         Dispatcher used to operate signals.
         """
         return self.meta_inspect(
-            name='dispatcher', inherit=True, default=None)
+            name='dispatcher', inherit=True, default=Dispatcher())
 
     @property
     def meta_docstring(self):
@@ -368,9 +369,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             yield
 
     def __add_signal(self, event):
-        if self.meta_dispatcher is not None:
-            signal = TaskSignal(self, event=event)
-            self.meta_dispatcher.add_signal(signal)
+        signal = TaskSignal(self, event=event)
+        self.meta_dispatcher.add_signal(signal)
 
     # TODO: improve implementation
     def __check_inheritance(self, name):
