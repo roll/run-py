@@ -12,9 +12,3 @@ Dispatcher
 ----------
 
 .. autoclass:: run.signal.Dispatcher
-
-Handlers
---------
-
-.. autoclass:: run.signal.Handler
-.. autoclass:: run.signal.FunctionHandler

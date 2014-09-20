@@ -5,7 +5,6 @@ from box.functools import cachedproperty
 from importlib.machinery import SourceFileLoader
 from ..module import Module
 from ..settings import settings
-from ..signal import FunctionHandler
 from ..task import TaskSignal
 from .stack import Stack
 
@@ -58,7 +57,8 @@ class Machine:
             meta_module=None)
         # Add handlers
         module.meta_dispatcher.add_handler(
-            FunctionHandler(self.__on_task_signal, signals=[TaskSignal]))
+            handler=self.__on_task_signal,
+            signals=[TaskSignal])
         return module
 
     @cachedproperty

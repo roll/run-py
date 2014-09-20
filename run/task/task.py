@@ -215,8 +215,11 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
         Dispatcher used to operate signals.
         """
-        return self.meta_inspect(
-            name='dispatcher', inherit=True, default=Dispatcher())
+        dispatcher = self.meta_inspect(
+            name='dispatcher', inherit=True)
+        if dispatcher is None:
+            dispatcher = Dispatcher()
+        return dispatcher
 
     @property
     def meta_docstring(self):

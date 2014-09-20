@@ -20,4 +20,4 @@ class DispatcherTest(unittest.TestCase):
     def test_add_handler_and_add_signal(self):
         self.dispatcher.add_handler(self.handler)
         self.dispatcher.add_signal('signal')
-        self.handler.handle.assert_called_with('signal')
+        self.handler.assert_called_with('signal')
