@@ -100,18 +100,8 @@ class Module(Task, Module):
         return result
 
     @property
-    def meta_basedir(self):
-        basedir = self.meta_inspect(
-            name='basedir', lookup=True, default=None)
-        if basedir is None:
-            basedir = self.meta_inspect(
-                name='basedir', inherit=True, default=None)
-            if basedir is not None:
-                basedir = enhanced_join(basedir, self.meta_prefix)
-        if basedir is None:
-            basedir = os.path.abspath(
-                os.path.dirname(inspect.getfile(type(self))))
-        return basedir
+    def meta_autodir(self):
+        return self.meta_codedir
 
     @property
     def meta_default(self):

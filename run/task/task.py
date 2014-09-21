@@ -235,6 +235,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.__args
 
     @property
+    def meta_autodir(self):
+        return os.path.abspath(os.getcwd())
+
+    @property
     def meta_basedir(self):
         """Task's basedir.
 
@@ -249,7 +253,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if basedir is not None:
                 basedir = enhanced_join(basedir, self.meta_prefix)
         if basedir is None:
-            basedir = os.path.abspath(os.getcwd())
+            basedir = self.meta_autodir
         return basedir
 
     @property
@@ -271,6 +275,11 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inspect(
             name='chdir', lookup=True, inherit=True,
             default=settings.chdir)
+
+    @property
+    def meta_codedir(self):
+        return os.path.abspath(
+            os.path.dirname(inspect.getfile(type(self))))
 
     @property
     def meta_dependencies(self):
