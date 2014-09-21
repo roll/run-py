@@ -4,16 +4,12 @@
 .coverage
 coverage.xml
 
-# Distutils
-/build/
-/develop-eggs/
-/dist/
-/eggs/
-/sdist/
-/*.egg-info/
-/*.egg
+# Eclipse
+.settings/
+.project
+.pydevproject
 
-# Nosetests
+# Nose
 nosetests.xml
 
 # Pip
@@ -21,24 +17,24 @@ pip-log.txt
 pip-delete-this-directory.txt
 
 # Project
-/tmp/
-
-# PyDev
-/.settings/
-/.project
-/.pydevproject
+build/
+develop-eggs/
+dist/
+eggs/
+sdist/
+tmp/
+*.egg-info/
+*.egg
 
 # Python
 __pycache__/
 *.py[cod]
 
 # Sphinx
-/docs/_build
+docs/_build
 
 # Virtualenv
-/env/
-/envs/
-/venv/
-/venvs/
-/virtualenv/
-/virtualenvs/
+venv/
+venvs/
+virtualenv/
+virtualenvs/
