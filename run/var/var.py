@@ -17,4 +17,4 @@ class Var(Task, metaclass=ABCMeta):
     @property
     def meta_style(self):
         return self.meta_inspect(
-            name='style', default='var')
+            name='style', lookup=True, default='var')

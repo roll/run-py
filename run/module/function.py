@@ -45,7 +45,7 @@ class FunctionModule(Module):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            name='docstring',
+            name='docstring', lookup=True,
             default=('FunctionModule with following mapping: {mapping}'.
                      format(mapping=self.__mapping)))
 

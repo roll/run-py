@@ -19,4 +19,4 @@ class CommandTask(Task):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            name='docstring', default='Execute shell command.')
+            name='docstring', lookup=True, default='Execute shell command.')

@@ -16,4 +16,4 @@ class CommandModule(Module):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            name='docstring', default='CommandModule')
+            name='docstring', lookup=True, default='CommandModule')

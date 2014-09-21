@@ -105,7 +105,7 @@ class Module(Task, Module):
             name='basedir', lookup=True, default=None)
         if basedir is None:
             basedir = self.meta_inspect(
-                name='basedir', lookup=False, inherit=True, default=None)
+                name='basedir', inherit=True, default=None)
             if basedir is not None:
                 basedir = enhanced_join(basedir, self.meta_prefix)
         if basedir is None:
@@ -116,7 +116,7 @@ class Module(Task, Module):
     @property
     def meta_default(self):
         return self.meta_inspect(
-            name='default', default='list')
+            name='default', lookup=True, default='list')
 
     @property
     def meta_fullname(self):
@@ -147,7 +147,7 @@ class Module(Task, Module):
     @property
     def meta_style(self):
         return self.meta_inspect(
-            name='style', default='module')
+            name='style', lookup=True, default='module')
 
     @property
     def meta_tasks(self):

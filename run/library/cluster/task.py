@@ -19,5 +19,5 @@ class ClusterTask(Task):
     @property
     def meta_docstring(self):
         return self.meta_inspect(
-            name='docstring',
+            name='docstring', lookup=True,
             default='Invoke "{tasks}" tasks.'.format(tasks=self.__tasks))

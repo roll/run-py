@@ -132,8 +132,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                     result = formatter.format(result, **style)
         return result
 
-    # TODO: change default lookup to False?
-    def meta_inspect(self, name, *, lookup=True, inherit=False, default=None):
+    def meta_inspect(self, name, *, lookup=False, inherit=False, default=None):
         """Return internal meta parameter.
 
         Parameters
@@ -246,7 +245,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             name='basedir', lookup=True, default=None)
         if basedir is None:
             basedir = self.meta_inspect(
-                name='basedir', lookup=False, inherit=True, default=None)
+                name='basedir', inherit=True, default=None)
             if basedir is not None:
                 basedir = enhanced_join(basedir, self.meta_prefix)
         if basedir is None:
@@ -260,7 +259,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         If meta_cache is True descriptor tasks cache result of invocations.
         """
         return self.meta_inspect(
-            name='cache', inherit=True, default=settings.cache)
+            name='cache', lookup=True, inherit=True,
+            default=settings.cache)
 
     @property
     def meta_chdir(self):
@@ -269,7 +269,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         .. seealso:: :attr:`run.Task.meta_basedir`
         """
         return self.meta_inspect(
-            name='chdir', inherit=True, default=settings.chdir)
+            name='chdir', lookup=True, inherit=True,
+            default=settings.chdir)
 
     @property
     def meta_dependencies(self):
@@ -284,7 +285,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         Dispatcher used to operate signals.
         """
         dispatcher = self.meta_inspect(
-            name='dispatcher', inherit=True)
+            name='dispatcher', lookup=True, inherit=True)
         if dispatcher is None:
             dispatcher = Dispatcher()
         return dispatcher
@@ -294,7 +295,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's docstring.
         """
         return self.meta_inspect(
-            name='docstring', default=str(inspect.getdoc(self)).strip())
+            name='docstring', lookup=True,
+            default=str(inspect.getdoc(self)).strip())
 
     @property
     def meta_fallback(self):
@@ -303,7 +305,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         Fallback used when task invocation fails.
         """
         return self.meta_inspect(
-            name='fallback', inherit=True, default=settings.fallback)
+            name='fallback', lookup=True, inherit=True,
+            default=settings.fallback)
 
     @property
     def meta_fullname(self):
@@ -319,7 +322,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_inherit(self):
         return self.meta_inspect(
-            name='inherit', default=settings.inherit)
+            name='inherit', lookup=True, default=settings.inherit)
 
     @property
     def meta_is_descriptor(self):
@@ -345,7 +348,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's module.
         """
         return self.meta_inspect(
-            name='module', default=None)
+            name='module', lookup=True, default=None)
 
     @property
     def meta_name(self):
@@ -371,7 +374,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         qualname = ''
         if self.meta_module:
             module_qualname = self.meta_module.meta_qualname
-            qualname = '.'.join(filter(None, [module_qualname, self.meta_name]))
+            elements = [module_qualname, self.meta_name]
+            qualname = '.'.join(filter(None, elements))
         return qualname
 
     @property
@@ -379,21 +383,23 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's plain flag (plain or not).
         """
         return self.meta_inspect(
-            name='plain', inherit=True, default=settings.plain)
+            name='plain', lookup=True, inherit=True,
+            default=settings.plain)
 
     @property
     def meta_prefix(self):
         """Task's prefix path.
         """
         return self.meta_inspect(
-            name='prefix', default=None)
+            name='prefix', lookup=True, default=None)
 
     @property
     def meta_signature(self):
         """Task's signature.
         """
         return self.meta_inspect(
-            name='signature', default=str(inspect.signature(self.meta_invoke)))
+            name='signature', lookup=True,
+            default=str(inspect.signature(self.meta_invoke)))
 
     @property
     def meta_strict(self):
@@ -405,7 +411,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_style(self):
         return self.meta_inspect(
-            name='style', default='task')
+            name='style', lookup=True, default='task')
 
     @property
     def meta_type(self):
@@ -418,7 +424,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's module.
         """
         return self.meta_inspect(
-            name='updates', default=[])
+            name='updates', lookup=True, default=[])
 
     # Private
 
