@@ -285,7 +285,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         Dispatcher used to operate signals.
         """
         dispatcher = self.meta_inspect(
-            name='dispatcher', lookup=True, inherit=True)
+            name='dispatcher', lookup=True, inherit=True, default=None)
         if dispatcher is None:
             dispatcher = Dispatcher()
         return dispatcher

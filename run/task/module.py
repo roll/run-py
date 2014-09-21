@@ -12,11 +12,6 @@ class Module(metaclass=ABCMeta):
 
     @property
     @abstractmethod
-    def meta_basedir(self):
-        pass  # pragma: no cover
-
-    @property
-    @abstractmethod
     def meta_fullname(self):
         pass  # pragma: no cover
 
