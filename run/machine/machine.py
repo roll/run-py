@@ -1,3 +1,4 @@
+import os
 import inspect
 import logging
 from builtins import print
@@ -63,8 +64,10 @@ class Machine:
 
     @cachedproperty
     def __Module(self):
-        loader = SourceFileLoader(self.__filepath, self.__filepath)
-        module = loader.load_module(self.__filepath)
+        filepath = os.path.abspath(self.__filepath)
+        loader = SourceFileLoader(filepath, filepath)
+        # TODO: load_module is deprecated?
+        module = loader.load_module(filepath)
         for name in dir(module):
             attr = getattr(module, name)
             if not isinstance(attr, type):
