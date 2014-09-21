@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
+from box.os import enhanced_join
 from ..converter import convert
 from ..settings import settings
 from ..task import Task, Prototype, Module
@@ -100,10 +101,17 @@ class Module(Task, Module):
 
     @property
     def meta_basedir(self):
-        filepath = inspect.getfile(type(self))
-        dirpath = os.path.abspath(os.path.dirname(filepath))
-        return self.meta_inspect(
-            name='basedir', inherit=True, default=dirpath)
+        basedir = self.meta_inspect(
+            name='basedir', lookup=True, default=None)
+        if basedir is None:
+            basedir = self.meta_inspect(
+                name='basedir', lookup=False, inherit=True, default=None)
+            if basedir is not None:
+                basedir = enhanced_join(basedir, self.meta_prefix)
+        if basedir is None:
+            basedir = os.path.abspath(
+                os.path.dirname(inspect.getfile(type(self))))
+        return basedir
 
     @property
     def meta_default(self):

@@ -4,6 +4,7 @@ import inspect
 from copy import copy
 from abc import abstractmethod
 from box.collections import merge_dicts
+from box.os import enhanced_join
 from box.terminal import Formatter
 from box.types import Null
 from contextlib import contextmanager
@@ -30,8 +31,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
-        # Initiate basedir
-        self.__init_basedir()
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
@@ -133,17 +132,20 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                     result = formatter.format(result, **style)
         return result
 
-    def meta_inspect(self, name, *, inherit=False, default=None):
+    # TODO: change default lookup to False?
+    def meta_inspect(self, name, *, lookup=True, inherit=False, default=None):
         """Return internal meta parameter.
 
         Parameters
         ----------
         name: str
             Name of parameter.
+        lookup: bool
+            Allow to lookup from init parameters.
         inherit: bool
-            Allow to inherit from meta_module if not set.
+            Allow to inherit from meta_module.
         default: mixed
-            Default value if not set and can't inherit.
+            Default value.
 
         Returns
         -------
@@ -151,20 +153,19 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             Value of parameter.
         """
         fullname = 'meta_' + name
-        try:
-            # TODO: remove expand from try/except?
-            value = self.__parameters[name]
-            value = self.__expand_value(value)
-            return value
-        except KeyError:
-            if inherit:
-                inherit = self.__check_inheritance(fullname)
-            if inherit:
-                if self.meta_module is not None:
-                    try:
-                        return getattr(self.meta_module, fullname)
-                    except AttributeError:
-                        pass
+        if lookup:
+            if name in self.__parameters:
+                value = self.__parameters[name]
+                value = self.__expand_value(value)
+                return value
+        if inherit:
+            inherit = self.__check_inheritance(fullname)
+        if inherit:
+            if self.meta_module is not None:
+                try:
+                    return getattr(self.meta_module, fullname)
+                except AttributeError:
+                    pass
         return default
 
     def meta_depend(self, dependency):
@@ -236,13 +237,21 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     @property
     def meta_basedir(self):
-        """Task's basedir (absulute path).
+        """Task's basedir.
 
         If meta_chdir is True current directory will be
         changed to meta_basedir when task invoking.
         """
-        return self.meta_inspect(
-            name='basedir', inherit=True, default=os.path.abspath(os.getcwd()))
+        basedir = self.meta_inspect(
+            name='basedir', lookup=True, default=None)
+        if basedir is None:
+            basedir = self.meta_inspect(
+                name='basedir', lookup=False, inherit=True, default=None)
+            if basedir is not None:
+                basedir = enhanced_join(basedir, self.meta_prefix)
+        if basedir is None:
+            basedir = os.path.abspath(os.getcwd())
+        return basedir
 
     @property
     def meta_cache(self):
@@ -373,6 +382,13 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             name='plain', inherit=True, default=settings.plain)
 
     @property
+    def meta_prefix(self):
+        """Task's prefix path.
+        """
+        return self.meta_inspect(
+            name='prefix', default=None)
+
+    @property
     def meta_signature(self):
         """Task's signature.
         """
@@ -405,18 +421,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             name='updates', default=[])
 
     # Private
-
-    # TODO: use meta_basedir/meta_prefix pair instead of this code?
-    def __init_basedir(self):
-        basedir = self.meta_basedir
-        if not os.path.isabs(self.meta_basedir):
-            basedir = os.path.abspath(self.meta_basedir)
-            if self.meta_module is not None:
-                basedir = os.path.join(
-                    self.meta_module.meta_basedir,
-                    self.meta_basedir)
-        self.__parameters['basedir'] = basedir
-        type(self).meta_basedir = Task.meta_basedir
 
     def __init_dependencies(self):
         for dependency in self.__parameters.pop('depend', []):

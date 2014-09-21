@@ -185,10 +185,10 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 28)
+        self.assertEqual(len(argument), 29)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 22)
+        self.assertEqual(len(argument), 23)
