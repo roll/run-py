@@ -4,6 +4,7 @@ from .library.cluster import ClusterModule, ClusterTask
 from .library.command import CommandModule, CommandTask, CommandVar
 from .library.dialog import DialogModule, DialogTask, DialogVar
 from .library.find import FindModule, FindTask, FindVar
+from .library.matrix import MatrixModule
 from .library.null import NullTask
 from .library.proxy import ProxyTask, ProxyVar
 from .library.render import RenderTask, RenderVar
