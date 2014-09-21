@@ -406,7 +406,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     # Private
 
-    # TODO: doesn't work right
+    # TODO: use meta_basedir/meta_prefix pair instead of this code?
     def __init_basedir(self):
         basedir = self.meta_basedir
         if not os.path.isabs(self.meta_basedir):
@@ -416,6 +416,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                     self.meta_module.meta_basedir,
                     self.meta_basedir)
         self.__parameters['basedir'] = basedir
+        type(self).meta_basedir = Task.meta_basedir
 
     def __init_dependencies(self):
         for dependency in self.__parameters.pop('depend', []):
