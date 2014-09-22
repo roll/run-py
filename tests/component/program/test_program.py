@@ -9,39 +9,55 @@ class ProgramTest(unittest.TestCase):
     # Actions
 
     def setUp(self):
-        self.addCleanup(patch.stopall)
-        self.Machine = Mock()
-        patch.object(component, 'Machine', self.Machine).start()
-        self.Program = self.make_mock_program_class()
-        self.program = self.Program('argv')
-
-    # Helpers
-
-    def make_mock_program_class(self):
-        class MockProgram(component.Program):
-            # Protected
-            _Command = Mock(return_value=Mock(
-                attribute='attribute',
-                arguments={'args': ('arg1',), 'kwargs': {'kwarg1': 'kwarg1'}},
-                debug='debug',
-                verbose='verbose',
-                quiet='quiet',
-                filepath='filepath',
-                compact='compact',
-                plain='plain'))
-        return MockProgram
+        self.program = component.Program('argv')
 
     # Tests
 
-    def test___call__(self):
+    @unittest.skip
+    @patch.object(component, 'Machine')
+    def test___call__(self, Machine):
         self.program()
         # Check Machine call
-        self.Machine.assert_called_with(
+        Machine.assert_called_with(
             filepath='filepath',
             compact='compact',
             plain='plain')
         # Check Machine's return value call
-        self.Machine.return_value.run.assert_called_with(
+        Machine.return_value.run.assert_called_with(
             self.program._command.attribute,
             *self.program._command.arguments['args'],
             **self.program._command.arguments['kwargs'])
+
+    def test_with_no_tasks(self):
+        self.program = component.Program(['run'])
+        self.assertEqual(self.program.attribute, None)
+        self.assertEqual(self.program.arguments, {'args': [], 'kwargs': {}})
+
+    def test_with_task_and_arguments(self):
+        self.program = component.Program(
+            ['run', 'attribute', 'arg1,True,kwarg1=1,', 'kwarg2=1.5'])
+        self.assertEqual(self.program.attribute, 'attribute')
+        self.assertEqual(
+            self.program.arguments,
+            {'args': ['arg1', True], 'kwargs': {'kwarg1': 1, 'kwarg2': 1.5}})
+
+    def test_with_with_list_flag(self):
+        self.program = component.Program(['run', 'attribute', '-l'])
+        self.assertEqual(self.program.attribute, 'list')
+        self.assertEqual(
+            self.program.arguments,
+            {'args': ['attribute'], 'kwargs': {}})
+
+    def test_with_with_info_flag(self):
+        self.program = component.Program(['run', 'attribute', '-i'])
+        self.assertEqual(self.program.attribute, 'info')
+        self.assertEqual(
+            self.program.arguments,
+            {'args': ['attribute'], 'kwargs': {}})
+
+    def test_with_with_meta_flag(self):
+        self.program = component.Program(['run', 'attribute', '-m'])
+        self.assertEqual(self.program.attribute, 'meta')
+        self.assertEqual(
+            self.program.arguments,
+            {'args': ['attribute'], 'kwargs': {}})

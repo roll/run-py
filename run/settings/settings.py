@@ -1,4 +1,4 @@
-from box.logging import Settings
+from box.collections import Settings
 from ..version import version
 
 
@@ -47,7 +47,7 @@ class Settings(Settings):
 
     @property
     def argparse(self):
-        return self._inherit_argparse(Settings, {
+        return {
             'prog': 'run',
             'add_help': False,
             'arguments': [
@@ -66,6 +66,12 @@ class Settings(Settings):
                  'action': 'store_true',
                  'flags': ['-c', '--compact'],
                  'help': 'Enable compact mode.',
+                },
+                {
+                 'dest': 'debug',
+                 'action': 'store_true',
+                 'flags': ['-d', '--debug'],
+                 'help': 'Enable debug mode.',
                 },
                 {
                  'dest': 'filepath',
@@ -103,26 +109,53 @@ class Settings(Settings):
                  'help': 'Activate plain mode.',
                 },
                 {
+                 'dest': 'quiet',
+                 'action': 'store_true',
+                 'flags': ['-q', '--quiet'],
+                 'help': 'Enable quiet mode.',
+                },
+                {
+                 'dest': 'verbose',
+                 'action': 'store_true',
+                 'flags': ['-v', '--verbose'],
+                 'help': 'Enable verbose mode.',
+                },
+                {
                  'action': 'version',
                  'flags': ['-V', '--version'],
                  'version': 'Run ' + str(version),
                  'help': 'Display the program version.',
                 },
             ]
-        })
+        }
 
     # Logging
 
+    logging_level = 'WARNING'
+    logging_format = '[%(levelname)s] %(message)s'
+
     @property
     def logging(self):
-        return self._inherit_logging(Settings, {
+        return {
+            'version': 1,
+            'disable_existing_loggers': False,
             'loggers': {
+                '': {
+                    'handlers': ['default'],
+                    'level': self.logging_level,
+                    'propagate': True,
+                },
                 'task': {
                     'handlers': ['task'],
                     'propagate': False,
                 },
             },
             'handlers': {
+                'default': {
+                    'level': 'DEBUG',
+                    'class': 'logging.StreamHandler',
+                    'formatter': 'default',
+                },
                 'task': {
                     'level': 'DEBUG',
                     'class': 'logging.StreamHandler',
@@ -130,11 +163,14 @@ class Settings(Settings):
                 },
             },
             'formatters': {
+                'default': {
+                    'format': self.logging_format
+                },
                 'task': {
                     'format': '%(message)s'
                 },
             },
-        })
+        }
 
 
 settings = Settings()
