@@ -3,4 +3,5 @@
 {% block project %}
 {{ super() }}
 box
+packgram
 {% endblock %}
