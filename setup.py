@@ -19,14 +19,14 @@ setup(
     classifiers=[],       
     description='Run is a program to run tasks from files.',
     data_files=data_files,
-    download_url='https://github.com/respect31/run/tarball/0.33.0',
+    download_url='https://github.com/respect31/run/tarball/0.34.0',
     entry_points={'console_scripts': ['run = run:program']},
     license='MIT License',
     maintainer='roll',
     maintainer_email='roll@respect31.com',
     name='runfile',
     include_package_data=True,
-    install_requires=['box>=0.40', 'clyde>=0.1', 'dialog>=0.3', 'find>=0.2', 'render>=0.1'], 
+    install_requires=['box>=0.41', 'clyde>=0.1', 'dialog>=0.3', 'find>=0.2', 'render>=0.1'], 
     packages=packages,
     platforms=['Unix'],
     url='https://github.com/respect31/run',
@@ -200,4 +200,4 @@ THE SOFTWARE.
 ''',     
     tests_require=['nose', 'coverage'],
     test_suite='nose.collector',
-    version='0.33.0')
+    version='0.34.0')
