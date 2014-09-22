@@ -1,1 +1,6 @@
 {% extends "packgram/.gitignore" %}
+
+{% block project %}
+{{ super() }}
+box
+{% endblock %}
