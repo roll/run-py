@@ -1,9 +1,10 @@
 import unittest
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 from importlib import import_module
 component = import_module('run.program.program')
 
 
+@unittest.skip
 class ProgramTest(unittest.TestCase):
 
     # Actions

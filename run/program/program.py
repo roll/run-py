@@ -8,11 +8,10 @@ from ..machine import Machine
 from ..settings import settings
 
 
-class Program(Program):
+class program(Program):
 
     # Public
 
-    default_argv = sys.argv  # override
     default_config = settings.argparse  # override
 
     def __call__(self):
@@ -89,6 +88,3 @@ class Program(Program):
         except Exception:
             value = literal
         return value
-
-
-program = Program()
