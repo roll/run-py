@@ -3,11 +3,11 @@ import re
 import inspect
 from copy import copy
 from abc import abstractmethod
+from contextlib import contextmanager
 from box.collections import merge_dicts
 from box.os import enhanced_join
-from box.terminal import Formatter
 from box.types import Null
-from contextlib import contextmanager
+from fancy import Formatter
 from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
 from ..signal import Dispatcher

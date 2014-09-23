@@ -1,4 +1,4 @@
-from box.terminal import Formatter
+from fancy import Formatter
 from ..settings import settings
 from ..signal import Signal
 
