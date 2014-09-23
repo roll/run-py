@@ -2,6 +2,7 @@
 
 packgram>=0.23
 box>=0.41
+fancy>=0.1
 clyde>=0.2
 dialog>=0.4
 find>=0.3

@@ -26,7 +26,7 @@ setup(
     maintainer_email='roll@respect31.com',
     name='runfile',
     include_package_data=True,
-    install_requires=['box>=0.41', 'clyde>=0.2', 'dialog>=0.4', 'find>=0.3', 'render>=0.2'], 
+    install_requires=['box>=0.41', 'fancy>=0.1', 'clyde>=0.2', 'dialog>=0.4', 'find>=0.3', 'render>=0.2'], 
     packages=packages,
     platforms=['Unix'],
     url='https://github.com/respect31/run',
