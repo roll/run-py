@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from box.collections import merge_dicts
 from box.os import enhanced_join
 from box.types import Null
-from fancy import Formatter
+from color import Formatter
 from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
 from ..signal import Dispatcher

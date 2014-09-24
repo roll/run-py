@@ -1,4 +1,4 @@
-from fancy import Formatter
+from color import Formatter
 from ..settings import settings
 from ..signal import Signal
 
