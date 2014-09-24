@@ -3,7 +3,7 @@ import inspect
 import logging
 from builtins import print
 from box.functools import cachedproperty
-from importlib.machinery import SourceFileLoader
+from box.importlib import import_file
 from ..module import Module
 from ..settings import settings
 from ..task import TaskSignal
@@ -65,9 +65,7 @@ class Machine:
     @cachedproperty
     def __Module(self):
         filepath = os.path.abspath(self.__filepath)
-        loader = SourceFileLoader(filepath, filepath)
-        # TODO: load_module is deprecated?
-        module = loader.load_module(filepath)
+        module = import_file(filepath)
         for name in dir(module):
             attr = getattr(module, name)
             if not isinstance(attr, type):
