@@ -61,8 +61,7 @@ class program(Program):
                 str(exception), exc_info=self.debug)
             sys.exit(1)
 
-    # TODO: make cachedproperty
-    @property
+    @cachedproperty
     def __machine(self):
         machine = Machine(
             filepath=self.filepath,
