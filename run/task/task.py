@@ -7,7 +7,7 @@ from contextlib import contextmanager
 from box.collections import merge_dicts
 from box.os import enhanced_join
 from box.types import Null
-from color import Formatter
+from color import cformat
 from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
 from ..signal import Dispatcher
@@ -128,8 +128,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 if not isinstance(self.meta_style, dict):
                     style = settings.styles.get(self.meta_style, None)
                 if style is not None:
-                    formatter = Formatter()
-                    result = formatter.format(result, **style)
+                    result = cformat(result, **style)
         return result
 
     def meta_inspect(self, name, *, lookup=False, inherit=False, default=None):
