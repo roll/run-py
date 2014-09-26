@@ -18,6 +18,7 @@ class skip(Decorator):
     will stay as regular python method.
     """
 
+    # TODO: rename to marker
     attribute_name = '_run_converter_skip'
 
     def __call__(self, obj):
