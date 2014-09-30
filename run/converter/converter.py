@@ -26,6 +26,7 @@ class Converter(Decorator, metaclass=ABCMeta):
 
     # Protected
 
+    # TODO: remove with new box
     # override
     def _is_composite(self, *args, **kwargs):
         # Composite only if args not passed
