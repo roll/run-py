@@ -38,7 +38,7 @@ class program(Program):
         parsed_arguments = self.__parse_arguments(arguments)
         return parsed_arguments
 
-    # Protected
+    # Private
 
     def __init_logging(self):
         logging.config.dictConfig(settings.logging)
