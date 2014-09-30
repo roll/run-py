@@ -24,6 +24,7 @@ class Converter(Decorator, metaclass=ABCMeta):
             'for the given object "{obj}" convertation.'.
             format(self=self, obj=obj))
 
+    # TODO: remove protected attributes?
     # Protected
 
     # TODO: remove with new box
