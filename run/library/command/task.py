@@ -1,5 +1,5 @@
 from subprocess import Popen
-from clyde import Command
+from sheldon import Command
 from ...task import Task
 
 
