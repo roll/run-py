@@ -17,6 +17,7 @@ class module_Test(unittest.TestCase):
 
     # Tests
 
+    @unittest.skip
     def test(self):
         result = component.module(self.module_class)
         self.assertEqual(result, self.module_class.return_value)

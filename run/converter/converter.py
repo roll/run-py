@@ -24,14 +24,17 @@ class Converter(Decorator, metaclass=ABCMeta):
             'for the given object "{obj}" convertation.'.
             format(self=self, obj=obj))
 
+    # TODO: improve implementation?
+    def is_composite(self, *args, **kwargs):
+        if not super().is_composite(*args, **kwargs):
+            return False
+        try:
+            return not isinstance(args[0], Converted)
+        except IndexError:
+            return True
+
     # TODO: remove protected attributes?
     # Protected
-
-    # TODO: remove with new box
-    # override
-    def _is_composite(self, *args, **kwargs):
-        # Composite only if args not passed
-        return not bool(args)
 
     @abstractmethod
     def _match(self, obj):
@@ -46,8 +49,6 @@ class Converter(Decorator, metaclass=ABCMeta):
         return self.__kwargs
 
     # Private
-
-    __kwargs = {}
 
     def __check_converted(self, obj):
         return isinstance(obj, Converted)
