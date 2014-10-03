@@ -3,6 +3,6 @@
 {% block project %}
 {{ super() }}
 box
-program
+clyde
 packgram
 {% endblock %}
