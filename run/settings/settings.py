@@ -134,6 +134,7 @@ class Settings(Settings):
     logging_level = 'WARNING'
     logging_format = '[%(levelname)s] %(message)s'
 
+    # TODO: rename to logging config? Move to program?
     @property
     def logging(self):
         return {
