@@ -15,7 +15,7 @@ class ProjectModule(ProjectModule):
     github_user = 'respect31'
     install_requires = [
         'box>=0.44', 'color>=0.3', 'clyde>=0.3',
-        'dialog>=0.4', 'find>=0.3', 'render>=0.3', 'sheldon>=0.3', ]
+        'dialog>=0.4', 'find>=0.3', 'render>=0.3', 'claire>=0.3', ]
     interpreters = ['3.3', '3.4']
     license = 'MIT License'
     name = 'run'

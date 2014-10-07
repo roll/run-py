@@ -7,6 +7,6 @@ clyde>=0.3
 dialog>=0.4
 find>=0.3
 render>=0.3
-sheldon>=0.3
+claire>=0.3
 nose
 coverage
