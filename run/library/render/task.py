@@ -3,6 +3,7 @@ import render
 from ...task import FunctionTask
 
 
+# TODO: use inheritance and self as context?
 class RenderTask(FunctionTask):
 
     # Public
