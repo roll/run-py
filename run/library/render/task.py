@@ -16,6 +16,7 @@ class RenderTask(FunctionTask):
         kwargs.setdefault('context', self.meta_module)
         super().__init__(function, *args, **kwargs)
 
+    # TODO: rename target to savepath?
     # TODO: use pipe system instead of target?
     def meta_invoke(self, *args, target=None, **kwargs):
         result = super().meta_invoke(*args, **kwargs)
