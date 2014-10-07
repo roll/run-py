@@ -1,7 +1,8 @@
 import os
-import run
 import sphinx
 from box.sphinx import Settings
+from box.importlib import import_file
+metadata = import_file(os.path.join(os.path.dirname(__file__), 'metadata.py'))
 
 
 class Settings(Settings):
@@ -17,12 +18,12 @@ class Settings(Settings):
 
     # Project
 
-    project = 'run'
-    author = 'roll'
-    copyright = '2014, Respect31'
-    version = run.version
+    project = metadata.name
+    version = metadata.version
 
     # HTML
+
+    html_show_copyright = False
 
     @property
     def html_theme(self):

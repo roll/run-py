@@ -7,7 +7,7 @@ Imported
 --------
 
 .. literalinclude:: ../../run/__init__.py
-     :end-before: from .version
+     :end-before: from .metadata
 
 Version
 -------
