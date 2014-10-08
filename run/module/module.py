@@ -94,7 +94,7 @@ class Module(Task, Module):
         return task
 
     def meta_invoke(self, *args, **kwargs):
-        default = getattr(self, self.meta_default_task)
+        default = getattr(self, self.meta_default)
         result = default(*args, **kwargs)
         return result
 
@@ -104,7 +104,7 @@ class Module(Task, Module):
             os.path.dirname(inspect.getfile(type(self))))
 
     @property
-    def meta_default_task(self):
+    def meta_default(self):
         return self.meta_inspect(
             name='default_task', lookup=True, default='list')
 

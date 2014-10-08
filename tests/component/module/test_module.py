@@ -53,7 +53,7 @@ class ModuleTest(unittest.TestCase):
     # Tests
 
     def test___call__(self):
-        self.Module.meta_default_task = 'default'
+        self.Module.meta_default = 'default'
         self.Module.default = Mock()
         self.assertEqual(
             self.module(*self.args, **self.kwargs),
@@ -85,7 +85,7 @@ class ModuleTest(unittest.TestCase):
             self.module.meta_lookup('module.task'), self.module.task)
 
     def test_meta_invoke(self):
-        self.Module.meta_default_task = 'default'
+        self.Module.meta_default = 'default'
         self.Module.default = Mock()
         self.assertEqual(
             self.module.meta_invoke(*self.args, **self.kwargs),
