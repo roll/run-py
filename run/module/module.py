@@ -18,22 +18,7 @@ class Module(Task, Module):
     meta_tags = []
 
     @classmethod
-    def __meta_create__(cls, *args, **kwargs):
-        spawned_class = cls.__meta_spawn__()
-        self = super(Module, spawned_class).__meta_create__(*args, **kwargs)
-        names = []
-        for cls in type(self).mro():
-            for name, attr in vars(cls).items():
-                if name in names:
-                    continue
-                names.append(name)
-                if isinstance(attr, Prototype):
-                    task = attr.meta_build(meta_module=self)
-                    setattr(type(self), name, task)
-        return self
-
-    @classmethod
-    def __meta_spawn__(cls):
+    def __spawn__(cls):
         names = []
         attrs = {}
         for namespace in cls.mro():
@@ -59,10 +44,25 @@ class Module(Task, Module):
         attrs['__module__'] = cls.__module__
         return type(cls)(cls.__name__, (cls,), attrs)
 
-    def __meta_update__(self):
+    @classmethod
+    def __create__(cls, *args, **kwargs):
+        spawned_class = cls.__spawn__()
+        self = super(Module, spawned_class).__create__(*args, **kwargs)
+        names = []
+        for cls in type(self).mro():
+            for name, attr in vars(cls).items():
+                if name in names:
+                    continue
+                names.append(name)
+                if isinstance(attr, Prototype):
+                    task = attr.meta_build(meta_module=self)
+                    setattr(type(self), name, task)
+        return self
+
+    def __update__(self):
         for task in self.meta_tasks.values():
-            task.__meta_update__()
-        super().__meta_update__()
+            task.__update__()
+        super().__update__()
 
     def __getattribute__(self, name):
         nested_name = None

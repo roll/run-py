@@ -93,11 +93,11 @@ class Prototype(Converted):
         updates = copy(self.__updates)
         args = self.__args + args
         kwargs = merge_dicts(self.__kwargs, kwargs)
-        task = self.__class.__meta_create__(
+        task = self.__class.__create__(
             *args,
             meta_updates=updates,
             **kwargs)
         if task.meta_module is None:
             # No module - update
-            task.__meta_update__()
+            task.__update__()
         return task

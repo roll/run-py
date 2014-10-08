@@ -22,7 +22,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     # Public
 
     @classmethod
-    def __meta_create__(cls, *args, **kwargs):
+    def __create__(cls, *args, **kwargs):
         # Create task object
         self = object.__new__(cls)
         # Initiate parameters
@@ -43,7 +43,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         self.__init__(*args, **kwargs)
         return self
 
-    def __meta_update__(self):
+    def __update__(self):
         for update in self.meta_updates:
             update.apply(self)
 
