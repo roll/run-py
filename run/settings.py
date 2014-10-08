@@ -1,5 +1,5 @@
 from box.collections import Settings
-from ..metadata import version
+from .metadata import version
 
 
 class Settings(Settings):
