@@ -227,6 +227,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         pass  # pragma: no cover
 
     @property
+    def meta_autodir(self):
+        return os.path.abspath(os.getcwd())
+
+    @property
     def meta_args(self):
         """Tasks's default arguments
         """
@@ -247,7 +251,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             if basedir is not None:
                 basedir = enhanced_join(basedir, self.meta_prefix)
         if basedir is None:
-            basedir = self.meta_default_basedir
+            basedir = self.meta_autodir
         return basedir
 
     @property
@@ -269,10 +273,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inspect(
             name='chdir', lookup=True, inherit=True,
             default=settings.chdir)
-
-    @property
-    def meta_default_basedir(self):
-        return os.path.abspath(os.getcwd())
 
     @property
     def meta_dependencies(self):

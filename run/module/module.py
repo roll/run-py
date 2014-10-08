@@ -99,7 +99,7 @@ class Module(Task, Module):
         return result
 
     @property
-    def meta_default_basedir(self):
+    def meta_autodir(self):
         return os.path.abspath(
             os.path.dirname(inspect.getfile(type(self))))
 
