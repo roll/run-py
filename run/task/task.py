@@ -5,6 +5,7 @@ from copy import copy
 from abc import abstractmethod
 from contextlib import contextmanager
 from box.collections import merge_dicts
+from box.functools import cachedproperty
 from box.os import enhanced_join
 from box.types import Null
 from color import cformat
@@ -279,7 +280,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """
         return self.__dependencies
 
-    @property
+    @cachedproperty
     def meta_dispatcher(self):
         """Task's dispatcher.
 
