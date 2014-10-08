@@ -44,7 +44,6 @@ class ModuleTest(unittest.TestCase):
             meta_is_main_module = True
             meta_name = ''
             meta_qualname = ''
-            meta_strict = 'strict'
             meta_tasks = {}
             @property
             def meta_main_module(self):
@@ -185,10 +184,10 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 30)
+        self.assertEqual(len(argument), 29)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 24)
+        self.assertEqual(len(argument), 23)

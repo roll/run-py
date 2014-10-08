@@ -64,16 +64,6 @@ class DependencyTest(unittest.TestCase):
         self.successor.meta_module = Mock(spec=[])
         self.assertRaises(AttributeError, self.dependency.invoke)
 
-    @patch.object(component.logging, 'getLogger')
-    def test_invoke_task_not_existent_and_strict_is_false(self, getLogger):
-        self.successor.meta_strict = False
-        self.successor.meta_module = Mock(spec=[])
-        self.dependency.invoke()
-        # Check getLogger call
-        self.assertTrue(getLogger.called)
-        # Check getLogger's return value (logger) warning call
-        self.assertTrue(getLogger.return_value.warning.called)
-
     def test_invoke_not_bound(self):
         self.dependency.bind(None)
         self.assertRaises(RuntimeError, self.dependency.invoke)

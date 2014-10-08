@@ -8,8 +8,3 @@ class Successor(metaclass=ABCMeta):
     @abstractmethod
     def meta_module(self):
         pass  # pragma: no cover
-
-    @property
-    @abstractmethod
-    def meta_strict(self):
-        pass  # pragma: no cover

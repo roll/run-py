@@ -1,4 +1,3 @@
-import logging
 from abc import ABCMeta, abstractmethod
 from box.functools import cachedproperty
 from ..converter import convert
@@ -83,21 +82,12 @@ class Dependency(metaclass=ABCMeta):
     @cachedproperty
     def predecessor(self):
         if self.__successor is not None:
-            try:
-                return getattr(
-                    self.__successor.meta_module, self.__predecessor_name)
-            except AttributeError as exception:
-                if self.__successor.meta_strict:
-                    raise
-                else:
-                    logger = logging.getLogger(__name__)
-                    logger.warning(str(exception))
-                    return None
-        else:
-            raise RuntimeError(
-                'Dependency for "{predecessor_name}" '
-                'is not bound to any successor'.
-                format(predecessor_name=self.__predecessor_name))
+            return getattr(
+                self.__successor.meta_module,
+                self.__predecessor_name)
+        raise RuntimeError(
+            'Dependency for "{predecessor_name}" is not bound'.
+            format(predecessor_name=self.__predecessor_name))
 
     @property
     def successor(self):

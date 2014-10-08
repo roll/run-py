@@ -403,13 +403,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             default=str(inspect.signature(self.meta_invoke)))
 
     @property
-    def meta_strict(self):
-        """Task's strict mode status (enabled or disabled).
-        """
-        return self.meta_inspect(
-            name='strict', inherit=True, default=settings.strict)
-
-    @property
     def meta_style(self):
         return self.meta_inspect(
             name='style', lookup=True, default='task')
