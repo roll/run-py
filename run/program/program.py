@@ -41,7 +41,7 @@ class program(Program):
     # Private
 
     def __init_logging(self):
-        logging.config.dictConfig(settings.logging)
+        logging.config.dictConfig(settings.logging_config)
         logger = logging.getLogger()
         if self.debug:
             logger.setLevel(logging.DEBUG)
