@@ -27,8 +27,4 @@ Signal class
 Helper functions
 ----------------
 
-.. class:: run.task.self
-     
-     Module's self pointer.
-
 .. autofunction:: run.task.task

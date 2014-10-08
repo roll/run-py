@@ -14,7 +14,6 @@ from ..dependency import Predecessor, Successor, require, trigger
 from ..signal import Dispatcher
 from ..settings import settings
 from .metaclass import Metaclass
-from .self import self as selftype
 from .signal import TaskSignal
 
 
@@ -82,10 +81,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             self.__resolve_dependencies()
             try:
                 args = self.meta_args + args
-                args = tuple(map(self.__expand_value, args))
                 kwargs = merge_dicts(self.meta_kwargs, kwargs)
-                for key, value in kwargs.items():
-                    kwargs[key] = self.__expand_value(value)
                 with self.__change_directory():
                     result = self.meta_invoke(*args, **kwargs)
             except Exception:
@@ -154,9 +150,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         fullname = 'meta_' + name
         if lookup:
             if name in self.__parameters:
-                value = self.__parameters[name]
-                value = self.__expand_value(value)
-                return value
+                return self.__parameters[name]
         if inherit:
             if self.meta_module is not None:
                 try:
@@ -467,8 +461,3 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                         result = True
             return result
         return self.meta_inherit
-
-    def __expand_value(self, value):
-        if isinstance(value, selftype):
-            value = value.expand(self.meta_module)
-        return value

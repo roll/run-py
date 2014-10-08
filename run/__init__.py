@@ -10,7 +10,7 @@ from .library.proxy import ProxyTask, ProxyVar
 from .library.render import RenderTask, RenderVar
 from .library.value import ValueTask, ValueVar
 from .module import Module, FunctionModule, module
-from .task import DescriptorTask, FunctionTask, task, self
+from .task import DescriptorTask, FunctionTask, task
 from .var import DescriptorVar, FunctionVar, var
 
 from .metadata import version
