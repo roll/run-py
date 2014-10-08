@@ -4,8 +4,8 @@ import csv
 import logging.config
 from box.argparse import Program
 from box.functools import cachedproperty
-from ..machine import Machine
-from ..settings import settings
+from .machine import Machine
+from .settings import settings
 
 
 class program(Program):

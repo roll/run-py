@@ -9,6 +9,11 @@ Imported
 .. literalinclude:: ../../run/__init__.py
      :end-before: from .metadata
 
+Program
+-------
+
+.. autodata:: run.program
+
 Settings
 --------
 

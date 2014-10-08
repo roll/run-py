@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from importlib import import_module
-component = import_module('run.program.program')
+component = import_module('run.program')
 
 
 @unittest.skip
