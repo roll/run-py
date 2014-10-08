@@ -2,45 +2,34 @@ import sys
 import ast
 import csv
 import logging.config
-from box.argparse import Program
 from box.functools import cachedproperty
+from clyde import Command, Option, ManualFormatter, mixin
 from .machine import Machine
+from .metadata import version
 from .settings import settings
 
 
-class program(Program):
+class Program(Command):
+    """Run main program.
+    """
 
     # Public
 
-    default_config = settings.argparse  # override
+    meta_formatter = ManualFormatter
 
-    def __call__(self):
-        self.__init_logging()
-        self.__execute()
+    def __execute__(self, attribute=None, *arguments):
+        for name in ['list', 'info', 'meta']:
+            if getattr(self, name, False):
+                if attribute is not None:
+                    arguments = (attribute,) + arguments
+                attribute = name
+                break
+        self.__run(attribute, *arguments)
 
-    @cachedproperty
-    def attribute(self):
-        attribute = self['attribute']
-        if self.list:
-            attribute = 'list'
-        elif self.info:
-            attribute = 'info'
-        elif self.meta:
-            attribute = 'meta'
-        return attribute
+    # Mixins
 
-    @cachedproperty
-    def arguments(self):
-        attribute = self['attribute']
-        arguments = self['arguments']
-        if (self.list or self.info or self.meta) and attribute:
-            arguments = [attribute] + arguments
-        parsed_arguments = self.__parse_arguments(arguments)
-        return parsed_arguments
-
-    # Private
-
-    def __init_logging(self):
+    @mixin
+    def initiate_logging(self):
         logging.config.dictConfig(settings.logging_config)
         logger = logging.getLogger()
         if self.debug:
@@ -50,12 +39,90 @@ class program(Program):
         if self.quiet:
             logger.setLevel(logging.ERROR)
 
-    def __execute(self):
+    @mixin(require='help')
+    def print_help(self):
+        print(self.meta_format('help'))
+        exit()
+
+    @mixin(require='version')
+    def print_version(self):
+        print('Run ' + version)
+        exit()
+
+    # Options
+
+    debug = Option(
+        action='store_true',
+        flags=['-d', '--debug'],
+        help='Enable debug mode.',
+    )
+
+    compact = Option(
+        action='store_true',
+        flags=['-c', '--compact'],
+        help='Enable compact mode.',
+    )
+
+    filepath = Option(
+        flags=['-f', '--filepath'],
+        default=settings.filename,
+        help='Runfile path.',
+    )
+
+    help = Option(
+        action='store_true',
+        flags=['-h', '--help'],
+        help='Display this help message.',
+    )
+
+    info = Option(
+        action='store_true',
+        flags=['-i', '--info'],
+        help='Display task information.',
+    )
+
+    list = Option(
+        action='store_true',
+        flags=['-l', '--list'],
+        help='Display module tasks.',
+    )
+
+    meta = Option(
+        action='store_true',
+        flags=['-m', '--meta'],
+        help='Display task meta.',
+    )
+
+    plain = Option(
+        action='store_true',
+        flags=['-p', '--plain'],
+        help='Activate plain mode.',
+    )
+
+    quiet = Option(
+        action='store_true',
+        flags=['-q', '--quiet'],
+        help='Enable quiet mode.',
+    )
+
+    verbose = Option(
+        action='store_true',
+        flags=['-v', '--verbose'],
+        help='Enable verbose mode.',
+    )
+
+    version = Option(
+        action='store_true',
+        flags=['-V', '--version'],
+        help='Display the program version.',
+    )
+
+    # Private
+
+    def __run(self, attribute, *arguments):
+        args, kwargs = self.__parse_arguments(arguments)
         try:
-            self.__machine.run(
-                self.attribute,
-                *self.arguments['args'],
-                **self.arguments['kwargs'])
+            self.__machine.run(attribute, *args, **kwargs)
         except Exception as exception:
             logging.getLogger(__name__).error(
                 str(exception), exc_info=self.debug)
@@ -79,7 +146,7 @@ class program(Program):
                 args.append(parts[0])
             elif len(parts) == 2:
                 kwargs[parts[0]] = parts[1]
-        return {'args': args, 'kwargs': kwargs}
+        return (args, kwargs)
 
     def __parse_literal(self, literal):
         try:
@@ -87,3 +154,6 @@ class program(Program):
         except Exception:
             value = literal
         return value
+
+
+program = Program()
