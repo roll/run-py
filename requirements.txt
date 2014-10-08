@@ -1,6 +1,6 @@
 #TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
-packgram>=0.23
+packgram>=0.25
 box>=0.44
 color>=0.3
 clyde>=0.5
