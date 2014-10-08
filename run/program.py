@@ -128,14 +128,6 @@ class Program(Command):
                 str(exception), exc_info=self.debug)
             sys.exit(1)
 
-    @cachedproperty
-    def __machine(self):
-        machine = Machine(
-            filepath=self.filepath,
-            compact=self.compact,
-            plain=self.plain)
-        return machine
-
     def __parse_arguments(self, arguments):
         args = []
         kwargs = {}
@@ -154,6 +146,14 @@ class Program(Command):
         except Exception:
             value = literal
         return value
+
+    @cachedproperty
+    def __machine(self):
+        machine = Machine(
+            filepath=self.filepath,
+            compact=self.compact,
+            plain=self.plain)
+        return machine
 
 
 program = Program()
