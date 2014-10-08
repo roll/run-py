@@ -105,15 +105,6 @@ The real simple example introduces some functionality.
     We are ready to say Hi to person.
     Hi Rachel 5 times!
     We are done.
-	
-More usefull example you can find here:
-
-- `Base module <https://github.com/respect31/packgram/blob/master/packgram/manage.py>`_
-- `Base templates <https://github.com/respect31/packgram/blob/master/packgram/_sources>`_
-- `Run's module <https://github.com/respect31/run/blob/master/runfile.py>`_
-- `Run's templates <https://github.com/respect31/run/tree/master/_sources>`_
-
-That's how run builds himself using module inheritance.
 
 .. Block: application
 
