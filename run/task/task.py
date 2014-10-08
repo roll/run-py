@@ -244,13 +244,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         changed to meta_basedir when task invoking.
         """
         basedir = self.meta_inspect(
-            name='basedir', lookup=True, default=None)
-        if basedir is None:
-            basedir = self.meta_inspect(
-                name='basedir', inherit=True, default=None)
-            if basedir is not None:
-                basedir = enhanced_join(basedir, self.meta_prefix)
-        if basedir is None:
+            name='basedir', lookup=True, inherit=True, default=None)
+        if basedir is not None:
+            basedir = enhanced_join(basedir, self.meta_prefix)
+        else:
             basedir = self.meta_autodir
         return basedir
 
