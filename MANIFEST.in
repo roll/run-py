@@ -1,10 +1,14 @@
-#TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+# Block: caution
+# TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
+# Block: graft
 graft data
 graft run
 graft tests
 
+# Block: include
 include *.rst
 include *.py
 
+# Block: global_exclude
 global-exclude __pycache__/*

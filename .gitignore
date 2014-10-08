@@ -1,33 +1,34 @@
+# Block: caution
 # TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
-# Coverage
+# Block: coverage
 .coverage
 coverage.xml
 
-# Eclipse
+# Block: eclipse
 .settings/
 .project
 .pydevproject
 
-# Nose
+# Block: nose
 nosetests.xml
 
-# Pip
+# Block: pip
 pip-log.txt
 pip-delete-this-directory.txt
 
-# Project
+# Block: project
 tmp/
 
 box
 clyde
 packgram
 
-# Python
+# Block: python
 __pycache__/
 *.py[cod]
 
-# Setup
+# Block: setup
 build/
 develop-eggs/
 dist/
@@ -36,10 +37,10 @@ sdist/
 *.egg-info/
 *.egg
 
-# Sphinx
+# Block: sphinx
 docs/_build
 
-# Virtualenv
+# Block: virtualenv
 venv/
 venvs/
 virtualenv/

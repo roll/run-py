@@ -1,8 +1,14 @@
+.. Block: caution
+
 .. TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+
+.. Block: description
 
 Run
 =====================
 Run is a program to run tasks from files.
+
+.. Block: badges
 
 .. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
      :target: https://github.com/respect31/run
@@ -109,11 +115,15 @@ More usefull example you can find here:
 
 That's how run builds himself using module inheritance.
 
+.. Block: application
+
 Application
 -----------
 Package is under active development and is not ready for production use.
 Backward-compatibility between minor releases (0.x.0), documentation and 
 changelog are not guaranteed to be present before stable versions (>=1.0.0).
+
+.. Block: requirements
 
 Requirements
 ------------
@@ -125,9 +135,13 @@ Requirements
   - Python 3.3
   - Python 3.4
 
+.. Block: installation
+
 Installation
 ------------
 - pip install runfile
+
+.. Block: contribution
 
 Contribution
 ------------
@@ -138,9 +152,13 @@ Contribution
 
   - roll <roll@respect31.com>
 
+.. Block: changelog
+
 Changelog
 ---------
 - no entries yet
+
+.. Block: license
 
 License
 -------

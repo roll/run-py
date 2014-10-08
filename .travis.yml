@@ -1,26 +1,34 @@
+# Block: caution
 #TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
 
+# Block: language
 language: 
   python
 
+# Block: python
 python:
   - '3.3'
   - '3.4'
 
+# Block: install
 install:
   - pip install coveralls
   - pip install box>=0.44 color>=0.3 clyde>=0.3 dialog>=0.4 find>=0.3 render>=0.3 claire>=0.3 nose coverage
 
+# Block: script
 script:
   - coverage run --source=run setup.py test
 
+# Block: after_success
 after_success:
   - coveralls
 
+# Block: notifications
 notifications:
   email:
     - roll@respect31.com
 
+# Block: deploy
 deploy:
   provider: pypi
   user: roll
