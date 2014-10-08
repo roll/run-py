@@ -3,7 +3,7 @@ run.library.null
 
 Module provides null library.
 
-Null
+Task
 ----
 
 .. autoclass:: run.library.null.NullTask

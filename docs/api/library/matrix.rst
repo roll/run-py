@@ -3,7 +3,7 @@ run.library.matrix
 
 Module provides matrix library.
 
-Cluster
--------
+Module
+------
 
 .. autoclass:: run.library.matrix.MatrixModule

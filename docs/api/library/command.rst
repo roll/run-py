@@ -3,9 +3,17 @@ run.library.command
 
 Module provides command library.
 
-Command
--------
+Module
+------
 
 .. autoclass:: run.library.command.CommandModule
+
+Task
+----
+
 .. autoclass:: run.library.command.CommandTask
+
+Var
+---
+
 .. autoclass:: run.library.command.CommandVar

@@ -3,8 +3,12 @@ run.library.value
 
 Module provides value library.
 
-Attribute
----------
+Task
+----
 
 .. autoclass:: run.library.value.ValueTask
+
+Var
+---
+
 .. autoclass:: run.library.value.ValueVar

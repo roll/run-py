@@ -3,8 +3,12 @@ run.library.cluster
 
 Module provides cluster library.
 
-Cluster
--------
+Module
+------
 
 .. autoclass:: run.library.cluster.ClusterModule
+
+Task
+----
+
 .. autoclass:: run.library.cluster.ClusterTask

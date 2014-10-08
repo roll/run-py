@@ -3,8 +3,12 @@ run.library.render
 
 Module provides render library.
 
-Render
-------
+Task
+----
 
 .. autoclass:: run.library.render.RenderTask
+
+Var
+---
+
 .. autoclass:: run.library.render.RenderVar
