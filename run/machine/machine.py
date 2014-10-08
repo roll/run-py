@@ -5,31 +5,38 @@ from builtins import print
 from box.functools import cachedproperty
 from box.importlib import import_file
 from ..module import Module
-from ..settings import settings
+from ..settings import settings  # @UnusedImport
 from ..task import TaskSignal
 from .stack import Stack
 
 
 class Machine:
+    """Machine representation.
+
+    Parameters
+    ----------
+    filepath: str
+        Path to runfile.
+    compact: bool
+        Do not use stack.
+    plain: bool
+        Do not use color formatting.
+    """
 
     # Public
 
-    default_filepath = settings.filename
-    default_compact = settings.compact
-    default_plain = settings.plain
-
-    def __init__(self, *, filepath=None, compact=False, plain=False):
-        if filepath is None:
-            filepath = self.default_filepath
-        if compact is None:
-            compact = self.default_compact
-        if plain is None:
-            plain = self.default_plain
+    def __init__(self, *,
+                 filepath=settings.filename,
+                 compact=settings.compact,
+                 plain=settings.plain):
         self.__filepath = filepath
         self.__compact = compact
         self.__plain = plain
 
     def run(self, attribute=None, *args, **kwargs):
+        """
+        Run machine.
+        """
         if attribute is None:
             attribute = self.__module
         else:

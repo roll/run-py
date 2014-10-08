@@ -2,19 +2,17 @@ import inspect
 from find import find_objects
 from box.functools import Function
 from ...module import Module
-from ...settings import settings
+from ...settings import settings  # @UnusedImport
 
 
 class find_modules(Function):
-    """Find run modules.
+    """Function to find run modules.
     """
 
     # Public
 
-    default_filename = settings.filename
-
-    def __init__(self, *, filename=None, key=None, tags=None,
-                 filters=None, mappers=None, **params):
+    def __init__(self, *, filename=settings.filename,
+                 key=None, tags=None, filters=None, mappers=None, **params):
         if filename is None:
             filename = self.default_filename
         if filters is None:
