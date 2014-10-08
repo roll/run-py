@@ -156,4 +156,4 @@ class Program(Command):
         return machine
 
 
-program = Program()
+program = Program(name='run')
