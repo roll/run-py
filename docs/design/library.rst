@@ -1,5 +1,0 @@
-=======
-Library
-=======
-
-*under development*

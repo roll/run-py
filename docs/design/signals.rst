@@ -1,5 +1,0 @@
-=======
-Signals
-=======
-
-*under development*

@@ -1,5 +1,0 @@
-========
-Settings
-========
-
-*under development*
