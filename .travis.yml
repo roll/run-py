@@ -13,7 +13,7 @@ python:
 # Block: install
 install:
   - pip install coveralls
-  - pip install box>=0.44 color>=0.3 clyde>=0.3 dialog>=0.4 find>=0.3 render>=0.3 claire>=0.3 nose coverage
+  - pip install box>=0.44 color>=0.3 clyde>=0.5 dialog>=0.4 find>=0.3 render>=0.3 claire>=0.3 nose coverage
 
 # Block: script
 script:
