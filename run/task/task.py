@@ -157,8 +157,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 value = self.__expand_value(value)
                 return value
         if inherit:
-            inherit = self.__check_inheritance(fullname)
-        if inherit:
             if self.meta_module is not None:
                 try:
                     return getattr(self.meta_module, fullname)
