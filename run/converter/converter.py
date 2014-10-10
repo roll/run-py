@@ -33,7 +33,6 @@ class Converter(Decorator, metaclass=ABCMeta):
         except IndexError:
             return True
 
-    # TODO: remove protected attributes?
     # Protected
 
     @abstractmethod
