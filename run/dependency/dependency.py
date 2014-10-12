@@ -43,8 +43,8 @@ class Dependency(metaclass=ABCMeta):
         else:
             predecessor = ('<NotExistent "{predecessor_name}">'.
                 format(predecessor_name=self.__predecessor_name))
-        pattern = '{action} {predecessor}'
-        result = pattern.format(action=action, predecessor=predecessor)
+        template = '{action} {predecessor}'
+        result = template.format(action=action, predecessor=predecessor)
         return result
 
     def __call__(self, obj):

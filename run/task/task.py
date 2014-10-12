@@ -98,10 +98,10 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return result
 
     def __repr__(self):
-        pattern = '<{self.meta_type}>'
+        template = '<{self.meta_type}>'
         if self.meta_qualname:
-            pattern = '<{self.meta_type} "{self.meta_qualname}">'
-        return pattern.format(self=self)
+            template = '<{self.meta_type} "{self.meta_qualname}">'
+        return template.format(self=self)
 
     def meta_format(self, attribute=None):
         """Format task.
