@@ -1,4 +1,4 @@
-{% extends "packgram/README.rst" %}
+{% extends 'packgram/README.rst' %}
 
 {% block badges %}
 {{ super() }}

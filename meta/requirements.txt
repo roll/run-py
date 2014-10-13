@@ -1,1 +1,1 @@
-{% extends "packgram/requirements.txt" %}
+{% extends 'packgram/requirements.txt' %}

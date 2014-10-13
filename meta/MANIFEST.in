@@ -1,1 +1,1 @@
-{% extends "packgram/MANIFEST.in" %}
+{% extends 'packgram/MANIFEST.in' %}

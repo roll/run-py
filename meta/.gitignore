@@ -1,4 +1,4 @@
-{% extends "packgram/.gitignore" %}
+{% extends 'packgram/.gitignore' %}
 
 {% block project %}
 {{ super() }}

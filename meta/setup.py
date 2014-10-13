@@ -1,1 +1,1 @@
-{% extends "packgram/setup.py" %}
+{% extends 'packgram/setup.py' %}
