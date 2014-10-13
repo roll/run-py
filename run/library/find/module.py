@@ -1,6 +1,7 @@
 import os
 import inspect
 from ...module import Module
+from ...settings import settings  # @UnusedImport
 from .find_modules import find_modules
 
 
@@ -10,7 +11,7 @@ class FindModule(Module):
 
     @classmethod
     def __create__(cls, meta_module, meta_updates,
-                   filename=None, key=None, tags=None,
+                   filename=settings.filename, key=None, tags=None,
                    basedir=None, **params):
         notfilepath = os.path.relpath(
             inspect.getfile(type(meta_module)), start=basedir)
