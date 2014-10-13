@@ -31,7 +31,7 @@ setup(
     classifiers=[],       
     description='Run is a program to run tasks from files.',
     data_files=data_files,
-    download_url='https://github.com/respect31/run/tarball/0.40.0',
+    download_url='https://github.com/respect31/run/tarball/0.41.0',
     entry_points={'console_scripts': ['run = run:program']},
     license='MIT License',
     long_description=long_description,
@@ -45,4 +45,4 @@ setup(
     url='https://github.com/respect31/run',
     tests_require=['nose', 'coverage'],
     test_suite='nose.collector',
-    version='0.40.0')
+    version='0.41.0')
