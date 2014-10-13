@@ -13,8 +13,6 @@ class find_modules(Function):
 
     def __init__(self, *, filename=settings.filename,
                  key=None, tags=None, filters=None, mappers=None, **params):
-        if filename is None:
-            filename = self.default_filename
         if filters is None:
             filters = []
         if mappers is None:
