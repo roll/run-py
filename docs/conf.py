@@ -1,5 +1,6 @@
 import os
 import sphinx
+import sphinx_rtd_theme
 from box.sphinx import Settings
 from box.importlib import import_file
 metadata = import_file(os.path.join(os.path.dirname(__file__), 'metadata.py'))
@@ -23,20 +24,9 @@ class Settings(Settings):
 
     # HTML
 
+    html_theme = 'sphinx_rtd_theme'
+    html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
     html_show_copyright = False
-
-    @property
-    def html_theme(self):
-        if os.environ.get('READTHEDOCS', False):
-            return 'default'
-        return 'sphinx_rtd_theme'
-
-    @property
-    def html_theme_path(self):
-        if os.environ.get('READTHEDOCS', False):
-            return []
-        import sphinx_rtd_theme
-        return [sphinx_rtd_theme.get_html_theme_path()]
 
     # Autodoc
 
