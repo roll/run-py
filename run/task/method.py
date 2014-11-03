@@ -7,9 +7,8 @@ class MethodTask(Task):
 
     # Public
 
-    def __init__(self, method, *args, **kwargs):
+    def __init__(self, method):
         self.__method = method
-        super().__init__(*args, **kwargs)
 
     @property
     def meta_docstring(self):
