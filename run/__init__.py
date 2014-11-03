@@ -5,12 +5,11 @@ from .library.command import CommandModule, CommandTask, CommandVar
 from .library.dialog import DialogModule, DialogTask, DialogVar
 from .library.find import FindModule, FindTask, FindVar
 from .library.matrix import MatrixModule
-from .library.null import NullTask
 from .library.proxy import ProxyTask, ProxyVar
 from .library.render import RenderTask, RenderVar
 from .module import Module, FunctionModule, module
-from .task import DescriptorTask, FunctionTask, task
-from .var import DescriptorVar, FunctionVar, var
+from .task import Task, DescriptorTask, FunctionTask, task
+from .var import Var, DescriptorVar, FunctionVar, var
 
 from .metadata import version
 from .program import program

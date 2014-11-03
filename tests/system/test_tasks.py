@@ -47,17 +47,17 @@ class TasksTest(DemoTest):
             'info\n'
             'list\n'
             'meta\n'
-            'null\n'
-            'proxy\n')
+            'proxy\n'
+            'task\n')
 
     def test_meta(self):
         result = self.execute('meta list')
         self.assertRegex(result, "^{'args'.*")
 
-    def test_null(self):
-        result = self.execute('null')
-        self.assertEqual(result, 'Hello World!\n')
-
     def test_proxy(self):
         result = self.execute('proxy')
+        self.assertEqual(result, 'Hello World!\n')
+
+    def test_task(self):
+        result = self.execute('task')
         self.assertEqual(result, 'Hello World!\n')

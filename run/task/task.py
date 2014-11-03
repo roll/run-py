@@ -2,7 +2,6 @@ import os
 import re
 import inspect
 from copy import copy
-from abc import abstractmethod
 from contextlib import contextmanager
 from sugarbowl import cachedproperty, merge_dicts
 from clyde import sformat
@@ -260,7 +259,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                     pass
         return default
 
-    @abstractmethod
     def meta_invoke(self, *args, **kwargs):
         """Invoke task.
 
@@ -269,7 +267,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         args, kwargs
             Arguments for task invokation.
         """
-        pass  # pragma: no cover
+        pass
 
     @property
     def meta_is_descriptor(self):
