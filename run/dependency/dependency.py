@@ -10,18 +10,12 @@ class Dependency(metaclass=ABCMeta):
     ----------
     predecessor_name: str
         Predecessor name.
-    args: tuple
-        Args to be used in predecessor call.
-    kwargs: dict
-        Kwargs to be used in predecessor call.
     """
 
     # Public
 
-    def __init__(self, predecessor_name, *args, **kwargs):
+    def __init__(self, predecessor_name):
         self.__predecessor_name = predecessor_name
-        self.__args = args
-        self.__kwargs = kwargs
         self.__successor = None
 
     def __repr__(self, action=None):
@@ -29,17 +23,6 @@ class Dependency(metaclass=ABCMeta):
             action = type(self).__name__
         if self.predecessor is not None:
             predecessor = str(self.predecessor)
-            if self.__args or self.__kwargs:
-                predecessor += '('
-                elements = []
-                for value in self.__args:
-                    element = repr(value)
-                    elements.append(element)
-                for key, value in self.__kwargs.items():
-                    element = '{0}={1}'.format(str(key), repr(value))
-                    elements.append(element)
-                predecessor += ', '.join(elements)
-                predecessor += ')'
         else:
             predecessor = ('<NotExistent "{predecessor_name}">'.
                 format(predecessor_name=self.__predecessor_name))
@@ -77,7 +60,7 @@ class Dependency(metaclass=ABCMeta):
         """Invoke predecessor if it exists.
         """
         if self.predecessor is not None:
-            self.predecessor(*self.__args, **self.__kwargs)
+            self.predecessor()
 
     @cachedproperty
     def predecessor(self):

@@ -5,5 +5,5 @@ class Predecessor(metaclass=ABCMeta):
     # Public
 
     @abstractmethod
-    def __call__(self, *args, **kwargs):
+    def __call__(self):
         pass  # pragma: no cover
