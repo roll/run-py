@@ -2,7 +2,6 @@
 
 packgram>=0.25
 sugarbowl
-box>=0.44
 color>=0.3
 clyde>=0.5
 dialog>=0.4
