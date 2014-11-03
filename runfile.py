@@ -20,7 +20,7 @@ class ProjectModule(ProjectModule):
     name = 'run'
     platforms = ['Unix']
     pypi_name = 'runfile'
-    pypi_password_secure = 'JaTeiyjnimmtwhbdfPMZZdtp+5S920vb0HobJWL1QQjHVAo5Hwt0kTWYG+zjDrpWUL+NanVNqhQA8xnvWKbI5cZ+n3PvS7KFbgn6XcTYfeEGyEdYUFi0sXaUsgcfke+9nyMBDLoRH2M7TGqpLY2dmXk5C0h0RMkkAPjxgZCan94='
+    pypi_password_secure = 'UTAKiB5msNGZpd9PAqU0JjOvNsv+RUKrZ9UmUOGHin5flYBDnLHvW6cYDr1mQC4zKh3bJ2pqyGEvM1KtlX+IkhSnHn7sZM3npgoOGKcRpf+Vlz7b+ClK6AqtFH6bZPBnbw6HsAm8NWjt8N5GwQaqdSLJxxcpsnBBatOEzkuzggw='
     tests_require = ['nose', 'coverage']
     test_suite = 'nose.collector'
     version = '0.41.0'
