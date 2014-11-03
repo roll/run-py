@@ -3,7 +3,7 @@ import inspect
 import logging
 from builtins import print
 from sugarbowl import cachedproperty
-from ..helpers import import_file
+from ..helpers import load
 from ..module import Module
 from ..settings import settings  # @UnusedImport
 from ..task import TaskSignal
@@ -72,7 +72,7 @@ class Machine:
     @cachedproperty
     def __Module(self):
         filepath = os.path.abspath(self.__filepath)
-        module = import_file(filepath)
+        module = load(filepath)
         for name in dir(module):
             attr = getattr(module, name)
             if not isinstance(attr, type):

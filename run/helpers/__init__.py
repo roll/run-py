@@ -1,4 +1,4 @@
 from .copy import copy
-from .import_file import import_file
+from .load import load
 from .join import join
 from .null import Null

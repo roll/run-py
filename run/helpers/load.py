@@ -2,7 +2,7 @@ import os
 from importlib.machinery import SourceFileLoader
 
 
-def import_file(filepath):
+def load(filepath):
     """Import module from file by filepath.
 
     Parameters
