@@ -1,6 +1,6 @@
 import os
 from run import (Module, Task, CommandTask, DescriptorTask, FindTask,
-                 FunctionTask, ProxyTask)
+                 FunctionTask)
 
 
 class TasksModule(Module):
@@ -24,10 +24,6 @@ class TasksModule(Module):
 
     function = FunctionTask(
         function=os.path.abspath,
-    )
-
-    proxy = ProxyTask(
-        task='command',
     )
 
     task = Task(

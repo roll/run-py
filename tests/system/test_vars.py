@@ -43,9 +43,4 @@ class VarsTest(DemoTest):
             'function\n'
             'info\n'
             'list\n'
-            'meta\n'
-            'proxy\n')
-
-    def test_proxy(self):
-        result = self.execute('proxy')
-        self.assertEqual(result, 'Hello World!\nNone\n')
+            'meta\n')

@@ -1,6 +1,6 @@
 import os
-from run import (Module, CommandTask, CommandVar, DescriptorVar,
-                 FindVar, FunctionVar, ProxyVar)
+from run import (Module, CommandTask, CommandVar, DescriptorVar, FindVar,
+                 FunctionVar)
 
 
 class VarsModule(Module):
@@ -31,8 +31,4 @@ class VarsModule(Module):
     function = FunctionVar(
         function=os.path.abspath,
         path='path',
-    )
-
-    proxy = ProxyVar(
-        task='command_task',
     )

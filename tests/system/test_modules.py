@@ -41,7 +41,6 @@ class ModulesTest(DemoTest):
             'find.info\n'
             'find.list\n'
             'find.meta\n'
-            'find.proxy\n'
             'find.task\n')
 
     def test_function_list(self):

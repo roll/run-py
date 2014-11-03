@@ -5,7 +5,6 @@ from .library.command import CommandModule, CommandTask, CommandVar
 from .library.dialog import DialogModule, DialogTask, DialogVar
 from .library.find import FindModule, FindTask, FindVar
 from .library.matrix import MatrixModule
-from .library.proxy import ProxyTask, ProxyVar
 from .library.render import RenderTask, RenderVar
 from .module import Module, FunctionModule, module
 from .task import Task, DescriptorTask, FunctionTask, task
