@@ -12,16 +12,16 @@ class FunctionTask(Task):
         self.__bind = bind
         super().__init__(*args, **kwargs)
 
-    def meta_invoke(self, *args, **kwargs):
-        if self.__bind:
-            args = [self.meta_module] + list(args)
-        return self.__function(*args, **kwargs)
-
     @property
     def meta_docstring(self):
         return self.meta_inspect(
             name='docstring', lookup=True,
             default=str(inspect.getdoc(self.__function)).strip())
+
+    def meta_invoke(self, *args, **kwargs):
+        if self.__bind:
+            args = [self.meta_module] + list(args)
+        return self.__function(*args, **kwargs)
 
     @property
     def meta_signature(self):

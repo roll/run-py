@@ -82,22 +82,6 @@ class Module(Task, Module):
             attribute = getattr(attribute, nested_name)
         return attribute
 
-    def meta_lookup(self, name):
-        nested_name = None
-        if '.' in name:
-            # Nested name - split
-            name, nested_name = name.split('.', 1)
-        # TODO: add good exception text here like in __getattribute__
-        task = self.meta_tasks[name]
-        if nested_name is not None:
-            task = task.meta_lookup(nested_name)
-        return task
-
-    def meta_invoke(self, *args, **kwargs):
-        default = getattr(self, self.meta_default)
-        result = default(*args, **kwargs)
-        return result
-
     @property
     def meta_autodir(self):
         return os.path.abspath(
@@ -118,6 +102,11 @@ class Module(Task, Module):
         else:
             return super().meta_fullname
 
+    def meta_invoke(self, *args, **kwargs):
+        default = getattr(self, self.meta_default)
+        result = default(*args, **kwargs)
+        return result
+
     @property
     def meta_is_main_module(self):
         """Module's main module status (is main module or not).
@@ -126,6 +115,17 @@ class Module(Task, Module):
             return False
         else:
             return True
+
+    def meta_lookup(self, name):
+        nested_name = None
+        if '.' in name:
+            # Nested name - split
+            name, nested_name = name.split('.', 1)
+        # TODO: add good exception text here like in __getattribute__
+        task = self.meta_tasks[name]
+        if nested_name is not None:
+            task = task.meta_lookup(nested_name)
+        return task
 
     @property
     def meta_main_module(self):

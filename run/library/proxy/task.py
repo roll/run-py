@@ -9,9 +9,6 @@ class ProxyTask(Task):
         self.__task = task
         super().__init__(*args, **kwargs)
 
-    def meta_invoke(self, *args, **kwargs):
-        return self.__task_instance(*args, **kwargs)
-
     @property
     def meta_docstring(self):
         return self.meta_inspect(
@@ -19,6 +16,9 @@ class ProxyTask(Task):
             default=('Proxy to task "{meta_qualname}".\n{meta_docstring}'.
                      format(meta_qualname=self.__task_instance.meta_qualname,
                             meta_docstring=self.__task_instance.meta_docstring)))
+
+    def meta_invoke(self, *args, **kwargs):
+        return self.__task_instance(*args, **kwargs)
 
     @property
     def meta_signature(self):

@@ -21,8 +21,8 @@ class FunctionTaskTest(unittest.TestCase):
         self.assertEqual(result, self.function.return_value)
         self.function.assert_called_with(*self.args, **self.kwargs)
 
-    def test_meta_signature(self):
-        self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
-
     def test_meta_docstring(self):
         self.assertEqual(self.task.meta_docstring, self.function.__doc__)
+
+    def test_meta_signature(self):
+        self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')

@@ -103,123 +103,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             template = '<{self.meta_type} "{self.meta_qualname}">'
         return template.format(self=self)
 
-    def meta_format(self, attribute=None):
-        """Format task.
-
-        Parameters
-        ----------
-        attribute: str
-            Format attribute instead of whole task.
-
-        Returns
-        -------
-        str
-            Formatted task/attribute.
-        """
-        result = str(self)
-        if attribute is not None:
-            result = str(getattr(self, attribute))
-        if result:
-            if not self.meta_plain:
-                style = self.meta_style
-                if not isinstance(self.meta_style, dict):
-                    style = settings.styles.get(self.meta_style, None)
-                if style is not None:
-                    result = cformat(result, **style)
-        return result
-
-    def meta_inspect(self, name, *, lookup=False, inherit=False, default=None):
-        """Return internal meta parameter.
-
-        Parameters
-        ----------
-        name: str
-            Name of parameter.
-        lookup: bool
-            Allow to lookup from init parameters.
-        inherit: bool
-            Allow to inherit from meta_module.
-        default: mixed
-            Default value.
-
-        Returns
-        -------
-        mixed
-            Value of parameter.
-        """
-        fullname = 'meta_' + name
-        if lookup:
-            if name in self.__parameters:
-                return self.__parameters[name]
-        if inherit:
-            if self.meta_module is not None:
-                try:
-                    return getattr(self.meta_module, fullname)
-                except AttributeError:
-                    pass
-        return default
-
-    def meta_depend(self, dependency):
-        """Add custom dependency.
-
-        Parameters
-        ----------
-        dependency: :class:`.dependency.Dependency`
-            Dependency to be dependent upon.
-        """
-        dependency.bind(self)
-        self.meta_dependencies.append(dependency)
-
-    def meta_not_depend(self, task):
-        """Remove all of task dependencies.
-
-        Parameters
-        ----------
-        task: str
-            Task name to be not dependent upon.
-        """
-        task = self.meta_module.meta_lookup(task)
-        for dependency in copy(self.meta_dependencies):
-            if dependency.predecessor is task:
-                self.meta_dependencies.remove(dependency)
-
-    def meta_require(self, task, *args, **kwargs):
-        """Add require dependency.
-
-        Parameters
-        ----------
-        task: str
-            Task name to require.
-        args, kwargs
-            Arguments for dependency resolve call.
-        """
-        dependency = require(task, *args, **kwargs)
-        self.meta_depend(dependency)
-
-    def meta_trigger(self, task, *args, **kwargs):
-        """Add trigger dependency.
-
-        Parameters
-        ----------
-        task: str
-            Task name to trigger.
-        args, kwargs
-            Arguments for dependency resolve call.
-        """
-        dependency = trigger(task, *args, **kwargs)
-        self.meta_depend(dependency)
-
-    @abstractmethod
-    def meta_invoke(self, *args, **kwargs):
-        """Invoke task.
-
-        Parameters
-        ----------
-        args, kwargs
-            Arguments for task invokation.
-        """
-        pass  # pragma: no cover
-
     @property
     def meta_autodir(self):
         return os.path.abspath(os.getcwd())
@@ -265,6 +148,17 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             name='chdir', lookup=True, inherit=True,
             default=settings.chdir)
 
+    def meta_depend(self, dependency):
+        """Add custom dependency.
+
+        Parameters
+        ----------
+        dependency: :class:`.dependency.Dependency`
+            Dependency to be dependent upon.
+        """
+        dependency.bind(self)
+        self.meta_dependencies.append(dependency)
+
     @property
     def meta_dependencies(self):
         """Task's list of dependencies.
@@ -301,6 +195,30 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
             name='fallback', lookup=True, inherit=True,
             default=settings.fallback)
 
+    def meta_format(self, attribute=None):
+        """Format task.
+
+        Parameters
+        ----------
+        attribute: str
+            Format attribute instead of whole task.
+
+        Returns
+        -------
+        str
+            Formatted task/attribute.
+        """
+        result = str(self)
+        if attribute is not None:
+            result = str(getattr(self, attribute))
+        if result:
+            if not self.meta_plain:
+                style = self.meta_style
+                if not isinstance(self.meta_style, dict):
+                    style = settings.styles.get(self.meta_style, None)
+                if style is not None:
+                    result = cformat(result, **style)
+        return result
     @property
     def meta_fullname(self):
         fullname = ''
@@ -316,6 +234,48 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_inherit(self):
         return self.meta_inspect(
             name='inherit', lookup=True, default=settings.inherit)
+
+    def meta_inspect(self, name, *, lookup=False, inherit=False, default=None):
+        """Return internal meta parameter.
+
+        Parameters
+        ----------
+        name: str
+            Name of parameter.
+        lookup: bool
+            Allow to lookup from init parameters.
+        inherit: bool
+            Allow to inherit from meta_module.
+        default: mixed
+            Default value.
+
+        Returns
+        -------
+        mixed
+            Value of parameter.
+        """
+        fullname = 'meta_' + name
+        if lookup:
+            if name in self.__parameters:
+                return self.__parameters[name]
+        if inherit:
+            if self.meta_module is not None:
+                try:
+                    return getattr(self.meta_module, fullname)
+                except AttributeError:
+                    pass
+        return default
+
+    @abstractmethod
+    def meta_invoke(self, *args, **kwargs):
+        """Invoke task.
+
+        Parameters
+        ----------
+        args, kwargs
+            Arguments for task invokation.
+        """
+        pass  # pragma: no cover
 
     @property
     def meta_is_descriptor(self):
@@ -357,6 +317,19 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                     name = key
         return name
 
+    def meta_not_depend(self, task):
+        """Remove all of task dependencies.
+
+        Parameters
+        ----------
+        task: str
+            Task name to be not dependent upon.
+        """
+        task = self.meta_module.meta_lookup(task)
+        for dependency in copy(self.meta_dependencies):
+            if dependency.predecessor is task:
+                self.meta_dependencies.remove(dependency)
+
     @property
     def meta_qualname(self):
         """Task's qualified name.
@@ -386,6 +359,19 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inspect(
             name='prefix', lookup=True, default=None)
 
+    def meta_require(self, task, *args, **kwargs):
+        """Add require dependency.
+
+        Parameters
+        ----------
+        task: str
+            Task name to require.
+        args, kwargs
+            Arguments for dependency resolve call.
+        """
+        dependency = require(task, *args, **kwargs)
+        self.meta_depend(dependency)
+
     @property
     def meta_signature(self):
         """Task's signature.
@@ -398,6 +384,19 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     def meta_style(self):
         return self.meta_inspect(
             name='style', lookup=True, default='task')
+
+    def meta_trigger(self, task, *args, **kwargs):
+        """Add trigger dependency.
+
+        Parameters
+        ----------
+        task: str
+            Task name to trigger.
+        args, kwargs
+            Arguments for dependency resolve call.
+        """
+        dependency = trigger(task, *args, **kwargs)
+        self.meta_depend(dependency)
 
     @property
     def meta_type(self):

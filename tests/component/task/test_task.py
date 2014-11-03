@@ -131,52 +131,6 @@ class TaskTest(unittest.TestCase):
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(repr(self.task), '<Task "module.task">')
 
-    def test_meta_format(self):
-        self.Task._styles = {'task': {'foreground': 'bright_green'}}
-        self.assertEqual(self.task.meta_format(attribute='meta_type'),
-                         '\x1b[92mTask\x1b[m')
-
-    def test_meta_format_with_meta_plain_is_true(self):
-        self.Task.meta_plain = True
-        self.Task._styles = {'task': {'foreground': 'bright_green'}}
-        self.assertEqual(self.task.meta_format(attribute='meta_type'), 'Task')
-
-    def test_meta_depend(self):
-        dependency = Mock()
-        self.task.meta_depend(dependency)
-        self.assertEqual(self.task.meta_dependencies, [dependency])
-        # Check dependency's bind call
-        dependency.bind.assert_called_with(self.task)
-
-    def test_meta_not_depend(self):
-        dependency1 = Mock()
-        dependency1.predecessor = 'task1'
-        dependency2 = Mock()
-        dependency2.predecessor = 'task2'
-        self.module.meta_lookup.return_value = 'task1'
-        self.Task.meta_dependencies = [dependency1, dependency2]
-        self.task = self.Task(meta_module=self.module)
-        self.task.meta_not_depend('task1')
-        self.assertEqual(self.task.meta_dependencies, [dependency2])
-
-    @patch.object(component, 'require')
-    def test_meta_require(self, require):
-        self.task.meta_require('task', *self.args, **self.kwargs)
-        self.assertEqual(self.task.meta_dependencies, [require.return_value])
-        # Check require call
-        require.assert_called_with('task', *self.args, **self.kwargs)
-        # Check require's return_value (require dependency) bind call
-        require.return_value.bind.assert_called_with(self.task)
-
-    @patch.object(component, 'trigger')
-    def test_meta_trigger(self, trigger):
-        self.task.meta_trigger('task', *self.args, **self.kwargs)
-        self.assertEqual(self.task.meta_dependencies, [trigger.return_value])
-        # Check trigger call
-        trigger.assert_called_with('task', *self.args, **self.kwargs)
-        # Check trigger's return_value (trigger dependency) bind call
-        trigger.return_value.bind.assert_called_with(self.task)
-
     def test_meta_args(self):
         self.assertEqual(self.task.meta_args, self.args)
 
@@ -192,6 +146,13 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_dependencies(self):
         self.assertEqual(self.task.meta_dependencies, [])
+
+    def test_meta_depend(self):
+        dependency = Mock()
+        self.task.meta_depend(dependency)
+        self.assertEqual(self.task.meta_dependencies, [dependency])
+        # Check dependency's bind call
+        dependency.bind.assert_called_with(self.task)
 
     @patch.object(component, 'trigger')
     @patch.object(component, 'require')
@@ -224,6 +185,16 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback, component.settings.fallback)
+
+    def test_meta_format(self):
+        self.Task._styles = {'task': {'foreground': 'bright_green'}}
+        self.assertEqual(self.task.meta_format(attribute='meta_type'),
+                         '\x1b[92mTask\x1b[m')
+
+    def test_meta_format_with_meta_plain_is_true(self):
+        self.Task.meta_plain = True
+        self.Task._styles = {'task': {'foreground': 'bright_green'}}
+        self.assertEqual(self.task.meta_format(attribute='meta_type'), 'Task')
 
     def test_meta_fullname(self):
         self.assertEqual(self.task.meta_fullname, '')
@@ -270,6 +241,17 @@ class TaskTest(unittest.TestCase):
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(self.task.meta_name, 'task')
 
+    def test_meta_not_depend(self):
+        dependency1 = Mock()
+        dependency1.predecessor = 'task1'
+        dependency2 = Mock()
+        dependency2.predecessor = 'task2'
+        self.module.meta_lookup.return_value = 'task1'
+        self.Task.meta_dependencies = [dependency1, dependency2]
+        self.task = self.Task(meta_module=self.module)
+        self.task.meta_not_depend('task1')
+        self.assertEqual(self.task.meta_dependencies, [dependency2])
+
     def test_meta_qualname(self):
         self.assertEqual(self.task.meta_qualname, '')
 
@@ -282,11 +264,29 @@ class TaskTest(unittest.TestCase):
     def test_meta_plain(self):
         self.assertEqual(self.task.meta_plain, component.settings.plain)
 
+    @patch.object(component, 'require')
+    def test_meta_require(self, require):
+        self.task.meta_require('task', *self.args, **self.kwargs)
+        self.assertEqual(self.task.meta_dependencies, [require.return_value])
+        # Check require call
+        require.assert_called_with('task', *self.args, **self.kwargs)
+        # Check require's return_value (require dependency) bind call
+        require.return_value.bind.assert_called_with(self.task)
+
     def test_meta_signature(self):
         self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
 
     def test_meta_style(self):
         self.assertEqual(self.task.meta_style, 'task')
+
+    @patch.object(component, 'trigger')
+    def test_meta_trigger(self, trigger):
+        self.task.meta_trigger('task', *self.args, **self.kwargs)
+        self.assertEqual(self.task.meta_dependencies, [trigger.return_value])
+        # Check trigger call
+        trigger.assert_called_with('task', *self.args, **self.kwargs)
+        # Check trigger's return_value (trigger dependency) bind call
+        trigger.return_value.bind.assert_called_with(self.task)
 
     def test_meta_type(self):
         self.assertEqual(self.task.meta_type, 'Task')
