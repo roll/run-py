@@ -19,28 +19,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     # Public
 
-    @classmethod
-    def __create__(cls, *args, **kwargs):
-        # Create task object
-        self = object.__new__(cls)
-        # Initiate parameters
-        self.__parameters = {}
-        for key in list(kwargs):
-            if key.startswith('meta_'):
-                name = key.replace('meta_', '')
-                self.__parameters[name] = kwargs.pop(key)
-        # Initiate dependencies
-        self.__dependencies = []
-        self.__init_dependencies()
-        # Initiate cache
-        self.__cached_result = Null
-        # Initiate arguments
-        self.__args = ()
-        self.__kwargs = {}
-        # Call user init
-        self.__init__(*args, **kwargs)
-        return self
-
     def __update__(self):
         for update in self.meta_updates:
             update.apply(self)
@@ -145,6 +123,28 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         return self.meta_inspect(
             name='chdir', lookup=True, inherit=True,
             default=settings.chdir)
+
+    @classmethod
+    def meta_create(cls, *args, **kwargs):
+        # Create task object
+        self = object.__new__(cls)
+        # Initiate parameters
+        self.__parameters = {}
+        for key in list(kwargs):
+            if key.startswith('meta_'):
+                name = key.replace('meta_', '')
+                self.__parameters[name] = kwargs.pop(key)
+        # Initiate dependencies
+        self.__dependencies = []
+        self.__init_dependencies()
+        # Initiate cache
+        self.__cached_result = Null
+        # Initiate arguments
+        self.__args = ()
+        self.__kwargs = {}
+        # Call user init
+        self.__init__(*args, **kwargs)
+        return self
 
     def meta_depend(self, dependency):
         """Add custom dependency.

@@ -24,7 +24,7 @@ class PrototypeTest(unittest.TestCase):
     def make_mock_task_class(self):
         class MockTask:
             # Public
-            __meta_create__ = Mock()
+            meta_create = Mock()
             __meta_update__ = Mock()
             attr1 = 'value1'
             attr2 = Mock()

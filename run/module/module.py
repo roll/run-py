@@ -44,21 +44,6 @@ class Module(Task, Module):
         attrs['__module__'] = cls.__module__
         return type(cls)(cls.__name__, (cls,), attrs)
 
-    @classmethod
-    def __create__(cls, *args, **kwargs):
-        spawned_class = cls.__spawn__()
-        self = super(Module, spawned_class).__create__(*args, **kwargs)
-        names = []
-        for cls in type(self).mro():
-            for name, attr in vars(cls).items():
-                if name in names:
-                    continue
-                names.append(name)
-                if isinstance(attr, Prototype):
-                    task = attr.meta_build(meta_module=self)
-                    setattr(type(self), name, task)
-        return self
-
     def __update__(self):
         for task in self.meta_tasks.values():
             task.__update__()
@@ -86,6 +71,21 @@ class Module(Task, Module):
     def meta_autodir(self):
         return os.path.abspath(
             os.path.dirname(inspect.getfile(type(self))))
+
+    @classmethod
+    def meta_create(cls, *args, **kwargs):
+        spawned_class = cls.__spawn__()
+        self = super(Module, spawned_class).meta_create(*args, **kwargs)
+        names = []
+        for cls in type(self).mro():
+            for name, attr in vars(cls).items():
+                if name in names:
+                    continue
+                names.append(name)
+                if isinstance(attr, Prototype):
+                    task = attr.meta_build(meta_module=self)
+                    setattr(type(self), name, task)
+        return self
 
     @property
     def meta_default(self):
