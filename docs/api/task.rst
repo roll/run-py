@@ -8,11 +8,6 @@ Base class
 
 .. autoclass:: run.task.Task
 
-Concrete tasks
---------------
-
-.. autoclass:: run.task.FunctionTask
-
 Prototype
 ---------
 

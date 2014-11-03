@@ -3,7 +3,7 @@ from io import StringIO
 from unittest.mock import patch
 from run.dependency import require, trigger
 from run.module import Module
-from run.task import FunctionTask, task
+from run.task import task
 
 
 # Fixtures
@@ -21,12 +21,6 @@ class MockModule(Module):
 
     def task2(self):
         print('task2 is done')
-
-    task3 = FunctionTask(
-        function=lambda: print('task3 is done'),
-        meta_require=['task1'],
-        meta_trigger=['task2'],
-    )
 
     @require('task1')
     @trigger('task2')
@@ -64,17 +58,8 @@ class DependencyTest(unittest.TestCase):
             'meta\n'
             'task1\n'
             'task2\n'
-            'task3\n'
             'task4\n'
             'task5\n')
-
-    def test_task3(self):
-        self.module.task3()
-        self.assertEqual(
-            self.stdout.getvalue(),
-            'task1 is done\n'
-            'task3 is done\n'
-            'task2 is done\n')
 
     def test_task4(self):
         self.module.task4()

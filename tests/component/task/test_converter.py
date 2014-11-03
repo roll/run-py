@@ -12,18 +12,18 @@ class task_Test(unittest.TestCase):
         self.addCleanup(patch.stopall)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.isfunction = patch('inspect.isfunction').start()
-        self.FunctionTask = patch.object(component, 'FunctionTask').start()
+        self.MethodTask = patch.object(component, 'MethodTask').start()
 
     # Tests
 
     def test(self):
         result = component.task('method')
-        self.assertEqual(result, self.FunctionTask.return_value)
-        # Check FunctionTask call
-        self.FunctionTask.assert_called_with('method', bind=True)
+        self.assertEqual(result, self.MethodTask.return_value)
+        # Check MethodTask call
+        self.MethodTask.assert_called_with('method')
 
     def test_with_kwargs(self):
         result = component.task(**self.kwargs)('method')
-        self.assertEqual(result, self.FunctionTask.return_value)
-        # Check FunctionTask call
-        self.FunctionTask.assert_called_with('method', bind=True, **self.kwargs)
+        self.assertEqual(result, self.MethodTask.return_value)
+        # Check MethodTask call
+        self.MethodTask.assert_called_with('method', **self.kwargs)
