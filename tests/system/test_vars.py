@@ -28,10 +28,6 @@ class VarsTest(DemoTest):
         result = self.execute('find')
         self.assertEqual(result, 'find\n')
 
-    def test_function(self):
-        result = self.execute('function')
-        self.assertRegex(result, '.*demo/path\n')
-
     def test_list(self):
         result = self.execute('list')
         self.assertEqual(
@@ -40,7 +36,6 @@ class VarsTest(DemoTest):
             'command_task\n'
             'descriptor\n'
             'find\n'
-            'function\n'
             'info\n'
             'list\n'
             'meta\n')

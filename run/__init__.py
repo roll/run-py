@@ -8,7 +8,7 @@ from .library.matrix import MatrixModule
 from .library.render import RenderTask, RenderVar
 from .module import Module, FunctionModule, module
 from .task import Task, DescriptorTask, FunctionTask, task
-from .var import Var, DescriptorVar, FunctionVar, var
+from .var import Var, DescriptorVar, var
 
 from .metadata import version
 from .program import program

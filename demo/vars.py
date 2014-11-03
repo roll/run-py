@@ -1,6 +1,5 @@
 import os
-from run import (Module, CommandTask, CommandVar, DescriptorVar, FindVar,
-                 FunctionVar)
+from run import Module, CommandTask, CommandVar, DescriptorVar, FindVar
 
 
 class VarsModule(Module):
@@ -26,9 +25,4 @@ class VarsModule(Module):
         mode='strings',
         string='find',
         getfirst=True,
-    )
-
-    function = FunctionVar(
-        function=os.path.abspath,
-        path='path',
     )

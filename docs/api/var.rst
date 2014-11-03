@@ -12,7 +12,6 @@ Concrete vars
 -------------
 
 .. autoclass:: run.var.DescriptorVar
-.. autoclass:: run.var.FunctionVar
 
 Helper functions
 ----------------
