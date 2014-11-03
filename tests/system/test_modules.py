@@ -35,7 +35,6 @@ class ModulesTest(DemoTest):
         self.assertEqual(
             result,
             'find.command\n'
-            'find.descriptor\n'
             'find.find\n'
             'find.function\n'
             'find.info\n'

@@ -1,6 +1,5 @@
 import os
-from run import (Module, Task, CommandTask, DescriptorTask, FindTask,
-                 FunctionTask)
+from run import Module, Task, CommandTask, FindTask, FunctionTask
 
 
 class TasksModule(Module):
@@ -9,11 +8,6 @@ class TasksModule(Module):
 
     command = CommandTask(
         'echo "Hello World!"',
-    )
-
-    descriptor = DescriptorTask(
-        descriptor=property(lambda self: True),
-        meta_docstring='Return True.',
     )
 
     find = FindTask(

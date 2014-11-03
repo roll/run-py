@@ -11,7 +11,6 @@ Base class
 Concrete tasks
 --------------
 
-.. autoclass:: run.task.DescriptorTask
 .. autoclass:: run.task.FunctionTask
 
 Prototype
