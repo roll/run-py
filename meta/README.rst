@@ -42,6 +42,8 @@ The real simple example introduces some functionality.
     list
     meta
     ready
+    [+] list
+    [+]
 
 - autocomplete attribute from command line:
 
@@ -63,6 +65,7 @@ The real simple example introduces some functionality.
     Default keyword arguments: {}
     ---
     Say hello to the given person.
+    [+] info
 
 - run task from command line:
 
@@ -70,6 +73,9 @@ The real simple example introduces some functionality.
 
     $ run hello Rachel, times=5
     We are ready.
+    [+] hello/ready
     Hello Rachel 5 times!
     We are done.
+    [+] hello/done
+    [+] hello
 {% endblock %}

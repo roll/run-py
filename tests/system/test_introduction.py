@@ -16,7 +16,7 @@ class IntroductionTest(DemoTest):
     # Tests
 
     def test_greet(self):
-        result = self.execute('hello', messages=['Hi'])
+        result = self.execute('hello -q', messages=['Hi'])
         self.assertEqual(
             result,
             'We are ready.\n'
