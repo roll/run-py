@@ -2,10 +2,10 @@ import os
 import unittest
 from unittest.mock import patch
 from importlib import import_module
-component = import_module('run.helpers.enhanced_join')
+component = import_module('run.helpers.join')
 
 
-class enhanced_join_Test(unittest.TestCase):
+class join_Test(unittest.TestCase):
 
     # Actions
 
@@ -17,13 +17,13 @@ class enhanced_join_Test(unittest.TestCase):
     # Tests
 
     def test(self):
-        self.assertEqual(component.enhanced_join('x', 'y'), 'x/y')
+        self.assertEqual(component.join('x', 'y'), 'x/y')
 
     def test_with_none(self):
-        self.assertEqual(component.enhanced_join('x', None), 'x')
+        self.assertEqual(component.join('x', None), 'x')
 
     def test_with_error(self):
-        self.assertRaises(Exception, component.enhanced_join)
+        self.assertRaises(Exception, component.join)
 
     def test_with_error_and_fallback(self):
-        self.assertEqual(component.enhanced_join(fallback='fallback'), 'fallback')
+        self.assertEqual(component.join(fallback='fallback'), 'fallback')

@@ -8,7 +8,7 @@ from sugarbowl import cachedproperty, merge_dicts
 from color import cformat
 from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
-from ..helpers import Null, enhanced_join
+from ..helpers import Null, join
 from ..signal import Dispatcher
 from ..settings import settings
 from .metaclass import Metaclass
@@ -121,7 +121,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         basedir = self.meta_inspect(
             name='basedir', lookup=True, inherit=True, default=None)
         if basedir is not None:
-            basedir = enhanced_join(basedir, self.meta_prefix)
+            basedir = join(basedir, self.meta_prefix)
         else:
             basedir = self.meta_autodir
         return basedir

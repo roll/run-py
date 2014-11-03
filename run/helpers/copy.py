@@ -1,7 +1,7 @@
 from copy import copy as python_copy
 
 
-def enhanced_copy(obj, *args, **kwargs):
+def copy(obj, *args, **kwargs):
     """Shallow copy operation on arbitrary Python objects.
 
     Difference with python library module is in __copy__ method priority:

@@ -9,6 +9,6 @@ class import_file_Test(unittest.TestCase):
     # Tests
 
     def test(self):
-        filepath = os.path.join(os.path.dirname(__file__), 'test_enhanced_copy.py')
+        filepath = os.path.join(os.path.dirname(__file__), 'test_copy.py')
         module = component.import_file(filepath)
         self.assertIs(module.unittest, unittest)
