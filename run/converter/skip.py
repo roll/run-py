@@ -1,7 +1,7 @@
-from box.functools import Decorator
+from sugarbowl import Function
 
 
-class skip(Decorator):
+class skip(Function):
     """Make object to be not converted while convert call.
 
     Examples
@@ -20,6 +20,7 @@ class skip(Decorator):
 
     # TODO: rename to marker
     attribute_name = '_run_converter_skip'
+    protocol = 'function'
 
     def __call__(self, obj):
         setattr(obj, self.attribute_name, True)
