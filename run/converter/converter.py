@@ -1,10 +1,11 @@
+import inspect
 from abc import ABCMeta, abstractmethod
-from box.functools import Decorator
+from sugarbowl import Function
 from .converted import Converted
 from .skip import skip
 
 
-class Converter(Decorator, metaclass=ABCMeta):
+class Converter(Function, metaclass=ABCMeta):
     """Base abstract converter decorator.
     """
 
@@ -25,16 +26,18 @@ class Converter(Decorator, metaclass=ABCMeta):
             format(self=self, obj=obj))
 
     # TODO: improve implementation?
-    def is_composite(self, *args, **kwargs):
-        if not super().is_composite(*args, **kwargs):
-            return False
+    def protocol(self, *args, **kwargs):
         try:
-            return not isinstance(args[0], Converted)
+            if (inspect.isfunction(args[0]) or
+                isinstance(args[0], Converted)):
+                return 'function'
         except IndexError:
-            return True
+            pass
+        return 'decorator'
 
     # Protected
 
+    # TODO: remove protected?
     @abstractmethod
     def _match(self, obj):
         pass  # pragma: no cover
