@@ -19,10 +19,6 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
 
     # Public
 
-    def __update__(self):
-        for update in self.meta_updates:
-            update.apply(self)
-
     def __init__(self, *args, **kwargs):
         self.__args = args
         self.__kwargs = kwargs
@@ -401,6 +397,11 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         """Task's type as a string.
         """
         return type(self).__name__
+
+    # TODO: clean updates list while applying?
+    def meta_update(self):
+        for update in self.meta_updates:
+            update.apply(self)
 
     @property
     def meta_updates(self):

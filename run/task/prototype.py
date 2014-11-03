@@ -99,5 +99,5 @@ class Prototype(Converted):
             **kwargs)
         if task.meta_module is None:
             # No module - update
-            task.__update__()
+            task.meta_update()
         return task

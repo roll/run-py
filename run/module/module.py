@@ -44,11 +44,6 @@ class Module(Task, Module):
         attrs['__module__'] = cls.__module__
         return type(cls)(cls.__name__, (cls,), attrs)
 
-    def __update__(self):
-        for task in self.meta_tasks.values():
-            task.__update__()
-        super().__update__()
-
     def __getattribute__(self, name):
         nested_name = None
         if '.' in name:
@@ -150,6 +145,11 @@ class Module(Task, Module):
             if isinstance(attr, Task):
                 tasks[name] = attr
         return tasks
+
+    def meta_update(self):
+        for task in self.meta_tasks.values():
+            task.meta_update()
+        super().meta_update()
 
     def list(self, task=None):
         """Print tasks.
