@@ -8,11 +8,6 @@ Base class
 
 .. autoclass:: run.var.Var
 
-Concrete vars
--------------
-
-.. autoclass:: run.var.DescriptorVar
-
 Helper functions
 ----------------
 

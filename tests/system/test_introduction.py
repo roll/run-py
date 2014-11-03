@@ -16,10 +16,9 @@ class IntroductionTest(DemoTest):
     # Tests
 
     def test_greet(self):
-        result = self.execute('greet', messages=['Hi'])
+        result = self.execute('hello', messages=['Hi'])
         self.assertEqual(
             result,
-            'Type your greeting ([Hello]/*): '
-            'We are ready to say Hi to person.\n'
-            'Hi World 3 times!\n'
+            'We are ready.\n'
+            'Hello World 3 times!\n'
             'We are done.\n')
