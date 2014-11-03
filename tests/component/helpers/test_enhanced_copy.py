@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from importlib import import_module
-component = import_module('sugarbowl.collections.merge')
+component = import_module('run.helpers.enhanced_copy')
 
 
 class enhanced_copy_Test(unittest.TestCase):
