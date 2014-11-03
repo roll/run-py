@@ -14,7 +14,7 @@ class ProjectModule(ProjectModule):
     entry_points = {'console_scripts': ['run = run:program']}
     github_user = 'respect31'
     install_requires = ['sugarbowl', 'clyde',
-        'color>=0.3', 'dialog>=0.4', 'find>=0.3', 'render>=0.3', 'claire>=0.7']
+        'dialog>=0.4', 'find>=0.3', 'render>=0.3', 'claire>=0.7']
     interpreters = ['3.3', '3.4']
     license = 'MIT License'
     name = 'run'

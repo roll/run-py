@@ -3,7 +3,7 @@ import ast
 import csv
 import logging.config
 from sugarbowl import cachedproperty
-from clyde import Command, Option, ManualFormatter, mixin
+from clyde import Command, Option, ManpageFormatter, mixin
 from .machine import Machine
 from .metadata import version
 from .settings import settings
@@ -15,9 +15,9 @@ class Program(Command):
 
     # Public
 
-    meta_formatter = ManualFormatter
+    meta_formatter = ManpageFormatter
 
-    def __execute__(self, attribute=None, *arguments):
+    def meta_execute(self, attribute=None, *arguments):
         for name in ['list', 'info', 'meta']:
             if getattr(self, name, False):
                 if attribute is not None:

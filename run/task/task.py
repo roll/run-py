@@ -5,7 +5,7 @@ from copy import copy
 from abc import abstractmethod
 from contextlib import contextmanager
 from sugarbowl import cachedproperty, merge_dicts
-from color import cformat
+from clyde import sformat
 from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
 from ..helpers import Null, join
@@ -215,7 +215,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
                 if not isinstance(self.meta_style, dict):
                     style = settings.styles.get(self.meta_style, None)
                 if style is not None:
-                    result = cformat(result, **style)
+                    result = sformat(result, **style)
         return result
     @property
     def meta_fullname(self):

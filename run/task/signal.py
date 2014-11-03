@@ -1,4 +1,4 @@
-from color import cformat
+from clyde import sformat
 from ..settings import settings
 from ..signal import Signal
 
@@ -17,7 +17,7 @@ class TaskSignal(Signal):
             if not self.task.meta_plain:
                 style = settings.styles.get(self.event, None)
                 if style is not None:
-                    result = cformat(result, **style)
+                    result = sformat(result, **style)
         return result
 
     @property

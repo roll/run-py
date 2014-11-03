@@ -39,7 +39,7 @@ setup(
     maintainer_email='roll@respect31.com',
     name='runfile',
     include_package_data=True,
-    install_requires=['sugarbowl', 'clyde', 'color>=0.3', 'dialog>=0.4', 'find>=0.3', 'render>=0.3', 'claire>=0.7'], 
+    install_requires=['sugarbowl', 'clyde', 'dialog>=0.4', 'find>=0.3', 'render>=0.3', 'claire>=0.7'], 
     packages=packages,
     platforms=['Unix'],
     url='https://github.com/respect31/run',
