@@ -1,7 +1,7 @@
-from box.functools import Decorator
+from sugarbowl import Function
 
 
-class depend(Decorator):
+class depend(Function):
     """Decorate method to add custom dependency.
 
     Examples
@@ -17,6 +17,8 @@ class depend(Decorator):
     """
 
     # Public
+
+    protocol = 'decorator'
 
     def __init__(self, dependency):
         self.__dependency = dependency
