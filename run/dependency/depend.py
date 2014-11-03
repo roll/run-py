@@ -18,7 +18,7 @@ class depend(Function):
 
     # Public
 
-    protocol = 'decorator'
+    protocol = Function.DECORATOR
 
     def __init__(self, dependency):
         self.__dependency = dependency

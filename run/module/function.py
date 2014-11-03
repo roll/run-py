@@ -3,6 +3,8 @@ from ..task import FunctionTask
 from .module import Module
 
 
+# TODO: rebase on inspect?
+# (sugarbowl.Function has to have support to remove from here)
 class FunctionModule(Module):
     """Module with tasks from FunctionTask mapping.
 

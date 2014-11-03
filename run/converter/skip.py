@@ -20,7 +20,7 @@ class skip(Function):
 
     # TODO: rename to marker
     attribute_name = '_run_converter_skip'
-    protocol = 'function'
+    protocol = Function.FUNCTION
 
     def __call__(self, obj):
         setattr(obj, self.attribute_name, True)

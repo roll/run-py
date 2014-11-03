@@ -30,10 +30,10 @@ class Converter(Function, metaclass=ABCMeta):
         try:
             if (inspect.isfunction(args[0]) or
                 isinstance(args[0], Converted)):
-                return 'function'
+                return Function.FUNCTION
         except IndexError:
             pass
-        return 'decorator'
+        return Function.DECORATOR
 
     # Protected
 
