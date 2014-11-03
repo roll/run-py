@@ -1,4 +1,4 @@
-from box.collections import Settings
+from sugarbowl import Settings
 
 
 class Settings(Settings):

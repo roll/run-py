@@ -1,6 +1,6 @@
 import os
 import inspect
-from box.functools import cachedproperty
+from sugarbowl import cachedproperty
 from ...module import Module
 from ..find import find_modules
 from .task import ClusterTask

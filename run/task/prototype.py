@@ -1,5 +1,5 @@
 from copy import copy
-from box.collections import merge_dicts
+from sugarbowl import merge_dicts
 from ..converter import Converted
 from .update import Update
 

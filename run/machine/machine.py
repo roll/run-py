@@ -2,8 +2,8 @@ import os
 import inspect
 import logging
 from builtins import print
-from box.functools import cachedproperty
-from box.importlib import import_file
+from sugarbowl import cachedproperty
+from ..helpers import import_file
 from ..module import Module
 from ..settings import settings  # @UnusedImport
 from ..task import TaskSignal

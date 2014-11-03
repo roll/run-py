@@ -10,9 +10,6 @@ coverage.xml
 .project
 .pydevproject
 
-# Block: idea
-*.iml
-
 # Block: nose
 nosetests.xml
 

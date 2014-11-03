@@ -4,8 +4,7 @@ import inspect
 from copy import copy
 from abc import abstractmethod
 from contextlib import contextmanager
-from box.collections import merge_dicts
-from box.functools import cachedproperty
+from sugarbowl import cachedproperty, merge_dicts
 from box.os import enhanced_join
 from box.types import Null
 from color import cformat

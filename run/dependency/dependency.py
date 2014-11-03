@@ -1,5 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from box.functools import cachedproperty
+from sugarbowl import cachedproperty
 from ..converter import convert
 
 

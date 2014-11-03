@@ -1,4 +1,4 @@
-from box.functools import Function
+from sugarbowl import Function
 from ..task import FunctionTask
 from .module import Module
 

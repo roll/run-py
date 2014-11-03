@@ -2,7 +2,7 @@ import sys
 import ast
 import csv
 import logging.config
-from box.functools import cachedproperty
+from sugarbowl import cachedproperty
 from clyde import Command, Option, ManualFormatter, mixin
 from .machine import Machine
 from .metadata import version

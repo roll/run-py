@@ -1,6 +1,6 @@
 import inspect
 from find import find_objects
-from box.functools import Function
+from sugarbowl import Function
 from ...module import Module
 from ...settings import settings  # @UnusedImport
 

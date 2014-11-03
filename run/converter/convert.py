@@ -1,5 +1,4 @@
-from box.functools import Function
-from box.importlib import import_object
+from sugarbowl import Function, import_object
 from ..settings import settings
 
 
