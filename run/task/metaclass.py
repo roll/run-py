@@ -1,5 +1,5 @@
 from abc import ABCMeta
-from box.types import Null
+from ..helpers import Null
 from .prototype import Prototype
 
 

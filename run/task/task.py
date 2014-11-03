@@ -6,10 +6,10 @@ from abc import abstractmethod
 from contextlib import contextmanager
 from sugarbowl import cachedproperty, merge_dicts
 from box.os import enhanced_join
-from box.types import Null
 from color import cformat
 from ..converter import Converted
 from ..dependency import Predecessor, Successor, require, trigger
+from ..helpers import Null
 from ..signal import Dispatcher
 from ..settings import settings
 from .metaclass import Metaclass
