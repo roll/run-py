@@ -20,10 +20,6 @@ class VarsTest(DemoTest):
         result = self.execute('command')
         self.assertEqual(result, 'Hello World!\nNone\n')
 
-    def test_descriptor(self):
-        result = self.execute('descriptor')
-        self.assertEqual(result, 'True\n')
-
     def test_find(self):
         result = self.execute('find')
         self.assertEqual(result, 'find\n')
@@ -34,7 +30,6 @@ class VarsTest(DemoTest):
             result,
             'command\n'
             'command_task\n'
-            'descriptor\n'
             'find\n'
             'info\n'
             'list\n'

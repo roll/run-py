@@ -1,5 +1,4 @@
-import os
-from run import Module, CommandTask, CommandVar, DescriptorVar, FindVar
+from run import Module, CommandTask, CommandVar, FindVar
 
 
 class VarsModule(Module):
@@ -14,11 +13,6 @@ class VarsModule(Module):
 
     command = CommandVar(
         'echo "Hello World!"',
-    )
-
-    descriptor = DescriptorVar(
-        descriptor=property(lambda self: True),
-        meta_docstring='Return True.',
     )
 
     find = FindVar(
