@@ -34,6 +34,7 @@ class Program(Command):
         logger = logging.getLogger()
         if self.debug:
             logger.setLevel(logging.DEBUG)
+        # TODO: rethink!
         if self.verbose:
             logger.setLevel(logging.INFO)
         if self.quiet:

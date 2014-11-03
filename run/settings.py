@@ -44,7 +44,7 @@ class Settings(Settings):
 
     # Logging
 
-    logging_level = 'WARNING'
+    logging_level = 'INFO'
     logging_format = '[%(levelname)s] %(message)s'
 
     @property
