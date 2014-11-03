@@ -17,33 +17,6 @@ class Module(Task, Module):
     meta_key = None
     meta_tags = []
 
-    @classmethod
-    def __spawn__(cls):
-        names = []
-        attrs = {}
-        for namespace in cls.mro():
-            for name, attr in vars(namespace).items():
-                if name in names:
-                    continue
-                names.append(name)
-                if name.isupper():
-                    continue
-                elif name.startswith('_'):
-                    continue
-                elif name.startswith('meta_'):
-                    continue
-                elif isinstance(attr, Prototype):
-                    attrs[name] = attr.meta_fork()
-                else:
-                    if cls.meta_convert:
-                        try:
-                            attrs[name] = convert(attr)
-                        except TypeError:
-                            pass
-        attrs['__doc__'] = cls.__doc__
-        attrs['__module__'] = cls.__module__
-        return type(cls)(cls.__name__, (cls,), attrs)
-
     def __getattribute__(self, name):
         nested_name = None
         if '.' in name:
@@ -69,7 +42,7 @@ class Module(Task, Module):
 
     @classmethod
     def meta_create(cls, *args, **kwargs):
-        spawned_class = cls.__spawn__()
+        spawned_class = cls.meta_spawn()
         self = super(Module, spawned_class).meta_create(*args, **kwargs)
         names = []
         for cls in type(self).mro():
@@ -129,6 +102,33 @@ class Module(Task, Module):
         else:
             return super().meta_main_module
 
+    @classmethod
+    def meta_spawn(cls):
+        names = []
+        attrs = {}
+        for namespace in cls.mro():
+            for name, attr in vars(namespace).items():
+                if name in names:
+                    continue
+                names.append(name)
+                if name.isupper():
+                    continue
+                elif name.startswith('_'):
+                    continue
+                elif name.startswith('meta_'):
+                    continue
+                elif isinstance(attr, Prototype):
+                    attrs[name] = attr.meta_fork()
+                else:
+                    if cls.meta_convert:
+                        try:
+                            attrs[name] = convert(attr)
+                        except TypeError:
+                            pass
+        attrs['__doc__'] = cls.__doc__
+        attrs['__module__'] = cls.__module__
+        return type(cls)(cls.__name__, (cls,), attrs)
+
     @property
     def meta_style(self):
         return self.meta_inspect(
@@ -163,7 +163,7 @@ class Module(Task, Module):
             task = self.meta_lookup(task)  # pragma: no cover TODO: remove no cover
         names = []
         for name in sorted(dir(task)):
-            # TODO: code duplication with ModuleMetaclass.__spawn__
+            # TODO: code duplication with ModuleMetaclass.meta_spawn
             if name.isupper():
                 continue  # pragma: no cover TODO: remove no cover
             elif name.startswith('_'):
