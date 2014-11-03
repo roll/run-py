@@ -2,8 +2,8 @@
 
 packgram>=0.25
 sugarbowl
+clyde
 color>=0.3
-clyde>=0.5
 dialog>=0.4
 find>=0.3
 render>=0.3
