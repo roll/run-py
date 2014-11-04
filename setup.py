@@ -31,7 +31,7 @@ setup(
     classifiers=[],       
     description='Run is a program to run tasks from files.',
     data_files=data_files,
-    download_url='https://github.com/respect31/run/tarball/0.43.0',
+    download_url='https://github.com/run-hub/run/tarball/0.43.0',
     entry_points={'console_scripts': ['run = run:program']},
     license='MIT License',
     long_description=long_description,
@@ -42,7 +42,7 @@ setup(
     install_requires=['sugarbowl', 'clyde', 'dialog>=0.4', 'find>=0.3', 'render>=0.3', 'claire>=0.7'], 
     packages=packages,
     platforms=['Unix'],
-    url='https://github.com/respect31/run',
+    url='https://github.com/run-hub/run',
     tests_require=['nose', 'coverage'],
     test_suite='nose.collector',
     version='0.43.0')

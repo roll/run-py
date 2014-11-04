@@ -11,13 +11,13 @@ Run is a program to run tasks from files.
 .. Block: badges
 
 .. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
-     :target: https://github.com/respect31/run
+     :target: https://github.com/run-hub/run
      :alt: code
-.. image:: http://img.shields.io/travis/respect31/run/master.svg
-     :target: https://travis-ci.org/respect31/run 
+.. image:: http://img.shields.io/travis/run-hub/run/master.svg
+     :target: https://travis-ci.org/run-hub/run 
      :alt: build
-.. image:: http://img.shields.io/coveralls/respect31/run/master.svg 
-     :target: https://coveralls.io/r/respect31/run  
+.. image:: http://img.shields.io/coveralls/run-hub/run/master.svg 
+     :target: https://coveralls.io/r/run-hub/run  
      :alt: coverage
 .. image:: http://img.shields.io/badge/docs-latest-brightgreen.svg
      :target: http://run.readthedocs.org
