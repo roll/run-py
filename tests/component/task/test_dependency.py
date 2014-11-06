@@ -12,9 +12,11 @@ class DependencyTest(unittest.TestCase):
         self.addCleanup(patch.stopall)
         self.convert = Mock()
         patch.object(component, 'convert', self.convert).start()
+        self.args = ('arg1',)
+        self.kwargs = {'kwarg1': 'kwarg1'}
         self.successor = Mock()
         self.Dependency = self.make_mock_dependency()
-        self.dependency = self.Dependency('task')
+        self.dependency = self.Dependency('task', *self.args, **self.kwargs)
         self.dependency.bind(self.successor)
 
     # Helpers
@@ -30,7 +32,7 @@ class DependencyTest(unittest.TestCase):
     def test___repr__(self):
         self.successor.meta_module.task.__repr__ = lambda self: 'task'
         self.assertEqual(repr(self.dependency),
-            "MockDependency task")
+            "MockDependency task('arg1', kwarg1='kwarg1')")
 
     def test___repr___task_not_existent(self):
         self.successor.meta_module.task = None
@@ -55,7 +57,8 @@ class DependencyTest(unittest.TestCase):
     def test_invoke(self):
         self.dependency.invoke()
         # Check task call
-        self.successor.meta_module.task.assert_called_with()
+        self.successor.meta_module.task.assert_called_with(
+            *self.args, **self.kwargs)
 
     def test_invoke_task_not_existent(self):
         self.successor.meta_module = Mock(spec=[])
