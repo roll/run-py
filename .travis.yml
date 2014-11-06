@@ -13,7 +13,7 @@ python:
 # Block: install
 install:
   - pip install coveralls
-  - pip install sugarbowl clyde find>=0.3 render>=0.3 claire>=0.7 nose coverage
+  - pip install sugarbowl clyde render>=0.3 claire>=0.7 nose coverage
 
 # Block: script
 script:
