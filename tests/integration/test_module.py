@@ -10,6 +10,10 @@ from run.var import Var
 
 class MockSubmodule(Module):
 
+    # Meta
+
+    meta_plain = True
+
     # Vars
 
     module_var = True
@@ -33,7 +37,11 @@ class MockVar(Var):
 
 class MockModule(Module):
 
-    # Public
+    # Meta
+
+    meta_plain = True
+
+    # Data
 
     attribute = True
 
@@ -41,10 +49,6 @@ class MockModule(Module):
 
     class class_var:
         pass
-
-    # Meta
-
-    meta_plain = True
 
     # Modules
 

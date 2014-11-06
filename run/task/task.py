@@ -226,7 +226,7 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
     @property
     def meta_inherit(self):
         return self.meta_inspect(
-            name='inherit', lookup=True, default=settings.inherit)
+            name='inherit', lookup=True, default=['meta_*'])
 
     def meta_inspect(self, name, *, lookup=False, inherit=False, default=None):
         """Return internal meta parameter.
@@ -251,6 +251,8 @@ class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
         if lookup:
             if name in self.__parameters:
                 return self.__parameters[name]
+        if inherit:
+            inherit = self.__check_inheritance(fullname)
         if inherit:
             if self.meta_module is not None:
                 try:

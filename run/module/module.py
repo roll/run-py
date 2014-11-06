@@ -70,6 +70,11 @@ class Module(Task, Module):
         else:
             return super().meta_fullname
 
+    @property
+    def meta_inherit(self):
+        return self.meta_inspect(
+            name='inherit', lookup=True, default=False)
+
     def meta_invoke(self, *args, **kwargs):
         default = getattr(self, self.meta_default)
         result = default(*args, **kwargs)

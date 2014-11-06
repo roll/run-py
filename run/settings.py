@@ -11,7 +11,6 @@ class Settings(Settings):
     convert = True
     fallback = None
     filename = 'runfile.py'
-    inherit = False
     plain = False
     strict = True
 

@@ -98,8 +98,10 @@ class ModuleTest(unittest.TestCase):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
-    def test_meta_basedir_with_parent_module(self):
-        self.module = self.Module(meta_module=self.parent_module)
+    def test_meta_basedir_with_parent_module_and_inheritance(self):
+        self.module = self.Module(
+            meta_module=self.parent_module,
+            meta_inherit=['meta_basedir'])
         self.assertEqual(self.module.meta_basedir, '/basedir')
 
     def test_meta_fullname(self):
