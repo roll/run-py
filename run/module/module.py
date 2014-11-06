@@ -51,7 +51,10 @@ class Module(Task, Module):
                     continue
                 names.append(name)
                 if isinstance(attr, Prototype):
-                    task = attr.meta_build(meta_module=self)
+                    task = attr.meta_build(
+                        meta_module=self,
+                        meta_plain=self.meta_plain,
+                        meta_dispatcher=self.meta_dispatcher)
                     setattr(type(self), name, task)
         return self
 
