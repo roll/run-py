@@ -13,7 +13,7 @@ python:
 # Block: install
 install:
   - pip install coveralls
-  - pip install sugarbowl clyde claire>=0.7 nose coverage
+  - pip install sugarbowl clyde nose coverage
 
 # Block: script
 script:

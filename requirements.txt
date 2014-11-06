@@ -3,6 +3,5 @@
 packgram>=0.25
 sugarbowl
 clyde
-claire>=0.7
 nose
 coverage
