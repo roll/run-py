@@ -6,15 +6,16 @@ from contextlib import contextmanager
 from sugarbowl import cachedproperty, merge_dicts
 from clyde import sformat
 from ..converter import Converted
-from ..dependency import Predecessor, Successor, require, trigger
 from ..helpers import Null, join
 from ..signal import Dispatcher
 from ..settings import settings
 from .metaclass import Metaclass
+from .require import require
 from .signal import TaskSignal
+from .trigger import trigger
 
 
-class Task(Converted, Predecessor, Successor, metaclass=Metaclass):
+class Task(Converted, metaclass=Metaclass):
 
     # Public
 

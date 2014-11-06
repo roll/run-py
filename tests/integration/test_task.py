@@ -1,9 +1,8 @@
 import unittest
 from io import StringIO
 from unittest.mock import patch
-from run.dependency import require, trigger
 from run.module import Module
-from run.task import task
+from run.task import task, require, trigger
 
 
 # Fixtures

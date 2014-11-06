@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from importlib import import_module
-component = import_module('run.dependency.require')
+component = import_module('run.task.require')
 
 
 class require_Test(unittest.TestCase):

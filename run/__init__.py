@@ -1,7 +1,6 @@
 from .converter import skip
-from .dependency import depend, require, trigger
 from .module import Module, module
-from .task import Task, task
+from .task import Task, task, depend, require, trigger
 from .var import Var, var
 
 from .metadata import version

@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch
 from importlib import import_module
-component = import_module('run.dependency.trigger')
+component = import_module('run.task.trigger')
 
 
 class trigger_Test(unittest.TestCase):
