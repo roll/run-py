@@ -41,8 +41,8 @@ class Dependency(metaclass=ABCMeta):
                 predecessor += ', '.join(elements)
                 predecessor += ')'
         else:
-            predecessor = ('<NotExistent "{target}">'.
-                format(target=self.__target))
+            template = '<NotExistent "{target}">'
+            predecessor = template.format(target=self.__target)
         template = '{action} {predecessor}'
         result = template.format(action=action, predecessor=predecessor)
         return result
