@@ -1,7 +1,7 @@
 import unittest
 from importlib import import_module
 from unittest.mock import Mock, patch
-component = import_module('run.converter.convert')
+component = import_module('run.task.convert')
 
 
 class convert_Test(unittest.TestCase):

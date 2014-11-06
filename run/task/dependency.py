@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from sugarbowl import cachedproperty
-from ..converter import convert
+from .convert import convert
 
 
 class Dependency(metaclass=ABCMeta):

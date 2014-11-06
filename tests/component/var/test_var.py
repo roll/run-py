@@ -19,8 +19,6 @@ class VarTest(unittest.TestCase):
             # Public
             meta_invoke = Mock(return_value='value')
             meta_dispatcher = Mock()
-            # Protected
-            _meta_TaskSignal = Mock(return_value='signal')
         return MockVar
 
     # Tests

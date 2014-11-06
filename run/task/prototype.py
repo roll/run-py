@@ -1,10 +1,9 @@
 from copy import copy
 from sugarbowl import merge_dicts
-from ..converter import Converted
 from .update import Update
 
 
-class Prototype(Converted):
+class Prototype:
 
     # Public
 

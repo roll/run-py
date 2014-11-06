@@ -3,9 +3,8 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
-from ..converter import convert
 from ..settings import settings
-from ..task import Task, Prototype, Module
+from ..task import Task, Prototype, Module, convert
 from .error import ModuleAttributeError
 
 

@@ -46,7 +46,6 @@ class MachineTest(unittest.TestCase):
 
     def make_mock_machine_class(self, module_class, stack_class):
         class MockMachine(component.Machine):
-            # Protected
             _Controller = Mock()
             _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
             _find = Mock(return_value=[module_class])

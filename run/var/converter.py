@@ -30,20 +30,18 @@ class var(task):
                 pass
     """
 
-    # Protected
+    # Public
 
-    # override
-    def _match(self, obj):
+    def match(self, obj):
         if inspect.isdatadescriptor(obj):
             return True
         if inspect.isfunction(obj):
             return True
         return False
 
-    # override
-    def _make(self, obj):
+    def make(self, obj):
         descriptor = obj
         if not inspect.isdatadescriptor(obj):
             descriptor = property(obj)
-        prototype = DescriptorVar(descriptor, **self._kwargs)
+        prototype = DescriptorVar(descriptor, *self.args, **self.kwargs)
         return prototype

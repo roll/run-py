@@ -30,16 +30,14 @@ class module(task):
                 def default(self, **kwargs): pass
     """
 
-    # Protected
+    # Public
 
-    # override
-    def _match(self, obj):
+    def match(self, obj):
         if isinstance(obj, type):
             if issubclass(obj, Module):
                 return True
         return False
 
-    # override
-    def _make(self, obj):
-        prototype = obj(**self._kwargs)
+    def make(self, obj):
+        prototype = obj(*self.args, **self.kwargs)
         return prototype

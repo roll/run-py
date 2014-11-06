@@ -1,9 +1,12 @@
 import inspect
-from ..converter import Converter
+from sugarbowl import Function
 from .method import MethodTask
+from .prototype import Prototype
+from .skip import skip
+from .task import Task
 
 
-class task(Converter):
+class task(Function):
     """Decorate method to make task with default kwargs to invoke.
 
     Examples
@@ -30,15 +33,59 @@ class task(Converter):
                 pass
     """
 
-    # Protected
+    # Public
 
-    # override
-    def _match(self, obj):
+    def __init__(self, *args, **kwargs):
+        self.__args = args
+        self.__kwargs = kwargs
+
+    def __call__(self, obj):
+        if self.__check_converted(obj):
+            return obj
+        if self.__check_eligible(obj):
+            if self.match(obj):
+                return self.make(obj)
+        raise TypeError(
+            'Converter "{self}" is not suitable converter '
+            'for the given object "{obj}" convertation.'.
+            format(self=self, obj=obj))
+
+    def protocol(self, *args, **kwargs):
+        try:
+            if (inspect.isfunction(args[0]) or
+                isinstance(args[0], (Task, Prototype))):
+                return Function.FUNCTION
+        except IndexError:
+            pass
+        return Function.DECORATOR
+
+    @property
+    def args(self):
+        return self.__args
+
+    @property
+    def kwargs(self):
+        return self.__kwargs
+
+    def match(self, obj):
         if inspect.isfunction(obj):
             return True
         return False
 
-    # override
-    def _make(self, obj):
-        prototype = MethodTask(obj, **self._kwargs)
+    def make(self, obj):
+        prototype = MethodTask(obj, *self.args, **self.kwargs)
         return prototype
+
+    # Private
+
+    def __check_converted(self, obj):
+        return isinstance(obj, (Task, Prototype))
+
+    def __check_eligible(self, obj):
+        if isinstance(obj, staticmethod):
+            return False
+        if isinstance(obj, classmethod):
+            return False
+        if getattr(obj, skip.attribute_name, False):
+            return False
+        return True

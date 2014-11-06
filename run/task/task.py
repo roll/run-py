@@ -5,7 +5,6 @@ from copy import copy
 from contextlib import contextmanager
 from sugarbowl import cachedproperty, merge_dicts
 from clyde import sformat
-from ..converter import Converted
 from ..helpers import Null, join
 from ..signal import Dispatcher
 from ..settings import settings
@@ -15,7 +14,7 @@ from .signal import TaskSignal
 from .trigger import trigger
 
 
-class Task(Converted, metaclass=Metaclass):
+class Task(metaclass=Metaclass):
 
     # Public
 
