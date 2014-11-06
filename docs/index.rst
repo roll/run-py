@@ -1,4 +1,3 @@
-=================
 Table of Contents
 =================
 
@@ -10,7 +9,6 @@ Table of Contents
      api
      cli
 
-==================
 Indices and Tables
 ==================
 

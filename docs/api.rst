@@ -1,9 +1,12 @@
-=============
 API Reference
 =============
 
-.. toctree::
-     :glob:
-   
-     api/**
-     
+run
+---
+
+.. automodule:: run
+    :imported-members:
+    
+    .. data:: version
+    
+        Current version.    
