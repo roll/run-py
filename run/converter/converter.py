@@ -25,7 +25,6 @@ class Converter(Function, metaclass=ABCMeta):
             'for the given object "{obj}" convertation.'.
             format(self=self, obj=obj))
 
-    # TODO: improve implementation?
     def protocol(self, *args, **kwargs):
         try:
             if (inspect.isfunction(args[0]) or
