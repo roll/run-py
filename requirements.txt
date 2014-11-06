@@ -3,7 +3,6 @@
 packgram>=0.25
 sugarbowl
 clyde
-dialog>=0.4
 find>=0.3
 render>=0.3
 claire>=0.7
