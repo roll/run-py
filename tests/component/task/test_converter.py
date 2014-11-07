@@ -29,9 +29,7 @@ class task_Test(unittest.TestCase):
         self.MethodTask.assert_called_with('method', **self.kwargs)
 
     def test_with_staticmethod_object(self):
-        self.assertRaises(component.ConversionError,
-            component.task, staticmethod(print))
+        self.assertRaises(TypeError, component.task, staticmethod(print))
 
     def test_with_classmethod_object(self):
-        self.assertRaises(component.ConversionError,
-            component.task, classmethod(print))
+        self.assertRaises(TypeError, component.task, classmethod(print))

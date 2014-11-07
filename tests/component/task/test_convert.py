@@ -16,7 +16,7 @@ class convert_Test(unittest.TestCase):
     # Helpers
 
     def make_converters(self):
-        return [Mock(side_effect=component.ConversionError()),
+        return [Mock(side_effect=TypeError()),
                 Mock(return_value='value')]
 
     # Tests
@@ -26,5 +26,4 @@ class convert_Test(unittest.TestCase):
 
     def test_cant_convert(self):
         self.converters.clear()
-        self.assertRaises(component.ConversionError,
-            component.convert, 'object')
+        self.assertRaises(TypeError, component.convert, 'object')

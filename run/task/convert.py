@@ -1,6 +1,5 @@
 from sugarbowl import Function, import_object
 from ..settings import settings
-from .error import ConversionError
 
 
 class convert(Function):
@@ -17,9 +16,9 @@ class convert(Function):
             converter = import_object(converter)
             try:
                 return converter(self.__object)
-            except ConversionError:
+            except TypeError:
                 pass
-        raise ConversionError(
+        raise TypeError(
             'Object "{object}" has no corresponding converter '
             'between converters from settings: {converters}'.
             format(object=self.__object,
