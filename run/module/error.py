@@ -1,4 +1,4 @@
-class ModuleAttributeError(AttributeError):
+class GetattrError(AttributeError):
 
     # Public
 

@@ -8,9 +8,9 @@ class NotFoundTest(unittest.TestCase):
     # Helpers
 
     def raise_error(self):
-        raise component.ModuleAttributeError()
+        raise component.GetattrError()
 
     # Tests
 
     def test(self):
-        self.assertRaises(component.ModuleAttributeError, self.raise_error)
+        self.assertRaises(component.GetattrError, self.raise_error)

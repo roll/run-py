@@ -5,7 +5,7 @@ from builtins import print
 from collections import OrderedDict
 from ..settings import settings
 from ..task import Task, Prototype, Module, ConvertError, convert
-from .error import ModuleAttributeError
+from .error import GetattrError
 
 
 class Module(Task, Module):
@@ -25,9 +25,9 @@ class Module(Task, Module):
             attribute = super().__getattribute__(name)
         except AttributeError as exception:
             # To get correct AttributeError message here
-            if isinstance(exception, ModuleAttributeError):
+            if isinstance(exception, GetattrError):
                 raise  # pragma: no cover TODO: remove no cover
-            raise ModuleAttributeError(
+            raise GetattrError(
                 'Module "{self}" has no attribute "{name}".'.
                 format(self=self, name=name))
         if nested_name is not None:
