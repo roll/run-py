@@ -75,10 +75,6 @@ class Task(metaclass=Metaclass):
         return template.format(self=self)
 
     @property
-    def meta_autodir(self):
-        return os.path.abspath(os.getcwd())
-
-    @property
     def meta_args(self):
         """Tasks's default arguments
         """
@@ -91,13 +87,8 @@ class Task(metaclass=Metaclass):
         If meta_chdir is True current directory will be
         changed to meta_basedir when task invoking.
         """
-        basedir = self.meta_inspect(
-            name='basedir', lookup=True, inherit=True, default=None)
-        if basedir is not None:
-            basedir = join(basedir, self.meta_prefix)
-        else:
-            basedir = self.meta_autodir
-        return basedir
+        return self.meta_inspect(
+            name='basedir', lookup=True, default=None)
 
     @property
     def meta_cache(self):
@@ -132,6 +123,8 @@ class Task(metaclass=Metaclass):
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
+        # Initiate directories
+        self.__localdir = os.path.abspath(os.getcwd())
         # Initiate cache
         self.__cached_result = Null
         # Initiate arguments
@@ -338,6 +331,16 @@ class Task(metaclass=Metaclass):
             qualname = '.'.join(filter(None, elements))
         return qualname
 
+    def meta_path(self, *components, local=False):
+        basedir = self.meta_basedir
+        if basedir is None or not os.path.isabs(basedir):
+            prefix = self.__localdir
+            if self.meta_module:
+                prefix = self.meta_module.meta_path(local=local)
+            basedir = join(prefix, self.meta_basedir)
+        path = join(basedir, *components)
+        return path
+
     @property
     def meta_plain(self):
         """Task's plain flag (plain or not).
@@ -345,13 +348,6 @@ class Task(metaclass=Metaclass):
         return self.meta_inspect(
             name='plain', lookup=True, inherit=True,
             default=settings.plain)
-
-    @property
-    def meta_prefix(self):
-        """Task's prefix path.
-        """
-        return self.meta_inspect(
-            name='prefix', lookup=True, default=None)
 
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
@@ -403,6 +399,7 @@ class Task(metaclass=Metaclass):
         for update in self.meta_updates:
             update.apply(self)
 
+    # TODO: why public?
     @property
     def meta_updates(self):
         """Task's module.
@@ -428,7 +425,7 @@ class Task(metaclass=Metaclass):
     def __change_directory(self):
         if self.meta_chdir:
             buffer = os.path.abspath(os.getcwd())
-            os.chdir(self.meta_basedir)
+            os.chdir(self.meta_path())
             yield
             os.chdir(buffer)
         else:

@@ -48,6 +48,8 @@ class ModuleTest(unittest.TestCase):
             @property
             def meta_main_module(self):
                 return self
+            def meta_path(self, *args, **kwargs):
+                return self.meta_basedir
         return MockParentModule
 
     # Tests
@@ -98,12 +100,6 @@ class ModuleTest(unittest.TestCase):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
-    def test_meta_basedir_with_parent_module_and_inheritance(self):
-        self.module = self.Module(
-            meta_module=self.parent_module,
-            meta_inherit=['meta_basedir'])
-        self.assertEqual(self.module.meta_basedir, '/basedir')
-
     def test_meta_fullname(self):
         self.assertEqual(self.module.meta_fullname, '')
 
@@ -124,6 +120,11 @@ class ModuleTest(unittest.TestCase):
     def test_meta_main_module_with_parent_module(self):
         self.module = self.Module(meta_module=self.parent_module)
         self.assertIs(self.module.meta_main_module, self.parent_module)
+
+    def test_meta_path_with_parent_module_and_meta_basedir_is_none(self):
+        self.module = self.Module(
+            meta_basedir=None, meta_module=self.parent_module)
+        self.assertEqual(self.module.meta_path(), '/basedir')
 
     def test_meta_tags(self):
         self.assertEqual(self.module.meta_tags, [])
@@ -186,10 +187,10 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 29)
+        self.assertEqual(len(argument), 27)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 23)
+        self.assertEqual(len(argument), 21)

@@ -35,9 +35,9 @@ class Module(Task, Module):
         return attribute
 
     @property
-    def meta_autodir(self):
-        return os.path.abspath(
-            os.path.dirname(inspect.getfile(type(self))))
+    def meta_basedir(self):
+        return self.meta_inspect(
+            name='basedir', lookup=True, default=self.__localdir)
 
     @classmethod
     def meta_create(cls, *args, **kwargs):
@@ -55,6 +55,9 @@ class Module(Task, Module):
                         meta_plain=self.meta_plain,
                         meta_dispatcher=self.meta_dispatcher)
                     setattr(type(self), name, task)
+        # Initiate directories
+        self.__localdir = os.path.abspath(
+            os.path.dirname(inspect.getfile(type(self))))
         return self
 
     @property
@@ -108,6 +111,11 @@ class Module(Task, Module):
             return self
         else:
             return super().meta_main_module
+
+    def meta_path(self, *components, local=False):
+        if local:
+            return self.__localdir
+        return super().meta_path(*components)
 
     @classmethod
     def meta_spawn(cls):

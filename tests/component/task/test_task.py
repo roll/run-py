@@ -1,4 +1,3 @@
-import os
 import unittest
 from functools import partial
 from importlib import import_module
@@ -135,8 +134,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_args, self.args)
 
     def test_meta_basedir(self):
-        self.assertEqual(self.task.meta_basedir,
-                         os.path.abspath(os.getcwd()))
+        self.assertEqual(self.task.meta_basedir, None)
 
     def test_meta_cache(self):
         self.assertEqual(self.task.meta_cache, component.settings.cache)
