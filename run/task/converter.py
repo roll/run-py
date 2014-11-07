@@ -88,4 +88,6 @@ class task(Function):
             return False
         if getattr(obj, skip.attribute_name, False):
             return False
+        if getattr(obj, '__isabstractmethod__', False):
+            return False
         return True
