@@ -1,4 +1,4 @@
-class ConversionError(RuntimeError):
+class ConvertError(RuntimeError):
 
     # Public
 

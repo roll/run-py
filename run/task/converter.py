@@ -1,6 +1,6 @@
 import inspect
 from sugarbowl import Function
-from .error import ConversionError
+from .error import ConvertError
 from .method import MethodTask
 from .prototype import Prototype
 from .skip import skip
@@ -46,7 +46,7 @@ class task(Function):
         if self.__check_eligible(obj):
             if self.match(obj):
                 return self.make(obj)
-        raise ConversionError(
+        raise ConvertError(
             'Converter "{self}" is not suitable converter '
             'for the given object "{obj}" convertation.'.
             format(self=self, obj=obj))

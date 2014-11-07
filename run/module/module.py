@@ -4,7 +4,7 @@ from pprint import pprint
 from builtins import print
 from collections import OrderedDict
 from ..settings import settings
-from ..task import Task, Prototype, Module, convert
+from ..task import Task, Prototype, Module, ConvertError, convert
 from .error import ModuleAttributeError
 
 
@@ -138,7 +138,7 @@ class Module(Task, Module):
                     if cls.meta_convert:
                         try:
                             attrs[name] = convert(attr)
-                        except TypeError:
+                        except ConvertError:
                             pass
         attrs['__doc__'] = cls.__doc__
         attrs['__module__'] = cls.__module__
