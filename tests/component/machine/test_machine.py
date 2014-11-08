@@ -66,7 +66,7 @@ class MachineTest(unittest.TestCase):
             recursively='recursively',
             stackless='stackless',
             skip='skip',
-            colorless='colorless')
+            plain='plain')
         self.machine.run('callable', *self.args, **self.kwargs)
         # Check find call
         self.machine._find.assert_called_with(
@@ -82,7 +82,7 @@ class MachineTest(unittest.TestCase):
         # Check Module call
         self.Module.assert_called_with(
             meta_dispatcher=self.machine._Dispatcher.return_value,
-            meta_colorless='colorless',
+            meta_plain='plain',
             meta_module=None)
         # Check callable call
         self.callable.assert_called_with(*self.args, **self.kwargs)

@@ -14,7 +14,7 @@ class TaskSignal(Signal):
     def format(self):
         result = settings.events.get(self.event, '')
         if result:
-            if not self.task.meta_colorless:
+            if not self.task.meta_plain:
                 style = settings.styles.get(self.event, None)
                 if style is not None:
                     result = sformat(result, **style)

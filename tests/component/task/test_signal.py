@@ -22,8 +22,8 @@ class TaskSignalTest(unittest.TestCase):
         self.settings.styles = {'event': {'foreground': 'bright_green'}}
         self.assertEqual(self.signal.format(), 'event')
 
-    def test_format_with_task_meta_colorless_is_false(self):
-        self.task.meta_colorless = False
+    def test_format_with_task_meta_plain_is_false(self):
+        self.task.meta_plain = False
         self.settings.events = {'event': 'event'}
         self.settings.styles = {'event': {'foreground': 'bright_green'}}
         self.assertEqual(self.signal.format(), '\x1b[92mevent\x1b[m')

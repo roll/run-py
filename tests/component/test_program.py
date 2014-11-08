@@ -22,7 +22,7 @@ class ProgramTest(unittest.TestCase):
         Machine.assert_called_with(
             filepath='filepath',
             stackless='stackless',
-            colorless='colorless')
+            plain='plain')
         # Check Machine's return value call
         Machine.return_value.run.assert_called_with(
             self.program._command.attribute,

@@ -198,7 +198,7 @@ class Task(metaclass=Metaclass):
         if attribute is not None:
             result = str(getattr(self, attribute))
         if result:
-            if not self.meta_colorless:
+            if not self.meta_plain:
                 style = self.meta_style
                 if not isinstance(self.meta_style, dict):
                     style = settings.styles.get(self.meta_style, None)
@@ -342,12 +342,12 @@ class Task(metaclass=Metaclass):
         return path
 
     @property
-    def meta_colorless(self):
-        """Task's colorless flag (colorless or not).
+    def meta_plain(self):
+        """Task's plain flag (plain or not).
         """
         return self.meta_inspect(
-            name='colorless', lookup=True, inherit=True,
-            default=settings.colorless)
+            name='plain', lookup=True, inherit=True,
+            default=settings.plain)
 
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.

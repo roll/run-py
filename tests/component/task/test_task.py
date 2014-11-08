@@ -189,8 +189,8 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_format(attribute='meta_type'),
                          '\x1b[92mTask\x1b[m')
 
-    def test_meta_format_with_meta_colorless_is_true(self):
-        self.Task.meta_colorless = True
+    def test_meta_format_with_meta_plain_is_true(self):
+        self.Task.meta_plain = True
         self.Task._styles = {'task': {'foreground': 'bright_green'}}
         self.assertEqual(self.task.meta_format(attribute='meta_type'), 'Task')
 
@@ -259,8 +259,8 @@ class TaskTest(unittest.TestCase):
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(self.task.meta_qualname, 'module.task')
 
-    def test_meta_colorless(self):
-        self.assertEqual(self.task.meta_colorless, component.settings.colorless)
+    def test_meta_plain(self):
+        self.assertEqual(self.task.meta_plain, component.settings.plain)
 
     @patch.object(component, 'require')
     def test_meta_require(self, require):

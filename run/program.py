@@ -94,10 +94,10 @@ class Program(Command):
         help='Display task meta.',
     )
 
-    colorless = Option(
+    plain = Option(
         action='store_true',
-        flags=['-p', '--colorless'],
-        help='Activate colorless mode.',
+        flags=['-p', '--plain'],
+        help='Activate plain mode.',
     )
 
     quiet = Option(
@@ -153,7 +153,7 @@ class Program(Command):
         machine = Machine(
             filepath=self.filepath,
             stackless=self.stackless,
-            colorless=self.colorless)
+            plain=self.plain)
         return machine
 
 

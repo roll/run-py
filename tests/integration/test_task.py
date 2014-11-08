@@ -11,7 +11,7 @@ class MockModule(Module):
 
     # Meta
 
-    meta_colorless = True
+    meta_plain = True
 
     # Tasks
 
