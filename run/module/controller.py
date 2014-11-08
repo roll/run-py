@@ -1,9 +1,13 @@
 import logging
+from .stack import Stack
 
 
 class Controller:
 
     # Public
+
+    def __init__(self):
+        self.__stack = Stack()
 
     def on_task_signal(self, signal):
         # Stack operations
