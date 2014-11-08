@@ -5,7 +5,7 @@ from builtins import print
 from collections import OrderedDict
 from ..settings import settings
 from ..task import Task, Prototype, Module, ConvertError, convert
-from .error import GetattrError
+from .exception import GetattrError
 
 
 class Module(Task, Module):

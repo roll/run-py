@@ -1,6 +1,6 @@
 import inspect
 from sugarbowl import Function
-from .error import ConvertError
+from .exception import ConvertError
 from .method import MethodTask
 from .prototype import Prototype
 from .skip import skip

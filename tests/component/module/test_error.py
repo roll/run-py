@@ -1,6 +1,6 @@
 import unittest
 from importlib import import_module
-component = import_module('run.module.error')
+component = import_module('run.module.exception')
 
 
 class NotFoundTest(unittest.TestCase):

@@ -1,6 +1,6 @@
 from sugarbowl import Function, import_object
 from ..settings import settings
-from .error import ConvertError
+from .exception import ConvertError
 
 
 class convert(Function):
