@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, call, patch
 from importlib import import_module
-component = import_module('run.machine.machine')
+component = import_module('run.module.module')
 
 
 @unittest.skip

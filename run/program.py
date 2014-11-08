@@ -1,11 +1,14 @@
+import os
 import sys
 import ast
 import csv
+import inspect
 import logging.config
 from sugarbowl import cachedproperty
 from clyde import Command, Option, ManpageFormatter, mixin
-from .machine import Machine
+from .helpers import load
 from .metadata import version
+from .module import Module
 from .settings import settings
 
 
@@ -123,11 +126,30 @@ class Program(Command):
     def __run(self, attribute, *arguments):
         args, kwargs = self.__parse_arguments(arguments)
         try:
-            self.__machine.run(attribute, *args, **kwargs)
+            self.__module.meta_run(attribute, *args, **kwargs)
         except Exception as exception:
-            logging.getLogger(__name__).error(
-                str(exception), exc_info=self.debug)
+            logger = logging.getLogger(__name__)
+            logger.error(str(exception), exc_info=self.debug)
             sys.exit(1)
+
+    @cachedproperty
+    def __module(self):
+        filepath = os.path.abspath(self.filepath)
+        module = load(filepath)
+        for name in dir(module):
+            attr = getattr(module, name)
+            if not isinstance(attr, type):
+                continue
+            if not issubclass(attr, Module):
+                continue
+            if inspect.getmodule(attr) != module:
+                continue
+            module = attr(
+                meta_compact=self.compact,
+                meta_plain=self.plain,
+                meta_module=None)
+            return module
+        raise RuntimeError('Module not found.')
 
     def __parse_arguments(self, arguments):
         args = []
@@ -147,14 +169,6 @@ class Program(Command):
         except Exception:
             value = literal
         return value
-
-    @cachedproperty
-    def __machine(self):
-        machine = Machine(
-            filepath=self.filepath,
-            compact=self.compact,
-            plain=self.plain)
-        return machine
 
 
 program = Program(name='run')

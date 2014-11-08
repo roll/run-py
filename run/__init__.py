@@ -1,4 +1,3 @@
-from .machine import Machine
 from .metadata import version
 from .module import Module, module
 from .program import program

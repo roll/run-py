@@ -3,8 +3,10 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
+from sugarbowl import cachedproperty
 from ..settings import settings
 from ..task import Task, Prototype, Module, ConvertError, convert
+from .controller import Controller
 from .exception import GetattrError
 
 
@@ -39,10 +41,28 @@ class Module(Task, Module):
         return self.meta_inspect(
             name='basedir', lookup=True, default=self.__localdir)
 
+    @property
+    def meta_compact(self):
+        return self.meta_inspect(
+            name='compact', lookup=True, inherit=True,
+            default=settings.compact)
+
+    @cachedproperty
+    def meta_controller(self):
+        """Module's controller.
+        """
+        controller = self.meta_inspect(
+            name='controller', lookup=True, inherit=True, default=None)
+        if controller is None:
+            controller = Controller()
+        return controller
+
     @classmethod
     def meta_create(cls, *args, **kwargs):
+        # Create module object
         spawned_class = cls.meta_spawn()
         self = super(Module, spawned_class).meta_create(*args, **kwargs)
+        # Create tasks
         names = []
         for cls in type(self).mro():
             for name, attr in vars(cls).items():
@@ -58,6 +78,8 @@ class Module(Task, Module):
         # Initiate directories
         self.__localdir = os.path.abspath(
             os.path.dirname(inspect.getfile(type(self))))
+        # Initiate controller
+        self.meta_controller.listen(self)
         return self
 
     @property
@@ -117,13 +139,15 @@ class Module(Task, Module):
             return self.__localdir
         return super().meta_path(*components)
 
-    def meta_run(self, _attribute=None, *args, **kwargs):
+    def meta_run(self, __attribute=None, *args, **kwargs):
         """
-        Run machine.
+        Run module attribute with args, kwargs.
         """
+        if self.meta_module:
+            raise RuntimeError('Can\'t run not main module.')
         attribute = self
-        if _attribute is not None:
-            attribute = getattr(self, _attribute)
+        if __attribute is not None:
+            attribute = getattr(self, __attribute)
         if not callable(attribute):
             print(attribute)
             return

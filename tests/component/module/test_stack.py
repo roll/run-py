@@ -1,6 +1,6 @@
 import unittest
 from importlib import import_module
-component = import_module('run.machine.stack')
+component = import_module('run.module.stack')
 
 
 class StackTest(unittest.TestCase):

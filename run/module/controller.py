@@ -1,4 +1,5 @@
 import logging
+from ..task import TaskSignal
 from .stack import Stack
 
 
@@ -6,10 +7,16 @@ class Controller:
 
     # Public
 
-    def __init__(self):
-        self.__stack = Stack()
+    def listen(self, module):
+        if module.meta_is_main_module:
+            self.__stack = Stack()
+            self.__compact = module.meta_compact
+            module.meta_dispatcher.add_handler(
+                handler=self.__on_task_signal, signals=[TaskSignal])
 
-    def on_task_signal(self, signal):
+    # Private
+
+    def __on_task_signal(self, signal):
         # Stack operations
         if self.__compact:
             # TODO: stack here is not tread-safe?
