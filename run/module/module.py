@@ -52,7 +52,7 @@ class Module(Task, Module):
                 if isinstance(attr, Prototype):
                     task = attr.meta_build(
                         meta_module=self,
-                        meta_plain=self.meta_plain,
+                        meta_colorless=self.meta_colorless,
                         meta_dispatcher=self.meta_dispatcher)
                     setattr(type(self), name, task)
         # Initiate directories

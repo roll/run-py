@@ -11,7 +11,7 @@ class Settings(Settings):
     convert = True
     fallback = None
     filename = 'runfile.py'
-    plain = False
+    colorless = False
     strict = True
 
     # Converters

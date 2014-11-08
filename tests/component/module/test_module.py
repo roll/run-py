@@ -27,7 +27,7 @@ class ModuleTest(unittest.TestCase):
         class MockModule(component.Module):
             """docstring"""
             # Public
-            meta_plain = True
+            meta_colorless = True
             def task(self):
                 pass
         return MockModule

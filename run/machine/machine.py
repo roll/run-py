@@ -19,7 +19,7 @@ class Machine:
         Path to runfile.
     stackless: bool
         Do not use stack.
-    plain: bool
+    colorless: bool
         Do not use color formatting.
     """
 
@@ -28,10 +28,10 @@ class Machine:
     def __init__(self, *,
                  filepath=settings.filename,
                  stackless=settings.stackless,
-                 plain=settings.plain):
+                 colorless=settings.colorless):
         self.__filepath = filepath
         self.__stackless = stackless
-        self.__plain = plain
+        self.__colorless = colorless
 
     def run(self, attribute=None, *args, **kwargs):
         """
@@ -61,7 +61,7 @@ class Machine:
     def __module(self):
         # Create module
         module = self.__Module(
-            meta_plain=self.__plain,
+            meta_colorless=self.__colorless,
             meta_module=None)
         # Add handlers
         module.meta_dispatcher.add_handler(

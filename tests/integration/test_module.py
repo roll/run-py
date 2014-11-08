@@ -12,7 +12,7 @@ class MockSubmodule(Module):
 
     # Meta
 
-    meta_plain = True
+    meta_colorless = True
 
     # Vars
 
@@ -39,7 +39,7 @@ class MockModule(Module):
 
     # Meta
 
-    meta_plain = True
+    meta_colorless = True
 
     # Data
 

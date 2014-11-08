@@ -15,7 +15,7 @@ class DemoTest(unittest.TestCase):
         result = ''
         ecommand = 'python3 -c "from run.program import program; program()" '
         ecommand += '--filepath {filepath} '.format(filepath=self.filepath)
-        ecommand += '--plain '
+        ecommand += '--colorless '
         ecommand += command
         process = Popen(ecommand,
             shell=True, universal_newlines=True,
