@@ -58,10 +58,10 @@ class Program(Command):
         help='Enable debug mode.',
     )
 
-    compact = Option(
+    stackless = Option(
         action='store_true',
-        flags=['-c', '--compact'],
-        help='Enable compact mode.',
+        flags=['-c', '--stackless'],
+        help='Enable stackless mode.',
     )
 
     filepath = Option(
@@ -152,7 +152,7 @@ class Program(Command):
     def __machine(self):
         machine = Machine(
             filepath=self.filepath,
-            compact=self.compact,
+            stackless=self.stackless,
             plain=self.plain)
         return machine
 

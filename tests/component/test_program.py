@@ -21,7 +21,7 @@ class ProgramTest(unittest.TestCase):
         # Check Machine call
         Machine.assert_called_with(
             filepath='filepath',
-            compact='compact',
+            stackless='stackless',
             plain='plain')
         # Check Machine's return value call
         Machine.return_value.run.assert_called_with(

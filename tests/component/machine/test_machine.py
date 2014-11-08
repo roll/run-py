@@ -64,7 +64,7 @@ class MachineTest(unittest.TestCase):
             exclude='exclude',
             basedir='basedir',
             recursively='recursively',
-            compact='compact',
+            stackless='stackless',
             skip='skip',
             plain='plain')
         self.machine.run('callable', *self.args, **self.kwargs)
@@ -112,8 +112,8 @@ class MachineTest(unittest.TestCase):
         self.machine._on_task_signal(self.signal)
         self.logger.info.assert_called_with('event_')
 
-    def test__on_task_signal_with_compact_is_true(self):
-        self.machine = self.Machine(compact=True)
+    def test__on_task_signal_with_stackless_is_true(self):
+        self.machine = self.Machine(stackless=True)
         self.signal = self.Signal('task', 'event')
         self.machine._on_task_signal(self.signal)
         self.logger.info.assert_called_with('event_task')

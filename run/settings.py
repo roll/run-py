@@ -7,7 +7,7 @@ class Settings(Settings):
 
     cache = True
     chdir = True
-    compact = False
+    stackless = False
     convert = True
     fallback = None
     filename = 'runfile.py'
