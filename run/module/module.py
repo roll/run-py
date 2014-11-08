@@ -117,6 +117,27 @@ class Module(Task, Module):
             return self.__localdir
         return super().meta_path(*components)
 
+    def meta_run(self, _attribute=None, *args, **kwargs):
+        """
+        Run machine.
+        """
+        attribute = self
+        if _attribute is not None:
+            attribute = getattr(self, _attribute)
+        if not callable(attribute):
+            print(attribute)
+            return
+        result = attribute(*args, **kwargs)
+        if result is None:
+            return
+        if not isinstance(result, list):
+            print(result)
+            return
+        for element in result:
+            if element is not None:
+                print(result)
+                return
+
     @classmethod
     def meta_spawn(cls):
         names = []
