@@ -365,16 +365,10 @@ class Task(metaclass=Metaclass):
 
     # TODO: clean updates list while applying?
     def meta_update(self):
-        for update in self.meta_updates:
-            update.apply(self)
-
-    # TODO: why public?
-    @property
-    def meta_updates(self):
-        """Task's module.
-        """
-        return self.meta_inspect(
+        updates = self.meta_inspect(
             name='updates', lookup=True, default=[])
+        for update in updates:
+            update.apply(self)
 
     # Private
 
