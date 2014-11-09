@@ -5,11 +5,11 @@ from builtins import print
 from collections import OrderedDict
 from ..helpers import sformat
 from ..settings import settings
-from ..task import Task, Prototype, Module, ConvertError, convert
+from ..task import Task, Prototype, ConvertError, convert
 from .exception import GetattrError
 
 
-class Module(Task, Module):
+class Module(Task):
 
     # Public
 
