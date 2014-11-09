@@ -27,7 +27,7 @@ class Controller:
             if isinstance(signal, (DoneTaskSignal, FailTaskSignal)):
                 self.__stack.pop()
         # Logging operations
-        formatted_signal = self.__format_signal(signal)
+        formatted_signal = '[+] '
         if formatted_signal:
             message = formatted_signal + formatted_stack
             logger = logging.getLogger('task')
@@ -57,7 +57,3 @@ class Controller:
                     names.append(name)
                 previous = current
         return '/'.join(filter(None, names))
-
-    def __format_signal(self, signal):
-        result = '[+] '  # TODO: fix
-        return result
