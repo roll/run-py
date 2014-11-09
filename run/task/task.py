@@ -8,7 +8,7 @@ from ..helpers import Null, join
 from ..settings import settings
 from .metaclass import Metaclass
 from .require import require
-from .signal import TaskSignal
+from .signal import CallTaskSignal, DoneTaskSignal, FailTaskSignal
 from .trigger import trigger
 
 
@@ -45,12 +45,12 @@ class Task(metaclass=Metaclass):
             format(self=self, name=name))
 
     def __call__(self, *args, **kwargs):
-        self.__add_signal('called')
+        args = self.meta_args + args
+        kwargs = merge_dicts(self.meta_kwargs, kwargs)
+        self.meta_send(CallTaskSignal(self, *args, **kwargs))
         try:
             self.__resolve_dependencies()
             try:
-                args = self.meta_args + args
-                kwargs = merge_dicts(self.meta_kwargs, kwargs)
                 with self.__change_directory():
                     result = self.meta_invoke(*args, **kwargs)
             except Exception:
@@ -61,9 +61,9 @@ class Task(metaclass=Metaclass):
                     raise
             self.__resolve_dependencies(failed=False)
         except Exception:
-            self.__add_signal('failed')
+            self.meta_send(FailTaskSignal(self))
             raise
-        self.__add_signal('successed')
+        self.meta_send(DoneTaskSignal(self))
         return result
 
     def __repr__(self):
@@ -378,10 +378,6 @@ class Task(metaclass=Metaclass):
             os.chdir(buffer)
         else:
             yield
-
-    def __add_signal(self, event):
-        signal = TaskSignal(self, event=event)
-        self.meta_send(signal)
 
     # TODO: improve implementation
     def __check_inheritance(self, name):

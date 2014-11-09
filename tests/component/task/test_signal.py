@@ -10,7 +10,7 @@ class TaskSignalTest(unittest.TestCase):
 
     def setUp(self):
         self.task = Mock()
-        self.signal = component.TaskSignal(self.task, event='event')
+        self.signal = component.TaskSignal(self.task)
 
     # Tests
 

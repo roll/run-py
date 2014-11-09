@@ -1,5 +1,6 @@
 import logging
 from ..helpers import sformat
+from ..task import CallTaskSignal, DoneTaskSignal, FailTaskSignal
 from ..settings import settings  # @UnusedImport
 
 
@@ -20,10 +21,10 @@ class Controller:
             formatted_stack = self.__format_stack(self.__stack)
             self.__stack.pop()
         else:
-            if signal.event == 'called':
+            if isinstance(signal, CallTaskSignal):
                 self.__stack.append(signal.task)
             formatted_stack = self.__format_stack(self.__stack)
-            if signal.event in ['successed', 'failed']:
+            if isinstance(signal, (DoneTaskSignal, FailTaskSignal)):
                 self.__stack.pop()
         # Logging operations
         formatted_signal = self.__format_signal(signal)
@@ -58,7 +59,7 @@ class Controller:
         return '/'.join(filter(None, names))
 
     def __format_signal(self, signal):
-        result = settings.events.get(signal.event, '')
+        result = '[+] '  # TODO: fix
         if result:
             if not not self.__plain:
                 style = settings.styles.get(self.event, None)
