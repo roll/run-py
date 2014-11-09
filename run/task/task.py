@@ -3,7 +3,7 @@ import re
 import inspect
 from copy import copy
 from contextlib import contextmanager
-from sugarbowl import cachedproperty, merge_dicts
+from sugarbowl import merge_dicts
 from clyde import sformat
 from ..helpers import Null, join
 from ..settings import settings
