@@ -102,15 +102,6 @@ class Module(Task):
         else:
             return super().meta_main_module
 
-    @property
-    def meta_qualname(self):
-        if self.meta_is_main_module:
-            qualname = ''
-            if self.meta_key is not None:
-                qualname = self.meta_key.upper()
-            return qualname
-        return super().meta_qualname
-
     def meta_path(self, *components, local=False):
         if local:
             return self.__localdir
