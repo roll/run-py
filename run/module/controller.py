@@ -15,17 +15,11 @@ class Controller:
 
     def __call__(self, signal):
         # Stack operations
-        if self.__compact:
-            # TODO: stack here is not tread-safe?
+        if isinstance(signal, CallTaskSignal):
             self.__stack.append(signal.task)
-            formatted_stack = self.__format_stack(self.__stack)
+        formatted_stack = self.__format_stack(self.__stack)
+        if isinstance(signal, (DoneTaskSignal, FailTaskSignal)):
             self.__stack.pop()
-        else:
-            if isinstance(signal, CallTaskSignal):
-                self.__stack.append(signal.task)
-            formatted_stack = self.__format_stack(self.__stack)
-            if isinstance(signal, (DoneTaskSignal, FailTaskSignal)):
-                self.__stack.pop()
         # Logging operations
         formatted_signal = '[+] '
         if formatted_signal:
