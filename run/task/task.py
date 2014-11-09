@@ -120,6 +120,8 @@ class Task(metaclass=Metaclass):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
+        # Initiate listeners
+        self.__listeners = []
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
@@ -274,8 +276,8 @@ class Task(metaclass=Metaclass):
         """
         return self.__kwargs
 
-    def meta_listen(self, callback, signals=None):
-        pass
+    def meta_listen(self, listener, *, signals=None):
+        self.__listeners.append((listener, signals))
 
     @property
     def meta_main_module(self):
@@ -365,8 +367,15 @@ class Task(metaclass=Metaclass):
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
+    # TODO: add signal flow management (like stop propognation)
     def meta_send(self, signal):
-        pass
+        for listener, signals in self.__listeners:
+            if signals is not None:
+                if not isinstance(signal, tuple(signals)):
+                    continue
+            listener(signal)
+        if self.meta_module:
+            self.meta_module.meta_send(signal)
 
     @property
     def meta_signature(self):
