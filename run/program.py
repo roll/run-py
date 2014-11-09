@@ -134,7 +134,8 @@ class Program(Command):
 
     @cachedproperty
     def __runner(self):
-        runner = Runner(self.__module, controller=self.__controller)
+        runner = Runner(
+            self.__module, controller=self.__controller)
         return runner
 
     @cachedproperty
@@ -155,7 +156,8 @@ class Program(Command):
 
     @cachedproperty
     def __controller(self):
-        controller = Controller(compact=self.compact)
+        controller = Controller(
+            compact=self.compact, plain=self.plain)
         return controller
 
     # TODO: move to helpers?

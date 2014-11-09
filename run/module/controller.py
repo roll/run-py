@@ -60,8 +60,4 @@ class Controller:
 
     def __format_signal(self, signal):
         result = '[+] '  # TODO: fix
-        if result:
-            if not not self.__plain:
-                style = settings.styles.get(self.event, None)
-                result = sformat(result, style, settings.styles)
         return result
