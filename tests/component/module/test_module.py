@@ -38,10 +38,9 @@ class ModuleTest(unittest.TestCase):
             meta_cache = 'cache'
             meta_chdir = 'chdir'
             meta_fallback = 'fallback'
-            meta_fullname = '[key]'
             meta_is_main_module = True
             meta_name = ''
-            meta_qualname = ''
+            meta_qualname = 'MAIN'
             meta_tasks = {}
             @property
             def meta_main_module(self):
@@ -100,13 +99,6 @@ class ModuleTest(unittest.TestCase):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
-    def test_meta_fullname(self):
-        self.assertEqual(self.module.meta_fullname, '')
-
-    def test_meta_fullname_with_meta_key(self):
-        self.Module.meta_key = 'key'
-        self.assertEqual(self.module.meta_fullname, '[key]')
-
     def test_meta_is_main_module(self):
         self.assertTrue(self.module.meta_is_main_module)
 
@@ -160,10 +152,10 @@ class ModuleTest(unittest.TestCase):
         self.module.list(plain=True)
         # Check print call
         self.print.assert_called_once_with(
-            '[key] module.info\n'
-            '[key] module.list\n'
-            '[key] module.meta\n'
-            '[key] module.task')
+            'MAIN.module.info\n'
+            'MAIN.module.list\n'
+            'MAIN.module.meta\n'
+            'MAIN.module.task')
 
     def test_info(self):
         self.module.info()
@@ -194,10 +186,10 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 24)
+        self.assertEqual(len(argument), 23)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 18)
+        self.assertEqual(len(argument), 17)

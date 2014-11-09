@@ -20,7 +20,7 @@ class StackTest(unittest.TestCase):
             # Public
             meta_module = 'module1'
             meta_name = 'task1'
-            meta_fullname = '[key] module1.task1'
+            meta_qualname = '[key] module1.task1'
             def meta_format(self, attribute=None):
                 return getattr(self, attribute)
         return Task1

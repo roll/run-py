@@ -38,7 +38,7 @@ class Controller:
         names = []
         if len(stack) >= 1:
             previous = self.__stack[0]
-            name = previous.meta_fullname
+            name = previous.meta_qualname
             if not self.__plain:
                 name = sformat(name, previous.meta_style, settings.styles)
             names.append(name)

@@ -66,16 +66,6 @@ class Module(Task):
             name='default_task', lookup=True, default='list')
 
     @property
-    def meta_fullname(self):
-        if self.meta_is_main_module:
-            fullname = ''
-            if self.meta_key is not None:
-                fullname = '[{self.meta_key}]'.format(self=self)
-            return fullname
-        else:
-            return super().meta_fullname
-
-    @property
     def meta_inherit(self):
         return self.meta_inspect(
             name='inherit', lookup=True, default=False)
@@ -111,6 +101,15 @@ class Module(Task):
             return self
         else:
             return super().meta_main_module
+
+    @property
+    def meta_qualname(self):
+        if self.meta_is_main_module:
+            qualname = ''
+            if self.meta_key is not None:
+                qualname = self.meta_key.upper()
+            return qualname
+        return super().meta_qualname
 
     def meta_path(self, *components, local=False):
         if local:
@@ -187,17 +186,17 @@ class Module(Task):
                 continue
             elif name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
-                name = nested_task.meta_fullname
+                name = nested_task.meta_qualname
                 if not plain:
                     name = sformat(
                         name, nested_task.meta_style, settings.styles)
             else:
-                # TODO: code duplication with Task.meta_fullname
+                # TODO: code duplication with Task.meta_qualname
                 separator = '.'
                 if task.meta_is_main_module:
                     separator = ' '
                 name = separator.join(filter(None,
-                    [task.meta_fullname, name]))
+                    [task.meta_qualname, name]))
             names.append(name)
         result = '\n'.join(names)
         print(result)

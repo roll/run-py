@@ -187,23 +187,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback, component.settings.fallback)
 
-    def test_meta_fullname(self):
-        self.assertEqual(self.task.meta_fullname, '')
-
-    def test_meta_fullname_with_meta_module(self):
-        self.Task.meta_module = self.module
-        self.module.meta_fullname = 'module'
-        self.module.meta_is_main_module = False
-        self.module.meta_tasks = {'task': self.task}
-        self.assertEqual(self.task.meta_fullname, 'module.task')
-
-    def test_meta_fullname_with_meta_module_is_main(self):
-        self.Task.meta_module = self.module
-        self.module.meta_fullname = '[key]'
-        self.module.meta_is_main_module = True
-        self.module.meta_tasks = {'task': self.task}
-        self.assertEqual(self.task.meta_fullname, '[key] task')
-
     def test_meta_is_descriptor(self):
         self.assertEqual(self.task.meta_is_descriptor, False)
 

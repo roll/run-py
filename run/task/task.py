@@ -170,17 +170,6 @@ class Task(metaclass=Metaclass):
             default=settings.fallback)
 
     @property
-    def meta_fullname(self):
-        fullname = ''
-        if self.meta_module:
-            separator = '.'
-            if self.meta_module.meta_is_main_module:
-                separator = ' '
-            fullname = separator.join(filter(None,
-                [self.meta_module.meta_fullname, self.meta_name]))
-        return fullname
-
-    @property
     def meta_inherit(self):
         return self.meta_inspect(
             name='inherit', lookup=True, default=['meta_*'])
@@ -286,16 +275,11 @@ class Task(metaclass=Metaclass):
 
     @property
     def meta_qualname(self):
-        """Task's qualified name.
-
-        Qualname is full task name in hierarhy starts
-        from main module.
-        """
         qualname = ''
         if self.meta_module:
-            module_qualname = self.meta_module.meta_qualname
-            elements = [module_qualname, self.meta_name]
-            qualname = '.'.join(filter(None, elements))
+            qualname = '.'.join(filter(None,
+                [self.meta_module.meta_qualname,
+                 self.meta_name]))
         return qualname
 
     # TODO: rename to make_path?
