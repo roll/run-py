@@ -17,7 +17,7 @@ class ModuleTest(unittest.TestCase):
         patch.object(component, 'print', self.print).start()
         patch.object(component, 'pprint', self.pprint).start()
         self.Module = self.make_mock_module_class()
-        self.module = self.Module(meta_module=None)
+        self.module = self.Module(meta_build=True)
         self.ParentModule = self.make_mock_parent_module_class()
         self.parent_module = self.ParentModule()
 
@@ -111,19 +111,25 @@ class ModuleTest(unittest.TestCase):
         self.assertTrue(self.module.meta_is_main_module)
 
     def test_meta_is_main_module_with_parent_module(self):
-        self.module = self.Module(meta_module=self.parent_module)
+        self.module = self.Module(
+            meta_build=True,
+            meta_module=self.parent_module)
         self.assertFalse(self.module.meta_is_main_module)
 
     def test_meta_main_module(self):
         self.assertIs(self.module.meta_main_module, self.module)
 
     def test_meta_main_module_with_parent_module(self):
-        self.module = self.Module(meta_module=self.parent_module)
+        self.module = self.Module(
+            meta_build=True,
+            meta_module=self.parent_module)
         self.assertIs(self.module.meta_main_module, self.parent_module)
 
     def test_meta_path_with_parent_module_and_meta_basedir_is_none(self):
         self.module = self.Module(
-            meta_basedir=None, meta_module=self.parent_module)
+            meta_build=True,
+            meta_basedir=None,
+            meta_module=self.parent_module)
         self.assertEqual(self.module.meta_path(), '/basedir')
 
     def test_meta_tags(self):
@@ -146,6 +152,7 @@ class ModuleTest(unittest.TestCase):
         # We have to recreate class for builtin tasks
         self.Module = self.make_mock_module_class()
         self.module = self.Module(
+            meta_build=True,
             meta_module=self.parent_module,
             meta_chdir=False,
             meta_fallback=None)

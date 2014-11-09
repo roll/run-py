@@ -12,7 +12,7 @@ class MethodTaskTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.method = Mock(__doc__='__doc__')
-        self.task = component.MethodTask(self.method, meta_module=None)
+        self.task = component.MethodTask(self.method, meta_build=True)
 
     # Tests
 

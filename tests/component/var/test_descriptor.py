@@ -10,7 +10,7 @@ class DescriptorVarTest(unittest.TestCase):
 
     def setUp(self):
         self.descriptor = Mock(__get__=Mock(), __doc__='__doc__')
-        self.var = component.DescriptorVar(self.descriptor, meta_module=None)
+        self.var = component.DescriptorVar(self.descriptor, meta_build=True)
 
     # Tests
 

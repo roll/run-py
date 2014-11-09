@@ -40,7 +40,7 @@ class DependencyTest(unittest.TestCase):
         self.patcher = patch('sys.stdout', new_callable=StringIO)
         self.stdout = self.patcher.start()
         self.addCleanup(patch.stopall)
-        self.module = MockModule(meta_module=None)
+        self.module = MockModule(meta_build=True)
 
     # Tests
 

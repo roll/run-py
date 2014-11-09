@@ -77,9 +77,7 @@ class MachineTest(unittest.TestCase):
             basedir='basedir',
             recursively='recursively')
         # Check Module call
-        self.Module.assert_called_with(
-            meta_plain='plain',
-            meta_module=None)
+        self.Module.assert_called_with(meta_build=True)
         # Check callable call
         self.callable.assert_called_with(*self.args, **self.kwargs)
         # Check print call

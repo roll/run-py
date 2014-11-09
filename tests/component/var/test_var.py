@@ -10,7 +10,7 @@ class VarTest(unittest.TestCase):
 
     def setUp(self):
         self.Var = self.make_mock_var_class()
-        self.var = self.Var(meta_module=None)
+        self.var = self.Var(meta_build=True)
 
     # Helpers
 

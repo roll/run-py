@@ -38,7 +38,7 @@ class MetaclassTest(unittest.TestCase):
         self.assertFalse(self.Prototype.return_value.called)
 
     def test___call___with_module(self):
-        instance = self.Class(meta_module='module')
+        instance = self.Class(meta_build=True, meta_module='module')
         self.assertIsInstance(instance, Mock)
         # Check Prototype call
         self.Prototype.assert_called_with(
@@ -49,7 +49,7 @@ class MetaclassTest(unittest.TestCase):
         self.prototype.__meta_build__.assert_called_with('module')
 
     def test___call___with_module_is_none(self):
-        instance = self.Class(meta_module=None)
+        instance = self.Class(meta_build=True)
         self.assertIsInstance(instance, Mock)
         # Check Prototype call
         self.Prototype.assert_called_with(

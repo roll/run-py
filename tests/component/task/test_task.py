@@ -16,7 +16,7 @@ class TaskTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self.make_task_class()
         self.pTask = partial(
-            self.Task, meta_module=None, meta_updates=[self.update])
+            self.Task, meta_build=True, meta_updates=[self.update])
         self.task = self.pTask(*self.args, **self.kwargs)
 
     # Helpers
@@ -221,7 +221,7 @@ class TaskTest(unittest.TestCase):
         self.assertIsNone(self.task.meta_module)
 
     def test_meta_module_with_meta_module(self):
-        self.task = self.Task(meta_module=self.module)
+        self.task = self.Task(meta_build=True, meta_module=self.module)
         self.assertEqual(self.task.meta_module, self.module)
 
     def test_meta_name(self):
@@ -239,7 +239,7 @@ class TaskTest(unittest.TestCase):
         dependency2.predecessor = 'task2'
         self.module.meta_lookup.return_value = 'task1'
         self.Task.meta_dependencies = [dependency1, dependency2]
-        self.task = self.Task(meta_module=self.module)
+        self.task = self.Task(meta_build=True, meta_module=self.module)
         self.task.meta_not_depend('task1')
         self.assertEqual(self.task.meta_dependencies, [dependency2])
 
