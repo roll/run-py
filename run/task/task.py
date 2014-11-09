@@ -194,6 +194,7 @@ class Task(metaclass=Metaclass):
                 if style is not None:
                     result = sformat(result, **style)
         return result
+
     @property
     def meta_fullname(self):
         fullname = ''
