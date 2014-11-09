@@ -308,14 +308,6 @@ class Task(metaclass=Metaclass):
         path = join(basedir, *components)
         return path
 
-    @property
-    def meta_plain(self):
-        """Task's plain flag (plain or not).
-        """
-        return self.meta_inspect(
-            name='plain', lookup=True, inherit=True,
-            default=settings.plain)
-
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
 

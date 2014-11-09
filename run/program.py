@@ -149,9 +149,7 @@ class Program(Command):
                 continue
             if inspect.getmodule(attr) != module:
                 continue
-            module = attr(
-                meta_module=None,
-                meta_plain=self.plain)
+            module = attr(meta_module=None)
             return module
         raise RuntimeError('Module not found.')
 

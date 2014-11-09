@@ -53,9 +53,7 @@ class Module(Task):
                     continue
                 names.append(name)
                 if isinstance(attr, Prototype):
-                    task = attr.meta_build(
-                        meta_module=self,
-                        meta_plain=self.meta_plain)
+                    task = attr.meta_build(meta_module=self)
                     setattr(type(self), name, task)
         # Initiate directories
         self.__localdir = os.path.abspath(

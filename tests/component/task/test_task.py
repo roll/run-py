@@ -252,9 +252,6 @@ class TaskTest(unittest.TestCase):
         self.module.meta_tasks = {'task': self.task}
         self.assertEqual(self.task.meta_qualname, 'module.task')
 
-    def test_meta_plain(self):
-        self.assertEqual(self.task.meta_plain, component.settings.plain)
-
     @patch.object(component, 'require')
     def test_meta_require(self, require):
         self.task.meta_require('task', *self.args, **self.kwargs)
