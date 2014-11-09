@@ -21,6 +21,7 @@ class CallTaskSignal(TaskSignal):
 
     # Public
 
+    # TODO: add async flag?
     def __init__(self, task, *args, **kwargs):
         self.__args = args
         self.__kwargs = kwargs
