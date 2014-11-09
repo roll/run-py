@@ -18,7 +18,6 @@ class VarTest(unittest.TestCase):
         class MockVar(component.Var):
             # Public
             meta_invoke = Mock(return_value='value')
-            meta_dispatcher = Mock()
         return MockVar
 
     # Tests

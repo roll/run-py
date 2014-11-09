@@ -8,7 +8,7 @@ from sugarbowl import cachedproperty
 from clyde import Command, Option, ManpageFormatter, mixin
 from .helpers import load
 from .metadata import version
-from .module import Module, Runner
+from .module import Module, Runner, Controller
 from .settings import settings
 
 
@@ -134,7 +134,7 @@ class Program(Command):
 
     @cachedproperty
     def __runner(self):
-        runner = Runner(self.__module)
+        runner = Runner(self.__module, controller=self.__controller)
         return runner
 
     @cachedproperty
@@ -151,10 +151,14 @@ class Program(Command):
                 continue
             module = attr(
                 meta_module=None,
-                meta_compact=self.compact,
                 meta_plain=self.plain)
             return module
         raise RuntimeError('Module not found.')
+
+    @cachedproperty
+    def __controller(self):
+        controller = Controller(compact=self.compact)
+        return controller
 
     # TODO: move to helpers?
     def __parse_arguments(self, arguments):

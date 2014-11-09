@@ -38,7 +38,6 @@ class ModuleTest(unittest.TestCase):
             meta_basedir = '/basedir'
             meta_cache = 'cache'
             meta_chdir = 'chdir'
-            meta_dispatcher = Mock(add_signal=Mock())
             meta_fallback = 'fallback'
             meta_fullname = '[key]'
             meta_is_main_module = True
@@ -50,6 +49,8 @@ class ModuleTest(unittest.TestCase):
                 return self
             def meta_path(self, *args, **kwargs):
                 return self.meta_basedir
+            def meta_send(self, signal):
+                pass
         return MockParentModule
 
     # Tests
@@ -187,10 +188,10 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 28)
+        self.assertEqual(len(argument), 26)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 21)
+        self.assertEqual(len(argument), 20)

@@ -39,12 +39,6 @@ class Module(Task, Module):
         return self.meta_inspect(
             name='basedir', lookup=True, default=self.__localdir)
 
-    @property
-    def meta_compact(self):
-        return self.meta_inspect(
-            name='compact', lookup=True, inherit=True,
-            default=settings.compact)
-
     @classmethod
     def meta_create(cls, *args, **kwargs):
         # Create module object
@@ -60,8 +54,7 @@ class Module(Task, Module):
                 if isinstance(attr, Prototype):
                     task = attr.meta_build(
                         meta_module=self,
-                        meta_plain=self.meta_plain,
-                        meta_dispatcher=self.meta_dispatcher)
+                        meta_plain=self.meta_plain)
                     setattr(type(self), name, task)
         # Initiate directories
         self.__localdir = os.path.abspath(

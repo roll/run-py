@@ -7,7 +7,6 @@ from sugarbowl import cachedproperty, merge_dicts
 from clyde import sformat
 from ..helpers import Null, join
 from ..settings import settings
-from .dispatcher import Dispatcher
 from .metaclass import Metaclass
 from .require import require
 from .signal import TaskSignal
@@ -152,18 +151,6 @@ class Task(metaclass=Metaclass):
         """Task's list of dependencies.
         """
         return self.__dependencies
-
-    @cachedproperty
-    def meta_dispatcher(self):
-        """Task's dispatcher.
-
-        Dispatcher used to operate signals.
-        """
-        dispatcher = self.meta_inspect(
-            name='dispatcher', lookup=True, inherit=True, default=None)
-        if dispatcher is None:
-            dispatcher = Dispatcher()
-        return dispatcher
 
     @property
     def meta_docstring(self):
@@ -448,7 +435,7 @@ class Task(metaclass=Metaclass):
 
     def __add_signal(self, event):
         signal = TaskSignal(self, event=event)
-        self.meta_dispatcher.add_signal(signal)
+        self.meta_send(signal)
 
     # TODO: improve implementation
     def __check_inheritance(self, name):

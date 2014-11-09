@@ -1,9 +1,15 @@
 import logging
+from ..settings import settings  # @UnusedImport
+from .stack import Stack
 
 
 class Controller:
 
     # Public
+
+    def __init__(self, *, compact=settings.compact):
+        self.__compact = compact
+        self.__stack = Stack()
 
     def __call__(self, signal):
         # Stack operations

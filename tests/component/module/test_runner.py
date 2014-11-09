@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock, call, patch
 from importlib import import_module
-component = import_module('run.module.module')
+component = import_module('run.module.runner')
 
 
 @unittest.skip
@@ -47,7 +47,6 @@ class MachineTest(unittest.TestCase):
     def make_mock_machine_class(self, module_class, stack_class):
         class MockMachine(component.Machine):
             _Controller = Mock()
-            _Dispatcher = Mock(return_value=Mock(add_handler=Mock()))
             _find = Mock(return_value=[module_class])
             _print = Mock()
             _Stack = stack_class
@@ -77,11 +76,8 @@ class MachineTest(unittest.TestCase):
             exclude='exclude',
             basedir='basedir',
             recursively='recursively')
-        # Check Dispatcher call
-        self.machine._Dispatcher.assert_called_with()
         # Check Module call
         self.Module.assert_called_with(
-            meta_dispatcher=self.machine._Dispatcher.return_value,
             meta_plain='plain',
             meta_module=None)
         # Check callable call
