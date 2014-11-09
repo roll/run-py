@@ -274,6 +274,9 @@ class Task(metaclass=Metaclass):
         """
         return self.__kwargs
 
+    def meta_listen(self, callback, signals=None):
+        pass
+
     @property
     def meta_main_module(self):
         """Task's main module of module hierarchy.
@@ -361,6 +364,9 @@ class Task(metaclass=Metaclass):
         """
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
+
+    def meta_send(self, signal):
+        pass
 
     @property
     def meta_signature(self):
