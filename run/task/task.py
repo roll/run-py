@@ -4,7 +4,6 @@ import inspect
 from copy import copy
 from contextlib import contextmanager
 from sugarbowl import merge_dicts
-from clyde import sformat
 from ..helpers import Null, join
 from ..settings import settings
 from .metaclass import Metaclass
@@ -169,31 +168,6 @@ class Task(metaclass=Metaclass):
         return self.meta_inspect(
             name='fallback', lookup=True, inherit=True,
             default=settings.fallback)
-
-    def meta_format(self, attribute=None):
-        """Format task.
-
-        Parameters
-        ----------
-        attribute: str
-            Format attribute instead of whole task.
-
-        Returns
-        -------
-        str
-            Formatted task/attribute.
-        """
-        result = str(self)
-        if attribute is not None:
-            result = str(getattr(self, attribute))
-        if result:
-            if not self.meta_plain:
-                style = self.meta_style
-                if not isinstance(self.meta_style, dict):
-                    style = settings.styles.get(self.meta_style, None)
-                if style is not None:
-                    result = sformat(result, **style)
-        return result
 
     @property
     def meta_fullname(self):
