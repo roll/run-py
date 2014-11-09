@@ -31,3 +31,11 @@ class Controller:
             message += '[10 ms]'
             message = sformat(message, 'successed', settings.styles)
             logger.info(message)
+        elif isinstance(signal, FailTaskSignal):
+            self.__stack.pop()
+            message = ''
+            message += len(self.__stack) * '│  '
+            message += '└──'
+            message += '[fail]'
+            message = sformat(message, 'failed', settings.styles)
+            logger.info(message)
