@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
+from ..helpers import sformat
 from ..settings import settings
 from ..task import Task, Prototype, Module, ConvertError, convert
 from .exception import GetattrError
@@ -167,7 +168,7 @@ class Module(Task, Module):
             task.meta_update()
         super().meta_update()
 
-    def list(self, task=None):
+    def list(self, task=None, plain=settings.plain):
         """Print tasks.
         """
         # TODO: exception here breaks system tests. Why???
@@ -188,7 +189,10 @@ class Module(Task, Module):
                 continue
             elif name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
-                name = nested_task.meta_format(attribute='meta_fullname')
+                name = nested_task.meta_fullname
+                if not plain:
+                    name = sformat(
+                        name, nested_task.meta_style, settings.styles)
             else:
                 # TODO: code duplication with Task.meta_fullname
                 separator = '.'

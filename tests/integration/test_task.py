@@ -9,10 +9,6 @@ from run.task import task, require, trigger
 
 class MockModule(Module):
 
-    # Meta
-
-    meta_plain = True
-
     # Tasks
 
     def task1(self):
@@ -49,7 +45,7 @@ class DependencyTest(unittest.TestCase):
     # Tests
 
     def test_list(self):
-        self.module.list()
+        self.module.list(plain=True)
         self.assertEqual(
             self.stdout.getvalue(),
             'info\n'

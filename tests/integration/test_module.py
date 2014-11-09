@@ -10,10 +10,6 @@ from run.var import Var
 
 class MockSubmodule(Module):
 
-    # Meta
-
-    meta_plain = True
-
     # Vars
 
     module_var = True
@@ -36,10 +32,6 @@ class MockVar(Var):
 
 
 class MockModule(Module):
-
-    # Meta
-
-    meta_plain = True
 
     # Data
 
@@ -85,7 +77,7 @@ class ModuleTest(unittest.TestCase):
     # Tests
 
     def test_list(self):
-        self.module.list()
+        self.module.list(plain=True)
         self.assertEqual(
             self.stdout.getvalue(),
             'attribute\n'

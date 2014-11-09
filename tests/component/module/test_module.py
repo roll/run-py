@@ -27,7 +27,6 @@ class ModuleTest(unittest.TestCase):
         class MockModule(component.Module):
             """docstring"""
             # Public
-            meta_plain = True
             def task(self):
                 pass
         return MockModule
@@ -135,7 +134,7 @@ class ModuleTest(unittest.TestCase):
             ['info', 'list', 'meta', 'task'])
 
     def test_list(self):
-        self.module.list()
+        self.module.list(plain=True)
         # Check print call
         self.print.assert_called_once_with(
             'info\n'
@@ -151,7 +150,7 @@ class ModuleTest(unittest.TestCase):
             meta_chdir=False,
             meta_fallback=None)
         self.parent_module.meta_tasks = {'module': self.module}
-        self.module.list()
+        self.module.list(plain=True)
         # Check print call
         self.print.assert_called_once_with(
             '[key] module.info\n'
