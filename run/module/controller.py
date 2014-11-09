@@ -14,40 +14,20 @@ class Controller:
         self.__stack = []
 
     def __call__(self, signal):
-        # Stack operations
+        logger = logging.getLogger('task')
         if isinstance(signal, CallTaskSignal):
-            self.__stack.append(signal.task)
-        formatted_stack = self.__format_stack(self.__stack)
-        if isinstance(signal, (DoneTaskSignal, FailTaskSignal)):
-            self.__stack.pop()
-        # Logging operations
-        formatted_signal = '[+] '
-        if formatted_signal:
-            message = formatted_signal + formatted_stack
-            logger = logging.getLogger('task')
+            message = ''
+            message += (len(self.__stack) - 1) * '│  '
+            if self.__stack:
+                message += '├──'
+            message += signal.task.meta_qualname or 'main'
             logger.info(message)
-
-    # Private
-
-    def __format_stack(self, stack):
-        names = []
-        if len(stack) >= 1:
-            previous = self.__stack[0]
-            name = previous.meta_qualname
-            if not self.__plain:
-                name = sformat(name, previous.meta_style, settings.styles)
-            names.append(name)
-            for task in stack[1:]:
-                current = task
-                if current.meta_module == previous.meta_module:
-                    name = current.meta_name
-                    if not self.__plain:
-                        name = sformat(name, current.meta_style, settings.styles)
-                    names.append(name)
-                else:
-                    name = current.meta_qualname
-                    if not self.__plain:
-                        name = sformat(name, current.meta_style, settings.styles)
-                    names.append(name)
-                previous = current
-        return '/'.join(filter(None, names))
+            self.__stack.append(signal.task)
+        elif isinstance(signal, DoneTaskSignal):
+            self.__stack.pop()
+            message = ''
+            message += len(self.__stack) * '│  '
+            message += '└──'
+            message += '[10 ms]'
+            message = sformat(message, 'successed', settings.styles)
+            logger.info(message)
