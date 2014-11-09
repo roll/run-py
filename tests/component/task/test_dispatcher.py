@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import Mock
 from importlib import import_module
-component = import_module('run.signal.dispatcher')
+component = import_module('run.task.dispatcher')
 
 
 class DispatcherTest(unittest.TestCase):

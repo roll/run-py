@@ -1,6 +1,12 @@
 from clyde import sformat
 from ..settings import settings
-from ..signal import Signal
+
+
+class Signal:
+
+    # Public
+
+    pass
 
 
 class TaskSignal(Signal):

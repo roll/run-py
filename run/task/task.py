@@ -6,8 +6,8 @@ from contextlib import contextmanager
 from sugarbowl import cachedproperty, merge_dicts
 from clyde import sformat
 from ..helpers import Null, join
-from ..signal import Dispatcher
 from ..settings import settings
+from .dispatcher import Dispatcher
 from .metaclass import Metaclass
 from .require import require
 from .signal import TaskSignal
