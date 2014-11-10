@@ -47,7 +47,7 @@ class Task(metaclass=Metaclass):
     def __call__(self, *args, **kwargs):
         args = self.meta_args + args
         kwargs = merge_dicts(self.meta_kwargs, kwargs)
-        self.meta_send(CallTaskEvent(self, *args, **kwargs))
+        self.meta_notify(CallTaskEvent(self, *args, **kwargs))
         try:
             self.__resolve_dependencies()
             try:
@@ -61,9 +61,9 @@ class Task(metaclass=Metaclass):
                     raise
             self.__resolve_dependencies(failed=False)
         except Exception:
-            self.meta_send(FailTaskEvent(self))
+            self.meta_notify(FailTaskEvent(self))
             raise
-        self.meta_send(DoneTaskEvent(self))
+        self.meta_notify(DoneTaskEvent(self))
         return result
 
     def __repr__(self):
@@ -273,6 +273,16 @@ class Task(metaclass=Metaclass):
             if dependency.predecessor is task:
                 self.meta_dependencies.remove(dependency)
 
+    # TODO: add event flow management (like stop propognation)
+    def meta_notify(self, event):
+        for listener, events in self.__listeners:
+            if events is not None:
+                if not isinstance(event, tuple(events)):
+                    continue
+            listener(event)
+        if self.meta_module:
+            self.meta_module.meta_notify(event)
+
     @property
     def meta_qualname(self):
         qualname = ''
@@ -305,16 +315,6 @@ class Task(metaclass=Metaclass):
         """
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
-
-    # TODO: add event flow management (like stop propognation)
-    def meta_send(self, event):
-        for listener, events in self.__listeners:
-            if events is not None:
-                if not isinstance(event, tuple(events)):
-                    continue
-            listener(event)
-        if self.meta_module:
-            self.meta_module.meta_send(event)
 
     @property
     def meta_signature(self):
