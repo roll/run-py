@@ -9,8 +9,8 @@ class TaskEvent(Event):
 
     # Public
 
-    def __init__(self, task):
-        self.__task = task
+    def __init__(self, __task):
+        self.__task = __task
 
     @property
     def task(self):
@@ -22,10 +22,10 @@ class CallTaskEvent(TaskEvent):
     # Public
 
     # TODO: add async flag?
-    def __init__(self, task, *args, **kwargs):
+    def __init__(self, __task, *args, **kwargs):
         self.__args = args
         self.__kwargs = kwargs
-        super().__init__(task)
+        super().__init__(__task)
 
     @property
     def args(self):
