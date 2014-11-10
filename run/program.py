@@ -61,12 +61,6 @@ class Program(Command):
         help='Enable debug mode.',
     )
 
-    compact = Option(
-        action='store_true',
-        flags=['-c', '--compact'],
-        help='Enable compact mode.',
-    )
-
     filepath = Option(
         flags=['-f', '--filepath'],
         default=settings.filename,
@@ -95,12 +89,6 @@ class Program(Command):
         action='store_true',
         flags=['-m', '--meta'],
         help='Display task meta.',
-    )
-
-    plain = Option(
-        action='store_true',
-        flags=['-p', '--plain'],
-        help='Activate plain mode.',
     )
 
     quiet = Option(

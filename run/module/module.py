@@ -169,12 +169,14 @@ class Module(Task):
             task.meta_update()
         super().meta_update()
 
-    def list(self, task=None, plain=settings.plain):
+    def list(self, task=None, plain=None):
         """Print tasks.
         """
         # TODO: exception here breaks system tests. Why???
         # Example:
         # raise Exception()
+        if plain is None:
+            plain = settings.plain
         if task is None:
             task = self
         else:
