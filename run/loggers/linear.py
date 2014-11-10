@@ -17,6 +17,8 @@ class LinearLogger:
             if event.state == event.INIT:
                 self.__stack.append(event)
             elif event.state in [event.DONE, event.FAIL]:
+                init = self.__stack[-1]
+                time = (event.time - init.time) * 1000
                 prefix = '[+] '
                 style = 'done'
                 if event.state == event.FAIL:
@@ -24,6 +26,7 @@ class LinearLogger:
                     style = 'fail'
                 message = ''
                 message += prefix
+                message += '[{time:.2f} ms] '.format(time=time)
                 message += self.__format_stack(self.__stack)
                 message += pack(*event.args, **event.kwargs)
                 message = sformat(message, style, settings.styles)
