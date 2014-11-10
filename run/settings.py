@@ -12,7 +12,6 @@ class Settings(Settings):
     fallback = None
     filename = 'runfile.py'
     plain = False
-    strict = True
 
     # Converters
 
