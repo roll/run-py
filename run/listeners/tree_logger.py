@@ -39,3 +39,6 @@ class TreeLogger:
             message += '[fail]'
             message = sformat(message, 'failed', settings.styles)
             logger.info(message)
+
+    def __repr__(self):
+        return '<TreeLogger>'
