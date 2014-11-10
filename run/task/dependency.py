@@ -1,5 +1,6 @@
 from abc import ABCMeta, abstractmethod
 from sugarbowl import cachedproperty
+from ..helpers import pack
 from .convert import convert
 
 
@@ -29,17 +30,7 @@ class Dependency(metaclass=ABCMeta):
             action = type(self).__name__
         if self.predecessor is not None:
             predecessor = str(self.predecessor)
-            if self.__args or self.__kwargs:
-                predecessor += '('
-                elements = []
-                for value in self.__args:
-                    element = repr(value)
-                    elements.append(element)
-                for key, value in self.__kwargs.items():
-                    element = '{0}={1}'.format(str(key), repr(value))
-                    elements.append(element)
-                predecessor += ', '.join(elements)
-                predecessor += ')'
+            predecessor += pack(*self.__args, **self.__kwargs)
         else:
             template = '<NotExistent "{target}">'
             predecessor = template.format(target=self.__target)
