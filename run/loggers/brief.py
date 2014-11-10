@@ -1,7 +1,7 @@
 from ..settings import settings
 
 
-class Logger:
+class BriefLogger:
 
     # Public
 

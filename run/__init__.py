@@ -1,5 +1,5 @@
 from .metadata import version
-from .loggers import Logger, TreeLogger
+from .loggers import BriefLogger, LinearLogger, TreeLogger
 from .module import Module, module
 from .program import program
 from .settings import settings

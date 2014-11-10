@@ -1,6 +1,6 @@
 import unittest
 from importlib import import_module
-component = import_module('run.loggers.logger')
+component = import_module('run.loggers.linear')
 
 
 @unittest.skip
