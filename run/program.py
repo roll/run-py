@@ -35,11 +35,8 @@ class Program(Command):
     def initiate_logging(self):
         logging.config.dictConfig(settings.logging_config)
         logger = logging.getLogger()
-        if self.debug:
-            logger.setLevel(logging.DEBUG)
-        # TODO: rethink!
         if self.verbose:
-            logger.setLevel(logging.INFO)
+            logger.setLevel(logging.DEBUG)
         if self.quiet:
             logger.setLevel(logging.ERROR)
 
@@ -54,12 +51,6 @@ class Program(Command):
         exit()
 
     # Options
-
-    debug = Option(
-        action='store_true',
-        flags=['-d', '--debug'],
-        help='Enable debug mode.',
-    )
 
     filepath = Option(
         flags=['-f', '--filepath'],
@@ -133,7 +124,7 @@ class Program(Command):
                     return
         except Exception as exception:
             logger = logging.getLogger(__name__)
-            logger.error(str(exception), exc_info=self.debug)
+            logger.error(str(exception), exc_info=self.verbose)
             sys.exit(1)
 
     @cachedproperty
