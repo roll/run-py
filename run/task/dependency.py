@@ -54,12 +54,12 @@ class Dependency(metaclass=ABCMeta):
         self.__successor = successor
 
     @abstractmethod
-    def resolve(self, failed=None):
+    def resolve(self, fail=None):
         """Resolve dependency.
 
         Parameters
         ----------
-        failed: bool
+        fail: bool
             Resolve status.
         """
         pass  # pragma: no cover

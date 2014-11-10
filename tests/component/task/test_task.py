@@ -90,7 +90,7 @@ class TaskTest(unittest.TestCase):
         # Check TaskEvent call
         TaskEvent.assert_has_calls(
             [call(self.task, event='called'),
-             call(self.task, event='failed')])
+             call(self.task, event='fail')])
         # Check dispatcher.add_event call
         self.task.meta_dispatcher.add_event.assert_has_calls(
             [call(TaskEvent.return_value),
@@ -107,8 +107,8 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task(), 'value')
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
-            call(failed=None),
-            call(failed=False)])
+            call(fail=None),
+            call(fail=False)])
 
     def test___call___with_dependencies_and_meta_invoke_exception(self):
         dependency = Mock()
@@ -117,8 +117,8 @@ class TaskTest(unittest.TestCase):
         self.assertRaises(Exception, self.task)
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
-            call(failed=None),
-            call(failed=True)])
+            call(fail=None),
+            call(fail=True)])
 
     def test___call___with_meta_chdir_is_false(self):
         self.Task.meta_chdir = False

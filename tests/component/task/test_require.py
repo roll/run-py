@@ -20,6 +20,6 @@ class require_Test(unittest.TestCase):
         self.require.resolve()
         self.assertEqual(self.invoke.call_count, 1)
 
-    def test_resolve_failed_is_not_none(self):
-        self.require.resolve(failed='failed')
+    def test_resolve_fail_is_not_none(self):
+        self.require.resolve(fail='fail')
         self.assertEqual(self.invoke.call_count, 0)

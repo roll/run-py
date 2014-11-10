@@ -58,9 +58,9 @@ class Task(metaclass=Metaclass):
                 if self.meta_fallback is not None:
                     result = self.meta_fallback
                 else:
-                    self.__resolve_dependencies(failed=True)
+                    self.__resolve_dependencies(fail=True)
                     raise
-            self.__resolve_dependencies(failed=False)
+            self.__resolve_dependencies(fail=False)
         except Exception:
             self.meta_notify(Event(self, Event.FAIL, *args, **kwargs))
             raise
@@ -363,9 +363,9 @@ class Task(metaclass=Metaclass):
         for task in self.__parameters.pop('trigger', []):
             self.meta_trigger(task)
 
-    def __resolve_dependencies(self, failed=None):
+    def __resolve_dependencies(self, fail=None):
         for dependency in self.meta_dependencies:
-            dependency.resolve(failed=failed)
+            dependency.resolve(fail=fail)
 
     @contextmanager
     def __change_directory(self):
