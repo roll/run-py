@@ -19,7 +19,7 @@ class TreeLogger:
                 message += (len(self.__stack) - 1) * '│  '
                 if self.__stack:
                     message += '├──'
-                message += event.task.meta_qualname or 'main'
+                message += event.task.meta_qualname
                 logger.info(message)
                 self.__stack.append(event.task)
             elif event.state == event.DONE:
