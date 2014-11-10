@@ -8,7 +8,7 @@ from ..helpers import Null, join
 from ..settings import settings
 from .metaclass import Metaclass
 from .require import require
-from .event import CallTaskEvent, DoneTaskEvent, FailTaskEvent
+from .event import CallTaskEvent
 from .trigger import trigger
 
 
@@ -45,9 +45,10 @@ class Task(metaclass=Metaclass):
             format(self=self, name=name))
 
     def __call__(self, *args, **kwargs):
+        Event = CallTaskEvent
         args = self.meta_args + args
         kwargs = merge_dicts(self.meta_kwargs, kwargs)
-        self.meta_notify(CallTaskEvent(self, *args, **kwargs))
+        self.meta_notify(Event(self, Event.INIT, *args, **kwargs))
         try:
             self.__resolve_dependencies()
             try:
@@ -61,9 +62,9 @@ class Task(metaclass=Metaclass):
                     raise
             self.__resolve_dependencies(failed=False)
         except Exception:
-            self.meta_notify(FailTaskEvent(self))
+            self.meta_notify(Event(self, Event.FAIL, *args, **kwargs))
             raise
-        self.meta_notify(DoneTaskEvent(self))
+        self.meta_notify(Event(self, Event.DONE, *args, **kwargs))
         return result
 
     def __repr__(self):

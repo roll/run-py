@@ -21,11 +21,20 @@ class CallTaskEvent(TaskEvent):
 
     # Public
 
+    INIT = 'init'
+    DONE = 'done'
+    FAIL = 'fail'
+
     # TODO: add async flag?
-    def __init__(self, __task, *args, **kwargs):
+    def __init__(self, __task, __state, *args, **kwargs):
+        super().__init__(__task)
+        self.__state = __state
         self.__args = args
         self.__kwargs = kwargs
-        super().__init__(__task)
+
+    @property
+    def state(self):
+        return self.__state
 
     @property
     def args(self):
@@ -34,17 +43,3 @@ class CallTaskEvent(TaskEvent):
     @property
     def kwargs(self):
         return self.__kwargs
-
-
-class DoneTaskEvent(TaskEvent):
-
-    # Public
-
-    pass
-
-
-class FailTaskEvent(TaskEvent):
-
-    # Public
-
-    pass
