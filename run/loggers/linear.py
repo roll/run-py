@@ -13,4 +13,4 @@ class LinearLogger:
         pass
 
     def __repr__(self):
-        return '<Logger>'
+        return '<LinearLogger>'

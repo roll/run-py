@@ -13,4 +13,4 @@ class BriefLogger:
         pass
 
     def __repr__(self):
-        return '<Logger>'
+        return '<BriefLogger>'
