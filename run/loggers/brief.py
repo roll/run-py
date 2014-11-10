@@ -1,5 +1,5 @@
 import logging
-from ..helpers import sformat
+from ..helpers import sformat, pack
 from ..task import CallTaskEvent
 from ..settings import settings
 
@@ -20,6 +20,7 @@ class BriefLogger:
                 message = ''
                 message += prefix
                 message += event.task.meta_qualname
+                message += pack(*event.args, **event.kwargs)
                 message = sformat(message, style, settings.styles)
                 logger.info(message)
 

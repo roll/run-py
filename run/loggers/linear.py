@@ -1,5 +1,5 @@
 import logging
-from ..helpers import sformat
+from ..helpers import sformat, pack
 from ..task import CallTaskEvent
 from ..settings import settings
 
@@ -25,6 +25,7 @@ class LinearLogger:
                 message = ''
                 message += prefix
                 message += self.__format_stack(self.__stack)
+                message += pack(*event.args, **event.kwargs)
                 message = sformat(message, style, settings.styles)
                 logger.info(message)
                 self.__stack.pop()
