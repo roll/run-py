@@ -8,7 +8,7 @@ from ..helpers import Null, join
 from ..settings import settings
 from .metaclass import Metaclass
 from .require import require
-from .signal import CallTaskSignal, DoneTaskSignal, FailTaskSignal
+from .event import CallTaskEvent, DoneTaskEvent, FailTaskEvent
 from .trigger import trigger
 
 
@@ -47,7 +47,7 @@ class Task(metaclass=Metaclass):
     def __call__(self, *args, **kwargs):
         args = self.meta_args + args
         kwargs = merge_dicts(self.meta_kwargs, kwargs)
-        self.meta_send(CallTaskSignal(self, *args, **kwargs))
+        self.meta_send(CallTaskEvent(self, *args, **kwargs))
         try:
             self.__resolve_dependencies()
             try:
@@ -61,9 +61,9 @@ class Task(metaclass=Metaclass):
                     raise
             self.__resolve_dependencies(failed=False)
         except Exception:
-            self.meta_send(FailTaskSignal(self))
+            self.meta_send(FailTaskEvent(self))
             raise
-        self.meta_send(DoneTaskSignal(self))
+        self.meta_send(DoneTaskEvent(self))
         return result
 
     def __repr__(self):
@@ -227,8 +227,8 @@ class Task(metaclass=Metaclass):
         """
         return self.__kwargs
 
-    def meta_listen(self, listener, *, signals=None):
-        self.__listeners.append((listener, signals))
+    def meta_listen(self, listener, *, events=None):
+        self.__listeners.append((listener, events))
 
     @property
     def meta_main_module(self):
@@ -306,15 +306,15 @@ class Task(metaclass=Metaclass):
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
-    # TODO: add signal flow management (like stop propognation)
-    def meta_send(self, signal):
-        for listener, signals in self.__listeners:
-            if signals is not None:
-                if not isinstance(signal, tuple(signals)):
+    # TODO: add event flow management (like stop propognation)
+    def meta_send(self, event):
+        for listener, events in self.__listeners:
+            if events is not None:
+                if not isinstance(event, tuple(events)):
                     continue
-            listener(signal)
+            listener(event)
         if self.meta_module:
-            self.meta_module.meta_send(signal)
+            self.meta_module.meta_send(event)
 
     @property
     def meta_signature(self):

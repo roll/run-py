@@ -14,7 +14,7 @@ class MachineTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1', }
         self.callable = Mock()
-        self.Signal = self.make_mock_signal_class()
+        self.Event = self.make_mock_event_class()
         self.Stack = self.make_mock_stack_class()
         self.logging = patch.object(component, 'logging').start()
         self.logger = self.logging.getLogger.return_value
@@ -25,15 +25,15 @@ class MachineTest(unittest.TestCase):
 
     # Helpers
 
-    def make_mock_signal_class(self):
-        class MockSignal:
+    def make_mock_event_class(self):
+        class MockEvent:
             # Public
             def __init__(self, task, event):
                 self.task = task
                 self.event = event
             def format(self):
                 return self.event + '_'
-        return MockSignal
+        return MockEvent
 
     def make_mock_stack_class(self):
         class MockStack(list):
@@ -101,26 +101,26 @@ class MachineTest(unittest.TestCase):
         # Check print call
         self.assertFalse(self.machine._print.called)
 
-    def test__on_task_signal(self):
-        self.signal = self.Signal('task', 'event')
-        self.machine._on_task_signal(self.signal)
+    def test__on_task_event(self):
+        self.event = self.Event('task', 'event')
+        self.machine._on_task_event(self.event)
         self.logger.info.assert_called_with('event_')
 
-    def test__on_task_signal_with_compact_is_true(self):
+    def test__on_task_event_with_compact_is_true(self):
         self.machine = self.Machine(compact=True)
-        self.signal = self.Signal('task', 'event')
-        self.machine._on_task_signal(self.signal)
+        self.event = self.Event('task', 'event')
+        self.machine._on_task_event(self.event)
         self.logger.info.assert_called_with('event_task')
         self.assertEqual(self.machine._stack, [])
 
-    def test__on_task_signal_with_event_is_called_then_successed(self):
-        # Signal is called
-        self.signal = self.Signal('task', 'called')
-        self.machine._on_task_signal(self.signal)
+    def test__on_task_event_with_event_is_called_then_successed(self):
+        # Event is called
+        self.event = self.Event('task', 'called')
+        self.machine._on_task_event(self.event)
         self.logger.info.assert_called_with('called_task')
         self.assertEqual(self.machine._stack, ['task'])
-        # Signal is successed
-        self.signal = self.Signal('task', 'successed')
-        self.machine._on_task_signal(self.signal)
+        # Event is successed
+        self.event = self.Event('task', 'successed')
+        self.machine._on_task_event(self.event)
         self.logger.info.assert_called_with('successed_task')
         self.assertEqual(self.machine._stack, [])

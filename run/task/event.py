@@ -1,11 +1,11 @@
-class Signal:
+class Event:
 
     # Public
 
     pass
 
 
-class TaskSignal(Signal):
+class TaskEvent(Event):
 
     # Public
 
@@ -17,7 +17,7 @@ class TaskSignal(Signal):
         return self.__task
 
 
-class CallTaskSignal(TaskSignal):
+class CallTaskEvent(TaskEvent):
 
     # Public
 
@@ -36,14 +36,14 @@ class CallTaskSignal(TaskSignal):
         return self.__kwargs
 
 
-class DoneTaskSignal(TaskSignal):
+class DoneTaskEvent(TaskEvent):
 
     # Public
 
     pass
 
 
-class FailTaskSignal(TaskSignal):
+class FailTaskEvent(TaskEvent):
 
     # Public
 

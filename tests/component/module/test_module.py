@@ -47,7 +47,7 @@ class ModuleTest(unittest.TestCase):
                 return self
             def meta_path(self, *args, **kwargs):
                 return self.meta_basedir
-            def meta_send(self, signal):
+            def meta_send(self, event):
                 pass
         return MockParentModule
 
