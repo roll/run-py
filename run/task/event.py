@@ -1,25 +1,16 @@
-import time
-
-
 class Event:
 
     # Public
 
-    def __init__(self):
-        self.__time = time.time()
-
-    @property
-    def time(self):
-        return self.__time
+    pass
 
 
 class TaskEvent(Event):
 
     # Public
 
-    def __init__(self, task):
-        self.__task = task
-        super().__init__()
+    def __init__(self, __task):
+        self.__task = __task
 
     @property
     def task(self):
@@ -36,10 +27,10 @@ class CallTaskEvent(TaskEvent):
 
     # TODO: add async flag?
     def __init__(self, __task, __state, *args, **kwargs):
+        super().__init__(__task)
         self.__state = __state
         self.__args = args
         self.__kwargs = kwargs
-        super().__init__(__task)
 
     @property
     def state(self):
