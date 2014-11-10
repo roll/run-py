@@ -13,10 +13,10 @@ class BriefLogger:
         if isinstance(event, CallTaskEvent):
             if event.state in [event.DONE, event.FAIL]:
                 prefix = '[+] '
-                style = 'successed'
+                style = 'done'
                 if event.state == event.FAIL:
                     prefix = '[-] '
-                    style = 'failed'
+                    style = 'fail'
                 message = ''
                 message += prefix
                 message += event.task.meta_qualname

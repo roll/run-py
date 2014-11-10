@@ -18,10 +18,10 @@ class LinearLogger:
                 self.__stack.append(event.task)
             elif event.state in [event.DONE, event.FAIL]:
                 prefix = '[+] '
-                style = 'successed'
+                style = 'done'
                 if event.state == event.FAIL:
                     prefix = '[-] '
-                    style = 'failed'
+                    style = 'fail'
                 message = ''
                 message += prefix
                 message += self.__format_stack(self.__stack)

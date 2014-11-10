@@ -31,8 +31,9 @@ class Settings(Settings):
     # Styles
 
     styles = {
-        'failed': {'foreground': 'bright_red'},
-        'successed': {'foreground': 'bright_green'},
+        'init': {},
+        'fail': {'foreground': 'bright_red'},
+        'done': {'foreground': 'bright_green'},
         'module': {'foreground': 'bright_cyan'},
         'task': {'foreground': 'bright_green'},
         'var': {'foreground': 'bright_blue'},

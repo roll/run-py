@@ -29,7 +29,7 @@ class TreeLogger:
                 message += len(self.__stack) * '│  '
                 message += '└──'
                 message += '[10 ms]'
-                message = sformat(message, 'successed', settings.styles)
+                message = sformat(message, 'done', settings.styles)
                 logger.info(message)
             elif event.state == event.FAIL:
                 self.__stack.pop()
@@ -37,7 +37,7 @@ class TreeLogger:
                 message += len(self.__stack) * '│  '
                 message += '└──'
                 message += '[fail]'
-                message = sformat(message, 'failed', settings.styles)
+                message = sformat(message, 'fail', settings.styles)
                 logger.info(message)
 
     def __repr__(self):
