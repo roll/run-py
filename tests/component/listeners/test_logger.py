@@ -1,6 +1,6 @@
 import unittest
 from importlib import import_module
-component = import_module('run.module.controller')
+component = import_module('run.listeners.logger')
 
 
 @unittest.skip

@@ -3,6 +3,7 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
+from sugarbowl import cachedproperty, import_object
 from ..helpers import sformat
 from ..settings import settings
 from ..task import Task, Prototype, ConvertError, convert
@@ -83,6 +84,18 @@ class Module(Task):
             return False
         else:
             return True
+
+    @cachedproperty
+    def meta_listeners(self):
+        default = []
+        if self.meta_is_main_module:
+            for pointer in settings.listeners:
+                element = import_object(pointer)
+                listener = element()
+                default.append(listener)
+        listeners = self.meta_inspect(
+            name='listeners', lookup=True, default=default)
+        return listeners
 
     def meta_lookup(self, name):
         nested_name = None

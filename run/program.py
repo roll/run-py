@@ -8,7 +8,7 @@ from sugarbowl import cachedproperty
 from clyde import Command, Option, ManpageFormatter, mixin
 from .helpers import load
 from .metadata import version
-from .module import Module, Runner, Controller
+from .module import Module
 from .settings import settings
 
 
@@ -126,17 +126,27 @@ class Program(Command):
     def __run(self, attribute, *arguments):
         args, kwargs = self.__parse_arguments(arguments)
         try:
-            self.__runner.run(attribute, *args, **kwargs)
+            if attribute is None:
+                attribute = self.__module
+            else:
+                attribute = getattr(self.__module, attribute)
+            if not callable(attribute):
+                print(attribute)
+                return
+            result = attribute(*args, **kwargs)
+            if result is None:
+                return
+            if not isinstance(result, list):
+                print(result)
+                return
+            for element in result:
+                if element is not None:
+                    print(result)
+                    return
         except Exception as exception:
             logger = logging.getLogger(__name__)
             logger.error(str(exception), exc_info=self.debug)
             sys.exit(1)
-
-    @cachedproperty
-    def __runner(self):
-        runner = Runner(
-            self.__module, controller=self.__controller)
-        return runner
 
     @cachedproperty
     def __module(self):
@@ -153,12 +163,6 @@ class Program(Command):
             module = attr(meta_build=True)
             return module
         raise RuntimeError('Module not found.')
-
-    @cachedproperty
-    def __controller(self):
-        controller = Controller(
-            compact=self.compact, plain=self.plain)
-        return controller
 
     # TODO: move to helpers?
     def __parse_arguments(self, arguments):

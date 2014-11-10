@@ -24,6 +24,12 @@ class Settings(Settings):
         'run.var.var',
     ]
 
+    # Listeners
+
+    listeners = [
+        'run.TreeLogger',
+    ]
+
     # Styles
 
     styles = {

@@ -118,8 +118,6 @@ class Task(metaclass=Metaclass):
             if key.startswith('meta_'):
                 name = key.replace('meta_', '')
                 self.__parameters[name] = kwargs.pop(key)
-        # Initiate listeners
-        self.__listeners = []
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
@@ -227,8 +225,10 @@ class Task(metaclass=Metaclass):
         """
         return self.__kwargs
 
-    def meta_listen(self, listener, *, events=None):
-        self.__listeners.append((listener, events))
+    @property
+    def meta_listeners(self):
+        return self.meta_inspect(
+            name='listeners', lookup=True, default=[])
 
     @property
     def meta_main_module(self):
@@ -275,10 +275,7 @@ class Task(metaclass=Metaclass):
 
     # TODO: add event flow management (like stop propognation)
     def meta_notify(self, event):
-        for listener, events in self.__listeners:
-            if events is not None:
-                if not isinstance(event, tuple(events)):
-                    continue
+        for listener in self.meta_listeners:
             listener(event)
         if self.meta_module:
             self.meta_module.meta_notify(event)
