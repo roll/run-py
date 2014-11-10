@@ -22,7 +22,7 @@ class TreeLogger:
                 message += event.task.meta_qualname
                 message += pack(*event.args, **event.kwargs)
                 logger.info(message)
-                self.__stack.append(event.task)
+                self.__stack.append(event)
             elif event.state == event.DONE:
                 self.__stack.pop()
                 message = ''

@@ -15,7 +15,7 @@ class LinearLogger:
         logger = logging.getLogger('task')
         if isinstance(event, CallTaskEvent):
             if event.state == event.INIT:
-                self.__stack.append(event.task)
+                self.__stack.append(event)
             elif event.state in [event.DONE, event.FAIL]:
                 prefix = '[+] '
                 style = 'done'
@@ -37,8 +37,8 @@ class LinearLogger:
 
     def __format_stack(self, stack):
         names = []
-        for task in stack:
-            if task.meta_qualname:
-                names.append(task.meta_qualname)
+        for event in stack:
+            if event.task.meta_qualname:
+                names.append(event.task.meta_qualname)
         result = '/'.join(names)
         return result
