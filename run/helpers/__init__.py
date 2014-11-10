@@ -4,3 +4,4 @@ from .join import join
 from .null import Null
 from .pack import pack
 from .sformat import sformat
+from .unpack import unpack
