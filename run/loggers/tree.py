@@ -24,11 +24,12 @@ class TreeLogger:
                 logger.info(message)
                 self.__stack.append(event)
             elif event.state == event.DONE:
-                self.__stack.pop()
+                init = self.__stack.pop()
+                time = (event.time - init.time) * 1000
                 message = ''
                 message += len(self.__stack) * '│  '
                 message += '└──'
-                message += '[10 ms]'
+                message += '[{time:.2f} ms] '.format(time=time)
                 message = sformat(message, 'done', settings.styles)
                 logger.info(message)
             elif event.state == event.FAIL:
