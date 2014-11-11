@@ -201,10 +201,6 @@ class Task(metaclass=Metaclass):
         pass
 
     @property
-    def meta_is_descriptor(self):
-        return False
-
-    @property
     def meta_kwargs(self):
         """Tasks's default keyword arguments.
         """

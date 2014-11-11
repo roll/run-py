@@ -39,26 +39,6 @@ class TaskTest(unittest.TestCase):
 
     @unittest.skip
     @patch.object(component, 'TaskEvent')
-    def test___get___with_meta_is_descriptor_and_meta_cache(self, TaskEvent):
-        self.Task.meta_is_descriptor = True
-        self.Task.meta_cache = True
-        self.Task.meta_dispatcher = Mock()
-        self.assertEqual(self.task.__get__('module'), 'value')
-        self.assertEqual(self.task.__get__('module'), 'value')
-        # Only one call because of caching
-        self.assertEqual(self.task.meta_invoke.call_count, 1)
-        self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
-        # Check TaskEvent call
-        TaskEvent.assert_has_calls(
-            [call(self.task, event='called'),
-             call(self.task, event='successed')])
-        # Check dispatcher.add_event call
-        self.task.meta_dispatcher.add_event.assert_has_calls(
-            [call(TaskEvent.return_value),
-             call(TaskEvent.return_value)])
-
-    @unittest.skip
-    @patch.object(component, 'TaskEvent')
     def test___call__(self, TaskEvent):
         self.Task.meta_dispatcher = Mock()
         self.assertEqual(self.task(), 'value')
@@ -175,9 +155,6 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_fallback(self):
         self.assertEqual(self.task.meta_fallback, component.settings.fallback)
-
-    def test_meta_is_descriptor(self):
-        self.assertEqual(self.task.meta_is_descriptor, False)
 
     def test_meta_kwargs(self):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)

@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch, call
 from importlib import import_module
 component = import_module('run.var.var')
 
@@ -28,6 +28,26 @@ class VarTest(unittest.TestCase):
         self.assertEqual(self.var.__get__('module'), 'value')
         # Two calls because of caching is off
         self.assertEqual(self.var.meta_invoke.call_count, 2)
+
+    @unittest.skip
+    @patch.object(component, 'TaskEvent')
+    def test___get___with_meta_cache_is_true(self, TaskEvent):
+        self.Task.meta_is_descriptor = True
+        self.Task.meta_cache = True
+        self.Task.meta_dispatcher = Mock()
+        self.assertEqual(self.task.__get__('module'), 'value')
+        self.assertEqual(self.task.__get__('module'), 'value')
+        # Only one call because of caching
+        self.assertEqual(self.task.meta_invoke.call_count, 1)
+        self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
+        # Check TaskEvent call
+        TaskEvent.assert_has_calls(
+            [call(self.task, event='called'),
+             call(self.task, event='successed')])
+        # Check dispatcher.add_event call
+        self.task.meta_dispatcher.add_event.assert_has_calls(
+            [call(TaskEvent.return_value),
+             call(TaskEvent.return_value)])
 
     def test_meta_cache(self):
         self.assertEqual(self.var.meta_cache, component.settings.cache)
