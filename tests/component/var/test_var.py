@@ -22,9 +22,6 @@ class VarTest(unittest.TestCase):
 
     # Tests
 
-    def test_meta_is_descriptor(self):
-        self.assertEqual(self.var.meta_is_descriptor, True)
-
     def test_meta_signature(self):
         self.assertEqual(self.var.meta_signature, '')
 

@@ -5,12 +5,12 @@ from builtins import print
 from collections import OrderedDict
 from sugarbowl import cachedproperty, import_object
 from ..settings import settings
-from ..task import Task, Prototype, ConvertError, convert
+from ..task import Task, Prototype, Module, ConvertError, convert
 from ..utils import stylize
 from .exception import GetattrError
 
 
-class Module(Task):
+class Module(Task, Module):
 
     # Public
 
@@ -40,6 +40,12 @@ class Module(Task):
     def meta_basedir(self):
         return self.meta_inspect(
             name='basedir', lookup=True, default=self.__localdir)
+
+    @property
+    def meta_cache(self):
+        """Vars caching status (enabled or disabled).
+        """
+        return self.meta_retrieve('cache', default=settings.cache)
 
     @classmethod
     def meta_create(cls, *args, **kwargs):

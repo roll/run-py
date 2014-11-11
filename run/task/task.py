@@ -7,6 +7,7 @@ from sugarbowl import merge_dicts
 from ..helpers import Null, join
 from ..settings import settings
 from .metaclass import Metaclass
+from .module import Module
 from .require import require
 from .event import CallTaskEvent
 from .trigger import trigger
@@ -314,10 +315,15 @@ class Task(metaclass=Metaclass):
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
-    def meta_retrieve(self, name, default=None):
-        """Return meta parameter.
+    def meta_retrieve(self, name, *, module=False, default=None):
+        """Return meta parameter
         """
-        return self.__parameters.get(name, default)
+        if name in self.__parameters:
+            return self.__parameters[name]
+        if not isinstance(self, Module):
+            if self.meta_module:
+                return self.meta_module.meta_retrieve(name, default=default)
+        return default
 
     @property
     def meta_signature(self):
