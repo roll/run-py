@@ -314,6 +314,11 @@ class Task(metaclass=Metaclass):
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
+    def meta_retrieve(self, name, default=None):
+        """Return meta parameter.
+        """
+        return self.__parameters.get(name, default)
+
     @property
     def meta_signature(self):
         """Task's signature.
