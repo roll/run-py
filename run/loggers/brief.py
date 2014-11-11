@@ -1,7 +1,7 @@
 import logging
-from ..helpers import sformat, pack
+from ..helpers import pack
 from ..task import CallTaskEvent
-from ..settings import settings
+from ..utils import stylize
 
 
 class BriefLogger:
@@ -21,7 +21,7 @@ class BriefLogger:
                 message += prefix
                 message += event.task.meta_qualname
                 message += pack(*event.args, **event.kwargs)
-                message = sformat(message, style, settings.styles)
+                message = stylize(message, styles=[style])
                 logger.info(message)
 
     def __repr__(self):

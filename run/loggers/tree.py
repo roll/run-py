@@ -1,7 +1,7 @@
 import logging
-from ..helpers import sformat, pack
+from ..helpers import pack
 from ..task import CallTaskEvent
-from ..settings import settings
+from ..utils import stylize
 
 
 class TreeLogger:
@@ -30,7 +30,7 @@ class TreeLogger:
                 message += len(self.__stack) * '│  '
                 message += '└──'
                 message += '[{time:.2f} ms] '.format(time=time)
-                message = sformat(message, 'done', settings.styles)
+                message = stylize(message, styles=['done'])
                 logger.info(message)
             elif event.state == event.FAIL:
                 self.__stack.pop()
@@ -38,7 +38,7 @@ class TreeLogger:
                 message += len(self.__stack) * '│  '
                 message += '└──'
                 message += '[fail]'
-                message = sformat(message, 'fail', settings.styles)
+                message = stylize(message, styles=['fail'])
                 logger.info(message)
 
     def __repr__(self):

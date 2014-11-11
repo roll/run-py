@@ -1,7 +1,7 @@
 import logging
-from ..helpers import sformat, pack
+from ..helpers import pack
 from ..task import CallTaskEvent
-from ..settings import settings
+from ..utils import stylize
 
 
 class LinearLogger:
@@ -29,7 +29,7 @@ class LinearLogger:
                 message += '[{time:.2f} ms] '.format(time=time)
                 message += self.__format_stack(self.__stack)
                 message += pack(*event.args, **event.kwargs)
-                message = sformat(message, style, settings.styles)
+                message = stylize(message, styles=[style])
                 logger.info(message)
                 self.__stack.pop()
 
