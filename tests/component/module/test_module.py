@@ -191,4 +191,4 @@ class ModuleTest(unittest.TestCase):
         self.module.meta('meta')
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 18)
+        self.assertEqual(len(argument), 17)

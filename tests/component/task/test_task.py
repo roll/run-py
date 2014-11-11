@@ -131,9 +131,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_basedir(self):
         self.assertEqual(self.task.meta_basedir, None)
 
-    def test_meta_cache(self):
-        self.assertEqual(self.task.meta_cache, component.settings.cache)
-
     def test_meta_chdir(self):
         self.assertEqual(self.task.meta_chdir, component.settings.chdir)
 

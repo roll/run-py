@@ -84,16 +84,6 @@ class Task(metaclass=Metaclass):
             name='basedir', lookup=True, default=None)
 
     @property
-    def meta_cache(self):
-        """Task's caching status (enabled or disabled).
-
-        If meta_cache is True descriptor tasks cache result of invocations.
-        """
-        return self.meta_inspect(
-            name='cache', lookup=True, inherit=True,
-            default=settings.cache)
-
-    @property
     def meta_chdir(self):
         """Task's chdir status (enabled or disabled).
 
