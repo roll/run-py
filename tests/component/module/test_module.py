@@ -12,10 +12,9 @@ class ModuleTest(unittest.TestCase):
         self.addCleanup(patch.stopall)
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
-        self.print = Mock()
-        self.pprint = Mock()
-        patch.object(component, 'print', self.print).start()
-        patch.object(component, 'pprint', self.pprint).start()
+        self.print = patch.object(component, 'print').start()
+        self.pprint = patch.object(component, 'pprint').start()
+        patch.object(component.settings, 'plain', True).start()
         self.Module = self.make_mock_module_class()
         self.module = self.Module(meta_build=True)
         self.ParentModule = self.make_mock_parent_module_class()
@@ -132,7 +131,7 @@ class ModuleTest(unittest.TestCase):
             ['info', 'list', 'meta', 'task'])
 
     def test_list(self):
-        self.module.list(plain=True)
+        self.module.list()
         # Check print call
         self.print.assert_called_once_with(
             'info\n'
@@ -149,7 +148,7 @@ class ModuleTest(unittest.TestCase):
             meta_chdir=False,
             meta_fallback=None)
         self.parent_module.meta_tasks = {'module': self.module}
-        self.module.list(plain=True)
+        self.module.list()
         # Check print call
         self.print.assert_called_once_with(
             'MAIN.module.info\n'

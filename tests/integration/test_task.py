@@ -2,6 +2,7 @@ import unittest
 from io import StringIO
 from unittest.mock import patch
 from run.module import Module
+from run.settings import settings
 from run.task import task, require, trigger
 
 
@@ -37,15 +38,15 @@ class DependencyTest(unittest.TestCase):
     # Actions
 
     def setUp(self):
-        self.patcher = patch('sys.stdout', new_callable=StringIO)
-        self.stdout = self.patcher.start()
         self.addCleanup(patch.stopall)
+        patch.object(settings, 'plain', True).start()
+        self.stdout = patch('sys.stdout', new_callable=StringIO).start()
         self.module = MockModule(meta_build=True)
 
     # Tests
 
     def test_list(self):
-        self.module.list(plain=True)
+        self.module.list()
         self.assertEqual(
             self.stdout.getvalue(),
             'info\n'

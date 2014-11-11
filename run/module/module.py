@@ -4,9 +4,9 @@ from pprint import pprint
 from builtins import print
 from collections import OrderedDict
 from sugarbowl import cachedproperty, import_object
-from ..helpers import sformat
 from ..settings import settings
 from ..task import Task, Prototype, ConvertError, convert
+from ..utils import stylize
 from .exception import GetattrError
 
 
@@ -169,14 +169,12 @@ class Module(Task):
             task.meta_update()
         super().meta_update()
 
-    def list(self, task=None, plain=None):
+    def list(self, task=None):
         """Print tasks.
         """
         # TODO: exception here breaks system tests. Why???
         # Example:
         # raise Exception()
-        if plain is None:
-            plain = settings.plain
         if task is None:
             task = self
         else:
@@ -193,9 +191,7 @@ class Module(Task):
             elif name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
                 name = nested_task.meta_qualname
-                if not plain:
-                    name = sformat(
-                        name, nested_task.meta_style, settings.styles)
+                name = stylize(name, styles=[nested_task.meta_style])
             else:
                 # TODO: code duplication with Task.meta_qualname
                 separator = '.'
