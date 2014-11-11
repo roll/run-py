@@ -80,8 +80,7 @@ class Task(metaclass=Metaclass):
         If meta_chdir is True current directory will be
         changed to meta_basedir when task invoking.
         """
-        return self.meta_inspect(
-            name='basedir', lookup=True, default=None)
+        return self.meta_retrieve('basedir', default=None)
 
     @property
     def meta_chdir(self):
@@ -89,9 +88,8 @@ class Task(metaclass=Metaclass):
 
         .. seealso:: :attr:`run.Task.meta_basedir`
         """
-        return self.meta_inspect(
-            name='chdir', lookup=True, inherit=True,
-            default=settings.chdir)
+        return self.meta_retrieve(
+            'chdir', module=True, default=settings.chdir)
 
     @classmethod
     def meta_create(cls, *args, **kwargs):
@@ -138,9 +136,8 @@ class Task(metaclass=Metaclass):
     def meta_docstring(self):
         """Task's docstring.
         """
-        return self.meta_inspect(
-            name='docstring', lookup=True,
-            default=str(inspect.getdoc(self)).strip())
+        return self.meta_retrieve(
+            'docstring', default=str(inspect.getdoc(self)).strip())
 
     @property
     def meta_fallback(self):
@@ -148,47 +145,12 @@ class Task(metaclass=Metaclass):
 
         Fallback used when task invocation fails.
         """
-        return self.meta_inspect(
-            name='fallback', lookup=True, inherit=True,
-            default=settings.fallback)
+        return self.meta_retrieve(
+            'fallback', module=True, default=settings.fallback)
 
     @property
     def meta_inherit(self):
-        return self.meta_inspect(
-            name='inherit', lookup=True, default=['meta_*'])
-
-    def meta_inspect(self, name, *, lookup=False, inherit=False, default=None):
-        """Return internal meta parameter.
-
-        Parameters
-        ----------
-        name: str
-            Name of parameter.
-        lookup: bool
-            Allow to lookup from init parameters.
-        inherit: bool
-            Allow to inherit from meta_module.
-        default: mixed
-            Default value.
-
-        Returns
-        -------
-        mixed
-            Value of parameter.
-        """
-        fullname = 'meta_' + name
-        if lookup:
-            if name in self.__parameters:
-                return self.__parameters[name]
-        if inherit:
-            inherit = self.__check_inheritance(fullname)
-        if inherit:
-            if self.meta_module is not None:
-                try:
-                    return getattr(self.meta_module, fullname)
-                except AttributeError:
-                    pass
-        return default
+        return self.meta_retrieve('inherit', default=['meta_*'])
 
     def meta_invoke(self, *args, **kwargs):
         """Invoke task.
@@ -208,8 +170,7 @@ class Task(metaclass=Metaclass):
 
     @property
     def meta_listeners(self):
-        return self.meta_inspect(
-            name='listeners', lookup=True, default=[])
+        return self.meta_retrieve('listeners', default=[])
 
     @property
     def meta_main_module(self):
@@ -224,8 +185,7 @@ class Task(metaclass=Metaclass):
     def meta_module(self):
         """Task's module.
         """
-        return self.meta_inspect(
-            name='module', lookup=True, default=None)
+        return self.meta_retrieve('module', default=None)
 
     @property
     def meta_name(self):
@@ -308,14 +268,12 @@ class Task(metaclass=Metaclass):
     def meta_signature(self):
         """Task's signature.
         """
-        return self.meta_inspect(
-            name='signature', lookup=True,
-            default=str(inspect.signature(self.meta_invoke)))
+        return self.meta_retrieve(
+            'signature', default=str(inspect.signature(self.meta_invoke)))
 
     @property
     def meta_style(self):
-        return self.meta_inspect(
-            name='style', lookup=True, default='task')
+        return self.meta_retrieve('style', default='task')
 
     def meta_trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
@@ -338,8 +296,7 @@ class Task(metaclass=Metaclass):
 
     # TODO: clean updates list while applying?
     def meta_update(self):
-        updates = self.meta_inspect(
-            name='updates', lookup=True, default=[])
+        updates = self.meta_retrieve('updates', default=[])
         for update in updates:
             update.apply(self)
 

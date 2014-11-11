@@ -12,16 +12,14 @@ class MethodTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_inspect(
-            name='docstring', lookup=True,
-            default=str(inspect.getdoc(self.__method)).strip())
+        return self.meta_retrieve(
+            'docstring', default=str(inspect.getdoc(self.__method)).strip())
 
     def meta_invoke(self, *args, **kwargs):
         return self.__method(self.meta_module, *args, **kwargs)
 
     @property
     def meta_signature(self):
-        signature = str(inspect.signature(self.__method))
-        signature = re.sub('self[,\s]*', '', signature)
-        return self.meta_inspect(
-            name='signature', lookup=True, default=signature)
+        default = str(inspect.signature(self.__method))
+        default = re.sub('self[,\s]*', '', default)
+        return self.meta_retrieve('signature', default=default)

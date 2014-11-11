@@ -38,8 +38,7 @@ class Module(Task, Module):
 
     @property
     def meta_basedir(self):
-        return self.meta_inspect(
-            name='basedir', lookup=True, default=self.__localdir)
+        return self.meta_retrieve('basedir', default=self.__localdir)
 
     @property
     def meta_cache(self):
@@ -69,13 +68,11 @@ class Module(Task, Module):
 
     @property
     def meta_default(self):
-        return self.meta_inspect(
-            name='default_task', lookup=True, default='list')
+        return self.meta_retrieve('default', default='list')
 
     @property
     def meta_inherit(self):
-        return self.meta_inspect(
-            name='inherit', lookup=True, default=False)
+        return self.meta_retrieve('inherit', default=False)
 
     def meta_invoke(self, *args, **kwargs):
         default = getattr(self, self.meta_default)
@@ -91,6 +88,7 @@ class Module(Task, Module):
         else:
             return True
 
+    # TODO: wrong order
     @cachedproperty
     def meta_listeners(self):
         default = []
@@ -99,8 +97,7 @@ class Module(Task, Module):
                 element = import_object(pointer)
                 listener = element()
                 default.append(listener)
-        listeners = self.meta_inspect(
-            name='listeners', lookup=True, default=default)
+        listeners = self.meta_retrieve('listeners', default=default)
         return listeners
 
     def meta_lookup(self, name):
@@ -155,8 +152,7 @@ class Module(Task, Module):
 
     @property
     def meta_style(self):
-        return self.meta_inspect(
-            name='style', lookup=True, default='module')
+        return self.meta_retrieve('style', default='module')
 
     @property
     def meta_tasks(self):
