@@ -22,13 +22,6 @@ class Task(metaclass=Metaclass):
         self.__kwargs = kwargs
 
     def __get__(self, module, module_class=None):
-        if self.meta_is_descriptor:
-            if self.meta_cache:
-                if self.__cached_result is Null:
-                    self.__cached_result = self()
-                return self.__cached_result
-            else:
-                return self()
         return self
 
     def __getattribute__(self, name):

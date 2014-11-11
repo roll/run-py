@@ -22,6 +22,13 @@ class VarTest(unittest.TestCase):
 
     # Tests
 
+    def test___get___(self):
+        self.Var.meta_cache = False
+        self.assertEqual(self.var.__get__('module'), 'value')
+        self.assertEqual(self.var.__get__('module'), 'value')
+        # Two calls because of caching is off
+        self.assertEqual(self.var.meta_invoke.call_count, 2)
+
     def test_meta_signature(self):
         self.assertEqual(self.var.meta_signature, '')
 

@@ -37,14 +37,6 @@ class TaskTest(unittest.TestCase):
     def test___get__(self):
         self.assertEqual(self.task.__get__('module'), self.task)
 
-    def test___get___with_meta_is_descriptor(self):
-        self.Task.meta_is_descriptor = True
-        self.Task.meta_cache = False
-        self.assertEqual(self.task.__get__('module'), 'value')
-        self.assertEqual(self.task.__get__('module'), 'value')
-        # Two calls because of caching is off
-        self.assertEqual(self.task.meta_invoke.call_count, 2)
-
     @unittest.skip
     @patch.object(component, 'TaskEvent')
     def test___get___with_meta_is_descriptor_and_meta_cache(self, TaskEvent):
