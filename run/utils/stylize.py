@@ -2,7 +2,7 @@ import sugarbowl
 from ..settings import settings
 
 
-def stylize(self, string, *, styles, modes={}, layers={}, colors={}, **style):
+def stylize(string, *, styles, **style):
     """Format string with style.
     """
     if not settings.plain:
@@ -12,6 +12,5 @@ def stylize(self, string, *, styles, modes={}, layers={}, colors={}, **style):
             if item is not None:
                 estyle.update(item)
         estyle.update(style)
-        string = sugarbowl.stylize(
-            string, modes=modes, layers=layers, colors=colors, **estyle)
+        string = sugarbowl.stylize(string, **estyle)
     return string
