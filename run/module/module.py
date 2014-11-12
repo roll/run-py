@@ -14,8 +14,6 @@ class Module(Task):
 
     # Public
 
-    meta_key = None
-    meta_tags = []
     meta_manual = False
 
     def __getattribute__(self, name):

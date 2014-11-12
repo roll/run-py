@@ -104,9 +104,6 @@ class ModuleTest(unittest.TestCase):
             meta_module=self.parent_module)
         self.assertEqual(self.module.meta_path(), '/basedir')
 
-    def test_meta_tags(self):
-        self.assertEqual(self.module.meta_tags, [])
-
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
             ['info', 'list', 'meta', 'task'])
@@ -166,7 +163,7 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 21)
+        self.assertEqual(len(argument), 19)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
