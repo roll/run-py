@@ -42,7 +42,7 @@ class ModuleTest(unittest.TestCase):
             meta_qualname = 'MAIN'
             meta_tasks = {}
             @property
-            def meta_main_module(self):
+            def meta_root(self):
                 return self
             def meta_path(self, *args, **kwargs):
                 return self.meta_basedir
@@ -97,14 +97,14 @@ class ModuleTest(unittest.TestCase):
             meta_module=self.parent_module)
         self.assertFalse(self.module.meta_is_main_module)
 
-    def test_meta_main_module(self):
-        self.assertIs(self.module.meta_main_module, self.module)
+    def test_meta_root(self):
+        self.assertIs(self.module.meta_root, self.module)
 
-    def test_meta_main_module_with_parent_module(self):
+    def test_meta_root_with_parent_module(self):
         self.module = self.Module(
             meta_build=True,
             meta_module=self.parent_module)
-        self.assertIs(self.module.meta_main_module, self.parent_module)
+        self.assertIs(self.module.meta_root, self.parent_module)
 
     def test_meta_path_with_parent_module_and_meta_basedir_is_none(self):
         self.module = self.Module(

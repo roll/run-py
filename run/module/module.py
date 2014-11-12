@@ -97,11 +97,11 @@ class Module(Task):
         return listeners
 
     @property
-    def meta_main_module(self):
+    def meta_root(self):
         if self.meta_is_main_module:
             return self
         else:
-            return super().meta_main_module
+            return super().meta_root
 
     def meta_path(self, *components, local=False):
         if local:

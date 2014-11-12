@@ -153,12 +153,12 @@ class Task(metaclass=Metaclass):
         return self.meta_retrieve('listeners', default=[])
 
     @property
-    def meta_main_module(self):
+    def meta_root(self):
         """Task's main module of module hierarchy.
         """
         main_module = None
         if self.meta_module:
-            main_module = self.meta_module.meta_main_module
+            main_module = self.meta_module.meta_root
         return main_module
 
     @property
