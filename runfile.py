@@ -3,7 +3,7 @@ from packgram.project import ProjectModule
 
 class ProjectModule(ProjectModule):
 
-    # Attributes
+    # Data
 
     author = 'roll'
     author_email = 'roll@respect31.com'
