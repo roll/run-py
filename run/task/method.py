@@ -12,7 +12,7 @@ class MethodTask(Task):
 
     @property
     def meta_docstring(self):
-        return self.meta_retrieve(
+        return self.meta_inspect(
             'docstring', default=str(inspect.getdoc(self.__method)).strip())
 
     def meta_invoke(self, *args, **kwargs):
@@ -22,4 +22,4 @@ class MethodTask(Task):
     def meta_signature(self):
         default = str(inspect.signature(self.__method))
         default = re.sub('self[,\s]*', '', default)
-        return self.meta_retrieve('signature', default=default)
+        return self.meta_inspect('signature', default=default)

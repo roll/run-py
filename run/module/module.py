@@ -36,13 +36,13 @@ class Module(Task):
 
     @property
     def meta_basedir(self):
-        return self.meta_retrieve('basedir', default=self.__localdir)
+        return self.meta_inspect('basedir', default=self.__localdir)
 
     @property
     def meta_cache(self):
         """Vars caching status (enabled or disabled).
         """
-        return self.meta_retrieve('cache', default=settings.cache)
+        return self.meta_inspect('cache', default=settings.cache)
 
     @classmethod
     def meta_create(cls, *args, **kwargs):
@@ -66,7 +66,7 @@ class Module(Task):
 
     @property
     def meta_default(self):
-        return self.meta_retrieve('default', default='list')
+        return self.meta_inspect('default', default='list')
 
     def meta_invoke(self, *args, **kwargs):
         default = getattr(self, self.meta_default)
@@ -82,7 +82,7 @@ class Module(Task):
                 element = import_object(pointer)
                 listener = element()
                 default.append(listener)
-        listeners = self.meta_retrieve('listeners', default=default)
+        listeners = self.meta_inspect('listeners', default=default)
         return listeners
 
     def meta_path(self, *components, local=False):
@@ -90,10 +90,10 @@ class Module(Task):
             return self.__localdir
         return super().meta_path(*components)
 
-    def meta_retrieve(self, name, *, module=False, default=None):
+    def meta_inspect(self, name, *, module=False, default=None):
         """Return meta parameter
         """
-        return super().meta_retrieve(name, default=default)
+        return super().meta_inspect(name, default=default)
 
     @classmethod
     def meta_spawn(cls):
@@ -124,7 +124,7 @@ class Module(Task):
 
     @property
     def meta_style(self):
-        return self.meta_retrieve('style', default='module')
+        return self.meta_inspect('style', default='module')
 
     @property
     def meta_tasks(self):

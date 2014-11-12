@@ -12,7 +12,7 @@ class DescriptorVar(Var):
     @property
     def meta_docstring(self):
         default = str(inspect.getdoc(self.__descriptor)).strip()
-        return self.meta_retrieve('docstring', default=default)
+        return self.meta_inspect('docstring', default=default)
 
     def meta_invoke(self):
         return self.__descriptor.__get__(

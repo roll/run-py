@@ -21,7 +21,7 @@ class Var(Task, metaclass=ABCMeta):
     def meta_cache(self):
         """Var's caching status (enabled or disabled).
         """
-        return self.meta_retrieve(
+        return self.meta_inspect(
             'cache', module=True, default=settings.cache)
 
     @property
@@ -30,4 +30,4 @@ class Var(Task, metaclass=ABCMeta):
 
     @property
     def meta_style(self):
-        return self.meta_retrieve('style', default='var')
+        return self.meta_inspect('style', default='var')

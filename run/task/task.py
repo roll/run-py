@@ -64,7 +64,7 @@ class Task(metaclass=Metaclass):
         If meta_chdir is True current directory will be
         changed to meta_basedir when task invoking.
         """
-        return self.meta_retrieve('basedir', default=None)
+        return self.meta_inspect('basedir', default=None)
 
     @property
     def meta_chdir(self):
@@ -72,7 +72,7 @@ class Task(metaclass=Metaclass):
 
         .. seealso:: :attr:`run.Task.meta_basedir`
         """
-        return self.meta_retrieve(
+        return self.meta_inspect(
             'chdir', module=True, default=settings.chdir)
 
     @classmethod
@@ -120,7 +120,7 @@ class Task(metaclass=Metaclass):
     def meta_docstring(self):
         """Task's docstring.
         """
-        return self.meta_retrieve(
+        return self.meta_inspect(
             'docstring', default=str(inspect.getdoc(self)).strip())
 
     @property
@@ -129,8 +129,17 @@ class Task(metaclass=Metaclass):
 
         Fallback used when task invocation fails.
         """
-        return self.meta_retrieve(
+        return self.meta_inspect(
             'fallback', module=True, default=settings.fallback)
+
+    def meta_inspect(self, name, *, module=False, default=None):
+        """Return meta parameter
+        """
+        if name in self.__parameters:
+            return self.__parameters[name]
+        if module and self.meta_module:
+            return self.meta_module.meta_inspect(name, default=default)
+        return default
 
     def meta_invoke(self, *args, **kwargs):
         """Invoke task.
@@ -150,7 +159,7 @@ class Task(metaclass=Metaclass):
 
     @property
     def meta_listeners(self):
-        return self.meta_retrieve('listeners', default=[])
+        return self.meta_inspect('listeners', default=[])
 
     @property
     def meta_root(self):
@@ -163,7 +172,7 @@ class Task(metaclass=Metaclass):
     def meta_module(self):
         """Task's module.
         """
-        return self.meta_retrieve('module', default=None)
+        return self.meta_inspect('module', default=None)
 
     @property
     def meta_name(self):
@@ -233,25 +242,16 @@ class Task(metaclass=Metaclass):
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
 
-    def meta_retrieve(self, name, *, module=False, default=None):
-        """Return meta parameter
-        """
-        if name in self.__parameters:
-            return self.__parameters[name]
-        if module and self.meta_module:
-            return self.meta_module.meta_retrieve(name, default=default)
-        return default
-
     @property
     def meta_signature(self):
         """Task's signature.
         """
-        return self.meta_retrieve(
+        return self.meta_inspect(
             'signature', default=str(inspect.signature(self.meta_invoke)))
 
     @property
     def meta_style(self):
-        return self.meta_retrieve('style', default='task')
+        return self.meta_inspect('style', default='task')
 
     def meta_trigger(self, task, *args, **kwargs):
         """Add trigger dependency.
@@ -274,7 +274,7 @@ class Task(metaclass=Metaclass):
 
     # TODO: clean updates list while applying?
     def meta_update(self):
-        updates = self.meta_retrieve('updates', default=[])
+        updates = self.meta_inspect('updates', default=[])
         for update in updates:
             update.apply(self)
 
