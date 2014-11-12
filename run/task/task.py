@@ -209,9 +209,9 @@ class Task(metaclass=Metaclass):
         task: str
             Task name to be not dependent upon.
         """
-        task = self.meta_module.meta_lookup(task)
+        predecessor = getattr(self.meta_module, task)
         for dependency in copy(self.meta_dependencies):
-            if dependency.predecessor is task:
+            if dependency.predecessor is predecessor:
                 self.meta_dependencies.remove(dependency)
 
     # TODO: add event flow management (like stop propognation)

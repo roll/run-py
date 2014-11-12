@@ -186,9 +186,9 @@ class TaskTest(unittest.TestCase):
         dependency1.predecessor = 'task1'
         dependency2 = Mock()
         dependency2.predecessor = 'task2'
-        self.module.meta_lookup.return_value = 'task1'
         self.Task.meta_dependencies = [dependency1, dependency2]
         self.task = self.Task(meta_build=True, meta_module=self.module)
+        self.task.meta_module.task1 = 'task1'
         self.task.meta_not_depend('task1')
         self.assertEqual(self.task.meta_dependencies, [dependency2])
 
