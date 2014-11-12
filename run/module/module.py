@@ -36,7 +36,9 @@ class Module(Task):
 
     @property
     def meta_basedir(self):
-        return self.meta_inspect('basedir', default=self.__selfdir)
+        default = os.path.abspath(
+            os.path.dirname(inspect.getfile(type(self))))
+        return self.meta_inspect('basedir', default=default)
 
     @property
     def meta_cache(self):
@@ -59,9 +61,6 @@ class Module(Task):
                 if isinstance(attr, Prototype):
                     task = attr.meta_build(meta_module=self)
                     setattr(type(self), name, task)
-        # Initiate directories
-        self.__selfdir = os.path.abspath(
-            os.path.dirname(inspect.getfile(type(self))))
         return self
 
     @property
