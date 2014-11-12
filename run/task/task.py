@@ -191,7 +191,7 @@ class Task(metaclass=Metaclass):
                     name = key
         return name
 
-    def meta_not_depend(self, task):
+    def meta_not_depend(self, target):
         """Remove all of task dependencies.
 
         Parameters
@@ -199,7 +199,7 @@ class Task(metaclass=Metaclass):
         task: str
             Task name to be not dependent upon.
         """
-        predecessor = getattr(self.meta_module, task)
+        predecessor = getattr(self.meta_module, target)
         for dependency in copy(self.meta_dependencies):
             if dependency.predecessor is predecessor:
                 self.meta_dependencies.remove(dependency)
@@ -220,8 +220,7 @@ class Task(metaclass=Metaclass):
                  self.meta_name]))
         return qualname
 
-    # TODO: rename everywhere task to __target
-    def meta_require(self, task, *args, **kwargs):
+    def meta_require(self, __target, *args, **kwargs):
         """Add require dependency.
 
         Parameters
@@ -231,7 +230,7 @@ class Task(metaclass=Metaclass):
         args, kwargs
             Arguments for dependency resolve call.
         """
-        dependency = require(task, *args, **kwargs)
+        dependency = require(__target, *args, **kwargs)
         self.meta_depend(dependency)
 
     @property
@@ -252,7 +251,7 @@ class Task(metaclass=Metaclass):
     def meta_style(self):
         return self.meta_inspect('style', default='task')
 
-    def meta_trigger(self, task, *args, **kwargs):
+    def meta_trigger(self, __target, *args, **kwargs):
         """Add trigger dependency.
 
         Parameters
@@ -262,7 +261,7 @@ class Task(metaclass=Metaclass):
         args, kwargs
             Arguments for dependency resolve call.
         """
-        dependency = trigger(task, *args, **kwargs)
+        dependency = trigger(__target, *args, **kwargs)
         self.meta_depend(dependency)
 
     @property

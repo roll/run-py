@@ -21,11 +21,11 @@ class trigger(Dependency):
 
     # Public
 
-    def __init__(self, predecessor_name, *args,
-                 on_success=True, on_fail=False, **kwargs):
+    def __init__(self, __target, *args,
+                  on_success=True, on_fail=False, **kwargs):
         self.__on_success = on_success
         self.__on_fail = on_fail
-        super().__init__(predecessor_name, *args, **kwargs)
+        super().__init__(__target, *args, **kwargs)
 
     def resolve(self, fail=None):
         if fail is not None:

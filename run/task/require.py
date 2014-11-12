@@ -21,9 +21,9 @@ class require(Dependency):
 
     # Public
 
-    def __init__(self, predecessor_name, *args, **kwargs):
+    def __init__(self, __target, *args, **kwargs):
         self.__is_resolved = False
-        super().__init__(predecessor_name, *args, **kwargs)
+        super().__init__(__target, *args, **kwargs)
 
     def resolve(self, fail=None):
         if fail is None:
