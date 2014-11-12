@@ -14,9 +14,9 @@ class Module(Task):
 
     # Public
 
-    meta_convert = True
     meta_key = None
     meta_tags = []
+    meta_convert = True
 
     def __getattribute__(self, name):
         nested_name = None
