@@ -74,16 +74,6 @@ class ModuleTest(unittest.TestCase):
         self.assertRaises(AttributeError,
             getattr, self.module, 'not_existent')
 
-    def test_meta_lookup(self):
-        self.assertEqual(
-            self.module.meta_lookup('task'), self.module.task)
-
-    def test_meta_lookup_nested(self):
-        self.Module.meta_tasks = {
-            'module': self.module, 'task': self.module.task}
-        self.assertEqual(
-            self.module.meta_lookup('module.task'), self.module.task)
-
     def test_meta_invoke(self):
         self.Module.meta_default = 'default'
         self.Module.default = Mock()

@@ -100,17 +100,6 @@ class Module(Task, Module):
         listeners = self.meta_retrieve('listeners', default=default)
         return listeners
 
-    def meta_lookup(self, name):
-        nested_name = None
-        if '.' in name:
-            # Nested name - split
-            name, nested_name = name.split('.', 1)
-        # TODO: add good exception text here like in __getattribute__
-        task = self.meta_tasks[name]
-        if nested_name is not None:
-            task = task.meta_lookup(nested_name)
-        return task
-
     @property
     def meta_main_module(self):
         if self.meta_is_main_module:
@@ -177,11 +166,8 @@ class Module(Task, Module):
         # TODO: exception here breaks system tests. Why???
         # Example:
         # raise Exception()
-        if task is None:
-            task = self
-        else:
-            task = self.meta_lookup(task)  # pragma: no cover TODO: remove no cover
         names = []
+        task = self.__get_task(task)
         for name in sorted(dir(task)):
             # TODO: code duplication with ModuleMetaclass.meta_spawn
             if name.isupper():
@@ -208,11 +194,9 @@ class Module(Task, Module):
     def info(self, task=None):
         """Print information.
         """
-        if task is None:
-            task = self
-        else:
-            task = self.meta_lookup(task)
-        info = task.meta_qualname
+        info = ''
+        task = self.__get_task(task)
+        info += task.meta_qualname
         info += task.meta_signature
         info += '\n---\n'
         info += 'Type: ' + task.meta_type
@@ -229,11 +213,8 @@ class Module(Task, Module):
     def meta(self, task=None):
         """Print metadata.
         """
-        if task is None:
-            task = self
-        else:
-            task = self.meta_lookup(task)
         meta = OrderedDict()
+        task = self.__get_task(task)
         for name in sorted(dir(task)):
             if name.startswith('meta_'):
                 key = name.replace('meta_', '')
@@ -241,3 +222,19 @@ class Module(Task, Module):
                 if not inspect.ismethod(attr):
                     meta[key] = attr
         pprint(meta)
+
+    # Private
+
+    # TODO: somehow to merge with __getattribute__?
+    def __get_task(self, name=None):
+        if name is None:
+            return self
+        nested_name = None
+        if '.' in name:
+            # Nested name - split
+            name, nested_name = name.split('.', 1)
+        # TODO: add good exception text here like in __getattribute__
+        task = self.meta_tasks[name]
+        if nested_name is not None:
+            task = task.__get_task(nested_name)
+        return task
