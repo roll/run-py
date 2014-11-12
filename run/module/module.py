@@ -75,20 +75,11 @@ class Module(Task):
         result = default(*args, **kwargs)
         return result
 
-    @property
-    def meta_is_main_module(self):
-        """Module's main module status (is main module or not).
-        """
-        if self.meta_module:
-            return False
-        else:
-            return True
-
     # TODO: wrong order
     @cachedproperty
     def meta_listeners(self):
         default = []
-        if self.meta_is_main_module:
+        if not self.meta_module:
             for pointer in settings.listeners:
                 element = import_object(pointer)
                 listener = element()

@@ -37,7 +37,6 @@ class ModuleTest(unittest.TestCase):
             meta_cache = 'cache'
             meta_chdir = 'chdir'
             meta_fallback = 'fallback'
-            meta_is_main_module = True
             meta_name = ''
             meta_qualname = 'MAIN'
             meta_tasks = {}
@@ -87,15 +86,6 @@ class ModuleTest(unittest.TestCase):
     def test_meta_basedir(self):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
-
-    def test_meta_is_main_module(self):
-        self.assertTrue(self.module.meta_is_main_module)
-
-    def test_meta_is_main_module_with_parent_module(self):
-        self.module = self.Module(
-            meta_build=True,
-            meta_module=self.parent_module)
-        self.assertFalse(self.module.meta_is_main_module)
 
     def test_meta_root(self):
         self.assertIs(self.module.meta_root, self.module)
@@ -176,7 +166,7 @@ class ModuleTest(unittest.TestCase):
         self.module.meta()
         # Check pprint call
         argument = self.pprint.call_args[0][0]
-        self.assertEqual(len(argument), 22)
+        self.assertEqual(len(argument), 21)
 
     def test_meta_with_task(self):
         self.module.meta('meta')
