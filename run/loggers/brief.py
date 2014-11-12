@@ -21,7 +21,7 @@ class BriefLogger:
                 message += prefix
                 message += event.task.meta_qualname
                 message += pack(*event.args, **event.kwargs)
-                message = stylize(message, styles=[style])
+                message = stylize(message, style=style)
                 logger.info(message)
 
     def __repr__(self):

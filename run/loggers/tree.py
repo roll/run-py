@@ -30,7 +30,7 @@ class TreeLogger:
                 message += len(self.__stack) * '│  '
                 message += '└──'
                 message += '[{time:.2f} ms] '.format(time=time)
-                message = stylize(message, styles=['done'])
+                message = stylize(message, style='done')
                 logger.info(message)
             elif event.state == event.FAIL:
                 self.__stack.pop()
@@ -38,7 +38,7 @@ class TreeLogger:
                 message += len(self.__stack) * '│  '
                 message += '└──'
                 message += '[fail]'
-                message = stylize(message, styles=['fail'])
+                message = stylize(message, style='fail')
                 logger.info(message)
 
     def __repr__(self):

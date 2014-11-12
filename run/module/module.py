@@ -156,7 +156,7 @@ class Module(Task):
             elif name in task.meta_tasks:
                 nested_task = task.meta_tasks[name]
                 name = nested_task.meta_qualname
-                name = stylize(name, styles=[nested_task.meta_style])
+                name = stylize(name, style=nested_task.meta_style)
             else:
                 name = '.'.join(filter(None, [task.meta_qualname, name]))
             names.append(name)

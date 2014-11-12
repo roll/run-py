@@ -9,10 +9,14 @@ class stylize_Test(unittest.TestCase):
     # Actions
 
     def setUp(self):
-        self.stylize = partial(component.stylize, 'test')
+        self.pstylize = partial(component.stylize, 'test')
 
     # Tests
 
     def test(self):
-        result = self.stylize(styles=['done'], bold=True)
+        result = self.pstylize(style='done', bold=True)
+        self.assertEqual(result, '\x1b[1;92mtest\x1b[0m')
+
+    def test_with_style_is_dict(self):
+        result = self.pstylize(style={'foreground': 'bright_green'}, bold=True)
         self.assertEqual(result, '\x1b[1;92mtest\x1b[0m')

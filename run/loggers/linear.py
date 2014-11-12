@@ -29,7 +29,7 @@ class LinearLogger:
                 message += '[{time:.2f} ms] '.format(time=time)
                 message += self.__format_stack(self.__stack)
                 message += pack(*event.args, **event.kwargs)
-                message = stylize(message, styles=[style])
+                message = stylize(message, style=style)
                 logger.info(message)
                 self.__stack.pop()
 
