@@ -161,12 +161,16 @@ class Task(metaclass=Metaclass):
     def meta_listeners(self):
         return self.meta_inspect('listeners', default=[])
 
-    @property
-    def meta_root(self):
-        if self.meta_module:
-            self.meta_module.meta_root
-        else:
-            return self
+    # TODO: rename to make_path?
+    def meta_locate(self, *components, local=False):
+        basedir = self.meta_basedir
+        if basedir is None or not os.path.isabs(basedir):
+            prefix = self.__localdir
+            if self.meta_module:
+                prefix = self.meta_module.meta_locate(local=local)
+            basedir = join(prefix, self.meta_basedir)
+        path = join(basedir, *components)
+        return path
 
     @property
     def meta_module(self):
@@ -217,17 +221,6 @@ class Task(metaclass=Metaclass):
                  self.meta_name]))
         return qualname
 
-    # TODO: rename to make_path?
-    def meta_path(self, *components, local=False):
-        basedir = self.meta_basedir
-        if basedir is None or not os.path.isabs(basedir):
-            prefix = self.__localdir
-            if self.meta_module:
-                prefix = self.meta_module.meta_path(local=local)
-            basedir = join(prefix, self.meta_basedir)
-        path = join(basedir, *components)
-        return path
-
     # TODO: rename everywhere task to __target
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
@@ -241,6 +234,13 @@ class Task(metaclass=Metaclass):
         """
         dependency = require(task, *args, **kwargs)
         self.meta_depend(dependency)
+
+    @property
+    def meta_root(self):
+        if self.meta_module:
+            self.meta_module.meta_root
+        else:
+            return self
 
     @property
     def meta_signature(self):
@@ -296,7 +296,7 @@ class Task(metaclass=Metaclass):
     def __change_directory(self):
         if self.meta_chdir:
             buffer = os.path.abspath(os.getcwd())
-            os.chdir(self.meta_path())
+            os.chdir(self.meta_locate())
             yield
             os.chdir(buffer)
         else:

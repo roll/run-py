@@ -43,7 +43,7 @@ class ModuleTest(unittest.TestCase):
             @property
             def meta_root(self):
                 return self
-            def meta_path(self, *args, **kwargs):
+            def meta_locate(self, *args, **kwargs):
                 return self.meta_basedir
             def meta_notify(self, event):
                 pass
@@ -97,12 +97,12 @@ class ModuleTest(unittest.TestCase):
             meta_module=self.parent_module)
         self.assertIs(self.module.meta_root, self.parent_module)
 
-    def test_meta_path_with_parent_module_and_meta_basedir_is_none(self):
+    def test_meta_locate_with_parent_module_and_meta_basedir_is_none(self):
         self.module = self.Module(
             meta_build=True,
             meta_basedir=None,
             meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_path(), '/basedir')
+        self.assertEqual(self.module.meta_locate(), '/basedir')
 
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
