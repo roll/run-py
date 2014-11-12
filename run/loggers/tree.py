@@ -21,6 +21,7 @@ class TreeLogger:
                     message += '├──'
                 message += event.task.meta_qualname
                 message += pack(*event.args, **event.kwargs)
+                message = stylize(message, style='init')
                 logger.info(message)
                 self.__stack.append(event)
             elif event.state == event.DONE:

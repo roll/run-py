@@ -30,12 +30,12 @@ class Settings(Settings):
     # Styles
 
     styles = {
-        'init': {},
-        'fail': {'foreground': 'bright_red'},
-        'done': {'foreground': 'bright_green'},
-        'module': {'foreground': 'bright_cyan'},
-        'task': {'foreground': 'bright_green'},
-        'var': {'foreground': 'bright_blue'},
+        'init': {'bold': True},
+        'fail': {'foreground': 'bright_red', 'bold': True},
+        'done': {'foreground': 'bright_green', 'bold': True},
+        'module': {'foreground': 'bright_cyan', 'bold': True},
+        'task': {'foreground': 'bright_blue', 'bold': True},
+        'var': {'foreground': 'bright_magenta', 'bold': True},
     }
 
     # Logging
