@@ -154,12 +154,10 @@ class Task(metaclass=Metaclass):
 
     @property
     def meta_root(self):
-        """Task's main module of module hierarchy.
-        """
-        main_module = None
         if self.meta_module:
-            main_module = self.meta_module.meta_root
-        return main_module
+            self.meta_module.meta_root
+        else:
+            return self
 
     @property
     def meta_module(self):

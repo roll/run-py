@@ -100,6 +100,7 @@ class ModuleTest(unittest.TestCase):
     def test_meta_root(self):
         self.assertIs(self.module.meta_root, self.module)
 
+    @unittest.skip
     def test_meta_root_with_parent_module(self):
         self.module = self.Module(
             meta_build=True,

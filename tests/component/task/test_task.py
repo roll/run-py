@@ -160,7 +160,7 @@ class TaskTest(unittest.TestCase):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)
 
     def test_meta_root(self):
-        self.assertIsNone(self.task.meta_root)
+        self.assertIs(self.task.meta_root, self.task)
 
     def test_meta_root_with_meta_module(self):
         self.Task.meta_root = self.module

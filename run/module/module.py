@@ -96,13 +96,6 @@ class Module(Task):
         listeners = self.meta_retrieve('listeners', default=default)
         return listeners
 
-    @property
-    def meta_root(self):
-        if self.meta_is_main_module:
-            return self
-        else:
-            return super().meta_root
-
     def meta_path(self, *components, local=False):
         if local:
             return self.__localdir
