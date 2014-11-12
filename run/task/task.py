@@ -161,7 +161,6 @@ class Task(metaclass=Metaclass):
     def meta_listeners(self):
         return self.meta_inspect('listeners', default=[])
 
-    # TODO: rename to make_path?
     def meta_locate(self, *components, local=False):
         basedir = self.meta_basedir
         if basedir is None or not os.path.isabs(basedir):
