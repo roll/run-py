@@ -3,7 +3,7 @@ import inspect
 from copy import copy
 from contextlib import contextmanager
 from sugarbowl import merge_dicts
-from ..helpers import Null, join
+from ..helpers import join
 from ..settings import settings
 from .metaclass import Metaclass
 from .require import require
@@ -90,8 +90,6 @@ class Task(metaclass=Metaclass):
         self.__init_dependencies()
         # Initiate directories
         self.__initdir = os.path.abspath(os.getcwd())
-        # Initiate cache
-        self.__cached_result = Null
         # Initiate arguments
         self.__args = ()
         self.__kwargs = {}
