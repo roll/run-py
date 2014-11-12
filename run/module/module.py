@@ -170,12 +170,7 @@ class Module(Task):
                 name = nested_task.meta_qualname
                 name = stylize(name, styles=[nested_task.meta_style])
             else:
-                # TODO: code duplication with Task.meta_qualname
-                separator = '.'
-                if task.meta_is_main_module:
-                    separator = ' '
-                name = separator.join(filter(None,
-                    [task.meta_qualname, name]))
+                name = '.'.join(filter(None, [task.meta_qualname, name]))
             names.append(name)
         result = '\n'.join(names)
         print(result)
