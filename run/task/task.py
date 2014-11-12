@@ -1,5 +1,4 @@
 import os
-import re
 import inspect
 from copy import copy
 from contextlib import contextmanager
@@ -23,20 +22,6 @@ class Task(metaclass=Metaclass):
 
     def __get__(self, module, module_class=None):
         return self
-
-    def __getattribute__(self, name):
-        try:
-            return super().__getattribute__(name)
-        except AttributeError:
-            if self.__check_inheritance(name):
-                if self.meta_module is not None:
-                    try:
-                        return getattr(self.meta_module, name)
-                    except AttributeError:
-                        pass
-        raise AttributeError(
-            'Task "{self}" has no attribute "{name}".'.
-            format(self=self, name=name))
 
     def __call__(self, *args, **kwargs):
         Event = CallTaskEvent
@@ -147,10 +132,6 @@ class Task(metaclass=Metaclass):
         """
         return self.meta_retrieve(
             'fallback', module=True, default=settings.fallback)
-
-    @property
-    def meta_inherit(self):
-        return self.meta_retrieve('inherit', default=['meta_*'])
 
     def meta_invoke(self, *args, **kwargs):
         """Invoke task.
@@ -323,25 +304,3 @@ class Task(metaclass=Metaclass):
             os.chdir(buffer)
         else:
             yield
-
-    # TODO: improve implementation
-    def __check_inheritance(self, name):
-        if isinstance(self.meta_inherit, list):
-            result = False
-            for pattern in self.meta_inherit:
-                pattern = re.search(
-                    r'^(?P<exclude>\!?)'
-                    '(?P<content>.*?)'
-                    '(?P<wildcard>\*?)$',
-                    pattern)
-                if pattern.group('wildcard'):
-                    match = name.startswith(pattern.group('content'))
-                else:
-                    match = (name == pattern.group('content'))
-                if match:
-                    if pattern.group('exclude'):
-                        result = False
-                    else:
-                        result = True
-            return result
-        return self.meta_inherit

@@ -70,10 +70,6 @@ class Module(Task, Module):
     def meta_default(self):
         return self.meta_retrieve('default', default='list')
 
-    @property
-    def meta_inherit(self):
-        return self.meta_retrieve('inherit', default=False)
-
     def meta_invoke(self, *args, **kwargs):
         default = getattr(self, self.meta_default)
         result = default(*args, **kwargs)
