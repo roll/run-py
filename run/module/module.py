@@ -14,7 +14,7 @@ class Module(Task):
 
     # Public
 
-    meta_convert = settings.convert
+    meta_convert = True
     meta_key = None
     meta_tags = []
 

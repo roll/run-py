@@ -7,7 +7,6 @@ class Settings(Settings):
 
     cache = True
     chdir = True
-    convert = True
     fallback = None
     filename = 'runfile.py'
     plain = False
