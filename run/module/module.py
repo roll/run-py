@@ -14,7 +14,7 @@ class Module(Task):
 
     # Public
 
-    meta_manual = False
+    meta_auto = True
 
     def __getattribute__(self, name):
         nested_name = None
@@ -108,7 +108,7 @@ class Module(Task):
                 elif isinstance(attr, Prototype):
                     attrs[name] = attr.meta_fork()
                 else:
-                    if not cls.meta_manual:
+                    if cls.meta_auto:
                         try:
                             attrs[name] = convert(attr)
                         except ConvertError:
