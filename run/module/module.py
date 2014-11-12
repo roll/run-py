@@ -85,10 +85,10 @@ class Module(Task):
                     listeners.append(listener)
         return listeners
 
-    def meta_locate(self, *components, local=False):
+    def meta_locate(self, *paths, local=False):
         if local:
             return self.__selfdir
-        return super().meta_locate(*components)
+        return super().meta_locate(*paths)
 
     def meta_inspect(self, name, *, module=False, default=None):
         """Return meta parameter

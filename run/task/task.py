@@ -159,14 +159,14 @@ class Task(metaclass=Metaclass):
     def meta_listeners(self):
         return self.meta_inspect('listeners', default=[])
 
-    def meta_locate(self, *components, local=False):
+    def meta_locate(self, *paths, local=False):
         basedir = self.meta_basedir
         if basedir is None or not os.path.isabs(basedir):
             prefix = self.__initdir
             if self.meta_module:
                 prefix = self.meta_module.meta_locate(local=local)
             basedir = join(prefix, self.meta_basedir)
-        path = join(basedir, *components)
+        path = join(basedir, *paths)
         return path
 
     @property
