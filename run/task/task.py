@@ -219,6 +219,7 @@ class Task(metaclass=Metaclass):
         path = join(basedir, *components)
         return path
 
+    # TODO: rename everywhere task to __target
     def meta_require(self, task, *args, **kwargs):
         """Add require dependency.
 
