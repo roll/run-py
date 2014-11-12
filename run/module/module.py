@@ -36,7 +36,7 @@ class Module(Task):
 
     @property
     def meta_basedir(self):
-        return self.meta_inspect('basedir', default=self.__localdir)
+        return self.meta_inspect('basedir', default=self.__selfdir)
 
     @property
     def meta_cache(self):
@@ -60,7 +60,7 @@ class Module(Task):
                     task = attr.meta_build(meta_module=self)
                     setattr(type(self), name, task)
         # Initiate directories
-        self.__localdir = os.path.abspath(
+        self.__selfdir = os.path.abspath(
             os.path.dirname(inspect.getfile(type(self))))
         return self
 
@@ -87,7 +87,7 @@ class Module(Task):
 
     def meta_locate(self, *components, local=False):
         if local:
-            return self.__localdir
+            return self.__selfdir
         return super().meta_locate(*components)
 
     def meta_inspect(self, name, *, module=False, default=None):

@@ -89,7 +89,7 @@ class Task(metaclass=Metaclass):
         self.__dependencies = []
         self.__init_dependencies()
         # Initiate directories
-        self.__localdir = os.path.abspath(os.getcwd())
+        self.__initdir = os.path.abspath(os.getcwd())
         # Initiate cache
         self.__cached_result = Null
         # Initiate arguments
@@ -164,7 +164,7 @@ class Task(metaclass=Metaclass):
     def meta_locate(self, *components, local=False):
         basedir = self.meta_basedir
         if basedir is None or not os.path.isabs(basedir):
-            prefix = self.__localdir
+            prefix = self.__initdir
             if self.meta_module:
                 prefix = self.meta_module.meta_locate(local=local)
             basedir = join(prefix, self.meta_basedir)
