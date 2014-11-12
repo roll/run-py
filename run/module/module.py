@@ -90,6 +90,11 @@ class Module(Task):
             return self.__localdir
         return super().meta_path(*components)
 
+    def meta_retrieve(self, name, *, module=False, default=None):
+        """Return meta parameter
+        """
+        return super().meta_retrieve(name, default=default)
+
     @classmethod
     def meta_spawn(cls):
         names = []

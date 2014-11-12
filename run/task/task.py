@@ -238,9 +238,8 @@ class Task(metaclass=Metaclass):
         """
         if name in self.__parameters:
             return self.__parameters[name]
-        if not hasattr(self, 'meta_tasks'):
-            if self.meta_module:
-                return self.meta_module.meta_retrieve(name, default=default)
+        if module and self.meta_module:
+            return self.meta_module.meta_retrieve(name, default=default)
         return default
 
     @property
