@@ -5,12 +5,12 @@ from builtins import print
 from collections import OrderedDict
 from sugarbowl import cachedproperty, import_object
 from ..settings import settings
-from ..task import Task, Prototype, Module, ConvertError, convert
+from ..task import Task, Prototype, ConvertError, convert
 from ..utils import stylize
 from .exception import GetattrError
 
 
-class Module(Task, Module):
+class Module(Task):
 
     # Public
 

@@ -6,7 +6,6 @@ from sugarbowl import merge_dicts
 from ..helpers import Null, join
 from ..settings import settings
 from .metaclass import Metaclass
-from .module import Module
 from .require import require
 from .event import CallTaskEvent
 from .trigger import trigger
@@ -240,7 +239,7 @@ class Task(metaclass=Metaclass):
         """
         if name in self.__parameters:
             return self.__parameters[name]
-        if not isinstance(self, Module):
+        if not hasattr(self, 'meta_tasks'):
             if self.meta_module:
                 return self.meta_module.meta_retrieve(name, default=default)
         return default
