@@ -85,8 +85,8 @@ class Module(Task):
                     listeners.append(listener)
         return listeners
 
-    def meta_locate(self, *paths, local=False):
-        if local:
+    def meta_locate(self, *paths, module=False):
+        if module:
             return self.__selfdir
         return super().meta_locate(*paths)
 
