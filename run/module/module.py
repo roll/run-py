@@ -73,16 +73,16 @@ class Module(Task):
         result = default(*args, **kwargs)
         return result
 
-    # TODO: wrong order
     @cachedproperty
     def meta_listeners(self):
-        default = []
-        if not self.meta_module:
-            for pointer in settings.listeners:
-                element = import_object(pointer)
-                listener = element()
-                default.append(listener)
-        listeners = self.meta_inspect('listeners', default=default)
+        listeners = self.meta_inspect('listeners')
+        if listeners is None:
+            listeners = []
+            if not self.meta_module:
+                for pointer in settings.listeners:
+                    element = import_object(pointer)
+                    listener = element()
+                    listeners.append(listener)
         return listeners
 
     def meta_locate(self, *components, local=False):
