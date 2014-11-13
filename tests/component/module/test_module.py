@@ -157,7 +157,7 @@ class ModuleTest(unittest.TestCase):
             'Default arguments: ()\n'
             'Default keyword arguments: {}\n'
             '---\n'
-            'Print information.')
+            'Print task information.')
 
     def test_meta(self):
         self.module.meta()

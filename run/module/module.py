@@ -137,15 +137,15 @@ class Module(Task):
             task.meta_update()
         super().meta_update()
 
-    def list(self, task=None):
-        """Print tasks.
+    def list(self, module=None):
+        """Print module tasks.
         """
         # TODO: exception here breaks system tests. Why???
         # Example:
         # raise Exception()
         names = []
-        task = self.__get_task(task)
-        for name in sorted(dir(task)):
+        module = self.__get_task(module)
+        for name in sorted(dir(module)):
             # TODO: code duplication with ModuleMetaclass.meta_spawn
             if name.isupper():
                 continue  # pragma: no cover TODO: remove no cover
@@ -153,18 +153,18 @@ class Module(Task):
                 continue
             elif name.startswith('meta_'):
                 continue
-            elif name in task.meta_tasks:
-                nested_task = task.meta_tasks[name]
-                name = nested_task.meta_qualname
-                name = stylize(name, style=nested_task.meta_style)
+            elif name in module.meta_tasks:
+                task = module.meta_tasks[name]
+                name = task.meta_qualname
+                name = stylize(name, style=task.meta_style)
             else:
-                name = '.'.join(filter(None, [task.meta_qualname, name]))
+                name = '.'.join(filter(None, [module.meta_qualname, name]))
             names.append(name)
         result = '\n'.join(names)
         print(result)
 
     def info(self, task=None):
-        """Print information.
+        """Print task information.
         """
         info = ''
         task = self.__get_task(task)
@@ -183,7 +183,7 @@ class Module(Task):
         print(info)
 
     def meta(self, task=None):
-        """Print metadata.
+        """Print task metadata.
         """
         meta = OrderedDict()
         task = self.__get_task(task)
