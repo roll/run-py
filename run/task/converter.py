@@ -84,7 +84,7 @@ class task(Function):
             return False
         if isinstance(obj, classmethod):
             return False
-        if getattr(obj, skip.attribute_name, False):
+        if getattr(obj, skip.MARKER, False):
             return False
         if getattr(obj, '__isabstractmethod__', False):
             return False

@@ -18,10 +18,9 @@ class skip(Function):
     will stay as regular python method.
     """
 
-    # TODO: rename to marker
-    attribute_name = '_run_task_skip'
+    MARKER = '_run_task_skip'
     protocol = Function.FUNCTION
 
     def __call__(self, obj):
-        setattr(obj, self.attribute_name, True)
+        setattr(obj, self.MARKER, True)
         return obj

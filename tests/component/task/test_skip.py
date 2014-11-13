@@ -12,4 +12,4 @@ class skip_Test(unittest.TestCase):
     def test(self):
         task = Mock()
         self.assertEqual(component.skip(task), task)
-        self.assertEqual(getattr(task, component.skip.attribute_name), True)
+        self.assertEqual(getattr(task, component.skip.MARKER), True)
