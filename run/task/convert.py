@@ -9,14 +9,18 @@ class convert(Function):
 
     # Public
 
-    def __init__(self, obj):
+    def __init__(self, obj, **kwargs):
         self.__object = obj
+        self.__kwargs = kwargs
 
     def __call__(self):
         for converter in settings.converters:
             converter = import_object(converter)
             try:
-                return converter(self.__object)
+                if self.__kwargs:
+                    converter = converter(**self.__kwargs)
+                converted_object = converter(self.__object)
+                return converted_object
             except ConvertError:
                 pass
         raise ConvertError(
