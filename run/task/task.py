@@ -130,6 +130,10 @@ class Task(metaclass=Metaclass):
         return self.meta_inspect(
             'fallback', module=True, default=settings.fallback)
 
+    @property
+    def meta_hidden(self):
+        return self.meta_inspect('hidden', default=False)
+
     def meta_inspect(self, name, *, module=False, default=None):
         """Return meta parameter
         """
