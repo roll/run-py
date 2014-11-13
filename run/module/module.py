@@ -155,8 +155,9 @@ class Module(Task):
                 continue
             elif name in module.meta_tasks:
                 task = module.meta_tasks[name]
-                name = task.meta_qualname
-                name = stylize(name, style=task.meta_style)
+                if task.meta_hidden:
+                    continue
+                name = stylize(task.meta_qualname, style=task.meta_style)
             else:
                 name = '.'.join(filter(None, [module.meta_qualname, name]))
             names.append(name)

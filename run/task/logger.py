@@ -12,6 +12,8 @@ class Logger:
         logger = logging.getLogger('task')
         if isinstance(event, CallTaskEvent):
             if event.state in [event.DONE, event.FAIL]:
+                if event.task.meta_hidden:
+                    return
                 prefix = '[+] '
                 style = 'done'
                 if event.state == event.FAIL:
