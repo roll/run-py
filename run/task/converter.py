@@ -52,14 +52,10 @@ class task(Function):
             format(self=self, obj=obj))
 
     def protocol(self, *args, **kwargs):
-        try:
-            if (inspect.isfunction(args[0]) or
-                inspect.isdatadescriptor(args[0]) or
-                isinstance(args[0], (Task, Prototype))):
-                return Function.FUNCTION
-        except IndexError:
-            pass
-        return Function.DECORATOR
+        if kwargs:
+            return Function.DECORATOR
+        else:
+            return Function.FUNCTION
 
     @property
     def args(self):
