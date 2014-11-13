@@ -24,7 +24,7 @@ class Settings(Settings):
     # Listeners
 
     listeners = [
-        'run.TreeLogger',
+        'run.Logger',
     ]
 
     # Styles

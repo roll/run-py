@@ -1,10 +1,10 @@
 import logging
 from ..helpers import pack
-from ..task import CallTaskEvent
 from ..utils import stylize
+from .event import CallTaskEvent
 
 
-class BriefLogger:
+class Logger:
 
     # Public
 
@@ -25,4 +25,4 @@ class BriefLogger:
                 logger.info(message)
 
     def __repr__(self):
-        return '<BriefLogger>'
+        return '<Logger>'
