@@ -294,10 +294,14 @@ class Task(metaclass=Metaclass):
 
     @contextmanager
     def __change_directory(self):
-        if self.meta_chdir:
-            buffer = os.path.abspath(os.getcwd())
-            os.chdir(self.meta_locate())
+        if not self.meta_chdir:
             yield
-            os.chdir(buffer)
-        else:
+            return
+        oldpath = os.path.abspath(os.getcwd())
+        newpath = self.meta_locate()
+        if oldpath == newpath:
             yield
+            return
+        os.chdir(newpath)
+        yield
+        os.chdir(oldpath)
