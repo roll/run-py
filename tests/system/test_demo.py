@@ -13,7 +13,7 @@ class DemoTest(unittest.TestCase):
 
     def execute(self, command='', messages=[None], **kwargs):
         result = ''
-        ecommand = 'python3 -c "from run.program import program; program()" '
+        ecommand = 'python3 -c "from run import program; program()" '
         ecommand += '--filepath {filepath} '.format(filepath=self.filepath)
         ecommand += command
         process = Popen(ecommand,
