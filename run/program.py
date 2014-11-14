@@ -114,8 +114,7 @@ class Program(Command):
             else:
                 attribute = getattr(self.__module, attribute)
             if not callable(attribute):
-                print(attribute)
-                return
+                return print(attribute)
             result = attribute(*args, **kwargs)
             if result is None:
                 return
