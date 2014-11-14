@@ -22,4 +22,4 @@ class ProjectModule(ProjectModule):
     pypi_password_secure = 'UTAKiB5msNGZpd9PAqU0JjOvNsv+RUKrZ9UmUOGHin5flYBDnLHvW6cYDr1mQC4zKh3bJ2pqyGEvM1KtlX+IkhSnHn7sZM3npgoOGKcRpf+Vlz7b+ClK6AqtFH6bZPBnbw6HsAm8NWjt8N5GwQaqdSLJxxcpsnBBatOEzkuzggw='
     tests_require = ['nose', 'coverage']
     test_suite = 'nose.collector'
-    version = '0.43.0'
+    version = '0.44.0'
