@@ -8,7 +8,6 @@ class skip_Test(unittest.TestCase):
 
     # Tests
 
-    @unittest.skip
     def test(self):
         task = Mock()
         self.assertEqual(component.skip(task), task)
