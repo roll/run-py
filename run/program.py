@@ -88,8 +88,9 @@ class Program(Command):
 
     settings = Option(
         action='append',
+        default=[],
         flags=['-s', '--settings'],
-        help='Add settings key/value pair.'
+        help='Add settings key/value pair.',
     )
 
     verbose = Option(
@@ -115,6 +116,7 @@ class Program(Command):
                 attribute = getattr(self.__module, attribute)
             if not callable(attribute):
                 return print(attribute)
+            self.__update_settings()
             result = attribute(*args, **kwargs)
             if result is None:
                 return
@@ -139,6 +141,11 @@ class Program(Command):
             module = attr(meta_build=True)
             return module
         raise RuntimeError('Module not found.')
+
+    def __update_settings(self):
+        _, patch = parse(','.join(self.settings))
+        for key, value in patch.items():
+            setattr(settings, key, value)
 
 
 program = Program(name='run')
