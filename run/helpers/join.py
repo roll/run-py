@@ -3,6 +3,7 @@ import os
 
 def join(*components, skip_none=True, fallback=None):
     """Enhanced version of os.path.join.
+
     Parameters
     ----------
     component: str
@@ -11,6 +12,7 @@ def join(*components, skip_none=True, fallback=None):
         Skip if None in components.
     fallback: mixed
         If join fails return fallback.
+
     Returns
     -------
     str
