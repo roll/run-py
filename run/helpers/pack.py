@@ -1,5 +1,5 @@
 def pack(*args, **kwargs):
-    """Return args, kwargs packed in a string.
+    """Pack args, kwargs to a string.
     """
     result = ''
     if args or kwargs:
