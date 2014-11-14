@@ -3,7 +3,6 @@ import inspect
 from copy import copy
 from contextlib import contextmanager
 from sugarbowl import merge_dicts
-from ..helpers import join
 from ..settings import settings
 from .metaclass import Metaclass
 from .require import require
@@ -169,8 +168,8 @@ class Task(metaclass=Metaclass):
             prefix = self.__initdir
             if self.meta_module:
                 prefix = self.meta_module.meta_locate()
-            basedir = join(prefix, basedir)
-        path = join(basedir, *paths)
+            basedir = os.path.join(*filter(None, [prefix, basedir]))
+        path = os.path.join(basedir, *paths)
         return path
 
     @property
