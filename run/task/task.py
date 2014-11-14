@@ -169,7 +169,7 @@ class Task(metaclass=Metaclass):
             prefix = self.__initdir
             if self.meta_module:
                 prefix = self.meta_module.meta_locate()
-            basedir = join(prefix, self.meta_basedir)
+            basedir = join(prefix, basedir)
         path = join(basedir, *paths)
         return path
 
