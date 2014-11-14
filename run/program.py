@@ -119,13 +119,7 @@ class Program(Command):
             result = attribute(*args, **kwargs)
             if result is None:
                 return
-            if not isinstance(result, list):
-                print(result)
-                return
-            for element in result:
-                if element is not None:
-                    print(result)
-                    return
+            print(result)
         except Exception as exception:
             logger = logging.getLogger(__name__)
             logger.error(str(exception), exc_info=self.verbose)
