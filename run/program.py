@@ -86,6 +86,12 @@ class Program(Command):
         help='Enable quiet mode.',
     )
 
+    settings = Option(
+        action='append',
+        flags=['-s', '--settings'],
+        help='Add settings key/value pair.'
+    )
+
     verbose = Option(
         action='store_true',
         flags=['-v', '--verbose'],
