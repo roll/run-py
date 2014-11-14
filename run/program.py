@@ -118,9 +118,8 @@ class Program(Command):
                 return print(attribute)
             self.__update_settings()
             result = attribute(*args, **kwargs)
-            if result is None:
-                return
-            print(result)
+            if result is not None:
+                print(result)
         except Exception as exception:
             logger = logging.getLogger(__name__)
             logger.error(str(exception), exc_info=self.verbose)
