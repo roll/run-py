@@ -6,7 +6,7 @@ import inspect
 import logging.config
 from sugarbowl import cachedproperty
 from clyde import Command, Option, ManpageFormatter, mixin
-from .helpers import load
+from .helpers import load, parse
 from .metadata import version
 from .module import Module
 from .settings import settings
@@ -103,7 +103,7 @@ class Program(Command):
     # Private
 
     def __run(self, attribute, *arguments):
-        args, kwargs = self.__parse_arguments(arguments)
+        args, kwargs = parse(''.join(arguments))
         try:
             if attribute is None:
                 attribute = self.__module
@@ -142,26 +142,6 @@ class Program(Command):
             module = attr(meta_build=True)
             return module
         raise RuntimeError('Module not found.')
-
-    # TODO: move to helpers?
-    def __parse_arguments(self, arguments):
-        args = []
-        kwargs = {}
-        for element in next(csv.reader([''.join(arguments)])):
-            parts = [self.__parse_literal(item.strip()) for item in
-                     next(csv.reader([element], delimiter='='))]
-            if len(parts) == 1:
-                args.append(parts[0])
-            elif len(parts) == 2:
-                kwargs[parts[0]] = parts[1]
-        return (args, kwargs)
-
-    def __parse_literal(self, literal):
-        try:
-            value = ast.literal_eval(literal)
-        except Exception:
-            value = literal
-        return value
 
 
 program = Program(name='run')
