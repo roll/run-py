@@ -34,7 +34,6 @@ class CallTaskEvent(TaskEvent):
     DONE = 'done'
     FAIL = 'fail'
 
-    # TODO: add async flag?
     def __init__(self, __task, __state, *args, **kwargs):
         self.__state = __state
         self.__args = args
