@@ -235,13 +235,6 @@ class Task(metaclass=Metaclass):
         self.meta_depend(dependency)
 
     @property
-    def meta_root(self):
-        if self.meta_module:
-            self.meta_module.meta_root
-        else:
-            return self
-
-    @property
     def meta_signature(self):
         """Task's signature.
         """
@@ -251,6 +244,13 @@ class Task(metaclass=Metaclass):
     @property
     def meta_style(self):
         return self.meta_inspect('style', default='task')
+
+    @property
+    def meta_top(self):
+        if self.meta_module:
+            self.meta_module.meta_top
+        else:
+            return self
 
     def meta_trigger(self, __target, *args, **kwargs):
         """Add trigger dependency.

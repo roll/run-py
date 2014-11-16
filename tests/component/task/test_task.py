@@ -159,13 +159,6 @@ class TaskTest(unittest.TestCase):
     def test_meta_kwargs(self):
         self.assertEqual(self.task.meta_kwargs, self.kwargs)
 
-    def test_meta_root(self):
-        self.assertIs(self.task.meta_root, self.task)
-
-    def test_meta_root_with_meta_module(self):
-        self.Task.meta_root = self.module
-        self.assertEqual(self.task.meta_root, self.module)
-
     def test_meta_module(self):
         self.assertIsNone(self.task.meta_module)
 
@@ -215,6 +208,13 @@ class TaskTest(unittest.TestCase):
 
     def test_meta_style(self):
         self.assertEqual(self.task.meta_style, 'task')
+
+    def test_meta_top(self):
+        self.assertIs(self.task.meta_top, self.task)
+
+    def test_meta_top_with_meta_module(self):
+        self.Task.meta_top = self.module
+        self.assertEqual(self.task.meta_top, self.module)
 
     @patch.object(component, 'trigger')
     def test_meta_trigger(self, trigger):

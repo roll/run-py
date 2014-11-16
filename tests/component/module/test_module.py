@@ -40,13 +40,13 @@ class ModuleTest(unittest.TestCase):
             meta_name = ''
             meta_qualname = 'MAIN'
             meta_tasks = {}
-            @property
-            def meta_root(self):
-                return self
             def meta_locate(self, *args, **kwargs):
                 return self.meta_basedir
             def meta_notify(self, event):
                 pass
+            @property
+            def meta_top(self):
+                return self
         return MockParentModule
 
     # Tests
@@ -87,16 +87,6 @@ class ModuleTest(unittest.TestCase):
         self.assertRegex(self.module.meta_basedir,
                          r'.*tests.component.module')
 
-    def test_meta_root(self):
-        self.assertIs(self.module.meta_root, self.module)
-
-    @unittest.skip
-    def test_meta_root_with_parent_module(self):
-        self.module = self.Module(
-            meta_build=True,
-            meta_module=self.parent_module)
-        self.assertIs(self.module.meta_root, self.parent_module)
-
     def test_meta_locate_with_parent_module_and_meta_basedir_is_none(self):
         self.module = self.Module(
             meta_build=True,
@@ -107,6 +97,16 @@ class ModuleTest(unittest.TestCase):
     def test_meta_tasks(self):
         self.assertEqual(sorted(self.module.meta_tasks),
             ['info', 'list', 'meta', 'task'])
+
+    def test_meta_top(self):
+        self.assertIs(self.module.meta_top, self.module)
+
+    @unittest.skip
+    def test_meta_top_with_parent_module(self):
+        self.module = self.Module(
+            meta_build=True,
+            meta_module=self.parent_module)
+        self.assertIs(self.module.meta_top, self.parent_module)
 
     def test_list(self):
         self.module.list()
