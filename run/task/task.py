@@ -1,6 +1,8 @@
 import os
+import uuid
 import inspect
 from copy import copy
+from functools import partial
 from contextlib import contextmanager
 from sugarbowl import merge_dicts
 from ..settings import settings
@@ -23,9 +25,11 @@ class Task(metaclass=Metaclass):
 
     def __call__(self, *args, **kwargs):
         Event = CallTaskEvent
+        uid = uuid.uuid4().int
         args = self.meta_args + args
         kwargs = merge_dicts(self.meta_kwargs, kwargs)
-        self.meta_notify(Event(self, Event.INIT, *args, **kwargs))
+        pEvent = partial(Event, self, uid=uid, args=args, kwargs=kwargs)
+        self.meta_notify(pEvent(state=Event.INIT))
         try:
             self.__resolve_dependencies()
             try:
@@ -39,9 +43,9 @@ class Task(metaclass=Metaclass):
                     raise
             self.__resolve_dependencies(fail=False)
         except Exception:
-            self.meta_notify(Event(self, Event.FAIL, *args, **kwargs))
+            self.meta_notify(pEvent(state=Event.FAIL))
             raise
-        self.meta_notify(Event(self, Event.DONE, *args, **kwargs))
+        self.meta_notify(pEvent(state=Event.DONE))
         return result
 
     def __repr__(self):
