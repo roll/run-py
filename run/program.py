@@ -45,7 +45,7 @@ class Program(Command):
 
     @mixin(require='version')
     def print_version(self):
-        print('Run ' + version)
+        print(version)
         exit()
 
     # Options
