@@ -10,7 +10,7 @@ from .module import Module
 from .settings import settings
 
 
-class Run(Command):
+class RunCommand(Command):
     """Run main program.
     """
 
@@ -147,4 +147,4 @@ class Run(Command):
             setattr(settings, key, value)
 
 
-program = Run()
+program = RunCommand(name='run')
