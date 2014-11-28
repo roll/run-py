@@ -14,7 +14,7 @@ class PluginImporter:
         for item in sys.meta_path:
             if isinstance(item, cls):
                 return
-        importer = PluginImporter()
+        importer = cls()
         sys.meta_path.append(importer)
 
     def find_module(self, fullname, path=None):
