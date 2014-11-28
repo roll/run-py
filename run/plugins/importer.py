@@ -9,9 +9,13 @@ class PluginImporter:
     source = 'run.plugins.'
     target = 'run_'
 
-    def __init__(self):
-        if self not in sys.meta_path:
-            sys.meta_path.append(self)
+    @classmethod
+    def init(cls):
+        for item in sys.meta_path:
+            if isinstance(item, cls):
+                return
+        importer = PluginImporter()
+        sys.meta_path.append(importer)
 
     def find_module(self, fullname, path=None):
         if fullname.startswith(self.source):
@@ -28,6 +32,3 @@ class PluginImporter:
         sys.modules[realname] = module
         sys.modules[fullname] = module
         return module
-
-
-importer = PluginImporter()

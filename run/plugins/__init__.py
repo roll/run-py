@@ -1,1 +1,2 @@
-from .importer import importer
+from .importer import PluginImporter
+PluginImporter.init()
