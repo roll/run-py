@@ -252,7 +252,7 @@ class Task(metaclass=Metaclass):
     @property
     def meta_top(self):
         if self.meta_module:
-            self.meta_module.meta_top
+            return self.meta_module.meta_top
         else:
             return self
 
