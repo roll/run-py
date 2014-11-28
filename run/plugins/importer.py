@@ -10,7 +10,7 @@ class PluginImporter:
     target = 'run_'
 
     @classmethod
-    def init(cls):
+    def register(cls):
         for item in sys.meta_path:
             if isinstance(item, cls):
                 return
