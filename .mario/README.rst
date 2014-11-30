@@ -1,4 +1,5 @@
-{% extends 'packgram/README.rst' %}
+# REPLACE: README.rst
+{% extends 'mario.origin/README.rst' %}
 
 {% block badges %}
 {{ super() }}
@@ -29,7 +30,7 @@ The real simple example introduces some functionality.
     
         def done(self):
             print('We are done.')
-	    
+      
 - get run attributes list from command line:
 
   .. code-block:: bash

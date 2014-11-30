@@ -1,9 +1,9 @@
 import os
 import sphinx
 import sphinx_rtd_theme
-from sphinx_settings import Settings
-project = 'run-watch'  # REPLACE: project = '{{ name }}'
-version = '0.1.0'  # REPLACE: version = '{{ version }}'
+from box.sphinx import Settings
+project = 'name'  # REPLACE: project = '{{ name }}'
+version = '0.0.0'  # REPLACE: version = '{{ version }}'
 
 
 class Settings(Settings):
@@ -35,4 +35,4 @@ class Settings(Settings):
     autodoc_skip_members = ['__weakref__']
 
 
-locals().update(Settings())
+locals().update(Settings(sphinx=sphinx))

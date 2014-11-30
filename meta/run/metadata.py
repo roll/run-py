@@ -1,3 +1,0 @@
-# {{ caution }}
-
-version = '{{ version }}'

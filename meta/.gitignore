@@ -1,8 +1,0 @@
-{% extends 'packgram/.gitignore' %}
-
-{% block project %}
-{{ super() }}
-box
-clyde
-packgram
-{% endblock %}
