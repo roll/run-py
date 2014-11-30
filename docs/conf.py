@@ -2,8 +2,8 @@ import os
 import sphinx
 import sphinx_rtd_theme
 from sphinx_settings import Settings
-project = 'run-watch'  # REPLACE: project = '{{ name }}'
-version = '0.1.0'  # REPLACE: version = '{{ version }}'
+project = 'run'  # REPLACE: project = '{{ name }}'
+version = '0.46.0'  # REPLACE: version = '{{ version }}'
 
 
 class Settings(Settings):

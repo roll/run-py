@@ -1,6 +1,9 @@
-#TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+#TO MAKE CHANGES USE [meta] DIRECTORY.
 
-packgram>=0.25
+mario
+sphinx
+sphinx-settings
+sphinx-rtd-theme
 sugarbowl
 clyde
 nose

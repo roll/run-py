@@ -1,5 +1,5 @@
 # Block: caution
-# TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+# TO MAKE CHANGES USE [meta] DIRECTORY.
 
 # Block: data_files
 import os

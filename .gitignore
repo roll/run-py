@@ -1,5 +1,5 @@
 # Block: caution
-# TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+# TO MAKE CHANGES USE [meta] DIRECTORY.
 
 # Block: coverage
 .coverage
@@ -19,10 +19,6 @@ pip-delete-this-directory.txt
 
 # Block: project
 tmp/
-
-box
-clyde
-packgram
 
 # Block: python
 __pycache__/

@@ -1,6 +1,6 @@
 .. Block: caution
 
-.. TO MAKE CHANGES USE "meta" DIRECTORY (see packgram docs).
+.. TO MAKE CHANGES USE [meta] DIRECTORY.
 
 .. Block: description
 
@@ -53,7 +53,7 @@ The real simple example introduces some functionality.
     
         def done(self):
             print('We are done.')
-	    
+      
 - get run attributes list from command line:
 
   .. code-block:: bash

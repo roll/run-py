@@ -7,7 +7,7 @@ from clyde import Command, Option, ManpageFormatter, mixin
 from .helpers import load, parse
 from .module import Module
 from .settings import settings
-version = '0.1.0'  # REPLACE: version = '{{ version }}'
+version = '0.46.0'  # REPLACE: version = '{{ version }}'
 
 
 class Program(Command):
