@@ -1,7 +1,7 @@
 import logging
 from ..helpers import pack
-from ..utils import stylize
 from .event import CallTaskEvent
+from .stylize import stylize
 
 
 class Logger:

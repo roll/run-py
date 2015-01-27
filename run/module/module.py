@@ -5,8 +5,7 @@ from builtins import print
 from collections import OrderedDict
 from ..helpers import cachedproperty, import_object
 from ..settings import settings
-from ..task import Task, Prototype, ConvertError, convert
-from ..utils import stylize
+from ..task import Task, Prototype, ConvertError, convert, stylize
 from .exception import GetattrError
 
 

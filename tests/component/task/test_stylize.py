@@ -1,7 +1,7 @@
 import unittest
 from functools import partial
 from importlib import import_module
-component = import_module('run.utils.stylize')
+component = import_module('run.task.stylize')
 
 
 class stylize_Test(unittest.TestCase):
