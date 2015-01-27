@@ -8,7 +8,7 @@ class Var(Task, metaclass=ABCMeta):
     # Public
 
     def __get__(self, module, module_class=None):
-        if self.meta_cache:
+        if self.Cache:
             try:
                 self.__cached_result
             except AttributeError:
@@ -18,16 +18,16 @@ class Var(Task, metaclass=ABCMeta):
             return self()
 
     @property
-    def meta_cache(self):
+    def Cache(self):
         """Var's caching status (enabled or disabled).
         """
-        return self.meta_inspect(
-            'cache', module=True, default=settings.cache)
+        return self.Inspect(
+            'Cache', module=True, default=settings.cache)
 
     @property
-    def meta_signature(self):
+    def Signature(self):
         return ''
 
     @property
-    def meta_style(self):
-        return self.meta_inspect('style', default='var')
+    def Style(self):
+        return self.Inspect('Style', default='var')

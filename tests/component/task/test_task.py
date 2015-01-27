@@ -15,8 +15,7 @@ class TaskTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self.make_task_class()
-        self.pTask = partial(
-            self.Task, meta_build=True, meta_updates=[self.update])
+        self.pTask = partial(self.Task, Build=True, Updates=[self.update])
         self.task = self.pTask(*self.args, **self.kwargs)
 
     # Helpers
@@ -25,7 +24,7 @@ class TaskTest(unittest.TestCase):
         class Task(component.Task):
             """docstring"""
             # Public
-            meta_invoke = Mock(return_value='value')
+            Invoke = Mock(return_value='value')
         return Task
 
     # Tests
@@ -40,100 +39,100 @@ class TaskTest(unittest.TestCase):
     @unittest.skip
     @patch.object(component, 'TaskEvent')
     def test___call__(self, TaskEvent):
-        self.Task.meta_dispatcher = Mock()
+        self.Task.Dispatcher = Mock()
         self.assertEqual(self.task(), 'value')
-        # Check meta_invoke call
-        self.task.meta_invoke.assert_called_with(*self.args, **self.kwargs)
+        # Check Invoke call
+        self.task.Invoke.assert_called_with(*self.args, **self.kwargs)
         # Check TaskEvent call
         TaskEvent.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='successed')])
         # Check dispatcher.add_event call
-        self.task.meta_dispatcher.add_event.assert_has_calls(
+        self.task.Dispatcher.add_event.assert_has_calls(
             [call(TaskEvent.return_value),
              call(TaskEvent.return_value)])
 
     @unittest.skip
     @patch.object(component, 'TaskEvent')
-    def test___call___with_meta_invoke_exception(self, TaskEvent):
-        self.Task.meta_dispatcher = Mock()
-        self.Task.meta_invoke.side_effect = Exception()
+    def test___call___with_Invoke_exception(self, TaskEvent):
+        self.Task.Dispatcher = Mock()
+        self.Task.Invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check TaskEvent call
         TaskEvent.assert_has_calls(
             [call(self.task, event='called'),
              call(self.task, event='fail')])
         # Check dispatcher.add_event call
-        self.task.meta_dispatcher.add_event.assert_has_calls(
+        self.task.Dispatcher.add_event.assert_has_calls(
             [call(TaskEvent.return_value),
              call(TaskEvent.return_value)])
 
-    def test___call___with_meta_invoke_exception_and_meta_fallback(self):
-        self.Task.meta_invoke.side_effect = Exception()
-        self.Task.meta_fallback = 'fallback'
+    def test___call___with_Invoke_exception_and_Fallback(self):
+        self.Task.Invoke.side_effect = Exception()
+        self.Task.Fallback = 'fallback'
         self.assertEqual(self.task(), 'fallback')
 
     def test___call___with_dependencies(self):
         dependency = Mock()
-        self.task.meta_depend(dependency)
+        self.task.Depend(dependency)
         self.assertEqual(self.task(), 'value')
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
             call(fail=None),
             call(fail=False)])
 
-    def test___call___with_dependencies_and_meta_invoke_exception(self):
+    def test___call___with_dependencies_and_Invoke_exception(self):
         dependency = Mock()
-        self.task.meta_depend(dependency)
-        self.task.meta_invoke.side_effect = Exception()
+        self.task.Depend(dependency)
+        self.task.Invoke.side_effect = Exception()
         self.assertRaises(Exception, self.task)
         # Check dependnecy resolve call
         dependency.resolve.assert_has_calls([
             call(fail=None),
             call(fail=True)])
 
-    def test___call___with_meta_chdir_is_false(self):
-        self.Task.meta_chdir = False
+    def test___call___with_Chdir_is_false(self):
+        self.Task.Chdir = False
         self.assertEqual(self.task(), 'value')
 
     def test___repr__(self):
         self.assertEqual(repr(self.task), '<Task>')
 
-    def test___repr___with_meta_module(self):
-        self.Task.meta_module = self.module
-        self.module.meta_qualname = 'module'
-        self.module.meta_tasks = {'task': self.task}
+    def test___repr___with_Module(self):
+        self.Task.Module = self.module
+        self.module.Qualname = 'module'
+        self.module.Tasks = {'task': self.task}
         self.assertEqual(repr(self.task), '<Task "module.task">')
 
-    def test_meta_args(self):
-        self.assertEqual(self.task.meta_args, self.args)
+    def test_Args(self):
+        self.assertEqual(self.task.Args, self.args)
 
-    def test_meta_basedir(self):
-        self.assertEqual(self.task.meta_basedir, None)
+    def test_Basedir(self):
+        self.assertEqual(self.task.Basedir, None)
 
-    def test_meta_chdir(self):
-        self.assertEqual(self.task.meta_chdir, component.settings.chdir)
+    def test_Chdir(self):
+        self.assertEqual(self.task.Chdir, component.settings.chdir)
 
-    def test_meta_dependencies(self):
-        self.assertEqual(self.task.meta_dependencies, [])
+    def test_Dependencies(self):
+        self.assertEqual(self.task.Dependencies, [])
 
-    def test_meta_depend(self):
+    def test_Depend(self):
         dependency = Mock()
-        self.task.meta_depend(dependency)
-        self.assertEqual(self.task.meta_dependencies, [dependency])
+        self.task.Depend(dependency)
+        self.assertEqual(self.task.Dependencies, [dependency])
         # Check dependency's bind call
         dependency.bind.assert_called_with(self.task)
 
     @patch.object(component, 'trigger')
     @patch.object(component, 'require')
-    def test_meta_dependencies_initter(self, require, trigger):
+    def test_Dependencies_initter(self, require, trigger):
         dependency = Mock()
         self.task = self.pTask(
-            meta_depend=[dependency],
-            meta_require=['require'],
-            meta_trigger=['trigger'])
+            Depend=[dependency],
+            Require=['require'],
+            Trigger=['trigger'])
         self.assertEqual(
-            self.task.meta_dependencies,
+            self.task.Dependencies,
             [dependency,
              require.return_value,
              trigger.return_value])
@@ -146,84 +145,84 @@ class TaskTest(unittest.TestCase):
         trigger.return_value.bind.assert_called_with(self.task)
 
     @unittest.skip
-    def test_meta_dispatcher(self):
-        self.assertEqual(self.task.meta_dispatcher, None)
+    def test_Dispatcher(self):
+        self.assertEqual(self.task.Dispatcher, None)
 
-    def test_meta_docstring(self):
-        self.assertEqual(self.task.meta_docstring,
+    def test_Docstring(self):
+        self.assertEqual(self.task.Docstring,
                          self.task.__doc__)
 
-    def test_meta_fallback(self):
-        self.assertEqual(self.task.meta_fallback, component.settings.fallback)
+    def test_Fallback(self):
+        self.assertEqual(self.task.Fallback, component.settings.fallback)
 
-    def test_meta_kwargs(self):
-        self.assertEqual(self.task.meta_kwargs, self.kwargs)
+    def test_Kwargs(self):
+        self.assertEqual(self.task.Kwargs, self.kwargs)
 
-    def test_meta_module(self):
-        self.assertIsNone(self.task.meta_module)
+    def test_Module(self):
+        self.assertIsNone(self.task.Module)
 
-    def test_meta_module_with_meta_module(self):
-        self.task = self.Task(meta_build=True, meta_module=self.module)
-        self.assertEqual(self.task.meta_module, self.module)
+    def test_Module_with_Module(self):
+        self.task = self.Task(Build=True, Module=self.module)
+        self.assertEqual(self.task.Module, self.module)
 
-    def test_meta_name(self):
-        self.assertEqual(self.task.meta_name, '')
+    def test_Name(self):
+        self.assertEqual(self.task.Name, '')
 
-    def test_meta_name_with_meta_module(self):
-        self.Task.meta_module = self.module
-        self.module.meta_tasks = {'task': self.task}
-        self.assertEqual(self.task.meta_name, 'task')
+    def test_Name_with_Module(self):
+        self.Task.Module = self.module
+        self.module.Tasks = {'task': self.task}
+        self.assertEqual(self.task.Name, 'task')
 
-    def test_meta_not_depend(self):
+    def test_NotDepend(self):
         dependency1 = Mock()
         dependency1.predecessor = 'task1'
         dependency2 = Mock()
         dependency2.predecessor = 'task2'
-        self.Task.meta_dependencies = [dependency1, dependency2]
-        self.task = self.Task(meta_build=True, meta_module=self.module)
-        self.task.meta_module.task1 = 'task1'
-        self.task.meta_not_depend('task1')
-        self.assertEqual(self.task.meta_dependencies, [dependency2])
+        self.Task.Dependencies = [dependency1, dependency2]
+        self.task = self.Task(Build=True, Module=self.module)
+        self.task.Module.task1 = 'task1'
+        self.task.NotDepend('task1')
+        self.assertEqual(self.task.Dependencies, [dependency2])
 
-    def test_meta_qualname(self):
-        self.assertEqual(self.task.meta_qualname, '')
+    def test_Qualname(self):
+        self.assertEqual(self.task.Qualname, '')
 
-    def test_meta_qualname_with_meta_module(self):
-        self.Task.meta_module = self.module
-        self.module.meta_qualname = 'module'
-        self.module.meta_tasks = {'task': self.task}
-        self.assertEqual(self.task.meta_qualname, 'module.task')
+    def test_Qualname_with_Module(self):
+        self.Task.Module = self.module
+        self.module.Qualname = 'module'
+        self.module.Tasks = {'task': self.task}
+        self.assertEqual(self.task.Qualname, 'module.task')
 
     @patch.object(component, 'require')
-    def test_meta_require(self, require):
-        self.task.meta_require('task', *self.args, **self.kwargs)
-        self.assertEqual(self.task.meta_dependencies, [require.return_value])
+    def test_Require(self, require):
+        self.task.Require('task', *self.args, **self.kwargs)
+        self.assertEqual(self.task.Dependencies, [require.return_value])
         # Check require call
         require.assert_called_with('task', *self.args, **self.kwargs)
         # Check require's return_value (require dependency) bind call
         require.return_value.bind.assert_called_with(self.task)
 
-    def test_meta_signature(self):
-        self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
+    def test_Signature(self):
+        self.assertEqual(self.task.Signature, '(*args, **kwargs)')
 
-    def test_meta_style(self):
-        self.assertEqual(self.task.meta_style, 'task')
+    def test_Style(self):
+        self.assertEqual(self.task.Style, 'task')
 
-    def test_meta_top(self):
-        self.assertIs(self.task.meta_top, self.task)
+    def test_Top(self):
+        self.assertIs(self.task.Top, self.task)
 
-    def test_meta_top_with_meta_module(self):
-        self.Task.meta_top = self.module
-        self.assertEqual(self.task.meta_top, self.module)
+    def test_Top_with_Module(self):
+        self.Task.Top = self.module
+        self.assertEqual(self.task.Top, self.module)
 
     @patch.object(component, 'trigger')
-    def test_meta_trigger(self, trigger):
-        self.task.meta_trigger('task', *self.args, **self.kwargs)
-        self.assertEqual(self.task.meta_dependencies, [trigger.return_value])
+    def test_Trigger(self, trigger):
+        self.task.Trigger('task', *self.args, **self.kwargs)
+        self.assertEqual(self.task.Dependencies, [trigger.return_value])
         # Check trigger call
         trigger.assert_called_with('task', *self.args, **self.kwargs)
         # Check trigger's return_value (trigger dependency) bind call
         trigger.return_value.bind.assert_called_with(self.task)
 
-    def test_meta_type(self):
-        self.assertEqual(self.task.meta_type, 'Task')
+    def test_Type(self):
+        self.assertEqual(self.task.Type, 'Task')

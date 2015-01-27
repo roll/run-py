@@ -10,7 +10,7 @@ class DescriptorVarTest(unittest.TestCase):
 
     def setUp(self):
         self.descriptor = Mock(__get__=Mock(), __doc__='__doc__')
-        self.var = component.DescriptorVar(self.descriptor, meta_build=True)
+        self.var = component.DescriptorVar(self.descriptor, Build=True)
 
     # Tests
 
@@ -18,7 +18,7 @@ class DescriptorVarTest(unittest.TestCase):
         result = self.var()
         self.assertEqual(result, self.descriptor.__get__.return_value)
         self.descriptor.__get__.assert_called_with(
-            self.var.meta_module, type(self.var.meta_module))
+            self.var.Module, type(self.var.Module))
 
-    def test_meta_docstring(self):
-        self.assertEqual(self.var.meta_docstring, self.descriptor.__doc__)
+    def test_Docstring(self):
+        self.assertEqual(self.var.Docstring, self.descriptor.__doc__)

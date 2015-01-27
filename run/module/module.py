@@ -13,7 +13,7 @@ class Module(Task):
 
     # Public
 
-    meta_auto = True
+    Auto = True
 
     def __getattribute__(self, name):
         nested_name = None
@@ -34,22 +34,22 @@ class Module(Task):
         return attribute
 
     @property
-    def meta_basedir(self):
+    def Basedir(self):
         default = os.path.abspath(
             os.path.dirname(inspect.getfile(type(self))))
-        return self.meta_inspect('basedir', default=default)
+        return self.Inspect('Basedir', default=default)
 
     @property
-    def meta_cache(self):
+    def Cache(self):
         """Vars caching status (enabled or disabled).
         """
-        return self.meta_inspect('cache', default=settings.cache)
+        return self.Inspect('Cache', default=settings.cache)
 
     @classmethod
-    def meta_create(cls, *args, **kwargs):
+    def Create(cls, *args, **kwargs):
         # Create module object
-        spawned_class = cls.meta_spawn()
-        self = super(Module, spawned_class).meta_create(*args, **kwargs)
+        spawned_class = cls.Spawn()
+        self = super(Module, spawned_class).Create(*args, **kwargs)
         # Create tasks
         names = []
         for cls in type(self).mro():
@@ -58,38 +58,38 @@ class Module(Task):
                     continue
                 names.append(name)
                 if isinstance(attr, Prototype):
-                    task = attr.meta_build(meta_module=self)
+                    task = attr.Build(Module=self)
                     setattr(type(self), name, task)
         return self
 
     @property
-    def meta_default(self):
-        return self.meta_inspect('default', default='list')
+    def Default(self):
+        return self.Inspect('Default', default='list')
 
-    def meta_invoke(self, *args, **kwargs):
-        default = getattr(self, self.meta_default)
+    def Invoke(self, *args, **kwargs):
+        default = getattr(self, self.Default)
         result = default(*args, **kwargs)
         return result
 
     @cachedproperty
-    def meta_listeners(self):
-        listeners = self.meta_inspect('listeners')
+    def Listeners(self):
+        listeners = self.Inspect('Listeners')
         if listeners is None:
             listeners = []
-            if not self.meta_module:
+            if not self.Module:
                 for pointer in settings.listeners:
                     element = import_object(pointer)
                     listener = element()
                     listeners.append(listener)
         return listeners
 
-    def meta_inspect(self, name, *, module=False, default=None):
+    def Inspect(self, name, *, module=False, default=None):
         """Return meta parameter
         """
-        return super().meta_inspect(name, default=default)
+        return super().Inspect(name, default=default)
 
     @classmethod
-    def meta_spawn(cls):
+    def Spawn(cls):
         names = []
         attrs = {}
         for namespace in cls.mro():
@@ -97,16 +97,14 @@ class Module(Task):
                 if name in names:
                     continue
                 names.append(name)
-                if name.isupper():
+                if name[0].isupper():
                     continue
                 elif name.startswith('_'):
                     continue
-                elif name.startswith('meta_'):
-                    continue
                 elif isinstance(attr, Prototype):
-                    attrs[name] = attr.meta_fork()
+                    attrs[name] = attr.Fork()
                 else:
-                    if cls.meta_auto:
+                    if cls.Auto:
                         try:
                             attrs[name] = convert(attr)
                         except ConvertError:
@@ -116,11 +114,11 @@ class Module(Task):
         return type(cls)(cls.__name__, (cls,), attrs)
 
     @property
-    def meta_style(self):
-        return self.meta_inspect('style', default='module')
+    def Style(self):
+        return self.Inspect('Style', default='module')
 
     @property
-    def meta_tasks(self):
+    def Tasks(self):
         """Module's tasks dict-like object.
 
         Dict contains task instances, not values.
@@ -131,10 +129,10 @@ class Module(Task):
                 tasks[name] = attr
         return tasks
 
-    def meta_update(self):
-        for task in self.meta_tasks.values():
-            task.meta_update()
-        super().meta_update()
+    def Update(self):
+        for task in self.Tasks.values():
+            task.Update()
+        super().Update()
 
     def list(self, module=None):
         """Print module tasks.
@@ -145,20 +143,18 @@ class Module(Task):
         names = []
         module = self.__get_task(module)
         for name in sorted(dir(module)):
-            # TODO: code duplication with ModuleMetaclass.meta_spawn
-            if name.isupper():
-                continue  # pragma: no cover TODO: remove no cover
+            # TODO: code duplication with ModuleMetaclass.Spawn
+            if name[0].isupper():
+                continue
             elif name.startswith('_'):
                 continue
-            elif name.startswith('meta_'):
-                continue
-            elif name in module.meta_tasks:
-                task = module.meta_tasks[name]
-                if task.meta_hidden:
+            elif name in module.Tasks:
+                task = module.Tasks[name]
+                if task.Hidden:
                     continue
-                name = stylize(task.meta_qualname, style=task.meta_style)
+                name = stylize(task.Qualname, style=task.Style)
             else:
-                name = '.'.join(filter(None, [module.meta_qualname, name]))
+                name = '.'.join(filter(None, [module.Qualname, name]))
             names.append(name)
         result = '\n'.join(names)
         print(result)
@@ -168,18 +164,18 @@ class Module(Task):
         """
         info = ''
         task = self.__get_task(task)
-        info += task.meta_qualname
-        info += task.meta_signature
+        info += task.Qualname
+        info += task.Signature
         info += '\n---\n'
-        info += 'Type: ' + task.meta_type
+        info += 'Type: ' + task.Type
         info += '\n'
-        info += 'Dependencies: ' + str(task.meta_dependencies)
+        info += 'Dependencies: ' + str(task.Dependencies)
         info += '\n'
-        info += 'Default arguments: ' + str(task.meta_args)
+        info += 'Default arguments: ' + str(task.Args)
         info += '\n'
-        info += 'Default keyword arguments: ' + str(task.meta_kwargs)
+        info += 'Default keyword arguments: ' + str(task.Kwargs)
         info += '\n---\n'
-        info += task.meta_docstring
+        info += task.Docstring
         print(info)
 
     def meta(self, task=None):
@@ -188,11 +184,10 @@ class Module(Task):
         meta = OrderedDict()
         task = self.__get_task(task)
         for name in sorted(dir(task)):
-            if name.startswith('meta_'):
-                key = name.replace('meta_', '')
+            if name[0].isupper():
                 attr = getattr(task, name)
                 if not inspect.ismethod(attr):
-                    meta[key] = attr
+                    meta[name] = attr
         pprint(meta)
 
     # Private
@@ -206,7 +201,7 @@ class Module(Task):
             # Nested name - split
             name, nested_name = name.split('.', 1)
         # TODO: add good exception text here like in __getattribute__
-        task = self.meta_tasks[name]
+        task = self.Tasks[name]
         if nested_name is not None:
             task = task.__get_task(nested_name)
         return task

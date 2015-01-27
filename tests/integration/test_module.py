@@ -20,7 +20,7 @@ class MockTask(Task):
 
     # Public
 
-    def meta_invoke(self, *args, **kwargs):
+    def Invoke(self, *args, **kwargs):
         pass
 
 
@@ -28,7 +28,7 @@ class MockVar(Var):
 
     # Public
 
-    def meta_invoke(self, *args, **kwargs):
+    def Invoke(self, *args, **kwargs):
         pass
 
 
@@ -73,7 +73,7 @@ class ModuleTest(unittest.TestCase):
         self.addCleanup(patch.stopall)
         patch.object(settings, 'plain', True).start()
         self.stdout = patch('sys.stdout', new_callable=StringIO).start()
-        self.module = MockModule(meta_build=True)
+        self.module = MockModule(Build=True)
 
     # Tests
 

@@ -134,7 +134,7 @@ class Program(Command):
                 continue
             if inspect.getmodule(attr) != module:
                 continue
-            module = attr(meta_build=True)
+            module = attr(Build=True)
             return module
         raise RuntimeError('Module not found.')
 

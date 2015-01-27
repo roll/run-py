@@ -27,8 +27,8 @@ class MockModule(Module):
     def task5(self):
         print('task5 is done')
 
-    task5.meta_require('task1')
-    task5.meta_trigger('task2')
+    task5.Require('task1')
+    task5.Trigger('task2')
 
 
 # Cases
@@ -41,7 +41,7 @@ class DependencyTest(unittest.TestCase):
         self.addCleanup(patch.stopall)
         patch.object(settings, 'plain', True).start()
         self.stdout = patch('sys.stdout', new_callable=StringIO).start()
-        self.module = MockModule(meta_build=True)
+        self.module = MockModule(Build=True)
 
     # Tests
 

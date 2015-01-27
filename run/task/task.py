@@ -26,68 +26,67 @@ class Task(metaclass=Metaclass):
     def __call__(self, *args, **kwargs):
         Event = CallTaskEvent
         uid = uuid.uuid4().int
-        args = self.meta_args + args
-        kwargs = merge_dicts(self.meta_kwargs, kwargs)
+        args = self.Args + args
+        kwargs = merge_dicts(self.Kwargs, kwargs)
         pEvent = partial(Event, self, uid=uid, args=args, kwargs=kwargs)
-        self.meta_notify(pEvent(state=Event.INIT))
+        self.Notify(pEvent(state=Event.INIT))
         try:
             self.__resolve_dependencies()
             try:
                 with self.__change_directory():
-                    result = self.meta_invoke(*args, **kwargs)
+                    result = self.Invoke(*args, **kwargs)
             except Exception:
-                if self.meta_fallback is not None:
-                    result = self.meta_fallback
+                if self.Fallback is not None:
+                    result = self.Fallback
                 else:
                     self.__resolve_dependencies(fail=True)
                     raise
             self.__resolve_dependencies(fail=False)
         except Exception:
-            self.meta_notify(pEvent(state=Event.FAIL))
+            self.Notify(pEvent(state=Event.FAIL))
             raise
-        self.meta_notify(pEvent(state=Event.DONE))
+        self.Notify(pEvent(state=Event.DONE))
         return result
 
     def __repr__(self):
-        template = '<{self.meta_type}>'
-        if self.meta_qualname:
-            template = '<{self.meta_type} "{self.meta_qualname}">'
+        template = '<{self.Type}>'
+        if self.Qualname:
+            template = '<{self.Type} "{self.Qualname}">'
         return template.format(self=self)
 
     @property
-    def meta_args(self):
+    def Args(self):
         """Tasks's default arguments
         """
         return self.__args
 
     @property
-    def meta_basedir(self):
+    def Basedir(self):
         """Task's basedir.
 
-        If meta_chdir is True current directory will be
-        changed to meta_basedir when task invoking.
+        If Chdir is True current directory will be
+        changed to Basedir when task invoking.
         """
-        return self.meta_inspect('basedir', default=None)
+        return self.Inspect('Basedir', default=None)
 
     @property
-    def meta_chdir(self):
+    def Chdir(self):
         """Task's chdir status (enabled or disabled).
 
-        .. seealso:: :attr:`run.Task.meta_basedir`
+        .. seealso:: :attr:`run.Task.Basedir`
         """
-        return self.meta_inspect(
-            'chdir', module=True, default=settings.chdir)
+        return self.Inspect(
+            'Chdir', module=True, default=settings.chdir)
 
     @classmethod
-    def meta_create(cls, *args, **kwargs):
+    def Create(cls, *args, **kwargs):
         # Create task object
         self = object.__new__(cls)
         # Initiate parameters
         self.__parameters = {}
         for key in list(kwargs):
-            if key.startswith('meta_'):
-                name = key.replace('meta_', '')
-                self.__parameters[name] = kwargs.pop(key)
+            if key[0].isupper():
+                self.__parameters[key] = kwargs.pop(key)
         # Initiate dependencies
         self.__dependencies = []
         self.__init_dependencies()
@@ -100,7 +99,7 @@ class Task(metaclass=Metaclass):
         self.__init__(*args, **kwargs)
         return self
 
-    def meta_depend(self, dependency):
+    def Depend(self, dependency):
         """Add custom dependency.
 
         Parameters
@@ -109,44 +108,44 @@ class Task(metaclass=Metaclass):
             Dependency to be dependent upon.
         """
         dependency.bind(self)
-        self.meta_dependencies.append(dependency)
+        self.Dependencies.append(dependency)
 
     @property
-    def meta_dependencies(self):
+    def Dependencies(self):
         """Task's list of dependencies.
         """
         return self.__dependencies
 
     @property
-    def meta_docstring(self):
+    def Docstring(self):
         """Task's docstring.
         """
-        return self.meta_inspect(
-            'docstring', default=str(inspect.getdoc(self)).strip())
+        return self.Inspect(
+            'Docstring', default=str(inspect.getdoc(self)).strip())
 
     @property
-    def meta_fallback(self):
+    def Fallback(self):
         """Task's fallback.
 
         Fallback used when task invocation fails.
         """
-        return self.meta_inspect(
-            'fallback', module=True, default=settings.fallback)
+        return self.Inspect(
+            'Fallback', module=True, default=settings.fallback)
 
     @property
-    def meta_hidden(self):
-        return self.meta_inspect('hidden', default=False)
+    def Hidden(self):
+        return self.Inspect('Hidden', default=False)
 
-    def meta_inspect(self, name, *, module=False, default=None):
+    def Inspect(self, name, *, module=False, default=None):
         """Return meta parameter
         """
         if name in self.__parameters:
             return self.__parameters[name]
-        if module and self.meta_module:
-            return self.meta_module.meta_inspect(name, default=default)
+        if module and self.Module:
+            return self.Module.Inspect(name, default=default)
         return default
 
-    def meta_invoke(self, *args, **kwargs):
+    def Invoke(self, *args, **kwargs):
         """Invoke task.
 
         Parameters
@@ -157,46 +156,46 @@ class Task(metaclass=Metaclass):
         pass
 
     @property
-    def meta_kwargs(self):
+    def Kwargs(self):
         """Tasks's default keyword arguments.
         """
         return self.__kwargs
 
     @property
-    def meta_listeners(self):
-        return self.meta_inspect('listeners', default=[])
+    def Listeners(self):
+        return self.Inspect('Listeners', default=[])
 
-    def meta_locate(self, *paths):
-        basedir = self.meta_basedir
+    def Locate(self, *paths):
+        basedir = self.Basedir
         if basedir is None or not os.path.isabs(basedir):
             prefix = self.__initdir
-            if self.meta_module:
-                prefix = self.meta_module.meta_locate()
+            if self.Module:
+                prefix = self.Module.Locate()
             basedir = os.path.join(*filter(None, [prefix, basedir]))
         path = os.path.join(basedir, *paths)
         return path
 
     @property
-    def meta_module(self):
+    def Module(self):
         """Task's module.
         """
-        return self.meta_inspect('module', default=None)
+        return self.Inspect('Module', default=None)
 
     @property
-    def meta_name(self):
+    def Name(self):
         """Task's name.
 
         Name is defined as task name in module.
         """
         name = ''
-        if self.meta_module:
-            tasks = self.meta_module.meta_tasks
+        if self.Module:
+            tasks = self.Module.Tasks
             for key, task in tasks.items():
                 if task is self:
                     name = key
         return name
 
-    def meta_not_depend(self, target):
+    def NotDepend(self, target):
         """Remove all of task dependencies.
 
         Parameters
@@ -204,28 +203,27 @@ class Task(metaclass=Metaclass):
         task: str
             Task name to be not dependent upon.
         """
-        predecessor = getattr(self.meta_module, target)
-        for dependency in copy(self.meta_dependencies):
+        predecessor = getattr(self.Module, target)
+        for dependency in copy(self.Dependencies):
             if dependency.predecessor is predecessor:
-                self.meta_dependencies.remove(dependency)
+                self.Dependencies.remove(dependency)
 
     # TODO: add event flow management (like stop propognation)
-    def meta_notify(self, event):
-        for listener in self.meta_listeners:
+    def Notify(self, event):
+        for listener in self.Listeners:
             listener(event)
-        if self.meta_module:
-            self.meta_module.meta_notify(event)
+        if self.Module:
+            self.Module.Notify(event)
 
     @property
-    def meta_qualname(self):
+    def Qualname(self):
         qualname = ''
-        if self.meta_module:
+        if self.Module:
             qualname = '.'.join(filter(None,
-                [self.meta_module.meta_qualname,
-                 self.meta_name]))
+                [self.Module.Qualname, self.Name]))
         return qualname
 
-    def meta_require(self, __target, *args, **kwargs):
+    def Require(self, __target, *args, **kwargs):
         """Add require dependency.
 
         Parameters
@@ -236,27 +234,27 @@ class Task(metaclass=Metaclass):
             Arguments for dependency resolve call.
         """
         dependency = require(__target, *args, **kwargs)
-        self.meta_depend(dependency)
+        self.Depend(dependency)
 
     @property
-    def meta_signature(self):
+    def Signature(self):
         """Task's signature.
         """
-        return self.meta_inspect(
-            'signature', default=str(inspect.signature(self.meta_invoke)))
+        return self.Inspect(
+            'Signature', default=str(inspect.signature(self.Invoke)))
 
     @property
-    def meta_style(self):
-        return self.meta_inspect('style', default='task')
+    def Style(self):
+        return self.Inspect('Style', default='task')
 
     @property
-    def meta_top(self):
-        if self.meta_module:
-            return self.meta_module.meta_top
+    def Top(self):
+        if self.Module:
+            return self.Module.Top
         else:
             return self
 
-    def meta_trigger(self, __target, *args, **kwargs):
+    def Trigger(self, __target, *args, **kwargs):
         """Add trigger dependency.
 
         Parameters
@@ -267,41 +265,41 @@ class Task(metaclass=Metaclass):
             Arguments for dependency resolve call.
         """
         dependency = trigger(__target, *args, **kwargs)
-        self.meta_depend(dependency)
+        self.Depend(dependency)
 
     @property
-    def meta_type(self):
+    def Type(self):
         """Task's type as a string.
         """
         return type(self).__name__
 
     # TODO: clean updates list while applying?
-    def meta_update(self):
-        updates = self.meta_inspect('updates', default=[])
+    def Update(self):
+        updates = self.Inspect('Updates', default=[])
         for update in updates:
             update.apply(self)
 
     # Private
 
     def __init_dependencies(self):
-        for dependency in self.__parameters.pop('depend', []):
-            self.meta_depend(dependency)
-        for task in self.__parameters.pop('require', []):
-            self.meta_require(task)
-        for task in self.__parameters.pop('trigger', []):
-            self.meta_trigger(task)
+        for dependency in self.__parameters.pop('Depend', []):
+            self.Depend(dependency)
+        for task in self.__parameters.pop('Require', []):
+            self.Require(task)
+        for task in self.__parameters.pop('Trigger', []):
+            self.Trigger(task)
 
     def __resolve_dependencies(self, fail=None):
-        for dependency in self.meta_dependencies:
+        for dependency in self.Dependencies:
             dependency.resolve(fail=fail)
 
     @contextmanager
     def __change_directory(self):
-        if not self.meta_chdir:
+        if not self.Chdir:
             yield
             return
         oldpath = os.path.abspath(os.getcwd())
-        newpath = self.meta_locate()
+        newpath = self.Locate()
         if oldpath == newpath:
             yield
             return

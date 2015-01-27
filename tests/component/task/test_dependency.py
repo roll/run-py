@@ -30,12 +30,12 @@ class DependencyTest(unittest.TestCase):
     # Tests
 
     def test___repr__(self):
-        self.successor.meta_module.task.__repr__ = lambda self: 'task'
+        self.successor.Module.task.__repr__ = lambda self: 'task'
         self.assertEqual(repr(self.dependency),
             "MockDependency task('arg1', kwarg1='kwarg1')")
 
     def test___repr___task_not_existent(self):
-        self.successor.meta_module.task = None
+        self.successor.Module.task = None
         self.assertEqual(repr(self.dependency),
             'MockDependency <NotExistent "task">')
 
@@ -48,7 +48,7 @@ class DependencyTest(unittest.TestCase):
         self.convert.assert_called_with(method)
         # Check convert's return_value (prototype) depend call
         prototype = self.convert.return_value
-        prototype.meta_depend.assert_called_with(self.dependency)
+        prototype.Depend.assert_called_with(self.dependency)
 
     def test_bind(self):
         self.dependency.bind('task')
@@ -57,11 +57,11 @@ class DependencyTest(unittest.TestCase):
     def test_invoke(self):
         self.dependency.invoke()
         # Check task call
-        self.successor.meta_module.task.assert_called_with(
+        self.successor.Module.task.assert_called_with(
             *self.args, **self.kwargs)
 
     def test_invoke_task_not_existent(self):
-        self.successor.meta_module = Mock(spec=[])
+        self.successor.Module = Mock(spec=[])
         self.assertRaises(AttributeError, self.dependency.invoke)
 
     def test_invoke_not_bound(self):
@@ -71,7 +71,7 @@ class DependencyTest(unittest.TestCase):
     def test_predecessor(self):
         self.assertEqual(
             self.dependency.predecessor,
-            self.successor.meta_module.task)
+            self.successor.Module.task)
 
     def test_successor(self):
         self.assertEqual(

@@ -7,11 +7,11 @@ class Prototype:
 
     # Public
 
-    def __init__(self, *args, meta_class, meta_updates=None, **kwargs):
-        if meta_updates is None:
-            meta_updates = []
-        self.__class = meta_class
-        self.__updates = copy(meta_updates)
+    def __init__(self, *args, Class, Updates=None, **kwargs):
+        if Updates is None:
+            Updates = []
+        self.__class = Class
+        self.__updates = copy(Updates)
         self.__args = args
         self.__kwargs = kwargs
         self.__name = None
@@ -40,7 +40,7 @@ class Prototype:
         self.__name = None
         return self
 
-    def meta_fork(self, *args, **kwargs):
+    def Fork(self, *args, **kwargs):
         """Fork task prototype with optional args, kwargs altering.
 
         Parameters
@@ -62,21 +62,21 @@ class Prototype:
             class Module(Module):
 
                 task1 = SomeTask()
-                task2 = task1.meta_fork(param='value', meta_basedir='/path')
+                task2 = task1.Fork(param='value', Basedir='/path')
 
         In this case task2 will build as task1 copy with redefined
-        meta_basedir and default keyword argument param.
+        Basedir and default keyword argument param.
         """
         updates = copy(self.__updates)
         args = self.__args + args
         kwargs = merge_dicts(self.__kwargs, kwargs)
         return type(self)(
             *args,
-            meta_class=self.__class,
-            meta_updates=updates,
+            Class=self.__class,
+            Updates=updates,
             **kwargs)
 
-    def meta_build(self, *args, **kwargs):
+    def Build(self, *args, **kwargs):
         """Build task prototype to task with optional args, kwargs altering.
 
         Parameters
@@ -92,11 +92,11 @@ class Prototype:
         updates = copy(self.__updates)
         args = self.__args + args
         kwargs = merge_dicts(self.__kwargs, kwargs)
-        task = self.__class.meta_create(
+        task = self.__class.Create(
             *args,
-            meta_updates=updates,
+            Updates=updates,
             **kwargs)
-        if task.meta_module is None:
+        if task.Module is None:
             # No module - update
-            task.meta_update()
+            task.Update()
         return task

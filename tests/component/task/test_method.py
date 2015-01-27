@@ -12,7 +12,7 @@ class MethodTaskTest(unittest.TestCase):
         self.args = ('arg1',)
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.method = Mock(__doc__='__doc__')
-        self.task = component.MethodTask(self.method, meta_build=True)
+        self.task = component.MethodTask(self.method, Build=True)
 
     # Tests
 
@@ -21,8 +21,8 @@ class MethodTaskTest(unittest.TestCase):
         self.assertEqual(result, self.method.return_value)
         self.method.assert_called_with(None, *self.args, **self.kwargs)
 
-    def test_meta_docstring(self):
-        self.assertEqual(self.task.meta_docstring, self.method.__doc__)
+    def test_Docstring(self):
+        self.assertEqual(self.task.Docstring, self.method.__doc__)
 
-    def test_meta_signature(self):
-        self.assertEqual(self.task.meta_signature, '(*args, **kwargs)')
+    def test_Signature(self):
+        self.assertEqual(self.task.Signature, '(*args, **kwargs)')

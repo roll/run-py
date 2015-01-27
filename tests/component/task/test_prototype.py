@@ -17,15 +17,15 @@ class PrototypeTest(unittest.TestCase):
         self.kwargs = {'kwarg1': 'kwarg1'}
         self.Task = self.make_mock_task_class()
         self.prototype = component.Prototype(
-            *self.args, meta_class=self.Task, **self.kwargs)
+            *self.args, Class=self.Task, **self.kwargs)
 
     # Helpers
 
     def make_mock_task_class(self):
         class MockTask:
             # Public
-            meta_create = Mock()
-            __meta_update__ = Mock()
+            Create = Mock()
+            __Update__ = Mock()
             attr1 = 'value1'
             attr2 = Mock()
         return MockTask
@@ -47,7 +47,7 @@ class PrototypeTest(unittest.TestCase):
     def test___call___before_getattr(self):
         self.assertRaises(TypeError, self.prototype)
 
-    def test_meta_fork(self):
+    def test_Fork(self):
         self.prototype.attr2 = 'value2'
-        fork = self.prototype.meta_fork('arg2', kwarg2='kwarg2')
+        fork = self.prototype.Fork('arg2', kwarg2='kwarg2')
         self.assertIsInstance(fork, component.Prototype)

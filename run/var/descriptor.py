@@ -10,10 +10,10 @@ class DescriptorVar(Var):
         self.__descriptor = descriptor
 
     @property
-    def meta_docstring(self):
+    def Docstring(self):
         default = str(inspect.getdoc(self.__descriptor)).strip()
-        return self.meta_inspect('docstring', default=default)
+        return self.Inspect('Docstring', default=default)
 
-    def meta_invoke(self):
+    def Invoke(self):
         return self.__descriptor.__get__(
-            self.meta_module, type(self.meta_module))
+            self.Module, type(self.Module))

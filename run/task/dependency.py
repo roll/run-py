@@ -39,7 +39,7 @@ class Dependency(metaclass=ABCMeta):
 
     def __call__(self, obj):
         converted_object = convert(obj)
-        converted_object.meta_depend(self)
+        converted_object.Depend(self)
         return converted_object
 
     def bind(self, successor):
@@ -72,7 +72,7 @@ class Dependency(metaclass=ABCMeta):
     @cachedproperty
     def predecessor(self):
         if self.__successor is not None:
-            return getattr(self.__successor.meta_module, self.__target)
+            return getattr(self.__successor.Module, self.__target)
         raise RuntimeError(
             'Dependency for "{target}" is not bound'.
             format(target=self.__target))

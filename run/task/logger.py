@@ -12,7 +12,7 @@ class Logger:
         logger = logging.getLogger('task')
         if isinstance(event, CallTaskEvent):
             if event.state in [event.DONE, event.FAIL]:
-                if event.task.meta_hidden:
+                if event.task.Hidden:
                     return
                 prefix = '[+] '
                 style = 'done'
@@ -21,7 +21,7 @@ class Logger:
                     style = 'fail'
                 message = ''
                 message += prefix
-                message += event.task.meta_qualname or '[top]'
+                message += event.task.Qualname or '[top]'
                 message += pack(*event.args, **event.kwargs)
                 message = stylize(message, style=style)
                 logger.info(message)

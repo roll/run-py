@@ -16,7 +16,7 @@ class ModuleTest(unittest.TestCase):
         self.pprint = patch.object(component, 'pprint').start()
         patch.object(component.settings, 'plain', True).start()
         self.Module = self.make_mock_module_class()
-        self.module = self.Module(meta_build=True)
+        self.module = self.Module(Build=True)
         self.ParentModule = self.make_mock_parent_module_class()
         self.parent_module = self.ParentModule()
 
@@ -33,26 +33,26 @@ class ModuleTest(unittest.TestCase):
     def make_mock_parent_module_class(self):
         class MockParentModule:
             # Public
-            meta_basedir = '/basedir'
-            meta_cache = 'cache'
-            meta_chdir = 'chdir'
-            meta_fallback = 'fallback'
-            meta_name = ''
-            meta_qualname = 'MAIN'
-            meta_tasks = {}
-            def meta_locate(self, *args, **kwargs):
-                return self.meta_basedir
-            def meta_notify(self, event):
+            Basedir = '/basedir'
+            Cache = 'cache'
+            Chdir = 'chdir'
+            Fallback = 'fallback'
+            Name = ''
+            Qualname = 'MAIN'
+            Tasks = {}
+            def Locate(self, *args, **kwargs):
+                return self.Basedir
+            def Notify(self, event):
                 pass
             @property
-            def meta_top(self):
+            def Top(self):
                 return self
         return MockParentModule
 
     # Tests
 
     def test___call__(self):
-        self.Module.meta_default = 'default'
+        self.Module.Default = 'default'
         self.Module.default = Mock()
         self.assertEqual(
             self.module(*self.args, **self.kwargs),
@@ -73,40 +73,40 @@ class ModuleTest(unittest.TestCase):
         self.assertRaises(AttributeError,
             getattr, self.module, 'not_existent')
 
-    def test_meta_invoke(self):
-        self.Module.meta_default = 'default'
+    def test_Invoke(self):
+        self.Module.Default = 'default'
         self.Module.default = Mock()
         self.assertEqual(
-            self.module.meta_invoke(*self.args, **self.kwargs),
+            self.module.Invoke(*self.args, **self.kwargs),
             self.module.default.return_value)
         self.assertIsInstance(self.module, self.Module)
         # Check default call
         self.module.default.assert_called_with(*self.args, **self.kwargs)
 
-    def test_meta_basedir(self):
-        self.assertRegex(self.module.meta_basedir,
+    def test_Basedir(self):
+        self.assertRegex(self.module.Basedir,
                          r'.*tests.component.module')
 
-    def test_meta_locate_with_parent_module_and_meta_basedir_is_none(self):
+    def test_Locate_with_parent_module_and_Basedir_is_none(self):
         self.module = self.Module(
-            meta_build=True,
-            meta_basedir=None,
-            meta_module=self.parent_module)
-        self.assertEqual(self.module.meta_locate(), '/basedir')
+            Build=True,
+            Basedir=None,
+            Module=self.parent_module)
+        self.assertEqual(self.module.Locate(), '/basedir')
 
-    def test_meta_tasks(self):
-        self.assertEqual(sorted(self.module.meta_tasks),
+    def test_Tasks(self):
+        self.assertEqual(sorted(self.module.Tasks),
             ['info', 'list', 'meta', 'task'])
 
-    def test_meta_top(self):
-        self.assertIs(self.module.meta_top, self.module)
+    def test_Top(self):
+        self.assertIs(self.module.Top, self.module)
 
     @unittest.skip
-    def test_meta_top_with_parent_module(self):
+    def test_Top_with_parent_module(self):
         self.module = self.Module(
-            meta_build=True,
-            meta_module=self.parent_module)
-        self.assertIs(self.module.meta_top, self.parent_module)
+            Build=True,
+            Module=self.parent_module)
+        self.assertIs(self.module.Top, self.parent_module)
 
     def test_list(self):
         self.module.list()
@@ -121,11 +121,11 @@ class ModuleTest(unittest.TestCase):
         # We have to recreate class for builtin tasks
         self.Module = self.make_mock_module_class()
         self.module = self.Module(
-            meta_build=True,
-            meta_module=self.parent_module,
-            meta_chdir=False,
-            meta_fallback=None)
-        self.parent_module.meta_tasks = {'module': self.module}
+            Build=True,
+            Module=self.parent_module,
+            Chdir=False,
+            Fallback=None)
+        self.parent_module.Tasks = {'module': self.module}
         self.module.list()
         # Check print call
         self.print.assert_called_once_with(

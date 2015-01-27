@@ -19,7 +19,7 @@ class module(task):
             class module(Module):
                 def default(self): pass
 
-            module.meta_require('other_method')
+            module.Require('other_method')
 
     - Form with kwargs makes the same and adds default kwargs to invoke::
 
