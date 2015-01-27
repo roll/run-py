@@ -1,4 +1,4 @@
-from sugarbowl import Settings
+from .helpers import Settings
 
 
 class Settings(Settings):

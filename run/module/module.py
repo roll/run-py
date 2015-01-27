@@ -3,7 +3,7 @@ import inspect
 from pprint import pprint
 from builtins import print
 from collections import OrderedDict
-from sugarbowl import cachedproperty, import_object
+from ..helpers import cachedproperty, import_object
 from ..settings import settings
 from ..task import Task, Prototype, ConvertError, convert
 from ..utils import stylize

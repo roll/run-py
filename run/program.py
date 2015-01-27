@@ -2,9 +2,8 @@ import os
 import sys
 import inspect
 import logging.config
-from sugarbowl import cachedproperty
 from clyde import Command, Option, mixin
-from .helpers import load, parse
+from .helpers import cachedproperty, load, parse
 from .module import Module
 from .settings import settings
 version = '0.46.1'  # REPLACE: version = '{{ version }}'

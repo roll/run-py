@@ -1,5 +1,5 @@
 import inspect
-from sugarbowl import Function
+from ..helpers import Function
 from .exception import ConvertError
 from .method import MethodTask
 from .prototype import Prototype

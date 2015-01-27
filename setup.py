@@ -39,7 +39,7 @@ setup(
     maintainer_email='roll@respect31.com',
     name='runfile',
     include_package_data=True,
-    install_requires=['sugarbowl', 'clyde'], 
+    install_requires=['clyde'], 
     packages=packages,
     platforms=['Unix'],
     url='https://github.com/run-hub/run',

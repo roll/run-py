@@ -1,5 +1,5 @@
 from copy import copy
-from sugarbowl import merge_dicts
+from ..helpers import merge_dicts
 from .update import Update
 
 

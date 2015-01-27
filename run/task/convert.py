@@ -1,4 +1,4 @@
-from sugarbowl import Function, import_object
+from ..helpers import Function, import_object
 from ..settings import settings
 from .exception import ConvertError
 

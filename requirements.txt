@@ -4,7 +4,6 @@ mario
 sphinx
 sphinx-settings
 sphinx-rtd-theme
-sugarbowl
 clyde
 nose
 coverage

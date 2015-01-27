@@ -1,4 +1,4 @@
-from sugarbowl import Function
+from ..helpers import Function
 
 
 class skip(Function):

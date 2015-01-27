@@ -4,7 +4,7 @@ import inspect
 from copy import copy
 from functools import partial
 from contextlib import contextmanager
-from sugarbowl import merge_dicts
+from ..helpers import merge_dicts
 from ..settings import settings
 from .metaclass import Metaclass
 from .require import require

@@ -1,4 +1,4 @@
-import sugarbowl
+from ..helpers import stylize as base_stylize
 from ..settings import settings
 
 
@@ -9,5 +9,5 @@ def stylize(string, *, style, **patch):
         if not isinstance(style, dict):
             style = settings.styles.get(style, {})
         style.update(patch)
-        string = sugarbowl.stylize(string, **style)
+        string = base_stylize(string, **style)
     return string

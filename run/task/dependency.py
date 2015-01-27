@@ -1,6 +1,5 @@
 from abc import ABCMeta, abstractmethod
-from sugarbowl import cachedproperty
-from ..helpers import pack
+from ..helpers import cachedproperty, pack
 from .convert import convert
 
 
