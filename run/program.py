@@ -6,7 +6,7 @@ from clyde import Command, Option, mixin
 from .helpers import cachedproperty, load, parse
 from .module import Module
 from .settings import settings
-version = '0.46.2'  # REPLACE: version = '{{ version }}'
+version = '0.47.0'  # REPLACE: version = '{{ version }}'
 
 
 class Program(Command):
