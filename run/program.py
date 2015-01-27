@@ -3,7 +3,7 @@ import sys
 import inspect
 import logging.config
 from sugarbowl import cachedproperty
-from clyde import Command, Option, ManpageFormatter, mixin
+from clyde import Command, Option, mixin
 from .helpers import load, parse
 from .module import Module
 from .settings import settings
@@ -16,9 +16,7 @@ class Program(Command):
 
     # Public
 
-    meta_formatter = ManpageFormatter
-
-    def meta_execute(self, attribute=None, *arguments):
+    def Execute(self, attribute=None, *arguments):
         for name in ['list', 'info', 'meta']:
             if getattr(self, name, False):
                 if attribute is not None:
@@ -40,7 +38,7 @@ class Program(Command):
 
     @mixin(require='help')
     def print_help(self):
-        print(self.meta_format('help'))
+        print(self.Format('help'))
         exit()
 
     @mixin(require='version')
