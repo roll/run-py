@@ -1,16 +1,21 @@
-Table of Contents
-=================
+Run
+===
+
+Welcome to Run documentation!
+
+Contents
+--------
 
 .. toctree::
-     
-     Introduction <intro>
-     start
-     tutor
-     api
-     cli
+   
+     Introduction <introduction>
+     tutorial
+     guide
+     reference
+     questions
+     changes
 
-Indices and Tables
-==================
+Indices
+-------
 
-* :ref:`genindex`
-* :ref:`modindex`
+- :ref:`Main Index<genindex>`

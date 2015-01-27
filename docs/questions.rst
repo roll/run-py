@@ -1,4 +1,4 @@
-CLI Reference
+Tips & Tricks
 =============
 
 *under development*
