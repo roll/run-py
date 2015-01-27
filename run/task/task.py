@@ -176,6 +176,13 @@ class Task(metaclass=Metaclass):
         return path
 
     @property
+    def Main(self):
+        if self.Module:
+            return self.Module.Main
+        else:
+            return self
+
+    @property
     def Module(self):
         """Task's module.
         """
@@ -246,13 +253,6 @@ class Task(metaclass=Metaclass):
     @property
     def Style(self):
         return self.Inspect('Style', default='task')
-
-    @property
-    def Top(self):
-        if self.Module:
-            return self.Module.Top
-        else:
-            return self
 
     def Trigger(self, __target, *args, **kwargs):
         """Add trigger dependency.

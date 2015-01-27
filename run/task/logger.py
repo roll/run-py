@@ -21,7 +21,7 @@ class Logger:
                     style = 'fail'
                 message = ''
                 message += prefix
-                message += event.task.Qualname or '[top]'
+                message += event.task.Qualname or '[main]'
                 message += pack(*event.args, **event.kwargs)
                 message = stylize(message, style=style)
                 logger.info(message)

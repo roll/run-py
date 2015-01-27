@@ -158,6 +158,13 @@ class TaskTest(unittest.TestCase):
     def test_Kwargs(self):
         self.assertEqual(self.task.Kwargs, self.kwargs)
 
+    def test_Main(self):
+        self.assertIs(self.task.Main, self.task)
+
+    def test_Main_with_Module(self):
+        self.Task.Main = self.module
+        self.assertEqual(self.task.Main, self.module)
+
     def test_Module(self):
         self.assertIsNone(self.task.Module)
 
@@ -207,13 +214,6 @@ class TaskTest(unittest.TestCase):
 
     def test_Style(self):
         self.assertEqual(self.task.Style, 'task')
-
-    def test_Top(self):
-        self.assertIs(self.task.Top, self.task)
-
-    def test_Top_with_Module(self):
-        self.Task.Top = self.module
-        self.assertEqual(self.task.Top, self.module)
 
     @patch.object(component, 'trigger')
     def test_Trigger(self, trigger):

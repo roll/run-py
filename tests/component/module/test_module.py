@@ -40,13 +40,13 @@ class ModuleTest(unittest.TestCase):
             Name = ''
             Qualname = 'MAIN'
             Tasks = {}
+            @property
+            def Main(self):
+                return self
             def Locate(self, *args, **kwargs):
                 return self.Basedir
             def Notify(self, event):
                 pass
-            @property
-            def Top(self):
-                return self
         return MockParentModule
 
     # Tests
@@ -94,19 +94,19 @@ class ModuleTest(unittest.TestCase):
             Module=self.parent_module)
         self.assertEqual(self.module.Locate(), '/basedir')
 
-    def test_Tasks(self):
-        self.assertEqual(sorted(self.module.Tasks),
-            ['info', 'list', 'meta', 'task'])
-
-    def test_Top(self):
-        self.assertIs(self.module.Top, self.module)
+    def test_Main(self):
+        self.assertIs(self.module.Main, self.module)
 
     @unittest.skip
-    def test_Top_with_parent_module(self):
+    def test_Main_with_parent_module(self):
         self.module = self.Module(
             Build=True,
             Module=self.parent_module)
-        self.assertIs(self.module.Top, self.parent_module)
+        self.assertIs(self.module.Main, self.parent_module)
+
+    def test_Tasks(self):
+        self.assertEqual(sorted(self.module.Tasks),
+            ['info', 'list', 'meta', 'task'])
 
     def test_list(self):
         self.module.list()
