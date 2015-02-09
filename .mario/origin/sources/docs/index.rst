@@ -4,6 +4,8 @@ Contents
 .. toctree::
    
      Introduction <introduction>
+     reference
+     changes
 
 Indices
 -------

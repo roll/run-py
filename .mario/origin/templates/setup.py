@@ -20,7 +20,7 @@ if data_files:
 from glob import iglob
 long_description = '{{ description }}'
 for filepath in iglob('README.*'):
-    with open(filepath) as file:
+    with open(filepath, encoding='UTF-8') as file:
         long_description = file.read()
     break     
 {% endblock %}

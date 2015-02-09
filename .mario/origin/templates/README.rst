@@ -32,16 +32,6 @@
      :alt: pypi
 {% endblock %}
 
-{% block application %}
-.. Block: application
-
-Application
------------
-Package is under active development and is not ready for production use.
-Backward-compatibility between minor releases (0.x.0), documentation and 
-changelog are not guaranteed to be present before stable versions (>=1.0.0).
-{% endblock %}
-
 {% block requirements %}
 .. Block: requirements
 
@@ -64,7 +54,7 @@ Requirements
 
 Installation
 ------------
-- pip install {{ pypi_name }}
+- pip3 install {{ pypi_name }}
 {% endblock %}
 
 {% block contribution %}
@@ -80,12 +70,23 @@ Contribution
   - {{ maintainer }} <{{ maintainer_email }}>
 {% endblock %}
 
-{% block changelog %}
-.. Block: changelog
+{% block stability %}
+.. Block: stability
 
-Changelog
+Stability
 ---------
-- no entries yet
+Package's `public API  <http://{{ rtd_name }}.readthedocs.org/en/latest/reference.html>`_
+follows `semver <http://semver.org/>`_ versioning model:
+
+- DEVELOP: 0.X[Breaking changes][API changes].X[Minor changes]
+- PRODUCT: X[Breaking changes].X[API changes].X[Minor changes]
+
+Be careful on DEVELOP stage package is under active development
+and can be drastically changed or even deleted. Don't use package
+in production before PRODUCT stage is reached.
+
+For the more information see package's 
+`changelog  <http://{{ rtd_name }}.readthedocs.org/en/latest/changes.html>`_.
 {% endblock %}
 
 {% block license %}
@@ -95,7 +96,7 @@ License
 -------
 **{{ license }}**
 
-{{ copyright }}
+© Copyright {{ copyright }}.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
