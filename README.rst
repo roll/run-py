@@ -11,13 +11,13 @@ Run is a program to run tasks from files.
 .. Block: badges
 
 .. image:: http://img.shields.io/badge/code-GitHub-brightgreen.svg
-     :target: https://github.com/run-hub/run
+     :target: https://github.com/inventive-ninja/run
      :alt: code
-.. image:: http://img.shields.io/travis/run-hub/run/master.svg
-     :target: https://travis-ci.org/run-hub/run 
+.. image:: http://img.shields.io/travis/inventive-ninja/run/master.svg
+     :target: https://travis-ci.org/inventive-ninja/run 
      :alt: build
-.. image:: http://img.shields.io/coveralls/run-hub/run/master.svg 
-     :target: https://coveralls.io/r/run-hub/run  
+.. image:: http://img.shields.io/coveralls/inventive-ninja/run/master.svg 
+     :target: https://coveralls.io/r/inventive-ninja/run  
      :alt: coverage
 .. image:: http://img.shields.io/badge/docs-latest-brightgreen.svg
      :target: http://run.readthedocs.org
@@ -103,14 +103,6 @@ The real simple example introduces some functionality.
     [+] hello/done
     [+] hello
 
-.. Block: application
-
-Application
------------
-Package is under active development and is not ready for production use.
-Backward-compatibility between minor releases (0.x.0), documentation and 
-changelog are not guaranteed to be present before stable versions (>=1.0.0).
-
 .. Block: requirements
 
 Requirements
@@ -127,7 +119,7 @@ Requirements
 
 Installation
 ------------
-- pip install runfile
+- pip3 install runfile
 
 .. Block: contribution
 
@@ -140,11 +132,22 @@ Contribution
 
   - roll <roll@respect31.com>
 
-.. Block: changelog
+.. Block: stability
 
-Changelog
+Stability
 ---------
-- no entries yet
+Package's `public API  <http://run.readthedocs.org/en/latest/reference.html>`_
+follows `semver <http://semver.org/>`_ versioning model:
+
+- DEVELOP: 0.X[Breaking changes][API changes].X[Minor changes]
+- PRODUCT: X[Breaking changes].X[API changes].X[Minor changes]
+
+Be careful on DEVELOP stage package is under active development
+and can be drastically changed or even deleted. Don't use package
+in production before PRODUCT stage is reached.
+
+For the more information see package's 
+`changelog  <http://run.readthedocs.org/en/latest/changes.html>`_.
 
 .. Block: license
 
@@ -152,7 +155,7 @@ License
 -------
 **MIT License**
 
-Copyright (c) 2014 Respect31 <post@respect31.com>
+© Copyright Copyright (c) 2014 Respect31 <post@respect31.com>.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

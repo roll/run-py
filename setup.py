@@ -15,7 +15,7 @@ if data_files:
 from glob import iglob
 long_description = 'Run is a program to run tasks from files.'
 for filepath in iglob('README.*'):
-    with open(filepath) as file:
+    with open(filepath, encoding='UTF-8') as file:
         long_description = file.read()
     break     
 
@@ -31,7 +31,7 @@ setup(
     classifiers=[],       
     description='Run is a program to run tasks from files.',
     data_files=data_files,
-    download_url='https://github.com/run-hub/run/tarball/0.47.0',
+    download_url='https://github.com/inventive-ninja/run/tarball/0.47.0',
     entry_points={'console_scripts': ['run = run:program']},
     license='MIT License',
     long_description=long_description,
@@ -42,7 +42,7 @@ setup(
     install_requires=['clyde'], 
     packages=packages,
     platforms=['Unix'],
-    url='https://github.com/run-hub/run',
+    url='https://github.com/inventive-ninja/run',
     tests_require=['nose', 'coverage'],
     test_suite='nose.collector',
     version='0.47.0')

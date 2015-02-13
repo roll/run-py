@@ -13,7 +13,7 @@ python:
 # Block: install
 install:
   - pip install coveralls
-  - pip install clyde nose coverage
+  - pip install 'clyde' 'nose' 'coverage'  
 
 # Block: script
 script:

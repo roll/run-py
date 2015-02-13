@@ -16,7 +16,7 @@ class ProjectModule(ProjectModule):
     development_requires = [
         'mario', 'sphinx', 'sphinx-settings', 'sphinx-rtd-theme']
     entry_points = {'console_scripts': ['run = run:program']}
-    github_user = 'run-hub'
+    github_user = 'inventive-ninja'
     install_requires = ['clyde']
     interpreters = ['3.3', '3.4']
     license = 'MIT License'
