@@ -10,7 +10,7 @@ class ProjectModule(ProjectModule):
 
     author = 'roll'
     author_email = 'roll@respect31.com'
-    copyright = 'Copyright (c) 2014 Respect31 <post@respect31.com>'
+    copyright = '2015, Inventive Ninja'
     data_files = [('/etc/bash_completion.d', ['data/run.sh'])]
     description = 'Run is a program to run tasks from files.'
     development_requires = [

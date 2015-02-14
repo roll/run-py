@@ -155,7 +155,7 @@ License
 -------
 **MIT License**
 
-© Copyright Copyright (c) 2014 Respect31 <post@respect31.com>.
+© Copyright 2015, Inventive Ninja.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
