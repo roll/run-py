@@ -1,0 +1,5 @@
+session_name: run
+windows:
+  - window_name: main
+    panes:
+      - source venv/bin/activate
